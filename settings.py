@@ -62,6 +62,9 @@ ADMIN_MEDIA_PREFIX = '/media/'
 # Make this unique, and don't share it with anybody.
 SECRET_KEY = 'i(4^+banmbj6suu*&duu^gg+e@hdpoyl1p&&4gkmihpab$nfy3'
 
+
+AUTH_PROFILE_MODULE='accounts.UserProfile'
+
 # List of callables that know how to import templates from various sources.
 TEMPLATE_LOADERS = (
     'django.template.loaders.filesystem.Loader',
@@ -95,4 +98,5 @@ INSTALLED_APPS = (
     'django.contrib.messages',
     # Uncomment the next line to enable the admin:
     'django.contrib.admin',
+    'Seating.accounts',
 )

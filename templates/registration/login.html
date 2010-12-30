@@ -6,8 +6,8 @@
 	<label for="username">User name:</label> <input type="text" name="username" value="" id="username"> 
 	<label for="password">Password:</label> <input type="password" name="password" value="" id="password">
 	<input type="submit" value="login" />
-	<input type="hidden" name="next" value="/users/is_login" />
+	<input type="hidden" name="next" value="/accounts/is_login" />
     {% csrf_token %}
 </form>
-<a href="/users/new/">Create User</a>
+<a href="/accounts/new/">Create User</a>
 {% endblock %}

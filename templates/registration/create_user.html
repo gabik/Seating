@@ -1,0 +1,34 @@
+<HTML>
+<BODY>
+{% if user_form.errors or userprofile_form.errors %}
+        <p style="color: red;">
+                Please correct the error{{ form.errors|pluralize }} below.
+        </p>
+{% endif %}
+
+<form action="." method="post">
+
+{% for field in user_form %}
+    <div class="fieldWrapper">
+      {{ field.label_tag }}: {{ field }}
+        {% for error in field.errors %}
+                <b class=errors> {{ error }} </b>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+{% for field in userprofile_form %}
+    <div class="fieldWrapper">
+        {{ field.label_tag }}: {{ field }}
+        {% for error in field.errors %}
+                <b class=errors> {{ error }} </b>
+        {% endfor %}
+    </div>
+{% endfor %}
+
+<input type="submit" value="Submit" />
+{% csrf_token %}
+</form>
+
+</BODY>
+</HTML>
