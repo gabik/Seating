@@ -1,0 +1,53 @@
+<html>
+<head>
+<style type="text/css">
+ #DragDiv
+ {
+  height:100px;
+  width:100px;
+  background-color:white;
+  position:relative;
+ }
+</style>
+<script type="text/javascript">
+ var DragDiv;
+ var Dragging = false;
+ window.onload = function()
+ {
+  DragDiv = document.getElementById("DragDiv");
+  XDiv = document.getElementById("X");
+  YDiv = document.getElementById("Y");
+  DragDiv.style.left = {{ x_cord }} + "px";
+  DragDiv.style.top = {{ y_cord }} + "px";
+  DragDiv.onmousedown = function()
+  {
+   Dragging = true;
+  }
+ }
+ 
+ document.onmousemove = function(e)
+ {
+  if (!e) e = window.event;
+  if (Dragging)
+  {
+   DragDiv.style.left = e.clientX + "px";
+   DragDiv.style.top = e.clientY + "px";
+   XDiv.innerHTML = e.clientX;
+   YDiv.innerHTML = e.clientY;
+  }
+ }
+ 
+ document.onmouseup = function()
+ {
+  Dragging = false;
+ }
+</script>
+<title>Simple Drag</title>
+</head>
+
+<body>
+<div id="X">{{ x_cord }}</div> : <div id="Y">{{ y_cord }}</div>
+<div id="DragDiv"><img src="http://blogs.smh.com.au/lifestyle/allmenareliars/penis.jpg"></div>
+</body>
+</html>
+

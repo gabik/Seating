@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
 	(r'^accounts/', include('accounts.urls')),
+	(r'^canvas/', include('canvas.urls')),
         (r'^admin/', include(admin.site.urls)),
 
     # Example:
@@ -20,4 +21,9 @@ urlpatterns = patterns('',
 
     # Uncomment the next line to enable the admin:
     # (r'^admin/', include(admin.site.urls)),
+)
+
+
+urlpatterns += patterns('django.views.generic.simple',
+    (r'^test/$',             'direct_to_template', {'template': 'test.html'}),
 )
