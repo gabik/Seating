@@ -1,5 +1,24 @@
 <html>
 <head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+
+
+<script type="text/javascript">
+$(document).ready(function() {
+  $("#DragDiv").draggable({ 
+     start: function (e,ui){
+       $(this).fadeTo(200, 0.3);
+     },
+     stop: function (e,ui){
+       $(this).fadeTo(200, 1.0);
+       $.post('/canvas/save/', {elem_num: '1', X: $(this).position().left , Y: $(this).position().top });
+     }
+  });
+});
+</script>
+
+
 <style type="text/css">
  #DragDiv
  {
@@ -10,11 +29,8 @@
  }
 </style>
 <script type="text/javascript">
- var DragDiv;
- var Dragging = false;
  window.onload = function()
  {
-  DragDiv = document.getElementById("DragDiv");
   XDiv = document.getElementById("X");
   YDiv = document.getElementById("Y");
   DragDiv.style.left = {{ x_cord }} + "px";
@@ -30,16 +46,20 @@
   if (!e) e = window.event;
   if (Dragging)
   {
-   DragDiv.style.left = e.clientX + "px";
-   DragDiv.style.top = e.clientY + "px";
-   XDiv.innerHTML = e.clientX;
-   YDiv.innerHTML = e.clientY;
+   XDiv.innerHTML = $("#DragDiv").position().left;
+   YDiv.innerHTML = $("#DragDiv").position().top;
   }
  }
  
  document.onmouseup = function()
  {
   Dragging = false;
+  var x_cord = DragDiv.style.left;
+  var y_cord = DragDiv.style.top;
+  x_cord = x_cord.slice(0,x_cord.length-2);
+  y_cord = y_cord.slice(0,y_cord.length-2);
+  SaveUrl = "/canvas/save/1/" + x_cord + "/" + y_cord + "/";
+  XDiv.innerHTML = SaveUrl
  }
 </script>
 <title>Simple Drag</title>
