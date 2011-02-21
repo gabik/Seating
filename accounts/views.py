@@ -12,7 +12,7 @@ from django.contrib.auth.models import User
 def is_login(request):
 	if request.user.is_authenticated():
 		phone_number = get_object_or_404(UserProfile, user=request.user).phone_number
-		return HttpResponse('Hi ' +  request.user.username + ': ' + phone_number + '<BR> <form action=/accounts/logout> <input type=submit value=Logout> </form>')
+		return HttpResponse('Wellcome ' +  request.user.username + ': ' + phone_number + '<BR> <form action=/accounts/logout> <input type=submit value=Logout> </form>')
 	else: # Nothing has been posted
 		return HttpResponse('Please login')
 
