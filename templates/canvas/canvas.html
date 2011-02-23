@@ -6,68 +6,72 @@
 
 <script type="text/javascript">
 $(document).ready(function() {
-  $("#DragDiv").draggable({ 
+  $(".DragDiv").draggable({ 
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
      },
      stop: function (e,ui){
        $(this).fadeTo(200, 1.0);
-       $.post('/canvas/save/', {elem_num: '1', X: $(this).position().left , Y: $(this).position().top });
+       $.post('/canvas/save/', {elem_num: $(this).context.id, X: $(this).position().left , Y: $(this).position().top });
      }
+  });
+  $(".AddDiv").click( function() {
+    $.post('/canvas/add/', {kind: "regular"}, 
+      function(data){
+        if (data.status == 'OK')
+        { location.reload(); }
+      }, 'json');
   });
 });
 </script>
 
 
 <style type="text/css">
- #DragDiv
+ .DragDiv
  {
-  height:100px;
-  width:100px;
   background-color:white;
-  position:relative;
+  position:absolute;
+ }
+ .ElemImg
+ {
+  width:90px;
+  height:90px;
+ }
+ .AddDiv
+ {
+  width:20px;
+  height:20px;
+  position:absolute;
+  left:0px;
+  right:0px;
  }
 </style>
 <script type="text/javascript">
  window.onload = function()
  {
-  XDiv = document.getElementById("X");
-  YDiv = document.getElementById("Y");
-  DragDiv.style.left = {{ x_cord }} + "px";
-  DragDiv.style.top = {{ y_cord }} + "px";
-  DragDiv.onmousedown = function()
-  {
-   Dragging = true;
-  }
+  var DivId = [];
+  var DDiv = [];
+  {% for elem in elements %}
+   DivId[{{ elem.elem_num }}] = "DragDiv-{{ elem.elem_num }}";
+   DDiv[{{ elem.elem_num }}] = document.getElementById(DivId[{{ elem.elem_num }}]);
+   DDiv[{{ elem.elem_num }}].style.left = {{ elem.x_cord }} + "px";
+   DDiv[{{ elem.elem_num }}].style.top = {{ elem.y_cord }} + "px";
+   DDiv[{{ elem.elem_num }}].onmousedown = function()
+   {
+    Dragging = true;
+   } 
+  {% endfor %}
  }
  
- document.onmousemove = function(e)
- {
-  if (!e) e = window.event;
-  if (Dragging)
-  {
-   XDiv.innerHTML = $("#DragDiv").position().left;
-   YDiv.innerHTML = $("#DragDiv").position().top;
-  }
- }
- 
- document.onmouseup = function()
- {
-  Dragging = false;
-  var x_cord = DragDiv.style.left;
-  var y_cord = DragDiv.style.top;
-  x_cord = x_cord.slice(0,x_cord.length-2);
-  y_cord = y_cord.slice(0,y_cord.length-2);
-  SaveUrl = "/canvas/save/1/" + x_cord + "/" + y_cord + "/";
-  XDiv.innerHTML = SaveUrl
- }
 </script>
 <title>Simple Drag</title>
 </head>
 
 <body>
-<div id="X">{{ x_cord }}</div> : <div id="Y">{{ y_cord }}</div>
-<div id="DragDiv"><img src="http://blogs.smh.com.au/lifestyle/allmenareliars/penis.jpg"></div>
+{% for div in elements %}
+    <div class="DragDiv" id="DragDiv-{{ div.elem_num }}"><img src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="ElemImg"></div>
+{% endfor %}
+<div class="AddDiv"><img src="http://icons.iconseeker.com/png/fullsize/function/add-48.png"></div>
 </body>
 </html>
 
