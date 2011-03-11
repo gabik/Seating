@@ -7,4 +7,5 @@ class SingleElement(models.Model):
 	elem_num = models.IntegerField()
 	x_cord = models.FloatField()
 	y_cord = models.FloatField()
+	kind = models.CharField(max_length=100)
 

@@ -41,9 +41,24 @@ def add_element(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
 		user_elements = SingleElement.objects.filter(user=request.user)
-	        max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
-		single_element = SingleElement(elem_num=max_num, x_cord="50", y_cord="50", user=request.user)
+		if (len(user_elements) <= 0):
+			max_num = 1
+		else:
+	        	max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+		table_kind = request.POST['kind']
+		single_element = SingleElement(elem_num=max_num, x_cord="50", y_cord="50", user=request.user, kind=table_kind)
 		single_element.save()
+		json_dump = json.dumps({'status': "OK", 'kind': table_kind})
+	return HttpResponse(json_dump)
+
+@login_required
+def del_element(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+                elem_delim = request.POST['elem_num'].index('-')
+                elem_num=request.POST['elem_num'][elem_delim+1:]
+                single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		single_element.delete()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
