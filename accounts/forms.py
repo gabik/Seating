@@ -1,6 +1,6 @@
 from django import forms
 from django.forms import ModelForm
-from accounts.models import UserProfile, User
+from accounts.models import UserProfile, Partner, User
 
 class UserForm(forms.Form):
         username = forms.CharField(max_length=100, label = 'Username')
@@ -42,4 +42,8 @@ class UserProfileForm(ModelForm):
         class Meta:
                 model = UserProfile
                 exclude = ('user')
-
+				
+class PartnerForm(ModelForm):
+         class Meta:
+                 model = Partner
+                 exclude = ('userPartner')
