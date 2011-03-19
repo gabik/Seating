@@ -5,14 +5,17 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
         user = models.ForeignKey(User, unique=True)
 	phone_number = models.CharField(max_length=30)
-	occasion_date = models.DateField(blank=True, null=True)
+	occasion_date = models.DateField()
 	
-class Partner(models.Model):
-        userPartner = models.CharField(max_length=30)
-	first_name = models.CharField(max_length=30)
-	last_name = models.CharField(max_length=30)
+class Partners(models.Model):
+        userPartner = models.ForeignKey(User, unique=True)
 	gender_choices = (
 		('M', 'Male'),
 		('F', 'Female'),
 	)
-	gender = models.CharField(max_length=1, choices=gender_choices)
+	partner1_first_name = models.CharField(max_length=30)
+	partner1_last_name = models.CharField(max_length=30)
+	partner1_gender = models.CharField(max_length=1, choices=gender_choices)
+	partner2_first_name = models.CharField(max_length=30)
+	partner2_last_name = models.CharField(max_length=30)
+	partner2_gender = models.CharField(max_length=1, choices=gender_choices)

@@ -1,13 +1,14 @@
 from django import forms
 from django.forms import ModelForm
-from accounts.models import UserProfile, Partner, User
+from accounts.models import UserProfile, Partners, User
 
 class UserForm(forms.Form):
         username = forms.CharField(max_length=100, label = 'Username')
         email = forms.EmailField(label = 'E-Mail')
         password1 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Password')
         password2 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Confirm Password')
-
+        occasiondate = forms.DateField(label= 'Occasion date', required=True, widget=forms.TextInput(attrs={'id' : 'datepicker'}), input_formats=('%d/%m/%Y',))
+		
         def clean_password1(self):
                 password1 = self.cleaned_data['password1']
                 if len(password1) < 2:
@@ -41,9 +42,10 @@ class UserForm(forms.Form):
 class UserProfileForm(ModelForm):
         class Meta:
                 model = UserProfile
-                exclude = ('user')
+                exclude = ('user','occasion_date')
 				
-class PartnerForm(ModelForm):
+class PartnersForm(ModelForm):
          class Meta:
-                 model = Partner
+                 model = Partners
                  exclude = ('userPartner')
+				 

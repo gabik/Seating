@@ -1,6 +1,21 @@
 <HTML>
+
+<head>{% block head %}{% endblock %}
+<link rel="stylesheet" type="text/css" href="http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css" media="all" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	$(function() {
+		$('#datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
+	});
+</script>
+{% block scripts %}{% endblock %}
+<title>Create User</title>
+
+</head>
+
 <BODY>
-{% if user_form.errors or userprofile_form.errors or partner1_form.errors or partner2_form.errors%}
+{% if user_form.errors or userprofile_form.errors or partners_form.errors%}
         <p style="color: red;">
                 Please correct the error{{ form.errors|pluralize }} below.
         </p>
@@ -27,31 +42,22 @@
 {% endfor %}
 
 <div id="partnerts_info_table">
-    <table cellspacing="20">
-		<td>
-		<p><b>Partner 1 Details :</b></p>
-		{% for field in partner1_form %}
-			<div class="fieldWrapper">
-				{{ field.label_tag }}: {{ field }}
-				{% for error in field.errors %}
-						<b class=errors> {{ error }} </b>
-				{% endfor %}
-			</div>
-		{% endfor %}
-		</td>
-		<td>
-		<p><b>Partner 2 Details :</b></p>
-		{% for field in partner2_form %}
-			<div class="fieldWrapper">
-				{{ field.label_tag }}: {{ field }}
-				{% for error in field.errors %}
-						<b class=errors> {{ error }} </b>
-				{% endfor %}
-			</div>
-		{% endfor %}
-		</td>
+	<table cellspacing="20">
+		<div id ="partner1_info">
+			<td>
+			<p><b>Partners Details :</b></p>
+			{% for field in partners_form %}
+				<div class="fieldWrapper">
+					{{ field.label_tag }}: {{ field }}
+					{% for error in field.errors %}
+							<b class=errors> {{ error }} </b>
+					{% endfor %}
+				</div>
+			{% endfor %}
+			</td>
+		</div>
 	</table>
-  </div>
+</div>
 
 <input type="submit" value="Submit" />
 {% csrf_token %}
