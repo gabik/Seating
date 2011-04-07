@@ -1,0 +1,34 @@
+<html>
+<head>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
+
+<title>New Canvas</title>
+</head>
+
+<style type="text/css">
+ .MenuItem
+ {
+  width:45px;
+  height:45px;
+ }
+</style>
+
+
+<body>
+
+ <form name="new_canvas" action=# method=post>
+  <input type=hidden id=csrf_token value={% csrf_token %}>
+  Please select table: <BR>
+  <input type=radio name=table> <img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"><BR>
+  <input type=radio name=table> <img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"><BR>
+  Please select size:
+  <input type=radio name=size>8 <input type=radio name=size>9 <input type=radio name=size>12 <input type=radio name=size>15<BR>
+  Please enter the amount of those tables: <input type=text name=count><br>
+  <input type=submit value="Add another table">  <input type=submit value="Done adding tables">
+ </form>
+
+</body>
+</html>
+
