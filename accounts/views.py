@@ -3,7 +3,7 @@ from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm
-from Seating.accounts.models import UserProfile, Partners
+from Seating.accounts.models import UserProfile, Partners, FloatingGuest
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 
@@ -38,9 +38,58 @@ def create_user(request):
 			partners = partners_form.save(commit=False)
 			partners.userPartner = created_user
 			partners.save()
+			convertXLS2CSV(r"C:\csv\list.xls")
+			readCSV(r"C:\csv\list.csv", created_user)
 			return HttpResponse('Thank you for your registration.<BR><a href=/accounts/login>Login</a>')
 	else:
 		userprofile_form = UserProfileForm()
 		user_form = UserForm()
 		partners_form = PartnersForm()
 	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form}, context_instance=RequestContext(request))
+	
+def convertXLS2CSV(aFile): 
+	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+
+	print "------ beginning to convert XLS to CSV ------"
+	xlsIsOpen = False
+	xlsFile = None
+	try:
+		import os
+		import win32com.client
+		
+		excel = win32com.client.Dispatch('Excel.Application')
+		fileDir, fileName = os.path.split(aFile)
+		nameOnly = os.path.splitext(fileName)
+		newName = nameOnly[0] + ".csv"
+		outCSV = os.path.join(fileDir, newName)
+		excel.Visible = False
+		workbook = excel.Workbooks.Open(aFile)
+		xlsFile = workbook
+		xlsIsOpen = True
+		workbook.SaveAs(outCSV, FileFormat=24)
+		workbook.Close(False)
+		xlsIsOpen = False 
+		excel.Quit()
+		del excel
+		
+		print "...Converted " + str(nameOnly) + " to CSV"
+	except:
+		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
+		if xlsIsOpen and xlsFile is not None:
+			xlsFile.Close(False)
+			win32com.client.Dispatch('Excel.Application').Quit()
+
+		
+def readCSV(aFile, User):
+	
+	try:
+		import csv
+
+		reader = csv.reader(open(aFile), dialect='excel')
+		for row in reader:
+			floatingGuest = FloatingGuest.objects.create(user = User, floatingguest_first_name = row[0], floatingguest_last_name = row[1])
+			floatingGuest.save()
+		print ">>>>>>> read succes CSV!"
+
+	except:
+		print ">>>>>>> read succes CSV!"

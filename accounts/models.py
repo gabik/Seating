@@ -19,3 +19,8 @@ class Partners(models.Model):
 	partner2_first_name = models.CharField(max_length=30)
 	partner2_last_name = models.CharField(max_length=30)
 	partner2_gender = models.CharField(max_length=1, choices=gender_choices)
+	
+class FloatingGuest(models.Model):
+        user = models.ForeignKey(User, unique=False)
+	floatingguest_first_name = models.CharField(max_length=30)
+	floatingguest_last_name = models.CharField(max_length=30)
