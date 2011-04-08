@@ -124,9 +124,9 @@ $(document).ready(function() {
 		<div id="right-bar">
 			<div id="people-list">
 				<select id="people_list" name="people-list" multiple="multiple">
-					<option>Elad ben david</option>
-					<option>Gabi kazav</option>
-					<option>Koren palmon</option>
+					{% for guest in guests %}
+						<option>  {{ guest.floatingguest_first_name }} {{ guest.floatingguest_last_name }} </option>
+					{% endfor %}
 				</select>
 			</div>
 		</div>

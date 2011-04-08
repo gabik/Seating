@@ -42,8 +42,8 @@ def create_user(request):
 			partners = partners_form.save(commit=False)
 			partners.userPartner = created_user
 			partners.save()
-			convertXLS2CSV(r"C:\csv\list.xls")
-			readCSV(r"C:\csv\list.csv", created_user)
+			convertXLS2CSV(r"/tmp/list.xls")
+			readCSV(r"/tmp/list.csv", created_user)
 			return HttpResponse('Thank you for your registration.<BR><a href=/accounts/login>Login</a>')
 	else:
 		userprofile_form = UserProfileForm()
