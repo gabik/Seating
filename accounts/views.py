@@ -17,7 +17,11 @@ def is_login(request):
 			last_name = partners.partner1_last_name
 		else:
 			last_name = partners.partner2_last_name
-		return HttpResponse('The Wedding Of ' + partners.partner1_first_name + ' and ' + partners.partner2_first_name + ' ' + last_name + '<BR> at date ' + date + '<BR> <form action=/accounts/logout> <input type=submit value=Logout> </form>')
+		c = {}
+		c['partners'] = partners
+		c['last_name'] = last_name
+		c['date'] = date
+		return render_to_response('accounts/after_login.html', c)
 	else: # Nothing has been posted
 		return HttpResponse('Please login')
 

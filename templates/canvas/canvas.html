@@ -83,59 +83,7 @@ $(document).ready(function() {
 </script>
 
 
-<style type="text/css">
- .DragDiv
- {
-  background-color:white;
-  position:absolute;
- }
- .ElemImg
- {
-  width:90px;
-  height:90px;
- }
- .MenuItem 
- {
-  width:45px;
-  height:45px;
- }
- ul, li 
- {
-  margin:0;
-  padding:0;
-  list-style:none;
- }
- .AddMenu 
- {
-  display:none;
-  width:45px;
-  border:1px solid #1c1c1c;
-  margin-top:50px;
- }
- .AddDiv
- {
-  width:20px;
-  height:20px;
-  position:absolute;
-  left:0px;
-  top:0px;
- }
- .DelDiv
- {
-  width:20px;
-  height:20px;
-  position:absolute;
-  left:50px;
-  top:3px;
- }
- .SaveStat
- {
-  position:absolute;
-  bottom:0;
-  right:0;
- }
-
-</style>
+<link rel="stylesheet" type="text/css" href="/templates/canvas/canvas.css" />
 <script type="text/javascript">
  window.onload = function()
  {
@@ -159,16 +107,31 @@ $(document).ready(function() {
 
 <body>
 
-{% for div in elements %}
-    <div class="DragDiv" id="DragDiv-{{ div.elem_num }}"><img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"></div>
-{% endfor %}
-<div class="AddDiv"><img src="http://icons.iconseeker.com/png/fullsize/boomy/add-2.png"></div>
- <ul class="AddMenu">
- <li><a href="#"><img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"></a></li>
- <li><a href="#"><img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"></a></li>
- </ul>
-<div class="DelDiv"><img src="http://icons.iconseeker.com/png/fullsize/web-application/delete-9.png"></div>
-<div class="SaveStat">Save Status:<img id="SaveStatImg" src="http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg"></div>
+	<DIV id="main">
+		<div id="canvas-div">
+			{% for div in elements %}
+    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}"><img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"></div>
+			{% endfor %}
+			<div class="AddDiv"><img src="http://icons.iconseeker.com/png/fullsize/boomy/add-2.png"></div>
+ 			<ul class="AddMenu">
+ 				<li><a href="#"><img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"></a></li>
+ 				<li><a href="#"><img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"></a></li>
+ 			</ul>
+			<div class="DelDiv"><img src="http://icons.iconseeker.com/png/fullsize/web-application/delete-9.png"></div>
+			<div class="SaveStat">Save Status:<img id="SaveStatImg" src="http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg"></div>
+
+		</div>
+		<div id="right-bar">
+			<div id="people-list">
+				<select id="people_list" name="people-list" multiple="multiple">
+					<option>Elad ben david</option>
+					<option>Gabi kazav</option>
+					<option>Koren palmon</option>
+				</select>
+			</div>
+		</div>
+	</DIV>
+
 </body>
 </html>
 

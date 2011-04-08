@@ -21,7 +21,10 @@ def edit_canvas(request):
 	#c['y_cord'] = y_cord
 	c['elements'] = user_elements
 	c['elements_nums'] = elements_nums
-	return render_to_response('canvas/canvas.html', c)
+	if (user_elements):
+		return render_to_response('canvas/canvas.html', c)
+	else:
+		return render_to_response('canvas/new.html')
 
 @login_required
 def save_element(request):
