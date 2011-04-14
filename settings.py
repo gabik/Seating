@@ -1,4 +1,5 @@
 # Django settings for Seating project.
+#
 import os.path
 
 
