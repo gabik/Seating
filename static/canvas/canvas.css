@@ -56,7 +56,15 @@
  {
   float:left;
  }
- #people_list
+ #people-list
  {
-  border:3px dotted #00f
+  border:2px solid blue;
+  padding: 4px;
  }
+ li
+ {
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
+  list-style-position:inside;
+ }
+

@@ -1,5 +1,6 @@
 from django.conf.urls.defaults import *
 from django.contrib import admin
+from django.conf import settings
 admin.autodiscover()
 
 # test koren
@@ -11,7 +12,7 @@ urlpatterns = patterns('',
 	(r'^accounts/', include('accounts.urls')),
 	(r'^canvas/', include('canvas.urls')),
         (r'^admin/', include(admin.site.urls)),
-
+	(r'static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
     # Example:
     # (r'^Seating/', include('Seating.foo.urls')),
 
