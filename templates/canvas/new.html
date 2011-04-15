@@ -7,6 +7,8 @@
 <title>New Canvas</title>
 </head>
 
+<script src="/static/canvas/new.js"></script>
+
 <style type="text/css">
  .MenuItem
  {
@@ -18,16 +20,30 @@
 
 <body>
 
- <form name="new_canvas" action=# method=post>
-  <input type=hidden id=csrf_token value={% csrf_token %}>
+ <form name="new_canvas" action=# method=post>{% csrf_token %}
+  {{ form.non_field_errors }}
+  {{ form.table_kind.errors }}
+  <label for="id_table_kind">Please select table:</label>
+  {{ form.table_kind|escape }}
+
+  {{ form.table_size.errors }}
+  <label for="id_table_size">Please select size:</label>
+  {{ form.table_size }}
+
+  {{ form.tables_num.errors }}
+  <label for="id_tables_num">Please enter the amount of those tables:</label>
+  {{ form.tables_num }}
+  <BR><input name="AddMore" type=submit value="Add another table">  <input name="NoMore" type=submit value="Done adding tables">
+ </form>
+
+<!--
   Please select table: <BR>
   <input type=radio name=table> <img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"><BR>
   <input type=radio name=table> <img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"><BR>
   Please select size:
   <input type=radio name=size>8 <input type=radio name=size>9 <input type=radio name=size>12 <input type=radio name=size>15<BR>
   Please enter the amount of those tables: <input type=text name=count><br>
-  <input type=submit value="Add another table">  <input type=submit value="Done adding tables">
- </form>
+-->
 
 </body>
 </html>
