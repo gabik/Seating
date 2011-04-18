@@ -9,6 +9,12 @@ $(document).ready(function() {
       document.getElementById(imgs[i].id).src = "http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg";
     } else if (imgs[i].id.split("-", 1) == "round_pink") {
       document.getElementById(imgs[i].id).src = "http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg";
+    } else if (imgs[i].id.split("-", 1) == "null_square") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/rect.png";
+    } else if (imgs[i].id.split("-", 1) == "null_ellipse") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/ellipse.png";
+    } else if (imgs[i].id.split("-", 1) == "null_line") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/line.png";
     }
   }
   $(".DragDiv").click( function() {

@@ -5,6 +5,9 @@ table_kind_list = (
 	#('long_square', '<img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem">'),
 	('round_pink', ''),
 	('long_square', ''),
+	('null_square', ''),
+	('null_ellipse', ''),
+	('null_line', ''),
 	)
 
 table_size_list = (
