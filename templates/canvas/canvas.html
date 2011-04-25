@@ -25,6 +25,7 @@
     Dragging = true;
    } 
   {% endfor %}
+  
  }
  
 </script>
@@ -36,7 +37,10 @@
 	<DIV id="main">
 		<div id="canvas-div">
 			{% for div in elements %}
-    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}"><img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"></div>
+    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" >
+					<p id="Caption" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.caption}}</p>
+					<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}">
+				</div>
 			{% endfor %}
 			<div class="AddDiv"><img src="http://icons.iconseeker.com/png/fullsize/boomy/add-2.png"></div>
  			<ul class="AddMenu">
@@ -47,6 +51,19 @@
 				<li><a href="#"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
  			</ul>
 			<div class="DelDiv"><img src="http://icons.iconseeker.com/png/fullsize/web-application/delete-9.png"></div>
+			<div class="NumOfItemSelect">
+				<select id=numOfElementsComboBox size=1">
+					<option value="1" SELECTED>1
+					<option value="2">2
+					<option value="3">3
+					<option value="4">4
+					<option value="5">5
+					<option value="6">6
+					<option value="7">7
+					<option value="8">8
+					<option value="9">9
+				</select>
+			</div>
 			<div class="SaveStat">Save Status:<img id="SaveStatImg" src="http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg"></div>
 
 		</div>
@@ -56,6 +73,23 @@
 					{% for guest in guests %}
 						<li>  {{ guest.floatingguest_first_name }} {{ guest.floatingguest_last_name }} </li>
 					{% endfor %}
+				</ul>
+			</div>
+		</div>
+		<div id="right-middel-bar">
+			<div id="element-properties-list">
+				<ul id="element-properties_list">
+					<li style="list-style:none;">
+						<p style="margin:0; font-size:11.5; font-weight:bold; float:left">:Caption</p></br>
+						<input style="text-align:left; width:70px;" type="text" id="ElementCaption" maxlength="8"/>
+					</li>
+					<li style="list-style:none;">
+						<p style="margin:0; font-size:11.5; font-weight:bold; float:left">:Size</p></br>
+						<input style="text-align:left; width:70px;" type="text" id="ElementSize" maxlength="2"/>
+					</li>
+					<li style="list-style:none;">
+						<button type="button" id="ElementPropertiesSaveButton">Save Changes</button>
+					</li>
 				</ul>
 			</div>
 		</div>

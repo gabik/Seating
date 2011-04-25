@@ -8,6 +8,7 @@ class SingleElement(models.Model):
 	x_cord = models.FloatField()
 	y_cord = models.FloatField()
 	kind = models.CharField(max_length=100)
+	caption = models.CharField(max_length=8)
 
 class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)

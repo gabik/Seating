@@ -31,7 +31,7 @@
   width:20px;
   height:20px;
   position:absolute;
-  left:0px;
+  left:35px;
   top:0px;
  }
  .DelDiv
@@ -39,8 +39,14 @@
   width:20px;
   height:20px;
   position:absolute;
-  left:50px;
+  left:85px;
   top:3px;
+ }
+ .NumOfItemSelect
+ {
+  position:absolute;
+  left:0px;
+  top:8px;
  }
  .SaveStat
  {
@@ -52,6 +58,14 @@
  {
   float:right;
  }
+
+ #right-middel-bar
+ {
+  position:absolute;
+  bottom:55;
+  right:8;
+ }
+
  #canvas-div
  {
   float:left;
@@ -66,5 +80,10 @@
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;
+ }
+ #element-properties-list
+ {
+  border:2px solid blue;
+  padding: 4px;
  }
 

@@ -1,8 +1,101 @@
 var SelectedElem = "" ;
+var startDradPosition = "";
+
+function getPositions(element)
+ {
+	var $element = $(element);
+	var pos = $element.position();
+	var width = $element.width();
+	var height = $element.height();
+
+	return [ [ pos.left, pos.left + width ], [ pos.top, pos.top + height ] ];
+}
+
+function comparePositions(p1, p2)
+{
+	var x1 = p1[0] < p2[0] ? p1 : p2;
+	var x2 = p1[0] < p2[0] ? p2 : p1;
+	return x1[1] > x2[0] || x1[0] === x2[0] ? true : false;
+}
+
+//Check if 2 objects intersect
+function collisionWithOtherElement(element)
+{
+	var match = false;
+	var pos = getPositions(document.getElementById(element.context.id));
+	$(".DragDiv").each(function(i) {
+		if (element.context.id != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function saveElement(element)
+{
+       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: ""},
+         function(data){
+           if (data.status == 'OK')
+           {
+             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+           }else{
+             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+           }
+         }, 'json');
+}
+
+function saveElementWithCaption(element,newCaption)
+{
+       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption},
+         function(data){
+           if (data.status == 'OK')
+           {
+             var elementCaption = element.context.getElementsByTagName("p");
+             elementCaption[0].innerHTML = newCaption;
+             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+           }else{
+             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+           }
+         }, 'json');
+}
+
+function selectElement(element)
+{
+    if (SelectedElem != "" ) {
+      SelectedElem.border('0px white 0');
+    }
+    element.border('2px pink .5');
+    SelectedElem = element;
+	updateElementScreenProperties(element);
+}
+
+function updateElementScreenProperties(element)
+{
+	var elementCaption = element.context.getElementsByTagName("p");
+	$("#ElementCaption").attr("value",elementCaption[0].firstChild.nodeValue);
+}
 
 $(document).ready(function() {
   var imgs,i;
-  imgs=document.getElementsByTagName('img');
+  
+  var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
+  imgs = document.getElementsByTagName('img');
+
   for(i=0;i<imgs.length;i++)
   {
     if (imgs[i].id.split("-", 1) == "long_square") {
@@ -18,29 +111,30 @@ $(document).ready(function() {
     }
   }
   $(".DragDiv").click( function() {
-    if (SelectedElem != "" ) {
-      SelectedElem.border('0px white 0');
-    }
-    $(this).border('2px pink .5');
-    SelectedElem = $(this);
+     selectElement($(this));
   });
   $(".DragDiv").draggable({
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
+       startDradPosition = $(this).position();
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
      },
      stop: function (e,ui){
        $(this).fadeTo(200, 1.0);
-       $.post('/canvas/save/', {elem_num: $(this).context.id, X: $(this).position().left , Y: $(this).position().top },
-         function(data){
-           if (data.status == 'OK')
-           {
-             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-           }else{
-             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
-           }
-         }, 'json');
-     }
+       if (collisionWithOtherElement($(this)))
+       {
+          if (startDradPosition != "")
+          {
+              var newTop = startDradPosition.top;
+              var newLeft = startDradPosition.left;
+              $(this).animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement($(this));});
+          }
+       }
+       else
+       {
+           saveElement($(this));
+       }
+       }
   });
   $("#people_list > li").draggable({
     //snap: true,
@@ -77,18 +171,26 @@ $(document).ready(function() {
   });
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');
-    $.post('/canvas/add/', {kind: $(this).context.id},
+    $.post('/canvas/add/', {kind: $(this).context.id ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
       function(data){
         if (data.status == 'OK')
         { location.reload(); }
       }, 'json');
   });
   $(document).keypress(function(e) {
-    $(".DelDiv").click();
+   var code = (e.keyCode ? e.keyCode : e.which);
+   if(code == 46) { //Del keycode
+       $(".DelDiv").click();
+   }
   });
-
+  $("#ElementPropertiesSaveButton").click( function() { 
+  if (SelectedElem != "" ) {
+    var caption = $("#ElementCaption").val();
+    saveElementWithCaption(SelectedElem,caption);
+    }
+  });
   $(document).click( function(e) {
-    if (!($(e.target).hasClass('ElemImg'))) {
+    if (!($(e.target).hasClass('ElemImg'))&&!($(e.target).hasId('ElementCaption'))) {
       if (SelectedElem != "" ) {
         SelectedElem.border('0px white 0');
         SelectedElem = "";

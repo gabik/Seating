@@ -10,6 +10,7 @@ from django.contrib.auth.models import User
 from Seating.canvas.models import SingleElement
 from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
+from django.utils.translation import ugettext
 
 
 
@@ -48,7 +49,7 @@ def new_canvas(request):
 				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 			for i in range(0, amount):
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind)
+				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Table"+ str(max_num+i))
 				single_element.save()
 
 			if 'AddMore' in request.POST:
@@ -71,6 +72,10 @@ def save_element(request):
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.x_cord = float(request.POST['X']);
 		single_element.y_cord = float(request.POST['Y']);
+		newCaption = ugettext(request.POST['caption']);
+		print newCaption;
+		if newCaption != "":
+			single_element.caption = newCaption;
 		single_element.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
@@ -85,8 +90,10 @@ def add_element(request):
 		else:
 	        	max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 		table_kind = request.POST['kind']
-		single_element = SingleElement(elem_num=max_num, x_cord="50", y_cord="50", user=request.user, kind=table_kind)
-		single_element.save()
+		amount = int(request.POST['amount'])
+		for i in range(0, amount):
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Table"+ str(max_num+i))
+			single_element.save()
 		json_dump = json.dumps({'status': "OK", 'kind': table_kind})
 	return HttpResponse(json_dump)
 
