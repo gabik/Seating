@@ -88,6 +88,7 @@ function updateElementScreenProperties(element)
 {
 	var elementCaption = element.context.getElementsByTagName("p");
 	$("#ElementCaption").attr("value",elementCaption[0].firstChild.nodeValue);
+	$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
 }
 
 $(document).ready(function() {

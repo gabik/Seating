@@ -72,8 +72,8 @@ def save_element(request):
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.x_cord = float(request.POST['X']);
 		single_element.y_cord = float(request.POST['Y']);
-		newCaption = ugettext(request.POST['caption']);
-		if newCaption != "":
+		if request.POST['caption'] != "":
+			newCaption = ugettext(request.POST['caption']);
 			single_element.caption = newCaption;
 		single_element.save()
 		json_dump = json.dumps({'status': "OK"})
