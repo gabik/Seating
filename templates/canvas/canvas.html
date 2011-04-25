@@ -54,10 +54,18 @@
 			<div id="people-list">
 				<ul id="people_list" >
 					{% for guest in guests %}
-						<li>  {{ guest.floatingguest_first_name }} {{ guest.floatingguest_last_name }} </li>
+						{% if guest.sit_on_table == 0 %}
+							<li id="{{ guest.floatingguest_first_name }}_{{ guest.floatingguest_last_name }}"> {{ guest.floatingguest_first_name }} {{ guest.floatingguest_last_name }} </li>
+						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
+			<div class="AddPersonDiv"><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>
+			<ul class="AddPerson">
+				<li>First Name:<input id="first_name" type=text size=15></li>
+				<li>Last  Name:<input id="last_name" type=text size=15></li>
+				<li><button id="AddPersonButton" type="button">Add</button></li>
+			</ul>
 		</div>
 	</DIV>
 

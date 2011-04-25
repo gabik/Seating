@@ -48,7 +48,7 @@ def new_canvas(request):
 				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 			for i in range(0, amount):
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind)
+				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, current_sitting=0, max_sitting=request.POST['table_size'])
 				single_element.save()
 
 			if 'AddMore' in request.POST:
@@ -76,6 +76,30 @@ def save_element(request):
 	return HttpResponse(json_dump)
 
 @login_required
+def drop_person(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		person_id = request.POST['person_id']
+		person_delim = person_id.index('_')
+		person_first = person_id[:person_delim]
+		person_last = person_id[person_delim+1:]
+		single_person = FloatingGuest.objects.filter(user=request.user, floatingguest_first_name=person_first, floatingguest_last_name=person_last)
+		if (len(single_person) > 0):
+			elem_delim = request.POST['table_id'].index('-')
+			elem_num=request.POST['table_id'][elem_delim+1:]
+			table_id = request.POST['table_id']
+			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+			if single_element.current_sitting < single_element.max_sitting:
+				single_element.current_sitting = single_element.current_sitting + 1
+				single_element.save()
+				single_person[0].sit_on_table = elem_num
+				single_person[0].save()
+				json_dump = json.dumps({'status': "OK", 'table_id': table_id})
+			else:
+				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
+	return HttpResponse(json_dump)
+
+@login_required
 def add_element(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
@@ -83,7 +107,7 @@ def add_element(request):
 		if (len(user_elements) <= 0):
 			max_num = 1
 		else:
-	        	max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 		table_kind = request.POST['kind']
 		single_element = SingleElement(elem_num=max_num, x_cord="50", y_cord="50", user=request.user, kind=table_kind)
 		single_element.save()
@@ -94,9 +118,9 @@ def add_element(request):
 def del_element(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-                elem_delim = request.POST['elem_num'].index('-')
-                elem_num=request.POST['elem_num'][elem_delim+1:]
-                single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.delete()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

@@ -26,6 +26,14 @@
   border:1px solid #1c1c1c;
   margin-top:50px;
  }
+.AddPersonDiv
+{
+  direction:rtl;
+}
+.AddPerson
+{
+  display:none;
+}
  .AddDiv
  {
   width:20px;
@@ -61,7 +69,7 @@
   border:2px solid blue;
   padding: 4px;
  }
- li
+ #people_list li
  {
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");

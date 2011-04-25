@@ -24,3 +24,4 @@ class FloatingGuest(models.Model):
         user = models.ForeignKey(User, unique=False)
 	floatingguest_first_name = models.CharField(max_length=30)
 	floatingguest_last_name = models.CharField(max_length=30)
+	sit_on_table = models.IntegerField(default=0)

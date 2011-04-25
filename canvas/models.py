@@ -8,6 +8,8 @@ class SingleElement(models.Model):
 	x_cord = models.FloatField()
 	y_cord = models.FloatField()
 	kind = models.CharField(max_length=100)
+	current_sitting = models.IntegerField()
+	max_sitting = models.IntegerField()
 
 class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)
