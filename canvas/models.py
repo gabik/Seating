@@ -10,6 +10,7 @@ class SingleElement(models.Model):
 	kind = models.CharField(max_length=100)
 	current_sitting = models.IntegerField()
 	max_sitting = models.IntegerField()
+	caption = models.CharField(max_length=8)
 
 class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)
