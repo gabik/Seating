@@ -118,6 +118,7 @@ $(document).ready(function() {
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
        startDradPosition = $(this).position();
+       $Draged = "";
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
      },
      stop: function (e,ui){
@@ -139,6 +140,8 @@ $(document).ready(function() {
   });
   $(".DragDiv").droppable({
     drop: function(e, ui ) {
+      if ($Draged != "")
+      {
       $last_drag = "OK";
       $.post('/canvas/sit/', {table_id: $(this).context.id, person_id: $Draged.context.id},
         function(data){
@@ -155,6 +158,7 @@ $(document).ready(function() {
             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
           }
         }, 'json');
+       }
     }
   });
   $("#people_list > li").draggable({
