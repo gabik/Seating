@@ -24,7 +24,7 @@
   display:none;
   width:45px;
   border:1px solid #1c1c1c;
-  margin-top:50px;
+  margin-top:10px;
  }
 .AddPersonDiv
 {
@@ -39,7 +39,7 @@
   width:20px;
   height:20px;
   position:absolute;
-  left:35px;
+  left:5px;
   top:0px;
  }
  .DelDiv
@@ -47,14 +47,27 @@
   width:20px;
   height:20px;
   position:absolute;
-  left:85px;
+  left:55px;
+  top:3px;
+ }
+ .UndoDiv
+ {
+  width:20px;
+  height:20px;
+  position:absolute;
+  left:105px;
   top:3px;
  }
  .NumOfItemSelect
  {
-  position:absolute;
-  left:0px;
-  top:8px;
+  margin:5px 0px;
+ }
+ .PropertyText
+ { 
+  margin:0;
+  font-size:11.5;
+  font-weight:bold;
+  float:left;
  }
  .SaveStat
  {
@@ -62,26 +75,37 @@
   bottom:0;
   right:0;
  }
+ .StatusImg
+ {
+  width:16px;
+  height:16px;
+ }
  #right-bar
  {
   float:right;
+  width:125px;
  }
-
  #right-middel-bar
  {
-  position:absolute;
-  bottom:55;
-  right:8;
+  float:right;
+  width:125px;
+  margin-top:5px;
  }
-
  #canvas-div
  {
   float:left;
+  border:4px solid blue;
+  margin-top:40px;
+  width:90%;
+  height:92.5%;
  }
  #people-list
  {
+  margin-top:40px;
   border:2px solid blue;
   padding: 4px;
+  overflow: auto;
+  height:150px;
  }
  #people_list li
  {
@@ -94,4 +118,12 @@
   border:2px solid blue;
   padding: 4px;
  }
+ #ElementStatus
+ {
+  position:absolute;
+  left: 80;
+  top: 0;
+  z-index:1;
+ }
+ 
 

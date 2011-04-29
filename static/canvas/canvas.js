@@ -1,5 +1,6 @@
 var SelectedElem = "" ;
 var startDradPosition = "";
+var undoElement = new Array(2);//[element,operation]
 
 function getPositions(element)
  {
@@ -93,7 +94,6 @@ function updateElementScreenProperties(element)
 
 $(document).ready(function() {
   var imgs,i;
-  
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
   imgs = document.getElementsByTagName('img');
 
@@ -109,12 +109,34 @@ $(document).ready(function() {
       document.getElementById(imgs[i].id).src = "/static/canvas/images/ellipse.png";
     } else if (imgs[i].id.split("-", 1) == "null_line") {
       document.getElementById(imgs[i].id).src = "/static/canvas/images/line.png";
+    }else if (imgs[i].id.split("-", 1) == "Statusnull_line" || imgs[i].id.split("-", 1) == "Statusnull_ellipse" || imgs[i].id.split("-", 1) == "Statusnull_square") {
+       document.getElementById(imgs[i].id).style.visibility = "hidden";
     }
   }
+  $(".DragDiv").after(function() {
+	var elementCaption = $(this).context.getElementsByTagName("p");
+	var elementImgs = $(this).context.getElementsByTagName("img");
+	var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+	
+	if (elementSize == 0)
+	{
+		$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/RedStatus.png");
+	}
+	else if (elementSize == elementMaxSize)
+	{
+		$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+	}
+	else
+	{
+		$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
+	}
+  });
   $(".DragDiv").click( function() {
      selectElement($(this));
   });
   $(".DragDiv").draggable({
+     containment: 'parent',
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
        startDradPosition = $(this).position();
@@ -123,6 +145,8 @@ $(document).ready(function() {
      },
      stop: function (e,ui){
        $(this).fadeTo(200, 1.0);
+       undoElement[0] = $(this);
+       undoElement[1] = "move";
        if (collisionWithOtherElement($(this)))
        {
           if (startDradPosition != "")
@@ -143,12 +167,28 @@ $(document).ready(function() {
       if ($Draged != "")
       {
       $last_drag = "OK";
+	  var elementCaption = $(this).context.getElementsByTagName("p");
+	  var elementImgs = $(this).context.getElementsByTagName("img");
+
       $.post('/canvas/sit/', {table_id: $(this).context.id, person_id: $Draged.context.id},
         function(data){
           if (data.status == 'OK')
           {
             $Draged.hide();
             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			if (data.table_status == 'Yellow')
+			{
+				$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
+			}
+			else if (data.table_status == 'Green')
+			{
+				$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+			}
+			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			
+			elementSize = parseInt(elementSize) + 1;
+			elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
           }else if (data.status == 'FULL')
           {
             $Draged.fadeTo(200, 1.0);
@@ -186,7 +226,11 @@ $(document).ready(function() {
       $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
         function(data){
           if (data.status == 'OK')
-          { location.reload(); }
+          { 
+              undoElement[0] = SelectedElem;
+              undoElement[1] = "add"; 
+              location.reload();
+          }
         }, 'json');
     } else {
       alert ("Please select table");
@@ -194,6 +238,47 @@ $(document).ready(function() {
   });
   $(".AddDiv").click( function() {
     $('ul.AddMenu').slideToggle('medium');
+  });
+  $(".UndoDiv").click( function() {
+    if (undoElement[0] != "" && undoElement[1] != "")
+    {
+       switch(undoElement[1])
+       {
+          case "move":
+              {
+                var newTop = startDradPosition.top;
+                var newLeft = startDradPosition.left;
+                startDradPosition = undoElement[0].position();
+                undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement(undoElement[0]); selectElement(undoElement[0]);});
+                break;
+              }
+          case "add":
+              {
+                $.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+                function(data){
+                if (data.status == 'OK')
+                {
+                   undoElement[1] = "delete"; 
+                   location.reload();
+                }
+                }, 'json');
+                break;
+              }
+          case "delete":
+          {
+              $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+              $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
+              function(data){
+              if (data.status == 'OK')
+              { 
+                 undoElement[1] = "add"; 
+                 location.reload();
+              }
+              }, 'json');
+              break;
+          }
+       }
+    }
   });
   $(".AddPersonDiv").click( function() {
     $('ul.AddPerson').slideToggle('medium');
@@ -204,7 +289,9 @@ $(document).ready(function() {
     $.post('/accounts/add_person/', {first: first_name, last: last_name},
       function(data){
         if (data.status == 'OK')
-        { location.reload(); }
+        {
+              location.reload();
+        }
       }, 'json');
   });
   $(".MenuItem").click( function() {
@@ -212,7 +299,11 @@ $(document).ready(function() {
     $.post('/canvas/add/', {kind: $(this).context.id ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
       function(data){
         if (data.status == 'OK')
-        { location.reload(); }
+        {
+            undoElement[0] = SelectedElem;
+            undoElement[1] = "delete"; 
+            location.reload();
+        }
       }, 'json');
   });
   $(document).keypress(function(e) {
