@@ -1,5 +1,5 @@
 # Create your views here.
-from Seating.accounts.models import FloatingGuest
+from Seating.accounts.models import Guest
 from django.db.models import Max
 from django.utils import simplejson as json
 from django.contrib.auth.decorators import login_required
@@ -12,13 +12,11 @@ from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 
-
-
 @login_required
 def edit_canvas(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	elements_nums = user_elements.values_list('elem_num', flat=1)
-	FloatingGuests = FloatingGuest.objects.filter(user=request.user)
+	Guests = Guest.objects.filter(user=request.user)
 	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
@@ -27,7 +25,7 @@ def edit_canvas(request):
 	#c['y_cord'] = y_cord
 	c['elements'] = user_elements
 	c['elements_nums'] = elements_nums
-	c['guests'] = FloatingGuests
+	c['guests'] = Guests
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -75,6 +73,8 @@ def save_element(request):
 		if request.POST['caption'] != "":
 			newCaption = ugettext(request.POST['caption']);
 			single_element.caption = newCaption;
+		if request.POST['size'] != "": 
+			single_element.max_sitting = request.POST['size'];
 		single_element.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
@@ -87,16 +87,25 @@ def drop_person(request):
 		person_delim = person_id.index('_')
 		person_first = person_id[:person_delim]
 		person_last = person_id[person_delim+1:]
-		single_person = FloatingGuest.objects.filter(user=request.user, floatingguest_first_name=person_first, floatingguest_last_name=person_last)
+		single_person = Guest.objects.filter(user=request.user, guest_first_name=person_first, guest_last_name=person_last)
 		if (len(single_person) > 0):
 			elem_delim = request.POST['table_id'].index('-')
 			elem_num=request.POST['table_id'][elem_delim+1:]
 			table_id = request.POST['table_id']
+			free_position = 1
+			if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
+				element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
+				for element_person in element_persons:
+					if element_person.position == free_position:
+						free_position = free_position + 1
+					else:
+						break
 			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 			if single_element.current_sitting < single_element.max_sitting:
 				single_element.current_sitting = single_element.current_sitting + 1
 				single_element.save()
-				single_person[0].sit_on_table = elem_num
+				single_person[0].elem_num = elem_num
+				single_person[0].position = free_position
 				single_person[0].save()
 				if (single_element.current_sitting >= single_element.max_sitting):
 					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green"})
@@ -131,10 +140,43 @@ def del_element(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.delete()
-		element_persons = FloatingGuest.objects.filter(user=request.user, sit_on_table = elem_num)
+		element_persons = Guest.objects.filter(user=request.user, elem_num = elem_num)
 		for person in element_persons:
-			person.sit_on_table = 0
+			person.elem_num = 0
+			person.position = 0
 			person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
+	
+@login_required
+def del_float_person(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		person_id = request.POST['person_id']
+		person_delim = person_id.index('_')
+		person_first = person_id[:person_delim]
+		person_last = person_id[person_delim+1:]
+		single_person = Guest.objects.filter(user=request.user, guest_first_name=person_first, guest_last_name=person_last)
+		if (len(single_person) > 0):
+			single_person.delete()
+			json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_element_item_at_position(request):
+	json_dump = json.dumps({'status': "EMPTY"})
+	if request.method == 'POST':
+		person_position = request.POST['position']
+		json_dump = json.dumps({'status': "EMPTY", 'position': person_position})
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num))
+		if (len(element_persons) > 0):
+			for person in element_persons:
+				if (int(person.position) == int(person_position)):
+					json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
+					break
+	return HttpResponse(json_dump)
+
+
 

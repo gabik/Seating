@@ -20,8 +20,12 @@ class Partners(models.Model):
 	partner2_last_name = models.CharField(max_length=30)
 	partner2_gender = models.CharField(max_length=1, choices=gender_choices)
 	
-class FloatingGuest(models.Model):
+
+class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)
-	floatingguest_first_name = models.CharField(max_length=30)
-	floatingguest_last_name = models.CharField(max_length=30)
-	sit_on_table = models.IntegerField(default=0)
+	elem_num = models.IntegerField(default=0)
+	position = models.IntegerField(default=0)
+	guest_first_name = models.CharField(max_length=30)
+	guest_last_name = models.CharField(max_length=30)
+	phone_number = models.CharField(max_length=30)
+	guest_email = models.EmailField()

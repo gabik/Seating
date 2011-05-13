@@ -1,4 +1,5 @@
 var SelectedElem = "" ;
+var SelectedPerson = "" ;
 var startDradPosition = "";
 var undoElement = new Array(2);//[element,operation]
 
@@ -49,7 +50,7 @@ function collisionWithOtherElement(element)
 
 function saveElement(element)
 {
-       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: ""},
+       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: "" ,size: ""},
          function(data){
            if (data.status == 'OK')
            {
@@ -60,19 +61,31 @@ function saveElement(element)
          }, 'json');
 }
 
-function saveElementWithCaption(element,newCaption)
+
+function saveElementWithCaption(element,newCaption, newSize)
 {
-       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption},
-         function(data){
-           if (data.status == 'OK')
-           {
-             var elementCaption = element.context.getElementsByTagName("p");
-             elementCaption[0].innerHTML = newCaption;
-             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-           }else{
-             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
-           }
-         }, 'json');
+       var elementCaption = element.context.getElementsByTagName("p");
+	   
+	   if (parseInt(elementCaption[1].firstChild.nodeValue.split("/", 1)) > parseInt(newSize))
+	   {
+           alert("Size is less then the minmum");
+	   }
+	   else
+	   {
+		   $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
+			 function(data){
+			   if (data.status == 'OK')
+			   {
+				 elementCaption[0].innerHTML = newCaption;
+				 var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
+				 elementCaption[1].innerHTML = sizeStr;
+				 reloadElementStatus(element);
+				 $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			   }else{
+				 $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+			   }
+			 }, 'json');
+		 }
 }
 
 function selectElement(element)
@@ -92,30 +105,10 @@ function updateElementScreenProperties(element)
 	$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
 }
 
-$(document).ready(function() {
-  var imgs,i;
-  var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
-  imgs = document.getElementsByTagName('img');
-
-  for(i=0;i<imgs.length;i++)
-  {
-    if (imgs[i].id.split("-", 1) == "long_square") {
-      document.getElementById(imgs[i].id).src = "http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg";
-    } else if (imgs[i].id.split("-", 1) == "round_pink") {
-      document.getElementById(imgs[i].id).src = "http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg";
-    } else if (imgs[i].id.split("-", 1) == "null_square") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/rect.png";
-    } else if (imgs[i].id.split("-", 1) == "null_ellipse") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/ellipse.png";
-    } else if (imgs[i].id.split("-", 1) == "null_line") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/line.png";
-    }else if (imgs[i].id.split("-", 1) == "Statusnull_line" || imgs[i].id.split("-", 1) == "Statusnull_ellipse" || imgs[i].id.split("-", 1) == "Statusnull_square") {
-       document.getElementById(imgs[i].id).style.visibility = "hidden";
-    }
-  }
-  $(".DragDiv").after(function() {
-	var elementCaption = $(this).context.getElementsByTagName("p");
-	var elementImgs = $(this).context.getElementsByTagName("img");
+function reloadElementStatus(element)
+{
+	var elementCaption = element.context.getElementsByTagName("p");
+	var elementImgs = element.context.getElementsByTagName("img");
 	var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	
@@ -131,6 +124,31 @@ $(document).ready(function() {
 	{
 		$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
 	}
+}
+
+$(document).ready(function() {
+  var imgs,i;
+  var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
+  imgs = document.getElementsByTagName('img');
+
+  for(i=0;i<imgs.length;i++)
+  {
+    if (imgs[i].id.split("-", 1) == "long_square") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/TableSquare.jpg";
+    } else if (imgs[i].id.split("-", 1) == "round_pink") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/RoundPink.jpg";
+    } else if (imgs[i].id.split("-", 1) == "null_square") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/rect.png";
+    } else if (imgs[i].id.split("-", 1) == "null_ellipse") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/ellipse.png";
+    } else if (imgs[i].id.split("-", 1) == "null_line") {
+      document.getElementById(imgs[i].id).src = "/static/canvas/images/line.png";
+    }else if (imgs[i].id.split("-", 1) == "Statusnull_line" || imgs[i].id.split("-", 1) == "Statusnull_ellipse" || imgs[i].id.split("-", 1) == "Statusnull_square") {
+       document.getElementById(imgs[i].id).style.visibility = "hidden";
+    }
+  }
+  $(".DragDiv").after(function() {
+     reloadElementStatus($(this));
   });
   $(".DragDiv").click( function() {
      selectElement($(this));
@@ -161,7 +179,7 @@ $(document).ready(function() {
            saveElement($(this));
        }
        }
-  });
+  })
   $(".DragDiv").droppable({
     drop: function(e, ui ) {
       if ($Draged != "")
@@ -169,7 +187,6 @@ $(document).ready(function() {
       $last_drag = "OK";
 	  var elementCaption = $(this).context.getElementsByTagName("p");
 	  var elementImgs = $(this).context.getElementsByTagName("img");
-
       $.post('/canvas/sit/', {table_id: $(this).context.id, person_id: $Draged.context.id},
         function(data){
           if (data.status == 'OK')
@@ -280,9 +297,36 @@ $(document).ready(function() {
        }
     }
   });
+  $("#people_list > li").click(function() {
+    $(this).css("background-color",'blue');
+	SelectedPerson = $(this);
+	var element = $(this);
+		$("#people_list > li").each(function(i) {
+			if (element.context.id != $(this).context.id)
+			{
+				$(this).css("background-color",'white');
+			}
+		});
+  });
+  $(".DelPersonDiv").click( function() {
+    if (SelectedPerson != "")
+	{
+	   $.post('/canvas/delfp/', {person_id: SelectedPerson.context.id},
+       function(data){
+         if (data.status == 'OK')
+         {
+		   SelectedPerson.remove();
+           $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+         }else{
+           $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+         }
+		 SelectedPerson = "";
+         }, 'json');
+	}
+  });
   $(".AddPersonDiv").click( function() {
     $('ul.AddPerson').slideToggle('medium');
-  });
+  }); 
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
@@ -315,11 +359,12 @@ $(document).ready(function() {
   $("#ElementPropertiesSaveButton").click( function() { 
   if (SelectedElem != "" ) {
     var caption = $("#ElementCaption").val();
-    saveElementWithCaption(SelectedElem,caption);
+	var size = $("#ElementSize").val();
+    saveElementWithCaption(SelectedElem,caption,size);
     }
   });
   $(document).click( function(e) {
-    if (!($(e.target).hasClass('ElemImg'))&&!($(e.target).hasId('ElementCaption'))) {
+    if (!($(e.target).hasClass('ElemImg'))&&!($(e.target).hasClass('Property'))) {
       if (SelectedElem != "" ) {
         SelectedElem.border('0px white 0');
         SelectedElem = "";

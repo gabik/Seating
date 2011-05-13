@@ -1,6 +1,6 @@
 from django.contrib import admin
-from Seating.accounts.models import UserProfile ,Partners, FloatingGuest
+from Seating.accounts.models import UserProfile ,Partners, Guest
 
 admin.site.register(UserProfile)
 admin.site.register(Partners)
-admin.site.register(FloatingGuest)
+admin.site.register(Guest)

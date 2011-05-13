@@ -1,13 +1,14 @@
 <html>
 <head>
+
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
 
-
+<script type="text/javascript" src="/static/canvas/table.js">
+</script>
 <script type="text/javascript" src="/static/canvas/canvas.js">
 </script>
-
 
 <link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 <script type="text/javascript">
@@ -42,13 +43,13 @@
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.current_sitting}}/{{div.max_sitting}}</p>
 					<table>
 						<td>
-						<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}">
-						<div id="ElementStatus"><img src="/static/canvas/images/RedStatus.png" class="StatusImg" Id="Status{{ div.kind }}-{{ div.elem_num }}"</div>
+						<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
+						<div id="ElementStatus"><img src="/static/canvas/images/RedStatus.png" class="StatusImg" Id="Status{{ div.kind }}-{{ div.elem_num }}"/></div>
 						</td>
 					</table>
 				</div>
 			{% endfor %}
-			<div class="AddDiv"><img src="http://icons.iconseeker.com/png/fullsize/boomy/add-2.png"></div>
+			<div class="AddDiv"><img src="/static/canvas/images/add.png"></div>
  			<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
@@ -71,7 +72,7 @@
 				<li><a href="#"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem"></a></li>
 				<li><a href="#"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
  			</ul>
-			<div class="DelDiv"><img src="http://icons.iconseeker.com/png/fullsize/web-application/delete-9.png"></div>
+			<div class="DelDiv"><img src="/static/canvas/images/delete.png"></div>
 			<div class="UndoDiv"><img src="/static/canvas/images/Undo.png"></div>
 			<div class="SaveStat">Save Status:<img id="SaveStatImg" src="http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg"></div>
 
@@ -80,29 +81,56 @@
 			<div id="people-list">
 				<ul id="people_list" >
 					{% for guest in guests %}
-						{% if guest.sit_on_table == 0 %}
-							<li id="{{ guest.floatingguest_first_name }}_{{ guest.floatingguest_last_name }}"> {{ guest.floatingguest_first_name }} {{ guest.floatingguest_last_name }} </li>
+						{% if guest.elem_num == 0 %}
+							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 						{% endif %}
 					{% endfor %}
 				</ul>
 			</div>
 			<div class="AddPersonDiv"><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>
+			<div class="DelPersonDiv"><img width=30 height=30 src="http://icons.iconseeker.com/png/fullsize/web-application/delete-9.png"></div>
 			<ul class="AddPerson">
 				<li>First Name:<input id="first_name" type=text size=15></li>
 				<li>Last  Name:<input id="last_name" type=text size=15></li>
 				<li><button id="AddPersonButton" type="button">Add</button></li>
 			</ul>
 		</div>
-		<div id="right-middel-bar">
+		<div id="right-middel-bar" class="Properties-bar">
 			<div id="element-properties-list">
 				<ul id="element-properties_list">
 					<li style="list-style:none;">
 						<p class="PropertyText">:Caption:</p></br>
-						<input style="text-align:left; width:70px;" type="text" id="ElementCaption" maxlength="8"/>
+						<input style="text-align:left; width:70px;" type="text" id="ElementCaption" class="Property" maxlength="8"/>
 					</li>
 					<li style="list-style:none;">
 						<p class="PropertyText">:Size:</p></br>
-						<input style="text-align:left; width:70px;" type="text" id="ElementSize" maxlength="2"/>
+						<div>
+							<select size=1" id="ElementSize" class="Property">
+								<option class="Property" value="4">4
+								<option class="Property" value="5">5
+								<option class="Property" value="6">6
+								<option class="Property" value="7">7
+								<option class="Property" value="8">8
+								<option class="Property" value="9">9
+								<option class="Property" value="10">10
+								<option class="Property" value="11">11
+								<option class="Property" value="12">12
+								<option class="Property" value="13">13
+								<option class="Property" value="14">14
+								<option class="Property" value="15">15
+								<option class="Property" value="16">16
+								<option class="Property" value="17">17
+								<option class="Property" value="18">18
+								<option class="Property" value="19">19
+								<option class="Property" value="20">20
+								<option class="Property" value="21">21
+								<option class="Property" value="22">22
+								<option class="Property" value="23">23
+								<option class="Property" value="24">24
+								<option class="Property" value="25">25
+								<option class="Property" value="26">26
+							</select>
+						</div>
 					</li>
 					<li style="list-style:none;">
 						<button type="button" id="ElementPropertiesSaveButton">Save Changes</button>

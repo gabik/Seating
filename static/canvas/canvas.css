@@ -3,6 +3,11 @@
   background-color:white;
   position:absolute;
  }
+  .TableElementDiv
+ {
+  background-color:white;
+  position:absolute;
+ }
  .ElemImg
  {
   width:90px;
@@ -30,32 +35,33 @@
 {
   direction:rtl;
 }
+.DelPersonDiv
+{
+  position:relative;
+  top:-25;
+  right:30;
+  direction:rtl;
+}
 .AddPerson
 {
   display:none;
 }
  .AddDiv
  {
-  width:20px;
-  height:20px;
   position:absolute;
   left:5px;
-  top:0px;
+  top:3px;
  }
  .DelDiv
  {
-  width:20px;
-  height:20px;
   position:absolute;
-  left:55px;
-  top:3px;
+  left:35px;
+  top:5px;
  }
  .UndoDiv
  {
-  width:20px;
-  height:20px;
   position:absolute;
-  left:105px;
+  left:65px;
   top:3px;
  }
  .NumOfItemSelect
@@ -77,8 +83,36 @@
  }
  .StatusImg
  {
+  min-width:5px;
+  min-height:5px;
   width:16px;
   height:16px;
+  max-width:25px;
+  max-height:25px;
+ }
+  .TableElemImg
+ {
+  width:64px;
+  height:64px;
+ }
+  .TableElemText
+ {
+  position:relative;
+  font-size:11.5;
+ }
+ .floatRight
+ {
+   float:right;
+ }
+ .floatLeft
+ {
+   float:left;
+ }
+ .Properties-bar
+ {
+ }
+ .Property
+ {
  }
  #right-bar
  {
@@ -95,13 +129,13 @@
  {
   float:left;
   border:4px solid blue;
-  margin-top:40px;
+  margin-top:28px;
   width:90%;
-  height:92.5%;
+  height:94.5%;
  }
  #people-list
  {
-  margin-top:40px;
+  margin-top:28px;
   border:2px solid blue;
   padding: 4px;
   overflow: auto;
@@ -121,7 +155,7 @@
  #ElementStatus
  {
   position:absolute;
-  left: 80;
+  right: 0;
   top: 0;
   z-index:1;
  }
