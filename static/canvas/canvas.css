@@ -1,12 +1,27 @@
  .DragDiv
  {
+  cursor:pointer;
   background-color:white;
   position:absolute;
  }
   .TableElementDiv
  {
-  background-color:white;
+  display:block;
   position:absolute;
+ }
+ .Pointer
+ {
+   cursor:pointer;
+ }
+  .PersonDetailsDiv
+ {
+  position:absolute;
+  border:1px solid black;
+ }
+ .PersonDetailsArea
+ {
+  float:right;
+  background:#efefef;
  }
  .ElemImg
  {
@@ -92,6 +107,7 @@
  }
   .TableElemImg
  {
+  background-color:white;
   width:64px;
   height:64px;
  }

@@ -7,11 +7,6 @@ var originalFontSize = 11.5;
 var tableModeFontSize = 14;
 var tableMode = false;
 
-function selectElement(element)
-{
-    element.border('2px pink .5');
-}
-
 function createTableElement(i,element,side)
 {
 	switch (side)
@@ -26,9 +21,14 @@ function createTableElement(i,element,side)
 			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:right;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
 			break;
 		}
-		case "topbottom":
+		case "top":
 		{
 			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
+			break;
+		}
+		case "bottom":
+		{
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
 			break;
 		}
 	}
@@ -36,7 +36,28 @@ function createTableElement(i,element,side)
         function(data){
 			if (data.status == 'OK')
 			{
+				$("#tableElementDiv"+ data.position).addClass('Pointer');
 				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChairOccupied.png");
+				$("#tableElementDiv"+ data.position).draggable({
+					containment: 'parent',
+					start:function (e,ui){
+						StartDragPerson($(this));
+					},
+					drag:function (e,ui){
+						DragPerson($(this),element);
+					},
+					stop:function (e,ui){
+						StopDragPerson($(this),element);
+					}
+				});
+				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
+					$("#tableElement"+ data.position).border('0px white 0');
+					personData = data;
+					FocusDetails($("#tableElementDiv"+ data.position),element,false);
+				});
+				$("#tableElementDiv"+ data.position).bind('click',function() {
+					selectPersonElement($("#tableElement"+ data.position));
+				});
 				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
 			}
 			else
@@ -72,19 +93,17 @@ function turnToRegularMode(element)
 	
 	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2] - 10, height: originalPropertiesArray[3] - 3 * originalFontSize},300, 'linear');
 		
-	//$("#" + elementImgs[0].id).width = 16;
-	//$("#" + elementImgs[0].id).height = 16;
-		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
+		$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
 		$("#tableElementDiv"+ parseInt(i + 1)).remove();
 	}
 	element.draggable( 'enable' );
-	element.resizable( 'enable' );
+	element.droppable( 'enable' );
 	tableMode = false;
 }
 
-function turnToTableMode(element)
+function turnToTableMode(element,saveTablePositionProperties)
 {
 	var originalElement = element;
 	var elementImgs = element.context.getElementsByTagName("img");
@@ -93,10 +112,13 @@ function turnToTableMode(element)
 	var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
 	var tableWidth = 0, tableHeight = 0, currentHorizontalPosition = 0, currentVerticalPosition = 0, heightOffset = 0, widthOffset = 0, i;
 	
-	originalPropertiesArray[0] =  element.position().top;
-	originalPropertiesArray[1] =  element.position().left;
-	originalPropertiesArray[2] =  element.width();
-	originalPropertiesArray[3] =  element.height();
+	if (saveTablePositionProperties)
+	{
+		originalPropertiesArray[0] =  element.position().top;
+		originalPropertiesArray[1] =  element.position().left;
+		originalPropertiesArray[2] =  element.width();
+		originalPropertiesArray[3] =  element.height();
+	}
 	
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -113,13 +135,18 @@ function turnToTableMode(element)
 	{
 		tableModeWidth = tableElementSize / 2 * (Math.round(elementMaxSize / 2) + 1);
 		tableModeHeight = tableElementSize / 2 * (Math.round(elementMaxSize / 2) - 1);
+		//for margin between persons
+		tableModeWidth	= tableModeWidth + (Math.round(elementMaxSize / 2) + 1);
+		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 2) - 1);
 	}
 	else
 	{
 		tableModeWidth = tableElementSize * Math.round(elementMaxSize / 4);
 		tableModeHeight = tableElementSize * Math.round(elementMaxSize / 4);
+		tableModeWidth	= tableModeWidth + (Math.round(elementMaxSize / 4));
+		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
-		
+	
 	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element);});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;
@@ -133,31 +160,40 @@ function turnToTableMode(element)
 		{
 			if (tableWidth + tableElementSize <=  tableModeWidth)
 			{
-				createTableElement(i,element,"topbottom");
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 - $("#tableElementDiv"+ parseInt(i + 1)).height() + heightOffset);
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *$("#tableElementDiv"+ parseInt(i + 1)).width());
+				if (heightOffset > 0)
+				{
+					createTableElement(i,element,"bottom");
+					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personBottom"+ parseInt(i + 1));
+				}
+				else
+				{
+					createTableElement(i,element,"top");
+					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personTop"+ parseInt(i + 1));
+				}
+				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 - $("#tableElementDiv"+ parseInt(i + 1)).height() + heightOffset - 2.5);
+				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *($("#tableElementDiv"+ parseInt(i + 1)).width() + 2.5));
 				tableWidth += $("#tableElementDiv"+ parseInt(i + 1)).width();
 				currentHorizontalPosition++;
 				$("#tableElementDiv"+ parseInt(i + 1)).css("top", $("#tableElementDiv"+ parseInt(i + 1)).position().top - $("#tableElementCaption"+ parseInt(i + 1)).height());
 				if (heightOffset > 0)
 				{
-					$("#tableElementCaption"+ parseInt(i + 1)).css("top", $("#tableElementDiv"+ parseInt(i + 1)).height());
-					$("#tableElementDiv"+ parseInt(i + 1)).css("top", $("#tableElementDiv"+ parseInt(i + 1)).position().top + 2);
+					$("#tableElementDiv"+ parseInt(i + 1)).css("top",$("#tableElementDiv"+ parseInt(i + 1)).position().top + tableElementSize - 6);
 				}
-				$("#tableElementDiv"+ parseInt(i + 1)).css("z-index", -1);
 			}
 			else if (tableHeight + tableElementSize <= tableModeHeight)
 			{
 				if (widthOffset < 0)
 				{
 					createTableElement(i,element,"left");
+					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personLeft"+ parseInt(i + 1));
 				}
 				else
 				{
 					createTableElement(i,element,"right");
+					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personRight"+ parseInt(i + 1));
 				}
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *$("#tableElement"+ parseInt(i + 1)).height());
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset);
+				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableElement"+ parseInt(i + 1)).height() + 2.5));
+				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset + 2.5);
 				tableHeight += tableElementSize;
 				currentVerticalPosition++;
 
@@ -180,7 +216,7 @@ function turnToTableMode(element)
 		}
 	}
 	element.draggable( 'disable' );
-	element.resizable( 'disable' );
+	element.droppable( 'disable' );
 	tableMode = true;
 }
 
@@ -192,7 +228,7 @@ $(document).ready(function() {
 	}
 	else
 	{
-		turnToTableMode($(this));
+		turnToTableMode($(this),true);
 	}
   });
 });

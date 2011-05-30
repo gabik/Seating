@@ -174,9 +174,47 @@ def get_element_item_at_position(request):
 		if (len(element_persons) > 0):
 			for person in element_persons:
 				if (int(person.position) == int(person_position)):
-					json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
+					json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email})
 					break
 	return HttpResponse(json_dump)
+	
+@login_required
+def swap_position(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		first_person_position = request.POST['first_position']
+		second_person_position = request.POST['second_position']
+		if (int(first_person_position) > 0 and int(second_person_position) > 0):
+			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
+			if (len(element_persons) > 0):
+				element_persons[0].position = int(second_person_position)
+				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
+				if (len(second_element_persons) > 0):
+					second_element_persons[0].position = int(first_person_position)
+					second_element_persons[0].save()
+				element_persons[0].save()
+				json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
 
-
+@login_required
+def save_person_element(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		person_position = request.POST['position']
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num))
+		if (len(element_persons) > 0):
+			for person in element_persons:
+				if (int(person.position) == int(person_position)):
+					person.guest_first_name = request.POST['first_name']
+					person.guest_last_name = request.POST['last_name']
+					person.phone_number = request.POST['phone_num']
+					person.guest_email = request.POST['person_email']
+					person.save()
+					json_dump = json.dumps({'status': "OK"})
+					break
+	return HttpResponse(json_dump)
 

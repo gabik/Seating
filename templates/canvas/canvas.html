@@ -5,6 +5,8 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
 
+<script type="text/javascript" src="/static/canvas/person.js">
+</script>
 <script type="text/javascript" src="/static/canvas/table.js">
 </script>
 <script type="text/javascript" src="/static/canvas/canvas.js">
@@ -38,7 +40,7 @@
 	<DIV id="main">
 		<div id="canvas-div">
 			{% for div in elements %}
-    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" >
+    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="Press Double Click For Edit Table">
 					<p id="Caption" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.caption}} </p>
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.current_sitting}}/{{div.max_sitting}}</p>
 					<table>
@@ -125,10 +127,6 @@
 								<option class="Property" value="20">20
 								<option class="Property" value="21">21
 								<option class="Property" value="22">22
-								<option class="Property" value="23">23
-								<option class="Property" value="24">24
-								<option class="Property" value="25">25
-								<option class="Property" value="26">26
 							</select>
 						</div>
 					</li>

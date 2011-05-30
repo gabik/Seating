@@ -2,6 +2,37 @@ var SelectedElem = "" ;
 var SelectedPerson = "" ;
 var startDradPosition = "";
 var undoElement = new Array(2);//[element,operation]
+var maxElementCapacity = 22;
+
+function setWidthAndHeight(element, newScale, lastScale)
+ {
+	var elementImgs = element.context.getElementsByTagName("img");
+	var elementCaption = element.context.getElementsByTagName("p");
+	
+	if (lastScale > 0)
+	{
+		scale =  (newScale - lastScale)  * 2;
+	}
+	else
+	{
+		scale =  (newScale - maxElementCapacity) * 2;
+	}
+
+	for (var i = 0; i < elementImgs.length ; i++)
+	{
+		var img = $("#"+ elementImgs[i].id);
+		
+		if (i > 0)
+		{
+			img.animate({ width:img.width() + scale / 3, height: img.height() + scale / 3},300, 'linear');
+		}
+		else
+		{
+			img.animate({ width:img.width() + scale, height: img.height() + scale},300, 'linear');
+		}
+	}
+	element.animate({ width:element.width() + scale, height: element.height() + scale},300, 'linear');
+}
 
 function getPositions(element)
  {
@@ -61,7 +92,6 @@ function saveElement(element)
          }, 'json');
 }
 
-
 function saveElementWithCaption(element,newCaption, newSize)
 {
        var elementCaption = element.context.getElementsByTagName("p");
@@ -76,6 +106,8 @@ function saveElementWithCaption(element,newCaption, newSize)
 			 function(data){
 			   if (data.status == 'OK')
 			   {
+			    var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			   	setWidthAndHeight(element,newSize,elementMaxSize);
 				 elementCaption[0].innerHTML = newCaption;
 				 var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
 				 elementCaption[1].innerHTML = sizeStr;
@@ -148,7 +180,10 @@ $(document).ready(function() {
     }
   }
   $(".DragDiv").after(function() {
-     reloadElementStatus($(this));
+     reloadElementStatus($(this)); 
+	 var elementCaption = $(this).context.getElementsByTagName("p");
+	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+	 setWidthAndHeight($(this),elementMaxSize,0);
   });
   $(".DragDiv").click( function() {
      selectElement($(this));
@@ -250,7 +285,10 @@ $(document).ready(function() {
           }
         }, 'json');
     } else {
-      alert ("Please select table");
+		if (!tableMode && !detailsMode)
+		{
+		  alert ("Please select table");
+		}
     }
   });
   $(".AddDiv").click( function() {
@@ -360,6 +398,7 @@ $(document).ready(function() {
   if (SelectedElem != "" ) {
     var caption = $("#ElementCaption").val();
 	var size = $("#ElementSize").val();
+	var elementCaption = SelectedElem.context.getElementsByTagName("p");
     saveElementWithCaption(SelectedElem,caption,size);
     }
   });
