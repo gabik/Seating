@@ -1,8 +1,11 @@
 # Create your views here.
+import xlrd
+from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
-from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm
+from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm
 from Seating.accounts.models import UserProfile, Partners, FloatingGuest
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
@@ -97,3 +100,39 @@ def readCSV(aFile, User):
 
 	except:
 		print ">>>>>>> read succes CSV!"
+
+@login_required
+def add_person(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		new_person = FloatingGuest(user=request.user, floatingguest_first_name=request.POST['first'], floatingguest_last_name=request.POST['last'])
+		new_person.save()
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+
+def handle_uploaded_file(f):
+	destination = open('/tmp/curfile.xls', 'wb+')
+	for chunk in f.chunks():
+		destination.write(chunk)
+	destination.close()
+
+@login_required
+def upload_file(request):
+	if request.method == 'POST':
+		form = UploadFileForm(request.POST, request.FILES)
+		if form.is_valid():
+			handle_uploaded_file(request.FILES['file'])
+			book = xlrd.open_workbook("/tmp/curfile.xls")
+			sh = book.sheet_by_index(0)
+			sheet = [] 
+			for r in range(sh.nrows)[0:]:
+    				sheet.append([sh.cell_value(r,0), sh.cell_value(r,1)])
+
+			return render_to_response('accounts/uploaded.html', {'sheet': sheet})
+	else:
+		form = UploadFileForm()
+	c= {}
+	c.update(csrf(request))
+	c['form'] = form
+	return render_to_response('accounts/upload.html', c)
+

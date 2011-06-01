@@ -72,8 +72,8 @@ def save_element(request):
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.x_cord = float(request.POST['X']);
 		single_element.y_cord = float(request.POST['Y']);
-		newCaption = ugettext(request.POST['caption']);
-		if newCaption != "":
+		if request.POST['caption'] != "":
+			newCaption = ugettext(request.POST['caption']);
 			single_element.caption = newCaption;
 		single_element.save()
 		json_dump = json.dumps({'status': "OK"})
@@ -115,7 +115,7 @@ def add_element(request):
 		table_kind = request.POST['kind']
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Table"+ str(max_num+i))
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Table"+ str(max_num+i), current_sitting=0, max_sitting=8)
 			single_element.save()
 		json_dump = json.dumps({'status': "OK", 'kind': table_kind})
 	return HttpResponse(json_dump)
