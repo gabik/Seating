@@ -6,7 +6,7 @@ from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm
-from Seating.accounts.models import UserProfile, Partners, FloatingGuest
+from Seating.accounts.models import UserProfile, Partners , Guest
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 
@@ -45,8 +45,8 @@ def create_user(request):
 			partners = partners_form.save(commit=False)
 			partners.userPartner = created_user
 			partners.save()
-			convertXLS2CSV(r"/tmp/list.xls")
-			readCSV(r"/tmp/list.csv", created_user)
+			'''convertXLS2CSV(r"/tmp/list.xls")
+			readCSV(r"/tmp/list.csv", created_user)'''
 			return HttpResponse('Thank you for your registration.<BR><a href=/accounts/login>Login</a>')
 	else:
 		userprofile_form = UserProfileForm()
@@ -54,6 +54,7 @@ def create_user(request):
 		partners_form = PartnersForm()
 	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form}, context_instance=RequestContext(request))
 	
+
 def convertXLS2CSV(aFile): 
 	'''converts a MS Excel file to csv w/ the same name in the same directory'''
 
@@ -94,8 +95,8 @@ def readCSV(aFile, User):
 
 		reader = csv.reader(open(aFile), dialect='excel')
 		for row in reader:
-			floatingGuest = FloatingGuest.objects.create(user = User, floatingguest_first_name = row[0], floatingguest_last_name = row[1])
-			floatingGuest.save()
+			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
+			guest.save()
 		print ">>>>>>> read succes CSV!"
 
 	except:

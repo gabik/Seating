@@ -1,7 +1,27 @@
  .DragDiv
  {
+  cursor:pointer;
   background-color:white;
   position:absolute;
+ }
+  .TableElementDiv
+ {
+  display:block;
+  position:absolute;
+ }
+ .Pointer
+ {
+   cursor:pointer;
+ }
+  .PersonDetailsDiv
+ {
+  position:absolute;
+  border:1px solid black;
+ }
+ .PersonDetailsArea
+ {
+  float:right;
+  background:#efefef;
  }
  .ElemImg
  {
@@ -24,10 +44,17 @@
   display:none;
   width:45px;
   border:1px solid #1c1c1c;
-  margin-top:50px;
+  margin-top:10px;
  }
 .AddPersonDiv
 {
+  direction:rtl;
+}
+.DelPersonDiv
+{
+  position:relative;
+  top:-25;
+  right:30;
   direction:rtl;
 }
 .AddPerson
@@ -36,25 +63,32 @@
 }
  .AddDiv
  {
-  width:20px;
-  height:20px;
   position:absolute;
-  left:35px;
-  top:0px;
+  left:5px;
+  top:3px;
  }
  .DelDiv
  {
-  width:20px;
-  height:20px;
   position:absolute;
-  left:85px;
+  left:35px;
+  top:5px;
+ }
+ .UndoDiv
+ {
+  position:absolute;
+  left:65px;
   top:3px;
  }
  .NumOfItemSelect
  {
-  position:absolute;
-  left:0px;
-  top:8px;
+  margin:5px 0px;
+ }
+ .PropertyText
+ { 
+  margin:0;
+  font-size:11.5;
+  font-weight:bold;
+  float:left;
  }
  .SaveStat
  {
@@ -62,26 +96,66 @@
   bottom:0;
   right:0;
  }
+ .StatusImg
+ {
+  min-width:5px;
+  min-height:5px;
+  width:16px;
+  height:16px;
+  max-width:25px;
+  max-height:25px;
+ }
+  .TableElemImg
+ {
+  background-color:white;
+  width:64px;
+  height:64px;
+ }
+  .TableElemText
+ {
+  position:relative;
+  font-size:11.5;
+ }
+ .floatRight
+ {
+   float:right;
+ }
+ .floatLeft
+ {
+   float:left;
+ }
+ .Properties-bar
+ {
+ }
+ .Property
+ {
+ }
  #right-bar
  {
   float:right;
+  width:125px;
  }
-
  #right-middel-bar
  {
-  position:absolute;
-  bottom:55;
-  right:8;
+  float:right;
+  width:125px;
+  margin-top:5px;
  }
-
  #canvas-div
  {
   float:left;
+  border:4px solid blue;
+  margin-top:28px;
+  width:90%;
+  height:94.5%;
  }
  #people-list
  {
+  margin-top:28px;
   border:2px solid blue;
   padding: 4px;
+  overflow: auto;
+  height:150px;
  }
  #people_list li
  {
@@ -94,4 +168,12 @@
   border:2px solid blue;
   padding: 4px;
  }
+ #ElementStatus
+ {
+  position:absolute;
+  right: 0;
+  top: 0;
+  z-index:1;
+ }
+ 
 
