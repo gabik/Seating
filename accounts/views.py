@@ -106,7 +106,7 @@ def readCSV(aFile, User):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		new_person = FloatingGuest(user=request.user, floatingguest_first_name=request.POST['first'], floatingguest_last_name=request.POST['last'])
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
 		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

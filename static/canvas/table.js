@@ -51,7 +51,7 @@ function createTableElement(i,element,side)
 					}
 				});
 				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElement"+ data.position).border('0px white 0');
+					//$("#tableElement"+ data.position).border('0px white 0');
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position),element,false);
 				});
@@ -76,11 +76,11 @@ function turnToRegularMode(element)
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	var i;
 	
-	originalElement.border('0px white 0');
+	//originalElement.border('0px white 0');
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
 		{
-			$(this).border('0px white 0');
+			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 1, function() {
 				// Animation complete.
 			});
@@ -95,7 +95,7 @@ function turnToRegularMode(element)
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
-		$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
+		//$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
 		$("#tableElementDiv"+ parseInt(i + 1)).remove();
 	}
 	element.draggable( 'enable' );
@@ -123,7 +123,7 @@ function turnToTableMode(element,saveTablePositionProperties)
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
 		{
-			$(this).border('0px white 0');
+			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).hide();
