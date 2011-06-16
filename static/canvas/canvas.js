@@ -4,6 +4,25 @@ var startDradPosition = "";
 var undoElement = new Array(2);//[element,operation]
 var maxElementCapacity = 22;
 
+function IsNumeric(sText)
+{
+   var ValidChars = "0123456789.";
+   var IsNumber=true;
+   var Char;
+
+ 
+   for (i = 0; i < sText.length && IsNumber == true; i++) 
+      { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) 
+         {
+         IsNumber = false;
+         }
+      }
+   return IsNumber;
+   
+}
+
 function setWidthAndHeight(element, newScale, lastScale)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
@@ -31,7 +50,13 @@ function setWidthAndHeight(element, newScale, lastScale)
 			img.animate({ width:img.width() + scale, height: img.height() + scale},300, 'linear');
 		}
 	}
-	element.animate({ width:element.width() + scale, height: element.height() + scale},300, 'linear');
+	element.animate({ width:element.width() + scale, height: element.height() + scale},300, 'linear', function()
+	{
+		if (lastScale > 0)
+		{
+			selectElement(element);
+		}
+	});
 }
 
 function getPositions(element)
@@ -95,29 +120,72 @@ function saveElement(element)
 function saveElementWithCaption(element,newCaption, newSize)
 {
        var elementCaption = element.context.getElementsByTagName("p");
+	   var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
 	   
 	   if (parseInt(elementCaption[1].firstChild.nodeValue.split("/", 1)) > parseInt(newSize))
 	   {
-           alert("Size is less then the minmum");
+           $.post('/canvas/personOnHigherPos/', {elem_num: element.context.id, new_size: parseInt(newSize) + 1},
+           function(data){
+           if (data.status == 'True')
+           { 
+				var answer = confirm("There Are Persons Sitting At Higher Position, Bring Then To Float List?");
+				if (answer)
+				{
+					   $.post('/canvas/floatPersonsFromPos/', {elem_num: element.context.id, new_size: parseInt(newSize)},
+					   function(dataPersons){
+					   if (dataPersons.status == 'OK')
+					   { 
+							var floating_persons = dataPersons.floating_persons.split(",",parseInt(dataPersons.numOfFloatingPersons) + 1);
+							for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
+							{
+								var full_name = floating_persons[i].split(" ",2);
+								
+								$("#people_list").append($('<li id="' + full_name[0] + '_' + full_name[1] +'"> ' + full_name[0] + ' ' + full_name[1] +' </li>'));
+							}
+							sizeStr = dataPersons.currentSitting + "/" + newSize;
+							$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
+						    function(dataSave){
+						    if (dataSave.status == 'OK')
+						    {
+								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
+								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+							   }else{
+								$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+							   }
+							}, 'json');
+					   }
+					   }, 'json');
+				}
+				else
+				{
+					updateElementScreenProperties(element);
+				}
+           }
+           }, 'json');
 	   }
 	   else
 	   {
-		   $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
-			 function(data){
-			   if (data.status == 'OK')
-			   {
-			    var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-			   	setWidthAndHeight(element,newSize,elementMaxSize);
-				 elementCaption[0].innerHTML = newCaption;
-				 var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
-				 elementCaption[1].innerHTML = sizeStr;
-				 reloadElementStatus(element);
-				 $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-			   }else{
-				 $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
-			   }
-			 }, 'json');
-		 }
+		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
+		  function(dataSave){
+		    if (dataSave.status == 'OK')
+		    {
+				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
+				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		    }else{
+				$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+		    }
+			}, 'json');
+		}
+}
+
+function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
+{
+	var elementCaption = element.context.getElementsByTagName("p");
+	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+	setWidthAndHeight(element,newSize,elementMaxSize);
+	elementCaption[0].innerHTML = newCaption;
+	elementCaption[1].innerHTML = sizeStr;
+	reloadElementStatus(element);
 }
 
 function selectElement(element)
@@ -158,6 +226,35 @@ function reloadElementStatus(element)
 	}
 }
 
+function pointTableAfterSearch(element)
+{
+	selectElement(element);
+	element.fadeTo(400, 0,function(){
+		element.fadeTo(400, 1,function(){
+		selectElement($(this));
+		});
+	});
+}
+
+function pointPersonAfterSearch(element, elementImg)
+{
+	selectPersonElement(elementImg);
+	element.fadeTo(400, 0,function(){
+		element.fadeTo(400, 1,function(){
+		selectPersonElement(elementImg);
+		});
+	});
+}
+
+function isThisPeopleTable(id)
+{
+	if(id.indexOf("round_pink") == -1 && id.indexOf("long_square") == -1)
+	{
+		return false;
+	}
+	return true;
+}
+
 $(document).ready(function() {
   var imgs,i;
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
@@ -183,7 +280,16 @@ $(document).ready(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-	 setWidthAndHeight($(this),elementMaxSize,0);
+	 var elementImgs = $(this).context.getElementsByTagName("img");
+	 if (isThisPeopleTable(elementImgs[0].id))
+     {
+		setWidthAndHeight($(this),elementMaxSize,0);
+	 }
+	 else
+	 {
+		 elementCaption[1].style.visibility = "hidden";
+	 }
+
   });
   $(".DragDiv").click( function() {
      selectElement($(this));
@@ -217,9 +323,15 @@ $(document).ready(function() {
   })
   $(".DragDiv").droppable({
     drop: function(e, ui ) {
+	  var elementImgs = $(this).context.getElementsByTagName("img");
+	  if (!isThisPeopleTable(elementImgs[0].id))
+	  {
+		return;
+	  }
       if ($Draged != "")
       {
       $last_drag = "OK";
+	  var table = $(this);
 	  var elementCaption = $(this).context.getElementsByTagName("p");
 	  var elementImgs = $(this).context.getElementsByTagName("img");
       $.post('/canvas/sit/', {table_id: $(this).context.id, person_id: $Draged.context.id},
@@ -241,16 +353,21 @@ $(document).ready(function() {
 			
 			elementSize = parseInt(elementSize) + 1;
 			elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
+			if (tableMode)
+			{
+				LoadPerson(table, data.free_position - 1);
+			}
           }else if (data.status == 'FULL')
           {
             $Draged.fadeTo(200, 1.0);
             alert ("Table is full");
+			$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
           }else{
             $Draged.fadeTo(200, 1.0);
             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
           }
         }, 'json');
-       }
+      }
     }
   });
   $("#people_list > li").draggable({
@@ -272,24 +389,60 @@ $(document).ready(function() {
       //alert($(this).context.id);
     }
   });
-  $(".DelDiv").click( function() {
-    if (SelectedElem != "" ) {
-      $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-      $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-        function(data){
-          if (data.status == 'OK')
-          { 
-              undoElement[0] = SelectedElem;
-              undoElement[1] = "add"; 
-              location.reload();
-          }
-        }, 'json');
-    } else {
-		if (!tableMode && !detailsMode)
+  $("#people_list > li").dblclick( function(){
+  		var current_person = $(this);
+		if (tableMode)
 		{
-		  alert ("Please select table");
+			var full_name = "";
+			full_name = $(this).context.id.split("_", 2);
+
+			var first_Name = full_name[0];
+			var last_Name = full_name[1];
+			var selectedTable = (SelectedElem == "" ? SelectedTable : SelectedElem);
+			$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
+			function(data)
+			{
+				if (data.status == 'OK')
+				{
+					personData = data;
+					FocusDetails(current_person,selectedTable,true);
+				}
+			},'json');
 		}
-    }
+		else
+		{
+			FocusDetailsFromFloatList(current_person,true);
+		}
+   });
+  $(".DelDiv").click( function() {
+   	var answer = confirm("Are You Sure To Delete Element?");
+	if (answer)
+	{
+		if (tableMode)
+		{
+			DeletePerson();
+		}
+		else
+		{
+			if (SelectedElem != "" ) {
+			  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+					function(data){
+				  if (data.status == 'OK')
+				  { 
+					  undoElement[0] = SelectedElem;
+					  undoElement[1] = "add"; 
+					  location.reload();
+				  }
+				}, 'json');
+			} else {
+				if (!tableMode && !detailsMode)
+				{
+				  alert ("Please select table");
+				}
+			}
+		}
+	}
   });
   $(".AddDiv").click( function() {
     $('ul.AddMenu').slideToggle('medium');
@@ -347,7 +500,8 @@ $(document).ready(function() {
 		});
   });
   $(".DelPersonDiv").click( function() {
-    if (SelectedPerson != "")
+  	var answer = confirm("Are You Sure To Delete Person?");
+    if (SelectedPerson != "" && answer)
 	{
 	   $.post('/canvas/delfp/', {person_id: SelectedPerson.context.id},
        function(data){
@@ -391,9 +545,102 @@ $(document).ready(function() {
   $(document).keypress(function(e) {
    var code = (e.keyCode ? e.keyCode : e.which);
    if(code == 46) { //Del keycode
-       $(".DelDiv").click();
+		$(".DelDiv").click();
    }
   });
+  $("#SearchCaption").keypress(function() {
+  	if ($("#SearchBy").val() == "Table")
+	{
+		 $.post('/canvas/findTables/', {name: $(this).val()},
+		 function(data){
+		   if (data.status == 'OK')
+		   {
+				searchResult =	data.objects.split(",",data.numOfResults + 1);
+				$("input#SearchCaption").autocomplete({
+					source: searchResult
+				});
+		   }
+		   }, 'json');
+	}
+	else
+	{
+		$.post('/canvas/findPersons/', {name: $(this).val()},
+		 function(data){
+		   if (data.status == 'OK')
+		   {
+				searchResult =	data.objects.split(",",data.numOfResults + 1);
+				$("input#SearchCaption").autocomplete({
+					source: searchResult
+				});
+		   }
+		   }, 'json');
+	}
+  });
+  $("#SearchButton").click( function() {
+	if ($("#SearchBy").val() == "Table")
+	{
+		var currentSelectedElement = SelectedTable;
+		$(".DragDiv").each(function(i) {
+			var elementCaption = $(this).context.getElementsByTagName("p");
+			
+			if (elementCaption[0].firstChild.nodeValue.trim().toLowerCase() == $("#SearchCaption").val().trim().toLowerCase()) {
+				var findElement = $(this);
+				if (detailsMode)
+				{
+						var event = jQuery.Event("dblclick");
+						event.user = "SearchTable";
+						event.pass = $(this).context.id;
+						$("#personImg").trigger(event);
+				}
+				else if (tableMode)
+				{
+					proccedSearchOnRegluarMode($(this).context.id);
+				}
+				else
+				{
+					pointTableAfterSearch(findElement);
+				}
+				return false;
+			}
+		});
+	}
+	else
+	{
+		var full_name = $("#SearchCaption").val().split(" ",2);
+		$.post('/canvas/getItem/', {position: "", firstName: full_name[0], lastName: full_name[1] },
+        function(data){
+			if (data.status == 'OK')
+			{
+				if (data.position > 0)
+				{
+					if (detailsMode)
+					{
+						var event = jQuery.Event("dblclick");
+						event.user = "SearchGuest";
+						event.pass = data.elem_num +"," + data.position;
+						$("#personImg").trigger(event);
+					}
+					else if (tableMode)
+					{
+						var newData = data.elem_num +"," + data.position + ",Selected"
+						proccedSearchOnTableMode(newData.split(",",3));
+					}
+					else
+					{
+						var event = jQuery.Event("dblclick");
+						event.user = "SearchGuest";
+						event.pass = data.elem_num +"," + data.position;
+						$("#DragDiv-" + data.elem_num).trigger(event);
+					}
+				}
+				else
+				{
+					$("#"+ full_name[0] +"_"+ full_name[1]).click();
+				}
+			}
+			}, 'json');
+	}
+	});
   $("#ElementPropertiesSaveButton").click( function() { 
   if (SelectedElem != "" ) {
     var caption = $("#ElementCaption").val();
@@ -410,5 +657,13 @@ $(document).ready(function() {
       }
     }
   });
+  
+  $(document).mouseup(function(e) {
+   if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
+      if (SelectedElem != "" ) {
+           SelectedElem.border('2px pink .5');
+      }
+    }
+	});
 });
 

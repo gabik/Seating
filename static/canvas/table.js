@@ -32,43 +32,10 @@ function createTableElement(i,element,side)
 			break;
 		}
 	}
-		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
-        function(data){
-			if (data.status == 'OK')
-			{
-				$("#tableElementDiv"+ data.position).addClass('Pointer');
-				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChairOccupied.png");
-				$("#tableElementDiv"+ data.position).draggable({
-					containment: 'parent',
-					start:function (e,ui){
-						StartDragPerson($(this));
-					},
-					drag:function (e,ui){
-						DragPerson($(this),element);
-					},
-					stop:function (e,ui){
-						StopDragPerson($(this),element);
-					}
-				});
-				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElement"+ data.position).border('0px white 0');
-					personData = data;
-					FocusDetails($("#tableElementDiv"+ data.position),element,false);
-				});
-				$("#tableElementDiv"+ data.position).bind('click',function() {
-					selectPersonElement($("#tableElement"+ data.position));
-				});
-				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
-			}
-			else
-			{
-				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChair.png");
-				document.getElementById("tableElementCaption" + data.position).innerHTML = "position " + data.position + "</br>empty";
-			}
-			}, 'json');
+	LoadPerson(element, i);
 }
 
-function turnToRegularMode(element)
+function turnToRegularMode(element,event)
 {
 	var originalElement = element;
 	var elementImgs = element.context.getElementsByTagName("img");
@@ -83,6 +50,24 @@ function turnToRegularMode(element)
 			$(this).border('0px white 0');
 			$(this).fadeTo(400, 1, function() {
 				// Animation complete.
+				if ($(".DragDiv").length - 2 == i)
+				{	
+					if (event != undefined)
+					{
+						if (event.user == "SearchGuest")
+						{
+							var data = event.pass.split(",",2);
+							data = data[0] + "," + data[1] +",New";
+							
+							proccedSearchOnTableMode(data.split(",",3));
+						}
+						else if (event.user == "SearchTable")
+						{
+							pointTableAfterSearch($("#" + event.pass));
+							$("#" + event.pass).click();
+						}
+					}
+				}
 			});
 		}
 	});
@@ -99,11 +84,13 @@ function turnToRegularMode(element)
 		$("#tableElementDiv"+ parseInt(i + 1)).remove();
 	}
 	element.draggable( 'enable' );
-	element.droppable( 'enable' );
+	SelectedPerson = "";
+	personData = "";
+	SelectedTable = "";
 	tableMode = false;
 }
 
-function turnToTableMode(element,saveTablePositionProperties)
+function turnToTableMode(element,saveTablePositionProperties,event)
 {
 	var originalElement = element;
 	var elementImgs = element.context.getElementsByTagName("img");
@@ -119,6 +106,8 @@ function turnToTableMode(element,saveTablePositionProperties)
 		originalPropertiesArray[2] =  element.width();
 		originalPropertiesArray[3] =  element.height();
 	}
+	
+	element.border('0px white 0');
 	
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -216,19 +205,58 @@ function turnToTableMode(element,saveTablePositionProperties)
 		}
 	}
 	element.draggable( 'disable' );
-	element.droppable( 'disable' );
+	SelectedTable = element;
 	tableMode = true;
+	if (event != undefined)
+	{
+		if (event.user == "SearchGuest")
+		{
+			var data = event.pass.split(",",2);
+			
+			data = data[0] + "," + data[1] + ",New";
+			proccedSearchOnTableMode(data.split(",",3));
+		}
+	}
+}
+
+function proccedSearchOnRegluarMode(data)
+{
+	var currentSelectedTable = SelectedTable;
+	
+	if (currentSelectedTable == "")
+	{
+		currentSelectedTable = SelectedElem;
+	}
+	if (currentSelectedTable != "")
+	{
+		if (currentSelectedTable.context.id.trim().toLowerCase() != data.trim().toLowerCase())
+		{
+			var event = jQuery.Event("dblclick");
+			event.user = "SearchTable";
+			event.pass = data;
+					
+			currentSelectedTable.trigger(event);
+		}
+		else
+		{
+			pointTableAfterSearch($("#" + data));
+		}
+	}
 }
 
 $(document).ready(function() {
-  $(".DragDiv").dblclick( function() {
-	if (tableMode)
-	{
-		turnToRegularMode($(this));
-	}
-	else
-	{
-		turnToTableMode($(this),true);
+  $(".DragDiv").dblclick( function(event) {
+  	 var elementImgs = $(this).context.getElementsByTagName("img");
+	 if (isThisPeopleTable(elementImgs[0].id))
+     {
+		if (tableMode)
+		{
+			turnToRegularMode($(this),event);
+		}
+		else
+		{
+			turnToTableMode($(this),true,event);
+		}
 	}
   });
 });

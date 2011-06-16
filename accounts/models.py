@@ -29,3 +29,5 @@ class Guest(models.Model):
 	guest_last_name = models.CharField(max_length=30)
 	phone_number = models.CharField(max_length=30)
 	guest_email = models.EmailField()
+	present_amount = models.IntegerField(default=0)
+	facebook_account = models.CharField(max_length=30, blank=True)
