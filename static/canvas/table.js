@@ -33,6 +33,40 @@ function createTableElement(i,element,side)
 		}
 	}
 	LoadPerson(element, i);
+		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
+        function(data){
+			if (data.status == 'OK')
+			{
+				$("#tableElementDiv"+ data.position).addClass('Pointer');
+				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChairOccupied.png");
+				$("#tableElementDiv"+ data.position).draggable({
+					containment: 'parent',
+					start:function (e,ui){
+						StartDragPerson($(this));
+					},
+					drag:function (e,ui){
+						DragPerson($(this),element);
+					},
+					stop:function (e,ui){
+						StopDragPerson($(this),element);
+					}
+				});
+				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
+					//$("#tableElement"+ data.position).border('0px white 0');
+					personData = data;
+					FocusDetails($("#tableElementDiv"+ data.position),element,false);
+				});
+				$("#tableElementDiv"+ data.position).bind('click',function() {
+					selectPersonElement($("#tableElement"+ data.position));
+				});
+				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
+			}
+			else
+			{
+				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChair.png");
+				document.getElementById("tableElementCaption" + data.position).innerHTML = "position " + data.position + "</br>empty";
+			}
+			}, 'json');
 }
 
 function turnToRegularMode(element,event)
@@ -43,11 +77,11 @@ function turnToRegularMode(element,event)
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	var i;
 	
-	originalElement.border('0px white 0');
+	//originalElement.border('0px white 0');
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
 		{
-			$(this).border('0px white 0');
+			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 1, function() {
 				// Animation complete.
 				if ($(".DragDiv").length - 2 == i)
@@ -80,7 +114,7 @@ function turnToRegularMode(element,event)
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
-		$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
+		//$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
 		$("#tableElementDiv"+ parseInt(i + 1)).remove();
 	}
 	element.draggable( 'enable' );
@@ -112,7 +146,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
 		{
-			$(this).border('0px white 0');
+			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).hide();

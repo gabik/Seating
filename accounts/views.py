@@ -106,7 +106,7 @@ def readCSV(aFile, User):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		new_person = FloatingGuest(user=request.user, floatingguest_first_name=request.POST['first'], floatingguest_last_name=request.POST['last'])
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
 		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
@@ -126,8 +126,16 @@ def upload_file(request):
 			book = xlrd.open_workbook("/tmp/curfile.xls")
 			sh = book.sheet_by_index(0)
 			sheet = [] 
-			for r in range(sh.nrows)[0:]:
-    				sheet.append([sh.cell_value(r,0), sh.cell_value(r,1)])
+			for r in range(sh.nrows)[3:]:
+						privName=sh.cell_value(r,0)
+						lastName=sh.cell_value(r,1)
+						phoneNum=sh.cell_value(r,2)
+						mailAddr=sh.cell_value(r,3)
+						faceAcnt=sh.cell_value(r,4)
+						groupNme=sh.cell_value(r,5)
+						giftAmnt=sh.cell_value(r,6)
+						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						new_person.save()
 
 			return render_to_response('accounts/uploaded.html', {'sheet': sheet})
 	else:
