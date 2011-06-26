@@ -25,6 +25,7 @@ function LoadPerson(element, i)
 				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChairOccupied.png");
 				$("#tableElementDiv"+ data.position).draggable({
 					containment: 'parent',
+					cursor: "move",
 					start:function (e,ui){
 						StartDragPerson($(this));
 					},

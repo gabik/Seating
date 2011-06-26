@@ -50,7 +50,7 @@ function turnToRegularMode(element,event)
 			$(this).border('0px white 0');
 			$(this).fadeTo(400, 1, function() {
 				// Animation complete.
-				if ($(".DragDiv").length - 2 == i)
+				if ($(".DragDiv").length - 2 <= i)
 				{	
 					if (event != undefined)
 					{
@@ -66,6 +66,7 @@ function turnToRegularMode(element,event)
 							pointTableAfterSearch($("#" + event.pass));
 							$("#" + event.pass).click();
 						}
+						event = undefined;
 					}
 				}
 			});
@@ -256,6 +257,18 @@ $(document).ready(function() {
 		else
 		{
 			turnToTableMode($(this),true,event);
+		}
+	}
+	else
+	{
+		if (event != undefined)
+		{
+			if (event.user == "SearchTable")
+			{
+				var data = event.pass;
+				pointTableAfterSearch($("#" + data));
+				
+			}
 		}
 	}
   });

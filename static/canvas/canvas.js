@@ -3,6 +3,8 @@ var SelectedPerson = "" ;
 var startDradPosition = "";
 var undoElement = new Array(2);//[element,operation]
 var maxElementCapacity = 22;
+var multiSelection = false;
+var isMousePressFromCanvas = false;
 
 function IsNumeric(sText)
 {
@@ -104,9 +106,50 @@ function collisionWithOtherElement(element)
 	}
 }
 
+//Check if 2 objects intersect
+function collisionWithOtherElementById(elementId)
+{
+	var match = false;
+	var pos = getPositions(document.getElementById(elementId));
+	$(".DragDiv").each(function(i) {
+		if (elementId != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function saveElement(element)
 {
        $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: "" ,size: ""},
+         function(data){
+           if (data.status == 'OK')
+           {
+             $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+           }else{
+             $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+           }
+         }, 'json');
+}
+
+function saveElementByID(elementId)
+{
+       $.post('/canvas/save/', {elem_num: elementId, X: $("#"+elementId).position().left , Y: $("#"+elementId).position().top ,caption: "" ,size: ""},
          function(data){
            if (data.status == 'OK')
            {
@@ -194,6 +237,7 @@ function selectElement(element)
       SelectedElem.border('0px white 0');
     }
     element.border('2px pink .5');
+	multiSelection = false;
     SelectedElem = element;
 	updateElementScreenProperties(element);
 }
@@ -296,6 +340,7 @@ $(document).ready(function() {
   });
   $(".DragDiv").draggable({
      containment: 'parent',
+	 cursor: "move",
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
        startDradPosition = $(this).position();
@@ -374,6 +419,7 @@ $(document).ready(function() {
     //snap: true,
     //snapMode: 'inner',
     helper: 'clone',
+	cursor: "move",
     start: function (e, ui){
       //$(this).css("list-style-image", 'url("http://www.veryicon.com/icon/preview/Movie%20&%20TV/Super%20Heroes/Spider%20man%20Icon.jpg")');
       $last_drag = "ER";
@@ -649,14 +695,6 @@ $(document).ready(function() {
     saveElementWithCaption(SelectedElem,caption,size);
     }
   });
-  $(document).click( function(e) {
-    if (!($(e.target).hasClass('ElemImg'))&&!($(e.target).hasClass('Property'))) {
-      if (SelectedElem != "" ) {
-        SelectedElem.border('0px white 0');
-        SelectedElem = "";
-      }
-    }
-  });
   
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
@@ -664,6 +702,7 @@ $(document).ready(function() {
            SelectedElem.border('2px pink .5');
       }
     }
+	isMousePressFromCanvas = false;
 	});
 });
 

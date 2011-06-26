@@ -1,3 +1,16 @@
+  .CanvasDiv
+ {
+  float:left;
+  border:4px solid blue;
+  margin-top:28px;
+  width:88.5%;
+  height:94.5%;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+ }
  .DragDiv
  {
   cursor:pointer;
@@ -124,6 +137,13 @@
  {
    float:left;
  }
+  .SelectionRectangle
+  {
+  background:purple;
+  opacity:0.35;
+  border:2px groove;
+  position:absolute;
+  }
  .Properties-bar
  {
  }
@@ -140,14 +160,6 @@
   float:right;
   width:125px;
   margin-top:5px;
- }
- #canvas-div
- {
-  float:left;
-  border:4px solid blue;
-  margin-top:28px;
-  width:90%;
-  height:94.5%;
  }
  #people-list
  {
