@@ -1,4 +1,6 @@
 # Create your views here.
+from tempfile import TemporaryFile
+from xlwt import Workbook, Style
 import xlrd
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
@@ -124,17 +126,22 @@ def upload_file(request):
 		if form.is_valid():
 			handle_uploaded_file(request.FILES['file'])
 			book = xlrd.open_workbook("/tmp/curfile.xls")
+			shX = book.sheet_by_index(1)
+			starting_row = shX.cell_value(0,0)
+			if starting_row == 0 : 
+				starting_row = 3
 			sh = book.sheet_by_index(0)
 			sheet = [] 
-			for r in range(sh.nrows)[3:]:
-						privName=sh.cell_value(r,0)
-						lastName=sh.cell_value(r,1)
-						phoneNum=sh.cell_value(r,2)
-						mailAddr=sh.cell_value(r,3)
-						faceAcnt=sh.cell_value(r,4)
-						groupNme=sh.cell_value(r,5)
-						giftAmnt=sh.cell_value(r,6)
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+			for r in range(sh.nrows)[starting_row:]:
+				privName=sh.cell_value(r,0)
+				lastName=sh.cell_value(r,1)
+				phoneNum=sh.cell_value(r,2)
+				mailAddr=sh.cell_value(r,3)
+				faceAcnt=sh.cell_value(r,4)
+				groupNme=sh.cell_value(r,5)
+				giftAmnt=sh.cell_value(r,6)
+				if privName <> "" or lastName <> "" :
+					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
 						new_person.save()
 
 			return render_to_response('accounts/uploaded.html', {'sheet': sheet})
@@ -145,3 +152,42 @@ def upload_file(request):
 	c['form'] = form
 	return render_to_response('accounts/upload.html', c)
 
+@login_required
+def download_excel(request):
+	Guests = Guest.objects.filter(user=request.user)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	row_num = 0
+	row1 = sheet1.row(row_num)
+	row1.write(0, 'First name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, 'Last name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, 'Phone numer', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, 'E-mail', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, 'Facebook', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, 'Group', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row_num+=1
+	for g in Guests:
+		row1 = sheet1.row(row_num)
+		row1.write(0,g.guest_first_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(1,g.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.set_cell_text(2,g.phone_number, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(3,g.guest_email, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(4,g.facebook_account, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		ggroup='' #Replacing g.group
+		row1.write(5,ggroup, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(6,g.present_amount, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row_num+=1
+	sheet1.col(0).width = 4000
+	sheet1.col(1).width = 4000
+	sheet1.col(2).width = 5000
+	sheet1.col(3).width = 9000
+	sheet1.col(4).width = 5000
+	sheet1.col(5).width = 4000
+	sheet1.col(6).width = 4000
+	sheet2 = book.add_sheet('X')
+	sheet2.write(0,0,row_num)
+	book.save('static/excel_output/guests.xls')
+	book.save(TemporaryFile())
+	return render_to_response('accounts/download_excel.html')
