@@ -15,6 +15,16 @@ function selectPersonElement(element)
 	element.border('2px pink .5');
 }
 
+function addPersonToFloatList(first_name,last_name)
+{
+    $.post('/accounts/add_person/', {first: first_name, last: last_name},
+      function(data){
+        if (data.status == 'OK')
+        {
+              location.reload();
+        }
+      }, 'json');
+}
 function LoadPerson(element, i)
 {
 		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
@@ -658,11 +668,11 @@ function DeletePerson()
 		  reloadElementStatus(SelectedTable);
 		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "position " + newPositionNum + "</br>empty";
 		  $("#tableElement" + personData.position).attr("src", "/static/canvas/images/WeddingChair.png");
-		  $("#people_list").append($('<li id="' + personData.first_name + '_' + personData.last_name +'"> ' + personData.first_name + ' ' + personData.last_name +' </li>'));
 		  SelectedPerson.border('0px white 0');
 		  selectPersonElement($("#tableElement" + personData.position));
 		  SelectedPerson = "";
           $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		  location.reload();//		  addPersonToFloatList(personData.first_name,personData.last_name);
         }else{
           $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
         }

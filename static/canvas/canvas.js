@@ -179,12 +179,12 @@ function saveElementWithCaption(element,newCaption, newSize)
 					   if (dataPersons.status == 'OK')
 					   { 
 							var floating_persons = dataPersons.floating_persons.split(",",parseInt(dataPersons.numOfFloatingPersons) + 1);
-							for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
-							{
-								var full_name = floating_persons[i].split(" ",2);
-								
-								$("#people_list").append($('<li id="' + full_name[0] + '_' + full_name[1] +'"> ' + full_name[0] + ' ' + full_name[1] +' </li>'));
-							}
+							//for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
+							//{
+							//	var full_name = floating_persons[i].split(" ",2);
+
+							//	addPersonToFloatList(full_name[0],full_name[1]);
+							//}
 							sizeStr = dataPersons.currentSitting + "/" + newSize;
 							$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
 						    function(dataSave){
@@ -192,6 +192,7 @@ function saveElementWithCaption(element,newCaption, newSize)
 						    {
 								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+								location.reload();
 							   }else{
 								$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 							   }
@@ -462,7 +463,7 @@ $(document).ready(function() {
    });
   $(".DelDiv").click( function() {
    	var answer = confirm("Are You Sure To Delete Element?");
-	if (answer)
+	if (answer != undefined && answer)
 	{
 		if (tableMode)
 		{
@@ -568,13 +569,7 @@ $(document).ready(function() {
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
-    $.post('/accounts/add_person/', {first: first_name, last: last_name},
-      function(data){
-        if (data.status == 'OK')
-        {
-              location.reload();
-        }
-      }, 'json');
+	addPersonToFloatList(first_name,last_name);
   });
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');
