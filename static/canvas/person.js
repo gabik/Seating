@@ -15,6 +15,22 @@ function selectPersonElement(element)
 	element.border('2px pink .5');
 }
 
+function enableDetailsMode()
+{
+	detailsMode = true;
+  $("#ElementPropertiesSaveButton").attr('disabled', 'disabled');
+  $("#ElementCaption").attr('disabled', 'disabled');
+  $("#ElementSize").attr('disabled', 'disabled');
+}
+
+function disableDetailsMode()
+{
+	detailsMode = false;
+  $("#ElementPropertiesSaveButton").removeAttr('disabled');
+  $("#ElementCaption").removeAttr('disabled');
+  $("#ElementSize").removeAttr('disabled');
+}
+
 function addPersonToFloatList(first_name,last_name)
 {
     $.post('/accounts/add_person/', {first: first_name, last: last_name},
@@ -117,7 +133,7 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 				});
 				personData = data;
 				reLoadDetails(personElement);
-				detailsMode = true;
+				enableDetailsMode();
 			}
 		});
 	}
@@ -155,7 +171,7 @@ function CloseFocusDetailsFromFloatList(event)
 			});
 			PersonLastPosition[0] = "";
 			PersonLastPosition[1] = "";
-			detailsMode = false;
+			disableDetailsMode();
 			personData = "";
 		});
 	});
@@ -185,7 +201,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 		reLoadDetails(personElement);
 		hideTableElementDiv();
 		tableMode = false;
-		detailsMode = true;
+		enableDetailsMode();
 	}
 	else
 	{
@@ -194,11 +210,14 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 			$("#person").animate({top: PersonLastPosition[0],left: PersonLastPosition[1],width: 1, height: 1},300, 'linear', function() {
 				$("#person").remove();
 				SelectedTable.fadeTo(400, 1,function(){
-					var search = true;
 					$(".TableElementDiv").each(function(i) {
 						$(this).fadeTo(400, 1,function(){
 							if ($(".DragDiv").length - 1 == i)
 								{	
+									if (SelectedTable != "")
+									{
+										selectElement(SelectedTable);
+									}
 									if (newEvent != undefined)
 									{
 										if (newEvent.user == "SearchGuest")
@@ -220,7 +239,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 				PersonLastPosition[0] = "";
 				PersonLastPosition[1] = "";
 				tableMode = true;
-				detailsMode = false;
+				disableDetailsMode();
 			});
 		});
 		

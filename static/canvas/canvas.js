@@ -321,6 +321,9 @@ $(document).ready(function() {
        document.getElementById(imgs[i].id).style.visibility = "hidden";
     }
   }
+  $("#ElementPropertiesSaveButton").removeAttr('disabled');
+  $("#ElementCaption").removeAttr('disabled');
+  $("#ElementSize").removeAttr('disabled');
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
@@ -684,10 +687,19 @@ $(document).ready(function() {
 	});
   $("#ElementPropertiesSaveButton").click( function() { 
   if (SelectedElem != "" ) {
-    var caption = $("#ElementCaption").val();
-	var size = $("#ElementSize").val();
-	var elementCaption = SelectedElem.context.getElementsByTagName("p");
-    saveElementWithCaption(SelectedElem,caption,size);
+    if (tableMode)
+	{
+		var event = jQuery.Event("dblclick");
+		event.user = "SaveProperyTable";
+		SelectedElem.trigger(event);
+	}
+	else
+	{
+		var caption = $("#ElementCaption").val();
+		var size = $("#ElementSize").val();
+		var elementCaption = SelectedElem.context.getElementsByTagName("p");
+		saveElementWithCaption(SelectedElem,caption,size);
+	}
     }
   });
   

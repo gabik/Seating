@@ -33,40 +33,6 @@ function createTableElement(i,element,side)
 		}
 	}
 	LoadPerson(element, i);
-		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
-        function(data){
-			if (data.status == 'OK')
-			{
-				$("#tableElementDiv"+ data.position).addClass('Pointer');
-				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChairOccupied.png");
-				$("#tableElementDiv"+ data.position).draggable({
-					containment: 'parent',
-					start:function (e,ui){
-						StartDragPerson($(this));
-					},
-					drag:function (e,ui){
-						DragPerson($(this),element);
-					},
-					stop:function (e,ui){
-						StopDragPerson($(this),element);
-					}
-				});
-				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					//$("#tableElement"+ data.position).border('0px white 0');
-					personData = data;
-					FocusDetails($("#tableElementDiv"+ data.position),element,false);
-				});
-				$("#tableElementDiv"+ data.position).bind('click',function() {
-					selectPersonElement($("#tableElement"+ data.position));
-				});
-				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
-			}
-			else
-			{
-				$("#tableElement"+ data.position).attr("src", "/static/canvas/images/WeddingChair.png");
-				document.getElementById("tableElementCaption" + data.position).innerHTML = "position " + data.position + "</br>empty";
-			}
-			}, 'json');
 }
 
 function turnToRegularMode(element,event)
@@ -106,7 +72,14 @@ function turnToRegularMode(element,event)
 			});
 		}
 	});
-	element.animate({ top: originalPropertiesArray[0], left: originalPropertiesArray[1], width: originalPropertiesArray[2], height: originalPropertiesArray[3]},300, 'linear', function() { selectElement(element);});
+	element.animate({ top: originalPropertiesArray[0], left: originalPropertiesArray[1], width: originalPropertiesArray[2], height: originalPropertiesArray[3]},300, 'linear', function() {
+	if (event.user == "SaveProperyTable")
+	{
+		$("#ElementPropertiesSaveButton").click();
+		event = undefined;
+	}
+	selectElement(element);
+	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;
 	elementCaption[1].style.fontSize= originalFontSize;
