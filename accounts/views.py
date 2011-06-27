@@ -1,4 +1,5 @@
 # Create your views here.
+import random
 from tempfile import TemporaryFile
 from xlwt import Workbook, Style
 import xlrd
@@ -43,6 +44,7 @@ def create_user(request):
 			userprofile = userprofile_form.save(commit=False)
 			userprofile.user = created_user
 			userprofile.occasion_date = user_clean_data['occasiondate'];
+			userprofile.excel_hash = 'New'
 			userprofile.save()
 			partners = partners_form.save(commit=False)
 			partners.userPartner = created_user
@@ -128,11 +130,14 @@ def upload_file(request):
 			book = xlrd.open_workbook("/tmp/curfile.xls")
 			shX = book.sheet_by_index(1)
 			starting_row = shX.cell_value(0,0)
+			cur_hash = shX.cell_value(0,1)
+			cur_user = UserProfile.objects.get(user=request.user)
+			if cur_user.excel_hash != cur_hash : return 'Error'
 			if starting_row == 0 : 
 				starting_row = 3
 			sh = book.sheet_by_index(0)
 			sheet = [] 
-			for r in range(sh.nrows)[starting_row:]:
+			for r in range(sh.nrows)[int(starting_row):]:
 				privName=sh.cell_value(r,0)
 				lastName=sh.cell_value(r,1)
 				phoneNum=sh.cell_value(r,2)
@@ -142,7 +147,10 @@ def upload_file(request):
 				giftAmnt=sh.cell_value(r,6)
 				if privName <> "" or lastName <> "" :
 					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
-						new_person.save()
+					new_person.save()
+				
+			cur_user.excel_hash='Locked'
+			cur_user.save()
 
 			return render_to_response('accounts/uploaded.html', {'sheet': sheet})
 	else:
@@ -188,6 +196,12 @@ def download_excel(request):
 	sheet1.col(6).width = 4000
 	sheet2 = book.add_sheet('X')
 	sheet2.write(0,0,row_num)
+	random.seed()
+	hash = random.getrandbits(128)
+	sheet2.write(0,1,str(hash))	
 	book.save('static/excel_output/guests.xls')
 	book.save(TemporaryFile())
+	cur_user = UserProfile.objects.get(user=request.user)
+	cur_user.excel_hash=str(hash)
+	cur_user.save()
 	return render_to_response('accounts/download_excel.html')

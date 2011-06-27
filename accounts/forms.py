@@ -42,7 +42,7 @@ class UserForm(forms.Form):
 class UserProfileForm(ModelForm):
         class Meta:
                 model = UserProfile
-                exclude = ('user','occasion_date')
+                exclude = ('user','occasion_date', 'excel_hash')
 				
 class PartnersForm(ModelForm):
          class Meta:

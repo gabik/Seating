@@ -5,6 +5,7 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
         user = models.ForeignKey(User, unique=True)
 	phone_number = models.CharField(max_length=30)
+	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
 	
 class Partners(models.Model):
