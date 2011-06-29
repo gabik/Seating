@@ -9,7 +9,7 @@ from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm
-from Seating.accounts.models import UserProfile, Partners , Guest
+from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 
@@ -121,6 +121,13 @@ def handle_uploaded_file(f):
 		destination.write(chunk)
 	destination.close()
 
+def check_person(first, last, list):
+	for i in list:
+		if i.guest_first_name == first and i.guest_last_name == last:
+			return True
+	
+	return False
+
 @login_required
 def upload_file(request):
 	if request.method == 'POST':
@@ -132,7 +139,10 @@ def upload_file(request):
 			starting_row = shX.cell_value(0,0)
 			cur_hash = shX.cell_value(0,1)
 			cur_user = UserProfile.objects.get(user=request.user)
-			if cur_user.excel_hash != cur_hash : return 'Error'
+			cur_list = Guest.objects.filter(user=request.user)
+			DupGuest.objects.filter(user=request.user).delete()
+			duplicate_list = []
+			if cur_user.excel_hash != cur_hash : return HttpResponse('Hash not match - contact Gabi')
 			if starting_row == 0 : 
 				starting_row = 3
 			sh = book.sheet_by_index(0)
@@ -146,13 +156,25 @@ def upload_file(request):
 				groupNme=sh.cell_value(r,5)
 				giftAmnt=sh.cell_value(r,6)
 				if privName <> "" or lastName <> "" :
-					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
-					new_person.save()
+					if check_person(privName, lastName, cur_list):
+						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						dup_person.save()
+					else:
+						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						new_person.save()
 				
 			cur_user.excel_hash='Locked'
 			cur_user.save()
 
-			return render_to_response('accounts/uploaded.html', {'sheet': sheet})
+			duplicate_list = DupGuest.objects.filter(user=request.user)
+			if duplicate_list:
+				c= {}
+				c.update(csrf(request))
+				c['duplicate_list']=duplicate_list
+				return render_to_response('accounts/duplicate.html', c)
+			else:
+				return HttpResponseRedirect('/canvas/edit')
+				#return render_to_response('accounts/uploaded.html', {'sheet': sheet})
 	else:
 		form = UploadFileForm()
 	c= {}
@@ -205,3 +227,15 @@ def download_excel(request):
 	cur_user.excel_hash=str(hash)
 	cur_user.save()
 	return render_to_response('accounts/download_excel.html')
+
+@login_required
+def do_duplicates(request):
+	duplicate_list=DupGuest.objects.filter(user=request.user)
+	for i in duplicate_list:
+		cur_check = i.guest_first_name + '-' + i.guest_last_name
+		if cur_check in request.POST:
+			if request.POST[cur_check] == "on":
+				new_person = Guest(user=request.user, guest_first_name=i.guest_first_name, guest_last_name=i.guest_last_name, phone_number=i.phone_number, guest_email=i.guest_email, present_amount=i.present_amount, facebook_account=i.facebook_account)
+				new_person.save()
+	DupGuest.objects.filter(user=request.user).delete()
+	return HttpResponseRedirect('/canvas/edit')

@@ -10,4 +10,5 @@ urlpatterns = patterns('accounts.views',
 	(r'^is_login/$', 'is_login'),
 	(r'^upload/$', 'upload_file'),
 	(r'^download/$', 'download_excel'),
+	(r'^do_duplicates/$', 'do_duplicates'),
 )
