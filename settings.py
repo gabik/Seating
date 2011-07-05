@@ -103,4 +103,11 @@ INSTALLED_APPS = (
     'django.contrib.admin',
     'Seating.accounts',
     'Seating.canvas',
+    'captcha',
 )
+
+#Captcha define - by Gabi
+CAPTCHA_FONT_SIZE=32
+CAPTCHA_NOISE_FUNCTIONS=('captcha.helpers.noise_dots',)
+CAPTCHA_BACKGROUND_COLOR='#aaaaff'
+CAPTCHA_FOREGROUND_COLOR='#1111ff'
