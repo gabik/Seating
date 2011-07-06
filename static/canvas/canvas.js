@@ -1,7 +1,7 @@
 var SelectedElem = "" ;
 var SelectedPerson = "" ;
-var startDradPosition = "";
-var undoElement = new Array(2);//[element,operation]
+var startDradPositionList = "";
+var undoElementList = "";
 var maxElementCapacity = 22;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
@@ -29,6 +29,11 @@ function setWidthAndHeight(element, newScale, lastScale)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
+	
+	if (newScale == 0)
+	{
+		return;
+	}
 	
 	if (lastScale > 0)
 	{
@@ -136,7 +141,13 @@ function collisionWithOtherElementById(elementId)
 
 function saveElement(element)
 {
-       $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: "" ,size: ""},
+		var elementId = element.context.id;
+		
+		if (elementId == undefined)
+		{
+			elementId = element.attr('id');
+		}
+       $.post('/canvas/save/', {elem_num: elementId, X: element.position().left , Y: element.position().top ,caption: "" ,size: ""},
          function(data){
            if (data.status == 'OK')
            {
@@ -329,12 +340,9 @@ $(document).ready(function() {
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementImgs = $(this).context.getElementsByTagName("img");
-	 if (isThisPeopleTable(elementImgs[0].id))
+	 setWidthAndHeight($(this),elementMaxSize,0);
+	 if (!isThisPeopleTable(elementImgs[0].id))
      {
-		setWidthAndHeight($(this),elementMaxSize,0);
-	 }
-	 else
-	 {
 		 elementCaption[1].style.visibility = "hidden";
 	 }
 
@@ -347,20 +355,24 @@ $(document).ready(function() {
 	 cursor: "move",
      start: function (e,ui){
        $(this).fadeTo(200, 0.3);
-       startDradPosition = $(this).position();
+	   startDradPositionList = new Array(1);
+	   startDradPositionList[0] =$(this).position();
        $Draged = "";
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
      },
      stop: function (e,ui){
        $(this).fadeTo(200, 1.0);
+	   undoElementList = new Array(1);
+	   var undoElement = new Array(2);//[element,operation]
        undoElement[0] = $(this);
        undoElement[1] = "move";
+	   undoElementList[0] = undoElement;
        if (collisionWithOtherElement($(this)))
        {
-          if (startDradPosition != "")
+          if (startDradPositionList[0] != "")
           {
-              var newTop = startDradPosition.top;
-              var newLeft = startDradPosition.left;
+              var newTop = startDradPositionList[0].top;
+              var newLeft = startDradPositionList[0].left;
               $(this).animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement($(this));});
           }
        }
@@ -465,30 +477,50 @@ $(document).ready(function() {
 		}
    });
   $(".DelDiv").click( function() {
-   	var answer = confirm("Are You Sure To Delete Element?");
-	if (answer != undefined && answer)
+	if  (!detailsMode)
 	{
+		var answer;
+
 		if (tableMode)
 		{
-			DeletePerson();
+			if (SelectedPerson != "")
+			{
+				answer = confirm("Are You Sure To Delete Person?");
+			}
+			else
+			{
+				alert ("Please select person");
+			}
 		}
 		else
 		{
-			if (SelectedElem != "" ) {
-			  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-					function(data){
-				  if (data.status == 'OK')
-				  { 
-					  undoElement[0] = SelectedElem;
-					  undoElement[1] = "add"; 
-					  location.reload();
-				  }
-				}, 'json');
-			} else {
-				if (!tableMode && !detailsMode)
-				{
-				  alert ("Please select table");
+			answer = confirm("Are You Sure To Delete Element?");
+		}
+		
+		if (answer != undefined && answer)
+		{
+			if (tableMode)
+			{
+				DeletePerson();
+			}
+			else
+			{
+				if (SelectedElem != "") {
+				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+				  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+						function(data){
+					  if (data.status == 'OK')
+					  { 
+						  //undoElement[0] = SelectedElem;
+						  //undoElement[1] = "add"; 
+						  location.reload();
+					  }
+					}, 'json');
+				} else {
+					if (!tableMode && !detailsMode)
+					{
+					  alert ("Please select table");
+					}
 				}
 			}
 		}
@@ -498,45 +530,49 @@ $(document).ready(function() {
     $('ul.AddMenu').slideToggle('medium');
   });
   $(".UndoDiv").click( function() {
-    if (undoElement[0] != "" && undoElement[1] != "")
-    {
-       switch(undoElement[1])
-       {
-          case "move":
-              {
-                var newTop = startDradPosition.top;
-                var newLeft = startDradPosition.left;
-                startDradPosition = undoElement[0].position();
-                undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement(undoElement[0]); selectElement(undoElement[0]);});
-                break;
-              }
-          case "add":
-              {
-                $.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-                function(data){
-                if (data.status == 'OK')
-                {
-                   undoElement[1] = "delete"; 
-                   location.reload();
-                }
-                }, 'json');
-                break;
-              }
-          case "delete":
-          {
-              $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-              $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
-              function(data){
-              if (data.status == 'OK')
-              { 
-                 undoElement[1] = "add"; 
-                 location.reload();
-              }
-              }, 'json');
-              break;
-          }
-       }
-    }
+	for (var index = 0; index < undoElementList.length; index++)
+	{
+		var undoElement = undoElementList[index];
+		if (undoElement[0] != "" && undoElement[1] != "" && !tableMode && !detailsMode)
+		{
+		   switch(undoElement[1])
+		   {
+			  case "move":
+				  {
+					var newTop = startDradPositionList[index].top;
+					var newLeft = startDradPositionList[index].left;
+					startDradPositionList[index] = undoElement[0].position();
+					undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
+					break;
+				  }
+			  case "add":
+				  {
+					$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+					function(data){
+					if (data.status == 'OK')
+					{
+					   undoElement[1] = "delete"; 
+					   location.reload();
+					}
+					}, 'json');
+					break;
+				  }
+			  case "delete":
+			  {
+				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+				  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
+				  function(data){
+				  if (data.status == 'OK')
+				  { 
+					 undoElement[1] = "add"; 
+					 location.reload();
+				  }
+				  }, 'json');
+				  break;
+			  }
+		   }
+		}
+	}
   });
   $("#people_list > li").click(function() {
     $(this).css("background-color",'blue');
@@ -580,8 +616,8 @@ $(document).ready(function() {
       function(data){
         if (data.status == 'OK')
         {
-            undoElement[0] = SelectedElem;
-            undoElement[1] = "delete"; 
+            //undoElement[0] = SelectedElem;
+            //undoElement[1] = "delete"; 
             location.reload();
         }
       }, 'json');
