@@ -146,8 +146,8 @@ $(document).ready(function() {
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";
 					undoElementList[i] = undoElement;
-					$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 				}
+				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 				SelectedElem ="";
 				selectionElementsList = "";
 				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});

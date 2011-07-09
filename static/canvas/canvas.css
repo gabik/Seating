@@ -26,7 +26,7 @@
  {
    cursor:pointer;
  }
-  .PersonDetailsDiv
+ .PersonDetailsDiv
  {
   position:absolute;
   border:1px solid black;
@@ -55,9 +55,23 @@
  .AddMenu 
  {
   display:none;
+  position:absolute;
   width:45px;
   border:1px solid #1c1c1c;
-  margin-top:10px;
+  top:50px;
+  z-index:9999;
+  background-color:white;
+ }
+  .ShapePlacementMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 175px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:95px;
+  z-index:9999;
+  background-color:white;
  }
 .AddPersonDiv
 {
@@ -92,16 +106,10 @@
   left:65px;
   top:3px;
  }
- .SeqPlaceMentShapesDiv
+ .PlaceMentShapesDiv
  {
   position:absolute;
   left:95px;
-  top:3px;
- }
-  .CirclePlaceMentShapesDiv
- {
-  position:absolute;
-  left:125px;
   top:3px;
  }
  .NumOfItemSelect

@@ -529,6 +529,9 @@ $(document).ready(function() {
   $(".AddDiv").click( function() {
     $('ul.AddMenu').slideToggle('medium');
   });
+  $(".PlaceMentShapesDiv").click( function() {
+    $('ul.ShapePlacementMenu').slideToggle('medium');
+  });
   $(".UndoDiv").click( function() {
 	for (var index = 0; index < undoElementList.length; index++)
 	{
