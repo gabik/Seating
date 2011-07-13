@@ -532,6 +532,9 @@ $(document).ready(function() {
   $(".PlaceMentShapesDiv").click( function() {
     $('ul.ShapePlacementMenu').slideToggle('medium');
   });
+  $(".AligmentDiv").click( function() {
+    $('ul.AligmentMenu').slideToggle('medium');
+  });
   $(".UndoDiv").click( function() {
 	for (var index = 0; index < undoElementList.length; index++)
 	{

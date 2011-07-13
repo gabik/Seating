@@ -31,3 +31,10 @@ class Guest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
+	group_choices = (
+		('Friends', 'Friends'),
+		('Family', 'Family'),
+		('Work', 'Work'),
+		('Other', 'Other'),
+	)
+	group = models.CharField(max_length=7, choices=group_choices, default='Other')

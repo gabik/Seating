@@ -3,8 +3,8 @@
   float:left;
   border:4px solid blue;
   margin-top:28px;
-  width:88.5%;
-  height:95.5%;
+  width:1190px;
+  height:600px;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -69,8 +69,19 @@
   width: 175px;
   border:1px solid #1c1c1c;
   top:50px;
-  left:95px;
+  left:125px;
   z-index:9999;
+  background-color:white;
+ }
+ .AligmentMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 30px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:95px;
+  z-index:99999;
   background-color:white;
  }
 .AddPersonDiv
@@ -109,12 +120,23 @@
  .PlaceMentShapesDiv
  {
   position:absolute;
+  left:125px;
+  top:3px;
+ }
+  .AligmentDiv
+ {
+  position:absolute;
   left:95px;
   top:3px;
  }
  .NumOfItemSelect
  {
   margin:5px 0px;
+ }
+ .GroupSelect
+ {
+  margin:5px 0px;
+  width:15px;
  }
  .PropertyText
  { 
@@ -185,12 +207,12 @@
  {
   margin-top:28px;
   border:2px solid blue;
-  padding: 4px;
   overflow: auto;
   height:150px;
  }
  #people_list li
  {
+  padding: 4px;
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;

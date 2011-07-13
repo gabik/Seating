@@ -1,13 +1,14 @@
 var placementMargin = 10;
 var maxWidth = 0;
 var maxHeight = 0;
+var maxTablesInCanvas = 44;
 	
 function calculateChildrenWidthAndHeightForSquarePlacment()
 {
 	var width = 0;
 	var height = 0;
 	
-	if ($(".DragDiv").size() >= 26)
+	if ($(".DragDiv").size() >= maxTablesInCanvas / 2 + 4)
 	{
 		width = $("#canvas-div").width();
 		height = $("#canvas-div").height();
@@ -38,7 +39,7 @@ function calculateChildrenWidthAndHeightForHalfSquarePlacment()
 	var width = 0;
 	var height = 0;
 	
-	if ($(".DragDiv").size() >= 26)
+	if ($(".DragDiv").size() >= maxTablesInCanvas / 2 + 4)
 	{
 		width = $("#canvas-div").width();
 		height = $("#canvas-div").height();

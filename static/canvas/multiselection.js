@@ -19,17 +19,129 @@ function getFullySelectionRectangleElementList()
 	return [numOfElements,list];
 }
 
+function aligmentHorizontal(side)
+{
+	var newLeftValueAvrage = 0; 
+	var sumOfLeftValue = 0;
+	var selectionResult = getFullySelectionRectangleElementList();
+	selectionElementsList = selectionResult[1].split(",",selectionResult[0]);
+	startDradPositionList = new Array(selectionElementsList.length);
+			
+	for (var i = 0; i < selectionElementsList.length; i++)
+	{
+		if (side == 'left')
+		{
+			sumOfLeftValue = sumOfLeftValue +  $("#"+selectionElementsList[i]).position().left;
+		}
+		else if (side == 'right')
+		{
+			sumOfLeftValue = sumOfLeftValue +  $("#"+selectionElementsList[i]).position().left + $("#"+selectionElementsList[i]).width();
+		}
+	}
+	newLeftValueAvrage = sumOfLeftValue / selectionElementsList.length;
+			
+	if (newLeftValueAvrage > 0)
+	{
+		undoElementList = new Array(selectionElementsList.length);
+		for (var i = 0; i < selectionElementsList.length; i++)
+		{
+			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
+			$("#"+selectionElementsList[i]).border('0px white 0');
+			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
+			{ 
+				for (var j = 0; j < selectionElementsList.length; j++)
+				{
+					if (selectionElementsList[j] == $(this).context.id)
+					{
+						if (collisionWithOtherElementById(selectionElementsList[j]))
+						{
+							$("#"+selectionElementsList[j]).animate({left: startDradPositionList[j].left});
+						}
+						else
+						{
+							saveElementByID(selectionElementsList[j]);
+						}
+						var undoElement = new Array(2);
+						undoElement[0] = $("#"+selectionElementsList[j]);
+						undoElement[1] = "move";
+						undoElementList[j] = undoElement;
+						}
+					}
+				}
+			});	
+		}	
+		SelectedElem ="";
+		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
+	}
+}
+
+function aligmentVertical(side)
+{
+	var newTopValueAvrage = 0; 
+	var sumOfTopValue = 0;
+	var selectionResult = getFullySelectionRectangleElementList();
+	selectionElementsList = selectionResult[1].split(",",selectionResult[0]);
+	startDradPositionList = new Array(selectionElementsList.length);
+			
+	for (var i = 0; i < selectionElementsList.length; i++)
+	{
+		if (side == 'top')
+		{
+			sumOfTopValue = sumOfTopValue +  $("#"+selectionElementsList[i]).position().top;
+		}
+		else if (side == 'bottom')
+		{
+			sumOfTopValue = sumOfTopValue +  $("#"+selectionElementsList[i]).position().top + $("#"+selectionElementsList[i]).height();
+		}
+	}
+	newTopValueAvrage = sumOfTopValue / selectionElementsList.length;
+			
+	if (newTopValueAvrage > 0)
+	{
+		undoElementList = new Array(selectionElementsList.length);
+		for (var i = 0; i < selectionElementsList.length; i++)
+		{
+			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
+			$("#"+selectionElementsList[i]).border('0px white 0');
+			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
+			{ 
+				for (var j = 0; j < selectionElementsList.length; j++)
+				{
+					if (selectionElementsList[j] == $(this).context.id)
+					{
+						if (collisionWithOtherElementById(selectionElementsList[j]))
+						{
+							$("#"+selectionElementsList[j]).animate({top: startDradPositionList[j].top});
+						}
+						else
+						{
+							saveElementByID(selectionElementsList[j]);
+						}
+						var undoElement = new Array(2);
+						undoElement[0] = $("#"+selectionElementsList[j]);
+						undoElement[1] = "move";
+						undoElementList[j] = undoElement;
+						}
+					}
+				}
+			});	
+		}	
+		SelectedElem ="";
+		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
+	}
+}
+
 $(document).ready(function() {
 	$("#canvas-div").append($('<div id="multiSelectionRectangle" class="SelectionRectangle"/>'));
 	$("#canvas-div").mousedown(function(e) {
 	{
-	    if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
+		if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
 			multiSelection = true;
 			$("#multiSelectionRectangle").css("top", e.clientY);
 			$("#multiSelectionRectangle").css("left", e.clientX);
 			lastRectanglePoint[0] =  e.clientY;
 			lastRectanglePoint[1] =  e.clientX;
-			$("#multiSelectionRectangle").css("z-index",99999);
+			$("#multiSelectionRectangle").css("z-index",99998);
 		}
 		else
 		{
@@ -37,7 +149,7 @@ $(document).ready(function() {
 			lastRectanglePoint[1] =  0;
 			multiSelection = false;
 		}
-		if	(!$(e.target).hasClass('SelectionRectangle'))
+		if	(!$(e.target).hasClass('SelectionRectangle') && !$(e.target.parentNode).hasClass('AligmentDiv') && !$(e.target.offsetParent).hasClass('AligmentMenu'))
 		{
 			$("#multiSelectionRectangle").css("height", 0);
 			$("#multiSelectionRectangle").css("width", 0);
@@ -153,4 +265,33 @@ $(document).ready(function() {
 				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
 		}				
 		});
+		
+		$("#HorizontalAligmentDivLeft").click(function(){
+			if (!(tableMode) && !(detailsMode))
+			{
+				aligmentHorizontal("left");
+			}
+		});
+		
+		$("#HorizontalAligmentDivRight").click(function(){
+			if (!(tableMode) && !(detailsMode))
+			{
+				aligmentHorizontal("right");
+			}
+		});
+		
+		$("#VerticalAligmentDivTop").click(function(){
+			if (!(tableMode) && !(detailsMode))
+			{
+				aligmentVertical("top");
+			}
+		});
+		
+		$("#VerticalAligmentDivBottom").click(function(){
+			if (!(tableMode) && !(detailsMode))
+			{
+				aligmentVertical("bottom");
+			}
+		});
+		
 });

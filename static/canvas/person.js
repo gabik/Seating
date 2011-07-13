@@ -738,6 +738,74 @@ function proccedSearchOnTableMode(data)
 	}
 }
 
+function sortListByName(listId, ascending)
+{
+    $("#"+listId).each(function() {
+        var $list = $(this);
+        var rows = $list.find('li').get();
+        rows.sort(function(a, b) {
+            var keyA = $(a).text().toUpperCase();
+            var keyB = $(b).text().toUpperCase();
+			if (ascending)
+			{
+				if (keyA < keyB) return -1;
+				if (keyA > keyB) return 1;
+			}
+			else
+			{
+				if (keyA > keyB) return -1;
+				if (keyA < keyB) return 1;
+			}
+            return 0;
+        });
+        $.each(rows, function(index, row) {
+            $list.append(row);
+        });
+    });     
+}
+
+function sortListByGroup(listId, ascending)
+{
+    $("#"+listId).each(function() {
+        var $list = $(this);
+        var rows = $list.find('li').get();
+        rows.sort(function(a, b) {
+            var keyA = $(a).attr('title').toUpperCase();
+            var keyB = $(b).attr('title').toUpperCase();
+			if (ascending)
+			{
+				if (keyA < keyB) return -1;
+				if (keyA > keyB) return 1;
+			}
+			else
+			{
+				if (keyA > keyB) return -1;
+				if (keyA < keyB) return 1;
+			}
+            return 0;
+        });
+        $.each(rows, function(index, row) {
+            $list.append(row);
+        });
+    });     
+}
+
 $(document).ready(function() {
+
+  var sortFloatListByNameAscending = true
+  var sortFloatListByGroupAscending = true
+  
+ $("#SortFloatListByName").click(function()
+ {
+	sortListByName("people_list",sortFloatListByNameAscending);
+	sortFloatListByNameAscending = !sortFloatListByNameAscending;
+ }); 
+ 
+ $("#SortFloatListByGroup").click(function()
+ {
+	sortListByGroup("people_list",sortFloatListByGroupAscending);
+	sortFloatListByGroupAscending = !sortFloatListByGroupAscending;
+ });
+ 
 });
  
