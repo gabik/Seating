@@ -104,15 +104,15 @@
 
 		</div>
 		<div id="right-bar">
+			<table>
+				<td><button id="SortFloatListByName" style="font-size:10;">Name</button></td>
+				<td><button id="SortFloatListByGroup" style="font-size:10;">Group</button></td>
+			</table>
 			<div id="people-list">
-				<table>
-					<td><button id="SortFloatListByName" style="font-size:10;">Name</button></td>
-					<td><button id="SortFloatListByGroup" style="font-size:10;">Group</button></td>
-				</table>
 				<ul id="people_list" >
 					{% for guest in guests %}
 						{% if guest.elem_num == 0 %}
-							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} {{ guest.group }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 						{% endif %}
 					{% endfor %}
 				</ul>
@@ -123,7 +123,7 @@
 				<li>First Name:<input id="first_name" type=text size=15></li>
 				<li>Last Name:<input id="last_name" type=text size=15></li>
 				<li>Group:<div class="GroupSelect">
-						<select id=numOfElementsComboBox size="1">
+						<select id="personGroup" size="1">
 							<option value="Other" SELECTED>Other
 							<option value="Friends">Friends
 							<option value="Family">Family

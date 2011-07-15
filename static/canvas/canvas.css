@@ -234,5 +234,8 @@
   top: 0;
   z-index:1;
  }
+ select { 
+ font-size: 0.9em;
+}
  
 

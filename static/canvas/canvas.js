@@ -614,7 +614,8 @@ $(document).ready(function() {
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
-	addPersonToFloatList(first_name,last_name);
+	var group = document.getElementById("personGroup").value;
+	addPersonToFloatList(first_name,last_name, group);
   });
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');

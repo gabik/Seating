@@ -31,9 +31,9 @@ function disableDetailsMode()
   $("#ElementSize").removeAttr('disabled');
 }
 
-function addPersonToFloatList(first_name,last_name)
+function addPersonToFloatList(first_name,last_name, personGroup)
 {
-    $.post('/accounts/add_person/', {first: first_name, last: last_name},
+    $.post('/accounts/add_person/', {first: first_name, last: last_name, group: personGroup},
       function(data){
         if (data.status == 'OK')
         {
@@ -302,15 +302,19 @@ function createTab()
 	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative;  font-size:12; margin-left:15px;"  MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/>'));
 	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Facebook Account:</p>'));
 	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; margin-left:15px; font-size:12;" MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/>'));
+	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Group:</p>'));
+	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<ul><il><div style="margin-top:-5; margin-left:15px; position:relative;"><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other"">Other<option value="Friends">Friends<option value="Family">Family<option value="Work">Work</select></div></il></ul>'));
+	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );
 	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<button id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; opacity:0;" type="button">Save Changes</button>'));
-	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 800);
+	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("top", DetailsHeight - 400);
+	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 500);
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).bind('click', function() {
 			savePersonChanges(personData.first_name,  personData.last_name);
 	});
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).fadeTo(2000, 1);
 	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<button id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; background-color:red;" type="button">X</button>'));
-	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", -DetailsHeight + 120);
-	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 850);
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", -DetailsHeight + 70);
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 550);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('click', function() {
 		if (SelectedTabIndex >= 0 && SelectedTabIndex < $("#tabs").tabs("length"))
 		{
@@ -628,7 +632,7 @@ function savePersonChanges(firstName, lastName)
     }
 	else
 	{
-    $.post('/canvas/savePerson/', {old_first_name: firstName, old_last_name: lastName, first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val()},
+    $.post('/canvas/savePerson/', {old_first_name: firstName, old_last_name: lastName, first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(),group:$("#detailsGroup" + firstName + '_'+ lastName).val()},
       function(data){
 		$("#SaveStatImg").fadeTo(400, 0);
         if (data.status == 'OK')
@@ -639,6 +643,7 @@ function savePersonChanges(firstName, lastName)
 		  personData.person_email = $("#detailsE-mail" + firstName + '_'+ lastName).val();
 		  personData.present_amount = $("#detailsPresentAmount" + firstName + '_'+ lastName).val();
 		  personData.facebook_account = $("#detailsFacebookAccount" + firstName + '_'+ lastName).val();
+		  personData.group = $("#detailsGroup" + firstName + '_'+ lastName).val();
 		  if (personData.position > 0)
 		  {
 			document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
