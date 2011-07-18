@@ -136,6 +136,13 @@ $(document).ready(function() {
 	$("#canvas-div").mousedown(function(e) {
 	{
 		if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
+			if (SelectedElem != "")
+			{
+				SelectedElem.border('0px white 0');
+			}
+			SelectedElem ="";
+			undoElementList ="";
+			startDradPositionList ="";
 			multiSelection = true;
 			$("#multiSelectionRectangle").css("top", e.clientY);
 			$("#multiSelectionRectangle").css("left", e.clientX);

@@ -1,5 +1,6 @@
 # Create your views here.
 from Seating.accounts.models import Guest
+from Seating.accounts.models import UserProfile
 from django.db.models import Max
 from django.utils import simplejson as json
 from django.contrib.auth.decorators import login_required
@@ -17,6 +18,7 @@ def edit_canvas(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	elements_nums = user_elements.values_list('elem_num', flat=1)
 	Guests = Guest.objects.filter(user=request.user)
+	userProfile = UserProfile.objects.filter(user=request.user)
 	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
@@ -26,6 +28,7 @@ def edit_canvas(request):
 	c['elements'] = user_elements
 	c['elements_nums'] = elements_nums
 	c['guests'] = Guests
+	c['user_profile'] = userProfile
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -68,6 +71,7 @@ def save_element(request):
 		elem_delim = request.POST['elem_num'].index('-')
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		user_profile = get_object_or_404(UserProfile, user=request.user)
 		single_element.x_cord = float(request.POST['X']);
 		single_element.y_cord = float(request.POST['Y']);
 		if request.POST['caption'] != "":
@@ -75,7 +79,10 @@ def save_element(request):
 			single_element.caption = newCaption;
 		if request.POST['size'] != "": 
 			single_element.max_sitting = request.POST['size'];
+		if request.POST['sumGuests'] != "": 
+			user_profile.num_of_guests = int(request.POST['sumGuests']);
 		single_element.save()
+		user_profile.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 

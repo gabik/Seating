@@ -6,7 +6,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(function() {
-		$('#datepicker').datepicker({ dateFormat: 'dd/mm/yy' });
+		$('#datepicker').datepicker({  minDate: 0, dateFormat: 'dd/mm/yy' });
 	});
 </script>
 {% block scripts %}{% endblock %}

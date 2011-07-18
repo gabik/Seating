@@ -167,6 +167,12 @@
 						</div>
 					</li>
 					<li style="list-style:none;">
+						{% for profile in user_profile %}
+							<p class="PropertyText">:Num Of Guest:</p></br>
+							<input style="text-align:left; width:70px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
+						{% endfor %}
+					</li>
+					<li style="list-style:none;">
 						<button type="button" id="ElementPropertiesSaveButton" class="Property">Save Changes</button>
 					</li>
 				</ul>

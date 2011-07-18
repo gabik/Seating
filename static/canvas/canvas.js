@@ -5,6 +5,7 @@ var undoElementList = "";
 var maxElementCapacity = 22;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
+var maxGuests = 1056;
 
 function IsNumeric(sText)
 {
@@ -171,7 +172,7 @@ function saveElementByID(elementId)
          }, 'json');
 }
 
-function saveElementWithCaption(element,newCaption, newSize)
+function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 {
        var elementCaption = element.context.getElementsByTagName("p");
 	   var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
@@ -197,7 +198,7 @@ function saveElementWithCaption(element,newCaption, newSize)
 							//	addPersonToFloatList(full_name[0],full_name[1]);
 							//}
 							sizeStr = dataPersons.currentSitting + "/" + newSize;
-							$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
+							$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests},
 						    function(dataSave){
 						    if (dataSave.status == 'OK')
 						    {
@@ -220,7 +221,7 @@ function saveElementWithCaption(element,newCaption, newSize)
 	   }
 	   else
 	   {
-		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize},
+		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests},
 		  function(dataSave){
 		    if (dataSave.status == 'OK')
 		    {
@@ -485,16 +486,23 @@ $(document).ready(function() {
 		{
 			if (SelectedPerson != "")
 			{
-				answer = confirm("Are You Sure To Delete Person?");
+				answer = confirm("Are You Sure To Delete " + SelectedPerson.text() +" Person?");
 			}
 			else
 			{
-				alert ("Please select person");
+				alert ("Please select Person");
 			}
 		}
 		else
 		{
-			answer = confirm("Are You Sure To Delete Element?");
+			if (SelectedElem != "")
+			{
+				answer = confirm("Are You Sure To Delete " + SelectedElem.text().split("\n", 2)[1].trim() + " Element?");
+			}
+			else
+			{
+				alert ("Please select Element");
+			}
 		}
 		
 		if (answer != undefined && answer)
@@ -740,8 +748,17 @@ $(document).ready(function() {
 	{
 		var caption = $("#ElementCaption").val();
 		var size = $("#ElementSize").val();
+		var numOfGuests = $("#NumOfGuests").val();
+		if (numOfGuests < 0)
+		{
+			numOfGuests = 0;
+		}
+		else if (numOfGuests > maxGuests)
+		{
+			numOfGuests = maxGuests;
+		}
 		var elementCaption = SelectedElem.context.getElementsByTagName("p");
-		saveElementWithCaption(SelectedElem,caption,size);
+		saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
 	}
     }
   });
