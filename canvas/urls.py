@@ -17,4 +17,6 @@ urlpatterns = patterns('canvas.views',
 	(r'^findPersons/$', 'find_persons_strings'),
 	(r'^personOnHigherPos/$', 'is_persons_on_higher_position'),
 	(r'^floatPersonsFromPos/$', 'bring_person_to_floatlist_from_postion'),
+	(r'^updateNumOfGuests/$', 'update_Num_Of_Guests'),
+	(r'^getNumOfGuests/$', 'get_Num_Of_Guests'),
 )

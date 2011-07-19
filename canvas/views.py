@@ -87,6 +87,23 @@ def save_element(request):
 	return HttpResponse(json_dump)
 
 @login_required
+def update_Num_Of_Guests(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_profile = get_object_or_404(UserProfile, user=request.user)
+	if request.POST['sumGuests'] != "": 
+		user_profile.num_of_guests = int(request.POST['sumGuests']);
+		user_profile.save()
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_Num_Of_Guests(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_profile = get_object_or_404(UserProfile, user=request.user)
+	json_dump = json.dumps({'status': "OK", 'numOfGuests' : user_profile.num_of_guests})
+	return HttpResponse(json_dump)
+	
+@login_required
 def drop_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':

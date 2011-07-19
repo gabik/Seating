@@ -148,7 +148,7 @@ function saveElement(element)
 		{
 			elementId = element.attr('id');
 		}
-       $.post('/canvas/save/', {elem_num: elementId, X: element.position().left , Y: element.position().top ,caption: "" ,size: ""},
+       $.post('/canvas/save/', {elem_num: elementId, X: element.position().left , Y: element.position().top ,caption: "" ,size: "", sumGuests: ""},
          function(data){
            if (data.status == 'OK')
            {
@@ -161,7 +161,7 @@ function saveElement(element)
 
 function saveElementByID(elementId)
 {
-       $.post('/canvas/save/', {elem_num: elementId, X: $("#"+elementId).position().left , Y: $("#"+elementId).position().top ,caption: "" ,size: ""},
+       $.post('/canvas/save/', {elem_num: elementId, X: $("#"+elementId).position().left , Y: $("#"+elementId).position().top ,caption: "" ,size: "", sumGuests:""},
          function(data){
            if (data.status == 'OK')
            {
@@ -302,6 +302,43 @@ function pointPersonAfterSearch(element, elementImg)
 		});
 	});
 }
+function saveNumOfGuests(numGuests)
+{
+	$.post('/canvas/updateNumOfGuests/', {sumGuests: numGuests},
+	function(dataSave){
+	if (dataSave.status == 'OK')
+	{
+		$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		}else{
+		$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+		}
+	}, 'json');
+}
+
+function updateNumOfGuest()
+{
+	var numOfGuests = $("#NumOfGuests").val();
+	if (numOfGuests < $("#people_list > li").size())
+	{
+		numOfGuests = $("#people_list > li").size();
+	}
+	else if (numOfGuests > maxGuests)
+	{
+		numOfGuests = maxGuests;
+	}
+	if (IsNumeric(numOfGuests))
+	{
+		document.getElementById("NumOfGuests").style.color = "black";
+		$("#NumOfGuests").val(numOfGuests);
+	}
+	else
+	{
+		document.getElementById("NumOfGuests").style.color = "red";
+		numOfGuests = "";
+	}
+	
+	return numOfGuests;
+}
 
 function isThisPeopleTable(id)
 {
@@ -310,6 +347,20 @@ function isThisPeopleTable(id)
 		return false;
 	}
 	return true;
+}
+
+function refreshNumOfGuests()
+{
+	$.post('/canvas/getNumOfGuests/', {},
+	function(data){
+	if (data.status == 'OK')
+	{
+		$("#NumOfGuests").val(data.numOfGuests);
+		$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		}else{
+		$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+		}
+	}, 'json');
 }
 
 $(document).ready(function() {
@@ -336,6 +387,7 @@ $(document).ready(function() {
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
+  
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
@@ -748,19 +800,32 @@ $(document).ready(function() {
 	{
 		var caption = $("#ElementCaption").val();
 		var size = $("#ElementSize").val();
-		var numOfGuests = $("#NumOfGuests").val();
-		if (numOfGuests < 0)
-		{
-			numOfGuests = 0;
-		}
-		else if (numOfGuests > maxGuests)
-		{
-			numOfGuests = maxGuests;
-		}
+		var numOfGuests = updateNumOfGuest();
 		var elementCaption = SelectedElem.context.getElementsByTagName("p");
 		saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
 	}
     }
+	else
+	{
+			var numOfGuests = updateNumOfGuest();
+			saveNumOfGuests(numOfGuests);
+	}
+  });
+  
+  $("#NumOfGuests").keydown(function(e){
+	document.getElementById("NumOfGuests").style.color = "red"
+  });
+  
+  $("#NumOfGuests").after(function(){
+    refreshNumOfGuests();
+  });
+
+  $("#ElementCaption").after(function(){
+    $(this).val("");
+  }); 
+
+  $("#ElementSize").after(function(){
+    $(this).val("");
   });
   
   $(document).mouseup(function(e) {

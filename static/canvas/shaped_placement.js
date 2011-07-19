@@ -23,8 +23,12 @@ function calculateChildrenWidthAndHeightForSquarePlacment()
 			if (i <= calculateWidthIndex)
 			{
 				width = width + $(this).width() + placementMargin;
+				if (i == calculateWidthIndex)
+				{
+					height = height + $(this).height() + currentHeigthMargin;
+				}
 			}
-			else if (i <= calculateHeightIndex + calculateWidthIndex + 1)
+			else if (i <= calculateHeightIndex + calculateWidthIndex)
 			{
 				height = height + $(this).height() + currentHeigthMargin;
 			}
@@ -47,15 +51,19 @@ function calculateChildrenWidthAndHeightForHalfSquarePlacment()
 	else
 	{
 		var currentHeigthMargin = 4;
-		var calculateWidthIndex = Math.round($(".DragDiv").size() / 4) + 1;
+		var calculateWidthIndex = Math.round($(".DragDiv").size() / 2) + 1;
 		var calculateHeightIndex = Math.round($(".DragDiv").size() / 4) + 1;
 		
 		$(".DragDiv").each(function(i) {
 			if (i <= calculateWidthIndex)
 			{
 				width = width + $(this).width() + placementMargin;
+				if (i == calculateWidthIndex)
+				{
+					height = height + $(this).height() + currentHeigthMargin;
+				}
 			}
-			else if (i <= calculateHeightIndex + calculateWidthIndex + 1)
+			else if (i < calculateHeightIndex + calculateWidthIndex + 1)
 			{
 				height = height + $(this).height() + currentHeigthMargin;
 			}
@@ -131,7 +139,7 @@ $(document).ready(function() {
 								newLeft = newLeft - $(this).width() - placementMargin;
 							}
 						}
-						else if (newTop + $(this).height() <= currnetMaxHeight && newLeft != startLeft)
+						else if (newTop <= currnetMaxHeight && newLeft != startLeft)
 						{
 							newTop = newTop + $(this).height() + currentHeigthMargin;
 							if (newTop + $(this).height() > currnetMaxHeight)
@@ -165,7 +173,7 @@ $(document).ready(function() {
 							{
 								middleCircle = true;
 								middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 2);
-								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 3.2 * tableElementSize);
+								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 2.5 * tableElementSize);
 								startLeft = newLeft;
 								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 14) * currentHeigthMargin);
 							}
@@ -189,6 +197,7 @@ $(document).ready(function() {
 			var middleCircle = false;
 			var horizontalArrange = true;
 			var reflactionTop = 0;
+			var minLeft =  $("#canvas-div").offset().left + 10;
 			var circleEndLeft = 0;
 			var middleCircleHalfIndex = 0;
 			var maxMiddleCircleHeigth = 0;
@@ -235,6 +244,10 @@ $(document).ready(function() {
 						{
 							reflactionTop = newTop + $(this).height() + currentHeigthMargin;
 						}
+						if (minLeft > newLeft)
+						{
+							minLeft = newLeft + $(this).width();
+						}
 						if (startTop + $(this).height() > firstRowMaxTop)
 						{
 							firstRowMaxTop = startTop + $(this).height();
@@ -248,7 +261,7 @@ $(document).ready(function() {
 								newLeft = newLeft - $(this).width() - placementMargin;
 							}
 						}
-						else if (newTop + $(this).height() <= currnetMaxHeight && newLeft != startLeft)
+						else if (newTop <= currnetMaxHeight && newLeft != startLeft)
 						{
 							newTop = newTop + $(this).height() + currentHeigthMargin;
 							if (newTop + $(this).height() > currnetMaxHeight)
@@ -271,12 +284,24 @@ $(document).ready(function() {
 							newTop = newTop + $(this).height() + currentHeigthMargin;
 							if (newTop + $(this).height() > currnetMaxHeight)
 							{
-								middleCircle = true;
-								middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 3);
-								middleNumOfHorizontalElements = middleCircleHalfIndex - i;
-								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 4.25 * tableElementSize);
+								//middleCircle = true;
+								//middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 3);
+								//middleNumOfHorizontalElements = middleCircleHalfIndex - i;
+								if ($(".DragDiv").size() >= maxTablesInCanvas / 2 + 4)
+								{
+									currnetMaxWidth = currnetMaxWidth - tableElementSize;
+								}
+								else
+								{
+									currnetMaxWidth = currnetMaxWidth - 3 * tableElementSize;
+								}
+								newLeft = minLeft + placementMargin;
+								minLeft = newLeft + placementMargin;
 								startLeft = newLeft;
 								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 14) * currentHeigthMargin);
+								startTop = newTop;
+								reflactionTop = 0;
+								horizontalArrange = true;
 							}
 						}
 					}
