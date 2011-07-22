@@ -19,4 +19,5 @@ urlpatterns = patterns('canvas.views',
 	(r'^floatPersonsFromPos/$', 'bring_person_to_floatlist_from_postion'),
 	(r'^updateNumOfGuests/$', 'update_Num_Of_Guests'),
 	(r'^getNumOfGuests/$', 'get_Num_Of_Guests'),
+	(r'^getMoneyInfo/$', 'get_Money_Info'),
 )

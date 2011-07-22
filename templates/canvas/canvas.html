@@ -1,6 +1,6 @@
 <html>
 <head>
-
+  
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
@@ -11,18 +11,16 @@
 <link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />
 <script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
-
-<script type="text/javascript" src="/static/canvas/multiselection.js">
-</script>
-<script type="text/javascript" src="/static/canvas/person.js">
-</script>
-<script type="text/javascript" src="/static/canvas/table.js">
-</script>
-<script type="text/javascript" src="/static/canvas/canvas.js">
-</script>
-<script type="text/javascript" src="/static/canvas/shaped_placement.js">
-</script>
-
+<script language="javascript" type="text/javascript" src="/static/canvas/jquery.js"></script>
+<script language="javascript" type="text/javascript" src="/static/canvas/jquery.jqplot.js"></script>
+<script language="javascript" type="text/javascript" src="/static/canvas/plugins/jqplot.pieRenderer.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/canvas/jquery.jqplot.css" />
+<script type="text/javascript" src="/static/canvas/multiselection.js"></script>
+<script type="text/javascript" src="/static/canvas/person.js"></script>
+<script type="text/javascript" src="/static/canvas/table.js"></script>
+<script type="text/javascript" src="/static/canvas/canvas.js"></script>
+<script type="text/javascript" src="/static/canvas/shaped_placement.js"></script>
+<script type="text/javascript" src="/static/canvas/money_info.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 <script type="text/javascript">
  window.onload = function()
@@ -89,6 +87,7 @@
 			<div class="UndoDiv"><img src="/static/canvas/images/Undo.png"></div>
 			<div class="AligmentDiv"><img src="/static/canvas/images/VerticalBottom.png"></div></li>
 			<div class="PlaceMentShapesDiv"><img src="/static/canvas/images/SeqPlacement.png"></div>
+			<div class="MoneyInfoDiv"><img src="/static/canvas/images/Moneyinfo.png"></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft"><img src="/static/canvas/images/HorizontalLeft.png"></div></li>
 				<li><div id="HorizontalAligmentDivRight"><img src="/static/canvas/images/HorizontalRight.png"></div></li>
@@ -168,7 +167,7 @@
 					</li>
 					<li style="list-style:none;">
 						{% for profile in user_profile %}
-							<p class="PropertyText">:Num Of Guest:</p></br>
+							<p class="PropertyText">:Max Num Of Guest:</p></br>
 							<input style="text-align:left; width:70px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
 						{% endfor %}
 					</li>

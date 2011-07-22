@@ -197,7 +197,7 @@ $(document).ready(function() {
 			var middleCircle = false;
 			var horizontalArrange = true;
 			var reflactionTop = 0;
-			var minLeft =  $("#canvas-div").offset().left + 10;
+			var firstRowMaxLeft = 0;
 			var circleEndLeft = 0;
 			var middleCircleHalfIndex = 0;
 			var maxMiddleCircleHeigth = 0;
@@ -244,9 +244,9 @@ $(document).ready(function() {
 						{
 							reflactionTop = newTop + $(this).height() + currentHeigthMargin;
 						}
-						if (minLeft > newLeft)
+						if (startLeft + $(this).width() > firstRowMaxLeft)
 						{
-							minLeft = newLeft + $(this).width();
+							firstRowMaxLeft = startLeft + $(this).width();
 						}
 						if (startTop + $(this).height() > firstRowMaxTop)
 						{
@@ -289,16 +289,15 @@ $(document).ready(function() {
 								//middleNumOfHorizontalElements = middleCircleHalfIndex - i;
 								if ($(".DragDiv").size() >= maxTablesInCanvas / 2 + 4)
 								{
-									currnetMaxWidth = currnetMaxWidth - tableElementSize;
+									currnetMaxWidth = currnetMaxWidth - 1.5 * tableElementSize;
 								}
 								else
 								{
 									currnetMaxWidth = currnetMaxWidth - 3 * tableElementSize;
 								}
-								newLeft = minLeft + placementMargin;
-								minLeft = newLeft + placementMargin;
+								newLeft = firstRowMaxLeft;
 								startLeft = newLeft;
-								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 14) * currentHeigthMargin);
+								newTop = firstRowMaxTop - 5;
 								startTop = newTop;
 								reflactionTop = 0;
 								horizontalArrange = true;

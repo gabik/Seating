@@ -320,7 +320,7 @@ function updateNumOfGuest()
 	var numOfGuests = $("#NumOfGuests").val();
 	if (numOfGuests < $("#people_list > li").size())
 	{
-		numOfGuests = $("#people_list > li").size();
+		numOfGuests = $("#people_list > li").size() + findNumOfAllSeaters();
 	}
 	else if (numOfGuests > maxGuests)
 	{
@@ -363,6 +363,17 @@ function refreshNumOfGuests()
 	}, 'json');
 }
 
+function findNumOfAllSeaters()
+{
+	var sum = 0;
+	$(".DragDiv").each(function(i) {
+		var elementCaption = $(this).context.getElementsByTagName("p");
+		var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+		sum = sum + parseInt(elementSize);
+	});
+	return sum;
+}
+
 $(document).ready(function() {
   var imgs,i;
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
@@ -387,6 +398,7 @@ $(document).ready(function() {
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
+  $.jqplot.config.enablePlugins = true;
   
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 

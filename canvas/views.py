@@ -340,5 +340,30 @@ def bring_person_to_floatlist_from_postion(request):
 			numOfFloatingPersons = int(numOfFloatingPersons) + 1
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
-		print json_dump
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_Money_Info(request):
+	json_dump = json.dumps({'status': "Error"})
+	totalSum = 0;
+	totalOtherSum = 0;
+	totalFamilySum = 0;
+	totalFreindsSum = 0;
+	totalWorkSum = 0;
+	persons = Guest.objects.filter(user=request.user)
+	for person in persons:
+		totalSum = totalSum + person.present_amount
+		print person.group
+		if person.group == 'Other':
+			totalOtherSum = totalOtherSum + person.present_amount
+		else:
+			if person.group == 'Family':
+				totalFamilySum = totalFamilySum + person.present_amount
+			else:
+				if person.group == 'Friends':
+					totalFreindsSum = totalFreindsSum + person.present_amount
+				else:
+					if person.group == 'Work':
+						totalWorkSum = totalWorkSum + person.present_amount
+	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
 	return HttpResponse(json_dump)

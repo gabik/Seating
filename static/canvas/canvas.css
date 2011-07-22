@@ -3,7 +3,7 @@
   float:left;
   border:4px solid blue;
   margin-top:28px;
-  width:1190px;
+  width:1195px;
   height:600px;
   -webkit-user-select: none;
   -khtml-user-select: none;
@@ -123,6 +123,12 @@
   left:125px;
   top:3px;
  }
+ .MoneyInfoDiv
+ {
+  position:absolute;
+  left:155px;
+  top:3px;
+ }
   .AligmentDiv
  {
   position:absolute;
@@ -185,6 +191,21 @@
   opacity:0.35;
   border:2px groove;
   position:absolute;
+  }
+  .MoneyInfoRectangle
+  {
+  background:gray;
+  opacity:0.75;
+  border:2px groove;
+  position:absolute;
+  z-index:9999;
+  }
+  .SimpleFrame
+  {
+  background:white;
+  border:2px groove;
+  position:absolute;
+  z-index:9999;
   }
  .Properties-bar
  {
