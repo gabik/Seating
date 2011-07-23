@@ -50,7 +50,7 @@ function createInfoFields(sumData)
 		$("#groupPie").css("width",mainFrameWidth / 2);
 		$("#groupPie").css("height",mainFrameHeight  - 35);
 		$("#groupPie").css("top", $("#totalSum").position().top);	
-		$("#groupPie").css("left", $("#moneyInfoMainWindow").position().left + mainFrameWidth / 4 + 25 );
+		$("#groupPie").css("left",$("#moneyInfoMainWindow").position().left + $("#moneyInfoMainWindow").width() - mainFrameWidth - 55 );
 		drawSumsPie(pieData);
 	}
 }
@@ -83,17 +83,17 @@ $(document).ready(function() {
 	$("#moneyInfoRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});
 	$("#moneyInfoRectangle").draggable( 'disable' );
 	$("#canvas-div").append($('<div id="moneyInfoMainWindow" class="SimpleFrame"/>'));
-	$("#moneyInfoMainWindow").animate({top:screenHeight / 2 - mainFrameHeight / 2,left:screenWidth / 2 - mainFrameWidth / 2,width:mainFrameWidth,height:mainFrameHeight});
+	$("#moneyInfoMainWindow").animate({top:screenHeight / 2 - mainFrameHeight / 2,left:screenWidth / 2 - mainFrameWidth / 2,width:mainFrameWidth,height:mainFrameHeight},function(){ getFullMoneyInfo();});
 	$("#moneyInfoMainWindow").draggable( 'disable' );
 	$("#moneyInfoMainWindow").append($('<button id="moneyInfoCloseBtn" style="position:relative; background-color:red;" type="button">X</button>'));
 	$("#moneyInfoCloseBtn").css("top", 15);
 	$("#moneyInfoCloseBtn").css("left", mainFrameWidth - 50);
 	$("#moneyInfoCloseBtn").bind('click', function() {
 		$("#moneyInfoRectangle").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoRectangle").remove();});
-		$("#moneyInfoMainWindow").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoMainWindow").remove();});
+		$("#moneyInfoMainWindow").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoMainWindow").remove(); 
+		});
 	}); 
 	
-	getFullMoneyInfo();
   });
 }); 
  

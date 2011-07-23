@@ -607,6 +607,15 @@ $(document).ready(function() {
   $(".AligmentDiv").click( function() {
     $('ul.AligmentMenu').slideToggle('medium');
   });
+  $("ul.ShapePlacementMenu").mouseleave( function() {
+    $('ul.ShapePlacementMenu').slideUp()('medium');
+  });
+  $("ul.AligmentMenu").mouseleave( function() {
+    $('ul.AligmentMenu').slideUp()('medium');
+  });
+  $("ul.AddMenu").mouseleave( function() {
+    $('ul.AddMenu').slideUp()('medium');
+  });
   $(".UndoDiv").click( function() {
 	for (var index = 0; index < undoElementList.length; index++)
 	{

@@ -259,10 +259,12 @@ $(document).ready(function() {
      {
 		if (tableMode)
 		{
+			$(this).attr("title", "Press Double Click For Edit Table");
 			turnToRegularMode($(this),event);
 		}
 		else
 		{
+			$(this).attr("title", "Press Double Click To All Tables View");
 			turnToTableMode($(this),true,event);
 		}
 	}
