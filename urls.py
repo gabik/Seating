@@ -28,3 +28,8 @@ urlpatterns = patterns('',
 urlpatterns += patterns('django.views.generic.simple',
     (r'^test/$',             'direct_to_template', {'template': 'test.html'}),
 )
+
+urlpatterns += patterns('',
+    url(r'^captcha/', include('captcha.urls')),
+)
+

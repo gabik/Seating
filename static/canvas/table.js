@@ -255,6 +255,7 @@ function proccedSearchOnRegluarMode(data)
 $(document).ready(function() {
   $(".DragDiv").dblclick( function(event) {
   	 var elementImgs = $(this).context.getElementsByTagName("img");
+	 $(this).border('0px white 0');
 	 if (isThisPeopleTable(elementImgs[0].id))
      {
 		if (tableMode)

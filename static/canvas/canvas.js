@@ -617,6 +617,7 @@ $(document).ready(function() {
     $('ul.AddMenu').slideUp()('medium');
   });
   $(".UndoDiv").click( function() {
+<<<<<<< HEAD
 	for (var index = 0; index < undoElementList.length; index++)
 	{
 		var undoElement = undoElementList[index];
@@ -660,6 +661,51 @@ $(document).ready(function() {
 		   }
 		}
 	}
+=======
+    if (undoElement[0] != "" && undoElement[1] != "")
+    {
+       switch(undoElement[1])
+       {
+          case "move":
+              {
+                var newTop = startDradPosition.top;
+                var newLeft = startDradPosition.left;
+                startDradPosition = undoElement[0].position();
+                undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement(undoElement[0]); selectElement(undoElement[0]);});
+                break;
+              }
+          case "add":
+              {
+                $.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+                function(data){
+                if (data.status == 'OK')
+                {
+                   undoElement[1] = "delete"; 
+                   location.reload();
+                } else if (data.status == 'LIMIT')
+								{
+									alert("Maximum 44 tables");
+                  location.reload();
+								}
+                }, 'json');
+                break;
+              }
+          case "delete":
+          {
+              $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+              $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
+              function(data){
+              if (data.status == 'OK')
+              { 
+                 undoElement[1] = "add"; 
+                 location.reload();
+              }
+              }, 'json');
+              break;
+          }
+       }
+    }
+>>>>>>> Gabi-Working-Dir
   });
   $("#people_list > li").click(function() {
     $(this).css("background-color",'blue');
