@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
-from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm
+from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm, AgreeForm
 from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
@@ -34,6 +34,7 @@ def is_login(request):
 
 def create_user(request):
 	if request.method == 'POST': # If the form has been submitted...
+		agree_form = AgreeForm(request.POST)
 		userprofile_form = UserProfileForm(request.POST)
 		user_form = UserForm(request.POST)
 		partners_form = PartnersForm(request.POST)
@@ -56,7 +57,8 @@ def create_user(request):
 		userprofile_form = UserProfileForm()
 		user_form = UserForm()
 		partners_form = PartnersForm()
-	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form}, context_instance=RequestContext(request))
+		agree_form = AgreeForm()
+	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form, 'agree_form': agree_form}, context_instance=RequestContext(request))
 	
 
 def convertXLS2CSV(aFile): 

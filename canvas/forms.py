@@ -16,6 +16,7 @@ table_size_list = (
 	)
 
 class InitCanvas(forms.Form):
-	table_kind = forms.ChoiceField(widget=forms.RadioSelect, choices=table_kind_list)
-	table_size = forms.ChoiceField(widget=forms.RadioSelect, choices=table_size_list)
-	tables_num = forms.IntegerField(min_value=1, max_value=50)
+	table_kind = forms.ChoiceField(widget=forms.RadioSelect, choices=table_kind_list, required=False)
+	table_size = forms.ChoiceField(widget=forms.RadioSelect, choices=table_size_list, required=False)
+	tables_num = forms.IntegerField(min_value=1, max_value=44, required=False)
+		

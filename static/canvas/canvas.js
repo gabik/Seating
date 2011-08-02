@@ -468,7 +468,11 @@ $(document).ready(function() {
                 {
                    undoElement[1] = "delete"; 
                    location.reload();
-                }
+                } else if (data.status == 'LIMIT')
+								{
+									alert("Maximum 44 tables");
+                  location.reload();
+								}
                 }, 'json');
                 break;
               }

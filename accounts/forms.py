@@ -3,13 +3,16 @@ from django.forms import ModelForm
 from accounts.models import UserProfile, Partners, User
 from captcha.fields import CaptchaField
 
+class AgreeForm(forms.Form):
+	captcha = CaptchaField()
+	IAgree = forms.BooleanField(required=True)
+
 class UserForm(forms.Form):
         username = forms.CharField(max_length=100, label = 'Username')
         email = forms.EmailField(label = 'E-Mail')
         password1 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Password')
         password2 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Confirm Password')
         occasiondate = forms.DateField(label= 'Occasion date', required=True, widget=forms.TextInput(attrs={'id' : 'datepicker'}), input_formats=('%d/%m/%Y',))
-	captcha = CaptchaField()
 		
         def clean_password1(self):
                 password1 = self.cleaned_data['password1']
