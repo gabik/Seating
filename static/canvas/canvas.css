@@ -129,6 +129,12 @@
   left:155px;
   top:3px;
  }
+ .OccasionFinishDiv
+  {
+  position:absolute;
+  left:185px;
+  top:3px;
+ }
   .AligmentDiv
  {
   position:absolute;
@@ -192,7 +198,7 @@
   border:2px groove;
   position:absolute;
   }
-  .MoneyInfoRectangle
+  .BlackOverlayRectangle
   {
   background:gray;
   opacity:0.75;

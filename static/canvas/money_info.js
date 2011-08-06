@@ -79,7 +79,7 @@ $(document).ready(function() {
 	var screenHeight = document.documentElement.clientHeight;
 	
 	//creating window
-	$("#canvas-div").append($('<div id="moneyInfoRectangle" class="MoneyInfoRectangle"/>'));
+	$("#canvas-div").append($('<div id="moneyInfoRectangle" class="BlackOverlayRectangle"/>'));
 	$("#moneyInfoRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});
 	$("#moneyInfoRectangle").draggable( 'disable' );
 	$("#canvas-div").append($('<div id="moneyInfoMainWindow" class="SimpleFrame"/>'));

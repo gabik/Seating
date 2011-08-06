@@ -1,7 +1,7 @@
 var placementMargin = 10;
 var maxWidth = 0;
 var maxHeight = 0;
-var maxTablesInCanvas = 44;
+var maxTablesInCanvas = 48;
 	
 function calculateChildrenWidthAndHeightForSquarePlacment()
 {
