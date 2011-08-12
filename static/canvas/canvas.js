@@ -398,7 +398,7 @@ $(document).ready(function() {
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
-  
+
   $.jqplot.config.enablePlugins = true;
   
   $(".DragDiv").after(function() {
@@ -423,7 +423,6 @@ $(document).ready(function() {
        $(this).fadeTo(200, 0.3);
 	   startDradPositionList = new Array(1);
 	   startDradPositionList[0] =$(this).position();
-       $Draged = "";
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
      },
      stop: function (e,ui){
@@ -449,97 +448,90 @@ $(document).ready(function() {
        }
   })
   $(".DragDiv").droppable({
+  	accept: "#people_list li",
+	hoverClass: "personOverTableDropLayer",
     drop: function(e, ui ) {
 	  var elementImgs = $(this).context.getElementsByTagName("img");
 	  if (!isThisPeopleTable(elementImgs[0].id))
 	  {
 		return;
 	  }
-      if ($Draged != "")
-      {
-      $last_drag = "OK";
-	  var table = $(this);
-	  var elementCaption = $(this).context.getElementsByTagName("p");
-	  var elementImgs = $(this).context.getElementsByTagName("img");
-      $.post('/canvas/sit/', {table_id: $(this).context.id, person_id: $Draged.context.id},
-        function(data){
-          if (data.status == 'OK')
-          {
-            $Draged.hide();
-            $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-			if (data.table_status == 'Yellow')
-			{
-				$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
-			}
-			else if (data.table_status == 'Green')
-			{
-				$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-			}
-			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-			
-			elementSize = parseInt(elementSize) + 1;
-			elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
+	  var table = $(this); 
+	  ui.helper.each(function(i){
+		  var draged = $(this);
+		  if (draged  != "")
+		  {
+			  var elementCaption = table.context.getElementsByTagName("p");
+			  var elementImgs = table.context.getElementsByTagName("img");
+			   table.fadeTo(300, 0,function(){
+			   table.fadeTo(300, 1)});
+			   $.post('/canvas/sit/', {table_id: table.context.id, person_id: draged.context.id},
+				function(data){
+				  if (data.status == 'OK')
+				  {
+					$("#" + draged.context.id).remove();
+					draged.hide();
+					$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+					if (data.table_status == 'Yellow')
+					{
+						$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
+					}
+					else if (data.table_status == 'Green')
+					{
+						$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+					}
+					var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+					var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+					
+					elementSize = parseInt(elementSize) + 1;
+					elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
+					if (tableMode)
+					{
+						LoadPerson(table, data.free_position - 1);
+					}
+				  }else if (data.status == 'FULL')
+				  {
+					draged.fadeTo(200, 1.0);
+					alert ("Table " + elementCaption[0].innerHTML + "is full for " + draged.text());
+					$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+				  }else{
+					draged.fadeTo(200, 1.0);
+					$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+				  }
+				}, 'json');
+				$("#dropLayer").remove();
+		  }
+	  });
+    }
+  });
+  $("#people_list").multisortable();
+  $("#people_list").disableSelection();
+  $("#people_list > li").dblclick( function(event){
+		if (!event.ctrlKey)
+		{
+			var current_person = $(this);
 			if (tableMode)
 			{
-				LoadPerson(table, data.free_position - 1);
-			}
-          }else if (data.status == 'FULL')
-          {
-            $Draged.fadeTo(200, 1.0);
-            alert ("Table is full");
-			$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-          }else{
-            $Draged.fadeTo(200, 1.0);
-            $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
-          }
-        }, 'json');
-      }
-    }
-  });
-  $("#people_list > li").draggable({
-    //snap: true,
-    //snapMode: 'inner',
-    helper: 'clone',
-	cursor: "move",
-    start: function (e, ui){
-      //$(this).css("list-style-image", 'url("http://www.veryicon.com/icon/preview/Movie%20&%20TV/Super%20Heroes/Spider%20man%20Icon.jpg")');
-      $last_drag = "ER";
-      $Draged = $(this);
-      $(this).fadeTo(200, 0.3);
-      $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-    },
-    stop: function (e, ui) {
-      if ($last_drag != "OK")
-      { $(this).fadeTo(200, 1.0); }
-      //alert($(this).position().left);
-      //alert($(this).position().top);
-      //alert($(this).context.id);
-    }
-  });
-  $("#people_list > li").dblclick( function(){
-  		var current_person = $(this);
-		if (tableMode)
-		{
-			var full_name = "";
-			full_name = $(this).context.id.split("_", 2);
+				var full_name = "";
+				full_name = $(this).context.id.split("_", 2);
 
-			var first_Name = full_name[0];
-			var last_Name = full_name[1];
-			var selectedTable = (SelectedElem == "" ? SelectedTable : SelectedElem);
-			$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
-			function(data)
-			{
-				if (data.status == 'OK')
+				var first_Name = full_name[0];
+				var last_Name = full_name[1];
+				var selectedTable = (SelectedElem == "" ? SelectedTable : SelectedElem);
+				$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
+				function(data)
 				{
-					personData = data;
-					FocusDetails(current_person,selectedTable,true);
-				}
-			},'json');
-		}
-		else
-		{
-			FocusDetailsFromFloatList(current_person,true);
+					if (data.status == 'OK')
+					{
+						personData = data;
+						FocusDetails(current_person,selectedTable,true);
+					}
+				},'json');
+			}
+			else
+			{
+				FocusDetailsFromFloatList(current_person,true);
+			}
 		}
    });
   $(".DelDiv").click( function() {
@@ -661,17 +653,6 @@ $(document).ready(function() {
 		   }
 		}
 	}
-  });
-  $("#people_list > li").click(function() {
-    $(this).css("background-color",'blue');
-	SelectedPerson = $(this);
-	var element = $(this);
-		$("#people_list > li").each(function(i) {
-			if (element.context.id != $(this).context.id)
-			{
-				$(this).css("background-color",'white');
-			}
-		});
   });
   $(".DelPersonDiv").click( function() {
   

@@ -389,7 +389,6 @@ function StartDragPerson(element)
 		positionNum =  element.context.id.substring(element.context.id.length - 1, element.context.id.length);
 	}
 
-	$Draged = "";
 	$("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
 		
 	PersonLastPosition[0] = $("#tableElementDiv"+ positionNum).position().top;

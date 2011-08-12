@@ -353,7 +353,6 @@ def get_Money_Info(request):
 	persons = Guest.objects.filter(user=request.user)
 	for person in persons:
 		totalSum = totalSum + person.present_amount
-		print person.group
 		if person.group == 'Other':
 			totalOtherSum = totalOtherSum + person.present_amount
 		else:

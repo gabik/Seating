@@ -6,6 +6,7 @@
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
+<script type="text/javascript" src="/static/canvas/plugins/ui.multisortable.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
 <link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/themes/base/jquery-ui.css" type="text/css" media="all" />
 <link rel="stylesheet" href="http://static.jquery.com/ui/css/demo-docs-theme/ui.theme.css" type="text/css" media="all" />
@@ -110,7 +111,7 @@
 				<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
 			</table>
 			<div id="people-list">
-				<ul id="people_list" multiple="multiple">
+				<ul id="people_list">
 					{% for guest in guests %}
 						{% if guest.elem_num == 0 %}
 							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>

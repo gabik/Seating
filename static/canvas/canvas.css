@@ -213,6 +213,12 @@
   position:absolute;
   z-index:9999;
   }
+  .personOverTableDropLayer
+   {
+	background-color:purple;
+	z-index:9999;
+	opacity : 0.1;
+  }
  .Properties-bar
  {
  }
@@ -263,6 +269,13 @@
  }
  select { 
  font-size: 0.9em;
+}
+.ui-multisort-grouped {
+	background:aliceblue;
+}
+.ui-multisort-click {
+	color:purple;
+	 font-size: 1.2em;
 }
  
 
