@@ -13,6 +13,7 @@ class IntegerRangeField(models.IntegerField):
 class UserProfile(models.Model):
         user = models.ForeignKey(User, unique=True)
 	phone_number = models.CharField(max_length=30)
+	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
 	num_of_guests = IntegerRangeField(min_value=1, max_value=1056)
 	
@@ -40,6 +41,7 @@ class Guest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
+<<<<<<< HEAD
 	group_choices = (
 		('Friends', 'Friends'),
 		('Family', 'Family'),
@@ -47,3 +49,14 @@ class Guest(models.Model):
 		('Other', 'Other'),
 	)
 	group = models.CharField(max_length=7, choices=group_choices, default='Other')
+=======
+
+class DupGuest(models.Model):
+        user = models.ForeignKey(User, unique=False)
+	guest_first_name = models.CharField(max_length=30)
+	guest_last_name = models.CharField(max_length=30)
+	phone_number = models.CharField(max_length=30)
+	guest_email = models.EmailField()
+	present_amount = models.IntegerField(default=0)
+	facebook_account = models.CharField(max_length=30, blank=True)
+>>>>>>> Gabi-Working-Dir

@@ -41,7 +41,11 @@ def new_canvas(request):
 	if request.method == 'POST':
 		form = InitCanvas(request.POST)
 		if form.is_valid():
-			table_kind = request.POST['table_kind']
+			if 'table_kind' in request.POST:
+				table_kind = request.POST['table_kind']
+			else:
+				return HttpResponseRedirect('/canvas/edit/')
+
 			amount = int(request.POST['tables_num'])
 			user_elements = SingleElement.objects.filter(user=request.user)
 			if (len(user_elements) <= 0):
@@ -50,10 +54,11 @@ def new_canvas(request):
 				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 			for i in range(0, amount):
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
-				single_element.save()
+				if max_num+i<44:
+					single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
+					single_element.save()
 
-			if 'AddMore' in request.POST:
+			if 'AddMore' in request.POST and max_num+amount<44:
 				return HttpResponseRedirect('/canvas/new/')
 			else:
 				return HttpResponseRedirect('/canvas/edit/')
@@ -151,9 +156,13 @@ def add_element(request):
 		table_kind = request.POST['kind']
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
-			single_element.save()
-		json_dump = json.dumps({'status': "OK", 'kind': table_kind})
+			if max_num+i < 44:
+				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+				single_element.save()
+		if max_num+amount < 44:
+			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
+		else:
+			json_dump = json.dumps({'status': "LIMIT", 'kind': table_kind})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -340,6 +349,7 @@ def bring_person_to_floatlist_from_postion(request):
 			numOfFloatingPersons = int(numOfFloatingPersons) + 1
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
+<<<<<<< HEAD
 	return HttpResponse(json_dump)
 	
 @login_required
@@ -366,3 +376,7 @@ def get_Money_Info(request):
 						totalWorkSum = totalWorkSum + person.present_amount
 	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
 	return HttpResponse(json_dump)
+=======
+		print json_dump
+	return HttpResponse(json_dump)
+>>>>>>> Gabi-Working-Dir

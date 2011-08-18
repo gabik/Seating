@@ -1,0 +1,12 @@
+<HTML>
+<BODY>
+<H1> Duplicate records, Please check who you want to add to the list </H1>
+<form action="/accounts/do_duplicates/" method="POST">
+{% csrf_token %}
+{% for i in duplicate_list %}
+	<input type="checkbox" name="{{ i.guest_first_name }}-{{ i.guest_last_name }}"> {{ i.guest_first_name }} {{ i.guest_last_name }} <BR>
+{% endfor %}
+<input type=submit value=Add>
+</form>
+</BODY>
+</HTML>

@@ -1,0 +1,146 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html>
+<head>
+<meta charset=utf-8 />
+<title>Drop Shadow With JQuery</title>
+<script type="text/javascript" src="jquery.js"></script>
+<script type="text/javascript" src="dropshadow.jquery.plugin.js"></script>
+<script type="text/javascript">
+$(window).load(function(){
+  $('.shadow').dropshadow({
+    shadowColor: '#cccccc',
+    shadowLayer: -100,
+    distance:'6px',
+    blur:'3px'
+  });
+});
+
+
+$(window).resize(function(){
+  $('.drop_shadow_layer').remove();
+  $('.shadow').dropshadow({
+    shadowColor: '#cccccc',
+    shadowLayer: -100,
+    distance:'6px',
+    blur:'3px'
+  });
+});
+
+
+</script>
+<style type="text/css">
+#images
+{
+  margin:0px auto;
+  width:800px;
+}
+
+.box1
+{
+	width:140px;
+	height:105px;
+	background:red;
+	margin:25px;
+	float:left;
+}
+
+.box2
+{
+	width:140px;
+	height:105px;
+	background:green;
+	margin:25px;
+	float:left;
+}
+.box3
+{
+	width:140px;
+	height:105px;
+	background:blue;
+	margin:25px;
+	float:left;
+}
+
+.box4
+{
+	width:140px;
+	height:105px;
+	background:purple;
+	margin:25px;
+	float:left;
+}
+
+#images img
+{
+  float:left;
+  margin:25px;
+}
+
+.clear
+{
+  clear:both;
+}
+
+.left
+{
+  float:left;
+}
+
+.right
+{
+  float:right;
+}
+</style>
+
+</head>
+
+<body>
+
+   <h1 align="center">Drop Shadow With JQuery</h1>
+
+  <div id="images">
+  
+	<h3>For Images</h3>
+  
+    <img src="images/01.jpg" border="0" class="shadow" width="140" height="105" />
+	<img src="images/02.jpg" border="0" class="shadow" />
+	<img src="images/03.jpg" border="0" class="shadow" />
+	<img src="images/04.jpg" border="0" class="shadow" />
+	<img src="images/05.jpg" border="0" class="shadow" />
+	<img src="images/06.jpg" border="0" class="shadow" />
+	<img src="images/07.jpg" border="0" class="shadow" />
+	<img src="images/08.jpg" border="0" class="shadow" />
+
+	<div class="clear"></div>
+
+	<h3>For Divs</h3>
+	
+	<div class="shadow box1">
+	 Some content here....
+	</div>
+
+	<div class="shadow box2">
+	 Some content here....
+	</div>
+
+	<div class="shadow box3">
+	 Some content here....
+	</div>
+
+	<div class="shadow box4">
+	 Some content here....
+	</div>
+	
+  </div>
+  <div class="clear"></div>
+  
+  	<br /><br />
+	
+		<br /><br />
+		<!--<hr width="750" />-->
+		<p align="center">
+			Back to <a href="http://sarfraznawaz.wordpress.com/" style="color:#FF0066; font-weight:bold; text-decoration:none;">Sarfraz Ahmed's Blog</a>
+
+
+</body>
+</html>

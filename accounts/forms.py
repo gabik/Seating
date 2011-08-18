@@ -1,6 +1,11 @@
 from django import forms
 from django.forms import ModelForm
 from accounts.models import UserProfile, Partners, User
+from captcha.fields import CaptchaField
+
+class AgreeForm(forms.Form):
+	captcha = CaptchaField()
+	IAgree = forms.BooleanField(required=True)
 
 class UserForm(forms.Form):
         username = forms.CharField(max_length=100, label = 'Username')
@@ -42,7 +47,7 @@ class UserForm(forms.Form):
 class UserProfileForm(ModelForm):
         class Meta:
                 model = UserProfile
-                exclude = ('user','occasion_date')
+                exclude = ('user','occasion_date', 'excel_hash')
 				
 class PartnersForm(ModelForm):
          class Meta:

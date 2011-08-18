@@ -59,6 +59,21 @@
 	</table>
 </div>
 
+<div class="fieldWrapper">
+	{{ agree_form.captcha }}
+	{% for error in agree_form.captcha.errors %}
+		<b class=errors> {{ error }} </b>
+	{% endfor %}
+</div>
+<div class="fieldWrapper">
+  {{ agree_form.IAgree }} I agree to <a href="/static/agreement.html" target=_blank>this agreement</a>!
+  {% for error in agree_form.IAgree.errors %}
+    <b class=errors> {{ error }} </b>
+  {% endfor %}
+</div>
+
+
+
 <input type="submit" value="Submit" />
 {% csrf_token %}
 </form>
