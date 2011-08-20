@@ -204,7 +204,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 						    {
 								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-								location.reload();
+								ShowHourGlassWaitingWindow(true);
 							   }else{
 								$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 							   }
@@ -318,7 +318,7 @@ function saveNumOfGuests(numGuests)
 function updateNumOfGuest()
 {
 	var numOfGuests = $("#NumOfGuests").val();
-	if (numOfGuests < $("#people_list > li").size())
+	if (numOfGuests < $("#people_list > li").size() + findNumOfAllSeaters())
 	{
 		numOfGuests = $("#people_list > li").size() + findNumOfAllSeaters();
 	}
@@ -456,7 +456,8 @@ $(document).ready(function() {
 	  {
 		return;
 	  }
-	  var table = $(this); 
+	  var table = $(this);
+	
 	  ui.helper.each(function(i){
 		  var draged = $(this);
 		  if (draged  != "")
@@ -469,8 +470,16 @@ $(document).ready(function() {
 				function(data){
 				  if (data.status == 'OK')
 				  {
-					$("#" + draged.context.id).remove();
+					if ($("#" + draged.context.id).index() < 0)
+					{
+						$("#people_list > li").each(function(j) { if ($(this).context.id == draged.context.id){$(this).remove();}});
+					}
+					else
+					{
+						$("#" + draged.context.id).remove();
+					}
 					draged.hide();
+					draged.remove();
 					$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 					if (data.table_status == 'Yellow')
 					{
@@ -578,7 +587,7 @@ $(document).ready(function() {
 					  { 
 						  //undoElement[0] = SelectedElem;
 						  //undoElement[1] = "add"; 
-						  location.reload();
+						  ShowHourGlassWaitingWindow(true);
 					  }
 					}, 'json');
 				} else {
@@ -606,11 +615,13 @@ $(document).ready(function() {
   $("ul.AligmentMenu").mouseleave( function() {
     $('ul.AligmentMenu').slideUp()('medium');
   });
-  $("ul.AddMenu").mouseleave( function() {
-    $('ul.AddMenu').slideUp()('medium');
+  $("ul.AddMenu").mouseleave( function(e) {
+	if (!$(e.target).hasClass('Property'))
+	{
+		$('ul.AddMenu').slideUp()('medium');
+	}
   });
   $(".UndoDiv").click( function() {
-<<<<<<< HEAD
 	for (var index = 0; index < undoElementList.length; index++)
 	{
 		var undoElement = undoElementList[index];
@@ -628,15 +639,21 @@ $(document).ready(function() {
 				  }
 			  case "add":
 				  {
-					$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-					function(data){
-					if (data.status == 'OK')
-					{
-					   undoElement[1] = "delete"; 
-					   location.reload();
-					}
-					}, 'json');
-					break;
+					  {
+						$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+						function(data){
+						if (data.status == 'OK')
+						{
+						   undoElement[1] = "delete"; 
+						   ShowHourGlassWaitingWindow(true);
+						} else if (data.status == 'LIMIT')
+										{
+											alert("Maximum 48 tables");
+											ShowHourGlassWaitingWindow(true);
+										}
+						}, 'json');
+						break;
+					  }
 				  }
 			  case "delete":
 			  {
@@ -646,7 +663,7 @@ $(document).ready(function() {
 				  if (data.status == 'OK')
 				  { 
 					 undoElement[1] = "add"; 
-					 location.reload();
+					 ShowHourGlassWaitingWindow(true);
 				  }
 				  }, 'json');
 				  break;
@@ -654,51 +671,6 @@ $(document).ready(function() {
 		   }
 		}
 	}
-=======
-    if (undoElement[0] != "" && undoElement[1] != "")
-    {
-       switch(undoElement[1])
-       {
-          case "move":
-              {
-                var newTop = startDradPosition.top;
-                var newLeft = startDradPosition.left;
-                startDradPosition = undoElement[0].position();
-                undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement(undoElement[0]); selectElement(undoElement[0]);});
-                break;
-              }
-          case "add":
-              {
-                $.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-                function(data){
-                if (data.status == 'OK')
-                {
-                   undoElement[1] = "delete"; 
-                   location.reload();
-                } else if (data.status == 'LIMIT')
-								{
-									alert("Maximum 44 tables");
-                  location.reload();
-								}
-                }, 'json');
-                break;
-              }
-          case "delete":
-          {
-              $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-              $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
-              function(data){
-              if (data.status == 'OK')
-              { 
-                 undoElement[1] = "add"; 
-                 location.reload();
-              }
-              }, 'json');
-              break;
-          }
-       }
-    }
->>>>>>> Gabi-Working-Dir
   });
   $(".DelPersonDiv").click( function() {
   
@@ -748,7 +720,7 @@ $(document).ready(function() {
         {
             //undoElement[0] = SelectedElem;
             //undoElement[1] = "delete"; 
-            location.reload();
+			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
   });
@@ -758,7 +730,12 @@ $(document).ready(function() {
 		$(".DelDiv").click();
    }
   });
+  $("#SearchBy").change(function(){$("#SearchCaption").keypress();});
+  $("#SearchCaption").mousedown(function(){$("#SearchCaption").keypress();});
   $("#SearchCaption").keypress(function() {
+  	$("input#SearchCaption").autocomplete({
+		source:[""]
+	});
   	if ($("#SearchBy").val() == "Table")
 	{
 		 $.post('/canvas/findTables/', {name: $(this).val()},
@@ -767,6 +744,8 @@ $(document).ready(function() {
 		   {
 				searchResult =	data.objects.split(",",data.numOfResults + 1);
 				$("input#SearchCaption").autocomplete({
+					minChars: 0,
+					autoFocus: true,
 					source: searchResult
 				});
 		   }
@@ -780,6 +759,8 @@ $(document).ready(function() {
 		   {
 				searchResult =	data.objects.split(",",data.numOfResults + 1);
 				$("input#SearchCaption").autocomplete({
+					minChars: 0,
+					autoFocus: true,
 					source: searchResult
 				});
 		   }
@@ -845,33 +826,51 @@ $(document).ready(function() {
 				}
 				else
 				{
-					$("#"+ full_name[0] +"_"+ full_name[1]).click();
+					$("#people_list > li").each(function(i) {
+						$(this).removeClass('ui-multisort-click');
+					});
+					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
+					
+					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 20));
 				}
 			}
 			}, 'json');
 	}
 	});
   $("#ElementPropertiesSaveButton").click( function() { 
+  var numOfGuests;
   if (SelectedElem != "" ) {
-    if (tableMode)
-	{
-		var event = jQuery.Event("dblclick");
-		event.user = "SaveProperyTable";
-		SelectedElem.trigger(event);
-	}
-	else
-	{
-		var caption = $("#ElementCaption").val();
-		var size = $("#ElementSize").val();
-		var numOfGuests = updateNumOfGuest();
-		var elementCaption = SelectedElem.context.getElementsByTagName("p");
-		saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
-	}
+		if (tableMode)
+		{
+			var event = jQuery.Event("dblclick");
+			event.user = "SaveProperyTable";
+			SelectedElem.trigger(event);
+		}
+		else
+		{
+			var caption = $("#ElementCaption").val();
+			var size = $("#ElementSize").val();
+			numOfGuests = updateNumOfGuest();
+			var elementCaption = SelectedElem.context.getElementsByTagName("p");
+			saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
+		}
     }
 	else
 	{
-			var numOfGuests = updateNumOfGuest();
+			numOfGuests = updateNumOfGuest();
 			saveNumOfGuests(numOfGuests);
+	}
+	
+	if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	{
+		$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+			$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+	}
+	else
+	{
+		$(".AddPersonDiv").unbind('click');
+		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
+		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
 	}
   });
   
@@ -921,6 +920,14 @@ $(document).ready(function() {
       }
     }
 	isMousePressFromCanvas = false;
+	});
+	
+	$(document).before(function(){
+		ShowHourGlassWaitingWindow(false);
+	});
+
+	$(document).ready(function(){
+		HideHourGlassWaitingWindow();
 	});
 });
 

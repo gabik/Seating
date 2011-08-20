@@ -37,7 +37,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
       function(data){
         if (data.status == 'OK')
         {
-              location.reload();
+			  ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
 }
@@ -695,7 +695,8 @@ function DeletePerson()
 		  selectPersonElement($("#tableElement" + personData.position));
 		  SelectedPerson = "";
           $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
-		  location.reload();//		  addPersonToFloatList(personData.first_name,personData.last_name);
+		  ShowHourGlassWaitingWindow(true);
+		  //		  addPersonToFloatList(personData.first_name,personData.last_name);
         }else{
           $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
         }

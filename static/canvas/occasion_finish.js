@@ -6,7 +6,6 @@ function showFinishOptions()
 		$("#OccasionFinishMainWindow").append($('<br /><input id="thanks" type="checkbox" value="False"/><label for="thanksLbl">Send Thanks</label><br /><br />'));
 		$("#OccasionFinishMainWindow").append($('<input id="printList" type="checkbox" value="False"/><label for="printListLbl">Print Guest List</label><br /><br />'));
 		$("#OccasionFinishMainWindow").append($('<input id="makeStickers" type="checkbox" value="False"/><label for="makeStickersLbl">Make Stickers</label><br /><br />'));
-		$("#OccasionFinishMainWindow").append($('<input id="sendHall" type="checkbox" value="False"/><label for="sendHallLbl">Send To The Hall</label><br /><br />'));
 }
 
 $(document).ready(function() {
