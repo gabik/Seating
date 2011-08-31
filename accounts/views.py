@@ -256,7 +256,7 @@ def download_map(request):
 	row_num = 0
 	#row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	#for g in elements_nums:
-	cur_3_cul=-2
+	cur_3_cul=0
 	cur_row=1
 	max_sitting_row=0
 	for g in user_elements:
@@ -264,38 +264,42 @@ def download_map(request):
 		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
 		element_name=g.caption
 		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
-		if (cur_3_cul > 0) and (cur_3_cul % 9 == 0):
-			cur_3_cul=-1
+		if (cur_3_cul > 0) and (cur_3_cul % 12 == 0):
+			cur_3_cul=1
 			max_sitting_row=0
-			row_num=cur_row+(max_sitting_row / 3)
-			if max_sitting_row % 3 != 0:
-				row_num+=1
-			row_num+=3
+			cur_row=cur_row+(max_sitting_row / 3)
+			if (max_sitting_row % 3 != 0) or (max_sitting_row == 0):
+				cur_row+=1
+			cur_row+=3
 		else:
 			cur_3_cul+=1
 			if len(sitting_on_element) > max_sitting_row:
 				max_sitting_row=len(sitting_on_element)
-			row_num=cur_row
+		row_num=cur_row
 		
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul+2,element_name)
+		row1.write(cur_3_cul+1,element_name)
 		row_num+=1
 		row1 = sheet1.row(row_num)
 		for s in sitting_on_element:
-			cur_3_cul+=1
 			if (cur_3_cul % 3 == 0) and (cur_3_cul > 0):
-				cur_3_cul-=3
+				cur_3_cul-=2
 				row_num+=1
 				row1 = sheet1.row(row_num)
 			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row_num+=1
-		if cur_3_cul <= 0:
-			cur_3_cul=3
-		while ( cur_3_cul % 3 != 0) :
 			cur_3_cul+=1
-		cur_3_cul+=1
+		row_num+=1
+		if cur_3_cul <= 3:
+			cur_3_cul=3
+		elif cur_3_cul <= 7:
+			cur_3_cul=7
+		elif cur_3_cul <=11:
+			cur_3_cul=11
+		#while ( cur_3_cul % 3 != 0) :
+		#	cur_3_cul+=1
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul-3,len(sitting_on_element))
+		row1.write(cur_3_cul-1,len(sitting_on_element))
+		cur_3_cul+=1
 	#sheet1.col(0).width = 4000
 	#sheet1.col(1).width = 4000
 	#sheet1.col(2).width = 5000
