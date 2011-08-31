@@ -1,4 +1,5 @@
 # Create your views here.
+import math
 import random
 from tempfile import TemporaryFile
 from xlwt import Workbook, Style
@@ -10,6 +11,7 @@ from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm, AgreeForm
 from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest
+from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 
@@ -207,7 +209,7 @@ def download_excel(request):
 		row1.set_cell_text(2,g.phone_number, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
 		row1.write(3,g.guest_email, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
 		row1.write(4,g.facebook_account, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		ggroup='' #Replacing g.group
+		ggroup=g.group
 		row1.write(5,ggroup, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
 		row1.write(6,g.present_amount, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
 		row_num+=1
@@ -241,3 +243,66 @@ def do_duplicates(request):
 				new_person.save()
 	DupGuest.objects.filter(user=request.user).delete()
 	return HttpResponseRedirect('/canvas/edit')
+
+@login_required
+def download_map(request):
+	#Guests = Guest.objects.filter(user=request.user)
+	user_elements = SingleElement.objects.filter(user=request.user)
+        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#max_rows = math.ceil(len(elements_nums)/3)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	row_num = 0
+	#row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	#for g in elements_nums:
+	cur_3_cul=-2
+	cur_row=1
+	max_sitting_row=0
+	for g in user_elements:
+		#element_name=user_elements[g].caption
+		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
+		element_name=g.caption
+		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
+		if (cur_3_cul > 0) and (cur_3_cul % 9 == 0):
+			cur_3_cul=-1
+			max_sitting_row=0
+			row_num=cur_row+(max_sitting_row / 3)
+			if max_sitting_row % 3 != 0:
+				row_num+=1
+			row_num+=3
+		else:
+			cur_3_cul+=1
+			if len(sitting_on_element) > max_sitting_row:
+				max_sitting_row=len(sitting_on_element)
+			row_num=cur_row
+		
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul+2,element_name)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		for s in sitting_on_element:
+			cur_3_cul+=1
+			if (cur_3_cul % 3 == 0) and (cur_3_cul > 0):
+				cur_3_cul-=3
+				row_num+=1
+				row1 = sheet1.row(row_num)
+			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row_num+=1
+		if cur_3_cul <= 0:
+			cur_3_cul=3
+		while ( cur_3_cul % 3 != 0) :
+			cur_3_cul+=1
+		cur_3_cul+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul-3,len(sitting_on_element))
+	#sheet1.col(0).width = 4000
+	#sheet1.col(1).width = 4000
+	#sheet1.col(2).width = 5000
+	#sheet1.col(3).width = 9000
+	#sheet1.col(4).width = 5000
+	#sheet1.col(5).width = 4000
+	#sheet1.col(6).width = 4000
+	book.save('static/excel_output/map.xls')
+	book.save(TemporaryFile())
+	return render_to_response('accounts/download_map.html')
