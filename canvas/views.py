@@ -19,6 +19,9 @@ def edit_canvas(request):
 	elements_nums = user_elements.values_list('elem_num', flat=1)
 	Guests = Guest.objects.filter(user=request.user)
 	userProfile = UserProfile.objects.filter(user=request.user)
+	cur_width = 90
+	if len(elements_nums) > 40:
+		cur_width = int(90*45/len(elements_nums))
 	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
@@ -29,6 +32,7 @@ def edit_canvas(request):
 	c['elements_nums'] = elements_nums
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
+	c['width'] = cur_width
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -54,11 +58,11 @@ def new_canvas(request):
 				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 			for i in range(0, amount):
-				if max_num+i<44:
-					single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
+				if max_num+i<500:
+					single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Elem-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
 					single_element.save()
 
-			if 'AddMore' in request.POST and max_num+amount<44:
+			if 'AddMore' in request.POST and max_num+amount<500:
 				return HttpResponseRedirect('/canvas/new/')
 			else:
 				return HttpResponseRedirect('/canvas/edit/')
@@ -156,10 +160,10 @@ def add_element(request):
 		table_kind = request.POST['kind']
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
-			if max_num+i < 48:
+			if max_num+i < 500:
 				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 				single_element.save()
-		if max_num+amount < 48:
+		if max_num+amount < 500:
 			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
 		else:
 			json_dump = json.dumps({'status': "LIMIT", 'kind': table_kind})

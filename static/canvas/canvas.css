@@ -36,11 +36,11 @@
   float:right;
   background:#efefef;
  }
- .ElemImg
+ /*.ElemImg
  {
   width:90px;
   height:90px;
- }
+ }*/
  .MenuItem 
  {
   width:45px;
@@ -93,6 +93,17 @@
   position:relative;
   top:-25;
   right:30;
+  direction:rtl;
+}
+.upload_excel
+{
+  direction:rtl;
+}
+.download_excel
+{
+  position:relative;
+  top:-20
+  right:10;
   direction:rtl;
 }
 .AddPerson
