@@ -29,24 +29,24 @@ def edit_canvas(request):
 	c['elements_nums'] = elements_nums
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
+	print user_elements
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
-		return new_canvas(request)
-		#return render_to_response('canvas/new.html')
+		return render_to_response('canvas/new.html')
 
 @login_required
 def new_canvas(request):
-	c = {}
+	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		form = InitCanvas(request.POST)
-		if form.is_valid():
-			if 'table_kind' in request.POST:
-				table_kind = request.POST['table_kind']
-			else:
-				return HttpResponseRedirect('/canvas/edit/')
-
+		if 'start_canvas' in request.POST:
+			return HttpResponseRedirect('/canvas/edit/')
+		else:
+			table_kind = request.POST['tables_kind']
 			amount = int(request.POST['tables_num'])
+			size = int(request.POST['tables_size'])
+			cordx = int(request.POST['tables_startx'])
+			cordy = int(request.POST['tables_starty'])
 			user_elements = SingleElement.objects.filter(user=request.user)
 			if (len(user_elements) <= 0):
 				max_num = 1
@@ -54,20 +54,10 @@ def new_canvas(request):
 				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 			for i in range(0, amount):
-				if max_num+i<44:
-					single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
-					single_element.save()
-
-			if 'AddMore' in request.POST and max_num+amount<44:
-				return HttpResponseRedirect('/canvas/new/')
-			else:
-				return HttpResponseRedirect('/canvas/edit/')
-	else:
-		form = InitCanvas()
-
-	c.update(csrf(request))
-	c['form'] = form
-	return render_to_response('canvas/new.html', c)
+				single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+				single_element.save()
+			json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
 
 @login_required
 def save_element(request):
