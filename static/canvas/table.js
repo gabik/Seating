@@ -265,6 +265,7 @@ $(document).ready(function() {
 		}
 		else
 		{
+			showPropertyPanel("");
 			$(this).attr("title", "Press Double Click To All Tables View");
 			turnToTableMode($(this),true,event);
 		}

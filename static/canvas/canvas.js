@@ -6,6 +6,7 @@ var maxElementCapacity = 22;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
 var maxGuests = 1056;
+var addPersonDivOpen = false;
 
 function IsNumeric(sText)
 {
@@ -253,6 +254,7 @@ function selectElement(element)
 	multiSelection = false;
     SelectedElem = element;
 	updateElementScreenProperties(element);
+	showPropertyPanel(element);
 }
 
 function updateElementScreenProperties(element)
@@ -260,6 +262,12 @@ function updateElementScreenProperties(element)
 	var elementCaption = element.context.getElementsByTagName("p");
 	$("#ElementCaption").attr("value",elementCaption[0].firstChild.nodeValue);
 	$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+}
+
+function updateSeatedLabel()
+{
+	document.getElementById("SeatedLabelValue").innerHTML = findNumOfAllSeaters();
+	document.getElementById("TotalGuestsLabelValue").innerHTML = $("#people_list > li").size() + findNumOfAllSeaters()
 }
 
 function reloadElementStatus(element)
@@ -374,6 +382,50 @@ function findNumOfAllSeaters()
 	return sum;
 }
 
+function showPropertyPanel(element)
+{
+	if (element != "" && !tableMode && !detailsMode)
+	{
+		if (element.position().left < 600)
+		{
+			$("#element-properties-list").css('top',element.position().top - 15);
+			$("#element-properties-list").css('left',element.position().left + element.width() - 5);
+			$("#element-properties-list").show("slide", { direction: "left" }, 50);
+		}
+		else
+		{
+			$("#element-properties-list").css('top',element.position().top - 15);
+			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 23);
+			$("#element-properties-list").show("slide", { direction: "right" }, 50);
+		}
+	}
+	else
+	{
+		$("#element-properties-list").hide();
+	}
+}
+
+function posPropertyPanel(element)
+{
+	if (element != "")
+	{
+		if (element.position().left < 600)
+		{
+			$("#element-properties-list").css('top',element.position().top);
+			$("#element-properties-list").css('left',element.position().left + element.width() + 2);
+		}
+		else
+		{
+			$("#element-properties-list").css('top',element.position().top);
+			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
+		}
+	}
+	else
+	{
+		$("#element-properties-list").hide();
+	}
+}
+
 $(document).ready(function() {
   var imgs,i;
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
@@ -399,6 +451,8 @@ $(document).ready(function() {
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
 
+  showPropertyPanel("");
+  updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
   
   $(".DragDiv").after(function() {
@@ -498,6 +552,7 @@ $(document).ready(function() {
 					{
 						LoadPerson(table, data.free_position - 1);
 					}
+					updateSeatedLabel();
 				  }else if (data.status == 'FULL')
 				  {
 					draged.fadeTo(200, 1.0);
@@ -521,6 +576,7 @@ $(document).ready(function() {
 			var current_person = $(this);
 			if (tableMode)
 			{
+				
 				var full_name = "";
 				full_name = $(this).context.id.split("_", 2);
 
@@ -576,6 +632,7 @@ $(document).ready(function() {
 			if (tableMode)
 			{
 				DeletePerson();
+				updateSeatedLabel();
 			}
 			else
 			{
@@ -691,6 +748,7 @@ $(document).ready(function() {
 					$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
 			   }
 			   $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			   updateSeatedLabel();
 			 }else{
 			   $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 			 }
@@ -705,6 +763,18 @@ $(document).ready(function() {
   });
   $(".AddPersonDiv").click( function() {
     $('ul.AddPerson').slideToggle('medium');
+	if (addPersonDivOpen)
+	{
+		addPersonDivOpen=false;
+		$("#maxGuest_list").animate({top:250});
+		$("#search-properties-list").animate({top:330});
+	}
+	else
+	{
+		addPersonDivOpen=true;
+		$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
+		$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
+	}
   }); 
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
@@ -837,41 +907,43 @@ $(document).ready(function() {
 			}, 'json');
 	}
 	});
-  $("#ElementPropertiesSaveButton").click( function() { 
+  $("#MaxGuestSaveButton").click( function() { 
   var numOfGuests;
+  if (SelectedElem != "" ) {
+			numOfGuests = updateNumOfGuest();
+			saveNumOfGuests(numOfGuests);
+	}
+	
+	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	//{
+	//	$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+	//		$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+	//}
+	//else
+	//{
+	//	$(".AddPersonDiv").unbind('click');
+	//	$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
+	//	$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
+	//}
+  });
+	
+  $("#ElementPropertiesSaveButton").click( function() { 
   if (SelectedElem != "" ) {
 		if (tableMode)
 		{
-			var event = jQuery.Event("dblclick");
-			event.user = "SaveProperyTable";
-			SelectedElem.trigger(event);
+			//var event = jQuery.Event("dblclick");
+			//event.user = "SaveProperyTable";
+			//SelectedElem.trigger(event);
 		}
 		else
 		{
 			var caption = $("#ElementCaption").val();
 			var size = $("#ElementSize").val();
-			numOfGuests = updateNumOfGuest();
 			var elementCaption = SelectedElem.context.getElementsByTagName("p");
-			saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
+			saveElementWithCaption(SelectedElem,caption,size,"");
+			posPropertyPanel(SelectedElem);
 		}
     }
-	else
-	{
-			numOfGuests = updateNumOfGuest();
-			saveNumOfGuests(numOfGuests);
-	}
-	
-	if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
-	{
-		$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-			$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-	}
-	else
-	{
-		$(".AddPersonDiv").unbind('click');
-		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
-		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
-	}
   });
   
   $("#NumOfGuests").after(function(){
@@ -917,6 +989,7 @@ $(document).ready(function() {
    if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" ) {
            SelectedElem.border('2px pink .5');
+		   posPropertyPanel(SelectedElem);
       }
     }
 	isMousePressFromCanvas = false;

@@ -139,6 +139,7 @@ $(document).ready(function() {
 			if (SelectedElem != "")
 			{
 				SelectedElem.border('0px white 0');
+				showPropertyPanel("");
 			}
 			SelectedElem ="";
 			undoElementList ="";
