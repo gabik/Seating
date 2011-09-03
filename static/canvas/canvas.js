@@ -203,6 +203,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 						    function(dataSave){
 						    if (dataSave.status == 'OK')
 						    {
+								writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
 								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 								ShowHourGlassWaitingWindow(true);
@@ -226,6 +227,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 		  function(dataSave){
 		    if (dataSave.status == 'OK')
 		    {
+				writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 		    }else{
@@ -317,6 +319,7 @@ function saveNumOfGuests(numGuests)
 	if (dataSave.status == 'OK')
 	{
 		$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		writeOccasionInfo("Update Max Num Of Guest " +numGuests+".");
 		}else{
 		$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 		}
@@ -553,6 +556,8 @@ $(document).ready(function() {
 						LoadPerson(table, data.free_position - 1);
 					}
 					updateSeatedLabel();
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
+					posPropertyPanel(table);
 				  }else if (data.status == 'FULL')
 				  {
 					draged.fadeTo(200, 1.0);
@@ -633,6 +638,7 @@ $(document).ready(function() {
 			{
 				DeletePerson();
 				updateSeatedLabel();
+				writeOccasionInfo("Move Person "+SelectedPerson.text()+"From Table "+SelectedElem.text().split("\n", 2)[1].trim()+" To Float List.");
 			}
 			else
 			{
@@ -645,6 +651,7 @@ $(document).ready(function() {
 						  //undoElement[0] = SelectedElem;
 						  //undoElement[1] = "add"; 
 						  ShowHourGlassWaitingWindow(true);
+						  writeOccasionInfo("Delete Table "+SelectedElem.text().split("\n", 2)[1].trim()+".");
 					  }
 					}, 'json');
 				} else {
@@ -719,7 +726,7 @@ $(document).ready(function() {
 				  function(data){
 				  if (data.status == 'OK')
 				  { 
-					 undoElement[1] = "add"; 
+					 undoElement[1] = ""; 
 					 ShowHourGlassWaitingWindow(true);
 				  }
 				  }, 'json');
@@ -741,12 +748,13 @@ $(document).ready(function() {
 			 if (data.status == 'OK')
 			 {
 			   SelectedPerson.remove();
-			   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
-			   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
-			   {
-					$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-					$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-			   }
+			   //var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+			   //if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
+			   //{
+				//	$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+				//	$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+			   //}
+			   	writeOccasionInfo("Delete Person "+SelectedPerson.text()+"From Float List.");
 			   $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 			   updateSeatedLabel();
 			 }else{
@@ -784,12 +792,19 @@ $(document).ready(function() {
   });
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');
-    $.post('/canvas/add/', {kind: $(this).context.id ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
+	var kind = $(this).context.id;
+    $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
       function(data){
         if (data.status == 'OK')
         {
             //undoElement[0] = SelectedElem;
             //undoElement[1] = "delete"; 
+			var addChar = "";
+			if (parseInt(numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text) > 1)
+			{
+				addChar = 's';
+			}
+			writeOccasionInfo("Add " +numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text+" New "+kind +" Table"+addChar);
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');

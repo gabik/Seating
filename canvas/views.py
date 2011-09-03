@@ -1,6 +1,7 @@
 # Create your views here.
 from Seating.accounts.models import Guest
 from Seating.accounts.models import UserProfile
+from Seating.accounts.models import OccasionOperationItem
 from django.db.models import Max
 from django.utils import simplejson as json
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from Seating.canvas.models import SingleElement
 from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
+from datetime import datetime
 
 @login_required
 def edit_canvas(request):
@@ -29,7 +31,6 @@ def edit_canvas(request):
 	c['elements_nums'] = elements_nums
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
-	print user_elements
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -39,24 +40,21 @@ def edit_canvas(request):
 def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		if 'start_canvas' in request.POST:
-			return HttpResponseRedirect('/canvas/edit/')
+		table_kind = request.POST['tables_kind']
+		amount = int(request.POST['tables_num'])
+		size = int(request.POST['tables_size'])
+		cordx = int(request.POST['tables_startx'])
+		cordy = int(request.POST['tables_starty'])
+		user_elements = SingleElement.objects.filter(user=request.user)
+		if (len(user_elements) <= 0):
+			max_num = 1
 		else:
-			table_kind = request.POST['tables_kind']
-			amount = int(request.POST['tables_num'])
-			size = int(request.POST['tables_size'])
-			cordx = int(request.POST['tables_startx'])
-			cordy = int(request.POST['tables_starty'])
-			user_elements = SingleElement.objects.filter(user=request.user)
-			if (len(user_elements) <= 0):
-				max_num = 1
-			else:
-				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
-			for i in range(0, amount):
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
-				single_element.save()
-			json_dump = json.dumps({'status': "OK"})
+		for i in range(0, amount):
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+			single_element.save()
+		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -364,4 +362,42 @@ def get_Money_Info(request):
 					if person.group == 'Work':
 						totalWorkSum = totalWorkSum + person.present_amount
 	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
+	return HttpResponse(json_dump)
+
+		
+@login_required
+def write_Operation(request):
+	json_dump = json.dumps({'status': "Error"})
+	info = request.POST['info']
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
+	if (len(user_OccasionOperations) <= 0):
+		max_num = 1
+	else:
+		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max'] + 1
+	single_item = OccasionOperationItem(user=request.user, operation_number=max_num, operation_date=datetime.now() ,operation_info=info)
+	single_item.save()
+	json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_OperationsInfoNum(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
+	if (len(user_OccasionOperations) <= 0):
+		max_num = 0
+	else:
+		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max']
+	json_dump = json.dumps({'status': "OK",'Total':max_num})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_Operations(request):
+	json_dump = json.dumps({'status': "Error"})
+	num = int(request.POST['num'])
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user , operation_number = num)
+	if (len(user_OccasionOperations) == 1):
+		for OccasionOperation in user_OccasionOperations:
+			opdate = OccasionOperation.operation_date.strftime("%d/%m/%Y - %H:%M:%S")
+			opinfo = OccasionOperation.operation_info
+			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
 	return HttpResponse(json_dump)

@@ -37,6 +37,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
       function(data){
         if (data.status == 'OK')
         {
+			  writeOccasionInfo("Added Person " +first_name+" "+last_name);
 			  ShowHourGlassWaitingWindow(true);
         }
       }, 'json');

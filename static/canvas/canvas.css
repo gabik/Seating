@@ -135,6 +135,12 @@
   left:185px;
   top:3px;
  }
+ .OperationsInfoDiv
+  {
+  position:absolute;
+  left:215px;
+  top:3px;
+ }
   .AligmentDiv
  {
   position:absolute;
@@ -187,7 +193,7 @@
  {
    float:right;
  }
- .floatLeft
+ .floatleft
  {
    float:left;
  }
@@ -239,15 +245,18 @@
   width:125px;
   margin-top:5px;
  }
- #people-list
+ #float-list
  {
   position:absolute;
-  width:127;
   top:28px;
+  left:17;
+ }
+ #people-list
+ {
+  width:127;
   border:2px solid blue;
   overflow: auto;
   height:150px;
-  left:17;
  }
  #people_list li
  {
@@ -255,6 +264,7 @@
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;
+  z-index:15;
  }
  #PersonBtns
  {
@@ -355,6 +365,11 @@
 .ui-multisort-click {
 	color:purple;
 	 font-size: 1.2em;
+}
+#OperationList
+{
+	overflow:auto;
+	height:350;
 }
  
 

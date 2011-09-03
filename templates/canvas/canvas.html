@@ -24,6 +24,7 @@
 <script type="text/javascript" src="/static/canvas/money_info.js"></script>
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
+<script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 <script type="text/javascript">
  window.onload = function()
@@ -92,6 +93,7 @@
 			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png"></div>
 			<div class="MoneyInfoDiv"  title="Money Information"><img src="/static/canvas/images/Moneyinfo.png"></div>
 			<div class="OccasionFinishDiv"  title="Occasion Finish Operations"><img src="/static/canvas/images/checkered-flag.png"></div>
+			<div class="OperationsInfoDiv" title="Operations Info Calender"><img src="/static/canvas/images/calender.png"></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="Aligment Horizontal Left"><img src="/static/canvas/images/HorizontalLeft.png"></div></li>
 				<li><div id="HorizontalAligmentDivRight"  title="Aligment Horizontal Right"><img src="/static/canvas/images/HorizontalRight.png"></div></li>
@@ -116,14 +118,16 @@
 						<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
 					</table>
 				</div>
-			<div id="people-list">
-				<ul id="people_list">
-					{% for guest in guests %}
-						{% if guest.elem_num == 0 %}
-							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
-						{% endif %}
-					{% endfor %}
-				</ul>
+			<div id="float-list"/>
+				<div id="people-list">
+					<ul id="people_list">
+						{% for guest in guests %}
+							{% if guest.elem_num == 0 %}
+								<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
 			</div>
 			<div id="PersonBtns">
 				<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>

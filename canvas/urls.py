@@ -20,4 +20,7 @@ urlpatterns = patterns('canvas.views',
 	(r'^updateNumOfGuests/$', 'update_Num_Of_Guests'),
 	(r'^getNumOfGuests/$', 'get_Num_Of_Guests'),
 	(r'^getMoneyInfo/$', 'get_Money_Info'),
+	(r'^writeOperationInfo/$', 'write_Operation'),
+	(r'^getOperationsInfo/$', 'get_Operations'),
+	(r'^getOperationsInfoNum/$', 'get_OperationsInfoNum'),
 )

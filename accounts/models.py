@@ -57,3 +57,10 @@ class DupGuest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
+	
+class OccasionOperationItem(models.Model):
+        user = models.ForeignKey(User, unique=False)
+	operation_number = models.IntegerField(default=0)
+	operation_date = models.DateTimeField()
+	operation_info = models.CharField(max_length=50)
+	

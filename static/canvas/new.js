@@ -87,12 +87,17 @@ function createElementByLi(li, type, cordx, cordy)
 	amount = parseInt(tableProperties.last().val());
 		 
 	$.post('/canvas/new/', {tables_kind: kind, tables_num: amount, tables_size: size, tables_startx: cordx ,tables_starty: cordy},
-	function(data){	
-		if (data.status == 'OK')
-		{
-			
-		}
-	}, 'json');
+	function(data){
+        if (data.status == 'OK')
+        {
+       		var addChar = "";
+			if (amount > 1)
+			{
+				addChar = 's';
+			}
+			writeOccasionInfo("Add " +amount+" New "+ kind +" Table"+addChar);
+        }
+      }, 'json');
 }
 
 function updateCounters()
@@ -154,122 +159,127 @@ $(document).ready(function(){
 	   var xOffset = 110;
 	   var yOffset = 36;
 	   
-	   $("#TableTypeAList > li").each(function(i) {
-			
-			if (i % 2 == 0)
-			{
-				cordy = startY; 
-			}
-			else
-			{
-					var elementIndex = i - 1;
-					
-					if (elementIndex < 0)
-					{
-						elementIndex = 0;
-					}
-											
-					var valueAmount = getAmount($("#TableTypeAList > li:eq("+elementIndex+")"));
+	   if ($("#TableTypeAList > li").size() > 0 && $("#TableTypeBList > li").size() > 0)
+	   {
+		   writeOccasionInfo("Init Canvas");
+		   
+		   $("#TableTypeAList > li").each(function(i) {
+				
+				if (i % 2 == 0)
+				{
+					cordy = startY; 
+				}
+				else
+				{
+						var elementIndex = i - 1;
 						
-					cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-			}
+						if (elementIndex < 0)
+						{
+							elementIndex = 0;
+						}
+												
+						var valueAmount = getAmount($("#TableTypeAList > li:eq("+elementIndex+")"));
+							
+						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+				}
+				
+				createElementByLi($(this),"A",cordx,cordy);
+				
+				if (i % 2 != 0)
+				{
+					cordx = cordx + xOffset;
+				}
+			});
 			
-			createElementByLi($(this),"A",cordx,cordy);
+			var fromEven = false;
 			
-			if (i % 2 != 0)
+			if ($("#TableTypeAList > li").size() % 2 == 0)
 			{
-				cordx = cordx + xOffset;
+				fromEven = true;
 			}
-		});
-		
-		var fromEven = false;
-		
-		if ($("#TableTypeAList > li").size() % 2 == 0)
-		{
-			fromEven = true;
-		}
 
-		$("#TableTypeBList > li").each(function(i) {
-			
-			if (fromEven)
-			{
-				if (i % 2 == 0)
+			$("#TableTypeBList > li").each(function(i) {
+				
+				if (fromEven)
 				{
-					cordy = startY; 
-				}
-				else
-				{
-					if (i == 0)
+					if (i % 2 == 0)
 					{
-						var valueAmount = getAmount($("#TableTypeAList > li").last());
-						
-						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						cordy = startY; 
 					}
 					else
 					{
-						var elementIndex = i - 1;
-						
-						if (elementIndex < 0)
+						if (i == 0)
 						{
-							elementIndex = 0;
+							var valueAmount = getAmount($("#TableTypeAList > li").last());
+							
+							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
 						}
-						
-						var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
-						
-						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						else
+						{
+							var elementIndex = i - 1;
+							
+							if (elementIndex < 0)
+							{
+								elementIndex = 0;
+							}
+							
+							var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
+							
+							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						}
 					}
-				}
-			}
-			else
-			{
-				if (i % 2 != 0)
-				{
-					cordy = startY; 
 				}
 				else
 				{
-					if (i == 0)
+					if (i % 2 != 0)
 					{
-						var valueAmount = getAmount($("#TableTypeAList > li").last());
-						
-						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						cordy = startY; 
 					}
 					else
 					{
-						var elementIndex = i - 1;
-						
-						if (elementIndex < 0)
+						if (i == 0)
 						{
-							elementIndex = 0;
+							var valueAmount = getAmount($("#TableTypeAList > li").last());
+							
+							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
 						}
-						
-						var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
-						
-						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						else
+						{
+							var elementIndex = i - 1;
+							
+							if (elementIndex < 0)
+							{
+								elementIndex = 0;
+							}
+							
+							var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
+							
+							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
+						}
 					}
 				}
-			}
-			createElementByLi($(this),"B",cordx,cordy);
+				createElementByLi($(this),"B",cordx,cordy);
+				
+				if (fromEven)
+				{
+					if (i % 2 != 0)
+					{
+						cordx = cordx + xOffset;
+					}
+				}
+				else
+				{
+					if (i % 2 == 0)
+					{
+						cordx = cordx + xOffset;
+					}
+				}
+			});
 			
-			if (fromEven)
-			{
-				if (i % 2 != 0)
-				{
-					cordx = cordx + xOffset;
-				}
-			}
-			else
-			{
-				if (i % 2 == 0)
-				{
-					cordx = cordx + xOffset;
-				}
-			}
-		});
-		
-		$.post('/canvas/new/', {start_canvas: "true"});
-		//ShowHourGlassWaitingWindow(true);
-		location.reload();
+			$.post('/canvas/edit/', {});
+			//ShowHourGlassWaitingWindow(true);
+			location.reload();
+		}
     });
 
 });
