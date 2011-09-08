@@ -992,12 +992,12 @@ $(document).ready(function() {
   });
   
   $(".AddDiv").after(function(){  
-	if ($(".DragDiv").size() >= maxTablesInCanvas)
-	{
-		$(".AddDiv").unbind('click');
-		$(".AddDiv").attr('title',"Can't Add More Then " + maxTablesInCanvas + " Elements");
-		$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
-	}
+	//if ($(".DragDiv").size() >= maxTablesInCanvas)
+	//{
+		//$(".AddDiv").unbind('click');
+		//$(".AddDiv").attr('title',"Can't Add More Then " + maxTablesInCanvas + " Elements");
+		//$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
+	//}
   });
   
   $(document).mouseup(function(e) {

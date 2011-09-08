@@ -54,6 +54,11 @@ def new_canvas(request):
 		for i in range(0, amount):
 			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
 			single_element.save()
+			add_char =""
+			if (i > 0):
+				add_char = "s"
+			info = "Add " +amount+" New "+ table_kind +" Table"+add_char
+			writeOpertationFunc(request,info)
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
@@ -144,13 +149,9 @@ def add_element(request):
 		table_kind = request.POST['kind']
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
-			if max_num+i < 48:
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
-				single_element.save()
-		if max_num+amount < 48:
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+			single_element.save()
 			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
-		else:
-			json_dump = json.dumps({'status': "LIMIT", 'kind': table_kind})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -369,6 +370,11 @@ def get_Money_Info(request):
 def write_Operation(request):
 	json_dump = json.dumps({'status': "Error"})
 	info = request.POST['info']
+	writeOpertationFunc(request, info)
+	json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
+def writeOpertationFunc(request, info):
 	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
 	if (len(user_OccasionOperations) <= 0):
 		max_num = 1
@@ -376,9 +382,7 @@ def write_Operation(request):
 		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max'] + 1
 	single_item = OccasionOperationItem(user=request.user, operation_number=max_num, operation_date=datetime.now() ,operation_info=info)
 	single_item.save()
-	json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
+
 @login_required
 def get_OperationsInfoNum(request):
 	json_dump = json.dumps({'status': "Error"})

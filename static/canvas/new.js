@@ -88,15 +88,15 @@ function createElementByLi(li, type, cordx, cordy)
 		 
 	$.post('/canvas/new/', {tables_kind: kind, tables_num: amount, tables_size: size, tables_startx: cordx ,tables_starty: cordy},
 	function(data){
-        if (data.status == 'OK')
-        {
-       		var addChar = "";
-			if (amount > 1)
-			{
-				addChar = 's';
-			}
-			writeOccasionInfo("Add " +amount+" New "+ kind +" Table"+addChar);
-        }
+       // if (data.status == 'OK')
+        //{
+       		//var addChar = "";
+			//if (amount > 1)
+			//{
+			//	addChar = 's';
+			//}
+			//writeOccasionInfo("Add " +amount+" New "+ kind +" Table"+addChar);
+        //}
       }, 'json');
 }
 
@@ -114,6 +114,11 @@ $(document).ready(function(){
   $("#TableTypeAList").after(function() { $(this).append(listTableElementString); });
   $("#TableTypeBList").after(function() { $(this).append(listTableElementString); });
   updateCounters();
+  
+  $(document).after(function(){
+	$.post('/canvas/edit/', {});
+  });
+  
   
   $("#AddLiA").click(function() {
   		if ($("#TableTypeAList > li").size() <= maxItemsPerKind)
@@ -159,7 +164,7 @@ $(document).ready(function(){
 	   var xOffset = 110;
 	   var yOffset = 36;
 	   
-	   if ($("#TableTypeAList > li").size() > 0 && $("#TableTypeBList > li").size() > 0)
+	   if ($("#TableTypeAList > li").size() > 0 || $("#TableTypeBList > li").size() > 0)
 	   {
 		   writeOccasionInfo("Init Canvas");
 		   
