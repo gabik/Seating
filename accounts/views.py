@@ -264,29 +264,31 @@ def download_map(request):
 		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
 		element_name=g.caption
 		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
+		if len(sitting_on_element) > max_sitting_row:
+			max_sitting_row=len(sitting_on_element)
 		if (cur_3_cul > 0) and (cur_3_cul % 12 == 0):
 			cur_3_cul=1
-			max_sitting_row=0
-			cur_row=cur_row+(max_sitting_row / 3)
+			cur_row+=(max_sitting_row / 3)
 			if (max_sitting_row % 3 != 0) or (max_sitting_row == 0):
 				cur_row+=1
 			cur_row+=3
+			max_sitting_row=0
 		else:
 			cur_3_cul+=1
-			if len(sitting_on_element) > max_sitting_row:
-				max_sitting_row=len(sitting_on_element)
 		row_num=cur_row
 		
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul+1,element_name)
+		row1.write(cur_3_cul+1,element_name, Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul+2,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
 		row_num+=1
 		row1 = sheet1.row(row_num)
 		for s in sitting_on_element:
-			if (cur_3_cul % 3 == 0) and (cur_3_cul > 0):
-				cur_3_cul-=2
+			if (cur_3_cul == 4) or (cur_3_cul == 8) or (cur_3_cul == 12):
+				cur_3_cul-=3
 				row_num+=1
 				row1 = sheet1.row(row_num)
-			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray25'))
 			cur_3_cul+=1
 		row_num+=1
 		if cur_3_cul <= 3:
@@ -298,15 +300,11 @@ def download_map(request):
 		#while ( cur_3_cul % 3 != 0) :
 		#	cur_3_cul+=1
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul-1,len(sitting_on_element))
+		row1.write(cur_3_cul-1,len(sitting_on_element), Style.easyxf('pattern: pattern solid, fore_colour aqua'))
 		cur_3_cul+=1
-	#sheet1.col(0).width = 4000
-	#sheet1.col(1).width = 4000
-	#sheet1.col(2).width = 5000
-	#sheet1.col(3).width = 9000
-	#sheet1.col(4).width = 5000
-	#sheet1.col(5).width = 4000
-	#sheet1.col(6).width = 4000
+	sheet1.col(0).width = 400
+	for i in range(1,12):
+		sheet1.col(i).width = 5000
 	book.save('static/excel_output/map.xls')
 	book.save(TemporaryFile())
 	return render_to_response('accounts/download_map.html')
