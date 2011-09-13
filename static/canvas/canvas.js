@@ -6,6 +6,7 @@ var maxElementCapacity = 22;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
 var maxGuests = 1056;
+var addPersonDivOpen = false;
 
 function IsNumeric(sText)
 {
@@ -202,6 +203,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 						    function(dataSave){
 						    if (dataSave.status == 'OK')
 						    {
+								writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
 								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 								ShowHourGlassWaitingWindow(true);
@@ -225,6 +227,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 		  function(dataSave){
 		    if (dataSave.status == 'OK')
 		    {
+				writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 		    }else{
@@ -253,6 +256,7 @@ function selectElement(element)
 	multiSelection = false;
     SelectedElem = element;
 	updateElementScreenProperties(element);
+	showPropertyPanel(element);
 }
 
 function updateElementScreenProperties(element)
@@ -260,6 +264,12 @@ function updateElementScreenProperties(element)
 	var elementCaption = element.context.getElementsByTagName("p");
 	$("#ElementCaption").attr("value",elementCaption[0].firstChild.nodeValue);
 	$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+}
+
+function updateSeatedLabel()
+{
+	document.getElementById("SeatedLabelValue").innerHTML = findNumOfAllSeaters();
+	document.getElementById("TotalGuestsLabelValue").innerHTML = $("#people_list > li").size() + findNumOfAllSeaters()
 }
 
 function reloadElementStatus(element)
@@ -309,6 +319,7 @@ function saveNumOfGuests(numGuests)
 	if (dataSave.status == 'OK')
 	{
 		$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+		writeOccasionInfo("Update Max Num Of Guest " +numGuests+".");
 		}else{
 		$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 		}
@@ -374,6 +385,50 @@ function findNumOfAllSeaters()
 	return sum;
 }
 
+function showPropertyPanel(element)
+{
+	if (element != "" && !tableMode && !detailsMode)
+	{
+		if (element.position().left < 600)
+		{
+			$("#element-properties-list").css('top',element.position().top - 15);
+			$("#element-properties-list").css('left',element.position().left + element.width() - 5);
+			$("#element-properties-list").show("slide", { direction: "left" }, 50);
+		}
+		else
+		{
+			$("#element-properties-list").css('top',element.position().top - 15);
+			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 23);
+			$("#element-properties-list").show("slide", { direction: "right" }, 50);
+		}
+	}
+	else
+	{
+		$("#element-properties-list").hide();
+	}
+}
+
+function posPropertyPanel(element)
+{
+	if (element != "")
+	{
+		if (element.position().left < 600)
+		{
+			$("#element-properties-list").css('top',element.position().top);
+			$("#element-properties-list").css('left',element.position().left + element.width() + 2);
+		}
+		else
+		{
+			$("#element-properties-list").css('top',element.position().top);
+			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
+		}
+	}
+	else
+	{
+		$("#element-properties-list").hide();
+	}
+}
+
 $(document).ready(function() {
   var imgs,i;
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
@@ -399,6 +454,8 @@ $(document).ready(function() {
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
 
+  showPropertyPanel("");
+  updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
   
   $(".DragDiv").after(function() {
@@ -498,6 +555,9 @@ $(document).ready(function() {
 					{
 						LoadPerson(table, data.free_position - 1);
 					}
+					updateSeatedLabel();
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
+					posPropertyPanel(table);
 				  }else if (data.status == 'FULL')
 				  {
 					draged.fadeTo(200, 1.0);
@@ -521,6 +581,7 @@ $(document).ready(function() {
 			var current_person = $(this);
 			if (tableMode)
 			{
+				
 				var full_name = "";
 				full_name = $(this).context.id.split("_", 2);
 
@@ -576,6 +637,8 @@ $(document).ready(function() {
 			if (tableMode)
 			{
 				DeletePerson();
+				updateSeatedLabel();
+				writeOccasionInfo("Move Person "+SelectedPerson.text()+"From Table "+SelectedElem.text().split("\n", 2)[1].trim()+" To Float List.");
 			}
 			else
 			{
@@ -588,6 +651,7 @@ $(document).ready(function() {
 						  //undoElement[0] = SelectedElem;
 						  //undoElement[1] = "add"; 
 						  ShowHourGlassWaitingWindow(true);
+						  writeOccasionInfo("Delete Table "+SelectedElem.text().split("\n", 2)[1].trim()+".");
 					  }
 					}, 'json');
 				} else {
@@ -662,7 +726,7 @@ $(document).ready(function() {
 				  function(data){
 				  if (data.status == 'OK')
 				  { 
-					 undoElement[1] = "add"; 
+					 undoElement[1] = ""; 
 					 ShowHourGlassWaitingWindow(true);
 				  }
 				  }, 'json');
@@ -684,13 +748,15 @@ $(document).ready(function() {
 			 if (data.status == 'OK')
 			 {
 			   SelectedPerson.remove();
-			   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
-			   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
-			   {
-					$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-					$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-			   }
+			   //var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+			   //if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
+			   //{
+				//	$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+				//	$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+			   //}
+			   	writeOccasionInfo("Delete Person "+SelectedPerson.text()+"From Float List.");
 			   $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			   updateSeatedLabel();
 			 }else{
 			   $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
 			 }
@@ -705,6 +771,18 @@ $(document).ready(function() {
   });
   $(".AddPersonDiv").click( function() {
     $('ul.AddPerson').slideToggle('medium');
+	if (addPersonDivOpen)
+	{
+		addPersonDivOpen=false;
+		$("#maxGuest_list").animate({top:250});
+		$("#search-properties-list").animate({top:330});
+	}
+	else
+	{
+		addPersonDivOpen=true;
+		$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
+		$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
+	}
   }); 
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
@@ -714,12 +792,19 @@ $(document).ready(function() {
   });
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');
-    $.post('/canvas/add/', {kind: $(this).context.id ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
+	var kind = $(this).context.id;
+    $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
       function(data){
         if (data.status == 'OK')
         {
             //undoElement[0] = SelectedElem;
             //undoElement[1] = "delete"; 
+			var addChar = "";
+			if (parseInt(numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text) > 1)
+			{
+				addChar = 's';
+			}
+			writeOccasionInfo("Add " +numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text+" New "+kind +" Table"+addChar);
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
@@ -837,41 +922,43 @@ $(document).ready(function() {
 			}, 'json');
 	}
 	});
-  $("#ElementPropertiesSaveButton").click( function() { 
+  $("#MaxGuestSaveButton").click( function() { 
   var numOfGuests;
+  if (SelectedElem != "" ) {
+			numOfGuests = updateNumOfGuest();
+			saveNumOfGuests(numOfGuests);
+	}
+	
+	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	//{
+	//	$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+	//		$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+	//}
+	//else
+	//{
+	//	$(".AddPersonDiv").unbind('click');
+	//	$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
+	//	$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
+	//}
+  });
+	
+  $("#ElementPropertiesSaveButton").click( function() { 
   if (SelectedElem != "" ) {
 		if (tableMode)
 		{
-			var event = jQuery.Event("dblclick");
-			event.user = "SaveProperyTable";
-			SelectedElem.trigger(event);
+			//var event = jQuery.Event("dblclick");
+			//event.user = "SaveProperyTable";
+			//SelectedElem.trigger(event);
 		}
 		else
 		{
 			var caption = $("#ElementCaption").val();
 			var size = $("#ElementSize").val();
-			numOfGuests = updateNumOfGuest();
 			var elementCaption = SelectedElem.context.getElementsByTagName("p");
-			saveElementWithCaption(SelectedElem,caption,size,numOfGuests);
+			saveElementWithCaption(SelectedElem,caption,size,"");
+			posPropertyPanel(SelectedElem);
 		}
     }
-	else
-	{
-			numOfGuests = updateNumOfGuest();
-			saveNumOfGuests(numOfGuests);
-	}
-	
-	if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
-	{
-		$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-			$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-	}
-	else
-	{
-		$(".AddPersonDiv").unbind('click');
-		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
-		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
-	}
   });
   
   $("#NumOfGuests").after(function(){
@@ -905,18 +992,19 @@ $(document).ready(function() {
   });
   
   $(".AddDiv").after(function(){  
-	if ($(".DragDiv").size() >= maxTablesInCanvas)
-	{
-		$(".AddDiv").unbind('click');
-		$(".AddDiv").attr('title',"Can't Add More Then " + maxTablesInCanvas + " Elements");
-		$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
-	}
+	//if ($(".DragDiv").size() >= maxTablesInCanvas)
+	//{
+		//$(".AddDiv").unbind('click');
+		//$(".AddDiv").attr('title',"Can't Add More Then " + maxTablesInCanvas + " Elements");
+		//$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
+	//}
   });
   
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" ) {
            SelectedElem.border('2px pink .5');
+		   posPropertyPanel(SelectedElem);
       }
     }
 	isMousePressFromCanvas = false;

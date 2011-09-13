@@ -1,6 +1,7 @@
 # Create your views here.
 from Seating.accounts.models import Guest
 from Seating.accounts.models import UserProfile
+from Seating.accounts.models import OccasionOperationItem
 from django.db.models import Max
 from django.utils import simplejson as json
 from django.contrib.auth.decorators import login_required
@@ -12,6 +13,7 @@ from Seating.canvas.models import SingleElement
 from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
+from datetime import datetime
 
 @login_required
 def edit_canvas(request):
@@ -36,42 +38,33 @@ def edit_canvas(request):
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
-		return new_canvas(request)
-		#return render_to_response('canvas/new.html')
+		return render_to_response('canvas/new.html')
 
 @login_required
 def new_canvas(request):
-	c = {}
+	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		form = InitCanvas(request.POST)
-		if form.is_valid():
-			if 'table_kind' in request.POST:
-				table_kind = request.POST['table_kind']
-			else:
-				return HttpResponseRedirect('/canvas/edit/')
+		table_kind = request.POST['tables_kind']
+		amount = int(request.POST['tables_num'])
+		size = int(request.POST['tables_size'])
+		cordx = int(request.POST['tables_startx'])
+		cordy = int(request.POST['tables_starty'])
+		user_elements = SingleElement.objects.filter(user=request.user)
+		if (len(user_elements) <= 0):
+			max_num = 1
+		else:
+			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
-			amount = int(request.POST['tables_num'])
-			user_elements = SingleElement.objects.filter(user=request.user)
-			if (len(user_elements) <= 0):
-				max_num = 1
-			else:
-				max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
-
-			for i in range(0, amount):
-				if max_num+i<500:
-					single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+(max_num+i)*10), y_cord=(50+(max_num+i)*10), user=request.user, kind=table_kind, caption="Elem-"+ str(max_num+i), current_sitting=0, max_sitting=request.POST['table_size'])
-					single_element.save()
-
-			if 'AddMore' in request.POST and max_num+amount<500:
-				return HttpResponseRedirect('/canvas/new/')
-			else:
-				return HttpResponseRedirect('/canvas/edit/')
-	else:
-		form = InitCanvas()
-
-	c.update(csrf(request))
-	c['form'] = form
-	return render_to_response('canvas/new.html', c)
+		for i in range(0, amount):
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+			single_element.save()
+			add_char =""
+			if (i > 0):
+				add_char = "s"
+			info = "Add " +amount+" New "+ table_kind +" Table"+add_char
+			writeOpertationFunc(request,info)
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
 
 @login_required
 def save_element(request):
@@ -164,9 +157,9 @@ def add_element(request):
 				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+			single_element.save()
 			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
-		else:
-			json_dump = json.dumps({'status': "LIMIT", 'kind': table_kind})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -378,4 +371,45 @@ def get_Money_Info(request):
 					if person.group == 'Work':
 						totalWorkSum = totalWorkSum + person.present_amount
 	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
+	return HttpResponse(json_dump)
+
+		
+@login_required
+def write_Operation(request):
+	json_dump = json.dumps({'status': "Error"})
+	info = request.POST['info']
+	writeOpertationFunc(request, info)
+	json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
+def writeOpertationFunc(request, info):
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
+	if (len(user_OccasionOperations) <= 0):
+		max_num = 1
+	else:
+		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max'] + 1
+	single_item = OccasionOperationItem(user=request.user, operation_number=max_num, operation_date=datetime.now() ,operation_info=info)
+	single_item.save()
+
+@login_required
+def get_OperationsInfoNum(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
+	if (len(user_OccasionOperations) <= 0):
+		max_num = 0
+	else:
+		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max']
+	json_dump = json.dumps({'status': "OK",'Total':max_num})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_Operations(request):
+	json_dump = json.dumps({'status': "Error"})
+	num = int(request.POST['num'])
+	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user , operation_number = num)
+	if (len(user_OccasionOperations) == 1):
+		for OccasionOperation in user_OccasionOperations:
+			opdate = OccasionOperation.operation_date.strftime("%d/%m/%Y - %H:%M:%S")
+			opinfo = OccasionOperation.operation_info
+			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
 	return HttpResponse(json_dump)

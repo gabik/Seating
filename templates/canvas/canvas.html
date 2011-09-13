@@ -24,6 +24,7 @@
 <script type="text/javascript" src="/static/canvas/money_info.js"></script>
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
+<script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 <script type="text/javascript">
  window.onload = function()
@@ -92,6 +93,7 @@
 			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png"></div>
 			<div class="MoneyInfoDiv"  title="Money Information"><img src="/static/canvas/images/Moneyinfo.png"></div>
 			<div class="OccasionFinishDiv"  title="Occasion Finish Operations"><img src="/static/canvas/images/checkered-flag.png"></div>
+			<div class="OperationsInfoDiv" title="Operations Info Calender"><img src="/static/canvas/images/calender.png"></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="Aligment Horizontal Left"><img src="/static/canvas/images/HorizontalLeft.png"></div></li>
 				<li><div id="HorizontalAligmentDivRight"  title="Aligment Horizontal Right"><img src="/static/canvas/images/HorizontalRight.png"></div></li>
@@ -107,22 +109,31 @@
 
 		</div>
 		<div id="right-bar">
-			<table>
-				<td><button id="SortFloatListByName"  title="Sort List By Name" style="font-size:10;">Name</button></td>
-				<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
-			</table>
-			<div id="people-list">
-				<ul id="people_list">
-					{% for guest in guests %}
-						{% if guest.elem_num == 0 %}
-							<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
-						{% endif %}
-					{% endfor %}
-				</ul>
+				<div id="SeatDetails">
+					<p id="SeatedLabel">Seated:</p><p id="SeatedLabelValue"/><p id ="TotalGuestsLabel">From:</p><p id="TotalGuestsLabelValue"/>
+				</div>
+				<div id="FloatingListBtnDiv">
+					<table>
+						<td><button id="SortFloatListByName"  title="Sort List By Name" style="font-size:10;">Name</button></td>
+						<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
+					</table>
+				</div>
+			<div id="float-list"/>
+				<div id="people-list">
+					<ul id="people_list">
+						{% for guest in guests %}
+							{% if guest.elem_num == 0 %}
+								<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+							{% endif %}
+						{% endfor %}
+					</ul>
+				</div>
 			</div>
-			<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>
-			<div class="DelPersonDiv" title="Delete Person From Float List" ><img width=30 height=30 src="/static/canvas/images/delete.png"></div>
-			<ul class="AddPerson">
+			<div id="PersonBtns">
+				<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>
+				<div class="DelPersonDiv" title="Delete Person From Float List" ><img width=30 height=30 src="/static/canvas/images/delete.png"></div>
+			</div>
+			<ul id="AddPersonList" class="AddPerson">
 				<li>First Name:<input id="first_name" type=text size=15></li>
 				<li>Last Name:<input id="last_name" type=text size=15></li>
 				<li>Group:<div class="GroupSelect">
@@ -141,7 +152,7 @@
 				<ul id="element-properties_list">
 					<li style="list-style:none;">
 						<p class="PropertyText">:Caption:</p></br>
-						<input style="text-align:left; width:70px;" type="text" id="ElementCaption" class="Property" maxlength="8"/>
+						<input style="text-align:left; width:75px;" type="text" id="ElementCaption" class="Property" maxlength="8"/>
 					</li>
 					<li style="list-style:none;">
 						<p class="PropertyText">:Size:</p></br>
@@ -170,16 +181,22 @@
 						</div>
 					</li>
 					<li style="list-style:none;">
-						{% for profile in user_profile %}
-							<p class="PropertyText">:Max Num Of Guest:</p></br>
-							<input style="text-align:left; width:70px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
-						{% endfor %}
-					</li>
-					<li style="list-style:none;">
 						<button type="button" id="ElementPropertiesSaveButton" class="Property">Save Changes</button>
 					</li>
 				</ul>
 			</div>
+		</div>
+		<div id="right-middel-bar" class="Properties-bar">
+			<ul id="maxGuest_list">
+				<li style="list-style:none;">
+					{% for profile in user_profile %}
+						<p class="PropertyText">:Max Num Of Guest:</p></br>							<input style="text-align:left; width:70px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
+						{% endfor %}
+				</li>
+				<li style="list-style:none;">
+						<button type="button" id="MaxGuestSaveButton" class="Property">Save Changes</button>
+				</li>
+			</ul>
 		</div>
 		<div id="right-middel-bar" class="Properties-bar">
 			<div id="search-properties-list">

@@ -1,0 +1,153 @@
+ .Main
+ {
+ }
+ 
+ #CounterData
+ {
+   position:absolute;
+   top: 400;
+   left: 370;
+ }
+ 
+ #TableCounter
+ {
+   position:relative;
+   top:-35;
+   left:215;
+ }
+ 
+ #SeatCounterLabel
+ {
+   position:relative;
+   top:-71;
+   left:280;
+ }
+ 
+ #TableCounterLabel
+ {
+   position:relative;
+   left:125;
+ }
+ 
+  #PersonCounter
+ {
+   position:relative;
+   top:-106;
+   left:395;
+ }
+ 
+  .SimpleFrame
+  {
+  background:white;
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  height:150;
+  width:550;
+  }
+  
+  .RemoveBtn
+  {
+  z-index:99999999;
+  position:relative;
+  top:5;
+  cursor:pointer;
+ }
+ 
+  .AddBtn
+  {
+  position:absolute;
+  left:175;
+  bottom:0;
+  cursor:pointer;
+ }
+ 
+  .TableTypeA
+  {
+  top: 50;
+  left: 350;
+ }
+
+  .TableTypeB
+  {
+  top: 250;
+  left: 350;
+ }
+ 
+ .TableImgBorder
+ {
+   padding:15px;
+   border:1px solid black;
+   height:120;
+   width:135;
+ }
+ 
+ .TableTypeImg
+  {
+  	position:relative;
+	float:left;
+	height:128;
+	width:128;
+ }
+ 
+  .AmountSelect
+  {
+ }
+
+ .SizeSelect
+  {
+ }
+ 
+ .BlackOverlayRectangle
+  {
+  background:gray;
+  opacity:0.75;
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  }
+ 
+ #CanvasEditButton
+ {
+  position:absolute;
+  top: 500;
+  left : 550;
+ }
+ 
+  #TableTypeAListDiv
+ {
+	position:absolute;
+	overflow:auto;
+	float:right;
+	top:0;
+	left:215;
+	height:150px;
+	width:335px;
+ }
+
+ #TableTypeAList li
+ {
+  position:relative;
+  direction: rtl;
+  float:left;
+  top:-15;
+ }
+  
+ #TableTypeBListDiv
+ {
+	position:absolute;
+	overflow:auto;
+	float:right;
+	top:0;
+	left:215;
+	height:150px;
+	width:335px;
+ }
+
+ #TableTypeBList li
+ {
+  position:relative;
+  direction: rtl;
+  float:left;
+  top:-15;
+ }

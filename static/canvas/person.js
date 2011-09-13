@@ -37,6 +37,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
       function(data){
         if (data.status == 'OK')
         {
+			  writeOccasionInfo("Added Person " +first_name+" "+last_name);
 			  ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
@@ -102,14 +103,16 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 			data = $.parseJSON(data);
 			if (data.status == 'OK')
 			{
-				if(!$("#tab" + data.first_name + '_'+ data.last_name).length)
+				if(!$("#tab" + data.first_name.replace(" ","_") + '__'+ data.last_name.replace(" ","_")).length)
 				{
 					personData = data;
-					$("#tabs").append($('<div id="tab' +personData.first_name + '_'+ personData.last_name+'"></div>'));
+					personData.first_name = personData.first_name.replace(" ","_");
+					personData.last_name = personData.last_name.replace(" ","_");
+					$("#tabs").append($('<div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div>'));
 					createTab();
-					$("#tabs").tabs("add","#tab" + personData.first_name + '_'+ personData.last_name, personData.first_name + ' '+ personData.last_name);
+					$("#tabs").tabs("add","#tab" + personData.first_name + '__'+ personData.last_name, personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," "));
 				}
-				$("#tabs").tabs("select","#tab" + data.first_name + '_'+ data.last_name);
+				$("#tabs").tabs("select","#tab" + data.first_name.replace(" ","_") + '__'+ data.last_name.replace(" ","_"));
 			}
 		});
 	}
@@ -258,8 +261,9 @@ function reLoadDetails(personElement)
 	$("#personImg").addClass("Pointer");
 	if (personData != "")
 	{
-		
-		$("#details").append($('<div id="tabs"><ul style="display:block; font-size:12; overflow: auto;"><li><a href="#tab' + personData.first_name + '_'+ personData.last_name +'">'+ personData.first_name + ' '+ personData.last_name +'</a></li></ul><div id="tab' +personData.first_name + '_'+ personData.last_name+'"></div></div>'));
+		personData.first_name = personData.first_name.replace(" ","_");
+		personData.last_name = personData.last_name.replace(" ","_");
+		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
 		SelectedTabIndex = 0;
 		$("#tabs").tabs();
 		$("#tabs").bind('tabsselect', function(event, ui) {
@@ -272,47 +276,57 @@ function reLoadDetails(personElement)
 
 function selectTab(ui)
 {
-		var full_name = ui.tab.text;
+		var hash_name = ui.tab.hash;
+		var full_name = "";
 
-		full_name = full_name.split(" ", 2);
+		hash_name = hash_name.replace("#tab","");
+		full_name = hash_name.split("__", 2);
 
-		$.post('/canvas/getItem/', {position: "", firstName: full_name[0], lastName: full_name[1]},
+		$.post('/canvas/getItem/', {position: "", firstName: full_name[0].replace("_"," "), lastName: full_name[1].replace("_"," ")},
 		function(data)
 		{
 			data = $.parseJSON(data);
 			if (data.status == 'OK')
 			{
 				personData = data;
-				SelectedTabIndex = ui.index;
+				personData.first_name = personData.first_name.replace(" ","_");
+				personData.last_name = personData.last_name.replace(" ","_");
+				//SelectedTabIndex = ui.index;
+				SelectedTabIndex = $('#tabs').tabs("option", "selected");
 			}
 		});
 }
 
 function createTab()
 {
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-top:-10; margin-left:15px; font-size:12;">First Name:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Last Name:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Phone Number:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">E-mail:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Present Amount:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative;  font-size:12; margin-left:15px;"  MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Facebook Account:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; margin-left:15px; font-size:12;" MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<p style="position:relative; margin-left:15px; font-size:12;">Group:</p>'));
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<ul><il><div style="margin-top:-5; margin-left:15px; position:relative;"><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other"">Other<option value="Friends">Friends<option value="Family">Family<option value="Work">Work</select></div></il></ul>'));
+	personData.first_name = personData.first_name.replace(" ","_");
+	personData.last_name = personData.last_name.replace(" ","_");
+	
+	var tab = $("#tab" +personData.first_name + '__'+ personData.last_name);
+
+	tab.append($('<p style="position:relative; margin-top:-10; margin-left:15px; font-size:12;">First Name:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace("_"," ") +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Last Name:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Phone Number:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">E-mail:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Present Amount:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative;  font-size:12; margin-left:15px;"  MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Facebook Account:</p>'));
+	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; margin-left:15px; font-size:12;" MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/>'));
+	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Group:</p>'));
+	tab.append($('<ul><il><div style="margin-top:-5; margin-left:15px; position:relative;"><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other"">Other<option value="Friends">Friends<option value="Family">Family<option value="Work">Work</select></div></il></ul>'));
 	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<button id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; opacity:0;" type="button">Save Changes</button>'));
+	tab.append($('<button id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; opacity:0;" type="button">Save Changes</button>'));
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("top", DetailsHeight - 400);
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 500);
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).bind('click', function() {
 			savePersonChanges(personData.first_name,  personData.last_name);
 	});
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).fadeTo(2000, 1);
-	$("#tab" +personData.first_name + '_'+ personData.last_name).append($('<button id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; background-color:red;" type="button">X</button>'));
+	tab.append($('<button id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; background-color:red;" type="button">X</button>'));
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", -DetailsHeight + 70);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 550);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('click', function() {
@@ -626,12 +640,14 @@ function savePersonChanges(firstName, lastName)
 	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	
 	$("#EmailValidtion").remove();
+	firstName = firstName.replace(" ","_");
+	lastName = lastName.replace(" ","_");
 	if(!emailReg.test($("#detailsE-mail" + firstName + '_'+ lastName).val())) {
       $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red">  Enter a valid email address.</span>');
     }
 	else
 	{
-    $.post('/canvas/savePerson/', {old_first_name: firstName, old_last_name: lastName, first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(),group:$("#detailsGroup" + firstName + '_'+ lastName).val()},
+    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(),group:$("#detailsGroup" + firstName + '_'+ lastName).val()},
       function(data){
 		$("#SaveStatImg").fadeTo(400, 0);
         if (data.status == 'OK')
@@ -649,13 +665,22 @@ function savePersonChanges(firstName, lastName)
 		  }
 		  else
 		  {
-			document.getElementById(firstName + '_' + lastName).innerHTML = personData.first_name + " " + personData.last_name;
-			$("#" + firstName + '_' + lastName).css("text",personData.first_name + " " + personData.last_name);
-			$("#" + firstName + '_' + lastName).attr("id", personData.first_name + "_" + personData.last_name);
+			document.getElementById(firstName.replace("_"," ") + '_' + lastName.replace("_"," ")).innerHTML = personData.first_name + " " + personData.last_name;
+			
+			var floatPerson = $("#" + firstName.replace("_"," ") + '_' + lastName.replace("_"," "));
+			
+			if (floatPerson.index() < 0)
+			{
+				$("#people_list > li").each(function(j) { if ($(this).context.id == firstName.replace("_"," ") + '_' + lastName.replace("_"," ")){ floatPerson = $(this);}});
+			}
+			floatPerson.css("text",personData.first_name + " " + personData.last_name);
+			floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
 		  }
 		  $("#tabs li:eq(" + SelectedTabIndex + ") a").html(personData.first_name + " " + personData.last_name);
-		  $("#tabs li:eq(" + SelectedTabIndex + ") a").attr("href", "#tab" + personData.first_name + '_' + personData.last_name)
-		  $("#tab" + firstName + '_' + lastName).attr("id","tab"+ personData.first_name + '_' + personData.last_name);
+		  personData.first_name = personData.first_name.replace(" ","_");
+		  personData.last_name = personData.last_name.replace(" ","_");
+		  $("#tabs li:eq(" + SelectedTabIndex + ") a").attr("href", "#tab" + personData.first_name + '__' + personData.last_name)
+		  $("#tab" + firstName + '__' + lastName).attr("id","tab"+ personData.first_name + '__' + personData.last_name);
 		  $("#detailsFirstName"+ firstName + '_'+ lastName).attr("id","detailsFirstName"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsLastName"+ firstName + '_'+ lastName).attr("id","detailsLastName"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsPhoneNum"+ firstName + '_'+ lastName).attr("id","detailsPhoneNum"+ personData.first_name + '_'+ personData.last_name);

@@ -1,5 +1,6 @@
-<html>
+<html lang="he">
 <head>
+<meta charset="UTF-8" /> 
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
@@ -8,33 +9,39 @@
 </head>
 
 <script src="/static/canvas/new.js"></script>
-
-<style type="text/css">
- .MenuItem
- {
-  width:45px;
-  height:45px;
- }
-</style>
-
+<link rel="stylesheet" type="text/css" href="/static/canvas/new.css" />
+<script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
+<script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 
 <body>
 
- <form name="new_canvas" action=# method=post>{% csrf_token %}
-  {{ form.non_field_errors }}
-  {{ form.table_kind.errors }}
-  <label for="id_table_kind">Please select table:</label>
-  {{ form.table_kind|escape }}
+<div id="canvas-div" class="Main">
+	<div id="MainFrameTableTypeA" class="SimpleFrame">
+		<div class="TableImgBorder">
+			<img id="ImgTypeA" src="/static/canvas/images/TableSquare.jpg" class="TableTypeImg"/>
+		</div>
+			<div id="TableTypeAListDiv">
+			<ul id="TableTypeAList">
+			</ul>
+		</div>
+		<img id="AddLiA" class="AddBtn" src="/static/canvas/images/add.png"/>
+	 </div>
+	  <div id="MainFrameTableTypeB" class="SimpleFrame">
+		<div class="TableImgBorder">
+			<img id="ImgTypeB" src="/static/canvas/images/RoundPink.jpg" class="TableTypeImg"/>
+		</div>
+			<div id="TableTypeBListDiv">
+			<ul id="TableTypeBList">
+			</ul>
+		</div>
+		<img id="AddLiB" class="AddBtn" src="/static/canvas/images/add.png"/>
+	 </div>
+	 <div id="CounterData">
+		 <p id="TableCounterLabel">Table Total :</p><p id="TableCounter"/><p id="SeatCounterLabel">Seat Available : </p><p id="TableCounter"/><p id="PersonCounter"/>
+	</div>
+	<button id="CanvasEditButton" title="Procced To Canvas"> Start Edit Tables </button>
+</div>
 
-  {{ form.table_size.errors }}
-  <label for="id_table_size">Please select size:</label>
-  {{ form.table_size }}
-
-  {{ form.tables_num.errors }}
-  <label for="id_tables_num">Please enter the amount of those tables:</label>
-  {{ form.tables_num }}
-  <BR><input name="AddMore" type=submit value="Add another table">  <input name="NoMore" type=submit value="Done adding tables">
- </form>
 
 <!--
   Please select table: <BR>

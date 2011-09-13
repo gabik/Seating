@@ -28,7 +28,7 @@ function createInfoFields(sumData)
 		$("#moneyInfoMainWindow").append($('<p id="totalSum" style="position:relative;">Total Sum:  '+ sumData[0] +'</p>'));
 		$("#totalSum").css("top", 15);
 		$("#totalSum").css("left",15);
-		$("#moneyInfoMainWindow").append($('<p id="avrageSum" style="position:relative;">Avrage Per Person:  '+ sumData[0] / parseInt($("#people_list > li").size() + findNumOfAllSeaters()) +'</p>'));
+		$("#moneyInfoMainWindow").append($('<p id="avrageSum" style="position:relative;">Avrage Per Person:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(4) +'</p>'));
 		$("#avrageSum").css("top", 15);
 		$("#avrageSum").css("left",15);
 		$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" style="position:relative;">Total Other GroupSum:  '+ sumData[1] +'</p>'));

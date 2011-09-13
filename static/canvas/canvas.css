@@ -146,6 +146,12 @@
   left:185px;
   top:3px;
  }
+ .OperationsInfoDiv
+  {
+  position:absolute;
+  left:215px;
+  top:3px;
+ }
   .AligmentDiv
  {
   position:absolute;
@@ -198,7 +204,7 @@
  {
    float:right;
  }
- .floatLeft
+ .floatleft
  {
    float:left;
  }
@@ -215,14 +221,14 @@
   opacity:0.75;
   border:2px groove;
   position:absolute;
-  z-index:9999;
+  z-index:99999;
   }
   .SimpleFrame
   {
   background:white;
   border:2px groove;
   position:absolute;
-  z-index:9999;
+  z-index:99999;
   }
   .personOverTableDropLayer
    {
@@ -238,18 +244,27 @@
  }
  #right-bar
  {
-  float:right;
+  position:absolute;
   width:125px;
+  top: 28;
+  left:1197;
  }
  #right-middel-bar
  {
+  position:absolute;
   float:right;
   width:125px;
   margin-top:5px;
  }
+ #float-list
+ {
+  position:absolute;
+  top:28px;
+  left:17;
+ }
  #people-list
  {
-  margin-top:28px;
+  width:127;
   border:2px solid blue;
   overflow: auto;
   height:150px;
@@ -260,16 +275,46 @@
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;
+  z-index:15;
+ }
+ #PersonBtns
+ {
+   position:absolute;
+   top:200;
+   left:90;
+ }
+ #FloatingListBtnDiv
+ {
+    position:absolute;
+    top:0;
+    left:20;
  }
  #element-properties-list
  {
+  z-index:5;
+  background:white;
+  position:absolute;
   border:2px solid blue;
   padding: 4px;
+  width:120;
  }
  #search-properties-list
   {
+  position:absolute;
   border:2px solid blue;
   padding: 4px;
+  width:120;
+  top:330;
+  left:1205;
+ }
+  #maxGuest_list
+  {
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:120;
+  top:250;
+  left:1205;
  }
  #ElementStatus
  {
@@ -277,6 +322,50 @@
   right: 0;
   top: 0;
   z-index:1;
+ }
+ #SeatedLabel
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:absolute;
+ } 
+ #SeatDetails
+ {
+  position:absolute;
+  top:170;
+  left:15;
+ }
+ #SeatedLabelValue
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left:43;
+ }
+ #TotalGuestsLabel
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left: 70;
+  top: -27;
+ } 
+ #TotalGuestsLabelValue
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left: 105;
+  top: -53;
+ }
+ #AddPersonList
+ {
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:119;
+  top:235;
+  left:17;
  }
  select { 
  font-size: 0.9em;
@@ -287,6 +376,11 @@
 .ui-multisort-click {
 	color:purple;
 	 font-size: 1.2em;
+}
+#OperationList
+{
+	overflow:auto;
+	height:350;
 }
  
 
