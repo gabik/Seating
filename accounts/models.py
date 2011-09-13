@@ -1,6 +1,14 @@
 from django.db import models
 from django.contrib.auth.models import User
 
+group_choices = [
+  'Friends',
+  'Family',
+  'Work',
+  'Other',
+];
+
+
 class IntegerRangeField(models.IntegerField):
     def __init__(self, verbose_name=None, name=None, min_value=None, max_value=None, **kwargs):
         self.min_value, self.max_value = min_value, max_value
@@ -41,13 +49,7 @@ class Guest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
-	group_choices = (
-		('Friends', 'Friends'),
-		('Family', 'Family'),
-		('Work', 'Work'),
-		('Other', 'Other'),
-	)
-	group = models.CharField(max_length=7, choices=group_choices, default='Other')
+	group = models.CharField(max_length=30, blank=True)
 
 class DupGuest(models.Model):
         user = models.ForeignKey(User, unique=False)
@@ -57,3 +59,8 @@ class DupGuest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
+	group = models.CharField(max_length=30, blank=True)
+
+class UnknownGroups(models.Model):
+	user = models.ForeignKey(User, unique=False)
+	group = models.CharField(max_length=30, blank=True)

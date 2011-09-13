@@ -10,7 +10,7 @@ from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm, AgreeForm
-from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest
+from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, group_choices, UnknownGroups
 from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
@@ -63,52 +63,52 @@ def create_user(request):
 	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form, 'agree_form': agree_form}, context_instance=RequestContext(request))
 	
 
-def convertXLS2CSV(aFile): 
-	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+#def convertXLS2CSV(aFile): 
+#	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+#
+#	print "------ beginning to convert XLS to CSV ------"
+#	xlsIsOpen = False
+#	xlsFile = None
+#	try:
+#		import os
+#		import win32com.client
+#		
+#		excel = win32com.client.Dispatch('Excel.Application')
+#		fileDir, fileName = os.path.split(aFile)
+#		nameOnly = os.path.splitext(fileName)
+#		newName = nameOnly[0] + ".csv"
+#		outCSV = os.path.join(fileDir, newName)
+#		excel.Visible = False
+#		workbook = excel.Workbooks.Open(aFile)
+#		xlsFile = workbook
+#		xlsIsOpen = True
+#		workbook.SaveAs(outCSV, FileFormat=24)
+#		workbook.Close(False)
+#		xlsIsOpen = False 
+#		excel.Quit()
+#		del excel
+#		
+#		print "...Converted " + str(nameOnly) + " to CSV"
+#	except:
+#		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
+#		if xlsIsOpen and xlsFile is not None:
+#			xlsFile.Close(False)
+#			win32com.client.Dispatch('Excel.Application').Quit()
 
-	print "------ beginning to convert XLS to CSV ------"
-	xlsIsOpen = False
-	xlsFile = None
-	try:
-		import os
-		import win32com.client
 		
-		excel = win32com.client.Dispatch('Excel.Application')
-		fileDir, fileName = os.path.split(aFile)
-		nameOnly = os.path.splitext(fileName)
-		newName = nameOnly[0] + ".csv"
-		outCSV = os.path.join(fileDir, newName)
-		excel.Visible = False
-		workbook = excel.Workbooks.Open(aFile)
-		xlsFile = workbook
-		xlsIsOpen = True
-		workbook.SaveAs(outCSV, FileFormat=24)
-		workbook.Close(False)
-		xlsIsOpen = False 
-		excel.Quit()
-		del excel
-		
-		print "...Converted " + str(nameOnly) + " to CSV"
-	except:
-		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
-		if xlsIsOpen and xlsFile is not None:
-			xlsFile.Close(False)
-			win32com.client.Dispatch('Excel.Application').Quit()
-
-		
-def readCSV(aFile, User):
-	
-	try:
-		import csv
-
-		reader = csv.reader(open(aFile), dialect='excel')
-		for row in reader:
-			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
-			guest.save()
-		print ">>>>>>> read succes CSV!"
-
-	except:
-		print ">>>>>>> read succes CSV!"
+#def readCSV(aFile, User):
+#	
+#	try:
+#		import csv
+#
+#		reader = csv.reader(open(aFile), dialect='excel')
+#		for row in reader:
+#			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
+#			guest.save()
+#		print ">>>>>>> read succes CSV!"
+#
+#	except:
+#		print ">>>>>>> read succes CSV!"
 
 @login_required
 def add_person(request):
@@ -145,6 +145,7 @@ def upload_file(request):
 			cur_user = UserProfile.objects.get(user=request.user)
 			cur_list = Guest.objects.filter(user=request.user)
 			DupGuest.objects.filter(user=request.user).delete()
+			UnknownGroups.objects.filter(user=request.user).delete()
 			duplicate_list = []
 			if cur_user.excel_hash != cur_hash : return HttpResponse('Hash not match - contact Gabi')
 			if starting_row == 0 : 
@@ -161,20 +162,26 @@ def upload_file(request):
 				giftAmnt=sh.cell_value(r,6)
 				if privName <> "" or lastName <> "" :
 					if check_person(privName, lastName, cur_list):
-						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						new_person.save()
+				if groupNme not in group_choices:
+					un_group = UnknownGroups(user=request.user, group=groupNme);
+					un_group.save()
 				
 			cur_user.excel_hash='Locked'
 			cur_user.save()
 
 			duplicate_list = DupGuest.objects.filter(user=request.user)
-			if duplicate_list:
+			un_group_list = UnknownGroups.objects.filter(user=request.user)
+			if duplicate_list or un_group_list:
 				c= {}
 				c.update(csrf(request))
 				c['duplicate_list']=duplicate_list
+				c['un_group_list']=un_group_list
+				c['group_choices']=group_choices
 				return render_to_response('accounts/duplicate.html', c)
 			else:
 				return HttpResponseRedirect('/canvas/edit')
@@ -242,6 +249,14 @@ def do_duplicates(request):
 				new_person = Guest(user=request.user, guest_first_name=i.guest_first_name, guest_last_name=i.guest_last_name, phone_number=i.phone_number, guest_email=i.guest_email, present_amount=i.present_amount, facebook_account=i.facebook_account)
 				new_person.save()
 	DupGuest.objects.filter(user=request.user).delete()
+
+	un_group_list = UnknownGroups.objects.filter(user=request.user)
+	for i in un_group_list:
+		fix_list=Guest.objects.filter(user=request.user, group=i.group)
+		for f in fix_list:
+			f.group=request.POST[f.group]
+			f.save()
+	UnknownGroups.objects.filter(user=request.user).delete()	
 	return HttpResponseRedirect('/canvas/edit')
 
 @login_required
