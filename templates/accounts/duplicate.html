@@ -6,7 +6,16 @@
 {% for i in duplicate_list %}
 	<input type="checkbox" name="{{ i.guest_first_name }}-{{ i.guest_last_name }}"> {{ i.guest_first_name }} {{ i.guest_last_name }} <BR>
 {% endfor %}
-<input type=submit value=Add>
+<BR><BR>
+<h1> Please choose valid groups </h1>
+{% for y in un_group_list %}
+	{{ y.group }}: <select id="{{ y.group }}" name="{{ y.group }}">
+		{% for j in group_choices %}
+			<option value="{{j}}">{{j}}</option>
+		{% endfor %}</select>
+	<BR>
+{% endfor %}
+<input type=submit value=Done>
 </form>
 </BODY>
 </HTML>

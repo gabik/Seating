@@ -10,7 +10,7 @@ from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
 from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm, AgreeForm
-from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest
+from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, group_choices, UnknownGroups
 from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
@@ -63,52 +63,52 @@ def create_user(request):
 	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form, 'agree_form': agree_form}, context_instance=RequestContext(request))
 	
 
-def convertXLS2CSV(aFile): 
-	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+#def convertXLS2CSV(aFile): 
+#	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+#
+#	print "------ beginning to convert XLS to CSV ------"
+#	xlsIsOpen = False
+#	xlsFile = None
+#	try:
+#		import os
+#		import win32com.client
+#		
+#		excel = win32com.client.Dispatch('Excel.Application')
+#		fileDir, fileName = os.path.split(aFile)
+#		nameOnly = os.path.splitext(fileName)
+#		newName = nameOnly[0] + ".csv"
+#		outCSV = os.path.join(fileDir, newName)
+#		excel.Visible = False
+#		workbook = excel.Workbooks.Open(aFile)
+#		xlsFile = workbook
+#		xlsIsOpen = True
+#		workbook.SaveAs(outCSV, FileFormat=24)
+#		workbook.Close(False)
+#		xlsIsOpen = False 
+#		excel.Quit()
+#		del excel
+#		
+#		print "...Converted " + str(nameOnly) + " to CSV"
+#	except:
+#		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
+#		if xlsIsOpen and xlsFile is not None:
+#			xlsFile.Close(False)
+#			win32com.client.Dispatch('Excel.Application').Quit()
 
-	print "------ beginning to convert XLS to CSV ------"
-	xlsIsOpen = False
-	xlsFile = None
-	try:
-		import os
-		import win32com.client
 		
-		excel = win32com.client.Dispatch('Excel.Application')
-		fileDir, fileName = os.path.split(aFile)
-		nameOnly = os.path.splitext(fileName)
-		newName = nameOnly[0] + ".csv"
-		outCSV = os.path.join(fileDir, newName)
-		excel.Visible = False
-		workbook = excel.Workbooks.Open(aFile)
-		xlsFile = workbook
-		xlsIsOpen = True
-		workbook.SaveAs(outCSV, FileFormat=24)
-		workbook.Close(False)
-		xlsIsOpen = False 
-		excel.Quit()
-		del excel
-		
-		print "...Converted " + str(nameOnly) + " to CSV"
-	except:
-		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
-		if xlsIsOpen and xlsFile is not None:
-			xlsFile.Close(False)
-			win32com.client.Dispatch('Excel.Application').Quit()
-
-		
-def readCSV(aFile, User):
-	
-	try:
-		import csv
-
-		reader = csv.reader(open(aFile), dialect='excel')
-		for row in reader:
-			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
-			guest.save()
-		print ">>>>>>> read succes CSV!"
-
-	except:
-		print ">>>>>>> read succes CSV!"
+#def readCSV(aFile, User):
+#	
+#	try:
+#		import csv
+#
+#		reader = csv.reader(open(aFile), dialect='excel')
+#		for row in reader:
+#			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
+#			guest.save()
+#		print ">>>>>>> read succes CSV!"
+#
+#	except:
+#		print ">>>>>>> read succes CSV!"
 
 @login_required
 def add_person(request):
@@ -145,6 +145,7 @@ def upload_file(request):
 			cur_user = UserProfile.objects.get(user=request.user)
 			cur_list = Guest.objects.filter(user=request.user)
 			DupGuest.objects.filter(user=request.user).delete()
+			UnknownGroups.objects.filter(user=request.user).delete()
 			duplicate_list = []
 			if cur_user.excel_hash != cur_hash : return HttpResponse('Hash not match - contact Gabi')
 			if starting_row == 0 : 
@@ -161,20 +162,26 @@ def upload_file(request):
 				giftAmnt=sh.cell_value(r,6)
 				if privName <> "" or lastName <> "" :
 					if check_person(privName, lastName, cur_list):
-						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr)
+						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						new_person.save()
+				if groupNme not in group_choices:
+					un_group = UnknownGroups(user=request.user, group=groupNme);
+					un_group.save()
 				
 			cur_user.excel_hash='Locked'
 			cur_user.save()
 
 			duplicate_list = DupGuest.objects.filter(user=request.user)
-			if duplicate_list:
+			un_group_list = UnknownGroups.objects.filter(user=request.user)
+			if duplicate_list or un_group_list:
 				c= {}
 				c.update(csrf(request))
 				c['duplicate_list']=duplicate_list
+				c['un_group_list']=un_group_list
+				c['group_choices']=group_choices
 				return render_to_response('accounts/duplicate.html', c)
 			else:
 				return HttpResponseRedirect('/canvas/edit')
@@ -242,6 +249,14 @@ def do_duplicates(request):
 				new_person = Guest(user=request.user, guest_first_name=i.guest_first_name, guest_last_name=i.guest_last_name, phone_number=i.phone_number, guest_email=i.guest_email, present_amount=i.present_amount, facebook_account=i.facebook_account)
 				new_person.save()
 	DupGuest.objects.filter(user=request.user).delete()
+
+	un_group_list = UnknownGroups.objects.filter(user=request.user)
+	for i in un_group_list:
+		fix_list=Guest.objects.filter(user=request.user, group=i.group)
+		for f in fix_list:
+			f.group=request.POST[f.group]
+			f.save()
+	UnknownGroups.objects.filter(user=request.user).delete()	
 	return HttpResponseRedirect('/canvas/edit')
 
 @login_required
@@ -264,29 +279,31 @@ def download_map(request):
 		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
 		element_name=g.caption
 		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
+		if len(sitting_on_element) > max_sitting_row:
+			max_sitting_row=len(sitting_on_element)
 		if (cur_3_cul > 0) and (cur_3_cul % 12 == 0):
 			cur_3_cul=1
-			max_sitting_row=0
-			cur_row=cur_row+(max_sitting_row / 3)
+			cur_row+=(max_sitting_row / 3)
 			if (max_sitting_row % 3 != 0) or (max_sitting_row == 0):
 				cur_row+=1
 			cur_row+=3
+			max_sitting_row=0
 		else:
 			cur_3_cul+=1
-			if len(sitting_on_element) > max_sitting_row:
-				max_sitting_row=len(sitting_on_element)
 		row_num=cur_row
 		
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul+1,element_name)
+		row1.write(cur_3_cul+1,element_name, Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul+2,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
 		row_num+=1
 		row1 = sheet1.row(row_num)
 		for s in sitting_on_element:
-			if (cur_3_cul % 3 == 0) and (cur_3_cul > 0):
-				cur_3_cul-=2
+			if (cur_3_cul == 4) or (cur_3_cul == 8) or (cur_3_cul == 12):
+				cur_3_cul-=3
 				row_num+=1
 				row1 = sheet1.row(row_num)
-			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray25'))
 			cur_3_cul+=1
 		row_num+=1
 		if cur_3_cul <= 3:
@@ -298,15 +315,11 @@ def download_map(request):
 		#while ( cur_3_cul % 3 != 0) :
 		#	cur_3_cul+=1
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul-1,len(sitting_on_element))
+		row1.write(cur_3_cul-1,len(sitting_on_element), Style.easyxf('pattern: pattern solid, fore_colour aqua'))
 		cur_3_cul+=1
-	#sheet1.col(0).width = 4000
-	#sheet1.col(1).width = 4000
-	#sheet1.col(2).width = 5000
-	#sheet1.col(3).width = 9000
-	#sheet1.col(4).width = 5000
-	#sheet1.col(5).width = 4000
-	#sheet1.col(6).width = 4000
+	sheet1.col(0).width = 400
+	for i in range(1,12):
+		sheet1.col(i).width = 5000
 	book.save('static/excel_output/map.xls')
 	book.save(TemporaryFile())
 	return render_to_response('accounts/download_map.html')
