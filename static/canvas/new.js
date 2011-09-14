@@ -86,8 +86,8 @@ function createElementByLi(li, type, cordx, cordy)
 	size  = parseInt(tableProperties.first().val()); 
 	amount = parseInt(tableProperties.last().val());
 		 
-	$.post('/canvas/new/', {tables_kind: kind, tables_num: amount, tables_size: size, tables_startx: cordx ,tables_starty: cordy},
-	function(data){
+	$.post('/canvas/new/', {tables_kind: kind, tables_num: amount, tables_size: size, tables_startx: cordx ,tables_starty: cordy},,'json');
+	//function(data){
        // if (data.status == 'OK')
         //{
        		//var addChar = "";
@@ -97,7 +97,7 @@ function createElementByLi(li, type, cordx, cordy)
 			//}
 			//writeOccasionInfo("Add " +amount+" New "+ kind +" Table"+addChar);
         //}
-      }, 'json');
+      //}, 'json');
 }
 
 function updateCounters()

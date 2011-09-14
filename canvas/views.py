@@ -43,6 +43,7 @@ def edit_canvas(request):
 @login_required
 def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
+	raise
 	if request.method == 'POST':
 		table_kind = request.POST['tables_kind']
 		amount = int(request.POST['tables_num'])
