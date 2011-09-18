@@ -43,7 +43,6 @@ def edit_canvas(request):
 @login_required
 def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
-	raise
 	if request.method == 'POST':
 		table_kind = request.POST['tables_kind']
 		amount = int(request.POST['tables_num'])
@@ -57,12 +56,13 @@ def new_canvas(request):
 			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 		for i in range(0, amount):
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+			cur_caption="Element-"+str(max_num+i)
+			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption=cur_caption, current_sitting=0, max_sitting=size)
 			single_element.save()
 			add_char =""
 			if (i > 0):
 				add_char = "s"
-			info = "Add " +amount+" New "+ table_kind +" Table"+add_char
+			info = "Add " +str(amount)+" New "+ table_kind +" Table"+add_char
 			writeOpertationFunc(request,info)
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
