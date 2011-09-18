@@ -13,6 +13,7 @@ urlpatterns = patterns('',
 	(r'^canvas/', include('canvas.urls')),
         (r'^admin/', include(admin.site.urls)),
 	(r'static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
+	(r'media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.ADMIN_MEDIA_PREFIX}),
     # Example:
     # (r'^Seating/', include('Seating.foo.urls')),
 
