@@ -1,6 +1,7 @@
 var listTableElementString = '<li><label>Amount </label>&nbsp;&nbsp;<select size="1" id="ElementSize" class="SizeSelect"><option value="4">4<option value="5">5<option value="6">6<option value="7">7<option value="8">8<option value="9">9<option value="10">10<option value="11">11<option value="12">12<option value="13">13<option value="14">14<option value="15">15<option value="16">16<option value="17">17<option value="18">18<option value="19">19<option value="20">20<option value="21">21<option value="22">22</select>&nbsp;&nbsp;<label>:Size: </label>&nbsp;&nbsp;<select size="1" id="ElementAmount" class="AmountSelect"><option value="1" SELECTED>1<option value="2">2<option value="3">3<option value="4">4<option value="5">5<option value="6">6<option value="7">7<option value="8">8<option value="9">9</select>&nbsp;&nbsp;<img class="RemoveBtn" src="/static/canvas/images/delete.png"/>&nbsp;&nbsp;</li>';
 
 var maxItemsPerKind = 11;
+var dataString = "";
 
 function getAmount(li)
 {
@@ -86,17 +87,19 @@ function createElementByLi(li, type, cordx, cordy)
 	size  = parseInt(tableProperties.first().val()); 
 	amount = parseInt(tableProperties.last().val());
 		 
-	$.post('/canvas/new/', {tables_kind: kind, tables_num: amount, tables_size: size, tables_startx: cordx ,tables_starty: cordy},
+	dataString = dataString + kind + ',' + amount + ',' + size + ',' + cordx + ',' + cordy + '|';
+}
+
+function postDataString()
+{
+	$.post('/canvas/new/', {DataString: dataString},
 	function(data){
-       // if (data.status == 'OK')
-        //{
-       		//var addChar = "";
-			//if (amount > 1)
-			//{
-			//	addChar = 's';
-			//}
-			//writeOccasionInfo("Add " +amount+" New "+ kind +" Table"+addChar);
-        //}
+		if (data.status == 'OK')
+		{
+			$.post('/canvas/edit/', {});
+			//ShowHourGlassWaitingWindow(true);
+			location.reload();
+		}
       }, 'json');
 }
 
@@ -280,10 +283,7 @@ $(document).ready(function(){
 					}
 				}
 			});
-			
-			$.post('/canvas/edit/', {});
-			//ShowHourGlassWaitingWindow(true);
-			location.reload();
+			postDataString();
 		}
     });
 
