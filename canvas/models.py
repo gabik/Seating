@@ -11,3 +11,6 @@ class SingleElement(models.Model):
 	current_sitting = models.IntegerField()
 	max_sitting = models.IntegerField()
 	caption = models.CharField(max_length=80)
+	def __unicode__(self):
+		printy = self.user.username + " " + str(self.elem_num)
+		return printy

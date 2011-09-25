@@ -12,6 +12,13 @@ function getAmount(li)
 	return amount;
 }
 
+function ReloadPage() { location.reload(); }
+
+function DelayReload(time_wait)
+{
+	setTimeout("ReloadPage()", time_wait);
+}
+
 function getTotalAmount()
 {
 	var totalAmount = 0;
@@ -284,6 +291,7 @@ $(document).ready(function(){
 			$.post('/canvas/edit/', {});
 			//ShowHourGlassWaitingWindow(true);
 			location.reload();
+			//DelayReload(3000);
 		}
     });
 
