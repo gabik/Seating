@@ -281,8 +281,8 @@ def download_excel(request):
 	sheet2.write(0,1,str(hash))	
 	sheet1.protect = True
 	sheet2.protect = True
-	#sheet1.password = "DubaGdola"
-	#sheet2.password = "DubaGdola"
+	sheet1.password = "DubaGdola"
+	sheet2.password = "DubaGdola"
 	book.save('/Seating/static/excel_output/guests.xls')
 	book.save(TemporaryFile())
 	cur_user = UserProfile.objects.get(user=request.user)
@@ -343,34 +343,65 @@ def download_map(request):
 			cur_3_cul+=1
 		row_num=cur_row
 		
+	        borders = xlwt.Borders()
+        	borders.left = xlwt.Borders.THIN
+        	borders.right = xlwt.Borders.THIN
+        	borders.top = xlwt.Borders.THIN
+        	borders.bottom = xlwt.Borders.THIN
+        	borders.left_colour = 0x40
+        	borders.right_colour = 0x40
+        	borders.top_colour = 0x40
+        	borders.bottom_colour = 0x40
+	        pattern = xlwt.Pattern()
+        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        	pattern.pattern_fore_colour = 49
+        	style = xlwt.XFStyle()
+        	protection = xlwt.Protection()
+        	protection.cell_locked = 1
+        	style.protection = protection
+        	style.pattern = pattern
+        	style.borders = borders
+
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul+1,element_name, Style.easyxf('pattern: pattern solid, fore_colour aqua'))
-		row1.write(cur_3_cul+2,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
-		row1.write(cur_3_cul,"", Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul+1,element_name, style)
+		row1.write(cur_3_cul+2,"", style)
+		row1.write(cur_3_cul,"", style)
 		row_num+=1
 		row1 = sheet1.row(row_num)
+		
+		styleIn=xlwt.XFStyle()
+		patternIn = xlwt.Pattern()
+		patternIn.pattern = xlwt.Pattern.SOLID_PATTERN
+		patternIn.pattern_fore_colour = 22
+		styleIn.protection = protection
+		styleIn.borders = borders
+		styleIn.pattern = patternIn
 		for s in sitting_on_element:
 			if (cur_3_cul == 4) or (cur_3_cul == 8) or (cur_3_cul == 12):
 				cur_3_cul-=3
 				row_num+=1
 				row1 = sheet1.row(row_num)
-			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray25'))
+			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, styleIn)
 			cur_3_cul+=1
 		row_num+=1
-		if cur_3_cul <= 3:
+		if cur_3_cul <= 4:
 			cur_3_cul=3
-		elif cur_3_cul <= 7:
+		elif cur_3_cul <= 8:
 			cur_3_cul=7
-		elif cur_3_cul <=11:
+		elif cur_3_cul > 8:
 			cur_3_cul=11
 		#while ( cur_3_cul % 3 != 0) :
 		#	cur_3_cul+=1
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul-1,len(sitting_on_element), Style.easyxf('pattern: pattern solid, fore_colour aqua'))
+		row1.write(cur_3_cul-1,len(sitting_on_element), style)
+		row1.write(cur_3_cul-2,"", style)
+		row1.write(cur_3_cul,"", style)
 		cur_3_cul+=1
 	sheet1.col(0).width = 400
 	for i in range(1,12):
 		sheet1.col(i).width = 5000
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
 	book.save('/Seating/static/excel_output/map.xls')
 	book.save(TemporaryFile())
 	return render_to_response('accounts/download_map.html')
