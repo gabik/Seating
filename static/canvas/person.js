@@ -94,6 +94,8 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 	var first_Name = full_name[0];
 	var last_Name = full_name[1];
 		
+	showPropertyPanel("");
+	  
 	if (detailsMode)
 	{
 	
@@ -182,6 +184,7 @@ function CloseFocusDetailsFromFloatList(event)
 
 function FocusDetails(personElement,tableElement,hideAll,newEvent)
 {
+	showPropertyPanel("");
 	if (tableMode)
 	{
 		var newPositionNum = SelectedPerson.context.title.substring(SelectedPerson.context.title.length - 1, SelectedPerson.context.title.length);

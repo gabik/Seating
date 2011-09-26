@@ -45,26 +45,36 @@ def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
 	raise
 	if request.method == 'POST':
-		table_kind = request.POST['tables_kind']
-		amount = int(request.POST['tables_num'])
-		size = int(request.POST['tables_size'])
-		cordx = int(request.POST['tables_startx'])
-		cordy = int(request.POST['tables_starty'])
-		user_elements = SingleElement.objects.filter(user=request.user)
-		if (len(user_elements) <= 0):
-			max_num = 1
-		else:
-			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+		dataString = request.POST['DataString'].split('|')
+		for string in dataString:
+			if (string != ""):
+				dataArray = string.split(',')
+				
+				table_kind = dataArray[0]
+				amount = int(dataArray[1])
+				size = int(dataArray[2])
+				cordx = int(dataArray[3])
+				cordy = int(dataArray[4])
+				
+				user_elements = SingleElement.objects.filter(user=request.user)
+				if (len(user_elements) <= 0):
+					max_num = 1
+				else:
+					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
-		for i in range(0, amount):
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
-			single_element.save()
-			add_char =""
-			if (i > 0):
-				add_char = "s"
-			info = "Add " +amount+" New "+ table_kind +" Table"+add_char
-			writeOpertationFunc(request,info)
+				for i in range(0, amount):
+					single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+					single_element.save()
+
+				add_char =""
+				if (amount > 0):
+					add_char = "s"
+
+				info = "Add " + str(amount) +" New "+ table_kind +" Table"+add_char
+				writeOpertationFunc(request,info)
+				
 		json_dump = json.dumps({'status': "OK"})
+		print json_dump
 	return HttpResponse(json_dump)
 
 @login_required

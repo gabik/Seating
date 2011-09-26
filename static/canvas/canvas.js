@@ -793,6 +793,7 @@ $(document).ready(function() {
   $(".MenuItem").click( function() {
     $('ul.AddMenu').hide('medium');
 	var kind = $(this).context.id;
+
     $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
       function(data){
         if (data.status == 'OK')
