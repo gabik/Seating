@@ -51,6 +51,7 @@ USE_L10N = True
 import os
 SETTINGS_FILE_FOLDER = os.path.dirname(__file__)
 MEDIA_ROOT = os.path.join(SETTINGS_FILE_FOLDER, 'static')
+ADMIN_MEDIA_ROOT = '/usr/lib/python2.6/site-packages/django/contrib/admin/media'
 
 # URL that handles the media served from MEDIA_ROOT. Make sure to use a
 # trailing slash if there is a path component (optional in other cases).

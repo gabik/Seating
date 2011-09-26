@@ -1,9 +1,10 @@
 # Create your views here.
+# -*- coding: utf-8 -*-
 import math
 import random
 from tempfile import TemporaryFile
 from xlwt import Workbook, Style
-import xlrd
+import xlrd, xlwt
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson as json
@@ -14,6 +15,9 @@ from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, gro
 from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
+import sys
+sys.path.append("/Seating/static/locale/he")
+import he
 
 #@login_required
 def is_login(request):
@@ -155,18 +159,27 @@ def upload_file(request):
 			for r in range(sh.nrows)[int(starting_row):]:
 				privName=sh.cell_value(r,0)
 				lastName=sh.cell_value(r,1)
-				phoneNum=sh.cell_value(r,2)
-				mailAddr=sh.cell_value(r,3)
-				faceAcnt=sh.cell_value(r,4)
-				groupNme=sh.cell_value(r,5)
-				giftAmnt=sh.cell_value(r,6)
+				quantity=sh.cell_value(r,2)
+				if quantity == "":
+					quantity=1
+				phoneNum=sh.cell_value(r,3)
+				mailAddr=sh.cell_value(r,4)
+				faceAcnt=sh.cell_value(r,5)
+				groupNme=sh.cell_value(r,6)
+				giftAmnt=sh.cell_value(r,7)
 				if privName <> "" or lastName <> "" :
 					if check_person(privName, lastName, cur_list):
 						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
-						new_person.save()
+						if quantity > 1:
+							for i in range(1,int(quantity)+1):
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								new_person.save()
+						else:
+							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+							new_person.save()
+
 				if groupNme not in group_choices:
 					un_group = UnknownGroups(user=request.user, group=groupNme);
 					un_group.save()
@@ -199,40 +212,78 @@ def download_excel(request):
 	book = Workbook()
 	sheet1 = book.add_sheet('2Seat.co.il')
 	sheet1.cols_right_to_left = True
+	borders = xlwt.Borders()
+	borders.left = xlwt.Borders.THIN
+	borders.right = xlwt.Borders.THIN
+	borders.top = xlwt.Borders.THIN
+	borders.bottom = xlwt.Borders.THIN
+	borders.left_colour = 0x40
+	borders.right_colour = 0x40
+	borders.top_colour = 0x40
+	borders.bottom_colour = 0x40
 	row_num = 0
 	row1 = sheet1.row(row_num)
-	row1.write(0, 'First name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(1, 'Last name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, 'Phone numer', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, 'E-mail', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, 'Facebook', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(5, 'Group', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(7, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+        pattern = xlwt.Pattern()
+        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        pattern.pattern_fore_colour = 22 
+        style = xlwt.XFStyle()
+	protection = xlwt.Protection()
+	protection.cell_locked = 1
+	style.protection = protection
+        style.pattern = pattern
+        style.borders = borders
 	row_num+=1
 	for g in Guests:
 		row1 = sheet1.row(row_num)
-		row1.write(0,g.guest_first_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row1.write(1,g.guest_last_name, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row1.set_cell_text(2,g.phone_number, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row1.write(3,g.guest_email, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row1.write(4,g.facebook_account, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(0,g.guest_first_name, style)
+		row1.write(1,g.guest_last_name, style)
+		row1.write(2,1, style)
+		row1.set_cell_text(3,g.phone_number, style)
+		row1.write(4,g.guest_email, style)
+		row1.write(5,g.facebook_account, style)
 		ggroup=g.group
-		row1.write(5,ggroup, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
-		row1.write(6,g.present_amount, Style.easyxf('pattern: pattern solid, fore_colour gray40'))
+		row1.write(6,ggroup, style)
+		row1.write(7,g.present_amount, style)
 		row_num+=1
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = 1
+        protection = xlwt.Protection()
+        protection.cell_locked = False
+	style = xlwt.XFStyle()
+        style.protection = protection
+	style.pattern = pattern
+	style.borders = borders
+	for k in range(row_num,1000):
+		row1 = sheet1.row(k)
+		for g in range(0,8):
+			row1.write(g, "", style)
 	sheet1.col(0).width = 4000
 	sheet1.col(1).width = 4000
-	sheet1.col(2).width = 5000
-	sheet1.col(3).width = 9000
-	sheet1.col(4).width = 5000
-	sheet1.col(5).width = 4000
+	sheet1.col(2).width = 4000
+	sheet1.col(3).width = 5000
+	sheet1.col(4).width = 9000
+	sheet1.col(5).width = 5000
 	sheet1.col(6).width = 4000
+	sheet1.col(7).width = 4000
 	sheet2 = book.add_sheet('X')
 	sheet2.write(0,0,row_num)
 	random.seed()
 	hash = random.getrandbits(128)
 	sheet2.write(0,1,str(hash))	
-	book.save('static/excel_output/guests.xls')
+	sheet1.protect = True
+	sheet2.protect = True
+	#sheet1.password = "DubaGdola"
+	#sheet2.password = "DubaGdola"
+	book.save('/Seating/static/excel_output/guests.xls')
 	book.save(TemporaryFile())
 	cur_user = UserProfile.objects.get(user=request.user)
 	cur_user.excel_hash=str(hash)
@@ -320,6 +371,6 @@ def download_map(request):
 	sheet1.col(0).width = 400
 	for i in range(1,12):
 		sheet1.col(i).width = 5000
-	book.save('static/excel_output/map.xls')
+	book.save('/Seating/static/excel_output/map.xls')
 	book.save(TemporaryFile())
 	return render_to_response('accounts/download_map.html')

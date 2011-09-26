@@ -43,7 +43,6 @@ def edit_canvas(request):
 @login_required
 def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
-	raise
 	if request.method == 'POST':
 		dataString = request.POST['DataString'].split('|')
 		for string in dataString:

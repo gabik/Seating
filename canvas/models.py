@@ -10,4 +10,7 @@ class SingleElement(models.Model):
 	kind = models.CharField(max_length=100)
 	current_sitting = models.IntegerField()
 	max_sitting = models.IntegerField()
-	caption = models.CharField(max_length=8)
+	caption = models.CharField(max_length=80)
+	def __unicode__(self):
+		printy = self.user.username + " " + str(self.elem_num)
+		return printy

@@ -24,6 +24,10 @@ class UserProfile(models.Model):
 	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
 	num_of_guests = IntegerRangeField(min_value=1, max_value=1056)
+        def __unicode__(self):
+                printy = self.user.username 
+                return printy
+
 	
 class Partners(models.Model):
         userPartner = models.ForeignKey(User, unique=True)
@@ -50,6 +54,10 @@ class Guest(models.Model):
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
 	group = models.CharField(max_length=30, blank=True)
+        def __unicode__(self):
+                printy = self.user.username + "- " + self.guest_first_name+ " " +self.guest_last_name
+                return printy
+
 
 class DupGuest(models.Model):
         user = models.ForeignKey(User, unique=False)
