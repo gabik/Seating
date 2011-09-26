@@ -1,4 +1,5 @@
 # Create your views here.
+# -*- coding: utf-8 -*-
 import math
 import random
 from tempfile import TemporaryFile
@@ -14,6 +15,9 @@ from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, gro
 from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
+import sys
+sys.path.append("/Seating/static/locale/he")
+import he
 
 #@login_required
 def is_login(request):
@@ -168,9 +172,14 @@ def upload_file(request):
 						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
-						for i in range(1,int(quantity)+1):
+						if quantity > 1:
+							for i in range(1,int(quantity)+1):
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								new_person.save()
+						else:
 							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 							new_person.save()
+
 				if groupNme not in group_choices:
 					un_group = UnknownGroups(user=request.user, group=groupNme);
 					un_group.save()
@@ -214,14 +223,14 @@ def download_excel(request):
 	borders.bottom_colour = 0x40
 	row_num = 0
 	row1 = sheet1.row(row_num)
-	row1.write(0, 'First name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(1, 'Last name', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, 'Quantity', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, 'Phone numer', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, 'E-mail', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(5, 'Facebook', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(6, 'Group', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(7, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(7, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 22 
