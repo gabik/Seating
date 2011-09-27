@@ -1,0 +1,48 @@
+<gallery>
+	<!-- The line below sets the path to the folder where the images are stored -->
+	<setup path="home/"/>
+	<!-- The following lines set  the names of your images and thumbnails -->
+	<item>
+		<thumb>01t.jpg</thumb>
+		<img>img_01.jpg</img>
+		<!--The line below uses HTML style for the caption. Note:to use HTML text it must be inside the tag: <![CDATA[ ]]>-->
+		<caption><![CDATA[<b>Giraffe! </b><a href="http://www.animals.org" target="_blank"><u>click here for more</u></a>]]></caption>
+	</item>
+	<item>
+		<thumb>02t.jpg</thumb>
+		<img>img_02.jpg</img>
+		<!--The line below shows how to add a Javascript popup window, Note: will not work with pop up blocker turned on in the browser -->
+		<caption><![CDATA[A pair of parrots, <br><u><a href="javascript:void window.open('http://www.parrots.com','portfolio','height=400,width=600,toolbar=no,scrollbars=no')">Click here for a Javascript popup window</a></u>]]></caption>
+	</item>
+	<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_03.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+		<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_04.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+		<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_05.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+		<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_06.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+		<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_07.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+			<item>
+		<thumb>03t.jpg</thumb>
+		<img>img_08.jpg</img>
+		<caption><![CDATA[<font size="20" color="#FF0000">Playing pandas</font><br>size and color your text using HTML]]></caption>
+	</item>
+	
+</gallery>
