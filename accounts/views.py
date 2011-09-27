@@ -183,7 +183,7 @@ def upload_file(request):
 								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 								new_person.save()
 						else:
-							new_person = Guest(user=request.user, guest_first_name=he.u(privName), guest_last_name=he.u(lastName), phone_number=phoneNum, guest_email=mailAddr, group=he.u(groupNme))
+							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 							new_person.save()
 
 				if groupNme not in group_choices:
