@@ -1,0 +1,376 @@
+  .CanvasDiv
+ {
+  float:left;
+  border:4px solid blue;
+  margin-top:20px;
+  width:1195px;
+  height:600px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+ }
+ .DragDiv
+ {
+  cursor:pointer;
+  background-color:white;
+  position:absolute;
+ }
+  .TableElementDiv
+ {
+  display:block;
+  position:absolute;
+ }
+ .Pointer
+ {
+   cursor:pointer;
+ }
+ .PersonDetailsDiv
+ {
+  position:absolute;
+  border:1px solid black;
+ }
+ .PersonDetailsArea
+ {
+  float:right;
+  background:#efefef;
+ }
+ .ElemImg
+ {
+  width:90px;
+  height:90px;
+ }
+ .MenuItem 
+ {
+  width:45px;
+  height:45px;
+ }
+ ul, li 
+ {
+  margin:0;
+  padding:0;
+  list-style:none;
+ }
+ .AddMenu 
+ {
+  display:none;
+  position:absolute;
+  width:45px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  z-index:9999;
+  background-color:white;
+ }
+  .ShapePlacementMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 175px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:125px;
+  z-index:9999;
+  background-color:white;
+ }
+ .AligmentMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 30px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:95px;
+  z-index:99999;
+  background-color:white;
+ }
+.AddPersonDiv
+{
+  direction:rtl;
+}
+.DelPersonDiv
+{
+  position:relative;
+  top:-25;
+  right:30;
+  direction:rtl;
+}
+.AddPerson
+{
+  display:none;
+}
+ .AddDiv
+ {
+  position:absolute;
+  left:5px;
+  top:3px;
+ }
+ .DelDiv
+ {
+  position:absolute;
+  left:35px;
+  top:5px;
+ }
+ .UndoDiv
+ {
+  position:absolute;
+  left:65px;
+  top:3px;
+ }
+ .PlaceMentShapesDiv
+ {
+  position:absolute;
+  left:125px;
+  top:3px;
+ }
+ .MoneyInfoDiv
+ {
+  position:absolute;
+  left:155px;
+  top:3px;
+ }
+ .OccasionFinishDiv
+  {
+  position:absolute;
+  left:185px;
+  top:3px;
+ }
+ .OperationsInfoDiv
+  {
+  position:absolute;
+  left:215px;
+  top:3px;
+ }
+  .AligmentDiv
+ {
+  position:absolute;
+  left:95px;
+  top:3px;
+ }
+ .NumOfItemSelect
+ {
+  margin:5px 0px;
+ }
+ .GroupSelect
+ {
+  margin:5px 0px;
+  width:15px;
+ }
+ .PropertyText
+ { 
+  margin:0;
+  font-size:11.5;
+  font-weight:bold;
+  float:left;
+ }
+ .SaveStat
+ {
+  position:absolute;
+  bottom:0;
+  right:0;
+ }
+ .StatusImg
+ {
+  min-width:5px;
+  min-height:5px;
+  width:16px;
+  height:16px;
+  max-width:25px;
+  max-height:25px;
+ }
+  .TableElemImg
+ {
+  background-color:white;
+  width:64px;
+  height:64px;
+ }
+  .TableElemText
+ {
+  position:relative;
+  font-size:11.5;
+ }
+ .floatRight
+ {
+   float:right;
+ }
+ .floatleft
+ {
+   float:left;
+ }
+  .SelectionRectangle
+  {
+  background:purple;
+  filter: alpha(opacity = 35);
+  border:2px groove;
+  position:absolute;
+  }
+  .BlackOverlayRectangle
+  {
+  background:gray;
+  filter: alpha(opacity = 75);
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  }
+  .SimpleFrame
+  {
+  background:white;
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  }
+  .personOverTableDropLayer
+   {
+	background-color:purple;
+	z-index:9999;
+	filter: alpha(opacity = 10);
+  }
+ .Properties-bar
+ {
+ }
+ .Property
+ {
+ }
+ #right-bar
+ {
+  position:absolute;
+  width:125px;
+  top: 28;
+  left:1197;
+ }
+ #right-middel-bar
+ {
+  position:absolute;
+  float:right;
+  width:125px;
+  margin-top:5px;
+ }
+ #float-list
+ {
+  position:absolute;
+  top:28px;
+  left:17;
+ }
+ #people-list
+ {
+  width:131;
+  border:2px solid blue;
+  overflow: auto;
+  height:150px;
+ }
+ #people_list li
+ {
+  padding: 4px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
+  list-style-position:inside;
+  z-index:15;
+ }
+ #PersonBtns
+ {
+   position:absolute;
+   top:200;
+   left:90;
+ }
+ #FloatingListBtnDiv
+ {
+    position:absolute;
+    top:0;
+    left:20;
+ }
+ #element-properties-list
+ {
+  z-index:5;
+  background:white;
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:120;
+ }
+ #search-properties-list
+  {
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:135;
+  top:340;
+  left:5;
+ }
+  #maxGuest_list
+  {
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:135;
+  top:250;
+  left:5;
+ }
+ #ElementStatus
+ {
+  position:absolute;
+  right: 0;
+  top: 0;
+  z-index:1;
+ }
+ #SeatedLabel
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:absolute;
+ } 
+ #SeatDetails
+ {
+  position:absolute;
+  top:180;
+  left:15;
+ }
+ #SeatedLabelValue
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left:43;
+ }
+ #TotalGuestsLabel
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left: 70;
+  top: -33;
+ } 
+ #TotalGuestsLabelValue
+ {
+  text-shadow:2px 2px 8px blue;
+  font-size:11.5;
+  position:relative;
+  left: 105;
+  top: -66;
+ }
+ #AddPersonList
+ {
+  position:absolute;
+  border:2px solid blue;
+  padding: 4px;
+  width:119;
+  top:28;
+  left:-120;
+  z-index:9999;
+ }
+ select { 
+ font-size: 0.9em;
+}
+.ui-multisort-grouped {
+	background:aliceblue;
+}
+.ui-multisort-click {
+	color:purple;
+	 font-size: 1.2em;
+}
+#OperationList
+{
+	overflow:auto;
+	height:350;
+}
+ 
+
