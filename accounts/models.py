@@ -12,10 +12,11 @@ class IntegerRangeField(models.IntegerField):
 		
 class UserProfile(models.Model):
         user = models.ForeignKey(User, unique=True)
-	phone_number = models.CharField(max_length=30)
+	phone_number = models.CharField(max_length=30, blank=True)
 	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
-	num_of_guests = IntegerRangeField(min_value=1, max_value=1056)
+	num_of_guests = IntegerRangeField(min_value=1, max_value=2056)
+	occasion_place = models.CharField(max_length=30)
 	
 class Partners(models.Model):
         userPartner = models.ForeignKey(User, unique=True)
@@ -26,11 +27,12 @@ class Partners(models.Model):
 	partner1_first_name = models.CharField(max_length=30)
 	partner1_last_name = models.CharField(max_length=30)
 	partner1_gender = models.CharField(max_length=1, choices=gender_choices)
-	partner2_first_name = models.CharField(max_length=30)
-	partner2_last_name = models.CharField(max_length=30)
-	partner2_gender = models.CharField(max_length=1, choices=gender_choices)
+	partner1_age = IntegerRangeField(min_value=1, max_value=120)
+	partner2_first_name = models.CharField(max_length=30, blank=True)
+	partner2_last_name = models.CharField(max_length=30, blank=True)
+	partner2_gender = models.CharField(max_length=1, choices=gender_choices, blank=True)
+	partner2_age = IntegerRangeField(min_value=1, max_value=120, blank=True)
 	
-
 class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)
 	elem_num = models.IntegerField(default=0)

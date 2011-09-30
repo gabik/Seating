@@ -738,7 +738,7 @@ $(document).ready(function() {
   });
   $(".DelPersonDiv").click( function() {
   
-	if (SelectedPerson != "")
+	if (SelectedPerson != "" && !(tableMode))
 	{
 		var answer = confirm("Are You Sure To Delete "+ SelectedPerson.text() +"?");
 		if (answer)
@@ -770,18 +770,20 @@ $(document).ready(function() {
 	}
   });
   $(".AddPersonDiv").click( function() {
-    $('ul.AddPerson').slideToggle('medium');
+    //$('ul.AddPerson').slideToggle('medium');
 	if (addPersonDivOpen)
 	{
 		addPersonDivOpen=false;
-		$("#maxGuest_list").animate({top:250});
-		$("#search-properties-list").animate({top:330});
+		//$("#maxGuest_list").animate({top:250});
+		//$("#search-properties-list").animate({top:330});
+		$('ul.AddPerson').hide("slide", { direction: "right" }, 150);
 	}
 	else
 	{
 		addPersonDivOpen=true;
-		$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
-		$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
+		//$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
+		//$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
+		$('ul.AddPerson').show("slide", { direction: "right" }, 150);
 	}
   }); 
   $("#AddPersonButton").click( function() {
@@ -917,7 +919,7 @@ $(document).ready(function() {
 					});
 					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
 					
-					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 20));
+					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 25));
 				}
 			}
 			}, 'json');
@@ -983,13 +985,13 @@ $(document).ready(function() {
   });
 
   $(".AddPersonDiv").after(function(){  
-    var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+    /*var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
 	if (personsSum >= $("#NumOfGuests").val() || personsSum >= maxGuests)
 	{
 		$(".AddPersonDiv").unbind('click');
 		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
 		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
-	}
+	}*/
   });
   
   $(".AddDiv").after(function(){  

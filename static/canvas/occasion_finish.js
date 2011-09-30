@@ -12,8 +12,8 @@ $(document).ready(function() {
 
  $(".OccasionFinishDiv").click(function()
  {
-	var screenWidth = document.documentElement.clientWidth;
-	var screenHeight = document.documentElement.clientHeight;
+	var screenWidth = document.body.clientWidth;
+	var screenHeight = document.body.clientHeight;
 	
 	//creating window
 	$("#canvas-div").append($('<div id="OccasionFinishRectangle" class="BlackOverlayRectangle"/>'));

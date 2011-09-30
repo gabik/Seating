@@ -1,13 +1,43 @@
-{% block content %}
-{% if form.errors %} 
-	<p class="error">Sorry, that's not a valid username or password</p>
-{% endif %}
-<form action="" method="post"> 
-	<label for="username">User name:</label> <input type="text" name="username" value="" id="username"> 
-	<label for="password">Password:</label> <input type="password" name="password" value="" id="password">
-	<input type="submit" value="login" />
-	<input type="hidden" name="next" value="/accounts/is_login" />
-    {% csrf_token %}
-</form>
-<a href="/accounts/new/">Create User</a>
-{% endblock %}
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Login 2Seat</title>
+<link rel="stylesheet" type="text/css" href="/static/page/page.css" />
+</head>
+
+<body id="pagebody">
+<div id="content">
+  <table width="658" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" height="12" valign="top"><img src="/static/page/images/logo_t.png" width="195" height="20" border="0" /></td>
+    </tr>
+    <tr>
+      <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
+      <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF">
+	  {% block content %}
+	  <form action="" method="post">
+	  <p class="titles_blue">כניסה למערכת 2Seat</p></br><label for="username" class="titles_black">שם משתמש:</label>&nbsp;&nbsp;&nbsp;<span><input type="text" name="username" value="" id="username"></span></br><label for="password" class="titles_black">סיסמא:</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input type="password" name="password" value="" id="password"></br></br></br>
+		<input type="image" src="/static/page/images/enter_btn.png" value="login" style="border: 0;">
+		<input type="hidden" name="next" value="/accounts/is_login" />
+		{% csrf_token %}
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/accounts/new/"><img style="border: 0;" src="/static/page/images/enter_btn.png"></img></a>
+		</form>
+		{% if form.errors %} 
+		 <p class="titles_red">מצטערים, הנתונים שהזנת אינם תקינים,</br><span class="titles_red">יש לבצע הזנה חוזרת.</span></p>
+	    {% endif %}
+		{% endblock %}</td>
+      <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
+      <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
+    </tr>
+    <tr>
+      <td width="12" valign="top"><img src="/static/page/images/bl.png" width="12" height="20" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top"><img src="/static/page/images/bt_r.png" width="195" height="20" /></td>
+    </tr>
+  </table>
+  <img src="/static/page/images/shadow.png" width="658" height="26" /></div>
+</body>
+</html>

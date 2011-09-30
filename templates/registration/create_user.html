@@ -1,82 +1,153 @@
-<HTML>
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <head>{% block head %}{% endblock %}
 <link rel="stylesheet" type="text/css" href="http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/page/page.css" />
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	$(function() {
 		$('#datepicker').datepicker({  minDate: 0, dateFormat: 'dd/mm/yy' });
 	});
+	
+	$(document).ready(function() {
+		$("#sendBtn").mousedown(function(){
+			$(this).attr('src',"/static/page/images/send_btn_nr.png");
+		});
+		$("#sendBtn").mouseover(function(){
+			$(this).attr('src',"/static/page/images/send_btn_ov.png");
+		});
+		$("#sendBtn").mouseout(function(){
+			$(this).attr('src',"/static/page/images/send_btn.png");
+		});
+	});
+	
 </script>
 {% block scripts %}{% endblock %}
-<title>Create User</title>
+<title>Create User 2Seat</title>
 
 </head>
 
-<BODY>
-{% if user_form.errors or userprofile_form.errors or partners_form.errors%}
-        <p style="color: red;">
-                Please correct the error{{ form.errors|pluralize }} below.
+<body id="pagebody">
+
+<div id="content">
+  <table width="658" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" height="12" valign="top"><img src="/static/page/images/logo_t.png" width="195" height="20" border="0" /></td>
+    </tr>
+    <tr>
+      <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
+      <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF">
+	    <p class="titles_blue">יצירת חשבון 2Seat</p>
+		{% if user_form.errors or userprofile_form.errors or partners_form.errors%}
+        <p class="titles_red">
+                <!--Please correct the error{{ form.errors|pluralize }} below. !-->
+				יש לתקן את השדות השגויים הבאים
         </p>
-{% endif %}
-
-<form action="." method="post">
-
-{% for field in user_form %}
-    <div class="fieldWrapper">
-      {{ field.label_tag }}: {{ field }}
-        {% for error in field.errors %}
-                <b class=errors> {{ error }} </b>
-        {% endfor %}
-    </div>
-{% endfor %}
-
-{% for field in userprofile_form %}
-    <div class="fieldWrapper">
-        {{ field.label_tag }}: {{ field }}
-        {% for error in field.errors %}
-                <b class=errors> {{ error }} </b>
-        {% endfor %}
-    </div>
-{% endfor %}
-
-<div id="partnerts_info_table">
-	<table cellspacing="20">
-		<div id ="partner1_info">
-			<td>
-			<p><b>Partners Details :</b></p>
-			{% for field in partners_form %}
-				<div class="fieldWrapper">
-					{{ field.label_tag }}: {{ field }}
-					{% for error in field.errors %}
-							<b class=errors> {{ error }} </b>
-					{% endfor %}
-				</div>
-			{% endfor %}
-			</td>
+		{% endif %}
+		<form action="." method="post">
+		<p class="text_14_blue_bold">*שדות שאינם חובה</p>
+		<p class="text_14_black_bold">פרטי משתמש:</p>
+		<p class="text_14_black">שם משתמש:&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.username}}
+		{% for error in user_form.username.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">סימסא:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.password1}}
+		{% for error in user_form.password1.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">אימות סיסמא:&nbsp;&nbsp;&nbsp;<span>{{user_form.password2}}
+		{% for error in user_form.password2.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.email}}
+		{% for error in userprofile_form.email.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
+		{% for error in userprofile_form.phone_number.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black_bold">פרטי אירוע:</p>
+		<p class="text_14_black">תאריך אירוע:&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.occasiondate}}
+		{% for error in user_form.occasiondate.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">מיקום האירוע:&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.occasion_place}}
+		{% for error in userprofile_form.occasion_place.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		<p class="text_14_black">מספר מוזמנים:&nbsp;&nbsp;<span>{{userprofile_form.num_of_guests}}
+		{% for error in userprofile_form.num_of_guests.errors %}
+				<span class="text_14_red_bold"> {{ error }} </span>
+		{% endfor %}</span></p>
+		
+		<div id="partnerts_info_table">
+			<p class="text_14_black_bold">פרטי בעל/י האירוע:</p>
+			<p class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_first_name}}
+			{% for error in partners_form.partner1_first_name.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_last_name}}
+			{% for error in partners_form.partner1_last_name.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_gender}}
+			{% for error in partners_form.partner1_gender.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">גיל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_age}}
+			{% for error in partners_form.partner1_age.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">שם פרטי נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
+			{% for error in partners_form.partner2_first_name.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">שם מש"פ נוסף:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
+			{% for error in partners_form.partner2_last_name.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
+			{% for error in partners_form.partner2_gender.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+			<p class="text_14_black">גיל נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_age}}
+			{% for error in partners_form.partner2_age.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
 		</div>
-	</table>
-</div>
 
-<div class="fieldWrapper">
-	{{ agree_form.captcha }}
-	{% for error in agree_form.captcha.errors %}
-		<b class=errors> {{ error }} </b>
-	{% endfor %}
-</div>
-<div class="fieldWrapper">
-  {{ agree_form.IAgree }} I agree to <a href="/static/agreement.html" target=_blank>this agreement</a>!
-  {% for error in agree_form.IAgree.errors %}
-    <b class=errors> {{ error }} </b>
-  {% endfor %}
-</div>
+		<div class="fieldWrapper">
+			<p class="text_14_black">נא הכנס/י קוד:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ agree_form.captcha }}
+			{% for error in agree_form.captcha.errors %}
+					<span class="text_14_red_bold"> {{ error }} </span>
+			{% endfor %}</span></p>
+		</div>
+		<div class="fieldWrapper">
+		  {{ agree_form.IAgree }} אני מסכים/ה לתנאים ול<a href="/static/agreement.html" target=_blank>הסכם</a>.
+		  {% for error in agree_form.IAgree.errors %}
+			<span class="text_14_red_bold">  {{ error }} </span>
+		  {% endfor %}
+		</div>
 
+		</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		<input id="sendBtn" type="image" src="/static/page/images/send_btn.png" value="Submit" style="border: 0;">
+		{% csrf_token %}
+		</form></td>
+      <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
+      <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
+    </tr>
+    <tr>
+      <td width="12" valign="top"><img src="/static/page/images/bl.png" width="12" height="20" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top"><img src="/static/page/images/bt_r.png" width="195" height="20" /></td>
+    </tr>
+  </table>
+  <img src="/static/page/images/shadow.png" width="658" height="26" /></div>
 
-
-<input type="submit" value="Submit" />
-{% csrf_token %}
-</form>
-
-</BODY>
-</HTML>
+</body>
+</html>

@@ -19,13 +19,20 @@
 <script type="text/javascript" src="/static/canvas/multiselection.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/table.js"></script>
-<script type="text/javascript" src="/static/canvas/canvas.js"></script>
 <script type="text/javascript" src="/static/canvas/shaped_placement.js"></script>
 <script type="text/javascript" src="/static/canvas/money_info.js"></script>
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
-<link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
+<!--[if IE]>
+	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
+	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
+<![endif]-->
+<!--[if !IE]><!-->
+	<link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
+	<script type="text/javascript" src="/static/canvas/canvas.js"></script>
+ <!--<![endif]-->
+
 <script type="text/javascript">
  window.onload = function()
  {
@@ -64,8 +71,41 @@
 					</table>
 				</div>
 			{% endfor %}
-			<div class="AddDiv" title="Add Table"><img id="AddDivImg" src="/static/canvas/images/add.png"></div>
- 			<ul class="AddMenu">
+			<div class="AddDiv" title="Add Table">
+			<!--[if IE]>
+				<img id="AddDivImg" src="/static/canvas/images/add.png" onclick="addTableButtonPress()"></div>
+				<ul class="AddMenu">
+				<li>
+					<div class="NumOfItemSelect">
+						<select id=numOfElementsComboBox class="Property" size="1">
+							<option value="1" SELECTED>1
+							<option value="2">2
+							<option value="3">3
+							<option value="4">4
+							<option value="5">5
+							<option value="6">6
+							<option value="7">7
+							<option value="8">8
+							<option value="9">9
+						</select>
+					</div>
+				</li>
+				<div style="background:white;" onmouseout="addMenuMouseLeave()">
+					<li><a href="#" onclick="addMenuItemButtonPress('round_pink')"><img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem" ></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('long_square')"><img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('null_square')"><img id="null_square" border=0 src="/static/canvas/images/rect.png" class="MenuItem"  ></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('null_ellipse')"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem" ></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('line')"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
+				</div>
+ 			</ul>
+			<div class="AligmentDiv" title="Aligment Table" onclick="addAligmentDivButtonPress()"><img src="/static/canvas/images/VerticalBottom.png"></div>
+			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/delete.png"  onclick="delTableButtonPress()"></div>
+			<div class="UndoDiv" title="Undo Move" onClick="undoButtonPress()"><img src="/static/canvas/images/Undo.png" onclick="undoButtonPress"></div>
+			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png" onclick="shapePlacementDivButtonPress()"></div>
+			<![endif]-->
+			<!--[if !IE]><!-->
+				<img id="AddDivImg" src="/static/canvas/images/add.png"></div>
+				 			<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
 						<select id=numOfElementsComboBox class="Property" size="1">
@@ -87,10 +127,11 @@
 				<li><a href="#"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem"></a></li>
 				<li><a href="#"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
  			</ul>
+			<div class="AligmentDiv" title="Aligment Table"><img src="/static/canvas/images/VerticalBottom.png"></div>
 			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/delete.png"></div>
 			<div class="UndoDiv" title="Undo Move"><img src="/static/canvas/images/Undo.png"></div>
-			<div class="AligmentDiv" title="Aligment Table"><img src="/static/canvas/images/VerticalBottom.png"></div></li>
 			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png"></div>
+			 <!--<![endif]-->
 			<div class="MoneyInfoDiv"  title="Money Information"><img src="/static/canvas/images/Moneyinfo.png"></div>
 			<div class="OccasionFinishDiv"  title="Occasion Finish Operations"><img src="/static/canvas/images/checkered-flag.png"></div>
 			<div class="OperationsInfoDiv" title="Operations Info Calender"><img src="/static/canvas/images/calender.png"></div>
@@ -130,7 +171,14 @@
 				</div>
 			</div>
 			<div id="PersonBtns">
-				<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>
+					<!--[if IE]>
+					<li style="list-style:none;">
+					<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png" onclick="			addPersonButtonPress()"></div>
+					</li>
+					<![endif]-->
+					<!--[if !IE]><!-->
+					<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>
+					 <!--<![endif]-->
 				<div class="DelPersonDiv" title="Delete Person From Float List" ><img width=30 height=30 src="/static/canvas/images/delete.png"></div>
 			</div>
 			<ul id="AddPersonList" class="AddPerson">
@@ -180,9 +228,16 @@
 							</select>
 						</div>
 					</li>
+					<!--[if IE]>
+					<li style="list-style:none;">
+						<button type="button" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()">Save Changes</button>
+					</li>
+					<![endif]-->
+					<!--[if !IE]><!-->
 					<li style="list-style:none;">
 						<button type="button" id="ElementPropertiesSaveButton" class="Property">Save Changes</button>
 					</li>
+					 <!--<![endif]-->
 				</ul>
 			</div>
 		</div>

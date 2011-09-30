@@ -391,8 +391,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		this.fromOutside = false;
 		return true;
 
-	},
-
+	}
 }));
 
 $.extend($.ui.multisortable, {

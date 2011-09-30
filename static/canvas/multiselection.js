@@ -278,6 +278,7 @@ $(document).ready(function() {
 			if (!(tableMode) && !(detailsMode))
 			{
 				aligmentHorizontal("left");
+				$('ul.AligmentMenu').slideUp()('medium');
 			}
 		});
 		
@@ -285,6 +286,7 @@ $(document).ready(function() {
 			if (!(tableMode) && !(detailsMode))
 			{
 				aligmentHorizontal("right");
+				$('ul.AligmentMenu').slideUp()('medium');
 			}
 		});
 		
@@ -292,6 +294,7 @@ $(document).ready(function() {
 			if (!(tableMode) && !(detailsMode))
 			{
 				aligmentVertical("top");
+				$('ul.AligmentMenu').slideUp()('medium');
 			}
 		});
 		
@@ -299,6 +302,7 @@ $(document).ready(function() {
 			if (!(tableMode) && !(detailsMode))
 			{
 				aligmentVertical("bottom");
+				$('ul.AligmentMenu').slideUp()('medium');
 			}
 		});
 		
