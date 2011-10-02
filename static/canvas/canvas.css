@@ -257,7 +257,6 @@
  {
   width:127;
   border:2px solid blue;
-  overflow: auto;
   height:183px;
  }
  #people_list li
@@ -377,6 +376,13 @@
 	overflow:auto;
 	height:350;
 }
-
+.class_overflow_auto
+{
+	overflow:auto;
+}
+.class_overflow_hidden
+{
+	overflow:hidden;
+}
  
 

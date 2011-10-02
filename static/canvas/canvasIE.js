@@ -663,6 +663,8 @@ $(document).ready(function() {
   showPropertyPanel("");
   updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
+  $("#people-list").removeClass('class_overflow_hidden');
+  $("#people-list").addClass('class_overflow_auto');
   
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 

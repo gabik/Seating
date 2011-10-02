@@ -3,8 +3,8 @@
 <meta charset="UTF-8" /> 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
-<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<!--<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>!-->
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
 <script type="text/javascript" src="/static/canvas/plugins/ui.multisortable.js"></script>
 <link href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/themes/base/jquery-ui.css" rel="stylesheet" type="text/css"/>
@@ -17,7 +17,6 @@
 <script language="javascript" type="text/javascript" src="/static/canvas/plugins/jqplot.pieRenderer.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/canvas/jquery.jqplot.css" />
 <script type="text/javascript" src="/static/canvas/multiselection.js"></script>
-<script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/table.js"></script>
 <script type="text/javascript" src="/static/canvas/shaped_placement.js"></script>
 <script type="text/javascript" src="/static/canvas/money_info.js"></script>
@@ -27,10 +26,12 @@
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
+	<script type="text/javascript" src="/static/canvas/personIE.js"></script>
 <![endif]-->
 <!--[if !IE]><!-->
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 	<script type="text/javascript" src="/static/canvas/canvas.js"></script>
+	<script type="text/javascript" src="/static/canvas/person.js"></script>
  <!--<![endif]-->
 
 <script type="text/javascript">
@@ -159,7 +160,7 @@
 						<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
 					</table>
 				</div>
-			<div id="float-list"/>
+			<div id="float-list">
 				<div id="people-list">
 					<ul id="people_list">
 						{% for guest in guests %}

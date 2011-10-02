@@ -1,5 +1,5 @@
 var DetailsWidth = 900;
-var DetailsHeight = 400;
+var DetailsHeight = 535;
 var PersonLastPosition = new Array(2);//top,left
 var personData ="";
 var SelectedTable = "";
@@ -10,29 +10,29 @@ var SelectedTabIndex = "";
 jQuery(function() {
         jQuery("#tabs").tabs();
     });
-
+	
 function createTableElement(i,element,side)
 {
 	switch (side)
 	{
 		case "left":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></div>'));
 			break;
 		}
 		case "right":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:right;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><td><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></td><td><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p></td></table></div></div>'));
 			break;
 		}
 		case "top":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></div>'));
 			break;
 		}
 		case "bottom":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div></div>'));
 			break;
 		}
 	}
@@ -307,7 +307,7 @@ function reLoadDetails(personElement)
 	$("#person").css("height","1");
 	$("#details").css("height",DetailsHeight);
 	$("#details").css("width","1");
-	$("#person").animate({top:($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - DetailsHeight / 2, left:($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - DetailsWidth / 2, height: DetailsHeight},300, 'linear'); 
+	$("#person").animate({top:($("#canvas-div").position().top + $("#canvas-div").height() + 30) / 2 - DetailsHeight / 2, left:($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - DetailsWidth / 2, height: DetailsHeight},300, 'linear'); 
 	$("#personImg").animate({width: DetailsWidth - 600, height: DetailsHeight},300, 'linear', function() {
 	$("#details").animate({width: DetailsWidth - 300},300, 'linear');
 	$("#personImg").addClass("Pointer");
@@ -673,6 +673,7 @@ function fixPlaceFloat(side, position)
 			
 			if (side == "personRight")
 			{
+				$("#content" + position).replaceWith('<table><td><img src="" class="TableElemImg" Id="tableElement'+ position +'"/></td><td><p Id="tableElementCaption'+ position +'" style="float:left;">empty</p></td></table>');
 				if (occupied)
 				{
 					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
@@ -681,7 +682,7 @@ function fixPlaceFloat(side, position)
 				{
 					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
 				}
-				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:right;">'+ captionContext +'</p>');
+				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:left;">'+ captionContext +'</p>');
 			}
 			else
 		    {	

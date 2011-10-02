@@ -28,13 +28,17 @@
  }
  .PersonDetailsDiv
  {
+  width:900;
   position:absolute;
   border:1px solid black;
  }
  .PersonDetailsArea
  {
   float:right;
-  background:#efefef;
+  position:absolute;
+  left:300;
+  z-index:55;
+  overflow:auto;
  }
  .ElemImg
  {
@@ -253,9 +257,9 @@
  }
  #people-list
  {
+  position:relative;
   width:131;
   border:2px solid blue;
-  overflow: auto;
   height:150px;
  }
  #people_list li
@@ -264,6 +268,7 @@
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;
+  display:block;
   z-index:15;
  }
  #PersonBtns
@@ -372,5 +377,12 @@
 	overflow:auto;
 	height:350;
 }
- 
+.class_overflow_auto
+{
+	overflow:auto;
+}
+.class_overflow_hidden
+{
+	overflow:hidden;
+}
 

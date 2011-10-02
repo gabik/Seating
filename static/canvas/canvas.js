@@ -457,6 +457,8 @@ $(document).ready(function() {
   showPropertyPanel("");
   updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
+  $("#people-list").removeClass('class_overflow_hidden');
+  $("#people-list").addClass('class_overflow_auto');
   
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
@@ -481,8 +483,11 @@ $(document).ready(function() {
 	   startDradPositionList = new Array(1);
 	   startDradPositionList[0] =$(this).position();
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+
      },
      stop: function (e,ui){
+		$("#people-list").removeClass('class_overflow_hidden');
+		$("#people-list").addClass('class_overflow_auto');
        $(this).fadeTo(200, 1.0);
 	   undoElementList = new Array(1);
 	   var undoElement = new Array(2);//[element,operation]
@@ -917,9 +922,16 @@ $(document).ready(function() {
 					$("#people_list > li").each(function(i) {
 						$(this).removeClass('ui-multisort-click');
 					});
-					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
 					
-					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 25));
+					var personRes = $("#"+ full_name[0] +"_"+ full_name[1]);
+					
+					if (personRes.index() < 0)
+					{
+						$("#people_list > li").each(function(j) { if ($(this).context.id == "#"+ full_name[0] +"_"+ full_name[1]){personRes = $(this);}});
+					}
+					
+					personRes.addClass('ui-multisort-click');
+					$("#people-list").scrollTop(parseInt(personRes.index() * 25));
 				}
 			}
 			}, 'json');
@@ -1020,5 +1032,6 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		HideHourGlassWaitingWindow();
 	});
+	
 });
 

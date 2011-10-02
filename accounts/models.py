@@ -31,7 +31,6 @@ class Partners(models.Model):
 	partner2_first_name = models.CharField(max_length=30, blank=True)
 	partner2_last_name = models.CharField(max_length=30, blank=True)
 	partner2_gender = models.CharField(max_length=1, choices=gender_choices, blank=True)
-	partner2_age = IntegerRangeField(min_value=1, max_value=120, blank=True)
 	
 class Guest(models.Model):
         user = models.ForeignKey(User, unique=False)

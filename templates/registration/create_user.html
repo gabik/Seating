@@ -55,7 +55,7 @@
 		{% for error in user_form.username.errors %}
 				<span class="text_14_red_bold"> {{ error }} </span>
 		{% endfor %}</span></p>
-		<p class="text_14_black">סימסא:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.password1}}
+		<p class="text_14_black">סיסמא:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.password1}}
 		{% for error in user_form.password1.errors %}
 				<span class="text_14_red_bold"> {{ error }} </span>
 		{% endfor %}</span></p>
@@ -113,10 +113,6 @@
 			{% endfor %}</span></p>
 			<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
 			{% for error in partners_form.partner2_gender.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
-			{% endfor %}</span></p>
-			<p class="text_14_black">גיל נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_age}}
-			{% for error in partners_form.partner2_age.errors %}
 					<span class="text_14_red_bold"> {{ error }} </span>
 			{% endfor %}</span></p>
 		</div>
