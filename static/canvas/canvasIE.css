@@ -385,4 +385,11 @@
 {
 	overflow:hidden;
 }
-
+.text_11_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}

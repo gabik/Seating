@@ -17,22 +17,22 @@ function createTableElement(i,element,side)
 	{
 		case "left":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td></table></div></div>'));
 			break;
 		}
 		case "right":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><td><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></td><td><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p></td></table></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td></table></div></div>'));
 			break;
 		}
 		case "top":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
 			break;
 		}
 		case "bottom":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
 			break;
 		}
 	}
@@ -648,8 +648,8 @@ function fixPlaceFloat(side, position)
 				{
 					img.attr("src", "/static/canvas/images/chair_empty_top_right.png");
 				}
-				$("#tableElementDiv"+position).append(caption);
-				$("#tableElementDiv"+position).append(img);
+				$("#personElemUpContent"+position).append(caption);
+				$("#personElemDownContent"+position).append(img);
 			}
 			else
 			{
@@ -661,42 +661,51 @@ function fixPlaceFloat(side, position)
 				{
 					img.attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
 				}
-				$("#tableElementDiv"+position).append(img);
-				$("#tableElementDiv"+position).append(caption);
+				$("#personElemUpContent"+position).append(img);
+				$("#personElemDownContent"+position).append(caption);
 			}
 			break;
 		}
 		case "personRight":
 		case "personLeft":
 		{
-			var captionContext = $("#tableElementCaption"+position).html();	
+			$("#tableElementCaption"+position).css('float','none');
+			$("#tableElementCaption"+position).css('cssFloat','none');
+			$("#tableElementCaption"+position).css('styleFloat','none');
+			
+			var caption = $("#tableElementCaption"+position);
+			var img = $("#tableElement"+position);
+			
+			$("#tableElementCaption"+position).remove();
+			$("#tableElement"+position).remove();	
 			
 			if (side == "personRight")
 			{
-				$("#content" + position).replaceWith('<table><td><img src="" class="TableElemImg" Id="tableElement'+ position +'"/></td><td><p Id="tableElementCaption'+ position +'" style="float:left;">empty</p></td></table>');
 				if (occupied)
 				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
+					img.attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
 				}
 				else
 				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
+					img.attr("src", "/static/canvas/images/chair_empty_top_right.png");
 				}
-				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:left;">'+ captionContext +'</p>');
+				$("#personElemRightContent"+position).append(caption);
+				$("#personElemLeftContent"+position).append(img);
 			}
 			else
-		    {	
+			{
 				if (occupied)
 				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
+					img.attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
 				}
 				else
 				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
+					img.attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
 				}
-				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:left;">'+ captionContext +'</p>');
+
+				$("#personElemRightContent"+position).append(img);
+				$("#personElemLeftContent"+position).append(caption);
 			}
-			$("#tableElementCaption"+position).addClass('TableElemText');
 			break;
 		}
 	}

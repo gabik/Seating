@@ -151,10 +151,8 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			}
 			else if (tableHeight + tableElementSize <= tableModeHeight)
 			{
-				var leftMargin = 0;
 				if (widthOffset < 0)
 				{
-					leftMargin = 15;
 					createTableElement(i,element,"left");
 					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personLeft"+ parseInt(i + 1));
 				}
@@ -165,7 +163,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 				}
 				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableElement"+ parseInt(i + 1)).height() + 2.5));
 
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset + 2.5 + leftMargin);
+				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset + 2.5);
 				tableHeight += tableElementSize;
 				currentVerticalPosition++;
 
