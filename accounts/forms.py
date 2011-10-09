@@ -9,7 +9,7 @@ class AgreeForm(forms.Form):
 
 class UserForm(forms.Form):
         username = forms.CharField(max_length=100, label = 'Username')
-        email = forms.EmailField(label = 'E-Mail')
+        email = forms.EmailField(label = 'E-Mail', required=True)
         password1 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Password')
         password2 = forms.CharField(max_length=20, widget = forms.PasswordInput, label = 'Confirm Password')
         occasiondate = forms.DateField(label= 'Occasion date', required=True, widget=forms.TextInput(attrs={'id' : 'datepicker'}), input_formats=('%d/%m/%Y',))

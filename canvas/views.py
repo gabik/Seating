@@ -132,6 +132,7 @@ def drop_person(request):
 			if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
 				element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
 				for element_person in element_persons:
+					print element_person.position
 					if element_person.position == free_position:
 						free_position = free_position + 1
 					else:
@@ -235,6 +236,8 @@ def swap_position(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		first_person_position = request.POST['first_position']
 		second_person_position = request.POST['second_position']
+		print first_person_position
+		print second_person_position
 		if (int(first_person_position) > 0 and int(second_person_position) > 0):
 			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
 			if (len(element_persons) > 0):
@@ -245,6 +248,12 @@ def swap_position(request):
 					second_element_persons[0].save()
 				element_persons[0].save()
 				json_dump = json.dumps({'status': "OK"})
+			else:
+				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
+				if (len(second_element_persons) > 0):
+					second_element_persons[0].position = int(first_person_position)
+					second_element_persons[0].save()
+					json_dump = json.dumps({'status': "OK"})	
 	return HttpResponse(json_dump)
 
 @login_required

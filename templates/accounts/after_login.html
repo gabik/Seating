@@ -2,60 +2,11 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>Welcome</title>
-<style type="text/css">
-<!--
-body {
-	margin-left: 0px;
-	margin-top: 0px;
-	margin-right: 0px;
-	margin-bottom: 0px;
-	background-image: url(/static/page/images/background.png);
-	background-repeat: repeat-x;
-}
-#content {
-	width: 658px;
-	margin-top: 40px;
-	margin-right: auto;
-	margin-left: auto;
-}
-.titles_blue {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	color: #5A8EA3;
-	margin-right: 0px;
-	margin-top: 15px;
-	font-weight: bold;
-}
-.titles_black {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 18px;
-	color: #000000;
-	margin-right: 0px;
-	margin-top: 15px;
-	font-weight: bold;
-}
-.text_14_black {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
-	color: #000000;
-	margin-right: 0px;
-	font-weight: normal;
-	line-height: 20px;
-}
-.text_16_black {
-	font-family: Arial, Helvetica, sans-serif;
-	font-size: 16px;
-	color: #000000;
-	margin-right: 0px;
-	font-weight: normal;
-	line-height: 20px;
-}
--->
-</style>
+<title>Welcome 2Seat</title>
+<link rel="stylesheet" type="text/css" href="/static/page/page.css" />
 </head>
 
-<body>
+<body id="pagebody">
 <div id="content">
   <table width="658" border="0" cellspacing="0" cellpadding="0">
     <tr>
@@ -65,10 +16,10 @@ body {
     </tr>
     <tr>
       <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
-      <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF"><p class="titles_blue"> האירוע של <span class="titles_black">{{ partners.partner1_first_name }} ו{{ partners.partner2_first_name }} {{ last_name }} <br />
+      <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF"><p class="titles_black"> האירוע של <span class="titles_blue">{{ partners.partner1_first_name }} {{addChar}} {{ partners.partner2_first_name }} {{ last_name }} <br />
         </span><span class="text_16_black">המתקיים בתאריך {{date}}</span><span class="titles_black"><br />
-        </span><span class="text_14_black">ב</span></p><br /><br /><br />
-		<a href="/canvas/edit"><img src="/static/page/images/enter_btn.png"></img></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/accounts/logout"><img src="/static/page/images/end_btn.png"></img></a></td>
+        </span><span class="text_14_black">ב {{place}}</span></p><br /><br /><br />
+		<a href="/canvas/edit"><img style="border: 0;" src="/static/page/images/enter_btn.png"></img></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="/accounts/logout"><img style="border: 0;" src="/static/page/images/end_btn.png"></img></a></td>
       <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
       <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
     </tr>

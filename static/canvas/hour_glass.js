@@ -5,8 +5,9 @@ var screenHeight = 0;
 
 function ShowHourGlassWaitingWindow(reload)
 {
-	screenWidth = document.documentElement.clientWidth;
-	screenHeight = document.documentElement.clientHeight;
+	screenWidth = document.body.clientWidth;
+	screenHeight = document.body.clientHeight;
+	
 	//creating window
 	$("#canvas-div").append($('<div id="HourGlassRectangle" class="BlackOverlayRectangle"/>'));
 	$("#HourGlassRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});

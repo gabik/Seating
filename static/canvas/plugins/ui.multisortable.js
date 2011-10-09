@@ -181,6 +181,22 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 	},
 
 	_mouseDrag: function(event) {
+	
+		var scrollAllow = true;
+		
+		if (event.clientX > $("#canvas-div").offset().left && event.clientX < $("#canvas-div").offset().left + $("#canvas-div").width() && event.clientY > $("#canvas-div").offset().top && event.clientY  < $("#canvas-div").offset().top + $("#canvas-div").height())
+	   {
+			scrollAllow = false;
+			$("#people-list").addClass('class_overflow_hidden');
+			$("#people-list").removeClass('class_overflow_auto');
+	   }
+	   else
+	   {
+	   		$("#people-list").removeClass('class_overflow_hidden');
+			$("#people-list").addClass('class_overflow_auto');
+	   }
+	   
+	   
 		//Compute the helpers position
 		this.position = this._generatePosition(event);
 		this.positionAbs = this._convertPositionTo("absolute");
@@ -190,7 +206,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		}
 
 		//Do scrolling
-		if(this.options.scroll) {
+		if(this.options.scroll && scrollAllow) {
 			var o = this.options, scrolled = false;
 			if(this.scrollParent[0] != document && this.scrollParent[0].tagName != 'HTML') {
 
@@ -235,6 +251,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		var pos_top = this.position.top;	
 		
 		this.helper.each(function(i) {
+			this.style.opacity = '0.7';
 			if(!options_axis || options_axis != "y") this.style.left = pos_left + 'px';
 			if(!options_axis || options_axis != "x") this.style.top = pos_top+ ($(this).outerHeight() * i) + 'px';
 		});
@@ -291,6 +308,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 				//Add the helper to the DOM if that didn't happen already
 				var parentNode = $(o.appendTo != 'parent' ? o.appendTo : this.currentItem[0].parentNode)[0];
 				
+				alert(parentNode.id);
 				$(helper).each(function(i) {
 					parentNode.appendChild(helper[i]);
 				});
@@ -315,7 +333,15 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 	},
 
 	_clear: function(event, noPropagation) {
-
+	   	$("#people-list").removeClass('class_overflow_hidden');
+		$("#people-list").addClass('class_overflow_auto');
+		this.helper.each(function(i) {
+			this.style.opacity = '1';
+		});
+		if ($(event.target).index() > 0)
+		{
+			$("#people-list").scrollTop(parseInt($(event.target).index() * 25));
+		}
 		this.reverting = false;
 		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
 		// everything else normalized again
@@ -391,8 +417,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		this.fromOutside = false;
 		return true;
 
-	},
-
+	}
 }));
 
 $.extend($.ui.multisortable, {

@@ -2,7 +2,7 @@
  {
   float:left;
   border:4px solid blue;
-  margin-top:28px;
+  margin-top:20px;
   width:1195px;
   height:600px;
   -webkit-user-select: none;
@@ -28,19 +28,23 @@
  }
  .PersonDetailsDiv
  {
+  width:900;
   position:absolute;
   border:1px solid black;
  }
  .PersonDetailsArea
  {
   float:right;
-  background:#efefef;
+  position:absolute;
+  left:300;
+  z-index:55;
+  overflow:auto;
  }
- /*.ElemImg
+ .ElemImg
  {
   width:90px;
   height:90px;
- }*/
+ }
  .MenuItem 
  {
   width:45px;
@@ -86,26 +90,13 @@
  }
 .AddPersonDiv
 {
-  top:30px;
-  position:relative;
   direction:rtl;
 }
 .DelPersonDiv
 {
   position:relative;
-  top:5;
+  top:-25;
   right:30;
-  direction:rtl;
-}
-.upload_excel
-{
-  direction:rtl;
-}
-.download_excel
-{
-  position:relative;
-  top:-20
-  right:10;
   direction:rtl;
 }
 .AddPerson
@@ -213,14 +204,14 @@
   .SelectionRectangle
   {
   background:purple;
-  opacity:0.35;
+  filter: alpha(opacity = 35);
   border:2px groove;
   position:absolute;
   }
   .BlackOverlayRectangle
   {
   background:gray;
-  opacity:0.75;
+  filter: alpha(opacity = 75);
   border:2px groove;
   position:absolute;
   z-index:99999;
@@ -236,7 +227,7 @@
    {
 	background-color:purple;
 	z-index:9999;
-	opacity : 0.1;
+	filter: alpha(opacity = 10);
   }
  .Properties-bar
  {
@@ -266,9 +257,10 @@
  }
  #people-list
  {
-  width:127;
+  position:relative;
+  width:131;
   border:2px solid blue;
-  height:183px;
+  height:150px;
  }
  #people_list li
  {
@@ -276,6 +268,7 @@
   direction: rtl;
   list-style-image:url("/static/canvas/icons/blue-man-icon.gif");
   list-style-position:inside;
+  display:block;
   z-index:15;
  }
  #PersonBtns
@@ -304,18 +297,18 @@
   position:absolute;
   border:2px solid blue;
   padding: 4px;
-  width:120;
-  top:360;
-  left:1205;
+  width:135;
+  top:340;
+  left:5;
  }
   #maxGuest_list
   {
   position:absolute;
   border:2px solid blue;
   padding: 4px;
-  width:120;
-  top:280;
-  left:1205;
+  width:135;
+  top:250;
+  left:5;
  }
  #ElementStatus
  {
@@ -326,7 +319,6 @@
  }
  #SeatedLabel
  {
-  top:5;
   text-shadow:2px 2px 8px blue;
   font-size:11.5;
   position:absolute;
@@ -334,12 +326,11 @@
  #SeatDetails
  {
   position:absolute;
-  top:198;
+  top:180;
   left:15;
  }
  #SeatedLabelValue
  {
-  top: 5;
   text-shadow:2px 2px 8px blue;
   font-size:11.5;
   position:relative;
@@ -351,7 +342,7 @@
   font-size:11.5;
   position:relative;
   left: 70;
-  top: -22;
+  top: -33;
  } 
  #TotalGuestsLabelValue
  {
@@ -359,17 +350,16 @@
   font-size:11.5;
   position:relative;
   left: 105;
-  top: -49;
+  top: -66;
  }
  #AddPersonList
  {
   position:absolute;
   border:2px solid blue;
   padding: 4px;
-  width:125;
+  width:119;
   top:28;
   left:-120;
-  height:175px;
   z-index:9999;
  }
  select { 
@@ -395,5 +385,11 @@
 {
 	overflow:hidden;
 }
- 
-
+.text_11_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}

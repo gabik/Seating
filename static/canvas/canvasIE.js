@@ -8,6 +8,12 @@ var isMousePressFromCanvas = false;
 var maxGuests = 1056;
 var addPersonDivOpen = false;
 
+if(typeof String.prototype.trim !== 'function') {
+  String.prototype.trim = function() {
+    return this.replace(/^\s+|\s+$/g, ''); 
+  }
+}
+
 function IsNumeric(sText)
 {
    var ValidChars = "0123456789.";
@@ -203,7 +209,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 						    function(dataSave){
 						    if (dataSave.status == 'OK')
 						    {
-								writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
+								writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
 								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 								$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 								ShowHourGlassWaitingWindow(true);
@@ -227,7 +233,7 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 		  function(dataSave){
 		    if (dataSave.status == 'OK')
 		    {
-				writeOccasionInfo("Update "+ element.text().split("\n", 2)[1].trim() +" Caption To " +newCaption + " And Size To " +newSize+".");
+				writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
 		    }else{
@@ -391,14 +397,14 @@ function showPropertyPanel(element)
 	{
 		if (element.position().left < 600)
 		{
-			$("#element-properties-list").css('top',element.position().top - 15);
-			$("#element-properties-list").css('left',element.position().left + element.width() - 5);
+			$("#element-properties-list").css('top',element.position().top - 20);
+			$("#element-properties-list").css('margin-left',element.position().left + element.width() - 15 - $("#canvas-div").width());
 			$("#element-properties-list").show("slide", { direction: "left" }, 50);
 		}
 		else
 		{
-			$("#element-properties-list").css('top',element.position().top - 15);
-			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 23);
+			$("#element-properties-list").css('top',element.position().top - 20);
+			$("#element-properties-list").css('margin-left',element.position().left - $("#element-properties-list").width() - 32 - $("#canvas-div").width());
 			$("#element-properties-list").show("slide", { direction: "right" }, 50);
 		}
 	}
@@ -415,18 +421,218 @@ function posPropertyPanel(element)
 		if (element.position().left < 600)
 		{
 			$("#element-properties-list").css('top',element.position().top);
-			$("#element-properties-list").css('left',element.position().left + element.width() + 2);
+			//$("#element-properties-list").css('left',element.position().left + element.width() + 2);
 		}
 		else
 		{
 			$("#element-properties-list").css('top',element.position().top);
-			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
+			//$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
 		}
 	}
 	else
 	{
 		$("#element-properties-list").hide();
 	}
+}
+
+function addTableButtonPress()
+{
+	$('ul.AddMenu').slideToggle('medium');
+}
+
+function addMenuItemButtonPress(kind)
+{
+    $('ul.AddMenu').hide('medium');
+
+    $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
+      function(data){
+        if (data.status == 'OK')
+        {
+            //undoElement[0] = SelectedElem;
+            //undoElement[1] = "delete"; 
+			var addChar = "";
+			if (parseInt(numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text) > 1)
+			{
+				addChar = 's';
+			}
+			writeOccasionInfo("Add " +numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text+" New "+kind +" Table"+addChar);
+			ShowHourGlassWaitingWindow(true);
+        }
+      }, 'json');
+}
+
+function addMenuMouseLeave(element)
+{
+	$('ul.AddMenu').slideUp()('medium');
+}
+
+function addAligmentDivButtonPress()
+{
+	$('ul.AligmentMenu').slideToggle('medium');
+}
+
+function addAligmentDivButtonPress()
+{
+	$('ul.AligmentMenu').slideToggle('medium');
+}
+
+function shapePlacementDivButtonPress()
+{
+    $('ul.ShapePlacementMenu').slideToggle('medium');
+}
+
+function addPersonButtonPress()
+{
+    //$('ul.AddPerson').slideToggle('medium');
+	if (addPersonDivOpen)
+	{
+		addPersonDivOpen=false;
+		//$("#maxGuest_list").animate({top:250});
+		//$("#search-properties-list").animate({top:330});
+		$('ul.AddPerson').hide("slide", { direction: "right" }, 150);
+	}
+	else
+	{
+		addPersonDivOpen=true;
+		//$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
+		//$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
+		$('ul.AddPerson').show("slide", { direction: "right" }, 150);
+	}
+}
+	
+function undoButtonPress()
+{
+	for (var index = 0; index < undoElementList.length; index++)
+	{
+		var undoElement = undoElementList[index];
+		if (undoElement[0] != "" && undoElement[1] != "" && !tableMode && !detailsMode)
+		{
+		   switch(undoElement[1])
+		   {
+			  case "move":
+				  {
+					var newTop = startDradPositionList[index].top;
+					var newLeft = startDradPositionList[index].left;
+					startDradPositionList[index] = undoElement[0].position();
+					undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
+					break;
+				  }
+			  case "add":
+				  {
+					  {
+						$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+						function(data){
+						if (data.status == 'OK')
+						{
+						   undoElement[1] = "delete"; 
+						   ShowHourGlassWaitingWindow(true);
+						} else if (data.status == 'LIMIT')
+										{
+											alert("Maximum 48 tables");
+											ShowHourGlassWaitingWindow(true);
+										}
+						}, 'json');
+						break;
+					  }
+				  }
+			  case "delete":
+			  {
+				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+				  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
+				  function(data){
+				  if (data.status == 'OK')
+				  { 
+					 undoElement[1] = ""; 
+					 ShowHourGlassWaitingWindow(true);
+				  }
+				  }, 'json');
+				  break;
+			  }
+		   }
+		}
+	}
+}
+
+function delTableButtonPress()
+{
+	if  (!detailsMode)
+	{
+		var answer;
+
+		if (tableMode)
+		{
+			if (SelectedPerson != "")
+			{
+				answer = confirm("Are You Sure To Delete " + SelectedPerson.text() +" Person?");
+			}
+			else
+			{
+				alert ("Please select Person");
+			}
+		}
+		else
+		{
+			if (SelectedElem != "")
+			{
+				alert(SelectedElem.text().split(" ", 2)[0]);
+				answer = confirm("Are You Sure To Delete " + SelectedElem.text().split(" ", 2)[0] + " Element?");
+			}
+			else
+			{
+				alert ("Please select Element");
+			}
+		}
+		
+		if (answer != undefined && answer)
+		{
+			if (tableMode)
+			{
+				DeletePerson();
+				updateSeatedLabel();
+				writeOccasionInfo("Move Person "+SelectedPerson.text()+"From Table "+SelectedElem.text().split(" ", 2)[0]+" To Float List.");
+			}
+			else
+			{
+				if (SelectedElem != "") {
+				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+				  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+						function(data){
+					  if (data.status == 'OK')
+					  { 
+						  //undoElement[0] = SelectedElem;
+						  //undoElement[1] = "add"; 
+						  ShowHourGlassWaitingWindow(true);
+						  writeOccasionInfo("Delete Table "+SelectedElem.text().split(" ", 2)[0]+".");
+					  }
+					}, 'json');
+				} else {
+					if (!tableMode && !detailsMode)
+					{
+					  alert ("Please select table");
+					}
+				}
+			}
+		}
+	}
+}
+
+function elementPropertiesSaveButtonClick() { 
+	  if (SelectedElem != "" ) {
+			if (tableMode)
+			{
+				//var event = jQuery.Event("dblclick");
+				//event.user = "SaveProperyTable";
+				//SelectedElem.trigger(event);
+			}
+			else
+			{
+				var caption = $("#ElementCaption").val();
+				var size = $("#ElementSize").val();
+				var elementCaption = SelectedElem.context.getElementsByTagName("p");
+				saveElementWithCaption(SelectedElem,caption,size,"");
+				posPropertyPanel(SelectedElem);
+			}
+		}
 }
 
 $(document).ready(function() {
@@ -483,11 +689,8 @@ $(document).ready(function() {
 	   startDradPositionList = new Array(1);
 	   startDradPositionList[0] =$(this).position();
        $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-
      },
      stop: function (e,ui){
-		$("#people-list").removeClass('class_overflow_hidden');
-		$("#people-list").addClass('class_overflow_auto');
        $(this).fadeTo(200, 1.0);
 	   undoElementList = new Array(1);
 	   var undoElement = new Array(2);//[element,operation]
@@ -561,7 +764,7 @@ $(document).ready(function() {
 						LoadPerson(table, data.free_position - 1);
 					}
 					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split(" ", 2)[0]);
 					posPropertyPanel(table);
 				  }else if (data.status == 'FULL')
 				  {
@@ -609,138 +812,6 @@ $(document).ready(function() {
 			}
 		}
    });
-  $(".DelDiv").click( function() {
-	if  (!detailsMode)
-	{
-		var answer;
-
-		if (tableMode)
-		{
-			if (SelectedPerson != "")
-			{
-				answer = confirm("Are You Sure To Delete " + SelectedPerson.text() +" Person?");
-			}
-			else
-			{
-				alert ("Please select Person");
-			}
-		}
-		else
-		{
-			if (SelectedElem != "")
-			{
-				answer = confirm("Are You Sure To Delete " + SelectedElem.text().split("\n", 2)[1].trim() + " Element?");
-			}
-			else
-			{
-				alert ("Please select Element");
-			}
-		}
-		
-		if (answer != undefined && answer)
-		{
-			if (tableMode)
-			{
-				DeletePerson();
-				updateSeatedLabel();
-				writeOccasionInfo("Move Person "+SelectedPerson.text()+"From Table "+SelectedElem.text().split("\n", 2)[1].trim()+" To Float List.");
-			}
-			else
-			{
-				if (SelectedElem != "") {
-				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-				  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-						function(data){
-					  if (data.status == 'OK')
-					  { 
-						  //undoElement[0] = SelectedElem;
-						  //undoElement[1] = "add"; 
-						  ShowHourGlassWaitingWindow(true);
-						  writeOccasionInfo("Delete Table "+SelectedElem.text().split("\n", 2)[1].trim()+".");
-					  }
-					}, 'json');
-				} else {
-					if (!tableMode && !detailsMode)
-					{
-					  alert ("Please select table");
-					}
-				}
-			}
-		}
-	}
-  });
-  $(".AddDiv").click( function() {
-    $('ul.AddMenu').slideToggle('medium');
-  });
-  $(".PlaceMentShapesDiv").click( function() {
-    $('ul.ShapePlacementMenu').slideToggle('medium');
-  });
-  $(".AligmentDiv").click( function() {
-    $('ul.AligmentMenu').slideToggle('medium');
-  });
-  $("ul.ShapePlacementMenu").mouseleave( function() {
-    $('ul.ShapePlacementMenu').slideUp()('medium');
-  });
-  $("ul.AligmentMenu").mouseleave( function() {
-    $('ul.AligmentMenu').slideUp()('medium');
-  });
-  $("ul.AddMenu").mouseleave( function(e) {
-	if (!$(e.target).hasClass('Property'))
-	{
-		$('ul.AddMenu').slideUp()('medium');
-	}
-  });
-  $(".UndoDiv").click( function() {
-	for (var index = 0; index < undoElementList.length; index++)
-	{
-		var undoElement = undoElementList[index];
-		if (undoElement[0] != "" && undoElement[1] != "" && !tableMode && !detailsMode)
-		{
-		   switch(undoElement[1])
-		   {
-			  case "move":
-				  {
-					var newTop = startDradPositionList[index].top;
-					var newLeft = startDradPositionList[index].left;
-					startDradPositionList[index] = undoElement[0].position();
-					undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
-					break;
-				  }
-			  case "add":
-				  {
-					  {
-						$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-						function(data){
-						if (data.status == 'OK')
-						{
-						   undoElement[1] = "delete"; 
-						   ShowHourGlassWaitingWindow(true);
-						} else if (data.status == 'LIMIT')
-										{
-											alert("Maximum 48 tables");
-											ShowHourGlassWaitingWindow(true);
-										}
-						}, 'json');
-						break;
-					  }
-				  }
-			  case "delete":
-			  {
-				  $("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
-				  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
-				  function(data){
-				  if (data.status == 'OK')
-				  { 
-					 undoElement[1] = ""; 
-					 ShowHourGlassWaitingWindow(true);
-				  }
-				  }, 'json');
-				  break;
-			  }
-		   }
-		}
-	}
-  });
   $(".DelPersonDiv").click( function() {
   
 	if (SelectedPerson != "" && !(tableMode))
@@ -774,49 +845,13 @@ $(document).ready(function() {
 		alert("Please Select Person From List");
 	}
   });
-  $(".AddPersonDiv").click( function() {
-    //$('ul.AddPerson').slideToggle('medium');
-	if (addPersonDivOpen)
-	{
-		addPersonDivOpen=false;
-		//$("#maxGuest_list").animate({top:250});
-		//$("#search-properties-list").animate({top:330});
-		$('ul.AddPerson').hide("slide", { direction: "right" }, 150);
-	}
-	else
-	{
-		addPersonDivOpen=true;
-		//$("#maxGuest_list").animate({top: $("#AddPersonList").position().top + 205});
-		//$("#search-properties-list").animate({top:$("#AddPersonList").position().top + 295});
-		$('ul.AddPerson').show("slide", { direction: "right" }, 150);
-	}
-  }); 
   $("#AddPersonButton").click( function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
 	var group = document.getElementById("personGroup").value;
 	addPersonToFloatList(first_name,last_name, group);
   });
-  $(".MenuItem").click( function() {
-    $('ul.AddMenu').hide('medium');
-	var kind = $(this).context.id;
 
-    $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
-      function(data){
-        if (data.status == 'OK')
-        {
-            //undoElement[0] = SelectedElem;
-            //undoElement[1] = "delete"; 
-			var addChar = "";
-			if (parseInt(numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text) > 1)
-			{
-				addChar = 's';
-			}
-			writeOccasionInfo("Add " +numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text+" New "+kind +" Table"+addChar);
-			ShowHourGlassWaitingWindow(true);
-        }
-      }, 'json');
-  });
   $(document).keypress(function(e) {
    var code = (e.keyCode ? e.keyCode : e.which);
    if(code == 46) { //Del keycode
@@ -891,6 +926,7 @@ $(document).ready(function() {
 	else
 	{
 		var full_name = $("#SearchCaption").val().split(" ",2);
+
 		$.post('/canvas/getItem/', {position: "", firstName: full_name[0], lastName: full_name[1] },
         function(data){
 			if (data.status == 'OK')
@@ -922,16 +958,9 @@ $(document).ready(function() {
 					$("#people_list > li").each(function(i) {
 						$(this).removeClass('ui-multisort-click');
 					});
+					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
 					
-					var personRes = $("#"+ full_name[0] +"_"+ full_name[1]);
-					
-					if (personRes.index() < 0)
-					{
-						$("#people_list > li").each(function(j) { if ($(this).context.id == "#"+ full_name[0] +"_"+ full_name[1]){personRes = $(this);}});
-					}
-					
-					personRes.addClass('ui-multisort-click');
-					$("#people-list").scrollTop(parseInt(personRes.index() * 25));
+					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 20));
 				}
 			}
 			}, 'json');
@@ -956,25 +985,6 @@ $(document).ready(function() {
 		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
 	}
   });
-	
-  $("#ElementPropertiesSaveButton").click( function() { 
-  if (SelectedElem != "" ) {
-		if (tableMode)
-		{
-			//var event = jQuery.Event("dblclick");
-			//event.user = "SaveProperyTable";
-			//SelectedElem.trigger(event);
-		}
-		else
-		{
-			var caption = $("#ElementCaption").val();
-			var size = $("#ElementSize").val();
-			var elementCaption = SelectedElem.context.getElementsByTagName("p");
-			saveElementWithCaption(SelectedElem,caption,size,"");
-			posPropertyPanel(SelectedElem);
-		}
-    }
-  });
   
   $("#NumOfGuests").after(function(){
     refreshNumOfGuests();
@@ -997,22 +1007,22 @@ $(document).ready(function() {
   });
 
   $(".AddPersonDiv").after(function(){  
-    /*var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+    var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
 	if (personsSum >= $("#NumOfGuests").val() || personsSum >= maxGuests)
 	{
 		$(".AddPersonDiv").unbind('click');
 		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
 		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
-	}*/
+	}
   });
   
   $(".AddDiv").after(function(){  
-	if ($(".DragDiv").size() >= maxTablesInCanvas)
+	/*if ($(".DragDiv").size() >= maxTablesInCanvas)
 	{
 		$(".AddDiv").unbind('click');
 		$(".AddDiv").attr('title',"Can't Add More Then " + maxTablesInCanvas + " Elements");
 		$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
-	}
+	}*/
   });
   
   $(document).mouseup(function(e) {
@@ -1032,42 +1042,5 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		HideHourGlassWaitingWindow();
 	});
-	
 });
 
-$(document).ajaxSend(function(event, xhr, settings) {
-    function getCookie(name) {
-        var cookieValue = null;
-        if (document.cookie && document.cookie != '') {
-            var cookies = document.cookie.split(';');
-            for (var i = 0; i < cookies.length; i++) {
-                var cookie = jQuery.trim(cookies[i]);
-                // Does this cookie string begin with the name we want?
-                if (cookie.substring(0, name.length + 1) == (name + '=')) {
-                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
-                    break;
-                }
-            }
-        }
-        return cookieValue;
-    }
-    function sameOrigin(url) {
-        // url could be relative or scheme relative or absolute
-        var host = document.location.host; // host + port
-        var protocol = document.location.protocol;
-        var sr_origin = '//' + host;
-        var origin = protocol + sr_origin;
-        // Allow absolute or scheme relative URLs to same origin
-        return (url == origin || url.slice(0, origin.length + 1) == origin + '/') ||
-            (url == sr_origin || url.slice(0, sr_origin.length + 1) == sr_origin + '/') ||
-            // or any other URL that isn't scheme relative or absolute i.e relative.
-            !(/^(\/\/|http:|https:).*/.test(url));
-    }
-    function safeMethod(method) {
-        return (/^(GET|HEAD|OPTIONS|TRACE)$/.test(method));
-    }
-
-    if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
-        xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
-    }
-});

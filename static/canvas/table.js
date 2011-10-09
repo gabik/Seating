@@ -7,34 +7,6 @@ var originalFontSize = 11.5;
 var tableModeFontSize = 14;
 var tableMode = false;
 
-function createTableElement(i,element,side)
-{
-	switch (side)
-	{
-		case "left":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "right":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:right;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "top":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "bottom":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
-			break;
-		}
-	}
-	LoadPerson(element, i);
-}
-
 function turnToRegularMode(element,event)
 {
 	var originalElement = element;
@@ -190,6 +162,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personRight"+ parseInt(i + 1));
 				}
 				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableElement"+ parseInt(i + 1)).height() + 2.5));
+
 				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset + 2.5);
 				tableHeight += tableElementSize;
 				currentVerticalPosition++;

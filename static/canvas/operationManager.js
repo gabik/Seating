@@ -38,8 +38,9 @@ function buildOccasionInfo()
 }
 
 $(document).ready(function(){
-	var screenWidth = document.documentElement.clientWidth;
-	var screenHeight = document.documentElement.clientHeight;
+
+	var screenWidth = document.body.clientWidth;
+	var screenHeight = document.body.clientHeight;
 	
 	
   $(".OperationsInfoDiv").click(function()

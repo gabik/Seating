@@ -25,14 +25,20 @@ def is_login(request):
 		partners = get_object_or_404(Partners, userPartner = request.user)
 		profile = get_object_or_404(UserProfile, user = request.user)
 		date = profile.occasion_date.strftime("%d/%m/%Y")
+		place = profile.occasion_place
 		if partners.partner1_gender == 'M':
 			last_name = partners.partner1_last_name
 		else:
 			last_name = partners.partner2_last_name
+		if last_name == "":
+			last_name = partners.partner1_last_name
 		c = {}
 		c['partners'] = partners
 		c['last_name'] = last_name
 		c['date'] = date
+		c['place'] = place
+		if partners.partner2_first_name != "":
+			c['addChar'] = "&"
 		return render_to_response('accounts/after_login.html', c)
 	else: # Nothing has been posted
 		return HttpResponse('Please login')
@@ -58,7 +64,7 @@ def create_user(request):
 			partners.save()
 			'''convertXLS2CSV(r"/tmp/list.xls")
 			readCSV(r"/tmp/list.csv", created_user)'''
-			return HttpResponse('Thank you for your registration.<BR><a href=/accounts/login>Login</a>')
+			return render_to_response('canvas/new.html')
 	else:
 		userprofile_form = UserProfileForm()
 		user_form = UserForm()
