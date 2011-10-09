@@ -1,4 +1,4 @@
-﻿<?php
+<?php
 
 $name = $_REQUEST['name'] ;
 $family_name = $_REQUEST['family_name'] ;
@@ -23,7 +23,7 @@ $body = '
 	
 |---------סוף ההודעה----------|'; 
 
-$sent = mail("gadiraz@gmail.com", "$subject", $body, $mailheaders) ;
+$sent = mail("contact@2seat.co.il", "$subject", $body, $mailheaders) ;
 if($sent)
 {print "<script>";
 print " self.location='sent.html';";

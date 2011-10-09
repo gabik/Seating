@@ -32,4 +32,10 @@ def tarToS3(directoryName='/Seating', s3Bucket='2seat', s3Key=None, s3AcctId='AK
         k.key = s3Key
 	k.set_contents_from_filename(backupFile)
 
-tarToS3(s3Key='Regular')
+
+if len(sys.argv) > 1:
+	newKey=sys.argv[1]
+else:
+	newKey='Regular'
+	
+tarToS3(s3Key=newKey)
