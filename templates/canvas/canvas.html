@@ -15,7 +15,9 @@
 <script language="javascript" type="text/javascript" src="/static/canvas/jquery.js"></script>
 <script language="javascript" type="text/javascript" src="/static/canvas/jquery.jqplot.js"></script>
 <script language="javascript" type="text/javascript" src="/static/canvas/plugins/jqplot.pieRenderer.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/right_interface/right_interface.css" />
 <link rel="stylesheet" type="text/css" href="/static/canvas/jquery.jqplot.css" />
+<link rel="stylesheet" type="text/css" href="/static/canvas//general.css" />
 <script type="text/javascript" src="/static/canvas/multiselection.js"></script>
 <script type="text/javascript" src="/static/canvas/table.js"></script>
 <script type="text/javascript" src="/static/canvas/shaped_placement.js"></script>
@@ -23,6 +25,7 @@
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
+<script type="text/javascript" src="/static/canvas/general.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -53,28 +56,43 @@
  }
  
 </script>
-<title>Simple Drag</title>
+<title>2Seat Canvas</title>
 </head>
 
-<body>
-
+<body id="canvasbody">
 	<DIV id="main">
 		<div id="canvas-div" class="CanvasDiv">
 			{% for div in elements %}
     			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="Press Double Click For Edit Table">
-					<p id="Caption" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.caption}} </p>
-					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5;">{{div.current_sitting}}/{{div.max_sitting}}</p>
+					<p id="Caption" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;">{{div.caption}} </p>
+					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;">{{div.current_sitting}}/{{div.max_sitting}}</p>
 					<table>
 						<td>
 						<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
-						<div id="ElementStatus"><img src="/static/canvas/images/RedStatus.png" class="StatusImg" Id="Status{{ div.kind }}-{{ div.elem_num }}"/></div>
 						</td>
 					</table>
 				</div>
 			{% endfor %}
+			<div id="mainPanelPattren">
+				<table border="0" cellspacing="0" cellpadding="0">
+					<tr>
+					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
+					  <td height="32" width="455" bgcolor="#5A8EA3"></td>
+					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
+					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
+							<p class="titles_black"> האירוע של <span class="titles_blue">{{ partners.partner1_first_name }} {{addChar}} {{ partners.partner2_first_name }} {{ last_name }}
+								</span><span class="titles_black">המתקיים בתאריך {{date}} </span><span class="titles_black"> ב{{place}}</span></p>
+					  </td>
+					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
+					</tr>
+					<tr>
+					  <td height="10" width="1075" colspan="5"><img src="/static/canvas/images/shadow.png" width="925" height="10" /></td>
+					</tr>
+				</table>				
+			</div>
 			<div class="AddDiv" title="Add Table">
 			<!--[if IE]>
-				<img id="AddDivImg" src="/static/canvas/images/add.png" onclick="addTableButtonPress()"></div>
+				<img id="AddDivImg" src="/static/canvas/images/+table_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
@@ -92,20 +110,22 @@
 					</div>
 				</li>
 				<div style="background:white;" onmouseout="addMenuMouseLeave()">
-					<li><a href="#" onclick="addMenuItemButtonPress('round_pink')"><img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem" ></a></li>
-					<li><a href="#" onclick="addMenuItemButtonPress('long_square')"><img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('Round')"><img id="Round" border=0 src="" class="MenuItem" ></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('Square')"><img id="Square" border=0 src="" class="MenuItem"></a></li>
+					<li style="margin:2px;"><a href="#" onclick="addMenuItemButtonPress('Rect')"><img id="Rect" border=0 src="" class="RectMenuItem"></a></li>	
+					<li><a href="#" onclick="addMenuItemButtonPress('Lozenge')"><img id="Lozenge" border=0 src="" class="RectMenuItem"></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('null_square')"><img id="null_square" border=0 src="/static/canvas/images/rect.png" class="MenuItem"  ></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('null_ellipse')"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem" ></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('line')"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
 				</div>
  			</ul>
-			<div class="AligmentDiv" title="Aligment Table" onclick="addAligmentDivButtonPress()"><img src="/static/canvas/images/VerticalBottom.png"></div>
-			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/delete.png"  onclick="delTableButtonPress()"></div>
-			<div class="UndoDiv" title="Undo Move" onClick="undoButtonPress()"><img src="/static/canvas/images/Undo.png" onclick="undoButtonPress"></div>
-			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png" onclick="shapePlacementDivButtonPress()"></div>
+			<div class="AligmentDiv" title="Aligment Table" onclick="addAligmentDivButtonPress()"><img src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/-table_n.png"  onclick="delTableButtonPress()"></div>
+			<div class="UndoDiv" title="Undo Move" onClick="undoButtonPress()"><img src="/static/canvas/images/back_n.png" onclick="undoButtonPress"></div>
+			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/grid_n.png" onclick="shapePlacementDivButtonPress()"></div>
 			<![endif]-->
 			<!--[if !IE]><!-->
-				<img id="AddDivImg" src="/static/canvas/images/add.png"></div>
+				<img id="AddDivImg" src="/static/canvas/images/+table_n.png"></div>
 				 			<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
@@ -122,19 +142,21 @@
 						</select>
 					</div>
 				</li>
- 				<li><a href="#"><img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"></a></li>
- 				<li><a href="#"><img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"></a></li>
+ 				<li><a href="#"><img id="Round" border=0 src="" class="MenuItem"></a></li>
+ 				<li><a href="#"><img id="Square" border=0 src="" class="MenuItem"></a></li>
+ 				<li style="margin:2px;"><a href="#"><img id="Rect" border=0 src="" class="RectMenuItem"></a></li>
+ 				<li><a href="#"><img id="Lozenge" border=0 src="" class="MenuItem"></a></li>
 				<li><a href="#"><img id="null_square" border=0 src="/static/canvas/images/rect.png" class="MenuItem"></a></li>
 				<li><a href="#"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem"></a></li>
 				<li><a href="#"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem"></a></li>
  			</ul>
-			<div class="AligmentDiv" title="Aligment Table"><img src="/static/canvas/images/VerticalBottom.png"></div>
-			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/delete.png"></div>
-			<div class="UndoDiv" title="Undo Move"><img src="/static/canvas/images/Undo.png"></div>
-			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/SeqPlacement.png"></div>
+			<div class="AligmentDiv" title="Aligment Table"><img src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv" title="Delete Table"><img src="/static/canvas/images/-table_n.png"></div>
+			<div class="UndoDiv" title="Undo Move"><img src="/static/canvas/images/back_n.png"></div>
+			<div class="PlaceMentShapesDiv" title="Shape Table PlaceMent"><img src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
-			<div class="MoneyInfoDiv"  title="Money Information"><img src="/static/canvas/images/Moneyinfo.png"></div>
-			<div class="OccasionFinishDiv"  title="Occasion Finish Operations"><img src="/static/canvas/images/checkered-flag.png"></div>
+			<div class="MoneyInfoDiv" title="Money Information"><img src="/static/canvas/images/money_n.png"></div>
+			<div class="OccasionFinishDiv"  title="Occasion Finish Operations"><img src="/static/canvas/images/end_n.png"></div>
 			<div class="OperationsInfoDiv" title="Operations Info Calender"><img src="/static/canvas/images/calender.png"></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="Aligment Horizontal Left"><img src="/static/canvas/images/HorizontalLeft.png"></div></li>
@@ -147,137 +169,285 @@
 				<li><p Id="HSquarePlaceMentShapes" class="Pointer" title="Half Square Placement">HalfSquare Placement</p></li>
  				<li><p Id="SquarePlaceMentShapes" class="Pointer"  title="Square Placement">Square Placement</p></li>
  			</ul>
-			<div class="SaveStat">Save Status:<img id="SaveStatImg" src="http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg"></div>
+			<div class="SaveState"><p>סטטוס שמירה:<span><img id="SaveStateImg" src=""></p></span></div>
 
 		</div>
 		<div id="right-bar">
-				<div id="SeatDetails">
-					<p id="SeatedLabel">Seated:</p><p id="SeatedLabelValue"/><p id ="TotalGuestsLabel">From:</p><p id="TotalGuestsLabelValue"/>
-				</div>
-				<div id="FloatingListBtnDiv">
-					<table>
-						<td><button id="SortFloatListByName"  title="Sort List By Name" style="font-size:10;">Name</button></td>
-						<td><button id="SortFloatListByGroup"  title="Sort List By Group" style="font-size:10;">Group</button></td>
-					</table>
-				</div>
-			<div id="float-list">
-				<div id="people-list">
-					<ul id="people_list">
-						{% for guest in guests %}
-							{% if guest.elem_num == 0 %}
-								<li id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
-							{% endif %}
-						{% endfor %}
-					</ul>
-				</div>
-			</div>
-			<div id="PersonBtns">
-					<!--[if IE]>
-					<li style="list-style:none;">
-					<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png" onclick="			addPersonButtonPress()"></div>
-					</li>
-					<![endif]-->
-					<!--[if !IE]><!-->
-					<div class="AddPersonDiv" id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="/static/canvas/images/addPerson.png"></div>
-					 <!--<![endif]-->
-				<div class="DelPersonDiv" title="Delete Person From Float List" ><img width=30 height=30 src="/static/canvas/images/delete.png"></div>
-			</div>
-			<ul id="AddPersonList" class="AddPerson">
-				<li>First Name:<input id="first_name" type=text size=15></li>
-				<li>Last Name:<input id="last_name" type=text size=15></li>
-				<li>Group:<div class="GroupSelect">
-						<select id="personGroup" size="1">
-							<option value="Other" SELECTED>Other
-							<option value="Friends">Friends
-							<option value="Family">Family
-							<option value="Work">Work
-						</select>
-					</div></li>
-				<li><button id="AddPersonButton" type="button">Add</button></li>
-			</ul>
-		</div>
-		<div id="right-middel-bar" class="Properties-bar">
-			<div id="element-properties-list">
-				<ul id="element-properties_list">
-					<li style="list-style:none;">
-						<p class="PropertyText">:Caption:</p></br>
-						<input style="text-align:left; width:75px;" type="text" id="ElementCaption" class="Property" maxlength="8"/>
-					</li>
-					<li style="list-style:none;">
-						<p class="PropertyText">:Size:</p></br>
-						<div>
-							<select size="1" id="ElementSize" class="Property">
-								<option class="Property" value="4">4
-								<option class="Property" value="5">5
-								<option class="Property" value="6">6
-								<option class="Property" value="7">7
-								<option class="Property" value="8">8
-								<option class="Property" value="9">9
-								<option class="Property" value="10">10
-								<option class="Property" value="11">11
-								<option class="Property" value="12">12
-								<option class="Property" value="13">13
-								<option class="Property" value="14">14
-								<option class="Property" value="15">15
-								<option class="Property" value="16">16
-								<option class="Property" value="17">17
-								<option class="Property" value="18">18
-								<option class="Property" value="19">19
-								<option class="Property" value="20">20
-								<option class="Property" value="21">21
-								<option class="Property" value="22">22
+			<div id="float-list">			
+				<div id="windowRI">
+					  <table width="115" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימת אורחים</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3"><img src="/static/right_interface/images/delete_guest.png" class="DelPersonDiv" alt="מחק אורח\ת" width="29" height="25" /></td>
+						  <td width="5" bgcolor="#5A8EA3"><img src="/static/right_interface/images/add_ma.png" alt="הוסף אורח" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
+						  <td width="5" bgcolor="#5A8EA3" id="AddFemaleGuestDivID" class="pointer"><img src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td colspan="3" valign="top">
+							<div id="people-list">
+								<ul id="people_list">
+									{% for guest in guests %}
+										{% if guest.elem_num == 0 %}
+											{% if guest.gender == 'F' %}
+												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+											{% else %}
+												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+											{% endif %}
+										{% endif %}
+									{% endfor %}
+								</ul>
+							</div>
+							</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td height="30" colspan="3" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
+							<select name="filterList" id="filterListRI" dir="rtl">
+							  <option value="Name">שם מלא</option>
+							  <option value="Group">קבוצה</option>
 							</select>
-						</div>
-					</li>
-					<!--[if IE]>
-					<li style="list-style:none;">
-						<button type="button" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()">Save Changes</button>
-					</li>
-					<![endif]-->
-					<!--[if !IE]><!-->
-					<li style="list-style:none;">
-						<button type="button" id="ElementPropertiesSaveButton" class="Property">Save Changes</button>
-					</li>
-					 <!--<![endif]-->
-				</ul>
+						  </label></td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
+						  <td colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
+						</tr>
+					  </table>
+					</div>
 			</div>
-		</div>
-		<div id="right-middel-bar" class="Properties-bar">
-			<ul id="maxGuest_list">
-				<li style="list-style:none;">
-					{% for profile in user_profile %}
-						<p class="PropertyText">:Max Num Of Guest:</p></br>							<input style="text-align:left; width:70px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
-						{% endfor %}
-				</li>
-				<li style="list-style:none;">
-						<button type="button" id="MaxGuestSaveButton" class="Property">Save Changes</button>
-				</li>
-			</ul>
+			<div id="AddPersonList" class="AddPerson">
+					  <table width="115" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">הוספת אורח\ת</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td height="45" colspan="3" bgcolor="#5A8EA3"><img height="45" width="45" id="addGenderImg"/></td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td height="10" bgcolor="white" colspan="3"></td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<p class="text_14_black_bolt">שם פרטי:<br/><span><input id="first_name" type=text size=15></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<p class="text_14_black_bolt">שם משפחה:</br><span><input id="last_name" type=text size=15></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<p class="text_14_black_bolt">קבוצה:</br><span>
+								<select id="personGroup" size="1" dir="rtl">
+											<option value="Other" SELECTED>אחר
+											<option value="Friends">חברים
+											<option value="Family">משפחה
+											<option value="Work">עבודה
+										</select></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>	
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <!--[if IE]>
+						  <td height="33" bgcolor="white" colspan="3"></td>
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+						  <td height="25" bgcolor="white" colspan="3"></td>
+						  <!--<![endif]-->
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>						
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <!--[if IE]>
+						  <td height="30" bgcolor="#5A8EA3" colspan="3"></td>
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+						  <td height="31" bgcolor="#5A8EA3" colspan="3"></td>
+						  <!--<![endif]-->
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/add.png" alt="הוסף אורח\ת" width="125" height="38" vspace="10" id="AddPersonButton" class="pointer" /></td>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
+						</tr>
+					  </table>
+					</div>
+			</div>	
+			<div id="right-middel-bar" class="Properties-bar">
+				<div id="element-properties-list">
+					<table width="115" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אלמנט</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<p class="text_14_black_bolt">תווית:<br/><span><input style="text-align:right; width:75px;" type="text" id="ElementCaption" class="Property" maxlength="8"/></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+							<p class="text_14_black_bolt">גודל:</br><span>
+								<select size="1" id="ElementSize" class="Property">
+									<option class="Property" value="4">4
+									<option class="Property" value="5">5
+									<option class="Property" value="6">6
+									<option class="Property" value="7">7
+									<option class="Property" value="8">8
+									<option class="Property" value="9">9
+									<option class="Property" value="10">10
+									<option class="Property" value="11">11
+									<option class="Property" value="12">12
+									<option class="Property" value="13">13
+									<option class="Property" value="14">14
+									<option class="Property" value="15">15
+									<option class="Property" value="16">16
+									<option class="Property" value="17">17
+									<option class="Property" value="18">18
+									<option class="Property" value="19">19
+									<option class="Property" value="20">20
+									<option class="Property" value="21">21
+									<option class="Property" value="22">22
+								</select></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>						
+						<tr>
+						  <td width="5" height="63" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="63" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3">
+						  <!--[if IE]>
+						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="125" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()"/>
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="125" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" />
+						  <!--<![endif]-->
+						  </td>
+						  <td width="5" height="63" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="63" /></td>
+						</tr>
+				</table>
+			</div>
 		</div>
 		<div id="right-middel-bar" class="Properties-bar">
 			<div id="search-properties-list">
-				<ul id="search_properties_list">
-					<li style="list-style:none;">
-						<p class="PropertyText">:Search Name:</p></br>
-						<input style="text-align:left; width:70px;" type="text" id="SearchCaption" class="Property" maxlength="30"/>
-					</li>
-					<li style="list-style:none;">
-						<p class="PropertyText">:Search By:</p></br>
-						<div>
+					  <table width="115" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">חיפוש אורח\ת</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr height="5" bgcolor="#5A8EA3">
+							<td colspan="5" bgcolor="#5A8EA3"></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<input type=text style="text-align:right; width:105px;" size=15 id="SearchCaption" class="Property" maxlength="25"></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
 							<select size="1" id="SearchBy" class="Property">
-								<option class="Property" value="Table">Table
-								<option class="Property" value="Guest">Guest
-							</select>
-						</div>
-					</li>
-					<li style="list-style:none;">
-						<button type="button" id="SearchButton" class="Property">Search</button>
-					</li>
-				</ul>
+								<option class="Property" value="Table">שולחן
+								<option class="Property" value="Guest">אורח\ת
+							</select></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>	
+						<tr>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/search.png" alt="הוסף אורח\ת" width="125" height="38" vspace="10" id="SearchButton" class="Property" /></td>
+						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
+						</tr>
+					  </table>
+					</div>
 			</div>
+		<div id="right-middel-bar"> 
+			<div id="occasionDetailsR" class="Properties-bar">
+				 <table width="115" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr height="5" bgcolor="#5A8EA3">
+							<td colspan="5" bgcolor="#5A8EA3"></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <!--[if IE]>
+							<td width="105" align="right" valign="top" bgcolor="white">
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+						  	<td align="right" valign="top" bgcolor="white">
+						  <!--<![endif]-->
+						  <p class="text_14_black_bolt" id="TotalGuestsLabel" bgcolor="white">מתוך:<span id="TotalGuestsLabelValue"/></p></td>
+						  <!--[if IE]>
+							<td width="105" align="right" valign="top" bgcolor="white">
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+						  	<td align="right" valign="top" bgcolor="white">
+						  <!--<![endif]-->
+						  <p class="text_14_black_bolt" id="SeatedLabel" bgcolor="white">הושבו:<span id="SeatedLabelValue"/></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white"><p class="text_14_black_bolt">מס אורחים מרבי:<span>	{% for profile in user_profile %}
+								<input style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
+						  {% endfor %}</span></p>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>													
+						<tr>
+						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="53" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
+						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="53" /></td>
+						</tr>
+					</table>
+				</div>
+			</div>					
 		</div>
 	</DIV>
-
+	<div id="canvasShadow" />
 </body>
 </html>
 

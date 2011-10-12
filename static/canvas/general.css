@@ -1,0 +1,292 @@
+ #canvasbody
+ {
+	background-image: url("/static/canvas/images/background.png");
+	background-repeat: repeat-x;
+}
+ .DragDiv
+ {
+  cursor:pointer;
+  background-color:white;
+  position:absolute;
+ }
+  .DragNonDropDiv
+ {
+  cursor:pointer;
+  background-color:white;
+  position:absolute;
+ }
+  .TableElementDiv
+ {
+  display:block;
+  position:absolute;
+ }
+ .Pointer
+ {
+   cursor:pointer;
+ }
+ .PersonDetailsDiv
+ {
+  position:absolute;
+  border:1px solid black;
+ }
+ .PersonDetailsArea
+ {
+  float:right;
+  background:#efefef;
+ }
+ .ElemImg
+ {
+  width:90px;
+  height:90px;
+ }
+ .MenuItem 
+ {
+  width:45px;
+  height:45px;
+ }
+ .RectMenuItem
+ {
+  width:40px;
+  height:55px;
+ }
+ ul, li 
+ {
+  margin:0;
+  padding:0;
+  list-style:none;
+ }
+ .AddMenu 
+ {
+  display:none;
+  position:absolute;
+  width:45px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:20px;
+  z-index:9999;
+  background-image: url("/static/canvas/images/background.png");
+  background-repeat: repeat-x;
+ }
+  .ShapePlacementMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 175px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:255px;
+  z-index:9999;
+  background-image: url("/static/canvas/images/background.png");
+  background-repeat: repeat-x;
+ }
+ .AligmentMenu 
+ {
+  display:none;
+  position:absolute;
+  width: 30px;
+  border:1px solid #1c1c1c;
+  top:50px;
+  left:200px;
+  z-index:99999;
+  background-image: url("/static/canvas/images/background.png");
+  background-repeat: repeat-x;
+ }
+.DelPersonDiv
+{
+  cursor : pointer;
+  direction:rtl;
+}
+.AddPerson
+{
+  display:none;
+}
+ .AddDiv
+ {
+  position:absolute;
+  left:15px;
+  top:-2px;
+ }
+ .DelDiv
+ {
+  position:absolute;
+  left:72px;
+  top:-2px;
+ }
+ .UndoDiv
+ {
+  position:absolute;
+  left:129px;
+  top:-2px;
+ }
+ .PlaceMentShapesDiv
+ {
+  position:absolute;
+  left:243px;
+  top:-2px;
+ }
+ .MoneyInfoDiv
+ {
+  position:absolute;
+  left:300px;
+  top:-2px;
+ }
+ .OccasionFinishDiv
+  {
+  position:absolute;
+  left:357px;
+  top:-2px;
+ }
+ .OperationsInfoDiv
+  {
+  position:absolute;
+  left:414px;
+  top:-2px;
+ }
+  .AligmentDiv
+ {
+  position:absolute;
+  left:186px;
+  top:-2px;
+ }
+ .NumOfItemSelect
+ {
+  margin:5px 0px;
+ }
+ .GroupSelect
+ {
+ }
+ .PropertyText
+ { 
+  margin:0;
+  font-size:11.5;
+  font-weight:bold;
+  float:left;
+ }
+ .StatusImg
+ {
+  min-width:5px;
+  min-height:5px;
+  width:16px;
+  height:16px;
+  max-width:25px;
+  max-height:25px;
+ }
+  .TableElemImg
+ {
+  background-color:white;
+  width:64px;
+  height:64px;
+ }
+  .TableElemText
+ {
+  position:relative;
+  font-size:11.5;
+ }
+ .floatRight
+ {
+   float:right;
+ }
+ .floatleft
+ {
+   float:left;
+ }
+  .SimpleFrame
+  {
+  background:white;
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  }
+ .Properties-bar
+ {
+ }
+ .Property
+ {
+ }
+ #people-list
+ {
+	height:170;
+ }
+ .femaleli
+ {
+  padding: 4px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Woman_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+ }
+ .maleli
+ {
+  padding: 4px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Man_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+ }
+ #SeatedLabel
+ {
+ } 
+ #SeatedLabelValue
+ {
+ }
+ #TotalGuestsLabel
+ {
+ } 
+ #TotalGuestsLabelValue
+{
+ }
+ #mainPanelPattren
+ {
+  position:absolute;
+  left:10px;
+  top:1px;
+ }
+ select { 
+ font-size: 0.9em;
+}
+.ui-multisort-grouped {
+	background:aliceblue;
+}
+.ui-multisort-click {
+	color:purple;
+	 font-size: 1.2em;
+}
+#OperationList
+{
+	overflow:auto;
+	height:350;
+}
+.class_overflow_auto
+{
+	overflow:auto;
+}
+.class_overflow_hidden
+{
+	overflow:hidden;
+}
+.titles_blue {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #5A8EA3;
+	margin-right: 2px;
+	font-weight: bold;
+	font-style: italic;
+	text-shadow:1px 1px blue;
+}
+.titles_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 20px;
+	color: #000000;
+	margin-right: 2px;
+	font-weight: bold;
+	font-style: italic;
+	text-shadow:1px 1px blue;
+}
+.text_11_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}

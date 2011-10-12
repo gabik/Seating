@@ -3,7 +3,27 @@
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>Logout 2Seat</title>
+<link rel="stylesheet" type="text/css" href="http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css" media="all" />
 <link rel="stylesheet" type="text/css" href="/static/page/page.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+	$(document).ready(function() {
+		$("#enterBtn").mouseover(function(){
+			$(this).attr('src',"/static/page/images/enter_r.png");
+		});
+		$("#enterBtn").mouseout(function(){
+			$(this).attr('src',"/static/page/images/enter_n.png");
+		});
+		$("#homeBtn").mouseover(function(){
+			$(this).attr('src',"/static/page/images/home_r.png");
+		});
+		$("#homeBtn").mouseout(function(){
+			$(this).attr('src',"/static/page/images/home_n.png");
+		});
+	});
+	
+</script>
 </head>
 
 <body id="pagebody">
@@ -19,7 +39,7 @@
       <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF"><p class="titles_black">התבצעה התנתקות ממערכת 2Seat,<br /><span class="titles_black">אנו מודים לכם על שימוש במערכת 2Seat.<br /><br />
         </span><span class="titles_blue">להתראות!!!<br />
         </span></p><br /><br /><br />
-		<a href="/accounts/login"><img style="border: 0;" src="/static/page/images/enter_btn.png"></img></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img style="border: 0;" src="/static/page/images/home_ov.png"></img></a></td>
+		<a href="/accounts/login"><img style="border: 0;" id="enterBtn" src="/static/page/images/enter_n.png"></img></a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="#"><img id="homeBtn" style="border: 0;" src="/static/page/images/home_n.png"></img></a></td>
       <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
       <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
     </tr>

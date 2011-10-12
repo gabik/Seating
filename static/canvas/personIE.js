@@ -63,17 +63,6 @@ function disableDetailsMode()
   $("#ElementSize").removeAttr('disabled');
 }
 
-function addPersonToFloatList(first_name,last_name, personGroup)
-{
-    $.post('/accounts/add_person/', {first: first_name, last: last_name, group: personGroup},
-      function(data){
-        if (data.status == 'OK')
-        {
-			  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-			  ShowHourGlassWaitingWindow(true);
-        }
-      }, 'json');
-}
 function LoadPerson(element, i)
 {
 		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
@@ -465,7 +454,7 @@ function StartDragPerson(element)
 		positionNum =  element.context.id.substring(element.context.id.length - 1, element.context.id.length);
 	}
 
-	$("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+	setSaveStatus("Waiting");
 		
 	PersonLastPosition[0] = $("#tableElementDiv"+ positionNum).position().top;
 	PersonLastPosition[1] = $("#tableElementDiv"+ positionNum).position().left;
@@ -569,11 +558,11 @@ function StopDragPerson(element,tableElement)
 			function(data){
            if (data.status == 'OK')
            {
-				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+				setSaveStatus("OK");
 			}
 			else
 			{
-				$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+				setSaveStatus("Error");
 			}
 			}, 'json');
 
@@ -581,7 +570,7 @@ function StopDragPerson(element,tableElement)
 		else
 		{
 			fixPlaceFloat(cleanTitleThis , lastPositionNum);
-			$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			setSaveStatus("OK");
 			element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElement"+lastPositionNum)); SelectedPerson = element;});
 		}
 }
@@ -799,9 +788,9 @@ function savePersonChanges(firstName, lastName)
 		  $("#detailsFacebookAccount"+ firstName + '_'+ lastName).attr("id","detailsFacebookAccount"+ personData.first_name + '_'+ personData.last_name);
 		  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
 		  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
-          $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+          setSaveStatus("OK");
         }else{
-          $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+          setSaveStatus("Error");
         }
 		$("#SaveStatImg").fadeTo(400, 1);
     }, 'json');
@@ -829,11 +818,11 @@ function DeletePerson()
 		  SelectedPerson.border('0px white 0');
 		  selectPersonElement($("#tableElement" + personData.position));
 		  SelectedPerson = "";
-          $("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+          setSaveStatus("OK");
 		  ShowHourGlassWaitingWindow(true);
 		  //		  addPersonToFloatList(personData.first_name,personData.last_name);
         }else{
-          $("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+          setSaveStatus("Error");
         }
 		$("#SaveStatImg").fadeTo(400, 1);
     }, 'json');
@@ -878,74 +867,7 @@ function proccedSearchOnTableMode(data)
 	}
 }
 
-function sortListByName(listId, ascending)
-{
-    $("#"+listId).each(function() {
-        var $list = $(this);
-        var rows = $list.find('li').get();
-        rows.sort(function(a, b) {
-            var keyA = $(a).text().toUpperCase();
-            var keyB = $(b).text().toUpperCase();
-			if (ascending)
-			{
-				if (keyA < keyB) return -1;
-				if (keyA > keyB) return 1;
-			}
-			else
-			{
-				if (keyA > keyB) return -1;
-				if (keyA < keyB) return 1;
-			}
-            return 0;
-        });
-        $.each(rows, function(index, row) {
-            $list.append(row);
-        });
-    });     
-}
-
-function sortListByGroup(listId, ascending)
-{
-    $("#"+listId).each(function() {
-        var $list = $(this);
-        var rows = $list.find('li').get();
-        rows.sort(function(a, b) {
-            var keyA = $(a).attr('title').toUpperCase();
-            var keyB = $(b).attr('title').toUpperCase();
-			if (ascending)
-			{
-				if (keyA < keyB) return -1;
-				if (keyA > keyB) return 1;
-			}
-			else
-			{
-				if (keyA > keyB) return -1;
-				if (keyA < keyB) return 1;
-			}
-            return 0;
-        });
-        $.each(rows, function(index, row) {
-            $list.append(row);
-        });
-    });     
-}
-
 $(document).ready(function() {
 
-  var sortFloatListByNameAscending = true
-  var sortFloatListByGroupAscending = true
-  
- $("#SortFloatListByName").click(function()
- {
-	sortListByName("people_list",sortFloatListByNameAscending);
-	sortFloatListByNameAscending = !sortFloatListByNameAscending;
- }); 
- 
- $("#SortFloatListByGroup").click(function()
- {
-	sortListByGroup("people_list",sortFloatListByGroupAscending);
-	sortFloatListByGroupAscending = !sortFloatListByGroupAscending;
- });
- 
 });
  

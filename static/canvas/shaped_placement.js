@@ -78,6 +78,7 @@ $(document).ready(function() {
 	 $("#SquarePlaceMentShapes").click(function(){
 		 if (!tableMode && !detailsMode)
 		{
+			showPropertyPanel("");
 			calculateChildrenWidthAndHeightForSquarePlacment();
 			var middleCircle = false;
 			var horizontalArrange = true;
@@ -193,6 +194,7 @@ $(document).ready(function() {
 	 $("#HSquarePlaceMentShapes").click(function(){
 		if (!tableMode && !detailsMode)
 		{
+			showPropertyPanel("");
 			calculateChildrenWidthAndHeightForHalfSquarePlacment();
 			var middleCircle = false;
 			var horizontalArrange = true;
@@ -317,6 +319,7 @@ $(document).ready(function() {
 	 $("#SeqPlaceMentShapes").click(function(){
 		if (!tableMode && !detailsMode)
 		{
+			showPropertyPanel("");
 			maxWidth = $("#canvas-div").width();
 			maxHeight = $("#canvas-div").height();
 			var newTop = $("#canvas-div").offset().top + 5;

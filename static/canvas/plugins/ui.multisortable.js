@@ -63,6 +63,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 
 	_mouseStart: function(event, overrideHandle, noActivation) {
 
+		setSaveStatus("Waiting");
 		var o = this.options, self = this;
 		this.currentContainer = this;
 
@@ -308,7 +309,6 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 				//Add the helper to the DOM if that didn't happen already
 				var parentNode = $(o.appendTo != 'parent' ? o.appendTo : this.currentItem[0].parentNode)[0];
 				
-				alert(parentNode.id);
 				$(helper).each(function(i) {
 					parentNode.appendChild(helper[i]);
 				});
@@ -333,15 +333,13 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 	},
 
 	_clear: function(event, noPropagation) {
+		setSaveStatus("OK");
 	   	$("#people-list").removeClass('class_overflow_hidden');
 		$("#people-list").addClass('class_overflow_auto');
+
 		this.helper.each(function(i) {
 			this.style.opacity = '1';
 		});
-		if ($(event.target).index() > 0)
-		{
-			$("#people-list").scrollTop(parseInt($(event.target).index() * 25));
-		}
 		this.reverting = false;
 		// We delay all events that have to be triggered to after the point where the placeholder has been removed and
 		// everything else normalized again
@@ -415,8 +413,12 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		}
 
 		this.fromOutside = false;
+		if ($(event.target).index() > 0)
+		{
+			$("#people-list").scrollTop(parseInt($(event.target).index() * 15));
+		}
+		rePaintPeopleList();
 		return true;
-
 	}
 }));
 

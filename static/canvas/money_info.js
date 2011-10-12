@@ -9,11 +9,11 @@ function getFullMoneyInfo()
 	  function(data){
 	    if (data.status == 'OK')
 	    {
-			$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+			setSaveStatus("OK");
 			sumArray = [data.totalSum, data.totalOtherSum, data.totalFamilySum, data.totalFreindsSum, data.totalWorkSum];
 			createInfoFields(sumArray);
 	    }else{
-			$("#SaveStatImg").attr("src", "http://www.arco.co.uk/103/images/icons/error.gif");
+			setSaveStatus("Error");
 	    }
 		}, 'json');
 }

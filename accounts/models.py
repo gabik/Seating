@@ -15,7 +15,7 @@ class UserProfile(models.Model):
 	phone_number = models.CharField(max_length=30, blank=True)
 	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
-	num_of_guests = IntegerRangeField(min_value=1, max_value=2056)
+	num_of_guests = IntegerRangeField(min_value=1, max_value=2000)
 	occasion_place = models.CharField(max_length=30)
 	
 class Partners(models.Model):
@@ -49,6 +49,12 @@ class Guest(models.Model):
 		('Other', 'Other'),
 	)
 	group = models.CharField(max_length=7, choices=group_choices, default='Other')
+	gender_choices = (
+		('M', 'Male'),
+		('F', 'Female'),
+		('U', 'Unknon'),
+	)
+	gender = models.CharField(max_length=6, choices=group_choices, default='U')
 
 class DupGuest(models.Model):
         user = models.ForeignKey(User, unique=False)

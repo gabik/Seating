@@ -78,11 +78,11 @@ function createElementByLi(li, type, cordx, cordy)
 	
 	if (type == "A")
 	{
-		kind = "long_square";
+		kind = "Square";
 	}
 	else
 	{
-		kind = "round_pink";
+		kind = "Round";
 	}
 	size  = parseInt(tableProperties.first().val()); 
 	amount = parseInt(tableProperties.last().val());
