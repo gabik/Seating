@@ -43,6 +43,11 @@ def is_login(request):
 	else: # Nothing has been posted
 		return HttpResponse('Please login')
 
+def registered(request):
+	if request.method == 'POST':
+		return render_to_response('registration/login.html');
+	else:
+		return render_to_response('registration/registered.html')
 
 def create_user(request):
 	if request.method == 'POST': # If the form has been submitted...
@@ -64,7 +69,7 @@ def create_user(request):
 			partners.save()
 			'''convertXLS2CSV(r"/tmp/list.xls")
 			readCSV(r"/tmp/list.csv", created_user)'''
-			return render_to_response('canvas/new.html')
+			return HttpResponseRedirect('/accounts/registered')
 	else:
 		userprofile_form = UserProfileForm()
 		user_form = UserForm()
@@ -124,7 +129,7 @@ def create_user(request):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'], group=request.POST['group'])
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'], group=request.POST['group'],gender=request.POST['gender'])
 		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

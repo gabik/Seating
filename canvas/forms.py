@@ -3,8 +3,9 @@ from django import forms
 table_kind_list = (
 	#('round_pink', '<img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem">'),
 	#('long_square', '<img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem">'),
-	('round_pink', ''),
-	('long_square', ''),
+	('Round', 'Round'),
+	('Square', 'Square'),
+	('Rect', 'Rect'),
 	)
 
 table_size_list = (

@@ -237,12 +237,12 @@ $(document).ready(function() {
 				{
 					startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 				}
-				$("#SaveStatImg").attr("src", "http://careers.physicstoday.org/pics/icons/gma_red_50/js_saved_jobs.gif");
+				setSaveStatus("Waiting");
 			},
 			drag:function (e,ui){
 				for (var i = 0; i < selectionElementsList.length; i++)
 				{
-					$("#"+selectionElementsList[i]).css("background-color", "blue");
+					$("#"+selectionElementsList[i]).css("background-color", "#5A8EA3");
 					$("#"+selectionElementsList[i]).css("top",$("#"+selectionElementsList[i]).position().top + $("#multiSelectionRectangle").position().top - lastRectPosition.top);
 					$("#"+selectionElementsList[i]).css("left",$("#"+selectionElementsList[i]).position().left + $("#multiSelectionRectangle").position().left - lastRectPosition.left);
 				}
@@ -267,7 +267,7 @@ $(document).ready(function() {
 					undoElement[1] = "move";
 					undoElementList[i] = undoElement;
 				}
-				$("#SaveStatImg").attr("src", "http://maemo.nokia.com/userguides/.img/CONNECTIVITY-WLAN-SAVED.jpg");
+				setSaveStatus("OK");
 				SelectedElem ="";
 				selectionElementsList = "";
 				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});

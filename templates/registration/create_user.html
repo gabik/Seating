@@ -12,11 +12,8 @@
 	});
 	
 	$(document).ready(function() {
-		$("#sendBtn").mousedown(function(){
-			$(this).attr('src',"/static/page/images/send_btn_nr.png");
-		});
 		$("#sendBtn").mouseover(function(){
-			$(this).attr('src',"/static/page/images/send_btn_ov.png");
+			$(this).attr('src',"/static/page/images/send_btn_nr.png");
 		});
 		$("#sendBtn").mouseout(function(){
 			$(this).attr('src',"/static/page/images/send_btn.png");
@@ -44,7 +41,8 @@
 	    <p class="titles_blue">יצירת חשבון 2Seat</p>
 		{% if user_form.errors or userprofile_form.errors or partners_form.errors%}
         <p class="titles_red">
-                <!--Please correct the error{{ form.errors|pluralize }} below. !-->
+                <!--Please correct the error{{ 
+				.errors|pluralize }} below. !-->
 				יש לתקן את השדות השגויים הבאים
         </p>
 		{% endif %}
@@ -53,80 +51,80 @@
 		<p class="text_14_black_bold">פרטי משתמש:</p>
 		<p class="text_14_black">שם משתמש:&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.username}}
 		{% for error in user_form.username.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">סיסמא:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.password1}}
 		{% for error in user_form.password1.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">אימות סיסמא:&nbsp;&nbsp;&nbsp;<span>{{user_form.password2}}
 		{% for error in user_form.password2.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.email}}
 		{% for error in userprofile_form.email.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
 		{% for error in userprofile_form.phone_number.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black_bold">פרטי אירוע:</p>
 		<p class="text_14_black">תאריך אירוע:&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.occasiondate}}
 		{% for error in user_form.occasiondate.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">מיקום האירוע:&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.occasion_place}}
 		{% for error in userprofile_form.occasion_place.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
 		<p class="text_14_black">מספר מוזמנים:&nbsp;&nbsp;<span>{{userprofile_form.num_of_guests}}
 		{% for error in userprofile_form.num_of_guests.errors %}
-				<span class="text_14_red_bold"> {{ error }} </span>
+				<span class="text_14_red_bold"> שדה זה חיוני, וודא תקינות 1-2000 </span>
 		{% endfor %}</span></p>
 		
 		<div id="partnerts_info_table">
 			<p class="text_14_black_bold">פרטי בעל/י האירוע:</p>
 			<p class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_first_name}}
 			{% for error in partners_form.partner1_first_name.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_last_name}}
 			{% for error in partners_form.partner1_last_name.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_gender}}
 			{% for error in partners_form.partner1_gender.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">גיל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner1_age}}
 			{% for error in partners_form.partner1_age.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה זה חיוני, וודא תקינות 1-120 </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">שם פרטי נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
 			{% for error in partners_form.partner2_first_name.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">שם מש"פ נוסף:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
 			{% for error in partners_form.partner2_last_name.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 			{% endfor %}</span></p>
 			<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
 			{% for error in partners_form.partner2_gender.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 			{% endfor %}</span></p>
 		</div>
 
 		<div class="fieldWrapper">
 			<p class="text_14_black">נא הכנס/י קוד:</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{ agree_form.captcha }}
 			{% for error in agree_form.captcha.errors %}
-					<span class="text_14_red_bold"> {{ error }} </span>
+					<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 			{% endfor %}</span></p>
 		</div>
 		<div class="fieldWrapper">
 		  {{ agree_form.IAgree }} אני מסכים/ה לתנאים ול<a href="/static/agreement.html" target=_blank>הסכם</a>.
 		  {% for error in agree_form.IAgree.errors %}
-			<span class="text_14_red_bold">  {{ error }} </span>
+			<span class="text_14_red_bold">  שדה זה חיוני,וודא תקינות </span>
 		  {% endfor %}
 		</div>
 

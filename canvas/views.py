@@ -1,6 +1,6 @@
 # Create your views here.
 from Seating.accounts.models import Guest
-from Seating.accounts.models import UserProfile
+from Seating.accounts.models import UserProfile, Partners
 from Seating.accounts.models import OccasionOperationItem
 from django.db.models import Max
 from django.utils import simplejson as json
@@ -24,6 +24,8 @@ def edit_canvas(request):
 	cur_width = 90
 	if len(elements_nums) > 40:
 		cur_width = int(90*45/len(elements_nums))
+	profile = get_object_or_404(UserProfile, user = request.user)
+	partners = get_object_or_404(Partners, userPartner = request.user)
 	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
@@ -35,6 +37,20 @@ def edit_canvas(request):
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
 	c['width'] = cur_width
+	date = profile.occasion_date.strftime("%d/%m/%Y")
+	place = profile.occasion_place
+	if partners.partner1_gender == 'M':
+		last_name = partners.partner1_last_name
+	else:
+		last_name = partners.partner2_last_name
+	if last_name == "":
+		last_name = partners.partner1_last_name
+	c['partners'] = partners
+	c['last_name'] = last_name
+	c['date'] = date
+	c['place'] = place
+	if partners.partner2_first_name != "":
+		 c['addChar'] = "&"
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -147,7 +163,7 @@ def drop_person(request):
 				if (single_element.current_sitting >= single_element.max_sitting):
 					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
 				else:
-					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
+					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
 			else:
 				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 	return HttpResponse(json_dump)
