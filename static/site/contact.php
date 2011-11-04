@@ -23,8 +23,7 @@ $body = '
 	
 |---------סוף ההודעה----------|'; 
 
-$sent = mail("contact@2seat.co.il", "$subject", $body, $mailheaders) ;
-
+$sent = mail("gadiraz@gmail.com", "$subject", $body, $mailheaders) ;
 if($sent)
 {print "<script>";
 print " self.location='sent.html';";
