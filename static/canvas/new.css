@@ -5,41 +5,13 @@
  #CounterData
  {
    position:absolute;
-   top: 400;
-   left: 370;
+   top: 970;
+   left: 355;
  }
  
- #TableCounter
- {
-   position:relative;
-   top:-35;
-   left:215;
- }
- 
- #SeatCounterLabel
- {
-   position:relative;
-   top:-71;
-   left:280;
- }
- 
- #TableCounterLabel
- {
-   position:relative;
-   left:125;
- }
- 
-  #PersonCounter
- {
-   position:relative;
-   top:-106;
-   left:395;
- }
- 
-  .SimpleFrame
+  .NewSimpleFrame
   {
   background:white;
-  border:2px groove;
   position:absolute;
   z-index:99999;
   height:150;
@@ -50,7 +22,7 @@
   {
   z-index:99999999;
   position:relative;
-  top:5;
+  top:15;
   cursor:pointer;
  }
  
@@ -74,10 +46,21 @@
   left: 350;
  }
  
+  .TableTypeC
+  {
+  top: 250;
+  left: 350;
+ }
+ 
+  .TableTypeD
+  {
+  top: 250;
+  left: 350;
+ }
+ 
  .TableImgBorder
  {
    padding:15px;
-   border:1px solid black;
    height:120;
    width:135;
  }
@@ -110,7 +93,7 @@
  #CanvasEditButton
  {
   position:absolute;
-  top: 500;
+  top: 1035;
   left : 550;
  }
  
@@ -118,11 +101,10 @@
  {
 	position:absolute;
 	overflow:auto;
-	float:right;
 	top:0;
-	left:215;
+	left:295;
 	height:150px;
-	width:335px;
+	width:255px;
  }
 
  #TableTypeAList li
@@ -130,18 +112,30 @@
   position:relative;
   direction: rtl;
   float:left;
-  top:-15;
+  top:0;
+ }
+ 
+ #MainFrameTableTypeA
+ {
+ 	position:absolute;
+	left:355;
+ }
+ 
+  #MainFrameTableTypeB
+ {
+ 	position:absolute;
+	top:280;
+	left:355;
  }
   
  #TableTypeBListDiv
  {
 	position:absolute;
 	overflow:auto;
-	float:right;
 	top:0;
-	left:215;
+	left:295;
 	height:150px;
-	width:335px;
+	width:255px;
  }
 
  #TableTypeBList li
@@ -149,5 +143,54 @@
   position:relative;
   direction: rtl;
   float:left;
-  top:-15;
+  top:0;
+ }
+  #MainFrameTableTypeC
+ {
+ 	position:absolute;
+	top:510;
+	left:355;
+ }
+  
+ #TableTypeCListDiv
+ {
+	position:absolute;
+	overflow:auto;
+	top:0;
+	left:295;
+	height:150px;
+	width:255px;
+ }
+
+ #TableTypeCList li
+ {
+  position:relative;
+  direction: rtl;
+  float:left;
+  top:0;
+ }
+ 
+ #MainFrameTableTypeD
+ {
+ 	position:absolute;
+	top:740;
+	left:355;
+ }
+  
+ #TableTypeDListDiv
+ {
+	position:absolute;
+	overflow:auto;
+	top:0;
+	left:295;
+	height:150px;
+	width:255px;
+ }
+
+ #TableTypeDList li
+ {
+  position:relative;
+  direction: rtl;
+  float:left;
+  top:0;
  }
