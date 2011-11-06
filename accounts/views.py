@@ -17,7 +17,7 @@ from django.shortcuts import render_to_response, get_object_or_404, get_list_or_
 from django.contrib.auth.models import User
 import sys
 sys.path.append("/Seating/static/locale/he")
-import he
+#import he
 
 #@login_required
 def is_login(request):
