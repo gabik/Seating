@@ -1,0 +1,312 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>:: JavaScript grid looking like Microsoft Excel grid that enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database ::</title>
+<meta http-equiv="content-language" content="en">
+<meta name="robots" content="all">
+<meta name="robots" content="index">
+<meta name="robots" content="follow">
+<meta http-equiv="keywords" content="CodeThatGrid, script, excel, excel grid, JavaScript, table, data, massives of data, data massive, csv, database, css">
+<meta http-equiv="description" content="CodeThatGrid is an advanced JavaScript grid looking like Microsoft Excel gridthat enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database. Fully customizable through the CSS the tables are the definite answer to the numerous cases when structured data has to be displayed">
+<meta http-equiv="expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="s.css">
+<script language=javascript src="own.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+<table width=768 border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td><div style="position:absolute;left:86;top:154;z-index:1"><img border=0  src="img/mm.gif" width=2 height=10></div><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr><tr>
+<td><table width=768 height=42 border=0 cellpadding=0 cellspacing=0  class=ct13>
+	<tr>
+	<td><img border=0  src="img/s.gif" width=20 height=1></td>
+	<td valign=middle><p class=cp18><nobr><font class=ca8>User Manual <br><a href="../index.html" class="ca9"><font class="cf6">S</font>amples</a></font></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca9 href="grid_manual.html"><font class=cf6>In</font>troduction</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_style.html"><font class=cf6>C</font>onfigure grid look</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_features.html"><font class=cf6>G</font>rid general features</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_usertype.html"><font class=cf6>U</font>ser types</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_data.html"><font class=cf6>D</font>ata from the DB / CSV / XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_save.html"><font class=cf6>D</font>ata Saving</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_xml.html"><font class=cf6>U</font>sing XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_reference.html"><font class=cf6>G</font>rid reference</a>&nbsp; &nbsp;
+	<a class=ca9 href="new.html"><font class=cf6>W</font>hat's new?</a>&nbsp; &nbsp;
+	<a class=ca9 href="standard_vs_pro.html?h=grid#grid"><font class=cf6>S</font>tandard vs PRO</a></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca8 href="userguide.html"><font class=cf7>1</font>23Guide</a>&nbsp; &nbsp;
+	
+	<p class=cp18><nobr><a class=ca8 href="http://codethat.com/sales.html"><font class=cf7>O</font>rder PRO Now</a>&nbsp; &nbsp;
+	
+	</td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	</tr>
+</table></td>
+</tr><tr>
+<td><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr>
+<tr>
+<td class=ct12><table width=768 height=30 border=0 cellpadding=0 cellspacing=0>
+	<tr><td valign=middle><h1 class=cp9>CODETHATGRID USER MANUAL</h1></td></tr>
+</table></td>
+</tr><tr>
+<td>
+<h1 class=cp10><font class=cf5>Configure Grid Look</font></h1>
+<p class=cp10><a name=css></a>Here we describe GridDef properties that specify table look:</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>Full customization support for rows, columns and cells through the CSS classes and by using grid properties</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>Grid toolbar customization</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>Grid statusbar customization</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>Grid pageturnbar customization</p>
+<p class=cp10>There is a column definition object:</p>
+<pre class=cc1>
+<font class=cc3>colDef <font class=cc2>:</font> <font class=cc8>[</font>
+<font class=cc7>{</font>
+	title <font class=cc2>:</font> String<font class=cc2>,</font></font> 	// column title
+	<font class=cc3>titleClass <font class=cc2>:</font> String<font class=cc2>,</font></font> 	// column title class css
+	<font class=cc3>type <font class=cc2>:</font> String<font class=cc2>,</font></font> 	// (*) column datatype: String | Number | Currency | Date |
+			// Image | HTML | Email | URL | User Defined Type
+	<font class=cc3>width <font class=cc2>:</font> int <font class=cc2>|</font> String<font class=cc2>,</font></font> 	// column width
+	<font class=cc3>alignment <font class=cc2>:</font> String<font class=cc2>,</font></font> 		// column alignment
+	<font class=cc3>compareFunction <font class=cc2>:</font> <font class=cc5>Function</font><font class=cc2>,</font></font> 	// (*) compare function
+	<font class=cc3>userFunction <font class=cc2>:</font> <font class=cc5>Function</font><font class=cc2>,</font></font> 	// user function
+	<font class=cc3>isVisible <font class=cc2>:</font> Boolean<font class=cc2>,</font></font> 	// whether column is visible
+	<font class=cc3>isReadOnly <font class=cc2>:</font> Boolean<font class=cc2>,</font></font> 	// whether column is read only
+	<font class=cc3>useAutoIndex <font class=cc2>:</font> Boolean<font class=cc2>,</font></font> 	// auto index
+	<font class=cc3>useAutoFilter <font class=cc2>:</font> Boolean</font>	// auto filter
+<font class=cc7>}</font><font class=cc2>,</font>
+<font class=cc2>...</font>
+<font class=cc8>]</font>
+</pre>
+<p class=cp10><b>titleClass</b> - CSS class for column header. Default value = "".</p>
+<p class=cp10>Possible values for <b>type</b> - String | Number | Currency | Date | Image | HTML | Email | URL | User defined type</p>
+<p class=cp10>Possible values for <b>alignment</b> - left | center | right</p>
+<p class=cp10>Possible values for <b>compareFunction</b> - compare | compareImage | userCompareFunction () => {1 || 0 || -1}</p>
+<p class=cp10>For example:</p>
+<pre class=cc1>
+<font class=cc3>colDef <font class=cc2>:</font>
+<font class=cc8>[</font>
+<font class=cc7>{</font>
+	title <font class=cc2>:</font></font> <font class=cc6>"ID"</font><font class=cc3><font class=cc2>,</font>
+	titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+	type <font class=cc2>:</font></font> <font class=cc6>"Number"</font><font class=cc3><font class=cc2>,</font>
+	width <font class=cc2>:</font></font> <font class=cc6>'10%'</font><font class=cc3><font class=cc2>,</font>
+	alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+	compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+	isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	isReadOnly <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+	useAutoIndex <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+	useAutoFilter <font class=cc2>:</font> <font class=cc4>false</font>
+<font class=cc7>}</font><font class=cc2>,</font>
+<font class=cc7>{</font>
+	title <font class=cc2>:</font></font> <font class=cc6>"Name"</font><font class=cc3><font class=cc2>,</font>
+	titleClass <font class=cc2>:</font></font> <font class=cc6>"dtitle"</font><font class=cc3><font class=cc2>,</font>
+	type <font class=cc2>:</font></font> <font class=cc6>"String"</font><font class=cc3><font class=cc2>,</font>
+	width <font class=cc2>:</font> <font class=cc4>150</font><font class=cc2>,</font>
+	alignment <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+	compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+	isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	isReadOnly <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+	useAutoIndex <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+	useAutoFilter <font class=cc2>:</font> <font class=cc4>false</font>
+<font class=cc7>}</font><font class=cc2>,</font>
+<font class=cc7>{</font>
+	title <font class=cc2>:</font></font> <font class=cc6>"Reg. date"</font><font class=cc3><font class=cc2>,</font>
+	titleClass <font class=cc2>:</font></font> <font class=cc6>"ctitle"</font><font class=cc3><font class=cc2>,</font>
+	type <font class=cc2>:</font></font> <font class=cc6>"Date"</font><font class=cc3><font class=cc2>,</font>
+	width <font class=cc2>:</font> <font class=cc4>120</font><font class=cc2>,</font>
+	alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+	compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+	isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	isReadOnly <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	useAutoIndex <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	useAutoFilter <font class=cc2>:</font> <font class=cc4>true</font>
+<font class=cc7>}</font><font class=cc2>,</font>
+<font class=cc7>{</font>
+	title <font class=cc2>:</font></font> <font class=cc6>"Icon"</font><font class=cc3><font class=cc2>,</font>
+	titleClass <font class=cc2>:</font></font> <font class=cc6>"ctitle"</font><font class=cc3><font class=cc2>,</font>
+	type <font class=cc2>:</font></font> <font class=cc6>"Image"</font><font class=cc3><font class=cc2>,</font>
+	width <font class=cc2>:</font></font> <font class=cc6>'5%'</font><font class=cc3><font class=cc2>,</font>
+	alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+	compareFunction <font class=cc2>:</font> compareImage<font class=cc2>,</font>
+	isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	isReadOnly <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	useAutoIndex <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+	useAutoFilter <font class=cc2>:</font> <font class=cc4>false</font>
+<font class=cc7>}</font> <font class=cc8>]</font></font>
+</pre>
+<p class=cp10>At the <b>data</b> array you put all the data you'd like to show at the table. For example:</p>
+<pre class=cc1>
+<font class=cc3>data <font class=cc2>:</font> <font class=cc8>[</font>
+<font class=cc8>[</font></font><font class=cc6>"1"</font><font class=cc2>,</font> <font class=cc6>"Stiles James"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"jstiles@necasting.com"</font><font class=cc2>,</font> <font class=cc6>"270 $"</font><font class=cc8>]</font><font class=cc2>,</font>
+<font class=cc8>[</font><font class=cc6>"2"</font><font class=cc2>,</font> <font class=cc6>"Alexander Jacklynn"</font><font class=cc2>,</font> <font class=cc6>"12.05.2003"</font><font class=cc2>,</font> <font class=cc6>"speedracer1979@iwon.com"</font><font class=cc2>,</font> <font class=cc6>" $"</font><font class=cc8>]</font><font class=cc2>,</font>
+<font class=cc8>[</font><font class=cc6>"3"</font><font class=cc2>,</font> <font class=cc6>"Martin Barney"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"bmartin1@maine.rr.com"</font><font class=cc2>,</font> <font class=cc6>"92 $"</font><font class=cc8>]</font>
+<font class=cc8>]</font>
+</pre>
+<p class=cp10>Full GridDef structure description you can find <a class=ca5 href="grid_manual.html#structure">here</a>.</p>
+<p class=cp10><a name=css></a>To specify grid look in whole use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>tableStyle <font class=cc2>:</font> <font class=cc7>{</font>
+	tableClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// name of css class or style parameters
+	<font class=cc3>bgcolor <font class=cc2>:</font></font> <font class=cc6>"#RGB | COLORNAME"</font><font class=cc2>,</font> 	// (*) background color
+	<font class=cc3>x <font class=cc2>:</font> int<font class=cc2>,</font></font> 				// (*) left X coordinate
+	<font class=cc3>y <font class=cc2>:</font> int<font class=cc2>,</font></font> 				// (*) top Y coordinate
+	<font class=cc3>width <font class=cc2>:</font> int<font class=cc2>,</font></font> 			// (*) table width
+	<font class=cc3>height <font class=cc2>:</font> int<font class=cc2>,</font></font> 			// (*) table height
+	<font class=cc3>overflow <font class=cc2>:</font> auto <font class=cc2>|</font> visible <font class=cc2>|</font> hidden</font> 	// (*) overflow style parameter,
+				// default : auto
+<font class=cc7>}</font>
+</pre>
+<p class=cp10>To specify rows look use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>rowStyle <font class=cc2>:</font>
+<font class=cc7>{</font>
+	defaultClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // normal row style
+	<font class=cc3>markClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// selected row style
+	<font class=cc3>dragClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// drag element style
+	<font class=cc3>width <font class=cc2>:</font> int<font class=cc2>,</font></font> 	// (*) default width
+	<font class=cc3>height <font class=cc2>:</font> int</font>	// (*) default height
+<font class=cc7>}</font>
+</pre>
+<p class=cp10><a name=mark></a>To specify columns look use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>colStyle <font class=cc2>:</font>
+<font class=cc7>{</font>
+	defaultClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // normal column style
+	<font class=cc3>markClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// selected column style
+	<font class=cc3>dragClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// drag element style
+	<font class=cc3>width <font class=cc2>:</font> int<font class=cc2>,</font></font> 	// (*) default width
+	<font class=cc3>height <font class=cc2>:</font> int</font>	// (*) default height
+<font class=cc7>}</font>
+</pre>
+<p class=cp10>To specify cells look use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>cellStyle <font class=cc2>:</font>
+<font class=cc7>{</font>
+	defaultClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // normal cell style
+	<font class=cc3>markClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// selected cell style
+	<font class=cc3>currClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// current cell style
+<font class=cc7>}</font>
+</pre>
+<p class=cp10>To describe {styleparams} use the following:</p>
+<pre class=cc1>
+<font class=cc7>{</font>
+	// border params
+	<font class=cc3>borderwidth <font class=cc2>:</font> int<font class=cc2>,</font></font> // make sense only if tableStyle.border &gt; 0
+	<font class=cc3>bordercolor <font class=cc2>:</font></font> <font class=cc6>"#RGB|COLORNAME"</font><font class=cc3><font class=cc2>,</font>
+	borderstyle <font class=cc2>:</font></font> <font class=cc6>"none"</font> <font class=cc2>|</font> <font class=cc6>"dotted"</font> <font class=cc2>|</font> <font class=cc6>"dashed"</font> <font class=cc2>|</font> <font class=cc6>"solid"</font>
+	<font class=cc2>|</font> <font class=cc6>"double"</font> <font class=cc2>|</font> <font class=cc6>"groove"</font> <font class=cc2>|</font> <font class=cc6>"ridge"</font> <font class=cc2>|</font> <font class=cc6>"inset"</font> <font class=cc2>|</font> <font class=cc6>"outset"</font><font class=cc2>,</font>
+	//background parameters
+	<font class=cc3>backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#RGB | COLORNAME"</font><font class=cc3><font class=cc2>,</font>
+	backgroundimage <font class=cc2>:</font></font> <font class=cc6>"URL(SRC) "</font><font class=cc3><font class=cc2>,</font>
+	backgroundrepeat <font class=cc2>:</font></font> <font class=cc6>"repeat"</font> <font class=cc2>|</font> <font class=cc6>"repeat-x"</font> <font class=cc2>|</font> <font class=cc6>"repeat-y"</font> <font class=cc2>|</font> <font class=cc6>"no-repeat"</font><font class=cc2>,</font>
+	//color of text (this setting is not useful for set color of a parameters)
+	<font class=cc3>color <font class=cc2>:</font></font> <font class=cc6>"#RGB | COLORNAME"</font><font class=cc2>,</font>
+	// font parameters
+	<font class=cc3>fontfamily <font class=cc2>:</font></font> <font class=cc6>"FONTNAME"</font><font class=cc3><font class=cc2>,</font>
+	fontstyle <font class=cc2>:</font></font> <font class=cc6>"normal"</font> <font class=cc2>|</font> <font class=cc6>"italic"</font> <font class=cc2>|</font> <font class=cc6>"oblique"</font><font class=cc3><font class=cc2>,</font>
+	fontweight <font class=cc2>:</font></font> <font class=cc6>"normal"</font> <font class=cc2>|</font> <font class=cc6>"bold"</font> <font class=cc2>|</font> <font class=cc6>"bolder"</font> <font class=cc2>|</font> <font class=cc6>"lighter"</font>
+	<font class=cc2>|</font> <font class=cc6>"100"</font> <font class=cc2>|</font> <font class=cc6>"200"</font> <font class=cc2>|</font> <font class=cc6>"300"</font> <font class=cc2>|</font> <font class=cc6>"400"</font> <font class=cc2>|</font> <font class=cc6>"500"</font>
+	<font class=cc2>|</font> <font class=cc6>"600"</font> <font class=cc2>|</font> <font class=cc6>"700"</font> <font class=cc2>|</font> <font class=cc6>"800"</font> <font class=cc2>|</font> <font class=cc6>"900"</font><font class=cc3><font class=cc2>,</font>
+	fontsize <font class=cc2>:</font></font> <font class=cc6>"NUMBER px | pt"</font><font class=cc2>,</font>
+	// text params
+	<font class=cc3>textalign <font class=cc2>:</font></font> <font class=cc6>"left"</font> <font class=cc2>|</font> <font class=cc6>"right"</font> <font class=cc2>|</font> <font class=cc6>"center"</font> <font class=cc2>|</font> <font class=cc6>"justify"</font><font class=cc3><font class=cc2>,</font>
+	textdecoration <font class=cc2>:</font></font> <font class=cc6>"none"</font> <font class=cc2>|</font> <font class=cc6>"underline"</font> <font class=cc2>|</font> <font class=cc6>"overline"</font> <font class=cc2>|</font> <font class=cc6>"line-through"</font><font class=cc3><font class=cc2>,</font>
+	verticalalign <font class=cc2>:</font></font> <font class=cc6>"bottom"</font> <font class=cc2>|</font> <font class=cc6>"top"</font> <font class=cc2>|</font> <font class=cc6>"middle"</font>
+<font class=cc7>}</font>
+</pre>
+<p class=cp10><a name=toolbar></a>To specify toolbar look use the following structure:</p>
+<pre class=cc1>
+// if you'd like to hide some button just remove this button description
+// from the toolbar description
+<font class=cc3>toolBar <font class=cc2>:</font>
+<font class=cc7>{</font>
+	height <font class=cc2>:</font> int<font class=cc2>,</font></font> 	// (*) toolbar height
+	<font class=cc3>bgcolor <font class=cc2>:</font></font> <font class=cc6>"#RGB | COLORNAME"</font><font class=cc2>,</font> 	// (*) toolbar background color
+	<font class=cc3>defaultClass <font class=cc2>:</font> <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // style
+	<font class=cc3>buttons <font class=cc2>:</font> <font class=cc8>[</font></font>	// toolbar buttons
+	<font class=cc3><font class=cc7>{</font>
+		name <font class=cc2>:</font> String<font class=cc2>,</font></font> 	// (*) Name
+		<font class=cc3>img_on <font class=cc2>:</font> <font class=cc7>{</font>
+			src <font class=cc2>:</font> String<font class=cc2>,</font> width <font class=cc2>:</font> int<font class=cc2>,</font> height <font class=cc2>:</font> int
+		<font class=cc7>}</font><font class=cc2>,</font></font> // (*) active button image
+		<font class=cc3>img_on <font class=cc2>:</font> <font class=cc7>{</font>
+			src <font class=cc2>:</font> String<font class=cc2>,</font> width <font class=cc2>:</font> int<font class=cc2>,</font> height <font class=cc2>:</font> int
+		<font class=cc7>}</font><font class=cc2>,</font></font> // inactive button image
+		<font class=cc3>text <font class=cc2>:</font> String</font>	// (*) Hint
+	<font class=cc7>}</font><font class=cc2>,</font>
+	<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font> // insert separator
+	<font class=cc2>...</font>
+	<font class=cc8>]</font>
+<font class=cc7>}</font>
+</pre>
+	
+<p class=cp10>Possible values for buttons <b>name</b>: "addrowto", "addrowafter", "delrow", "addcolto", "addcolafter", "delcol", "sortasc", "sortdesc", "multisortasc", "multisortdesc", "resetsort", "copy", "paste", "formatbold", "formatitalic", "formatunderline", "alignleft", "aligncenter", "alignright", "setsearch", "resetsearch", "setamount".</p>
+<p class=cp10><a name=statusbar></a>To specify statusbar look use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>statusBar <font class=cc2>:</font>
+<font class=cc7>{</font>
+	height <font class=cc2>:</font> int<font class=cc2>,</font></font> 			// (*) statusbar height
+	<font class=cc3>bgcolor <font class=cc2>:</font></font> <font class=cc6>"#RGB | COLORNAME"</font><font class=cc2>,</font> 	// (*) statusbar background color
+	<font class=cc3>defaultClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// common style
+	<font class=cc3>messageClass <font class=cc2>:</font> String <font class=cc2>|</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> 	// service message style
+	<font class=cc3>fieldText <font class=cc2>:</font></font> <font class=cc6>"Field"</font><font class=cc2>,</font> 			// (*) field label
+	<font class=cc3>valueText <font class=cc2>:</font></font> <font class=cc6>"Value"</font>			// (*) value label
+<font class=cc7>}</font>
+</pre>
+<p class=cp10><a name=pageturnbar></a>To specify pageturnbar look use the following structure:</p>
+<pre class=cc1>
+<font class=cc3>pageTurnBar <font class=cc2>:</font> <font class=cc7>{</font>
+	defaultClass <font class=cc2>:</font> String <font class=cc2>:</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // (*) normal page style
+	<font class=cc3>activeClass <font class=cc2>:</font> String <font class=cc2>:</font> <font class=cc7>{</font>
+		styleparams
+	<font class=cc7>}</font><font class=cc2>,</font></font> // (*) current page style
+	<font class=cc3>img_on <font class=cc2>:</font> <font class=cc7>{</font>
+		src <font class=cc2>:</font></font> <font class=cc6>"img/t_on.gif"</font>
+	<font class=cc7>}</font><font class=cc2>,</font> //current page bgimage
+	<font class=cc3>img_off <font class=cc2>:</font> <font class=cc7>{</font>
+		src <font class=cc2>:</font></font> <font class=cc6>"img/t_off.gif"</font>
+	<font class=cc7>}</font><font class=cc2>,</font> //normal page bgimage
+	<font class=cc3>text <font class=cc2>:</font></font> <font class=cc6>"Page"</font><font class=cc2>,</font> // (*) hint template
+	<font class=cc3>width <font class=cc2>:</font> int<font class=cc2>,</font></font> // (*) width of one tab
+	<font class=cc3>height <font class=cc2>:</font> int</font> //(*) height of one tab
+<font class=cc7>}</font>
+</pre>
+<h2 class=cp10><font class=cf4>Example - Grid Look</font></h2>
+<p class=cp10>You can see an example and complete code here - <a class=ca5 href="style_ex.html" onclick="return openWin(800,550,'style_ex.html')" target=_blank>Grid Look</a> [popup]</p>
+<p class=cp10><a class=ca7 href="grid_features.html">Read more about CodeThatGrid&nbsp;&gt;&gt;</a></p>
+</td>
+</tr>
+<tr>
+<td><p class=cp8>&copy; <a class=ca2 href="">CodeThat.com</a>, 2003-2005<br>
+Design by <a class=ca2 href="http://www.xt-labs.com">XTLabs, Inc</a>.</p></td>
+</tr>
+</table></body></html>

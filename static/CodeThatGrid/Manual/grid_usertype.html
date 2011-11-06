@@ -1,0 +1,141 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>:: JavaScript grid looking like Microsoft Excel grid that enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database ::</title>
+<meta http-equiv="content-language" content="en">
+<meta name="robots" content="all">
+<meta name="robots" content="index">
+<meta name="robots" content="follow">
+<meta http-equiv="keywords" content="CodeThatGrid, script, excel, excel grid, JavaScript, table, data, massives of data, data massive, csv, database, css">
+<meta http-equiv="description" content="CodeThatGrid is an advanced JavaScript grid looking like Microsoft Excel gridthat enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database. Fully customizable through the CSS the tables are the definite answer to the numerous cases when structured data has to be displayed">
+<meta http-equiv="expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="s.css">
+<script language=javascript src="own.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+<table width=768 border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td><div style="position:absolute;left:86;top:154;z-index:1"><img border=0  src="img/mm.gif" width=2 height=10></div><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr><tr>
+<td><table width=768 height=42 border=0 cellpadding=0 cellspacing=0  class=ct13>
+	<tr>
+	<td><img border=0  src="img/s.gif" width=20 height=1></td>
+	<td valign=middle><p class=cp18><nobr><font class=ca8>User Manual <br><a href="../index.html" class="ca9"><font class="cf6">S</font>amples</a></font></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca9 href="grid_manual.html"><font class=cf6>In</font>troduction</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_style.html"><font class=cf6>C</font>onfigure grid look</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_features.html"><font class=cf6>G</font>rid general features</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_usertype.html"><font class=cf6>U</font>ser types</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_data.html"><font class=cf6>D</font>ata from the DB / CSV / XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_save.html"><font class=cf6>D</font>ata Saving</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_xml.html"><font class=cf6>U</font>sing XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_reference.html"><font class=cf6>G</font>rid reference</a>&nbsp; &nbsp;
+	<a class=ca9 href="new.html"><font class=cf6>W</font>hat's new?</a>&nbsp; &nbsp;
+	<a class=ca9 href="standard_vs_pro.html?h=grid#grid"><font class=cf6>S</font>tandard vs PRO</a></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca8 href="userguide.html"><font class=cf7>1</font>23Guide</a>&nbsp; &nbsp;
+	
+	<p class=cp18><nobr><a class=ca8 href="http://codethat.com/sales.html"><font class=cf7>O</font>rder PRO Now</a>&nbsp; &nbsp;
+	
+	</td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	</tr>
+</table></td>
+</tr><tr>
+<td><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr>
+<tr>
+<td class=ct12><table width=768 height=30 border=0 cellpadding=0 cellspacing=0>
+	<tr><td valign=middle><h1 class=cp9>CODETHATGRID USER MANUAL</h1></td></tr>
+</table></td>
+</tr><tr>
+<td>
+<h1 class=cp10><font class=cf5>User Types</font></h1>
+<p class=cp10>Let new user type is named UserType.</p>
+<p class=cp10>It's need to specify the following functions and variables:</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> USERTYPE_FORMAT <font class=cc2>=</font></font> <font class=cc6>""</font><font class=cc2>;</font> //(*)
+//  Input : data : UserType,
+//          format : String
+//  Output:
+//  if data can't be formatted (for example null) return DEFAULT_RESULT;
+<font class=cc3><font class=cc5>function</font> formatUserType<font class=cc2>(</font>data<font class=cc2>,</font> format<font class=cc2>)</font></font> //(*)
+<font class=cc7>{</font>
+	return data<font class=cc2>;</font>
+<font class=cc7>}</font>
+//  Input : data : ANY
+//  Output : if data can't be parsed return null;
+<font class=cc3><font class=cc5>function</font> parseUserType<font class=cc2>(</font>data<font class=cc2>)</font></font> //(*)
+<font class=cc7>{</font>
+	return data<font class=cc2>;</font> //:UserType
+<font class=cc7>}</font>
+//function that compare op1, op2 : UserType
+<font class=cc3><font class=cc5>function</font> compareUserType<font class=cc2>(</font>op1<font class=cc2>,</font> op2<font class=cc2>)</font>
+<font class=cc7>{</font>
+	return result<font class=cc2>;</font></font> //-1 (op1 &lt; op2) | 0 (op1==op2) | 1 (op1 &gt; op2)
+<font class=cc7>}</font><font class=cc2>;</font> 
+</pre>
+<p class=cp10>Then you can use new user type at the column description.</p>
+<p class=cp10>You can also redifine all built-in type, just redefine the format* or parse* function for need type.</p>
+<h3 class=cp10><font class=cf1>Important!</font> Please be careful writting type name!</h3>
+<p class=cp10>Use upper case for all the letters at the format t ype string.</p>
+<p class=cp10>At the function names you should use the same letter case as for type name, which is used at the <b>type</b> field.</p>
+<p class=cp10>Example code:</p>
+<pre class=cc1>
+//Add new type Discount
+<font class=cc3><font class=cc5>var</font> DISCOUNT_FORMAT <font class=cc2>=</font></font> <font class=cc6>"%"</font><font class=cc3><font class=cc2>;</font>
+<font class=cc5>function</font> formatDiscount<font class=cc2>(</font>data<font class=cc2>,</font> format<font class=cc2>)</font> <font class=cc7>{</font>
+	return data <font class=cc2>+</font></font> <font class=cc6>" "</font> <font class=cc3><font class=cc2>+</font> format<font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc5>function</font> parseDiscount<font class=cc2>(</font>data<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>data<font class=cc2>))</font> return <font class=cc4>0</font><font class=cc2>;</font>
+	data <font class=cc2>=</font> parseFloat<font class=cc2>(</font>data<font class=cc2>.</font>replace<font class=cc2>(/</font><font class=cc8>[</font>^<font class=cc4>0</font> <font class=cc2>-</font> <font class=cc4>9</font><font class=cc2>-\</font> <font class=cc2>+</font> <font class=cc2>\.</font><font class=cc8>]</font><font class=cc2>/</font>ig<font class=cc2>,</font></font> <font class=cc6>''</font><font class=cc3><font class=cc2>));</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>isNaN<font class=cc2>(</font>data<font class=cc2>)</font> <font class=cc2>||</font> data <font class=cc2>&lt;</font> <font class=cc4>0</font><font class=cc2>)</font> data <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>data <font class=cc2>&gt;</font> <font class=cc4>100</font><font class=cc2>)</font> data <font class=cc2>=</font> <font class=cc4>100</font><font class=cc2>;</font>
+	return <font class=cc5>new</font> Number<font class=cc2>(</font>data<font class=cc2>);</font>
+<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc5>function</font> compareDiscount<font class=cc2>(</font>op1<font class=cc2>,</font> op2<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>op1<font class=cc2>)</font> <font class=cc2>&amp;&amp;</font> Undef<font class=cc2>(</font>op2<font class=cc2>))</font> return <font class=cc4>0</font><font class=cc2>;</font>
+	else <font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>op1<font class=cc2>))</font> return <font class=cc4>1</font><font class=cc2>;</font>
+	else <font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>op2<font class=cc2>))</font> return <font class=cc2>-</font> <font class=cc4>1</font><font class=cc2>;</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>op1 <font class=cc2>&gt;</font> op2<font class=cc2>)</font> return <font class=cc4>1</font><font class=cc2>;</font>
+	else <font class=cc5>if</font> <font class=cc2>(</font>op1 <font class=cc2>&lt;</font> op2<font class=cc2>)</font> return <font class=cc2>-</font> <font class=cc4>1</font><font class=cc2>;</font>
+	else return <font class=cc4>0</font><font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font></font>
+//Redefine type Number, it required only integer values &gt;=0
+<font class=cc3><font class=cc5>function</font> parseNumber<font class=cc2>(</font>numVal<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>numVal<font class=cc2>))</font> return <font class=cc4>0</font><font class=cc2>;</font>
+	numVal <font class=cc2>=</font> parseInt<font class=cc2>(</font>numVal<font class=cc2>.</font>replace<font class=cc2>(/</font><font class=cc8>[</font>^<font class=cc4>0</font> <font class=cc2>-</font> <font class=cc4>9</font><font class=cc2>-\</font> <font class=cc2>+</font> <font class=cc2>\.</font><font class=cc8>]</font><font class=cc2>/</font>ig<font class=cc2>,</font></font> <font class=cc6>''</font><font class=cc3><font class=cc2>));</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>isNaN<font class=cc2>(</font>numVal<font class=cc2>)</font> <font class=cc2>||</font> numVal <font class=cc2>&lt;</font> <font class=cc4>0</font><font class=cc2>)</font> return <font class=cc4>0</font>
+	else return <font class=cc5>new</font> Number<font class=cc2>(</font>numVal<font class=cc2>);</font>
+<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc5>var</font> gridDef <font class=cc2>=</font>
+<font class=cc7>{</font>
+	<font class=cc2>...</font>
+	colDef <font class=cc2>:</font> <font class=cc8>[</font>
+	<font class=cc7>{</font>
+		title <font class=cc2>:</font></font> <font class=cc6>"Discount"</font><font class=cc3><font class=cc2>,</font>
+		titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		type <font class=cc2>:</font></font> <font class=cc6>"Discount"</font><font class=cc3><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font>
+		alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+		compareFunction <font class=cc2>:</font> compareDiscount<font class=cc2>,</font>
+		isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		isReadOnly <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+		useAutoIndex <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+		useAutoFilter <font class=cc2>:</font> <font class=cc4>false</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	<font class=cc2>...</font></font>
+</pre>
+<h2 class=cp10><font class=cf4>Example - Discount as new usertype</font></h2>
+<p class=cp10>You can see an example and complete code here - <a class=ca5 href="http://codethat.com/grid/usertype_ex.html" onclick="return openWin(800,550,'http://codethat.com/grid/usertype_ex.html')" target=_blank>Discount as new usertype</a> [popup]</p>
+<p class=cp10><a class=ca7 href="grid_data.html">Read more about CodeThatGrid&nbsp;&gt;&gt;</a></p>
+</td>
+</tr>
+<tr>
+<td><p class=cp8>&copy; <a class=ca2 href="">CodeThat.com</a>, 2003-2005<br>
+Design by <a class=ca2 href="http://www.xt-labs.com">XTLabs, Inc</a>.</p></td>
+</tr>
+</table></body></html>

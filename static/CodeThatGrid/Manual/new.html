@@ -1,0 +1,431 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>:: JavaScript grid looking like Microsoft Excel grid that enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database ::</title>
+<meta http-equiv="content-language" content="en">
+<meta name="robots" content="all">
+<meta name="robots" content="index">
+<meta name="robots" content="follow">
+<meta http-equiv="keywords" content="CodeThatGrid, script, excel, excel grid, JavaScript, table, data, massives of data, data massive, csv, database, css">
+<meta http-equiv="description" content="CodeThatGrid is an advanced JavaScript grid looking like Microsoft Excel gridthat enables user to display in efficient and fancy way the massives of data from variety of sources including the XML, CSV and database. Fully customizable through the CSS the tables are the definite answer to the numerous cases when structured data has to be displayed">
+<meta http-equiv="expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="s.css">
+<script language=javascript src="own.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+<table width=768 border=0 cellpadding=0 cellspacing=0>
+<tr>
+<td><div style="position:absolute;left:86;top:154;z-index:1"><img border=0  src="img/mm.gif" width=2 height=10></div><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr><tr>
+<td><table width=768 height=42 border=0 cellpadding=0 cellspacing=0  class=ct13>
+	<tr>
+	<td><img border=0  src="img/s.gif" width=20 height=1></td>
+	<td valign=middle><p class=cp18><nobr><font class=ca8>User Manual <br><a href="../index.html" class="ca9"><font class="cf6">S</font>amples</a></font></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca9 href="grid_manual.html"><font class=cf6>In</font>troduction</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_style.html"><font class=cf6>C</font>onfigure grid look</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_features.html"><font class=cf6>G</font>rid general features</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_usertype.html"><font class=cf6>U</font>ser types</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_data.html"><font class=cf6>D</font>ata from the DB / CSV / XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_save.html"><font class=cf6>D</font>ata Saving</a></nobr></p>
+	<p class=cp18><nobr><a class=ca9 href="grid_xml.html"><font class=cf6>U</font>sing XML</a>&nbsp; &nbsp;
+	<a class=ca9 href="grid_reference.html"><font class=cf6>G</font>rid reference</a>&nbsp; &nbsp;
+	<a class=ca9 href="new.html"><font class=cf6>W</font>hat's new?</a>&nbsp; &nbsp;
+	<a class=ca9 href="standard_vs_pro.html?h=grid#grid"><font class=cf6>S</font>tandard vs PRO</a></nobr></p></td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	<td valign=middle><p class=cp18><nobr><a class=ca8 href="userguide.html"><font class=cf7>1</font>23Guide</a>&nbsp; &nbsp;
+	
+	<p class=cp18><nobr><a class=ca8 href="http://codethat.com/sales.html"><font class=cf7>O</font>rder PRO Now</a>&nbsp; &nbsp;
+	
+	</td>
+	<td ><img border=0  src="img/s.gif" width=1 height=1></td>
+	</tr>
+</table></td>
+</tr><tr>
+<td><img border=0  src="img/s.gif" width=1 height=2></td>
+</tr>
+<tr>
+<td class=ct12><table width=768 height=30 border=0 cellpadding=0 cellspacing=0>
+	<tr><td valign=middle><h1 class=cp9>CODETHATGRID USER MANUAL</h1></td></tr>
+</table></td>
+</tr><tr>
+<td>
+<h1 class=cp10><font class=cf5>What's New at Codethatgrid V2?</font></h1>
+<p class=cp10>Here you can find new features that were added at new CodeThatGrid version.</p>
+<h1 class=cp10><font class=cf5>Unlimited Number of Grids on Sinlge Page</font></h1>
+<p class=cp10>You can put several grids at the same page. You should specify gridDef object for each grid. Then you create grid objects:</p>
+<pre class=cc1>
+..html code...
+<font class=cc4>&lt;</font><font class=cc3>script language="javascript1.2"</font><font class=cc4>&gt;
+&lt;!--</font>
+<font class=cc3><font class=cc5>var</font> g <font class=cc2>=</font> <font class=cc5>new</font> CCodeThatGrid<font class=cc2>(</font></font><font class=cc6>"g"</font><font class=cc3><font class=cc2>,</font> <font class=cc4>10</font><font class=cc2>,</font> <font class=cc4>5</font><font class=cc2>);</font>
+g<font class=cc2>.</font>init<font class=cc2>(</font>gridDef<font class=cc2>);</font>
+g<font class=cc2>.</font>doAction<font class=cc2>();</font></font> 
+//-->
+<font class=cc4>&lt;</font><font class=cc5>/</font><font class=cc3>script</font><font class=cc4>&gt;</font>
+...html code...
+<font class=cc4>&lt;</font><font class=cc3>script language="javascript1.2"</font><font class=cc4>&gt;
+&lt;!--</font>
+<font class=cc3><font class=cc5>var</font> g1 <font class=cc2>=</font> <font class=cc5>new</font> CCodeThatGrid<font class=cc2>(</font></font><font class=cc6>"g1"</font><font class=cc3><font class=cc2>,</font> <font class=cc4>11</font><font class=cc2>,</font> <font class=cc4>7</font><font class=cc2>);</font>
+g1<font class=cc2>.</font>init<font class=cc2>(</font>gridDef1<font class=cc2>);</font>
+g1<font class=cc2>.</font>doAction<font class=cc2>();</font></font> 
+//-->
+<font class=cc4>&lt;</font><font class=cc5>/</font><font class=cc3>script</font><font class=cc4>&gt;</font>
+...html code...
+<font class=cc4>&lt;</font><font class=cc3>script language="javascript1.2"</font><font class=cc4>&gt;
+&lt;!--</font>
+<font class=cc3><font class=cc5>var</font> gN <font class=cc2>=</font> <font class=cc5>new</font> CCodeThatGrid<font class=cc2>(</font></font><font class=cc6>"gN"</font><font class=cc3><font class=cc2>,</font> <font class=cc4>100</font><font class=cc2>,</font> <font class=cc4>2</font><font class=cc2>);</font>
+gN<font class=cc2>.</font>init<font class=cc2>(</font>gridDefN<font class=cc2>);</font>
+gN<font class=cc2>.</font>doAction<font class=cc2>();</font></font> 
+//-->
+<font class=cc4>&lt;</font><font class=cc5>/</font><font class=cc3>script</font><font class=cc4>&gt;</font>
+</pre>
+<h1 class=cp10><font class=cf5>Hide toolbar and statusbar</font></h1>
+<p class=cp10>If you don't need toolbar or/and statusbar you can hide it. Just set its height in 0:</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> gridDef <font class=cc2>=</font> <font class=cc7>{</font>
+	<font class=cc2>...</font>
+	toolBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>0</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	statusBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>0</font>
+	<font class=cc7>}</font>
+	<font class=cc2>...</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<p class=cp10>If you wish change visibility of some bar in run-time, you can use such function:</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>function</font> setBarVisibility<font class=cc2>(</font>g<font class=cc2>,</font> bar<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>var</font> o <font class=cc2>=</font> CT_fe<font class=cc2>(</font>g<font class=cc2>.</font>getID<font class=cc2>(</font>bar<font class=cc2>));</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Def<font class=cc2>(</font>o<font class=cc2>))</font> <font class=cc7>{</font>
+		<font class=cc5>if</font> <font class=cc2>(</font>o<font class=cc2>.</font>style<font class=cc2>.</font>visibility <font class=cc2>==</font></font> <font class=cc6>"hidden"</font><font class=cc3><font class=cc2>)</font> <font class=cc7>{</font>
+			o<font class=cc2>.</font>style<font class=cc2>.</font>visibility <font class=cc2>=</font></font> <font class=cc6>"visible"</font>
+			<font class=cc3>o<font class=cc2>.</font>style<font class=cc2>.</font>display <font class=cc2>=</font></font> <font class=cc6>"block"</font><font class=cc3><font class=cc2>;</font>
+		<font class=cc7>}</font>
+		else <font class=cc7>{</font>
+			o<font class=cc2>.</font>style<font class=cc2>.</font>visibility <font class=cc2>=</font></font> <font class=cc6>"hidden"</font><font class=cc3><font class=cc2>;</font>
+			o<font class=cc2>.</font>style<font class=cc2>.</font>display <font class=cc2>=</font></font> <font class=cc6>"none"</font><font class=cc2>;</font>
+		<font class=cc7>}</font><font class=cc2>;</font>
+	<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font> 
+</pre>
+<p class=cp10>Possible values for variable bar are "tb" - toolbar, "sb" - statusbar, "pt" - pageturnbar</p>
+<h1 class=cp10><font class=cf5>Non-excel style</font></h1>
+<p class=cp10>If you don't need header for rows and columns you can hide them. Just set property useRCID in 0:</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> gridDef <font class=cc2>=</font> <font class=cc7>{</font>
+	<font class=cc2>...</font>
+	useRCID <font class=cc2>:</font> <font class=cc4>0</font>
+	<font class=cc2>...</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<h1 class=cp10><font class=cf5>User Functions</font></h1>
+<p class=cp10>You can specify user function for grid and each row/column of it User function is a function that will be call automatically after data set for each cell, that is not service and belong to the object with user function defined:</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>if user function defined for grid, it will be call for each non-service cell in grid,</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>if user function defined for row, it will be call for each non-service cell in row,</p>
+<p class=cp19><img border=0  src="img/ad.gif" width=11 height=7>if user function defined for column, it will be call for each non-service cell in column.</p>
+<p class=cp10>By default, cell is service if row and/or column of it are ReadOnly But you can set parameter isService manually and change readOnly cells too</p>
+<p class=cp10>Definition of user function must look like this</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>function</font> userFunction<font class=cc2>(</font>grid<font class=cc2>,</font> cell<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc2>...</font>
+<font class=cc7>}</font></font>
+//grid - CodeThatGrid Object, owner of cell
+<font class=cc3><font class=cc2>//</font>cell <font class=cc2>-</font> cell that call userFunction</font>
+</pre>
+<p class=cp10>Assume that we will need a grid for the order line items that will be able to:</p>
+<p class=cp11>1) calculate across columns within a row (e.g. amount = qty X unit price)</p>
+<p class=cp11>2) calculate across the rows for a column (e.g., sum up the amount column to give a subtotal with discount)</p>
+<p class=cp10>Item includes ID, Item No, Item, Quantity, Price, Discount, Subtotal</p>
+<p class=cp10>Add constraints in type Number, no empty values and all values >= 0 to use as type for Quantity</p>
+	
+<pre class=cc1>
+<font class=cc3><font class=cc5>function</font> parseNumber<font class=cc2>(</font>numVal<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>numVal<font class=cc2>))</font> return <font class=cc4>0</font>
+	else numVal <font class=cc2>=</font> <font class=cc5>new</font> String<font class=cc2>(</font>numVal<font class=cc2>);</font>
+	numVal <font class=cc2>=</font> parseInt<font class=cc2>(</font>numVal<font class=cc2>.</font>replace<font class=cc2>(/</font><font class=cc8>[</font>^<font class=cc4>0</font> <font class=cc2>-</font> <font class=cc4>9</font><font class=cc2>-\</font> <font class=cc2>+</font> <font class=cc2>\.</font><font class=cc8>]</font><font class=cc2>/</font>ig<font class=cc2>,</font></font> <font class=cc6>''</font><font class=cc3><font class=cc2>));</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>isNaN<font class=cc2>(</font>numVal<font class=cc2>)</font> <font class=cc2>||</font> numVal <font class=cc2>&lt;</font> <font class=cc4>0</font><font class=cc2>)</font> return <font class=cc4>0</font>
+	else return <font class=cc5>new</font> Number<font class=cc2>(</font>numVal<font class=cc2>);</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<p class=cp10>For Discount column create user type Discount</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> DISCOUNT_FORMAT <font class=cc2>=</font></font> <font class=cc6>"%"</font><font class=cc3><font class=cc2>;</font>
+<font class=cc5>function</font> parseDiscount<font class=cc2>(</font>numVal<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>var</font> d <font class=cc2>=</font> parseNumber<font class=cc2>(</font>numVal<font class=cc2>);</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>d <font class=cc2>&gt;</font> <font class=cc4>100</font><font class=cc2>)</font> d <font class=cc2>=</font> <font class=cc4>100</font><font class=cc2>;</font>
+	return d<font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc5>function</font> formatDiscount<font class=cc2>(</font>numObj<font class=cc2>,</font> formatDiscount<font class=cc2>)</font> <font class=cc7>{</font>
+	return <font class=cc2>(</font>numObj <font class=cc2>&gt;</font> <font class=cc4>0</font><font class=cc2>)</font> ? formatDiscount <font class=cc2>+</font></font> <font class=cc6>" "</font> <font class=cc3><font class=cc2>+</font> numObj <font class=cc2>:</font> DEFAULT_RESULT<font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<p class=cp10>Now define the user functions that will be use in grid.</p>
+<p class=cp10>To get subtotal we will use function subTotal</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>function</font> subTotal<font class=cc2>(</font>grid<font class=cc2>,</font> cell<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Undef<font class=cc2>(</font>cell<font class=cc2>))</font> return<font class=cc2>;</font></font> //no cell for proceed
+	<font class=cc3><font class=cc5>var</font> c0 <font class=cc2>=</font> grid<font class=cc2>.</font>getColByTitle<font class=cc2>(</font></font><font class=cc6>'Price'</font><font class=cc3><font class=cc2>),</font>
+	c1 <font class=cc2>=</font> cell<font class=cc2>.</font>col<font class=cc2>.</font>_id<font class=cc2>,</font> r <font class=cc2>=</font> cell<font class=cc2>.</font>row<font class=cc2>.</font>_id<font class=cc2>,</font></font> //current row and column indexes
+	<font class=cc3>c2 <font class=cc2>=</font> grid<font class=cc2>.</font>getColByTitle<font class=cc2>(</font></font><font class=cc6>'Subtotal'</font><font class=cc3><font class=cc2>),</font>
+	c3 <font class=cc2>=</font> grid<font class=cc2>.</font>getColByTitle<font class=cc2>(</font></font><font class=cc6>'Discount'</font><font class=cc3><font class=cc2>);</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>c1 <font class=cc2>==</font> c2<font class=cc2>)</font> return<font class=cc2>;</font></font> //cells from column subtotal not need to proceed
+	<font class=cc3>g<font class=cc2>.</font>cells<font class=cc8>[</font>r<font class=cc8>][</font>c2<font class=cc8>]</font><font class=cc2>.</font>setData<font class=cc2>(</font>g<font class=cc2>.</font>cells<font class=cc8>[</font>r<font class=cc8>][</font>c0<font class=cc8>]</font><font class=cc2>.</font>data<font class=cc2>*</font>g<font class=cc2>.</font>cells<font class=cc8>[</font>r<font class=cc8>][</font>c1<font class=cc8>]</font><font class=cc2>.</font>data<font class=cc2>*(</font><font class=cc4>100</font> <font class=cc2>-</font>
+	g<font class=cc2>.</font>cells<font class=cc8>[</font>r<font class=cc8>][</font>c3<font class=cc8>]</font><font class=cc2>.</font>data<font class=cc2>)/</font><font class=cc4>100</font><font class=cc2>,</font> <font class=cc4>0</font><font class=cc2>);</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>grid<font class=cc2>.</font>isInit<font class=cc2>)</font> grid<font class=cc2>.</font>cells<font class=cc8>[</font>r<font class=cc8>][</font>c2<font class=cc8>]</font><font class=cc2>.</font>paint<font class=cc2>();</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<p class=cp10>To get total we will use function total</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>function</font> total<font class=cc2>(</font>grid<font class=cc2>,</font> cell<font class=cc2>)</font> <font class=cc7>{</font>
+	<font class=cc5>if</font> <font class=cc2>(</font>Def<font class=cc2>(</font>cell<font class=cc2>))</font> <font class=cc7>{</font>
+		<font class=cc5>if</font> <font class=cc2>(</font>grid<font class=cc2>.</font>cells<font class=cc8>[</font>grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc8>]</font><font class=cc2>.</font>length <font class=cc2>&lt;</font> grid<font class=cc2>.</font>cols<font class=cc2>.</font>length<font class=cc2>)</font> return<font class=cc2>;</font>
+		<font class=cc5>var</font> c <font class=cc2>=</font> cell<font class=cc2>.</font>col<font class=cc2>,</font> i<font class=cc2>,</font> j<font class=cc2>,</font> s <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font>
+		<font class=cc5>if</font> <font class=cc2>(</font>c<font class=cc2>.</font>type <font class=cc2>!=</font></font> <font class=cc6>'Number'</font> <font class=cc3><font class=cc2>&amp;&amp;</font> c<font class=cc2>.</font>type <font class=cc2>!=</font></font> <font class=cc6>'Currency'</font><font class=cc3><font class=cc2>)</font> return<font class=cc2>;</font>
+		<font class=cc5>for</font> <font class=cc2>(</font>i <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font> i <font class=cc2>&lt;</font> grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc2>;</font> i<font class=cc2>++)</font> s <font class=cc2>+=</font> grid<font class=cc2>.</font>cells<font class=cc8>[</font>i<font class=cc8>][</font>c<font class=cc2>.</font>_id<font class=cc8>]</font><font class=cc2>.</font>data<font class=cc2>*</font><font class=cc4>1</font><font class=cc2>;</font>
+		grid<font class=cc2>.</font>cells<font class=cc8>[</font>grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc8>][</font>c<font class=cc2>.</font>_id<font class=cc8>]</font><font class=cc2>.</font>data <font class=cc2>=</font> s<font class=cc2>;</font>
+		<font class=cc5>if</font> <font class=cc2>(</font>grid<font class=cc2>.</font>isInit<font class=cc2>)</font> grid<font class=cc2>.</font>cells<font class=cc8>[</font>grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc8>][</font>c<font class=cc2>.</font>_id<font class=cc8>]</font><font class=cc2>.</font>paint<font class=cc2>();</font>
+	<font class=cc7>}</font>
+	else<font class=cc7>{</font></font>
+		//initiation
+		<font class=cc3><font class=cc5>var</font> i<font class=cc2>,</font> j<font class=cc2>,</font> c <font class=cc2>=</font> grid<font class=cc2>.</font>getColByTitle<font class=cc2>(</font></font><font class=cc6>'Quantity'</font><font class=cc3><font class=cc2>);</font>
+		grid<font class=cc2>.</font>isInit <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font>
+		grid<font class=cc2>.</font>addRow<font class=cc2>(</font>grid<font class=cc2>.</font>rowCount<font class=cc2>,</font> <font class=cc4>0</font><font class=cc2>,</font> <font class=cc4>0</font><font class=cc2>);</font></font> //add result row
+		<font class=cc3>grid<font class=cc2>.</font>rows<font class=cc8>[</font>grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc8>]</font><font class=cc2>.</font>isReadOnly <font class=cc2>=</font> <font class=cc4>1</font><font class=cc2>;</font>
+		<font class=cc5>for</font> <font class=cc2>(</font>i <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font> i <font class=cc2>&lt;</font> grid<font class=cc2>.</font>colCount<font class=cc2>;</font> i<font class=cc2>++)</font> <font class=cc7>{</font>
+			grid<font class=cc2>.</font>cells<font class=cc8>[</font>grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc8>][</font>i<font class=cc8>]</font><font class=cc2>.</font>b <font class=cc2>=</font></font> <font class=cc6>"bold"</font><font class=cc3><font class=cc2>;</font>
+			<font class=cc5>for</font> <font class=cc2>(</font>j <font class=cc2>=</font> <font class=cc4>0</font><font class=cc2>;</font> j <font class=cc2>&lt;</font> grid<font class=cc2>.</font>rowCount <font class=cc2>-</font> <font class=cc4>1</font><font class=cc2>;</font> j<font class=cc2>++)</font> <font class=cc7>{</font></font>
+				// count subtotal
+				<font class=cc3><font class=cc5>if</font> <font class=cc2>(</font>i <font class=cc2>==</font> c<font class=cc2>)</font> subTotal<font class=cc2>(</font>grid<font class=cc2>,</font> grid<font class=cc2>.</font>cells<font class=cc8>[</font>j<font class=cc8>][</font>i<font class=cc8>]</font><font class=cc2>);</font></font>
+				<font class=cc3>total<font class=cc2>(</font>grid<font class=cc2>,</font> grid<font class=cc2>.</font>cells<font class=cc8>[</font>j<font class=cc8>][</font>i<font class=cc8>]</font><font class=cc2>);</font></font>
+				// set userFunction for each row in
+				// grid to count subTotal
+				<font class=cc3>grid<font class=cc2>.</font>rows<font class=cc8>[</font>j<font class=cc8>]</font><font class=cc2>.</font>userFunction <font class=cc2>=</font> subTotal</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>;</font>
+		<font class=cc7>}</font><font class=cc2>;</font>
+		grid<font class=cc2>.</font>isInit <font class=cc2>=</font> <font class=cc4>1</font><font class=cc2>;</font>
+		grid<font class=cc2>.</font>paint<font class=cc2>();</font>
+	<font class=cc7>}</font><font class=cc2>;</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<p class=cp10>Set property userFunction with total in grid definition gridDef:</p>
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> gridDef <font class=cc2>=</font> <font class=cc7>{</font>
+	useRCID <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font></font> 				//non-excel style
+	<font class=cc3>statusBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>0</font>
+	<font class=cc7>}</font><font class=cc2>,</font></font> //no status bar
+	<font class=cc3>toolBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>0</font>
+	<font class=cc7>}</font><font class=cc2>,</font></font> //no toolbar
+	<font class=cc3>userFunction <font class=cc2>:</font> total<font class=cc2>,</font></font> 	//user function
+	<font class=cc2>...</font>
+<font class=cc7>}</font>
+</pre>
+<p class=cp10>Create and init grid:</p>
+<pre class=cc1>
+<font class=cc4>&lt;</font><font class=cc3>script language="javascript1.2"</font><font class=cc4>&gt;
+&lt;!--</font>
+<font class=cc3><font class=cc5>var</font> g <font class=cc2>=</font> <font class=cc5>new</font> CCodeThatGrid<font class=cc2>(</font></font><font class=cc6>"g"</font><font class=cc3><font class=cc2>,</font> <font class=cc4>3</font><font class=cc2>,</font> <font class=cc4>7</font><font class=cc2>);</font>
+g<font class=cc2>.</font>init<font class=cc2>(</font>gridDef<font class=cc2>);</font>
+total<font class=cc2>(</font>g<font class=cc2>);</font></font> //no need doAction because total paints grid by itself
+//-->
+<font class=cc4>&lt;</font><font class=cc5>/</font><font class=cc3>script</font><font class=cc4>&gt;</font>
+</pre>
+<h3 class=cp10><font class=cf1>Important!</font> Use fields of Object only for read, for write in it use special methods.</h3>
+<h2 class=cp10><font class=cf4>Example - User function, non-excel style, hide row and column headers, export data</font></h2>
+<p class=cp10>You can see an example and complete code here - <a class=ca5 href="http://codethat.com/grid/userfunction_ex.html" onclick="return openWin(800,550,'http://codethat.com/grid/userfunction_ex.html')" target=_blank>User function, non-excel style, hide row and column headers, export data</a> [popup]</p>
+<h1 class=cp10><font class=cf5>Run-time Properties</font></h1>
+<p class=cp10>New version of CodeThatGrid allows you change style of separate row, column or cell and set event handlers for it</p>
+<p class=cp10>New properties for Object CGRow</p>
+<dl>
+<dt>Function handler
+	<dd>User defined function that call as handler event of this row, required parameter object CEvent e
+<pre class=cc1>
+<font class=cc3>this<font class=cc2>.</font>handler <font class=cc2>=</font> rowHandler<font class=cc2>;</font></font>
+//e._e - Object window.Event, e._e.type = ["click", "dblclick", "mouseup", "mousedown"]
+//e._o - source Object that call handler (CGCol, CGRow or CGCell)
+<font class=cc3><font class=cc5>function</font> rowHandler<font class=cc2>(</font>e<font class=cc2>)</font> <font class=cc7>{</font>
+	switch<font class=cc2>(</font>e<font class=cc2>.</font>_e<font class=cc2>.</font>type<font class=cc2>)</font> <font class=cc7>{</font>
+		case</font> <font class=cc6>"click"</font> <font class=cc3><font class=cc2>:</font>
+			e<font class=cc2>.</font>_o<font class=cc2>.</font>isMark <font class=cc2>=</font> <font class=cc4>true</font><font class=cc2>;</font>
+		<font class=cc7>}</font><font class=cc2>;</font>
+	<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+ 	
+<dt>String defaultClass
+	<dd>CSS class that defined normal style of this row
+<dt>String markClass
+	<dd>CSS class that defined selected style of this row 	
+	</dl>
+	<p class=cp10>New properties for Object CGCol</p>
+<dl>
+<dt>Function handler
+	<dd>User defined function that call as handler event of this row, required parameter object CEvent e
+	
+<pre class=cc1>
+<font class=cc3>this<font class=cc2>.</font>handler <font class=cc2>=</font> rowHandler<font class=cc2>;</font></font>
+//e._e - Object window.Event, e._e.type = ["click", "dblclick", "mouseup", "mousedown"]
+//e._o - source Object that call handler (CGCol, CGRow or CGCell)
+<font class=cc3><font class=cc5>function</font> rowHandler<font class=cc2>(</font>e<font class=cc2>)</font> <font class=cc7>{</font>
+	switch<font class=cc2>(</font>e<font class=cc2>.</font>_e<font class=cc2>.</font>type<font class=cc2>)</font> <font class=cc7>{</font>
+		case</font> <font class=cc6>"click"</font> <font class=cc3><font class=cc2>:</font>
+			e<font class=cc2>.</font>_o<font class=cc2>.</font>isMark <font class=cc2>=</font> <font class=cc4>true</font><font class=cc2>;</font>
+		<font class=cc7>}</font><font class=cc2>;</font>
+	<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+ 	
+<dt>String defaultClass
+	<dd>CSS class that defined normal style of this row
+<dt>String markClass
+	<dd>CSS class that defined selected style of this row 	
+	</dl>
+<p class=cp10>New properties for Object CGCell</p>
+<dl>
+<dt>Function handler
+	<dd>User defined function that call as handler event of this cell, required parameter object CEvent e
+	
+<pre class=cc1>
+<font class=cc3>this<font class=cc2>.</font>handler <font class=cc2>=</font> rowHandler<font class=cc2>;</font></font>
+//e._e - Object window.Event, e._e.type = ["click", "dblclick", "mouseup", "mousedown"]
+//e._o - source Object that call handler (CGCol, CGRow or CGCell)
+<font class=cc3><font class=cc5>function</font> rowHandler<font class=cc2>(</font>e<font class=cc2>)</font> <font class=cc7>{</font>
+	switch<font class=cc2>(</font>e<font class=cc2>.</font>_e<font class=cc2>.</font>type<font class=cc2>)</font> <font class=cc7>{</font>
+		case</font> <font class=cc6>"click"</font> <font class=cc3><font class=cc2>:</font>
+			e<font class=cc2>.</font>_o<font class=cc2>.</font>isMark <font class=cc2>=</font> <font class=cc4>true</font><font class=cc2>;</font>
+		<font class=cc7>}</font><font class=cc2>;</font>
+	<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+<dt>String defaultClass
+	<dd>CSS class that defined normal style of this cell
+<dt>String markClass
+	<dd>CSS class that defined selected style of this cell 	
+<dt>String currClass
+	<dd>CSS class that defined current style of this cell 	
+</dl>
+<h2 class=cp10><font class=cf4>Example - run-time properties and handlers</font></h2>
+<p class=cp10>You can see an example and complete code here - <a class=ca5 href="http://codethat.com/grid/runtime_ex.html" onclick="return openWin(800,550,'http://codethat.com/grid/runtime_ex.html')" target=_blank>Run-time properties, handlers and external functions</a> [popup]</p>
+<p class=cp10>A few words about grid object model, this information become necessary you when we create user function, full <a class=ca5 href="grid_reference.html">CodeThatGrid Reference</a> you can find as separate document.</p>
+<h1 class=cp10><font class=cf5>Class CCodeThatGrid</font></h1>
+<p class=cp10>Fields:</p>
+<dl>
+<dt>CGRow [] rows
+<dd> Array of CGRow Objects that represents rows in grid
+<dt>int [] rIdx
+<dd>Index array of rows; keep real order of them in grid
+<dt>int rowCount
+<dd>Count of rows in grid
+<dt>CGCol [] cols
+<dd>Array of CGCol Objects that represents columns in grid
+<dt>int [] cIdx
+<dd>Index array of columns; keep real order of them in grid
+<dt>int colCount
+<dd>Count of columns in grid
+<dt>CGCell [][] cells
+<dd>Array of CGCell Objects that represents cells in grid
+<dt>CGCell curCell
+<dd>Object represents current cell in grid
+<dt>Boolean isInit
+<dd>Flag is loading of data into grid complete
+<dt>Function userFunction
+<dd>Function that will be call after data setting for each non-service cell
+</dl>
+<p class=cp10>Methods:</p>
+<dl>
+<dt>addRow (idx, offset[, p])
+<dd>Adds row at idx in array rows, if idx undefined adds row in offset rows from current
+<dd>Parameters p indicates if will be grid painting after row add
+<dd>By default it is true
+<dt>init (gridDef)
+<dd>Initiates grid with data and appearance parameters from user gridDef definition
+<dt>getColByTitle (title)
+<dd>Returns index in cols array by title or name (A, B, C, …) of column or –1 if column is not found
+<dt>paint()
+<dd>Paints grid into browser window
+<dt>toCSV([spt, [isRng, [onlychanged, [lessreadolnly]]]])
+<dd>Returns csv-string with separator spt
+<dd>If isRng is true csv-string get from current selection in another case from whole grid
+<dd>If onlychanged is true will be return only changed rows
+<dd>If lessreadonly is true will be return only non-readonly rows
+<dd>By default:	spt = ';', isRng = false, onlychanged = FALSE, lessreadonly = false
+<dt>toCSVFile ([onlychanged])
+<dd>Returns string with header '&lt;?xml version="1.0" encoding="UTF-8"?><data table="grid.name">'…'</data>' for keeping in special format csv-file
+<dd>If onlychange is true will be return only changed rows, by default false
+<dt>toXML ([onlychange, [lessreadonly]])
+<dd>Returns xml-string in format
+<pre class=cc1>
+<font class=cc2>&lt;</font>?xml version<font class=cc2>=</font><font class=cc6>"1.0"</font> <font class=cc3>encoding<font class=cc2>=</font></font><font class=cc6>"UTF-8"</font><font class=cc3>?<font class=cc2>&gt;&lt;</font>
+<font class=cc2>&lt;</font>data table<font class=cc2>=</font></font> <font class=cc6>"grid.name"</font><font class=cc2>&gt;</font>
+<font class=cc2>&lt;</font>row id<font class=cc2>=</font><font class=cc6>"…"</font><font class=cc2>&gt;</font>
+<font class=cc2>&lt;</font>field fieldname<font class=cc2>=</font><font class=cc6>"col.title"</font> <font class=cc3>bold<font class=cc2>=</font></font><font class=cc6>"true|false"</font> <font class=cc3>underline<font class=cc2>=</font></font><font class=cc6>"true|false"</font>
+	<font class=cc3>italic<font class=cc2>=</font></font><font class=cc6>"true|false"</font> <font class=cc3>align<font class=cc2>=</font></font><font class=cc6>"left|center|right"</font><font class=cc3><font class=cc2>&gt;</font>
+cell<font class=cc2>.</font>value
+<font class=cc2>&lt;/</font>field<font class=cc2>&gt;</font>
+...
+<font class=cc2>&lt;/</font>row<font class=cc2>&gt;</font>
+...
+<font class=cc2>&lt;/</font>data<font class=cc2>&gt;</font></font>
+</pre>
+<dd>If onlychange is true will be return only changed rows
+<dd>If lessreadonly is true will be return only non-readonly rows
+<dd>By default:	onlychanged = false,	lessreadonly = false
+</dl>
+<h1 class=cp10><font class=cf5>Class CGRow</font></h1>
+<p class=cp10>Fields:</p>
+<dl>
+<dt>int _id
+<dd>Row id, that equals its index in owner grid rows array
+<dt>Boolean isReadOnly
+<dd>Flag is data in row is read only
+<dt>Function userFunction
+<dd>User defined function that call after data setting for each non-service cells in this row
+</dl>
+<h1 class=cp10><font class=cf5>Class CGCol</font></h1>
+<p class=cp10>Fields:</p>
+<dl>
+<dt>int _id
+<dd>Column id, that equals its index in owner grid cols array
+<dt>Boolean isReadOnly
+<dd>Flag is data in column is read only, gets from colDef
+<dt>String type
+<dd>Type of column, gets from colDef
+<dt>String title
+<dd>Title of column, gets from colDef
+<dt>Function compareFunction
+<dd>Function that uses for compare 2 elements of column to set index, gets from colDef
+<dt>Function userFunction
+<dd>User defined function that call after data setting for each non-service cells in this column, gets from colDef
+</dl>
+<h1 class=cp10><font class=cf5>Class CGCell</font></h1>
+<p class=cp10>Fields:</p>
+<dl>
+<dt>CGRow row
+<dd>Row owner of cell
+<dt>CGCol col
+<dd>Column owner of cell
+<dt>int state
+<dd>0 – default, 1 – current, 2 – editing
+<dt>Object data
+<dd>Value in this cell
+</dl>
+<p class=cp10>Methods:</p>
+<dl>
+<dt>setData (data[, isService])
+<dd>Sets data into cells, check the type and call userFunction(s) if at least one of them defined and<dd> isService=false
+<dd>If isService undefined it calculate as<dd>col.isReadOnly || row.isReadOnly
+<dt>getData ()
+<dd>Returns string with data of cell formatted by function defined for type of current cell
+<dt>getDataForEdit ()
+<dd>If type is Date return format data in all other cases return string representation of data in cell
+</dl>
+<p class=cp10><a class=ca7 href="standard_vs_pro.html?h=grid#grid">Read more about CodeThatGrid&nbsp;&gt;&gt;</a></p>
+</td>
+</tr>
+<tr>
+<td><p class=cp8>&copy; <a class=ca2 href="">CodeThat.com</a>, 2003-2005<br>
+Design by <a class=ca2 href="http://www.xt-labs.com">XTLabs, Inc</a>.</p></td>
+</tr>
+</table></body></html>

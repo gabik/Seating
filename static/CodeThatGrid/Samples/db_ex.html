@@ -1,0 +1,150 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CodeThatGrid - Grid Generation from the Database Example</title>
+<meta http-equiv="content-language" content="en">
+<meta name="robots" content="all">
+<meta name="robots" content="index">
+<meta name="robots" content="follow">
+<meta http-equiv="expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="s.css">
+
+<script language="javascript1.2" src="../Scripts/codethatsdk.js"></script>
+<script language="javascript1.2" src="../Scripts/codethatgridpro.js"></script>
+<script language="javascript1.2" src="../Scripts/codethattype.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+
+<p class=cp22><a href="http://codethat.com"><img src="img/logo.gif" width=148 height=40 border=0 alt="!--www--CodeThatGrid - Grid Generation from the Database Example!--www/--!--all--code that works!!--all/--"></a></p>
+ <script>
+ var DATE_FORMAT = "dd.mm.yyyy";
+   var EMPTY_ROW = "...";
+   var DEFAULT_COLDEF = {
+   title: "",
+   titleClass: "",
+   type: "String", //the default type
+   width: 0, //auto
+   alignment: "", //auto
+   compareFunction: compare,
+   isVisible: true,
+   useAutoIndex: true,
+   useAutoFilter: false
+  }; 
+
+   var gridDef={ useExportBar :false, useMultiSort:true, useColTitle: true, data: [["1", "Stiles James", "jstiles@necasting.com"], ["2", "Alexander Jacklynn", "speedracer1979@iwon.com"], ["3", "Martin Barney", "mb@necasting.com"]], colDef: [{title: "ID", titleClass: "", type: "String", width: 75, alignment: "center", compareFunction: compare, isVisible: true,  useAutoIndex: false, useAutoFilter: false } , {title: "User Name", titleClass: "", type: "String", width: 150, alignment: "center", compareFunction: compare, isVisible: true,  useAutoIndex: false, useAutoFilter: false } , {title: "Email", titleClass: "", type: "String", width: 150, alignment: "center", compareFunction: compare, isVisible: true,  useAutoIndex: false, useAutoFilter: false } ] , rowStyle : {defaultClass: {fontfamily:"Verdana", fontsize:"12px",backgroundcolor:"#cccccc", borderwidth: "1", borderstyle: "outset", bordercolor: "#cccccc"},  markClass:  {backgroundcolor: "#ccccff", borderwidth: "1", borderstyle: "outset", bordercolor: "#cccccc"}, resizeClass: {cursor:"row-resize", borderwidth:"0"}, dragClass:  {cursor:"move", borderwidth:"0"}, width : 20, height: 20 }, tablestyle : {tableClass:{borderwidth:"2",borderstyle:"solid",bordercolor:"#bbbbbb",backgroundcolor:"#ffffff"},thClass : {fontfamily:"Verdana", fontsize:"12px", color:"#000000", borderwidth:"1", borderstyle: "solid", bordercolor: "#cfcfcf", backgroundcolor:"#ececec"}, tdClass : {fontfamily:"Verdana", fontsize:"12px", color:"#000000"}, bgcolor : "#bbbbbb", x : 0, y : 0, width: 660, height: 480},  colStyle :{ defaultClass: {fontfamily:"Verdana", fontsize:"12px",backgroundcolor:"#cccccc", borderwidth: "1", borderstyle: "outset", bordercolor: "#cccccc"},  markClass:  {backgroundcolor: "#ccccff", borderwidth: "1", borderstyle: "outset", bordercolor: "#cccccc"},  resizeClass: {cursor:"col-resize", borderwidth:"0"}, dragClass: {cursor:"move", borderwidth:"0"}, width: 100, height : 20},  statusBar:{height: 15,bgcolor : "#bbbbbb",defaultClass : {color:"#000000",fontfamily:"Verdana",fontsize:"11px"},	messageClass : {color:"#0000ff",fontfamily:"Verdana",fontsize:"11px"}, fieldText : "Field", valueText : "Value"}}; 
+      
+  </script> 
+   
+  <script language="javascript">
+    var g = new CCodeThatGrid("g", 5, 6);            
+    g.init(gridDef);      
+    g.doAction();    
+  </script>       
+  
+<pre class=cct1>
+<font color=#008080>&lt;</font><font color=#008080>?</font>
+
+<font color=#000080>function</font> create_definition<font color=#008080>(</font><font color=#008080>)</font>
+<font color=#800080>{</font>
+ global $db<font color=#008080>;</font>
+
+ $definition <font color=#008080>=</font> <font color=#e60000>""</font><font color=#008080>;</font>
+
+ $result <font color=#008080>=</font> mysql_query<font color=#008080>(</font><font color=#e60000>"select * from test_data"</font><font color=#008080>)</font><font color=#008080>;</font>
+ 
+ $data <font color=#008080>=</font> <font color=#e60000>"["</font><font color=#008080>;</font>
+
+ $num_result <font color=#008080>=</font> mysql_num_fields <font color=#008080>(</font>$result<font color=#008080>)</font><font color=#008080>;</font>
+
+ <font color=#000080>for</font><font color=#008080>(</font>$i<font color=#008080>=</font><font color=#008c00>0</font><font color=#008080>;</font> $i<font color=#008080>&lt;</font>$num_result<font color=#008080>;</font> $i<font color=#008080>++</font><font color=#008080>)</font>
+ <font color=#800080>{</font>
+   <font color=#000080>if</font><font color=#008080>(</font>$i<font color=#008080>&gt;</font><font color=#008c00>0</font><font color=#008080>)</font> $data <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>', '</font><font color=#008080>;</font>
+   $data <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>'["'</font> <font color=#008080>.</font> @mysql_result<font color=#008080>(</font>$result<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"id"</font><font color=#008080>)</font> <font color=#008080>.</font> <font color=#e60000>'", '</font> <font color=#008080>.</font> 
+            <font color=#e60000>'"'</font> <font color=#008080>.</font> @mysql_result<font color=#008080>(</font>$result<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"username"</font><font color=#008080>)</font> <font color=#008080>.</font> <font color=#e60000>'", '</font> <font color=#008080>.</font> 
+            <font color=#e60000>'"'</font> <font color=#008080>.</font> @mysql_result<font color=#008080>(</font>$result<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"email"</font><font color=#008080>)</font> <font color=#008080>.</font> <font color=#e60000>'"]'</font><font color=#008080>;</font>
+ <font color=#800080>}</font>
+
+ $data <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>']'</font><font color=#008080>;</font>
+
+ $result2 <font color=#008080>=</font> db_query<font color=#008080>(</font><font color=#e60000>"select * from test_structure"</font><font color=#008080>)</font><font color=#008080>;</font>
+ 
+ $coldef <font color=#008080>=</font> <font color=#e60000>"["</font><font color=#008080>;</font>
+
+ $num_result2 <font color=#008080>=</font> db_numrows<font color=#008080>(</font>$result2<font color=#008080>)</font><font color=#008080>;</font>
+
+ <font color=#000080>for</font><font color=#008080>(</font>$i<font color=#008080>=</font><font color=#008c00>0</font><font color=#008080>;</font> $i<font color=#008080>&lt;</font>$num_result2<font color=#008080>;</font> $i<font color=#008080>++</font><font color=#008080>)</font>
+ <font color=#800080>{</font>
+   <font color=#000080>if</font><font color=#008080>(</font>$i<font color=#008080>&gt;</font><font color=#008c00>0</font><font color=#008080>)</font> $coldef <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>', '</font><font color=#008080>;</font>
+   $coldef <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>'{title: "'</font> <font color=#008080>.</font> db_result<font color=#008080>(</font>$result2<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"title"</font><font color=#008080>)</font> <font color=#008080>.</font> 
+              <font color=#e60000>'", titleClass: "", type: "'</font> <font color=#008080>.</font> db_result<font color=#008080>(</font>$result2<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"col_type"</font><font color=#008080>)</font> <font color=#008080>.</font> 
+		      <font color=#e60000>'", width: '</font> <font color=#008080>.</font> db_result<font color=#008080>(</font>$result2<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"col_width"</font><font color=#008080>)</font> <font color=#008080>.</font> 
+	          <font color=#e60000>', alignment: "'</font> <font color=#008080>.</font> db_result<font color=#008080>(</font>$result2<font color=#008080>,</font> $i<font color=#008080>,</font> <font color=#e60000>"col_alignment"</font><font color=#008080>)</font> <font color=#008080>.</font> 
+         	  <font color=#e60000>'", compareFunction: compare, isVisible: true, '</font><font color=#008080>.</font>
+              <font color=#e60000>' useAutoIndex: false, useAutoFilter: false } '</font><font color=#008080>;</font>
+ <font color=#800080>}</font>
+
+ $coldef <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>']'</font><font color=#008080>;</font>
+
+ $definition <font color=#008080>=</font> "<font color=#000080>var</font> gridDef<font color=#008080>=</font><font color=#800080>{</font> useExportBar <font color=#008080>:</font><font color=#754d0f>false</font><font color=#008080>,</font> useMultiSort<font color=#008080>:</font><font color=#754d0f>true</font><font color=#008080>,</font> 
+                useColTitle<font color=#008080>:</font> <font color=#754d0f>true</font><font color=#008080>,</font> data<font color=#008080>:</font> $data<font color=#008080>,</font> colDef<font color=#008080>:</font> $coldef "<font color=#008080>;</font>
+  
+ $definition <font color=#008080>.</font><font color=#008080>=</font> <font color=#e60000>', rowStyle : {	markClass:  "mark",	darkClass:  "dark",	'</font> <font color=#008080>.</font>
+                <font color=#e60000>' lightClass: "light", hoverClass: "hover"}, </font>
+<font color=#e60000>                  tablestyle : {tableClass:{borderwidth:"2",borderstyle:"solid",</font>
+<font color=#e60000>                  bordercolor:"#bbbbbb",backgroundcolor:"#ffffff"},</font>
+<font color=#e60000>                  thClass : {fontfamily:"Verdana", fontsize:"12px", color:"#000000", </font>
+<font color=#e60000>                  borderwidth:"1", borderstyle: "solid", bordercolor: "#cfcfcf", </font>
+<font color=#e60000>                  backgroundcolor:"#ececec"}, tdClass : {fontfamily:"Verdana", </font>
+<font color=#e60000>                  fontsize:"12px", color:"#000000"}, bgcolor : "#bbbbbb", </font>
+<font color=#e60000>                  x : 0, y : 0, width: 660, height: 480}};'</font><font color=#008080>;</font>
+               	
+ <font color=#000080>return</font> $definition<font color=#008080>;</font>
+<font color=#800080>}</font>
+
+<font color=#008080>?</font><font color=#008080>&gt;</font>
+       
+<font color=#008080>&lt;</font>html<font color=#008080>&gt;</font>
+ <font color=#008080>&lt;</font>head<font color=#008080>&gt;</font>
+  <font color=#008080>&lt;</font>title<font color=#008080>&gt;</font>Grid Test<font color=#008080>&lt;</font><font color=#008080>/</font>title<font color=#008080>&gt;</font>
+  <font color=#008080>&lt;</font>script language<font color=#008080>=</font><font color=#e60000>"javascript"</font> src<font color=#008080>=</font><font color=#e60000>"/codethatsdk.js"</font><font color=#008080>&gt;</font><font color=#008080>&lt;</font><font color=#008080>/</font>script<font color=#008080>&gt;</font>  
+  <font color=#008080>&lt;</font>script language<font color=#008080>=</font><font color=#e60000>"javascript"</font> src<font color=#008080>=</font><font color=#e60000>"codethattype.js"</font><font color=#008080>&gt;</font><font color=#008080>&lt;</font><font color=#008080>/</font>script<font color=#008080>&gt;</font>         
+  <font color=#008080>&lt;</font>script language<font color=#008080>=</font><font color=#e60000>"javascript"</font> src<font color=#008080>=</font><font color=#e60000>"codethatgridpro.js"</font><font color=#008080>&gt;</font><font color=#008080>&lt;</font><font color=#008080>/</font>script<font color=#008080>&gt;</font>   
+  <font color=#008080>&lt;</font><font color=#000080>link</font> rel<font color=#008080>=</font><font color=#e60000>"stylesheet"</font> href<font color=#008080>=</font><font color=#e60000>"style.css"</font><font color=#008080>&gt;</font>  
+  <font color=#008080>&lt;</font><font color=#000080>link</font> href<font color=#008080>=</font><font color=#e60000>"/common_codethat.css"</font> rel<font color=#008080>=</font><font color=#e60000>"stylesheet"</font> type<font color=#008080>=</font><font color=#e60000>"text/css"</font><font color=#008080>&gt;</font>
+  <font color=#008080>&lt;</font>script language<font color=#008080>=</font><font color=#e60000>"javascript1.2"</font><font color=#008080>&gt;</font>
+   <font color=#000080>var</font> DATE_FORMAT <font color=#008080>=</font> <font color=#e60000>"dd.mm.yyyy"</font><font color=#008080>;</font>
+   <font color=#000080>var</font> EMPTY_ROW <font color=#008080>=</font> <font color=#e60000>"..."</font><font color=#008080>;</font>
+   <font color=#000080>var</font> DEFAULT_COLDEF <font color=#008080>=</font> <font color=#800080>{</font>
+   title<font color=#008080>:</font> <font color=#e60000>""</font><font color=#008080>,</font>
+   titleClass<font color=#008080>:</font> <font color=#e60000>""</font><font color=#008080>,</font>
+   type<font color=#008080>:</font> <font color=#e60000>"String"</font><font color=#008080>,</font> <font color=#696969>//the default type</font>
+   width<font color=#008080>:</font> <font color=#008c00>0</font><font color=#008080>,</font> <font color=#696969>//auto</font>
+   alignment<font color=#008080>:</font> <font color=#e60000>""</font><font color=#008080>,</font> <font color=#696969>//auto</font>
+   compareFunction<font color=#008080>:</font> compare<font color=#008080>,</font>
+   isVisible<font color=#008080>:</font> <font color=#754d0f>true</font><font color=#008080>,</font>
+   useAutoIndex<font color=#008080>:</font> <font color=#754d0f>true</font><font color=#008080>,</font>
+   useAutoFilter<font color=#008080>:</font> <font color=#754d0f>false</font>
+  <font color=#800080>}</font><font color=#008080>;</font> 
+
+   <font color=#008080>&lt;</font><font color=#008080>?</font> echo create_definition<font color=#008080>(</font><font color=#008080>)</font><font color=#008080>;</font> <font color=#008080>?</font><font color=#008080>&gt;</font> 
+   
+  <font color=#008080>&lt;</font><font color=#008080>/</font>script<font color=#008080>&gt;</font> 
+ <font color=#008080>&lt;</font><font color=#008080>/</font>head<font color=#008080>&gt;</font>
+ <font color=#008080>&lt;</font>body<font color=#008080>&gt;</font>
+  
+   <font color=#008080>&lt;</font>script language<font color=#008080>=</font><font color=#e60000>"javascript"</font><font color=#008080>&gt;</font>
+    <font color=#000080>var</font> g <font color=#008080>=</font> <font color=#000080>new</font> CCodeThatGrid<font color=#008080>(</font><font color=#e60000>"g"</font><font color=#008080>,</font> <font color=#008c00>5</font><font color=#008080>,</font> <font color=#008c00>6</font><font color=#008080>)</font><font color=#008080>;</font>            
+    g<font color=#008080>.</font>init<font color=#008080>(</font>gridDef<font color=#008080>)</font><font color=#008080>;</font>      
+    g<font color=#008080>.</font>doAction<font color=#008080>(</font><font color=#008080>)</font><font color=#008080>;</font>    
+   <font color=#008080>&lt;</font><font color=#008080>/</font>script<font color=#008080>&gt;</font>       
+  
+<font color=#008080>&lt;</font>pre<font color=#008080>&gt;</font>
+<font color=#008080>&lt;</font><font color=#008080>/</font>pre<font color=#008080>&gt;</font>
+
+ <font color=#008080>&lt;</font><font color=#008080>/</font>body<font color=#008080>&gt;</font>
+<font color=#008080>&lt;</font><font color=#008080>/</font>html<font color=#008080>&gt;</font>
+</pre>
+</body>
+</html>

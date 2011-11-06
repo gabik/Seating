@@ -1,0 +1,453 @@
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=iso-8859-1">
+<title>CodeThatGrid - Multi-sort, columns visibility, auto-index, auto-filter</title>
+<meta http-equiv="content-language" content="en">
+<meta name="robots" content="all">
+<meta name="robots" content="index">
+<meta name="robots" content="follow">
+<meta http-equiv="expires" content="Mon, 01 Jan 1990 00:00:00 GMT">
+<meta http-equiv="cache-control" content="no-cache">
+<meta http-equiv="pragma" content="no-cache">
+<meta name="revisit-after" content="1 day">
+<meta http-equiv="content-script-type" content="text/javascript">
+<link rel="stylesheet" type="text/css" href="s.css">
+
+<script language="javascript1.2" src="../Scripts/codethatsdk.js"></script><script language="javascript1.2" src="../Scripts/codethatgridstd.js"></script><script language="javascript1.2" src="../Scripts/codethattype.js"></script><script language="javascript1.2" src="feature_ex.js"></script></head>
+<body leftmargin=0 topmargin=0 marginwidth=0 marginheight=0 bgcolor=#FFFFFF>
+
+<p class=cp22><a href="http://tst.codethat/site_design/codethat/new/"><img src="img/logo.gif" width=148 height=40 border=0 alt="!--www--CodeThatGrid - Multi-sort, columns visibility, auto-index, auto-filter!--www/--!--all--code that works!!--all/--"></a></p>
+<p class=cp25><font class=cf5>CodeThatGrid - Multi-sort, columns visibility, auto-index, auto-filter</font></p><script language="javascript1.2">
+<!--
+var g = new CCodeThatGrid("g", 50, 5);
+g.init(gridDef);
+g.doAction();
+//-->
+</script>
+
+<pre class=cc1>
+<font class=cc3><font class=cc5>var</font> DATE_FORMAT <font class=cc2>=</font></font> <font class=cc6>"dd.mm.yyyy"</font><font class=cc3><font class=cc2>,</font> CURRENCY_FORMAT <font class=cc2>=</font></font> <font class=cc6>"$"</font><font class=cc3><font class=cc2>,</font> EMPTY_ROW <font class=cc2>=</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+DEFAULT_COLDEF <font class=cc2>=</font> <font class=cc7>{</font>
+	title <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+	titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+	type <font class=cc2>:</font></font> <font class=cc6>"String"</font><font class=cc2>,</font> //the default type
+	<font class=cc3>width <font class=cc2>:</font> <font class=cc4>80</font><font class=cc2>,</font>
+	alignment <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+	compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+	isVisible <font class=cc2>:</font> <font class=cc4>1</font><font class=cc2>,</font>
+	isReadOnly <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font>
+	useAutoIndex <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font>
+	useAutoFilter <font class=cc2>:</font> <font class=cc4>0</font>
+<font class=cc7>}</font><font class=cc2>;</font></font>
+//-----------------------------------------------------------------------------------
+//GRID DEFINITION
+//-----------------------------------------------------------------------------------
+<font class=cc3><font class=cc5>var</font> gridDef <font class=cc2>=</font> <font class=cc7>{</font>
+	useExportBar 	 <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	useMultiSort	 <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	useColTitle 	 <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+	datatype 		 <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font>
+	data <font class=cc2>:</font> <font class=cc8>[[</font></font><font class=cc6>"1"</font><font class=cc2>,</font> <font class=cc6>"Stiles James"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"7"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"2"</font><font class=cc2>,</font> <font class=cc6>"Alexander Jacklynn"</font><font class=cc2>,</font> <font class=cc6>"12.05.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"3"</font><font class=cc2>,</font> <font class=cc6>"Martin Barney"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"4"</font><font class=cc2>,</font> <font class=cc6>"Gelinas Patricia"</font><font class=cc2>,</font> <font class=cc6>"18.07.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"5"</font><font class=cc2>,</font> <font class=cc6>"Cooke Dee"</font><font class=cc2>,</font> <font class=cc6>"02.05.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"6"</font><font class=cc2>,</font> <font class=cc6>"Greiner Andrew"</font><font class=cc2>,</font> <font class=cc6>"08.01.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"7"</font><font class=cc2>,</font> <font class=cc6>"Maillet Chad"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"8"</font><font class=cc2>,</font> <font class=cc6>"Batson Alecia"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"9"</font><font class=cc2>,</font> <font class=cc6>"Gato Timothy"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"10"</font><font class=cc2>,</font> <font class=cc6>"Wheeler Skip"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"11"</font><font class=cc2>,</font> <font class=cc6>"Davis Mackenzie"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"12"</font><font class=cc2>,</font> <font class=cc6>"Hatch Jennie"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"3"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"13"</font><font class=cc2>,</font> <font class=cc6>"picano anthony"</font><font class=cc2>,</font> <font class=cc6>"06.01.2003"</font><font class=cc2>,</font> <font class=cc6>"4"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"14"</font><font class=cc2>,</font> <font class=cc6>"Bernard Ashley"</font><font class=cc2>,</font> <font class=cc6>"11.10.2003"</font><font class=cc2>,</font> <font class=cc6>"7"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"15"</font><font class=cc2>,</font> <font class=cc6>"Masabny Rob"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"16"</font><font class=cc2>,</font> <font class=cc6>"Philbrick John"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"17"</font><font class=cc2>,</font> <font class=cc6>"Tella Bob"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"18"</font><font class=cc2>,</font> <font class=cc6>"Keister Jennifer"</font><font class=cc2>,</font> <font class=cc6>"07.10.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"19"</font><font class=cc2>,</font> <font class=cc6>"Doherty Jr. Billy"</font><font class=cc2>,</font> <font class=cc6>"30.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"20"</font><font class=cc2>,</font> <font class=cc6>"Lozeau Danielle"</font><font class=cc2>,</font> <font class=cc6>"27.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"21"</font><font class=cc2>,</font> <font class=cc6>"Barnes Anastasia"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"22"</font><font class=cc2>,</font> <font class=cc6>"Zanidakis Zoe"</font><font class=cc2>,</font> <font class=cc6>"12.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"23"</font><font class=cc2>,</font> <font class=cc6>"Price Dennis"</font><font class=cc2>,</font> <font class=cc6>"26.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"24"</font><font class=cc2>,</font> <font class=cc6>"Morrison Christine"</font><font class=cc2>,</font> <font class=cc6>"17.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"25"</font><font class=cc2>,</font> <font class=cc6>"Ann Rachael"</font><font class=cc2>,</font> <font class=cc6>"13.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"26"</font><font class=cc2>,</font> <font class=cc6>"Brodsky Jason"</font><font class=cc2>,</font> <font class=cc6>"21.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"27"</font><font class=cc2>,</font> <font class=cc6>"Dow Scott"</font><font class=cc2>,</font> <font class=cc6>"18.12.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"28"</font><font class=cc2>,</font> <font class=cc6>"Perillo Andy"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"29"</font><font class=cc2>,</font> <font class=cc6>"Burgess Terry"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"30"</font><font class=cc2>,</font> <font class=cc6>"Vallory Amanda"</font><font class=cc2>,</font> <font class=cc6>"23.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"31"</font><font class=cc2>,</font> <font class=cc6>"wentworth brendan"</font><font class=cc2>,</font> <font class=cc6>"02.01.2004"</font><font class=cc2>,</font> <font class=cc6>"4"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"32"</font><font class=cc2>,</font> <font class=cc6>"Ziobro Peter"</font><font class=cc2>,</font> <font class=cc6>"27.10.2003"</font><font class=cc2>,</font> <font class=cc6>"3"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"33"</font><font class=cc2>,</font> <font class=cc6>"Winters Scott"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"34"</font><font class=cc2>,</font> <font class=cc6>"Shea Kevin"</font><font class=cc2>,</font> <font class=cc6>"03.11.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"35"</font><font class=cc2>,</font> <font class=cc6>"Bowring Tina"</font><font class=cc2>,</font> <font class=cc6>"07.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"36"</font><font class=cc2>,</font> <font class=cc6>"Roosevelt Maura"</font><font class=cc2>,</font> <font class=cc6>"06.08.2003"</font><font class=cc2>,</font> <font class=cc6>"1"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"37"</font><font class=cc2>,</font> <font class=cc6>"Payne Christopher"</font><font class=cc2>,</font> <font class=cc6>"07.01.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"38"</font><font class=cc2>,</font> <font class=cc6>"peterson william"</font><font class=cc2>,</font> <font class=cc6>"06.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"39"</font><font class=cc2>,</font> <font class=cc6>"Childers Eva"</font><font class=cc2>,</font> <font class=cc6>"03.01.2004"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"40"</font><font class=cc2>,</font> <font class=cc6>"Meyer Richard"</font><font class=cc2>,</font> <font class=cc6>"16.09.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"41"</font><font class=cc2>,</font> <font class=cc6>"Berkrot Peter"</font><font class=cc2>,</font> <font class=cc6>"19.09.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"42"</font><font class=cc2>,</font> <font class=cc6>"Currier Justine/Janelle"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"43"</font><font class=cc2>,</font> <font class=cc6>"Perry Kevin"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"44"</font><font class=cc2>,</font> <font class=cc6>"LOMBARDI TOM"</font><font class=cc2>,</font> <font class=cc6>"04.08.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"45"</font><font class=cc2>,</font> <font class=cc6>"Steele William"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"46"</font><font class=cc2>,</font> <font class=cc6>"Smith-Lycette Monique"</font><font class=cc2>,</font> <font class=cc6>"01.01.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"47"</font><font class=cc2>,</font> <font class=cc6>"Boiros Ashleigh"</font><font class=cc2>,</font> <font class=cc6>"06.06.2002"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"48"</font><font class=cc2>,</font> <font class=cc6>"Peters Ellen"</font><font class=cc2>,</font> <font class=cc6>"28.04.2003"</font><font class=cc2>,</font> <font class=cc6>"2"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"49"</font><font class=cc2>,</font> <font class=cc6>"Gorgone Dan"</font><font class=cc2>,</font> <font class=cc6>"13.08.2002"</font><font class=cc2>,</font> <font class=cc6>"4"</font><font class=cc8>]</font><font class=cc2>,</font>
+	<font class=cc8>[</font><font class=cc6>"50"</font><font class=cc2>,</font> <font class=cc6>"Barclay Roberta"</font><font class=cc2>,</font> <font class=cc6>"27.07.2002"</font><font class=cc2>,</font> <font class=cc6>"4"</font><font class=cc3><font class=cc8>]]</font><font class=cc2>,</font>
+	colDef <font class=cc2>:</font> <font class=cc8>[</font>
+	<font class=cc7>{</font>
+		title <font class=cc2>:</font></font> <font class=cc6>"ID"</font><font class=cc3><font class=cc2>,</font>
+		titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		type <font class=cc2>:</font></font> <font class=cc6>"Number"</font><font class=cc3><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>0</font><font class=cc2>,</font>
+		alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+		compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+		isVisible <font class=cc2>:</font> <font class=cc4>false</font><font class=cc2>,</font>
+		useAutoIndex <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoFilter <font class=cc2>:</font> <font class=cc4>false</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	<font class=cc7>{</font>
+		title <font class=cc2>:</font></font> <font class=cc6>"Name"</font><font class=cc3><font class=cc2>,</font>
+		titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		type <font class=cc2>:</font></font> <font class=cc6>"String"</font><font class=cc3><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>200</font><font class=cc2>,</font>
+		alignment <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+		isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoIndex <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoFilter <font class=cc2>:</font> <font class=cc4>true</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	<font class=cc7>{</font>
+		title <font class=cc2>:</font></font> <font class=cc6>"Reg. date"</font><font class=cc3><font class=cc2>,</font>
+		titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		type <font class=cc2>:</font></font> <font class=cc6>"Date"</font><font class=cc3><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>100</font><font class=cc2>,</font>
+		alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+		compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+		isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoIndex <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoFilter <font class=cc2>:</font> <font class=cc4>true</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	<font class=cc7>{</font>
+		title <font class=cc2>:</font></font> <font class=cc6>"Kind"</font><font class=cc3><font class=cc2>,</font>
+		titleClass <font class=cc2>:</font></font> <font class=cc6>""</font><font class=cc3><font class=cc2>,</font>
+		type <font class=cc2>:</font></font> <font class=cc6>"Number"</font><font class=cc3><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>50</font><font class=cc2>,</font>
+		alignment <font class=cc2>:</font></font> <font class=cc6>"center"</font><font class=cc3><font class=cc2>,</font>
+		compareFunction <font class=cc2>:</font> compare<font class=cc2>,</font>
+		isVisible <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoIndex <font class=cc2>:</font> <font class=cc4>true</font><font class=cc2>,</font>
+		useAutoFilter <font class=cc2>:</font> <font class=cc4>true</font>
+	<font class=cc7>}</font> <font class=cc8>]</font><font class=cc2>,</font>
+	tableStyle <font class=cc2>:</font> <font class=cc7>{</font>
+		tableClass <font class=cc2>:</font> <font class=cc7>{</font>
+			borderwidth <font class=cc2>:</font> <font class=cc4>1</font><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#bbbbbb"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"solid"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		bgcolor <font class=cc2>:</font></font> <font class=cc6>"#ffffff"</font><font class=cc3><font class=cc2>,</font>
+		x <font class=cc2>:</font> <font class=cc4>10</font><font class=cc2>,</font>
+		y <font class=cc2>:</font> <font class=cc4>10</font><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>520</font><font class=cc2>,</font>
+		height <font class=cc2>:</font> <font class=cc4>450</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	rowStyle <font class=cc2>:</font> <font class=cc7>{</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font>
+			borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"outset"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#cccccc"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		markClass <font class=cc2>:</font> <font class=cc7>{</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#ccccff"</font><font class=cc3><font class=cc2>,</font>
+			borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"outset"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#cccccc"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		dragClass <font class=cc2>:</font> <font class=cc7>{</font>
+			cursor <font class=cc2>:</font></font> <font class=cc6>"move"</font><font class=cc3><font class=cc2>,</font> borderwidth <font class=cc2>:</font></font> <font class=cc6>"0"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>20</font><font class=cc2>,</font>
+		height <font class=cc2>:</font> <font class=cc4>21</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	colStyle <font class=cc2>:</font> <font class=cc7>{</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"12px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font>
+			borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"outset"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#cccccc"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		markClass <font class=cc2>:</font> <font class=cc7>{</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"12px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#ccccff"</font><font class=cc3><font class=cc2>,</font>
+			borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"outset"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#cccccc"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		dragClass <font class=cc2>:</font> <font class=cc7>{</font>
+			cursor <font class=cc2>:</font></font> <font class=cc6>"move"</font><font class=cc3><font class=cc2>,</font> borderwidth <font class=cc2>:</font></font> <font class=cc6>"0"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		width <font class=cc2>:</font> <font class=cc4>100</font><font class=cc2>,</font>
+		height <font class=cc2>:</font> <font class=cc4>21</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	cellStyle <font class=cc2>:</font> <font class=cc7>{</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			padding <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"solid"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#cfcfcf"</font><font class=cc3><font class=cc2>,</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Arial"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"12px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#ffffff"</font><font class=cc3><font class=cc2>,</font> color <font class=cc2>:</font></font> <font class=cc6>"#000000"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		markClass <font class=cc2>:</font> <font class=cc7>{</font>
+			padding <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderwidth <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"outset"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Arial"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"12px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#cfcfcf"</font><font class=cc3><font class=cc2>,</font> color <font class=cc2>:</font></font> <font class=cc6>"#000000"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		currClass <font class=cc2>:</font> <font class=cc7>{</font>
+			padding <font class=cc2>:</font></font> <font class=cc6>"1"</font><font class=cc3><font class=cc2>,</font> borderwidth <font class=cc2>:</font></font> <font class=cc6>"2"</font><font class=cc3><font class=cc2>,</font> borderstyle <font class=cc2>:</font></font> <font class=cc6>"solid"</font><font class=cc3><font class=cc2>,</font> bordercolor <font class=cc2>:</font></font> <font class=cc6>"#000000"</font><font class=cc3><font class=cc2>,</font>
+			fontfamily <font class=cc2>:</font></font> <font class=cc6>"Arial"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"12px"</font><font class=cc3><font class=cc2>,</font> backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#ffffff"</font><font class=cc3><font class=cc2>,</font> color <font class=cc2>:</font></font> <font class=cc6>"#000000"</font>
+		<font class=cc3><font class=cc7>}</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	toolBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>29</font><font class=cc2>,</font>
+		bgcolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			borderwidth <font class=cc2>:</font> <font class=cc4>0</font>
+		<font class=cc7>}</font><font class=cc2>,</font>
+		buttons <font class=cc2>:</font> <font class=cc8>[</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"addrowto"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addrowto.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addrowto_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Add row before current one"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"addrowafter"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addrowafter.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addrowafter_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Add row after current one"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"delrow"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/delrow.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/delrow_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Delete row"</font>
+		<font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font> //separator
+		<font class=cc3><font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"addcolto"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addcolto.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addcolto_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Add column before current one"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"addcolafter"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addcolafter.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/addcolafter_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Add column after current one"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"delcol"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/delcol.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/delcol_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Delete column"</font>
+		<font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font> //separator
+		<font class=cc3><font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"copy"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/copy.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/copy_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Copy"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"paste"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/paste.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/paste_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Pasting data from current cell"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"sortasc"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/sortasc.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/sortasc_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Sort data in current column in ascending order"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"sortdesc"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/sortdesc.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/sortdesc_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Sort data in current column in descending order"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"multisortasc"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/multisortasc.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/multisortasc_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Keep current order and sort data in current column in ascending order"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"multisortdesc"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/multisortdesc.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/multisortdesc_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Keep current order and sort data in current column in descending order"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"resetsort"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/resetsort.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/resetsort_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Reset sort"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"formatbold"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatbold.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatbold_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Format bold"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"formatitalic"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatitalic.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatitalic_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Format italic"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"formatunderline"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatunderline.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/formatunderline_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Format underline"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"alignleft"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/alignleft.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/alignleft_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Align left"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"aligncenter"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/aligncenter.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/aligncenter_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Align center"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"alignright"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/alignright.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			img_off <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/alignright_off.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Align right"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font> <font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"setsearch"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/setsearch.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Search in grid"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"resetsearch"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/resetsearch.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Reset search. Show all records."</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		<font class=cc7>{</font>
+			name <font class=cc2>:</font></font> <font class=cc6>"setamount"</font><font class=cc3><font class=cc2>,</font>
+			img_on <font class=cc2>:</font> <font class=cc7>{</font>
+				src <font class=cc2>:</font></font> <font class=cc6>"img/setamount.gif"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font></font> <font class=cc6>"16"</font><font class=cc3><font class=cc2>,</font> height <font class=cc2>:</font></font> <font class=cc6>"16"</font>
+			<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+			text <font class=cc2>:</font></font> <font class=cc6>"Set count of records per page"</font>
+		<font class=cc3><font class=cc7>}</font> <font class=cc8>]</font>
+	<font class=cc7>}</font><font class=cc2>,</font>
+	statusBar <font class=cc2>:</font> <font class=cc7>{</font>
+		height <font class=cc2>:</font> <font class=cc4>15</font><font class=cc2>,</font>
+		bgcolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			color <font class=cc2>:</font></font> <font class=cc6>"#000000"</font><font class=cc3><font class=cc2>,</font> fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		messageClass <font class=cc2>:</font> <font class=cc7>{</font>
+			color <font class=cc2>:</font></font> <font class=cc6>"#0000ff"</font><font class=cc3><font class=cc2>,</font> fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		fieldText <font class=cc2>:</font></font> <font class=cc6>"Field"</font><font class=cc3><font class=cc2>,</font>
+		valueText <font class=cc2>:</font></font> <font class=cc6>"Value"</font>
+	<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+	pageTurnBar <font class=cc2>:</font> <font class=cc7>{</font>
+		defaultClass <font class=cc2>:</font> <font class=cc7>{</font>
+			backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#ffffff"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font><font class=cc3><font class=cc2>,</font> fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana,Arial"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		activeClass <font class=cc2>:</font> <font class=cc7>{</font>
+			backgroundcolor <font class=cc2>:</font></font> <font class=cc6>"#D4D0C8"</font><font class=cc3><font class=cc2>,</font> fontsize <font class=cc2>:</font></font> <font class=cc6>"11px"</font><font class=cc3><font class=cc2>,</font> fontfamily <font class=cc2>:</font></font> <font class=cc6>"Verdana,Arial"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		img_on <font class=cc2>:</font> <font class=cc7>{</font>
+			src <font class=cc2>:</font></font> <font class=cc6>"img/t_on.gif"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		img_off <font class=cc2>:</font> <font class=cc7>{</font>
+			src <font class=cc2>:</font></font> <font class=cc6>"img/t_off.gif"</font>
+		<font class=cc3><font class=cc7>}</font><font class=cc2>,</font>
+		text <font class=cc2>:</font></font> <font class=cc6>"Page"</font><font class=cc3><font class=cc2>,</font> width <font class=cc2>:</font> <font class=cc4>65</font><font class=cc2>,</font> height <font class=cc2>:</font> <font class=cc4>14</font>
+	<font class=cc7>}</font>
+<font class=cc7>}</font><font class=cc2>;</font></font> 
+</pre>
+
+</body></html>
