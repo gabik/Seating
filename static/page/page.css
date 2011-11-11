@@ -36,6 +36,15 @@
 	margin-top: 15px;
 	font-weight: bold;
 }
+.additional_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #000000;
+	margin-right: 0px;
+	margin-top: 15px;
+	text-align:top;
+	font-weight: bold;
+}
 .text_14_black {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 14px;

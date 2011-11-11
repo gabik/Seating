@@ -12,11 +12,39 @@
 	});
 	
 	$(document).ready(function() {
-		$("#sendBtn").mouseover(function(){
+	
+		$("#addDetailsList").slideToggle("slow");
+		window.scrollBy(0,0);
+		var addDetailsOpen = false;
+		
+		$("#sendBtn").mouseout(function(){
 			$(this).attr('src',"/static/page/images/send_btn_nr.png");
 		});
-		$("#sendBtn").mouseout(function(){
+		$("#sendBtn").mouseover(function(){
 			$(this).attr('src',"/static/page/images/send_btn.png");
+		});
+		$("#addDetails").mouseout(function(){
+			if (addDetailsOpen)
+				$(this).attr('src',"/static/page/images/expander_down_n.png");
+			else
+				$(this).attr('src',"/static/page/images/expander_up_n.png");
+		});
+		$("#addDetails").mouseover(function(){
+			if (addDetailsOpen)
+				$(this).attr('src',"/static/page/images/expander_down_r.png");
+			else
+				$(this).attr('src',"/static/page/images/expander_up_r.png");
+		});
+		$("#addDetails").click(function(){
+			addDetailsOpen = !addDetailsOpen;
+			if (addDetailsOpen)
+			{
+				$(this).attr('src',"/static/page/images/expander_down_r.png");
+				window.scrollBy(0,300);
+			}
+			else
+				$(this).attr('src',"/static/page/images/expander_up_r.png");
+			$("#addDetailsList").slideToggle("slow");
 		});
 	});
 	
@@ -29,7 +57,7 @@
 <body id="pagebody">
 
 <div id="content">
-  <table width="658" border="0" cellspacing="0" cellpadding="0">
+  <table width="688" border="0" cellspacing="0" cellpadding="0">
     <tr>
       <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
       <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
@@ -65,10 +93,6 @@
 		{% for error in userprofile_form.email.errors %}
 				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
-		<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
-		{% for error in userprofile_form.phone_number.errors %}
-				<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
-		{% endfor %}</span></p>
 		<p class="text_14_black_bold">פרטי אירוע:</p>
 		<p class="text_14_black">תאריך אירוע:&nbsp;&nbsp;&nbsp;&nbsp;<span>{{user_form.occasiondate}}
 		{% for error in user_form.occasiondate.errors %}
@@ -101,18 +125,25 @@
 			{% for error in partners_form.partner1_age.errors %}
 					<span class="text_14_red_bold"> שדה זה חיוני, וודא תקינות 1-120 </span>
 			{% endfor %}</span></p>
-			<p class="text_14_black">שם פרטי נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
-			{% for error in partners_form.partner2_first_name.errors %}
-					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
-			{% endfor %}</span></p>
-			<p class="text_14_black">שם מש"פ נוסף:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
-			{% for error in partners_form.partner2_last_name.errors %}
-					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
-			{% endfor %}</span></p>
-			<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
-			{% for error in partners_form.partner2_gender.errors %}
-					<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
-			{% endfor %}</span></p>
+			<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_up_n.png" width="24" height="15"/></span></p>
+			<ul id="addDetailsList">
+				<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
+				{% for error in userprofile_form.phone_number.errors %}
+						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
+				{% endfor %}</span></p>
+				<p class="text_14_black">שם פרטי נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
+				{% for error in partners_form.partner2_first_name.errors %}
+						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
+				{% endfor %}</span></p>
+				<p class="text_14_black">שם מש"פ נוסף:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
+				{% for error in partners_form.partner2_last_name.errors %}
+						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
+				{% endfor %}</span></p>
+				<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
+				{% for error in partners_form.partner2_gender.errors %}
+						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
+				{% endfor %}</span></p>
+			<ul>
 		</div>
 
 		<div class="fieldWrapper">
@@ -129,7 +160,7 @@
 		</div>
 
 		</br>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-		<input id="sendBtn" type="image" src="/static/page/images/send_btn.png" value="Submit" style="border: 0;">
+		<input id="sendBtn" type="image" src="/static/page/images/send_btn_nr.png" value="Submit" style="border: 0;">
 		{% csrf_token %}
 		</form></td>
       <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>

@@ -111,3 +111,12 @@
   direction:rtl;
   width:122;
  }
+ 
+.tableProp
+{
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:4;
+	margin-left:-11; 
+}

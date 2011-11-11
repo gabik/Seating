@@ -163,7 +163,10 @@ def drop_person(request):
 				if (single_element.current_sitting >= single_element.max_sitting):
 					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
 				else:
-					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
+					if (single_element.current_sitting == 0):
+						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
+					else:
+						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
 			else:
 				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 	return HttpResponse(json_dump)

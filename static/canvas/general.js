@@ -10,6 +10,8 @@ var multiSelection = false;
 var isMousePressFromCanvas = false;
 var maxGuests = 1056;
 var addPersonDivOpen = false;
+var propMenuOpen = false;
+var fromPropMeneBtn = false;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -71,7 +73,7 @@ function setWidthAndHeight(element, newScale, lastScale)
 		scale =  (newScale - maxElementCapacity) * 2;
 	}
 
-	for (var i = 0; i < elementImgs.length ; i++)
+	for (var i = 0; i < 1 ; i++)
 	{
 		var addHeight = 0;
 		var img = $("#"+ elementImgs[i].id);
@@ -284,10 +286,14 @@ function selectElement(element)
       SelectedElem.border('0px white 0');
     }
     element.border('2px pink .5');
+	if (!fromPropMeneBtn)
+	{
+		posPropertyPanel("");
+	}
 	multiSelection = false;
     SelectedElem = element;
 	updateElementScreenProperties(element);
-	showPropertyPanel(element);
+	fromPropMeneBtn = false;
 }
 
 function updateElementScreenProperties(element)
@@ -335,11 +341,18 @@ function reloadElementStatus(element)
 		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
 		}
 	}
-	/*
 	else
 	{
-		$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/YellowStatus.png");
-	}*/
+		if (elementImgs[0].id.split("-", 1) == "Square") {
+		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+		} else if (elementImgs[0].id.split("-", 1) == "Round") {
+			  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+		}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+		}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+		}
+	}
 }
 
 function pointTableAfterSearch(element)
@@ -553,6 +566,7 @@ function startDrag(element)
 	startDradPositionList = new Array(1);
 	startDradPositionList[0] = element.position();
     setSaveStatus("Waiting");
+	posPropertyPanel("");
 }
 
 function stopDrag(element)
@@ -565,6 +579,7 @@ function stopDrag(element)
     undoElement[0] = element;
     undoElement[1] = "move";
 	undoElementList[0] = undoElement;
+	posPropertyPanel("");
     if (collisionWithOtherElement(element))
     {
       if (startDradPositionList[0] != "")
@@ -578,6 +593,101 @@ function stopDrag(element)
     {
        saveElement(element);
     }
+}
+
+function propMenuBtnClick(elementID)
+{
+	if (propMenuOpen)
+	{
+		posPropertyPanel("");
+		if (SelectedElem.context.id == elementID)
+		{
+			propMenuOpen = false;
+		}
+		else
+		{
+			posPropertyPanel($("#" + elementID));
+			propMenuOpen = true;
+		}
+	}
+	else
+	{
+		posPropertyPanel($("#" + elementID));
+		propMenuOpen = true;
+	}
+	fromPropMeneBtn = true;
+}
+
+function undoButtonPress()
+{
+	for (var index = 0; index < undoElementList.length; index++)
+	{
+		var undoElement = undoElementList[index];
+		if (undoElement[0] != "" && undoElement[1] != "" )
+		{
+		   if (!tableMode && !detailsMode)
+		   {
+			   switch(undoElement[1])
+			   {
+				  case "move":
+					  {
+						var newTop = startDradPositionList[index].top;
+						var newLeft = startDradPositionList[index].left;
+						startDradPositionList[index] = undoElement[0].position();
+						undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
+						break;
+					  }
+				  case "closetbl":
+					  {
+						undoElement[0].dblclick();
+						undoElement[1] = "opentbl";
+						break;
+					  }
+				  case "add":
+					  {
+							$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
+							function(data){
+							if (data.status == 'OK')
+							{
+							   undoElement[1] = "delete"; 
+							   ShowHourGlassWaitingWindow(true);
+							} else if (data.status == 'LIMIT')
+											{
+												alert("Maximum 48 tables");
+												ShowHourGlassWaitingWindow(true);
+											}
+							}, 'json');
+							break;
+					  }
+				  case "delete":
+				  {
+					  setSaveStatus("Waiting");
+					  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
+					  function(data){
+					  if (data.status == 'OK')
+					  { 
+						 undoElement[1] = ""; 
+						 ShowHourGlassWaitingWindow(true);
+					  }
+					  }, 'json');
+					  break;
+				  }
+			   }
+			}
+			else if ( tableMode )
+			{
+				switch(undoElement[1])
+			   {
+				  case "opentbl":
+				  	  {
+						undoElement[0].dblclick();
+						undoElement[1] = "closetbl";
+						break;
+					  }
+				}
+			}
+		}
+	}
 }
 
 $(document).ready(function() {
@@ -614,12 +724,19 @@ $(document).ready(function() {
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
 
-  showPropertyPanel("");
+  posPropertyPanel("");
   updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
   
+  	$(".tableProp").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/table_prop_n.png");
+	});
+	$(".tableProp").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/table_prop_r.png");
+	});
+		
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
@@ -762,6 +879,19 @@ $(document).ready(function() {
 						}
 						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
 					}
+					else if (data.table_status == 'Yellow')
+					{
+						if (elementImgs[0].id.split("-", 1) == "Square") {
+						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+						} else if (elementImgs[0].id.split("-", 1) == "Round") {
+						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+						}
+						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+					}
 					var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
 					var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 					
@@ -773,7 +903,6 @@ $(document).ready(function() {
 					}
 					updateSeatedLabel();
 					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
-					posPropertyPanel(table);
 					rePaintPeopleList();
 				  }else if (data.status == 'FULL')
 				  {
@@ -1032,8 +1161,7 @@ $(document).ready(function() {
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" ) {
-           SelectedElem.border('2px pink .5');
-		   posPropertyPanel(SelectedElem);
+           //SelectedElem.border('2px pink .5');
       }
     }
 	isMousePressFromCanvas = false;
@@ -1046,6 +1174,5 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		HideHourGlassWaitingWindow();
 	});
-
  });
   
