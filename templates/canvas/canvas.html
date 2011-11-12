@@ -37,23 +37,96 @@
  <!--<![endif]-->
 
 <script type="text/javascript">
- window.onload = function()
- {
-  var DivId = [];
-  var DDiv = [];
-  {% for elem in elements %}
-   DivId[{{ elem.elem_num }}] = "DragDiv-{{ elem.elem_num }}";
-   DDiv[{{ elem.elem_num }}] = document.getElementById(DivId[{{ elem.elem_num }}]);
-   DDiv[{{ elem.elem_num }}].style.left = {{ elem.x_cord }} + "px";
-   DDiv[{{ elem.elem_num }}].style.top = {{ elem.y_cord }} + "px";
-   DDiv[{{ elem.elem_num }}].onmousedown = function()
-   {
-    Dragging = true;
-   } 
-  {% endfor %}
-  
- }
- 
+	 window.onload = function()
+	 {
+	  var DivId = [];
+	  var DDiv = [];
+	  {% for elem in elements %}
+	   DivId[{{ elem.elem_num }}] = "DragDiv-{{ elem.elem_num }}";
+	   DDiv[{{ elem.elem_num }}] = document.getElementById(DivId[{{ elem.elem_num }}]);
+	   DDiv[{{ elem.elem_num }}].style.left = {{ elem.x_cord }} + "px";
+	   DDiv[{{ elem.elem_num }}].style.top = {{ elem.y_cord }} + "px";
+	   DDiv[{{ elem.elem_num }}].onmousedown = function()
+	   {
+		Dragging = true;
+	   } 
+	  {% endfor %}
+	  
+	 }
+	 
+	$(document).ready(function() {
+
+	$(".tableProp").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/table_prop_n.png");
+	});
+	$(".tableProp").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/table_prop_r.png");
+	});
+		  
+  	$("#ExitImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/exit_canvas_n.png");
+	});
+	$("#ExitImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/exit_canvas_r.png");
+	});
+		  
+  	$("#OIImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/calender_n.png");
+	});
+	$("#OIImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/calender_r.png");
+	});
+		  
+  	$("#OFImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/end_n.png");
+	});
+	$("#OFImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/end_r.png");
+	});
+		  
+  	$("#MoneyImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/money_n.png");
+	});
+	$("#MoneyImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/money_r.png");
+	});
+		  
+  	$("#PSImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/grid_n.png");
+	});
+	$("#PSImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/grid_r.png");
+	});
+				  
+  	$("#UndoImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/back_n.png");
+	});
+	$("#UndoImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/back_r.png");
+	});
+				  
+  	$("#DelImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/minus_n.png");
+	});
+	$("#DelImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/minus_r.png");
+	});
+	
+	$("#AddDivImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/pluse_n.png");
+	});
+	$("#AddDivImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/pluse_r.png");
+	});
+				  
+  	$("#AlignImg").mouseout(function(){
+		$(this).attr('src',"/static/canvas/images/align_n.png");
+	});
+	$("#AlignImg").mouseover(function(){
+		$(this).attr('src',"/static/canvas/images/align_r.png");
+	});
+	
+	});
 </script>
 <title>2Seat Canvas</title>
 </head>
@@ -73,7 +146,7 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
-					  <td height="32" width="455" bgcolor="#5A8EA3"></td>
+					  <td height="32" width="521" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 							<p class="titles_black" dir="rtl"> האירוע של <span class="titles_blue" dir="rtl">{{ partners.partner1_first_name }} {{addChar}} {{ partners.partner2_first_name }} {{ last_name }}
@@ -82,13 +155,13 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
 					<tr>
-					  <td height="10" width="1075" colspan="5"><img src="/static/canvas/images/shadow.png" width="925" height="10" /></td>
+					  <td height="10" width="1141" colspan="5"><img src="/static/canvas/images/shadowUpperMenu.png" width="1141" height="10" /></td>
 					</tr>
 				</table>				
 			</div>
 			<div class="AddDiv" title="הוסף שולחן">
 			<!--[if IE]>
-				<img id="AddDivImg" src="/static/canvas/images/+table_n.png" onclick="addTableButtonPress()"></div>
+				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
@@ -115,13 +188,13 @@
 					<li><a href="#" onclick="addMenuItemButtonPress('line')"><img id="null_line" border=0 src="/static/canvas/images/line.png" class="MenuItem" title="עמדת די ג'יי"></a></li>
 				</div>
  			</ul>
-			<div class="AligmentDiv" title="ישור שולחנות מסומנים" onclick="addAligmentDivButtonPress()"><img src="/static/canvas/images/align_n.png"></div>
-			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img src="/static/canvas/images/-table_n.png"  onclick="delTableButtonPress()"></div>
-			<div class="UndoDiv" title="חזור למצב שולחן קודם" onClick="undoButtonPress()"><img src="/static/canvas/images/back_n.png" onclick="undoButtonPress"></div>
-			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img src="/static/canvas/images/grid_n.png" onclick="shapePlacementDivButtonPress()"></div>
+			<div class="AligmentDiv" title="ישור שולחנות מסומנים" onclick="addAligmentDivButtonPress()"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img id="DelImg" src="/static/canvas/images/minus_n.png"  onclick="delTableButtonPress()"></div>
+			<div class="UndoDiv" title="חזור למצב שולחן קודם" onClick="undoButtonPress()"><img id="UndoImg" src="/static/canvas/images/back_n.png" onclick="undoButtonPress"></div>
+			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img id="PSImg" src="/static/canvas/images/grid_n.png" onclick="shapePlacementDivButtonPress()"></div>
 			<![endif]-->
 			<!--[if !IE]><!-->
-				<img id="AddDivImg" src="/static/canvas/images/+table_n.png"></div>
+				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png"></div>
 				 			<ul class="AddMenu">
 				<li>
 					<div class="NumOfItemSelect">
@@ -146,24 +219,25 @@
 				<li><a href="#"><img id="null_ellipse" border=0 src="/static/canvas/images/ellipse.png"  class="MenuItem"title="בר משקאות"></a></li>
 				<li><a href="#"><img id="null_line" border=0 src="/static/canvas/images/line.png"  class="MenuItem" title="עמדת די ג'יי"></a></li>
  			</ul>
-			<div class="AligmentDiv" title="ישור שולחנות מסומנים"><img src="/static/canvas/images/align_n.png"></div>
-			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img src="/static/canvas/images/-table_n.png"></div>
-			<div class="UndoDiv" title="חזור למצב שולחן קודם"><img src="/static/canvas/images/back_n.png"></div>
-			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img src="/static/canvas/images/grid_n.png"></div>
+			<div class="AligmentDiv" title="ישור שולחנות מסומנים"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img  id="DelImg"src="/static/canvas/images/minus_n.png"></div>
+			<div class="UndoDiv" title="חזור למצב שולחן קודם"><img id="UndoImg" src="/static/canvas/images/back_n.png"></div>
+			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
-			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img src="/static/canvas/images/money_n.png"></div>
-			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img src="/static/canvas/images/end_n.png"></div>
-			<div class="OperationsInfoDiv" title="פירוט פעולות עריכת אירוע"><img src="/static/canvas/images/calender.png"></div>
+			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
+			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
+			<div class="OperationsInfoDiv" title="פירוט פעולות עריכת אירוע"><img id="OIImg" src="/static/canvas/images/calender_n.png"></div>
+			<div class="ExitCanvasDiv" title="יציאה מהמערכת"><img id="ExitImg" style="border: 0;" src="/static/canvas/images/exit_canvas_n.png"></img></div>
 			<ul class="AligmentMenu">
- 				<li><div id="HorizontalAligmentDivLeft" title="ישור אופקי לשמאל"><img src="/static/canvas/images/HorizontalLeft.png"></div></li>
-				<li><div id="HorizontalAligmentDivRight"  title="ישור אופקי לימין"><img src="/static/canvas/images/HorizontalRight.png"></div></li>
-				<li><div id="VerticalAligmentDivTop"  title="ישור אנכי למעלה"><img src="/static/canvas/images/VerticalTop.png"></div></li>
-				<li><div id="VerticalAligmentDivBottom"  title="ישור אנכי למטה"><img src="/static/canvas/images/VerticalBottom.png"></div></li>
+ 				<li><div id="HorizontalAligmentDivLeft" title="ישור אופקי לשמאל"><img src="/static/canvas/images/HorizontalLeft.png" class="Pointer"></div></li>
+				<li><div id="HorizontalAligmentDivRight"  title="ישור אופקי לימין"><img src="/static/canvas/images/HorizontalRight.png" class="Pointer"></div></li>
+				<li><div id="VerticalAligmentDivTop"  title="ישור אנכי למעלה"><img src="/static/canvas/images/VerticalTop.png" class="Pointer"></div></li>
+				<li><div id="VerticalAligmentDivBottom"  title="ישור אנכי למטה"><img src="/static/canvas/images/VerticalBottom.png" class="Pointer"></div></li>
  			</ul>
 			<ul class="ShapePlacementMenu">
- 				<li><p Id="SeqPlaceMentShapes" class="Pointer" title="סידור רציף">סידור רציף</p></li>
-				<li><p Id="HSquarePlaceMentShapes" class="Pointer" title="סידור ח">סידור ח</p></li>
- 				<li><p Id="SquarePlaceMentShapes" class="Pointer"  title="סידור מעגלי">סידור מעגלי</p></li>
+ 				<li><p Id="SeqPlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור רציף">סידור רציף</p></li>
+				<li><p Id="HSquarePlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור ח">סידור ח</p></li>
+ 				<li><p Id="SquarePlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור מעגלי">סידור מעגלי</p></li>
  			</ul>
 			<div class="SaveState"><p>סטטוס שמירה:<span><img id="SaveStateImg" src=""></p></span></div>
 

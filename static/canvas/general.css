@@ -110,48 +110,64 @@
   position:absolute;
   left:15px;
   top:-2px;
+  cursor:pointer;
  }
  .DelDiv
  {
   position:absolute;
   left:72px;
-  top:-2px;
+  top:-2px;	
+  cursor:pointer;
  }
  .UndoDiv
  {
   position:absolute;
   left:129px;
   top:-2px;
+  cursor:pointer;
  }
  .PlaceMentShapesDiv
  {
   position:absolute;
   left:243px;
   top:-2px;
+  cursor:pointer;
  }
  .MoneyInfoDiv
  {
   position:absolute;
   left:300px;
   top:-2px;
+  cursor:pointer;
  }
  .OccasionFinishDiv
   {
   position:absolute;
   left:357px;
   top:-2px;
+  cursor:pointer;
  }
  .OperationsInfoDiv
   {
   position:absolute;
   left:414px;
   top:-2px;
+  cursor:pointer;
+ }
+ 
+ .ExitCanvasDiv
+ {
+   position:absolute;
+   left:471px;
+   top:-2px;	
+   cursor:pointer;
  }
   .AligmentDiv
  {
   position:absolute;
   left:186px;
   top:-2px;
+  cursor:pointer;
  }
  .NumOfItemSelect
  {
@@ -207,6 +223,7 @@
  }
  .Property
  {
+	cursor:pointer;
  }
  #people-list
  {

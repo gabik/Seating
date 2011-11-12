@@ -718,25 +718,19 @@ $(document).ready(function() {
        document.getElementById(imgs[i].id).style.visibility = "hidden";
     }
   }
-    var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
+  
+  var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
 
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
-
+		
   posPropertyPanel("");
   updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
-  
-  	$(".tableProp").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/table_prop_n.png");
-	});
-	$(".tableProp").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/table_prop_r.png");
-	});
-		
+
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
@@ -1174,5 +1168,14 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		HideHourGlassWaitingWindow();
 	});
+	
+	$(".ExitCanvasDiv").click(function(){
+		var answer = confirm('האם לצאת מהמערכת');
+		if (answer)
+		{
+			document.location.href='/accounts/logout'; 
+		}
+	});
+
  });
   
