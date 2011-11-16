@@ -13,7 +13,7 @@
 	
 	$(document).ready(function() {
 	
-		$("#addDetailsList").slideToggle("slow");
+		$("#addDetailsList").hide();
 		window.scrollBy(0,0);
 		var addDetailsOpen = false;
 		
@@ -143,7 +143,7 @@
 				{% for error in partners_form.partner2_gender.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>
-			<ul>
+			</ul>
 		</div>
 
 		<div class="fieldWrapper">
