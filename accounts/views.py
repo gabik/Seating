@@ -15,9 +15,10 @@ from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, gro
 from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
 import sys
 sys.path.append("/Seating/static/locale/he")
-#import he
+import he
 
 #@login_required
 def is_login(request):
@@ -69,6 +70,8 @@ def create_user(request):
 			partners.save()
 			'''convertXLS2CSV(r"/tmp/list.xls")
 			readCSV(r"/tmp/list.csv", created_user)'''
+			new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+			login(request, new_user)
 			return HttpResponseRedirect('/accounts/registered')
 	else:
 		userprofile_form = UserProfileForm()
@@ -306,6 +309,58 @@ def download_excel(request):
 	cur_user.excel_hash=str(hash)
 	cur_user.save()
 	return render_to_response('accounts/download_excel.html')
+
+@login_required
+def sorted_excel(request):
+	Guests = Guest.objects.filter(user=request.user).order_by('guest_last_name')
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	borders = xlwt.Borders()
+	borders.left = xlwt.Borders.THIN
+	borders.right = xlwt.Borders.THIN
+	borders.top = xlwt.Borders.THIN
+	borders.bottom = xlwt.Borders.THIN
+	borders.left_colour = 0x40
+	borders.right_colour = 0x40
+	borders.top_colour = 0x40
+	borders.bottom_colour = 0x40
+	row_num = 0
+	row1 = sheet1.row(row_num)
+	row1.write(0, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+        pattern = xlwt.Pattern()
+        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        pattern.pattern_fore_colour = 1 
+        style = xlwt.XFStyle()
+	protection = xlwt.Protection()
+	protection.cell_locked = 1
+	style.protection = protection
+        style.pattern = pattern
+        style.borders = borders
+	row_num+=1
+	user_elements = SingleElement.objects.filter(user=request.user)
+	for g in Guests:
+		row1 = sheet1.row(row_num)
+		row1.write(0,g.guest_last_name, style)
+		row1.write(1,g.guest_first_name, style)
+		for h in user_elements:
+			if h.elem_num == g.elem_num:
+				cur_caption=h.caption
+		row1.write(2,cur_caption, style)
+		row1.write(3,g.elem_num, style)
+		row_num+=1
+	sheet1.col(0).width = 4000
+	sheet1.col(1).width = 4000
+	sheet1.col(2).width = 4000
+	sheet1.col(3).width = 5000
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
+	book.save('/Seating/static/excel_output/sorted.xls')
+	book.save(TemporaryFile())
+	return render_to_response('accounts/sorted.html')
 
 @login_required
 def do_duplicates(request):
