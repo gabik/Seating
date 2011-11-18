@@ -19,6 +19,10 @@ function turnToRegularMode(element,event)
 		$(this).fadeTo(400, 1, function() {});
 	});
 	
+	$(".tableProp").each(function(i) {
+		$(this).fadeTo(400, 1, function() {});
+	});
+	
 	//originalElement.border('0px white 0');
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -63,7 +67,7 @@ function turnToRegularMode(element,event)
 	elementCaption[0].style.fontSize= originalFontSize;
 	elementCaption[1].style.fontSize= originalFontSize;
 	
-	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2] - 10, height: originalPropertiesArray[3] - 3 * originalFontSize},300, 'linear');
+	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 3 * originalFontSize},300, 'linear');
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
@@ -117,7 +121,18 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			});
 		}
 	});
-
+	
+	$(".tableProp").each(function(i) {
+		if (originalElement.context.id != $(this).context.id)
+		{
+			//$(this).border('0px white 0');
+			$(this).fadeTo(400, 0, function() {
+				// Animation complete.
+				$(this).hide();
+			});
+		}
+	});
+	
 	if (Math.round((elementMaxSize / 2)) % 2 != 0)
 	{
 		tableModeWidth = tableElementSize / 2 * (Math.round(elementMaxSize / 2) + 1);
@@ -245,33 +260,43 @@ function proccedSearchOnRegluarMode(data)
 
 $(document).ready(function() {
   $(".DragDiv").dblclick( function(event) {
-  	 var elementImgs = $(this).context.getElementsByTagName("img");
-	 $(this).border('0px white 0');
-	 if (isThisPeopleTable(elementImgs[0].id))
-     {
-		if (tableMode)
-		{
-			$(this).attr("title", "Press Double Click For Edit Table");
-			turnToRegularMode($(this),event);
+		posPropertyPanel("");
+		 var elementImgs = $(this).context.getElementsByTagName("img");
+		 $(this).border('0px white 0');
+		 if (isThisPeopleTable(elementImgs[0].id))
+		 {
+			if (tableMode)
+			{
+				$(this).attr("title", "לחיצה כפולה למצב עריכה");
+				turnToRegularMode($(this),event);
+				undoElementList = new Array(1);
+				var undoElement = new Array(2);
+				undoElement[0] = $(this);
+				undoElement[1] = "closetbl";
+				undoElementList[0] = undoElement;
+			}
+			else
+			{
+				$(this).attr("title", "לחיצה כפולה חזרה לאולם");
+				turnToTableMode($(this),true,event);
+				undoElementList = new Array(1);
+				var undoElement = new Array(2);
+				undoElement[0] = $(this);
+				undoElement[1] = "opentbl";
+				undoElementList[0] = undoElement;
+			}
 		}
 		else
 		{
-			showPropertyPanel("");
-			$(this).attr("title", "Press Double Click To All Tables View");
-			turnToTableMode($(this),true,event);
-		}
-	}
-	else
-	{
-		if (event != undefined)
-		{
-			if (event.user == "SearchTable")
+			if (event != undefined)
 			{
-				var data = event.pass;
-				pointTableAfterSearch($("#" + data));
-				
+				if (event.user == "SearchTable")
+				{
+					var data = event.pass;
+					pointTableAfterSearch($("#" + data));
+					
+				}
 			}
 		}
-	}
   });
 });

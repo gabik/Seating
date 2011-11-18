@@ -1,8 +1,26 @@
-var listTableElementString = '<li><label class="text_black">גודל: </label>&nbsp;&nbsp;<select size="1" id="ElementSize" class="SizeSelect"><option value="4">4<option value="5">5<option value="6">6<option value="7">7<option value="8">8<option value="9">9<option value="10">10<option value="11">11<option value="12">12<option value="13">13<option value="14">14<option value="15">15<option value="16">16<option value="17">17<option value="18">18<option value="19">19<option value="20">20<option value="21">21<option value="22">22</select>&nbsp;&nbsp;<label class="text_black">כמות: </label>&nbsp;&nbsp;<select size="1" id="ElementAmount" class="AmountSelect"><option value="1" SELECTED>1<option value="2">2<option value="3">3<option value="4">4<option value="5">5<option value="6">6<option value="7">7<option value="8">8<option value="9">9</select>&nbsp;&nbsp;<img class="RemoveBtn" src="/static/canvas/images/-table_only_n.png"/></li>';
+var listTableElementString = '<li><label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="3" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
 
-var maxItemsPerKind = 100;
+var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
 var dataString = "";
+
+function noZeroData()
+{
+	var result = true;
+	
+	$("#TableTypeList > li").each(function(i) {
+			
+		var tableProperties = $(this).find('input');
+
+		if (parseInt(tableProperties.last().val()) <= 0 || parseInt(tableProperties.first().val()) <= 0)
+		{
+			result = false;
+			return false;
+		}
+	});
+	
+	return result;
+}
 
 function getAmount(li)
 {
@@ -24,36 +42,12 @@ function DelayReload(time_wait)
 function getTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeAList > li").each(function(i) {
+	$("#TableTypeList > li").each(function(i) {
 			
-		var tableProperties = $(this).find('select');
+		var tableProperties = $(this).find('input');
 		var amount;
 	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
-	});
-	$("#TableTypeBList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
-	});
-	$("#TableTypeCList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
-	});
-	$("#TableTypeDList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
+		amount = parseInt(tableProperties.first().val());
 		totalAmount = totalAmount + amount;
 	});
 	return totalAmount;
@@ -62,33 +56,9 @@ function getTotalAmount()
 function getTotalSeat()
 {
 	var totalSize = 0;
-	$("#TableTypeAList > li").each(function(i) {
+	$("#TableTypeList > li").each(function(i) {
 			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
-	});
-	$("#TableTypeBList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
-	});
-	$("#TableTypeCList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
-	});
-	$("#TableTypeDList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
+		var tableProperties = $(this).find('input');
 		var size;
 	
 		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
@@ -101,13 +71,17 @@ function getTotalSquareSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeAList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "A")
+		{
+			var tableProperties = $(this).find('input');
+			var size;
 	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
+			size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
+			totalSize = totalSize + size;
+		}
 	});
 	
 	return totalSize;
@@ -116,13 +90,17 @@ function getTotalSquareSeat()
 function getSquareTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeAList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "A")
+		{	
+			var tableProperties = $(this).find('input');
+			var amount;
+		
+			amount = parseInt(tableProperties.first().val());
+			totalAmount = totalAmount + amount;
+		}
 	});
 	
 	return totalAmount;
@@ -132,13 +110,17 @@ function getTotalRoundSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeBList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "B")
+		{
+			var tableProperties = $(this).find('input');
+			var size;
+		
+			size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
+			totalSize = totalSize + size;
+		}
 	});
 	
 	return totalSize;
@@ -147,13 +129,18 @@ function getTotalRoundSeat()
 function getRoundTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeBList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
+	$("#TableTypeList > li").each(function(i) {
 	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "B")
+		{
+			var tableProperties = $(this).find('input');
+			var amount;
+	
+			amount = parseInt(tableProperties.first().val());
+			totalAmount = totalAmount + amount;
+		}
 	});
 	
 	return totalAmount;
@@ -163,13 +150,17 @@ function getTotalRectSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeCList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "C")
+		{
+			var tableProperties = $(this).find('input');
+			var size;
+
+			size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
+			totalSize = totalSize + size;
+		}
 	});
 	
 	return totalSize;
@@ -178,13 +169,17 @@ function getTotalRectSeat()
 function getRectTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeCList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "C")
+		{
+			var tableProperties = $(this).find('input');
+			var amount;
+		
+			amount = parseInt(tableProperties.first().val());
+			totalAmount = totalAmount + amount;
+		}
 	});
 	
 	return totalAmount;
@@ -194,13 +189,17 @@ function getTotalLozengeSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeDList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var size;
-	
-		size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
-		totalSize = totalSize + size;
+	$("#TableTypeList > li").each(function(i) {
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "D")
+		{
+			var tableProperties = $(this).find('input');
+			var size;
+		
+			size = parseInt(tableProperties.first().val()) * parseInt(tableProperties.last().val());
+			totalSize = totalSize + size;
+		}
 	});
 	
 	return totalSize;
@@ -209,13 +208,18 @@ function getTotalLozengeSeat()
 function getLozengeTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeDList > li").each(function(i) {
-			
-		var tableProperties = $(this).find('select');
-		var amount;
-	
-		amount = parseInt(tableProperties.last().val());
-		totalAmount = totalAmount + amount;
+	$("#TableTypeList > li").each(function(i) {
+		
+		var type =  $(this).find('select').first();
+		
+		if (type.val() == "D")
+		{
+			var tableProperties = $(this).find('input');
+			var amount;
+		
+			amount = parseInt(tableProperties.first().val());
+			totalAmount = totalAmount + amount;
+		}
 	});
 	
 	return totalAmount;
@@ -224,28 +228,16 @@ function getLozengeTotalAmount()
 function removeLiParent(li)
 {
 	li.parent().remove();
-	if ($("#TableTypeDList > li").size() <= maxItemsPerKind)
+	if ($("#TableTypeList > li").size() <= maxSeated)
 	{
-		$("#AddLiD").attr("src","/static/canvas/images/+table_n.png");
-	}
-	if ($("#TableTypeCList > li").size() <= maxItemsPerKind)
-	{
-		$("#AddLiC").attr("src","/static/canvas/images/+table_n.png");
-	}
-	if ($("#TableTypeBList > li").size() <= maxItemsPerKind)
-	{
-		$("#AddLiB").attr("src","/static/canvas/images/+table_n.png");
-	}
-	if ($("#TableTypeAList > li").size() <= maxItemsPerKind)
-	{
-		$("#AddLiA").attr("src","/static/canvas/images/+table_n.png");
+		$("#AddLi").attr("src","/static/canvas/images/pluse_n.png");
 	}
 	updateCounters();
 }
 
 function createElementByLi(li, type, cordx, cordy)
 {
-	var tableProperties = li.find('select');
+	var tableProperties = li.find('input');
 	var amount,size,kind;
 	
 	if (type == "A")
@@ -264,8 +256,8 @@ function createElementByLi(li, type, cordx, cordy)
 	{
 		kind = "Lozenge";
 	}
-	size  = parseInt(tableProperties.first().val()); 
-	amount = parseInt(tableProperties.last().val());
+	size  = parseInt(tableProperties.last().val()); 
+	amount = parseInt(tableProperties.first().val());
 		 
 	dataString = dataString + kind + ',' + amount + ',' + size + ',' + cordx + ',' + cordy + '|';
 }
@@ -285,40 +277,70 @@ function postDataString()
 
 function updateCounters()
 {
-	document.getElementById("TableCounter").innerHTML = getTotalAmount();
-	document.getElementById("PersonCounter").innerHTML = getTotalSeat();
-	document.getElementById("roundSum").innerHTML = getRoundTotalAmount();
-	document.getElementById("roundSeatAmount").innerHTML = getTotalRoundSeat();
-	document.getElementById("squareSum").innerHTML = getSquareTotalAmount();
-	document.getElementById("squareSeatAmount").innerHTML = getTotalSquareSeat();
-	document.getElementById("rectSum").innerHTML = getRectTotalAmount();
-	document.getElementById("rectSeatAmount").innerHTML = getTotalRectSeat();
-	document.getElementById("lozengeSum").innerHTML = getLozengeTotalAmount();
-	document.getElementById("lozengeSeatAmount").innerHTML = getTotalLozengeSeat();
+	$("#tableCounter").text(getTotalAmount());
+	$("#personCounter").text(getTotalSeat());
+	$("#roundSum").text(getRoundTotalAmount());
+	$("#roundSeatAmount").text(getTotalRoundSeat());
+	$("#squareSum").text(getSquareTotalAmount());
+	$("#squareSeatAmount").text(getTotalSquareSeat());
+	$("#rectSum").text(getRectTotalAmount());
+	$("#rectSeatAmount").text(getTotalRectSeat());
+	$("#lozengeSum").text(getLozengeTotalAmount());
+	$("#lozengeSeatAmount").text(getTotalLozengeSeat());
+	$("#errorMsg").text("");
 }
 
 function mouseOverRemoveBtn(element)
 {
-	element.attr('src',"/static/canvas/images/-table_only_r.png");
+	element.attr('src',"/static/canvas/images/minus_r.png");
 }
 
 function mouseOutRemoveBtn(element)
 {
-	element.attr('src',"/static/canvas/images/-table_only_n.png");
+	element.attr('src',"/static/canvas/images/minus_n.png");
 }
 
+function tableShapeChange(element)
+{
+	if (element.val() == "A")
+	{
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");
+	}
+	else if (element.val() == "B")
+	{
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");
+	}
+	else if (element.val() == "C")
+	{
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+	}
+	else if (element.val() == "D")
+	{
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+	}
+ }
+ 
+function insureNumInput(event)
+{
+	// Allow only backspace and delete and Enter
+	if ( event.keyCode == 46 || event.keyCode == 8 || event.keyCode == 13) {
+		// let it happen, don't do anything
+	}
+	else {
+		// Ensure that it is a number and stop the keypress
+		if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
+			event.preventDefault(); 
+		}   
+	}
+}
 
 $(document).ready(function(){
 
-  $("#MainFrameTableTypeA").addClass('TableTypeA');
-  $("#MainFrameTableTypeB").addClass('TableTypeB');
-  $("#MainFrameTableTypeB").addClass('TableTypeC');
-  
   $(".AddBtn").mouseover(function(){
-	$(this).attr('src',"/static/canvas/images/+table_r.png");
+	$(this).attr('src',"/static/canvas/images/pluse_r.png");
   });
   $(".AddBtn").mouseout(function(){
-	$(this).attr('src',"/static/canvas/images/+table_n.png");
+	$(this).attr('src',"/static/canvas/images/pluse_n.png");
   });
   
   $("#CanvasEditButton").mouseover(function(){
@@ -328,47 +350,30 @@ $(document).ready(function(){
 	$(this).attr('src',"/static/canvas/images/continue_n.png");
   });
   
-  $("#TableTypeAList").after(function() { $(this).append(listTableElementString);
-  		$(this).find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-		$(this).find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-		document.getElementById("squareSum").innerHTML = getSquareTotalAmount();
-		document.getElementById("squareSeatAmount").innerHTML = getTotalSquareSeat();
+  $("#TableTypeList").after(function() { /*$(this).append(listTableElementString);
+		$("#TableTypeList > li").last().find('img').last().bind('click',function(){ removeLiParent($(this)); });
+		$("#TableTypeList > li").last().find('img').last().bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
+		$("#TableTypeList > li").last().find('img').last().bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
+		$("#TableTypeList > li").last().find('select').first().bind('change',function(){ tableShapeChange($(this)); });*/
   });
-  $("#TableTypeBList").after(function() { $(this).append(listTableElementString); 
-		$(this).find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-		$(this).find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-		document.getElementById("roundSum").innerHTML = getRoundTotalAmount();
-		document.getElementById("roundSeatAmount").innerHTML = getTotalRoundSeat();
-  });
-  $("#TableTypeCList").after(function() { $(this).append(listTableElementString); 
-		$(this).find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-		$(this).find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-		document.getElementById("rectSum").innerHTML = getRectTotalAmount();
-		document.getElementById("rectSeatAmount").innerHTML = getTotalRectSeat();
-  });
-  $("#TableTypeDList").after(function() { $(this).append(listTableElementString); 
-		$(this).find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-		$(this).find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-		document.getElementById("lozengeSum").innerHTML = getLozengeTotalAmount();
-		document.getElementById("lozengeSeatAmount").innerHTML = getTotalLozengeSeat();
-  });
-  updateCounters();
   
   $(document).after(function(){
 	$.post('/canvas/edit/', {});
   });
   
-  
-  $("#AddLiA").click(function() {
-  		if ($("#TableTypeAList > li").size() <= maxItemsPerKind)
+  $("#AddLi").click(function() {
+  		if ($("#TableTypeList > li").size() <= maxSeated)
 		{
-			$("#TableTypeAList").append(listTableElementString);
-			$("#TableTypeAList > li").last().find('img').bind('click',function(){ removeLiParent($(this)); });
-			$("#TableTypeAList > li").last().find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-			$("#TableTypeAList > li").last().find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-			$("#TableTypeAList > li").last().find('select').first().bind('change',function(){ updateCounters(); });
-			$("#TableTypeAList > li").last().find('select').last().bind('change',function(){ updateCounters(); });
-			if ($("#TableTypeAList > li").size() > maxItemsPerKind)
+			$("#TableTypeList").append(listTableElementString);
+			$("#TableTypeList > li").last().find('img').last().bind('click',function(){ removeLiParent($(this)); });
+			$("#TableTypeList > li").last().find('img').last().bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
+			$("#TableTypeList > li").last().find('img').last().bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
+			$("#TableTypeList > li").last().find('select').first().bind('change',function(){ tableShapeChange($(this)); updateCounters(); });
+			$("#TableTypeList > li").last().find('input').first().bind('change',function(){ updateCounters(); });
+			$("#TableTypeList > li").last().find('input').last().bind('change',function(){ if ($(this).val() > 22){ $(this).val(22) } else if ($(this).val() < 4) { $(this).val(4)} updateCounters();  });
+			$("#TableTypeList > li").last().find('input').first().bind('keydown',function(event){ insureNumInput(event); if ($(this).val() == "") {$(this).val(1) }});
+			$("#TableTypeList > li").last().find('input').last().bind('keydown',function(event){  insureNumInput(event); if ($(this).val() == "") {$(this).val(4) }});
+			if ($("#TableTypeAList > li").size() > maxSeated)
 			{
 				$("#AddLiA").attr("src","/static/canvas/images/addDisable.png");
 			}
@@ -376,379 +381,43 @@ $(document).ready(function(){
 		}
    }); 
    
-  $("#AddLiB").click(function() {
-		if ($("#TableTypeBList > li").size() <= maxItemsPerKind)
-		{
-			$("#TableTypeBList").append(listTableElementString);
-			$("#TableTypeBList > li").last().find('img').bind('click',function(){ removeLiParent($(this)); });
-			$("#TableTypeBList > li").last().find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-			$("#TableTypeBList > li").last().find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-			$("#TableTypeBList > li").last().find('select').first().bind('change',function(){ updateCounters(); });
-			$("#TableTypeBList > li").last().find('select').last().bind('change',function(){ updateCounters(); });
-			if ($("#TableTypeBList > li").size() > maxItemsPerKind)
-			{
-				$("#AddLiB").attr("src","/static/canvas/images/addDisable.png");
-			}
-			updateCounters();
-		}
-   });
-   
-   $("#AddLiC").click(function() {
-		if ($("#TableTypeCList > li").size() <= maxItemsPerKind)
-		{
-			$("#TableTypeCList").append(listTableElementString);
-			$("#TableTypeCList > li").last().find('img').bind('click',function(){ removeLiParent($(this)); });
-			$("#TableTypeCList > li").last().find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-			$("#TableTypeCList > li").last().find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-			$("#TableTypeCList > li").last().find('select').first().bind('change',function(){ updateCounters(); });
-			$("#TableTypeCList > li").last().find('select').last().bind('change',function(){ updateCounters(); });
-			if ($("#TableTypeCList > li").size() > maxItemsPerKind)
-			{
-				$("#AddLiC").attr("src","/static/canvas/images/addDisable.png");
-			}
-			updateCounters();
-		}
-   });
-   
-   $("#AddLiD").click(function() {
-		if ($("#TableTypeDList > li").size() <= maxItemsPerKind)
-		{
-			$("#TableTypeDList").append(listTableElementString);
-			$("#TableTypeDList > li").last().find('img').bind('click',function(){ removeLiParent($(this)); });
-			$("#TableTypeDList > li").last().find('img').bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
-			$("#TableTypeDList > li").last().find('img').bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
-			$("#TableTypeDList > li").last().find('select').first().bind('change',function(){ updateCounters(); });
-			$("#TableTypeDList > li").last().find('select').last().bind('change',function(){ updateCounters(); });
-			if ($("#TableTypeDList > li").size() > maxItemsPerKind)
-			{
-				$("#AddLiD").attr("src","/static/canvas/images/addDisable.png");
-			}
-			updateCounters();
-		}
-   });
-   
   $(".RemoveBtn").mouseup(function() {
 		removeLiParent($(this));
   });
   
-  $(".AmountSelect").change(function() {updateCounters();});
-  $(".SizeSelect").change(function() {updateCounters();});
+  //$(".AmountSelect").change(function() {updateCounters();});
+  //$(".SizeSelect").change(function() {updateCounters();});
 
-  $("#CanvasEditButton").click(function() {
-	   var cordx = 30;
-	   var cordy = 43;
-	   var startY = 43;
-	   var startX = 20;
-	   var xOffset = 110;
-	   var yOffset = 36;
+  $("#CanvasEditButton").click(function() {  
+	   var noZeroDataFlag = noZeroData();
 	   
-	   if ($("#TableTypeAList > li").size() > 0 || $("#TableTypeBList > li").size() > 0)
+	   if ($("#TableTypeList > li").size() > 0 && getTotalAmount() > 0 && getTotalSeat() < maxSeated  && getTotalSeat() > 0 && noZeroDataFlag)
 	   {
 		   writeOccasionInfo("Init Canvas");
-		   
-		   $("#TableTypeAList > li").each(function(i) {
-						
-				if (cordx >= canvasWidth)
-				{
-					cordx = startX;
-				}
-				if (i % 2 == 0)
-				{
-					cordy = startY; 
-				}
-				else
-				{
-						var elementIndex = i - 1;
-						
-						if (elementIndex < 0)
-						{
-							elementIndex = 0;
-						}
-												
-						var valueAmount = getAmount($("#TableTypeAList > li:eq("+elementIndex+")"));
-							
-						cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-				}
+		   $("#errorMsg").text("");
+		   $("#TableTypeList > li").each(function(i) {
+				var type =  $(this).find('select').first().val();
 				
-				createElementByLi($(this),"A",cordx,cordy);
-				
-				if (i % 2 != 0)
-				{
-					cordx = cordx + xOffset;
-				}
-			});
-			
-			var fromEven = false;
-			
-			if ($("#TableTypeAList > li").size() % 2 == 0)
-			{
-				fromEven = true;
-			}
-
-			$("#TableTypeBList > li").each(function(i) {
-				
-				if (cordx >= canvasWidth)
-				{
-					cordx = startX;
-				}
-				if (fromEven)
-				{
-					if (i % 2 == 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeAList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				else
-				{
-					if (i % 2 != 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeAList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeBList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				createElementByLi($(this),"B",cordx,cordy);
-				
-				if (fromEven)
-				{
-					if (i % 2 != 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
-				else
-				{
-					if (i % 2 == 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
-			});
-			
-			fromEven = false;
-			
-			if ($("#TableTypeBList > li").size() % 2 == 0)
-			{
-				fromEven = true;
-			}
-			
-			$("#TableTypeCList > li").each(function(i) {
-				
-				if (cordx >= canvasWidth)
-				{
-					cordx = startX;
-				}
-				if (fromEven)
-				{
-					if (i % 2 == 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeBList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeCList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				else
-				{
-					if (i % 2 != 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeBList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeCList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				createElementByLi($(this),"C",cordx,cordy);
-				
-				if (fromEven)
-				{
-					if (i % 2 != 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
-				else
-				{
-					if (i % 2 == 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
-			});
-			
-			fromEven = false;
-			
-			if ($("#TableTypeCList > li").size() % 2 == 0)
-			{
-				fromEven = true;
-			}
-			
-			$("#TableTypeDList > li").each(function(i) {
-				
-				if (cordx >= canvasWidth)
-				{
-					cordx = startX;
-				}
-				if (fromEven)
-				{
-					if (i % 2 == 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeCList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeDList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				else
-				{
-					if (i % 2 != 0)
-					{
-						cordy = startY; 
-					}
-					else
-					{
-						if (i == 0)
-						{
-							var valueAmount = getAmount($("#TableTypeCList > li").last());
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-						else
-						{
-							var elementIndex = i - 1;
-							
-							if (elementIndex < 0)
-							{
-								elementIndex = 0;
-							}
-							
-							var valueAmount = getAmount($("#TableTypeDList > li:eq("+elementIndex+")"));
-							
-							cordy = cordy + (valueAmount < 5 ? (valueAmount + 2) * yOffset : valueAmount * yOffset);
-						}
-					}
-				}
-				createElementByLi($(this),"D",cordx,cordy);
-				
-				if (fromEven)
-				{
-					if (i % 2 != 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
-				else
-				{
-					if (i % 2 == 0)
-					{
-						cordx = cordx + xOffset;
-					}
-				}
+				createElementByLi($(this),type,0,0);
 			});
 			postDataString();
-			
+		}
+		else
+		{
+			if (getTotalAmount() <= 0 && getTotalSeat() <= 0)
+			{
+				$("#errorMsg").text("יש להוסיף שולחנות לפני המשך לעריכת האירוע");
+			}
+			else if (getTotalSeat() > maxSeated - 1)
+			{
+				$("#errorMsg").text("יש למתן את כמות השולחנות או המוזמנים.");
+			}
+			else if (noZeroDataFlag)
+			{
+				$("#errorMsg").text("אחד מהנתונים הינו מאופס.");
+			}
 		}
     });
-
 });
 
 $(document).ajaxSend(function(event, xhr, settings) {

@@ -1,13 +1,30 @@
- .Main
+ #new-div
  {
+ 	width: 658px;
+	margin-top: 40px;
+	margin-right: auto;
+	margin-left: auto;
  }
  
- #CounterData
- {
-   position:absolute;
-   top: 970;
-   left: 355;
- }
+ .titles_blue_no_shadow
+{
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #5A8EA3;
+	margin-right: 0px;
+	margin-top: 15px;
+	font-weight: bold;
+}
+
+.additional_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #000000;
+	margin-right: 0px;
+	margin-top: 15px;
+	text-align:top;
+	font-weight: bold;
+}
  
   .NewSimpleFrame
   {
@@ -26,51 +43,9 @@
   cursor:pointer;
  }
  
-  .AddBtn
+ .AddBtn
   {
-  position:absolute;
-  left:175;
-  bottom:0;
   cursor:pointer;
- }
- 
-  .TableTypeA
-  {
-  top: 50;
-  left: 350;
- }
-
-  .TableTypeB
-  {
-  top: 250;
-  left: 350;
- }
- 
-  .TableTypeC
-  {
-  top: 250;
-  left: 350;
- }
- 
-  .TableTypeD
-  {
-  top: 250;
-  left: 350;
- }
- 
- .TableImgBorder
- {
-   padding:15px;
-   height:120;
-   width:135;
- }
- 
- .TableTypeImg
-  {
-  	position:relative;
-	float:left;
-	height:128;
-	width:128;
  }
  
   .AmountSelect
@@ -92,22 +67,14 @@
  
  #CanvasEditButton
  {
-  position:absolute;
-  top: 1035;
-  left : 550;
+   cursor:pointer;
  }
  
-  #TableTypeAListDiv
+  #TableTypeListDiv
  {
-	position:absolute;
-	overflow:auto;
-	top:0;
-	left:295;
-	height:150px;
-	width:255px;
- }
+}
 
- #TableTypeAList li
+ #TableTypeList li
  {
   position:relative;
   direction: rtl;
@@ -115,82 +82,19 @@
   top:0;
  }
  
- #MainFrameTableTypeA
+ .tableShapeSelect
  {
- 	position:absolute;
-	left:355;
  }
  
-  #MainFrameTableTypeB
+ .TableImg
  {
- 	position:absolute;
-	top:280;
-	left:355;
- }
-  
- #TableTypeBListDiv
- {
-	position:absolute;
-	overflow:auto;
-	top:0;
-	left:295;
-	height:150px;
-	width:255px;
- }
+}
 
- #TableTypeBList li
- {
-  position:relative;
-  direction: rtl;
-  float:left;
-  top:0;
- }
-  #MainFrameTableTypeC
- {
- 	position:absolute;
-	top:510;
-	left:355;
- }
-  
- #TableTypeCListDiv
- {
-	position:absolute;
-	overflow:auto;
-	top:0;
-	left:295;
-	height:150px;
-	width:255px;
- }
-
- #TableTypeCList li
- {
-  position:relative;
-  direction: rtl;
-  float:left;
-  top:0;
- }
- 
- #MainFrameTableTypeD
- {
- 	position:absolute;
-	top:740;
-	left:355;
- }
-  
- #TableTypeDListDiv
- {
-	position:absolute;
-	overflow:auto;
-	top:0;
-	left:295;
-	height:150px;
-	width:255px;
- }
-
- #TableTypeDList li
- {
-  position:relative;
-  direction: rtl;
-  float:left;
-  top:0;
- }
+.titles_red {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: red;
+	margin-right: 0px;
+	margin-top: 15px;
+	font-weight: bold;
+}

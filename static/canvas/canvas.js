@@ -20,28 +20,6 @@ function menuItemClick(element)
         }
       }, 'json');
 }
-function showPropertyPanel(element)
-{
-	if (element != "" && !tableMode && !detailsMode)
-	{
-		if (element.position().left < 600)
-		{
-			$("#element-properties-list").css('top',element.position().top - 15);
-			$("#element-properties-list").css('left',element.position().left + element.width() - 5);
-			$("#element-properties-list").show("slide", { direction: "left" }, 50);
-		}
-		else
-		{
-			$("#element-properties-list").css('top',element.position().top - 15);
-			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 23);
-			$("#element-properties-list").show("slide", { direction: "right" }, 50);
-		}
-	}
-	else
-	{
-		$("#element-properties-list").hide();
-	}
-}
 
 function posPropertyPanel(element)
 {
@@ -51,16 +29,19 @@ function posPropertyPanel(element)
 		{
 			$("#element-properties-list").css('top',element.position().top);
 			$("#element-properties-list").css('left',element.position().left + element.width() + 2);
+			$("#element-properties-list").show("slide", { direction: "left" }, 50);
 		}
 		else
 		{
 			$("#element-properties-list").css('top',element.position().top);
 			$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
+			$("#element-properties-list").show("slide", { direction: "right" }, 50);
 		}
 	}
 	else
 	{
 		$("#element-properties-list").hide();
+		propMenuOpen = false;
 	}
 }
 $(document).ready(function() {
@@ -147,55 +128,7 @@ $(document).ready(function() {
 	}
   });
   $(".UndoDiv").click( function() {
-	for (var index = 0; index < undoElementList.length; index++)
-	{
-		var undoElement = undoElementList[index];
-		if (undoElement[0] != "" && undoElement[1] != "" && !tableMode && !detailsMode)
-		{
-		   switch(undoElement[1])
-		   {
-			  case "move":
-				  {
-					var newTop = startDradPositionList[index].top;
-					var newLeft = startDradPositionList[index].left;
-					startDradPositionList[index] = undoElement[0].position();
-					undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
-					break;
-				  }
-			  case "add":
-				  {
-					  {
-						$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-						function(data){
-						if (data.status == 'OK')
-						{
-						   undoElement[1] = "delete"; 
-						   ShowHourGlassWaitingWindow(true);
-						} else if (data.status == 'LIMIT')
-										{
-											alert("Maximum 48 tables");
-											ShowHourGlassWaitingWindow(true);
-										}
-						}, 'json');
-						break;
-					  }
-				  }
-			  case "delete":
-			  {
-				  setSaveStatus("Waiting");
-				  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
-				  function(data){
-				  if (data.status == 'OK')
-				  { 
-					 undoElement[1] = ""; 
-					 ShowHourGlassWaitingWindow(true);
-				  }
-				  }, 'json');
-				  break;
-			  }
-		   }
-		}
-	}
+	undoButtonPress();
   });
   
   $(".RectMenuItem").click( function() {
@@ -223,7 +156,7 @@ $(document).ready(function() {
 		}
     }
   });
-  
+  	
 });
 
 $(document).ajaxSend(function(event, xhr, settings) {

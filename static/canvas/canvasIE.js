@@ -1,27 +1,4 @@
 
-function showPropertyPanel(element)
-{
-	if (element != "" && !tableMode && !detailsMode)
-	{
-		if (element.position().left < 600)
-		{
-			$("#element-properties-list").css('top',element.position().top - 20);
-			$("#element-properties-list").css('margin-left',element.position().left + element.width() - 15 - $("#canvas-div").width());
-			$("#element-properties-list").show("slide", { direction: "left" }, 50);
-		}
-		else
-		{
-			$("#element-properties-list").css('top',element.position().top - 20);
-			$("#element-properties-list").css('margin-left',element.position().left - $("#element-properties-list").width() - 32 - $("#canvas-div").width());
-			$("#element-properties-list").show("slide", { direction: "right" }, 50);
-		}
-	}
-	else
-	{
-		$("#element-properties-list").hide();
-	}
-}
-
 function posPropertyPanel(element)
 {
 	if (element != "")
@@ -29,17 +6,20 @@ function posPropertyPanel(element)
 		if (element.position().left < 600)
 		{
 			$("#element-properties-list").css('top',element.position().top);
-			//$("#element-properties-list").css('left',element.position().left + element.width() + 2);
+			$("#element-properties-list").css('left', -$("#canvas-div").width() + element.position().left + element.width() - 20);
+			$("#element-properties-list").show("slide", { direction: "left" }, 50);
 		}
 		else
 		{
 			$("#element-properties-list").css('top',element.position().top);
-			//$("#element-properties-list").css('left',element.position().left - $("#element-properties-list").width() - 25);
+			$("#element-properties-list").css('left', -$("#canvas-div").width() + element.position().left - $("#element-properties-list").width() - 20);
+			$("#element-properties-list").show("slide", { direction: "right" }, 50);
 		}
 	}
 	else
 	{
 		$("#element-properties-list").hide();
+		propMenuOpen = false;
 	}
 }
 
@@ -87,59 +67,6 @@ function addAligmentDivButtonPress()
 function shapePlacementDivButtonPress()
 {
     $('ul.ShapePlacementMenu').slideToggle('medium');
-}
-
-function undoButtonPress()
-{
-	for (var index = 0; index < undoElementList.length; index++)
-	{
-		var undoElement = undoElementList[index];
-		if (undoElement[0] != "" && undoElement[1] != "" && !tableMode && !detailsMode)
-		{
-		   switch(undoElement[1])
-		   {
-			  case "move":
-				  {
-					var newTop = startDradPositionList[index].top;
-					var newLeft = startDradPositionList[index].left;
-					startDradPositionList[index] = undoElement[0].position();
-					undoElement[0].animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement(undoElement[0]);});
-					break;
-				  }
-			  case "add":
-				  {
-					  {
-						$.post('/canvas/add/', {kind: undoElement[0].context.id ,amount: 1},
-						function(data){
-						if (data.status == 'OK')
-						{
-						   undoElement[1] = "delete"; 
-						   ShowHourGlassWaitingWindow(true);
-						} else if (data.status == 'LIMIT')
-										{
-											alert("Maximum 48 tables");
-											ShowHourGlassWaitingWindow(true);
-										}
-						}, 'json');
-						break;
-					  }
-				  }
-			  case "delete":
-			  {
-				  setSaveStatus("Waiting");
-				  $.post('/canvas/delete/', {elem_num: undoElement[0].context.id},
-				  function(data){
-				  if (data.status == 'OK')
-				  { 
-					 undoElement[1] = ""; 
-					 ShowHourGlassWaitingWindow(true);
-				  }
-				  }, 'json');
-				  break;
-			  }
-		   }
-		}
-	}
 }
 
 function delTableButtonPress()
@@ -464,8 +391,7 @@ $(document).ready(function() {
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" ) {
-           SelectedElem.border('2px pink .5');
-		   posPropertyPanel(SelectedElem);
+           //SelectedElem.border('2px pink .5');
       }
     }
 	isMousePressFromCanvas = false;

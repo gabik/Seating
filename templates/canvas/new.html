@@ -1,6 +1,6 @@
-<html lang="he">
-<head>
-<meta charset="UTF-8" /> 
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
@@ -13,263 +13,78 @@
 <link rel="stylesheet" type="text/css" href="/static/canvas/general.css" />
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#addDetailsList").hide();
+	window.scrollBy(0,0);
+	var addDetailsOpen = false;
+
+	$("#addDetails").mouseout(function(){
+		if (addDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_down_n.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_up_n.png");
+	});
+	$("#addDetails").mouseover(function(){
+		if (addDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_down_r.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_up_r.png");
+	});
+	$("#addDetails").click(function(){
+		addDetailsOpen = !addDetailsOpen;
+		if (addDetailsOpen)
+		{
+			$(this).attr('src',"/static/page/images/expander_down_r.png");
+			window.scrollBy(0,300);
+		}
+		else
+			$(this).attr('src',"/static/page/images/expander_up_r.png");
+		$("#addDetailsList").slideToggle("slow");
+	});
+});
+</script>
 
 <body id="newbody">
 
-<div id="canvas-div" class="Main">
-	<div id="MainFrameTableTypeA">
-		<table width="560" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-				<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">שולחן ריבוע</span></td>
-				<td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
-			</tr>
-			<!--[if IE]>
-			<tr height="165">
-			<![endif]-->
-			<!--[if !IE]><!-->
-			<tr height="145">
-			<!--<![endif]-->
-				<td width="5" bgcolor="#5A8EA3"></td>
-				<td colspan="3" valign="top">
-					<div class="NewSimpleFrame">
-						<div class="TableImgBorder">
-							<img id="ImgTypeA" src="/static/canvas/images/tables_small/SquareG.png" class="TableTypeImg"/>
-						</div>
-						<div id="TableTypeAListDiv">
-						<ul id="TableTypeAList">							</ul>
-						</div>
-						<img id="AddLiA" class="AddBtn" src="/static/canvas/images/+table_n.png"/>
-					</div>
-				</td>
-				<td width="5" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr height="27">
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ שולחנות: <span id="squareSum"/></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ מקומות: </span><span id="squareSeatAmount"/></td>
-				<!--[if IE]>
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<![endif]-->
-				<!--[if !IE]><!-->
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<!--<![endif]-->
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-				<td colspan="3" bgcolor="#5A8EA"></td>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"></td>
-				<td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="550" height="15" /></td>
-				<td width="5" valign="bottom"></td>
-			</tr>
-		</table>
-	  </div>
-	<div id="MainFrameTableTypeB">
-		<table width="560" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-				<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">שולחן עגול</span></td>
-				<td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
-			</tr>
-			<!--[if IE]>
-			<tr height="165">
-			<![endif]-->
-			<!--[if !IE]><!-->
-			<tr height="145">
-			<!--<![endif]-->
-				<td width="5" bgcolor="#5A8EA3"></td>
-				<td colspan="3" valign="top">
-					<div class="NewSimpleFrame">
-						<div class="TableImgBorder">
-							<img id="ImgTypeB" src="/static/canvas/images/tables_small/RoundG.png" class="TableTypeImg"/>
-						</div>
-							<div id="TableTypeBListDiv">
-							<ul id="TableTypeBList">
-							</ul>
-						</div>
-						<img id="AddLiB" class="AddBtn" src="/static/canvas/images/+table_n.png"/>
-					</div>
-				</td>
-				<td width="5" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr height="27">
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ שולחנות: <span id="roundSum"/></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ מקומות: </span><span id="roundSeatAmount"/></td>
-				<!--[if IE]>
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<![endif]-->
-				<!--[if !IE]><!-->
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<!--<![endif]-->
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-				<td colspan="3" bgcolor="#5A8EA"></td>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"></td>
-				<td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="550" height="15" /></td>
-				<td width="5" valign="bottom"></td>
-			</tr>
-		</table>
-	  </div>
-	  <div id="MainFrameTableTypeC">
-		<table width="560" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-				<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">שולחן מלבן</span></td>
-				<td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
-			</tr>
-			<!--[if IE]>
-			<tr height="165">
-			<![endif]-->
-			<!--[if !IE]><!-->
-			<tr height="145">
-			<!--<![endif]-->
-				<td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-				<td colspan="3" valign="top">
-					<div class="NewSimpleFrame">
-						<div class="TableImgBorder">
-							<img id="ImgTypeC" src="/static/canvas/images/tables_small/RectG.png" class="TableTypeImg"/>
-						</div>
-						<div id="TableTypeCListDiv">
-							<ul id="TableTypeCList">
-							</ul>
-						</div>
-						<img id="AddLiC" class="AddBtn" src="/static/canvas/images/+table_n.png"/>
-					</div>
-				</td>
-				<td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-			</tr>
-			<tr height="27">
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ שולחנות: <span id="rectSum"/></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ מקומות: </span><span id="rectSeatAmount"/></td>
-				<!--[if IE]>
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<![endif]-->
-				<!--[if !IE]><!-->
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<!--<![endif]-->
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-				<td colspan="3" bgcolor="#5A8EA"></td>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"></td>
-				<td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="550" height="15" /></td>
-				<td width="5" valign="bottom"></td>
-			</tr>
-		</table>
-	</div>
-	<div id="MainFrameTableTypeD">
-		<table width="560" border="0" cellspacing="0" cellpadding="0">
-			<tr>
-				<td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-				<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">שולחן מעויין</span></td>
-				<td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
-			</tr>
-			<!--[if IE]>
-			<tr height="165">
-			<![endif]-->
-			<!--[if !IE]><!-->
-			<tr height="145">
-			<!--<![endif]-->
-				<td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-				<td colspan="3" valign="top">
-					<div class="NewSimpleFrame">
-						<div class="TableImgBorder">
-							<img id="ImgTypeD" src="/static/canvas/images/tables_small/LozengeG.png" class="TableTypeImg"/>
-						</div>
-						<div id="TableTypeDListDiv">
-							<ul id="TableTypeDList">
-							</ul>
-						</div>
-						<img id="AddLiD" class="AddBtn" src="/static/canvas/images/+table_n.png"/>
-					</div>
-				</td>
-				<td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-			</tr>
-			<tr height="27">
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ שולחנות: <span id="lozengeSum"/></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ מקומות: </span><span id="lozengeSeatAmount"/></td>
-				<!--[if IE]>
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<![endif]-->
-				<!--[if !IE]><!-->
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<!--<![endif]-->
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-				<td colspan="3" bgcolor="#5A8EA"></td>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"></td>
-				<td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="550" height="15" /></td>
-				<td width="5" valign="bottom"></td>
-			</tr>
-		</table>
-	</div>
-	 <div id="CounterData">
-	 <table width="560" border="0" cellspacing="0" cellpadding="0">
-	 		<tr>
-				<td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-				<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">נתונים סופיים</span></td>
-				<td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
-			</tr>
-			<tr height="25">
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ שולחנות: <span id="TableCounter"/></td>
-				<td bgcolor="white" dir="rtl"><p class="text_black" >סה"כ מקומות: </span><span id="PersonCounter"/></td>
-				<!--[if IE]>
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<![endif]-->
-				<!--[if !IE]><!-->
-				<td width="5" valign="bottom" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-				<!--<![endif]-->
-				<td width="5" valign="bottom" bgcolor="#5A8EA3"></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-				<td colspan="3" bgcolor="#5A8EA"></td>
-				<td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
-			</tr>
-			<tr>
-				<td width="5" valign="bottom"></td>
-				<td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="550" height="15" /></td>
-				<td width="5" valign="bottom"></td>
-			</tr>
-		</table>
-	</div>
-	<img id="CanvasEditButton" src="/static/canvas/images/continue_n.png" />
-	</br>
-	</br>
+<div id="new-div">
+  <table width="765" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
+      <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" height="12" valign="top"><img src="/static/page/images/logo_t.png" width="195" height="20" border="0" /></td>
+    </tr>
+	    <tr>
+      <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
+	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"><img id="CanvasEditButton" src="/static/canvas/images/continue_n.png" /></td>
+      <td align="right" dir= "rtl" valign="top" bgcolor="#FFFFFF">
+	    <p class="titles_blue_no_shadow">מסך הוספת שולחנות ראשוני</p>
+		<div id="TableTypeListDiv">
+			<ul id="TableTypeList"></ul>
+		</div>
+		</br>
+		<img id="AddLi" class="AddBtn" src="/static/canvas/images/pluse_n.png" />
+		<p class="titles_red" id="errorMsg"/>
+		<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_up_n.png" width="24" height="15"/></span></p>
+			<ul id="addDetailsList">
+				<p class="text_14_black">מספר שולחנות כולל:&nbsp;<span class="text_14_black" id="tableCounter">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים כולל:&nbsp;<span class="text_14_black" id="personCounter">0</span></span></p>
+				<p class="text_14_black">מספר שולחנות מרובעים:&nbsp;<span class="text_14_black" id="squareSum">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים מרובעים:&nbsp;<span class="text_14_black" id="squareSeatAmount">0</span></span></p>
+				<p class="text_14_black">מספר שולחנות עגולים:&nbsp;<span class="text_14_black" id="roundSum">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים עגולים:&nbsp;<span class="text_14_black" id="roundSeatAmount">0</span></span></p>
+				<p class="text_14_black">מספר שולחנות מלבנים:&nbsp;<span class="text_14_black" id="rectSum">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים מלבנים:&nbsp;<span class="text_14_black" id="rectSeatAmount">0</span></span></p>
+				<p class="text_14_black">מספר שולחנות מעויינים:&nbsp;<span class="text_14_black" id="lozengeSum">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים מעויינים:&nbsp;<span class="text_14_black" id="lozengeSeatAmount">0</span></span></p>
+			</ul>
+	  </td>
+	  <td width="22" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
+    </tr>
+    <tr>
+      <td width="12" valign="top"><img src="/static/page/images/bl.png" width="12" height="20" /></td>
+      <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top"><img src="/static/page/images/bt_r.png" width="195" height="20" /></td>
+    </tr>
+  </table>
+  <img id="newPageShadow" src="/static/page/images/shadow.png" width="658" height="26" />
 </div>
-
-
-<!--
-  Please select table: <BR>
-  <input type=radio name=table> <img id="round_pink" border=0 src="http://photos1.fotosearch.com/bthumb/UNC/UNC002/u13738840.jpg" class="MenuItem"><BR>
-  <input type=radio name=table> <img id="long_square" border=0 src="http://www1.free-clipart.net/gallery2/clipart/Household/Miscellaneous/Table_Setting_1.jpg" class="MenuItem"><BR>
-  Please select size:
-  <input type=radio name=size>8 <input type=radio name=size>9 <input type=radio name=size>12 <input type=radio name=size>15<BR>
-  Please enter the amount of those tables: <input type=text name=count><br>
--->
-
 </body>
 </html>
 
