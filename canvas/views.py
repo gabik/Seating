@@ -1,4 +1,7 @@
 # Create your views here.
+from django.utils.safestring import SafeString, EscapeData
+import re
+#from django.utils.html import escapejs
 from Seating.accounts.models import Guest
 from Seating.accounts.models import UserProfile, Partners
 from Seating.accounts.models import OccasionOperationItem
@@ -14,6 +17,12 @@ from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 from datetime import datetime
+
+def escapeSpecialCharacters ( text ):
+    characters='"&\','
+    for character in characters:
+        text = text.replace( character, '' )
+    return text
 
 @login_required
 def edit_canvas(request):
@@ -237,14 +246,18 @@ def get_element_item(request):
 			if (len(element_persons) > 0):
 				for person in element_persons:
 					if (int(person.position) == int(person_position)):
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+						safe_first = escapeSpecialCharacters(person.guest_first_name) 
+						safe_last  = escapeSpecialCharacters(person.guest_last_name)
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
 						break
 		else:
 			first_name = request.POST['firstName']
 			last_name = request.POST['lastName']
 			person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
 			if person is not None:
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+				safe_first = escapeSpecialCharacters(person.guest_first_name)
+				safe_last  = person.guest_last_name
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
 	return HttpResponse(json_dump)
 	
 @login_required

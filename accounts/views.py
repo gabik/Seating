@@ -303,12 +303,14 @@ def download_excel(request):
 	sheet2.protect = True
 	sheet1.password = "DubaGdola"
 	sheet2.password = "DubaGdola"
-	book.save('/Seating/static/excel_output/guests.xls')
+        c = {}
+        c['filename'] = str(request.user.id) + 'guests.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
 	cur_user = UserProfile.objects.get(user=request.user)
 	cur_user.excel_hash=str(hash)
 	cur_user.save()
-	return render_to_response('accounts/download_excel.html')
+        return render_to_response('accounts/xls.html', c)
 
 @login_required
 def sorted_excel(request):
@@ -346,6 +348,7 @@ def sorted_excel(request):
 		row1 = sheet1.row(row_num)
 		row1.write(0,g.guest_last_name, style)
 		row1.write(1,g.guest_first_name, style)
+		cur_caption = "No Table"
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=h.caption
@@ -358,9 +361,11 @@ def sorted_excel(request):
 	sheet1.col(3).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
-	book.save('/Seating/static/excel_output/sorted.xls')
+	c = {}
+	c['filename'] = str(request.user.id) + 'sorted.xls'
+	book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
-	return render_to_response('accounts/sorted.html')
+	return render_to_response('accounts/xls.html', c)
 
 @login_required
 def do_duplicates(request):
@@ -474,6 +479,8 @@ def download_map(request):
 		sheet1.col(i).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
-	book.save('/Seating/static/excel_output/map.xls')
+        c = {}
+        c['filename'] = str(request.user.id) + 'map.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
-	return render_to_response('accounts/download_map.html')
+        return render_to_response('accounts/xls.html', c)
