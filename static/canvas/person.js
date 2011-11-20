@@ -1,43 +1,14 @@
-var DetailsWidth = 900;
-var DetailsHeight = 400;
 var PersonLastPosition = new Array(2);//top,left
 var personData ="";
 var SelectedTable = "";
 var detailsMode = false;
 var SelectedPerson =""
 var SelectedTabIndex = "";
+var FocusFromFloatList = false;
 
 jQuery(function() {
         jQuery("#tabs").tabs();
     });
-
-function createTableElement(i,element,side)
-{
-	switch (side)
-	{
-		case "left":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:left;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "right":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" style="float:right;">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "top":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
-			break;
-		}
-		case "bottom":
-		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
-			break;
-		}
-	}
-	LoadPerson(element, i);
-}
 
 function selectPersonElement(element)
 {
@@ -170,13 +141,25 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 			data = $.parseJSON(data);
 			if (data.status == 'OK')
 			{
-				$("#canvas-div").append($('<div class="PersonDetailsDiv" Id="person"><img Id="personImg" src="/static/canvas/images/PersonView.png"/><div class="PersonDetailsArea" Id="details"/></div>'));
-				$("#personImg").bind('dblclick', function(event) {
-						CloseFocusDetailsFromFloatList(event);
-				});
-				personData = data;
-				reLoadDetails(personElement);
-				enableDetailsMode();
+				if (!FocusFromFloatList)
+				{
+					$("#canvas-div").append($(frameStringPD));
+					if (data.gender == "M")
+					{
+						$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
+					}
+					else
+					{
+						$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+					}
+					FocusFromFloatList = true;
+					$("#personImg").bind('dblclick', function(event) {
+							CloseFocusDetailsFromFloatList(event);
+					});
+					personData = data;
+					reLoadDetails(personElement);
+					enableDetailsMode();
+				}
 			}
 		});
 	}
@@ -186,8 +169,9 @@ function CloseFocusDetailsFromFloatList(event)
 {
 	$("#SavePersonDetailsButton").remove();
 	$("#details").animate({width: 1},300, 'linear', function() {
-			$("#person").animate({top: $("#float-list").offset().top,left: $("#float-list").offset().left,width: 1, height: 1},300, 'linear', function() {
-			$("#person").remove();
+			$("#PDFrame").animate({top: $("#float-list").offset().top,left: $("#float-list").offset().left,width: 1, height: 1},300, 'linear', function() {
+			$("#PDFrame").remove();
+			FocusFromFloatList = false;
 			$(".DragDiv").each(function(i) {
 				$(this).fadeTo(400, 1,function(){
 					if ($(".DragDiv").length - 1 == i)
@@ -235,7 +219,17 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 		{
 			hideElement(tableElement);
 		}
-		$("#canvas-div").append($('<div id="PersonProperties"><div class="PersonDetailsDiv" Id="person"><img Id="personImg" src="/static/canvas/images/PersonView.png"/><div class="PersonDetailsArea" Id="details"/></div>'));
+		
+		$("#canvas-div").append($(frameStringPD));
+		if (personData.gender == "M")
+		{
+			$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
+		}
+		else
+		{
+			$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+		}		
+		FocusFromFloatList = false;
 		$("#personImg").bind('dblclick', function(event) {
 				FocusDetails("","",false,event);
 		});
@@ -251,8 +245,8 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 	{
 		$("#SavePersonDetailsButton").remove();
 		$("#details").animate({width: 1},300, 'linear', function() {
-			$("#person").animate({top: PersonLastPosition[0],left: PersonLastPosition[1],width: 1, height: 1},300, 'linear', function() {
-				$("#person").remove();
+			$("#PDFrame").animate({top: PersonLastPosition[0],left: PersonLastPosition[1],width: 1, height: 1},300, 'linear', function() {
+				$("#PDFrame").remove();
 				SelectedTable.fadeTo(400, 1,function(){
 					$(".TableElementDiv").each(function(i) {
 						$(this).fadeTo(400, 1,function(){
@@ -289,31 +283,6 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 		
 	}
 }
-function reLoadDetails(personElement)
-{
-	$("#person").css("top",personElement.position().top);
-	$("#person").css("left",personElement.position().left);
-	$("#person").css("height","1");
-	$("#details").css("height",DetailsHeight);
-	$("#details").css("width","1");
-	$("#person").animate({top:($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - DetailsHeight / 2, left:($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - DetailsWidth / 2, height: DetailsHeight},300, 'linear'); 
-	$("#personImg").animate({width: DetailsWidth - 600, height: DetailsHeight},300, 'linear', function() {
-	$("#details").animate({width: DetailsWidth - 300},300, 'linear');
-	$("#personImg").addClass("Pointer");
-	if (personData != "")
-	{
-		personData.first_name = personData.first_name.replace(" ","_");
-		personData.last_name = personData.last_name.replace(" ","_");
-		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
-		SelectedTabIndex = 0;
-		$("#tabs").tabs();
-		$("#tabs").bind('tabsselect', function(event, ui) {
-				selectTab(ui);
-		});
-		createTab();
-	}
-	});
-}
 
 function selectTab(ui)
 {
@@ -334,8 +303,43 @@ function selectTab(ui)
 				personData.last_name = personData.last_name.replace(" ","_");
 				//SelectedTabIndex = ui.index;
 				SelectedTabIndex = $('#tabs').tabs("option", "selected");
+				if (data.gender == "M")
+				{
+					$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
+				}
+				else
+				{
+					$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+				}
 			}
 		});
+}
+
+function reLoadDetails(personElement)
+{ 
+	$("#PDFrame").css("top",personElement.position().top);
+	$("#PDFrame").css("left",personElement.position().left);
+	$("#PDFrame").css("height","1");
+	$("#PDFrame").css("width","1");
+	$("#details").css("height",DetailsHeight);
+	$("#details").css("width","1");
+	$("#PDFrame").animate({top:($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - DetailsHeight / 2, left:($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - DetailsWidth / 2.5, height: DetailsHeight},300, 'linear'); 
+	$("#personImg").animate({width: 128, height: 128},300, 'linear', function() {
+	$("#details").animate({width: DetailsWidth - 300},300, 'linear');
+	$("#personImg").addClass("Pointer");
+	if (personData != "")
+	{
+		personData.first_name = personData.first_name.replace(" ","_");
+		personData.last_name = personData.last_name.replace(" ","_");
+		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
+		SelectedTabIndex = 0;
+		$("#tabs").tabs();
+		$("#tabs").bind('tabsselect', function(event, ui) {
+				selectTab(ui);
+		});
+		createTab();
+	}
+	});
 }
 
 function createTab()
@@ -355,31 +359,26 @@ function createTab()
 		});
 	}
 
-	tab.append($('<p style="position:relative; margin-top:-10; margin-left:15px; font-size:12;">First Name:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace("_"," ") +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Last Name:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Phone Number:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">E-mail:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; font-size:12; margin-left:15px;" MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Present Amount:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative;  font-size:12; margin-left:15px;"  MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Facebook Account:</p>'));
-	tab.append($('<input style="text-align:left; margin-top:-5; width:250px; position:relative; margin-left:15px; font-size:12;" MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/>'));
-	tab.append($('<p style="position:relative; margin-left:15px; font-size:12;">Group:</p>'));
-	tab.append($('<ul><il><div style="margin-top:-5; margin-left:15px; position:relative;"><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other"">Other<option value="Friends">Friends<option value="Family">Family<option value="Work">Work</select></div></il></ul>'));
-	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );
-	tab.append($('<button id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; opacity:0;" type="button">Save Changes</button>'));
-	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("top", DetailsHeight - 400);
-	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 500);
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace("_"," ") +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">מספר טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">סכום מתנה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">חשבון פייסבוק:&nbsp;<span><input  MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/></span></p>'));
+	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">קבוצה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other">אחר<option value="Friends">חברים<option value="Family">משפחה<option value="Work">עבודה<span></span></select></span></p></td><td align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
+	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );	
+	$("#detailsGender" + personData.first_name + '_'+ personData.last_name).val( personData.gender );
+	tab.append($('</br>'));
+	tab.append($('<img id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:absolute; cursor:pointer;" alt="שמור שינויים" src="/static/right_interface/images/save_changes_n.png"/>'));
+	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("top", DetailsHeight - 50);
+	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", 15);
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).bind('click', function() {
 			savePersonChanges(personData.first_name,  personData.last_name);
 	});
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).fadeTo(2000, 1);
-	tab.append($('<button id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:relative; background-color:red;" type="button">X</button>'));
-	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", -DetailsHeight + 70);
-	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", DetailsWidth - 550);
+	tab.append($('<img id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:absolute; background: transparent;" class="CloseBtn" alt="סגור חלון" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"/>'));
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", 35);
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", 15);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('click', function() {
 		if (SelectedTabIndex >= 0 && SelectedTabIndex < $("#tabs").tabs("length"))
 		{
@@ -391,6 +390,18 @@ function createTab()
 			 }
 		}
 	});
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
+		});
+	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
+	});
+	$("#SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseout', function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
+		});
+	$("#SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseover', function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_r_white_back.png");
+			});
 }
 
 function DragPerson(personElement,tableElement)
@@ -603,92 +614,6 @@ function hideElement(element)
 		$(this).hide();
 	});
 }
-
-function fixPlaceFloat(side, position)
-{	
-	var occupied = false;
-	if ($("#tableElement"+position).attr("src") == "/static/canvas/images/chair_empty_top_right_occupied.png" ||
-		$("#tableElement"+position).attr("src") == "/static/canvas/images/chair_empty_bottom_left_occupied.png")
-		{
-			occupied = true;
-		}
-	switch (side)
-	{
-		case "personTop":
-		case "personBottom":
-		{
-			$("#tableElementCaption"+position).css('float','none');
-			$("#tableElementCaption"+position).css('cssFloat','none');
-			$("#tableElementCaption"+position).css('styleFloat','none');
-			
-			var caption = $("#tableElementCaption"+position);
-			var img = $("#tableElement"+position);
-			
-			$("#tableElementCaption"+position).remove();
-			$("#tableElement"+position).remove();	
-			
-			if (side == "personTop")
-			{
-				if (occupied)
-				{
-					img.attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
-				}
-				else
-				{
-					img.attr("src", "/static/canvas/images/chair_empty_top_right.png");
-				}
-				$("#tableElementDiv"+position).append(caption);
-				$("#tableElementDiv"+position).append(img);
-			}
-			else
-			{
-				if (occupied)
-				{
-					img.attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
-				}
-				else
-				{
-					img.attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
-				}
-				$("#tableElementDiv"+position).append(img);
-				$("#tableElementDiv"+position).append(caption);
-			}
-			break;
-		}
-		case "personRight":
-		case "personLeft":
-		{
-			var captionContext = $("#tableElementCaption"+position).html();	
-			
-			if (side == "personRight")
-			{
-				if (occupied)
-				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
-				}
-				else
-				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
-				}
-				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:right;">'+ captionContext +'</p>');
-			}
-			else
-		    {	
-				if (occupied)
-				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
-				}
-				else
-				{
-					$("#tableElement"+position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
-				}
-				$("#tableElementCaption"+position).replaceWith('<p Id="tableElementCaption'+ position +'" style="float:left;">'+ captionContext +'</p>');
-			}
-			$("#tableElementCaption"+position).addClass('TableElemText');
-			break;
-		}
-	}
-}
 									
 //Check if 2 objects intersect
 function collisionWithOtherPersonElement(element)
@@ -732,11 +657,11 @@ function savePersonChanges(firstName, lastName)
 	firstName = firstName.replace(" ","_");
 	lastName = lastName.replace(" ","_");
 	if(!emailReg.test($("#detailsE-mail" + firstName + '_'+ lastName).val())) {
-      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red">  Enter a valid email address.</span>');
+      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red">נא הכנס כתובת חוקית.</span>');
     }
 	else
 	{
-    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(),group:$("#detailsGroup" + firstName + '_'+ lastName).val()},
+    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val()},
       function(data){
 		$("#SaveStatImg").fadeTo(400, 0);
         if (data.status == 'OK')
@@ -748,6 +673,7 @@ function savePersonChanges(firstName, lastName)
 		  personData.present_amount = $("#detailsPresentAmount" + firstName + '_'+ lastName).val();
 		  personData.facebook_account = $("#detailsFacebookAccount" + firstName + '_'+ lastName).val();
 		  personData.group = $("#detailsGroup" + firstName + '_'+ lastName).val();
+		  personData.gender = $("#detailsGender" + firstName + '_'+ lastName).val();
 		  if (personData.position > 0)
 		  {
 			document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
@@ -764,6 +690,16 @@ function savePersonChanges(firstName, lastName)
 			}
 			floatPerson.css("text",personData.first_name + " " + personData.last_name);
 			floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
+			floatPerson.removeClass('femaleli');
+			floatPerson.removeClass('maleli');
+			if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "M")
+		   {
+				floatPerson.addClass('maleli');
+		   }
+			else
+		   {
+				floatPerson.addClass('femaleli');
+		   }
 		  }
 		  $("#tabs li:eq(" + SelectedTabIndex + ") a").html(personData.first_name + " " + personData.last_name);
 		  personData.first_name = personData.first_name.replace(" ","_");
@@ -776,6 +712,17 @@ function savePersonChanges(firstName, lastName)
 		  $("#detailsE-mail"+ firstName + '_'+ lastName).attr("id","detailsE-mail"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsPresentAmount"+ firstName + '_'+ lastName).attr("id","detailsPresentAmount"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsFacebookAccount"+ firstName + '_'+ lastName).attr("id","detailsFacebookAccount"+ personData.first_name + '_'+ personData.last_name);
+		  $("#detailsGroup"+ firstName + '_'+ lastName).attr("id","detailsGroup"+ personData.first_name + '_'+ personData.last_name);
+		  $("#detailsGender"+ firstName + '_'+ lastName).attr("id","detailsGender"+ personData.first_name + '_'+ personData.last_name);
+		  
+		  if ($("#detailsGender"+ personData.first_name + '_'+ personData.last_name).val() == "M")
+		  {
+				$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
+		  }
+			else
+		  {
+				$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+		  }
 		  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
 		  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
           setSaveStatus("OK");
@@ -858,5 +805,9 @@ function proccedSearchOnTableMode(data)
 }
 
 $(document).ready(function() {
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
+	{
+		DetailsHeight = DetailsHeight + 22;
+	}
 });
  

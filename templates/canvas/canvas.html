@@ -13,9 +13,11 @@
 <script src="http://jquery-ui.googlecode.com/svn/tags/latest/external/jquery.bgiframe-2.1.2.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 <script language="javascript" type="text/javascript" src="/static/canvas/jquery.jqplot.js"></script>
+<script language="javascript" type="text/javascript" src="/static/canvas/jquery.jqplot.min.js"></script>
 <script language="javascript" type="text/javascript" src="/static/canvas/plugins/jqplot.pieRenderer.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/right_interface/right_interface.css" />
 <link rel="stylesheet" type="text/css" href="/static/canvas/jquery.jqplot.css" />
+<link rel="stylesheet" type="text/css" href="/static/canvas/jquery.jqplot.min.css" />
 <link rel="stylesheet" type="text/css" href="/static/canvas/general.css" />
 <script type="text/javascript" src="/static/canvas/multiselection.js"></script>
 <script type="text/javascript" src="/static/canvas/table.js"></script>
@@ -25,15 +27,21 @@
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <script type="text/javascript" src="/static/canvas/general.js"></script>
+<script type="text/javascript" src="/static/canvas/person.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
-	<script type="text/javascript" src="/static/canvas/personIE.js"></script>
+	<script type="text/javascript" src="/static/canvas/personExtandedIE.js"></script>
+
+<![endif]-->
+<!--[if lt IE 9]>
+	<script language="javascript" type="text/javascript" src="/static/canvas/excanvas.js"></script>
+	<script language="javascript" type="text/javascript" src="/static/canvas/excanvas.min.js"></script>
 <![endif]-->
 <!--[if !IE]><!-->
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvas.css" />
 	<script type="text/javascript" src="/static/canvas/canvas.js"></script>
-	<script type="text/javascript" src="/static/canvas/person.js"></script>
+	<script type="text/javascript" src="/static/canvas/personExtanded.js"></script>
  <!--<![endif]-->
 
 <script type="text/javascript">
@@ -65,78 +73,107 @@
 	 }
 	 
 	$(document).ready(function() {
+		$(".tableProp").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
+		});
+		$(".tableProp").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/table_prop_r.png");
+		});
+			  
+		$("#ExitImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/exit_canvas_n.png");
+		});
+		$("#ExitImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/exit_canvas_r.png");
+		});
+			  
+		$("#OIImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/calender_n.png");
+		});
+		$("#OIImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/calender_r.png");
+		});
+			  
+		$("#OFImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/end_n.png");
+		});
+		$("#OFImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/end_r.png");
+		});
+			  
+		$("#MoneyImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/money_n.png");
+		});
+		$("#MoneyImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/money_r.png");
+		});
+			  
+		$("#PSImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/grid_n.png");
+		});
+		$("#PSImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/grid_r.png");
+		});
+					  
+		$("#UndoImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/back_n.png");
+		});
+		$("#UndoImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/back_r.png");
+		});
+					  
+		$("#DelImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/minus_n.png");
+		});
+		$("#DelImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/minus_r.png");
+		});
+		
+		$("#AddDivImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/pluse_n.png");
+		});
+		$("#AddDivImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/pluse_r.png");
+		});
+					  
+		$("#AlignImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/align_n.png");
+		});
+		$("#AlignImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/align_r.png");
+		});		
+		$("#SortFloatList").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/filter_list.png");
+		});
+		$("#SortFloatList").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/filter_list_r.png");
+		});
+		$("#AddPersonButton").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/add.png");
+		});
+		$("#AddPersonButton").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/add_r.png");
+		});	
+		$("#ElementPropertiesSaveButton").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
+		});
+		$("#ElementPropertiesSaveButton").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
+		});		
+		$("#SearchButton").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/search.png");
+		});
+		$("#SearchButton").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/search_r.png");
+		});
+		$("#MaxGuestSaveButton").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
+		});
+		$("#MaxGuestSaveButton").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
+		});
+	});
 
-	$(".tableProp").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/table_prop_n.png");
-	});
-	$(".tableProp").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/table_prop_r.png");
-	});
-		  
-  	$("#ExitImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/exit_canvas_n.png");
-	});
-	$("#ExitImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/exit_canvas_r.png");
-	});
-		  
-  	$("#OIImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/calender_n.png");
-	});
-	$("#OIImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/calender_r.png");
-	});
-		  
-  	$("#OFImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/end_n.png");
-	});
-	$("#OFImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/end_r.png");
-	});
-		  
-  	$("#MoneyImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/money_n.png");
-	});
-	$("#MoneyImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/money_r.png");
-	});
-		  
-  	$("#PSImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/grid_n.png");
-	});
-	$("#PSImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/grid_r.png");
-	});
-				  
-  	$("#UndoImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/back_n.png");
-	});
-	$("#UndoImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/back_r.png");
-	});
-				  
-  	$("#DelImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/minus_n.png");
-	});
-	$("#DelImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/minus_r.png");
-	});
-	
-	$("#AddDivImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/pluse_n.png");
-	});
-	$("#AddDivImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/pluse_r.png");
-	});
-				  
-  	$("#AlignImg").mouseout(function(){
-		$(this).attr('src',"/static/canvas/images/align_n.png");
-	});
-	$("#AlignImg").mouseover(function(){
-		$(this).attr('src',"/static/canvas/images/align_r.png");
-	});
-	
-	});
 </script>
 <title>2Seat Canvas</title>
 </head>
@@ -269,9 +306,9 @@
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3"><img src="/static/right_interface/images/delete_guest.png" class="DelPersonDiv" alt="מחק אורח\ת" width="29" height="25" /></td>
-						  <td width="5" bgcolor="#5A8EA3"><img src="/static/right_interface/images/add_ma.png" alt="הוסף אורח" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
-						  <td width="5" bgcolor="#5A8EA3" id="AddFemaleGuestDivID" class="pointer"><img src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" title="מחק אורח/ת" ><img src="/static/right_interface/images/delete_guest.png" class="DelPersonDiv" alt="מחק אורח/ת" width="29" height="25" /></td>
+						  <td width="5" bgcolor="#5A8EA3" title="הוסף אורח"><img src="/static/right_interface/images/add_ma.png" alt="הוסף אורח" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
+						  <td width="5" bgcolor="#5A8EA3" id="AddFemaleGuestDivID" class="pointer" title="הוסף אורחת"><img src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
 						<tr>
@@ -284,7 +321,7 @@
 											{% if guest.gender == 'F' %}
 												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
-												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}  לחיצה כפולה לעריכה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
 											{% endif %}
 										{% endif %}
 									{% endfor %}
@@ -305,7 +342,7 @@
 						</tr>
 						<tr>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
+						  <td colspan="3" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
 						</tr>
 					  </table>
@@ -315,7 +352,7 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">הוספת אורח\ת</span></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">הוספת אורח/ת</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr>
@@ -380,7 +417,7 @@
 						</tr>
 						<tr>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/add.png" alt="הוסף אורח\ת" width="125" height="38" vspace="10" id="AddPersonButton" class="pointer" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="הוסף אורח/ת"><img src="/static/right_interface/images/add.png" alt="הוסף אורח/ת" width="125" height="38" vspace="10" id="AddPersonButton" class="pointer" /></td>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
 						</tr>
 					  </table>
@@ -433,7 +470,7 @@
 						</tr>						
 						<tr>
 						  <td width="5" height="63" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="63" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3">
+						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינויים">
 						  <!--[if IE]>
 						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="125" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()"/>
 						  <![endif]-->
@@ -451,7 +488,7 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">חיפוש אורח\ת</span></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">חיפוש שולחן/אורח</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr height="5" bgcolor="#5A8EA3">
@@ -471,14 +508,14 @@
 						  <td align="right" valign="top" bgcolor="white">
 							<select size="1" id="SearchBy" class="Property">
 								<option class="Property" value="Table">שולחן
-								<option class="Property" value="Guest">אורח\ת
+								<option class="Property" value="Guest">אורח/ת
 							</select></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>	
 						<tr>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/search.png" alt="הוסף אורח\ת" width="125" height="38" vspace="10" id="SearchButton" class="Property" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="חיפוש שולחן/אורח" ><img src="/static/right_interface/images/search.png" alt="חיפוש שולחן/אורח" width="125" height="38" vspace="10" id="SearchButton" class="Property" /></td>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
 						</tr>
 					  </table>
@@ -525,7 +562,7 @@
 						</tr>													
 						<tr>
 						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="53" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
+						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינוי"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
 						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="53" /></td>
 						</tr>
 					</table>

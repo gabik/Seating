@@ -35,12 +35,10 @@
  }
  .PersonDetailsDiv
  {
-  position:absolute;
   border:1px solid black;
  }
  .PersonDetailsArea
  {
-  float:right;
   background:#efefef;
  }
  .ElemImg
@@ -233,6 +231,10 @@
  {
 	height:170;
  }
+  #people-list li
+ {
+	cursor:pointer;
+ }
  .femaleli
  {
   padding: 4px;
@@ -280,7 +282,7 @@
 #OperationList
 {
 	overflow:auto;
-	height:350;
+	height:270;
 }
 .class_overflow_auto
 {
@@ -323,4 +325,19 @@
 	margin-right: 0px;
 	font-weight: normal;
 	line-height: 20px;
+}
+.text_18_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 18px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}
+
+.CloseBtn
+{
+	cursor:pointer;
+	margin-top:15;
+	margin-left:15;
 }
