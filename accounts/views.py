@@ -173,14 +173,17 @@ def upload_file(request):
 			for r in range(sh.nrows)[int(starting_row):]:
 				privName=sh.cell_value(r,0)
 				lastName=sh.cell_value(r,1)
-				quantity=sh.cell_value(r,2)
+				gender=sh.cell_value(r,2)
+				if gender == "":
+					gender="U"
+				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
-				phoneNum=sh.cell_value(r,3)
-				mailAddr=sh.cell_value(r,4)
-				faceAcnt=sh.cell_value(r,5)
-				groupNme=sh.cell_value(r,6)
-				giftAmnt=sh.cell_value(r,7)
+				phoneNum=sh.cell_value(r,4)
+				mailAddr=sh.cell_value(r,5)
+				faceAcnt=sh.cell_value(r,6)
+				groupNme=sh.cell_value(r,7)
+				giftAmnt=sh.cell_value(r,8)
 
 				#privName=he.u(privName)
 				#lastName=he.u(lastName)
@@ -189,15 +192,15 @@ def upload_file(request):
 
 				if privName <> "" or lastName <> "" :
 					if check_person(privName, lastName, cur_list):
-						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
 						if quantity > 1:
 							for i in range(1,int(quantity)+1):
-								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 								new_person.save()
 						else:
-							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 							new_person.save()
 
 				if groupNme not in group_choices:
@@ -245,12 +248,13 @@ def download_excel(request):
 	row1 = sheet1.row(row_num)
 	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(5, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(6, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(7, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.gender, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(7, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(8, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 22 
@@ -265,13 +269,14 @@ def download_excel(request):
 		row1 = sheet1.row(row_num)
 		row1.write(0,g.guest_first_name, style)
 		row1.write(1,g.guest_last_name, style)
-		row1.write(2,1, style)
-		row1.set_cell_text(3,g.phone_number, style)
-		row1.write(4,g.guest_email, style)
-		row1.write(5,g.facebook_account, style)
+		row1.write(2,g.gender, style)
+		row1.write(3,1, style)
+		row1.set_cell_text(4,g.phone_number, style)
+		row1.write(5,g.guest_email, style)
+		row1.write(6,g.facebook_account, style)
 		ggroup=g.group
-		row1.write(6,ggroup, style)
-		row1.write(7,g.present_amount, style)
+		row1.write(7,ggroup, style)
+		row1.write(8,g.present_amount, style)
 		row_num+=1
 	pattern = xlwt.Pattern()
 	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
@@ -284,16 +289,17 @@ def download_excel(request):
 	style.borders = borders
 	for k in range(row_num,1000):
 		row1 = sheet1.row(k)
-		for g in range(0,8):
+		for g in range(0,9):
 			row1.write(g, "", style)
 	sheet1.col(0).width = 4000
 	sheet1.col(1).width = 4000
 	sheet1.col(2).width = 4000
-	sheet1.col(3).width = 5000
-	sheet1.col(4).width = 9000
-	sheet1.col(5).width = 5000
-	sheet1.col(6).width = 4000
+	sheet1.col(3).width = 4000
+	sheet1.col(4).width = 5000
+	sheet1.col(5).width = 9000
+	sheet1.col(6).width = 5000
 	sheet1.col(7).width = 4000
+	sheet1.col(8).width = 4000
 	sheet2 = book.add_sheet('X')
 	sheet2.write(0,0,row_num)
 	random.seed()
@@ -349,15 +355,17 @@ def sorted_excel(request):
 		row1.write(0,g.guest_last_name, style)
 		row1.write(1,g.guest_first_name, style)
 		cur_caption = "No Table"
+		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=h.caption
+				cur_fix_num=h.fix_num
 		row1.write(2,cur_caption, style)
-		row1.write(3,g.elem_num, style)
+		row1.write(3,cur_fix_num, style)
 		row_num+=1
-	sheet1.col(0).width = 4000
-	sheet1.col(1).width = 4000
-	sheet1.col(2).width = 4000
+	sheet1.col(0).width = 6000
+	sheet1.col(1).width = 6000
+	sheet1.col(2).width = 8000
 	sheet1.col(3).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
