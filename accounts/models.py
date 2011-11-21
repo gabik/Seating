@@ -65,7 +65,7 @@ class Guest(models.Model):
 		('F', 'Female'),
 		('U', 'Unknon'),
 	)
-	gender = models.CharField(max_length=6, choices=group_choices, default='U')
+	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
         def __unicode__(self):
                 printy = self.user.username + "- " + self.guest_first_name+ " " +self.guest_last_name
                 return printy

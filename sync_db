@@ -1,24 +1,8 @@
 #!/bin/bash
-tables='accounts_dupguest
-accounts_guest
-accounts_occasionoperationitem
-accounts_partners
-accounts_unknowngroups
-accounts_userprofile
-auth_group
-auth_group_permissions
-auth_message
-auth_permission
-auth_user
-auth_user_groups
-auth_user_user_permissions
-canvas_singleelement
-captcha_captchastore
-django_admin_log
-django_content_type
-django_session
-django_site'
-
+tables=`mysql << EOF
+use django;
+show tables;
+EOF`
 
 for i in $tables
 do
@@ -28,3 +12,4 @@ do
 EOF
 done
 
+python manage.py syncdb
