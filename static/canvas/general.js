@@ -1129,6 +1129,10 @@ $(document).ready(function() {
   
   $("#NumOfGuests").after(function(){
     refreshNumOfGuests();
+  }); 
+  
+  $("#NumOfGuests").keydown(function(e){
+    insureNumInput(e);
   });
 
   $("#ElementCaption").after(function(){
@@ -1175,13 +1179,13 @@ $(document).ready(function() {
 	isMousePressFromCanvas = false;
 	});
 	
-	$(document).before(function(){
+	/*$(document).before(function(){
 		ShowHourGlassWaitingWindow(false);
 	});
 
-	$(document).ready(function(){
+	$(document).after(function(){
 		HideHourGlassWaitingWindow();
-	});
+	});*/
 	
 	$(".ExitCanvasDiv").click(function(){
 		var answer = confirm('האם לצאת מהמערכת');

@@ -1,5 +1,6 @@
 var mainFrameWidth = 750;
 var mainFrameHeight = 300;
+var frameStringMI = '<div id="MIFrame" style="position:absolute; z-index:99999;"><table width="740" heigth="300" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td valign="top" bgcolor="white"><img id="moneyInfoCloseBtn" class="CloseBtn" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td bgcolor="white" align="center" valign="center" width="350"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="350"><div id="moneyInfoMainWindow"/></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="740" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
 	
 //return [total sum,other group total sum,family group total sum,friends group total sum,work group total sum]
 function getFullMoneyInfo()
@@ -25,32 +26,16 @@ function createInfoFields(sumData)
 	{
 		var pieData = [];
 			
-		$("#moneyInfoMainWindow").append($('<p id="totalSum" style="position:relative;">Total Sum:  '+ sumData[0] +'</p>'));
-		$("#totalSum").css("top", 15);
-		$("#totalSum").css("left",15);
-		$("#moneyInfoMainWindow").append($('<p id="avrageSum" style="position:relative;">Avrage Per Person:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(4) +'</p>'));
-		$("#avrageSum").css("top", 15);
-		$("#avrageSum").css("left",15);
-		$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" style="position:relative;">Total Other GroupSum:  '+ sumData[1] +'</p>'));
-		$("#totalOtherSum").css("top", 15);
-		$("#totalOtherSum").css("left",15);
-		pieData[0] = ["Other", sumData[1] * sumData[0] / 100];
-		$("#moneyInfoMainWindow").append($('<p id="totalFamilySum" style="position:relative;">Total Family Group Sum:  '+ sumData[2] +'</p>'));
-		$("#totalFamilySum").css("top", 15);
-		$("#totalFamilySum").css("left",15);
-		pieData[1] = ["Family", sumData[2] * sumData[0] / 100];
-		$("#moneyInfoMainWindow").append($('<p id="totalFriendsSum" style="position:relative;">Total Friends Group Sum:  '+ sumData[3] +'</p>'));				$("#totalFriendsSum").css("top", 15);
-		$("#totalFriendsSum").css("left",15);
-		pieData[2] = ["Friends", sumData[3] * sumData[0] / 100];
-		$("#moneyInfoMainWindow").append($('<p id="totalWorkSum" style="position:relative;">Total Work Group Sum:  '+ sumData[4] +'</p>'));
-		$("#totalWorkSum").css("top", 15);
-		$("#totalWorkSum").css("left",15);
-		pieData[3] = ["Work", sumData[4] * sumData[0] / 100];
-		$("#moneyInfoMainWindow").append($('<div id="groupPie" style="position:absolute;"/>'));
-		$("#groupPie").css("width",mainFrameWidth / 2);
-		$("#groupPie").css("height",mainFrameHeight  - 35);
-		$("#groupPie").css("top", $("#totalSum").position().top);	
-		$("#groupPie").css("left",$("#moneyInfoMainWindow").position().left + $("#moneyInfoMainWindow").width() - mainFrameWidth - 55 );
+		$("#moneyInfoMainWindow").append($('<p id="totalSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל:  '+ sumData[0] +'</p>'));
+		$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(2) +'</p>'));
+		$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  '+ sumData[1] +'</p>'));
+		pieData[0] = ["אחר", sumData[1] * sumData[0] / 100];
+		$("#moneyInfoMainWindow").append($('<p id="totalFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה":  '+ sumData[2] +'</p>'));
+		pieData[1] = ["משפחה", sumData[2] * sumData[0] / 100];
+		$("#moneyInfoMainWindow").append($('<p id="totalFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים":  '+ sumData[3] +'</p>'));
+		pieData[2] = ["חברים", sumData[3] * sumData[0] / 100];
+		$("#moneyInfoMainWindow").append($('<p id="totalWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה":  '+ sumData[4] +'</p>'));
+		pieData[3] = ["עבודה", sumData[4] * sumData[0] / 100];
 		drawSumsPie(pieData);
 	}
 }
@@ -63,7 +48,8 @@ function drawSumsPie(data)
         renderer: jQuery.jqplot.PieRenderer, 
         rendererOptions: {
 		  trendline:{show:false},
-          showDataLabels: true
+          showDataLabels: true,
+		  seriesColors:["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF"]
         }
       }, 
       legend: { show:true, location: 'e' }
@@ -82,18 +68,20 @@ $(document).ready(function() {
 	$("#canvas-div").append($('<div id="moneyInfoRectangle" class="BlackOverlayRectangle"/>'));
 	$("#moneyInfoRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});
 	$("#moneyInfoRectangle").draggable( 'disable' );
-	$("#canvas-div").append($('<div id="moneyInfoMainWindow" class="SimpleFrame"/>'));
-	$("#moneyInfoMainWindow").animate({top:screenHeight / 2 - mainFrameHeight / 2,left:screenWidth / 2 - mainFrameWidth / 2,width:mainFrameWidth,height:mainFrameHeight},function(){ getFullMoneyInfo();});
+	$("#canvas-div").append($(frameStringMI));
+	$("#MIFrame").animate({top:screenHeight / 2 - mainFrameHeight / 2,left:screenWidth / 2 - mainFrameWidth / 2,width:mainFrameWidth,height:mainFrameHeight},function(){ getFullMoneyInfo();});
 	$("#moneyInfoMainWindow").draggable( 'disable' );
-	$("#moneyInfoMainWindow").append($('<button id="moneyInfoCloseBtn" style="position:relative; background-color:red;" type="button">X</button>'));
-	$("#moneyInfoCloseBtn").css("top", 15);
-	$("#moneyInfoCloseBtn").css("left", mainFrameWidth - 50);
 	$("#moneyInfoCloseBtn").bind('click', function() {
 		$("#moneyInfoRectangle").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoRectangle").remove();});
-		$("#moneyInfoMainWindow").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoMainWindow").remove(); 
+		$("#MIFrame").animate({top:0,left:0,width:0,height:0},function(){$("#MIFrame").remove(); 
+		});
+	});
+	$("#moneyInfoCloseBtn").bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
+		});
+	$("#moneyInfoCloseBtn").bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
 		});
 	}); 
-	
-  });
 }); 
  

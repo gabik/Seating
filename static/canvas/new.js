@@ -1,8 +1,27 @@
-var listTableElementString = '<li><label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="3" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
+var listTableElementString = '<li><label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
 
 var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
 var dataString = "";
+
+function IsNumeric(sText)
+{
+   var ValidChars = "0123456789.";
+   var IsNumber=true;
+   var Char;
+
+ 
+   for (i = 0; i < sText.length && IsNumber == true; i++) 
+      { 
+      Char = sText.charAt(i); 
+      if (ValidChars.indexOf(Char) == -1) 
+         {
+         IsNumber = false;
+         }
+      }
+   return IsNumber;
+   
+}
 
 function noZeroData()
 {
@@ -369,10 +388,10 @@ $(document).ready(function(){
 			$("#TableTypeList > li").last().find('img').last().bind('mouseover',function(){ mouseOverRemoveBtn($(this)); });
 			$("#TableTypeList > li").last().find('img').last().bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
 			$("#TableTypeList > li").last().find('select').first().bind('change',function(){ tableShapeChange($(this)); updateCounters(); });
-			$("#TableTypeList > li").last().find('input').first().bind('change',function(){ updateCounters(); });
-			$("#TableTypeList > li").last().find('input').last().bind('change',function(){ if ($(this).val() > 22){ $(this).val(22) } else if ($(this).val() < 4) { $(this).val(4)} updateCounters();  });
-			$("#TableTypeList > li").last().find('input').first().bind('keydown',function(event){ insureNumInput(event); if ($(this).val() == "") {$(this).val(1) }});
-			$("#TableTypeList > li").last().find('input').last().bind('keydown',function(event){  insureNumInput(event); if ($(this).val() == "") {$(this).val(4) }});
+			$("#TableTypeList > li").last().find('input').first().bind('change',function(){  if (!IsNumeric($(this).val())){$(this).val(1)} updateCounters(); });
+			$("#TableTypeList > li").last().find('input').last().bind('change',function(){ if (IsNumeric($(this).val())) {if ($(this).val() > 22){ $(this).val(22) } else if ($(this).val() < 4) { $(this).val(4)}} else { $(this).val(4) } updateCounters(); });
+			$("#TableTypeList > li").last().find('input').first().bind('keydown',function(event){ insureNumInput(event); });
+			$("#TableTypeList > li").last().find('input').last().bind('keydown',function(event){  insureNumInput(event); });
 			if ($("#TableTypeAList > li").size() > maxSeated)
 			{
 				$("#AddLiA").attr("src","/static/canvas/images/addDisable.png");

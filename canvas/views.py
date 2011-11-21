@@ -303,6 +303,7 @@ def save_person_element(request):
 			person.present_amount = request.POST['present_amount']
 			person.facebook_account = request.POST['facebook_account']
 			person.group = request.POST['group']
+			person.gender = request.POST['gender']
 			person.save()
 			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

@@ -148,7 +148,7 @@
         // Used as check for conditions where pie shouldn't be drawn.
         this._drawData = true;
         this._type = 'pie';
-        
+		        
         // if user has passed in highlightMouseDown option and not set highlightMouseOver, disable highlightMouseOver
         if (options.highlightMouseDown && options.highlightMouseOver == null) {
             options.highlightMouseOver = false;
@@ -280,6 +280,12 @@
             if (this.fill == false) {
                 sm += this.lineWidth;
             }
+			if (ctx == null || ctx == undefined)
+			{
+				var el = document.createElement('canvas');
+				window.G_vmlCanvasManager.initElement(el);
+				var ctx = el.getContext('2d');
+			}
             ctx.save();
             ctx.translate(this._center[0], this._center[1]);
             
@@ -775,7 +781,18 @@
     function highlight (plot, sidx, pidx) {
         var s = plot.series[sidx];
         var canvas = plot.plugins.pieRenderer.highlightCanvas;
-        canvas._ctx.clearRect(0,0,canvas._ctx.canvas.width, canvas._ctx.canvas.height);
+		if (canvas._ctx != null)
+		{
+			canvas._ctx.clearRect(0,0,canvas._ctx.canvas.width, canvas._ctx.canvas.height);
+		}
+		else
+		{
+			var el = document.createElement('canvas');
+			window.G_vmlCanvasManager.initElement(el);
+			var ctx = el.getContext('2d');
+			
+			ctx.clearRect(0,0, ctx.canvas.width, ctx.canvas.height);
+		}
         s._highlightedPoint = pidx;
         plot.plugins.pieRenderer.highlightedSeriesIndex = sidx;
         s.renderer.drawSlice.call(s, canvas._ctx, s._sliceAngles[pidx][0], s._sliceAngles[pidx][1], s.highlightColorGenerator.get(pidx), false);
@@ -783,7 +800,18 @@
     
     function unhighlight (plot) {
         var canvas = plot.plugins.pieRenderer.highlightCanvas;
-        canvas._ctx.clearRect(0,0, canvas._ctx.canvas.width, canvas._ctx.canvas.height);
+		if (canvas._ctx != null)
+		{
+			canvas._ctx.clearRect(0,0, canvas._ctx.canvas.width, canvas._ctx.canvas.height);
+		}
+		else
+		{
+			var el = document.createElement('canvas');
+			window.G_vmlCanvasManager.initElement(el);
+			var ctx = el.getContext('2d');
+			
+			ctx.clearRect(0,0, ctx.canvas.width, ctx.canvas.height);
+		}
         for (var i=0; i<plot.series.length; i++) {
             plot.series[i]._highlightedPoint = null;
         }
