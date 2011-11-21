@@ -158,7 +158,7 @@ $(document).ready(function() {
   });
   	
 });
-/*
+
 $(document).ajaxSend(function(event, xhr, settings) {
     function getCookie(name) {
         var cookieValue = null;
@@ -194,4 +194,4 @@ $(document).ajaxSend(function(event, xhr, settings) {
     if (!safeMethod(settings.type) && sameOrigin(settings.url)) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
-});*/
+});
