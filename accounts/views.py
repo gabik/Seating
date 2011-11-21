@@ -137,8 +137,8 @@ def add_person(request):
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
-def handle_uploaded_file(f):
-	destination = open('/tmp/curfile.xls', 'wb+')
+def handle_uploaded_file(f, request):
+	destination = open('/tmp/' + str(request.user.id) + 'curfile.xls', 'wb+')
 	for chunk in f.chunks():
 		destination.write(chunk)
 	destination.close()
@@ -155,8 +155,8 @@ def upload_file(request):
 	if request.method == 'POST':
 		form = UploadFileForm(request.POST, request.FILES)
 		if form.is_valid():
-			handle_uploaded_file(request.FILES['file'])
-			book = xlrd.open_workbook("/tmp/curfile.xls")
+			handle_uploaded_file(request.FILES['file'], request)
+			book = xlrd.open_workbook("/tmp/" + str(request.user.id) + "curfile.xls")
 			shX = book.sheet_by_index(1)
 			starting_row = shX.cell_value(0,0)
 			cur_hash = shX.cell_value(0,1)
