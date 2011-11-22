@@ -87,7 +87,7 @@ def new_canvas(request):
 					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
 					single_element.save()
 
 				add_char =""
