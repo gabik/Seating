@@ -722,15 +722,13 @@ $(document).ready(function() {
       document.getElementById(imgs[i].id).src = "/static/canvas/images/tables_small/RectR.png";
     }else if (imgs[i].id.split("-", 1) == "Lozenge") {
       document.getElementById(imgs[i].id).src = "/static/canvas/images/tables_small/LozengeR.png";
-    } else if (imgs[i].id.split("-", 1) == "null_square") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/rect.png";
-    } else if (imgs[i].id.split("-", 1) == "null_ellipse") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/ellipse.png";
-    } else if (imgs[i].id.split("-", 1) == "null_line") {
-      document.getElementById(imgs[i].id).src = "/static/canvas/images/line.png";
-    }else if (imgs[i].id.split("-", 1) == "Statusnull_line" || imgs[i].id.split("-", 1) == "Statusnull_ellipse" || imgs[i].id.split("-", 1) == "Statusnull_square") {
-       document.getElementById(imgs[i].id).style.visibility = "hidden";
-    }
+    }else if (imgs[i].id.split("-", 1) == "dance_stand") {
+	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/dance.png";
+	}else if (imgs[i].id.split("-", 1) == "bar_stand") {
+	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/bar_colored.png";
+	}else if (imgs[i].id.split("-", 1) == "dj_stand") {
+	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/dj.png";
+	}
   }
   
   var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
@@ -755,6 +753,18 @@ $(document).ready(function() {
      {
 		 elementCaption[1].style.visibility = "hidden";
 		 $(this).removeClass('DragDiv');
+		 if (elementImgs[0].id.split("-", 1) == "dance_stand")
+		 {
+			$(this).attr('title',"רחבת ריקודים");
+		 }
+	     else if (elementImgs[0].id.split("-", 1) ==  "bar_stand") 
+		 {
+			$(this).attr('title',"בר משקאות");	
+		 }
+	     else if (elementImgs[0].id.split("-", 1) ==  "dj_stand")
+		 {
+			$(this).attr('title',"עמדת די ג'יי");	
+		 }
 		 $(this).addClass('DragNonDropDiv');
 	 }
 
