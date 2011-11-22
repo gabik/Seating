@@ -196,6 +196,11 @@ function CloseFocusDetailsFromFloatList(event)
 					}
 				});
 			});
+			$(".DragNonDropDiv").each(function(i) {
+				$(this).fadeTo(400, 1, function() {
+					// Animation complete.
+				});
+			});
 			PersonLastPosition[0] = "";
 			PersonLastPosition[1] = "";
 			disableDetailsMode();
@@ -331,7 +336,7 @@ function reLoadDetails(personElement)
 	{
 		personData.first_name = personData.first_name.replace(" ","_");
 		personData.last_name = personData.last_name.replace(" ","_");
-		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
+		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto; height:30;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
 		SelectedTabIndex = 0;
 		$("#tabs").tabs();
 		$("#tabs").bind('tabsselect', function(event, ui) {
@@ -590,6 +595,12 @@ function hideAllDragDiv()
 {
 	$(".DragDiv").each(function(i) {
 		$(this).border('0px white 0');
+		$(this).fadeTo(400, 0, function() {
+			// Animation complete.
+			$(this).hide();
+		});
+	});
+	$(".DragNonDropDiv").each(function(i) {
 		$(this).fadeTo(400, 0, function() {
 			// Animation complete.
 			$(this).hide();
