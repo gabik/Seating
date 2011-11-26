@@ -53,19 +53,13 @@ class Guest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
-	group_choices = (
-		('Friends', 'Friends'),
-		('Family', 'Family'),
-		('Work', 'Work'),
-		('Other', 'Other'),
-	)
-	group = models.CharField(max_length=7, choices=group_choices, default='Other')
+	group = models.CharField(max_length=30, default='')
 	gender_choices = (
 		('M', 'Male'),
 		('F', 'Female'),
 		('U', 'Unknon'),
 	)
-	gender = models.CharField(max_length=6, choices=group_choices, default='U')
+	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
         def __unicode__(self):
                 printy = self.user.username + "- " + self.guest_first_name+ " " +self.guest_last_name
                 return printy

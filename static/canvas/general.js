@@ -704,6 +704,26 @@ function insureNumInput(event)
 	}
 }
 
+function updateGroups()
+{
+	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
+	if ($("#addChar").text() == " ")
+	{	
+		$("#personGroup").append($('<option value="Family">משפחה כללי</option>'));
+		$("#personGroup").append($('<option value="Work">חברים כללי</option>'));
+		$("#personGroup").append($('<option value="Friends">עבודה כללי</option>'));
+	}
+	else
+	{
+		$("#personGroup").append($('<option value="Family ' + $("#secondPartnerName").text()+'">משפחה '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Work ' + $("#secondPartnerName").text()+'">חברים '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Friends ' + $("#secondPartnerName").text()+'">עבודה '+ $("#secondPartnerName").text() + '</option>'));
+	}
+	$("#personGroup").append($('<option value="Other" selected>אחר</option>'));
+}
+
 $(document).ready(function() {
 
  var sortFloatListByNameAscending = true
@@ -742,6 +762,7 @@ $(document).ready(function() {
   $.jqplot.config.enablePlugins = true;
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
+  updateGroups();
 
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
@@ -1142,6 +1163,10 @@ $(document).ready(function() {
   }); 
   
   $("#NumOfGuests").keydown(function(e){
+    insureNumInput(e);
+  });  
+  
+  $("#ElementNumber").keydown(function(e){
     insureNumInput(e);
   });
 

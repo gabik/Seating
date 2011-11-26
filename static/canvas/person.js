@@ -370,7 +370,8 @@ function createTab()
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">סכום מתנה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">חשבון פייסבוק:&nbsp;<span><input  MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/></span></p>'));
-	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">קבוצה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'"><option value="Other">אחר<option value="Friends">חברים<option value="Family">משפחה<option value="Work">עבודה<span></span></select></span></p></td><td align="right">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
+	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">קבוצה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
+	updateDetailPersonGroups($("#detailsGroup" + personData.first_name + '_'+ personData.last_name));
 	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );	
 	$("#detailsGender" + personData.first_name + '_'+ personData.last_name).val( personData.gender );
 	tab.append($('</br>'));
@@ -407,6 +408,26 @@ function createTab()
 	$("#SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseover', function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r_white_back.png");
 			});
+}
+
+function updateDetailPersonGroups(element)
+{
+	element.append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
+	element.append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
+	element.append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
+	if ($("#addChar").text() == " ")
+	{	
+		element.append($('<option value="Family">משפחה כללי</option>'));
+		element.append($('<option value="Work">חברים כללי</option>'));
+		element.append($('<option value="Friends">עבודה כללי</option>'));
+	}
+	else
+	{
+		element.append($('<option value="Family ' + $("#secondPartnerName").text()+'">משפחה '+ $("#secondPartnerName").text() + '</option>'));
+		element.append($('<option value="Work ' + $("#secondPartnerName").text()+'">חברים '+ $("#secondPartnerName").text() + '</option>'));
+		element.append($('<option value="Friends ' + $("#secondPartnerName").text()+'">עבודה '+ $("#secondPartnerName").text() + '</option>'));
+	}
+	element.append($('<option value="Other" selected>אחר</option>'));
 }
 
 function DragPerson(personElement,tableElement)
