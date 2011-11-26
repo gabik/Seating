@@ -415,8 +415,8 @@ function updateDetailPersonGroups(element)
 	element.append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
 	element.append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
 	element.append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
-	if ($("#addChar").text() == " ")
-	{	
+	if ($("#addChar").text() == " " || $("#addChar").text() == '')
+	{
 		element.append($('<option value="Family">משפחה כללי</option>'));
 		element.append($('<option value="Work">חברים כללי</option>'));
 		element.append($('<option value="Friends">עבודה כללי</option>'));

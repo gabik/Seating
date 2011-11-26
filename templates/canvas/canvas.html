@@ -320,9 +320,9 @@
 									{% for guest in guests %}
 										{% if guest.elem_num == 0 %}
 											{% if guest.gender == 'F' %}
-												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
-												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}  לחיצה כפולה לעריכה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
+												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
 											{% endif %}
 										{% endif %}
 									{% endfor %}

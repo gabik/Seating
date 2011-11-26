@@ -23,8 +23,14 @@ function fillNotificationList()
 					emails = emailData.emailList.split("|",count);
 					for (var i = 0; i < count; i++)
 					{
+						var color ="#E0E0AD";
+						
+						if (i % 2 != 0)
+						{
+							color ="#00FFFFFF";
+						}
 						email = emails[i].split(",",2);
-						$("#emailNotificationList").append($('<li><input id="email_'+ i +'" type="checkbox" value="False"><span class="text_10_black">'+ email[0] + " " + email[1] +'</span></input></li>'));
+						$("#emailNotificationList").append($('<li style="background:'+ color +';"><input id="email_'+ i +'" type="checkbox" value="False"><span class="text_10_black">'+ email[0] + " " + email[1] +'</span></input></li>'));
 					}
 				}
 				else
@@ -44,7 +50,7 @@ function sendNotifyChange()
 	}
 	else
 	{
-		if ($("#addChar").text() == " ")
+		if ($("#addChar").text() == " " || $("#addChar").text() == '')
 		{			
 			full_massage = full_massage + "אבקש לקבל מידע לגבי הגעה לאירוע שלי, ";
 		}

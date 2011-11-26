@@ -709,7 +709,7 @@ function updateGroups()
 	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
 	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
 	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
-	if ($("#addChar").text() == " ")
+	if ($("#addChar").text() == " " || $("#addChar").text() == '')
 	{	
 		$("#personGroup").append($('<option value="Family">משפחה כללי</option>'));
 		$("#personGroup").append($('<option value="Work">חברים כללי</option>'));

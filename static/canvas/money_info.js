@@ -27,7 +27,7 @@ function createInfoFields(sumData)
 		var pieData = [];
 		var secondGroupFooter = $("#secondPartnerName").text();
 		
-		if ($("#addChar").text() == " ")
+		if ($("#addChar").text() == " " || $("#addChar").text() == '')
 		{
 			secondGroupFooter = "כללי";
 		}
