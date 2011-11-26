@@ -16,8 +16,8 @@ from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 import sys
-sys.path.append("/Seating/static/locale/he")
-#import he
+sys.path.append("seating/Seating/static/locale/he")
+'''#import he'''
 
 #@login_required
 def is_login(request):

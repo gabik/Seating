@@ -452,3 +452,18 @@ def get_Operations(request):
 			opinfo = OccasionOperation.operation_info
 			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
 	return HttpResponse(json_dump)
+	
+@login_required
+def get_GuestsEmails(request):
+	json_dump = json.dumps({'status': "Error"})
+	result = ""
+	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
+	if (len(user_GuestsEmails) > 0):
+		for guest in user_GuestsEmails:
+			name = guest.guest_last_name + " " + guest.guest_first_name
+			email = guest.guest_email;
+			result = result + name + "," + email + "|"
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
+	else:
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
+	return HttpResponse(json_dump)

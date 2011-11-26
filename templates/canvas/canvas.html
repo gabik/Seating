@@ -70,9 +70,10 @@
 		 $("#SquarePlaceMentShapes").click();
 		 $(".ShapePlacementMenu").hide();
 	  }
-	 }
-	 
+	}
+	
 	$(document).ready(function() {
+	 
 		$(".tableProp").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
 		});
@@ -202,8 +203,8 @@
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl"> האירוע של <span class="titles_blue" dir="rtl">{{ partners.partner1_first_name }} {{addChar}} {{ partners.partner2_first_name }} {{ last_name }}
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך {{date}} </span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
