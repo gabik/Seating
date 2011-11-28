@@ -156,6 +156,16 @@ $(document).ready(function() {
 		}
     }
   });
+  
+   if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
+   {
+		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 5);
+   }
+   else if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)
+   {
+		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 7);
+		$("#search-properties-list").css('top',$("#search-properties-list").position().top + 5);
+   }
   	
 });
 /*

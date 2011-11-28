@@ -99,7 +99,7 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).border('0px white 0');
+				$(this).removeClass('borderSelected');
 				SelectedElem = "";
 				
 				startDradPositionList[i] = $(this).position();
@@ -217,7 +217,7 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).border('0px white 0');
+				$(this).removeClass('borderSelected');;
 				SelectedElem = "";
 			
 				startDradPositionList[i] = $(this).position();
@@ -332,7 +332,7 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).border('0px white 0');
+				$(this).removeClass('borderSelected');
 				SelectedElem = "";
 				startDradPositionList[i] = $(this).position();
 				if (newTop + $(this).height() > maxHeight)

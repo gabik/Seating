@@ -387,15 +387,6 @@ $(document).ready(function() {
 		$("#AddDivImg").attr('src',"/static/canvas/images/addDisable.png");
 	}*/
   });
-  
-  $(document).mouseup(function(e) {
-   if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
-      if (SelectedElem != "" ) {
-           //SelectedElem.border('2px pink .5');
-      }
-    }
-	isMousePressFromCanvas = false;
-	});
 	
 	$(document).before(function(){
 		ShowHourGlassWaitingWindow(false);

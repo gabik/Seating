@@ -283,9 +283,13 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 function selectElement(element)
 {
     if (SelectedElem != "" ) {
-      SelectedElem.border('0px white 0');
+      SelectedElem.removeClass('borderSelected');
     }
-    element.border('2px pink .5');
+	element.removeClass('borderSelected');
+	if (!tableMode)
+	{
+		element.addClass('borderSelected');
+	}
 	if (!fromPropMeneBtn)
 	{
 		posPropertyPanel("");
@@ -941,7 +945,7 @@ $(document).ready(function() {
 						LoadPerson(table, data.free_position - 1);
 					}
 					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split(" ", 2)[0].trim());
 					rePaintPeopleList();
 				  }else if (data.status == 'FULL')
 				  {
@@ -1206,9 +1210,9 @@ $(document).ready(function() {
   });
   
   $(document).mouseup(function(e) {
-   if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
-      if (SelectedElem != "" ) {
-           //SelectedElem.border('2px pink .5');
+   if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&&!($(e.target).hasClass('Property'))){
+      if (SelectedElem != "" && !tableMode && !detailsMode) {
+           SelectedElem.addClass('borderSelected');
       }
     }
 	isMousePressFromCanvas = false;

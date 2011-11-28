@@ -12,10 +12,10 @@ jQuery(function() {
 
 function selectPersonElement(element)
 {
-	$(".TableElemImg").each(function(i) {
-		$(this).border('0px white 0');
+	$(".TableElementDiv").each(function(i) {
+		$(this).removeClass('borderSelected');
 	});
-	element.border('2px pink .5');
+	element.addClass('borderSelected');
 }
 
 function enableDetailsMode()
@@ -67,14 +67,14 @@ function LoadPerson(element, i)
 					}
 				});
 				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElement"+ data.position).border('0px white 0');
+					$("#tableElement"+ data.position).removeClass('borderSelected');;
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position),element,false);
 				});
 				$("#tableElementDiv"+ data.position).bind('click',function() {
 					personData = data;
 					SelectedTable = element;
-					selectPersonElement($("#tableElement"+ data.position));
+					selectPersonElement($("#tableElementDiv"+ data.position));
 					SelectedPerson = $(this);
 				});
 				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
@@ -587,7 +587,7 @@ function StopDragPerson(element,tableElement)
 			{
 				document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "position " + realOldPosition + "</br>empty";
 			}
-				selectPersonElement($("#tableElement"+ lastPositionNum));
+				selectPersonElement($("#tableElementDiv"+ lastPositionNum));
 				SelectedPerson = element;			
 			});
 
@@ -608,14 +608,14 @@ function StopDragPerson(element,tableElement)
 		{
 			fixPlaceFloat(cleanTitleThis , lastPositionNum);
 			setSaveStatus("OK");
-			element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElement"+lastPositionNum)); SelectedPerson = element;});
+			element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElementDiv"+lastPositionNum)); SelectedPerson = element;});
 		}
 }
 
 function hideAllDragDiv()
 {
 	$(".DragDiv").each(function(i) {
-		$(this).border('0px white 0');
+		$(this).removeClass('borderSelected');
 		$(this).fadeTo(400, 0, function() {
 			// Animation complete.
 			$(this).hide();
@@ -640,7 +640,7 @@ function hideTableElementDiv()
 		
 function hideElement(element)
 {
-	element.border('0px white 0');
+	element.removeClass('borderSelected');
 	element.fadeTo(400, 0, function() {
 		// Animation complete.
 		$(this).hide();
@@ -784,8 +784,8 @@ function DeletePerson()
 		  reloadElementStatus(SelectedTable);
 		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "position " + newPositionNum + "</br>empty";
 		  //$("#tableElement" + personData.position).attr("src", "/static/canvas/images/WeddingChair.png");
-		  SelectedPerson.border('0px white 0');
-		  selectPersonElement($("#tableElement" + personData.position));
+		  SelectedPerson.removeClass('borderSelected');
+		  selectPersonElement($("#tableElementDiv" + personData.position));
 		  SelectedPerson = "";
           setSaveStatus("OK");
 		  ShowHourGlassWaitingWindow(true);

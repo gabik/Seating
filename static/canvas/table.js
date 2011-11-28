@@ -6,9 +6,11 @@ var originalPropertiesArray = new Array(4) //[top,left,width,height]
 var originalFontSize = 11.5;
 var tableModeFontSize = 14;
 var tableMode = false;
+var disableDBClick = false;
 
 function turnToRegularMode(element,event)
 {
+	disableDBClick = true;
 	var originalElement = element;
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
@@ -61,6 +63,8 @@ function turnToRegularMode(element,event)
 			event = undefined;
 		}
 	}
+	disableDBClick = false;
+	tableMode = false;
 	selectElement(element);
 	});
 	
@@ -78,11 +82,11 @@ function turnToRegularMode(element,event)
 	SelectedPerson = "";
 	personData = "";
 	SelectedTable = "";
-	tableMode = false;
 }
 
 function turnToTableMode(element,saveTablePositionProperties,event)
 {
+	disableDBClick = true;
 	var originalElement = element;
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
@@ -98,7 +102,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		originalPropertiesArray[3] =  element.height();
 	}
 	
-	element.border('0px white 0');
+	element.removeClass('borderSelected');
 	
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -106,6 +110,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
+				$(this).removeClass('borderSelected');
 				$(this).hide();
 			});
 		}
@@ -117,6 +122,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
+				$(this).removeClass('borderSelected');
 				$(this).hide();
 			});
 		}
@@ -149,7 +155,8 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
 	
-	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element);});
+	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false;
+});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;
 	elementCaption[1].style.fontSize= tableModeFontSize;
@@ -220,7 +227,6 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	}
 	element.draggable( 'disable' );
 	SelectedTable = element;
-	tableMode = true;
 	if (event != undefined)
 	{
 		if (event.user == "SearchGuest")
@@ -262,10 +268,9 @@ $(document).ready(function() {
   $(".DragDiv").dblclick( function(event) {
 		posPropertyPanel("");
 		 var elementImgs = $(this).context.getElementsByTagName("img");
-		 $(this).border('0px white 0');
 		 if (isThisPeopleTable(elementImgs[0].id))
 		 {
-			if (tableMode)
+			if (tableMode && !disableDBClick)
 			{
 				$(this).attr("title", "לחיצה כפולה למצב עריכה");
 				turnToRegularMode($(this),event);
@@ -275,7 +280,7 @@ $(document).ready(function() {
 				undoElement[1] = "closetbl";
 				undoElementList[0] = undoElement;
 			}
-			else
+			else if (!disableDBClick)
 			{
 				$(this).attr("title", "לחיצה כפולה חזרה לאולם");
 				turnToTableMode($(this),true,event);

@@ -11,6 +11,9 @@
   -moz-user-select: none;
   -o-user-select: none;
   user-select: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
  }
   .SelectionRectangle
   {

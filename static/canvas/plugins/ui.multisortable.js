@@ -258,30 +258,30 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		});
 
 		//Rearrange
-		for (var i = this.items.length - 1; i >= 0; i--) {
+			for (var i = this.items.length - 1; i >= 0; i--) {
 
-			//Cache variables and intersection, continue if no intersection
-			var item = this.items[i], itemElement = item.item[0], intersection = this._intersectsWithPointer(item);
-			if (!intersection) continue;
+				//Cache variables and intersection, continue if no intersection
+				var item = this.items[i], itemElement = $(this), intersection = this._intersectsWithPointer(item);
+				if (!intersection) continue;
 
-			if(itemElement != this.currentItem[0] //cannot intersect with itself
-				&&	this.placeholder[intersection == 1 ? "next" : "prev"]()[0] != itemElement //no useless actions that have been done before
-				&&	!$.ui.contains(this.placeholder[0], itemElement) //no action if the item moved is the parent of the item checked
-				&& (this.options.type == 'semi-dynamic' ? !$.ui.contains(this.element[0], itemElement) : true)
-			) {
+				if(itemElement != this.currentItem[0] //cannot intersect with itself
+					&&	this.placeholder[intersection == 1 ? "next" : "prev"]()[0] != itemElement //no useless actions that have been done before
+					//&&	!$.ui.contains(this.placeholder[0], itemElement) //no action if the item moved is the parent of the item checked
+					&& (this.options.type == 'semi-dynamic' ? !$.ui.contains(this.element[0], itemElement) : true)
+				) {
 
-				this.direction = intersection == 1 ? "down" : "up";
+					this.direction = intersection == 1 ? "down" : "up";
 
-				if (this.options.tolerance == "pointer" || this._intersectsWithSides(item)) {
-					this._rearrange(event, item);
-				} else {
+					if (this.options.tolerance == "pointer" || this._intersectsWithSides(item)) {
+						this._rearrange(event, item);
+					} else {
+						break;
+					}
+
+					this._trigger("change", event, this._uiHash());
 					break;
 				}
-
-				this._trigger("change", event, this._uiHash());
-				break;
 			}
-		}
 
 		//Post events to containers
 		this._contactContainers(event);
@@ -293,12 +293,14 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		this._trigger('sort', event, this._uiHash());
 
 		this.lastPositionAbs = this.positionAbs;
+		$("body").css("overflow", "hidden");
 		return false;
 
 	},
 
 	_createHelper: function(event) {
 
+		var singelDrag = true;
 		var o = this.options;
 		
 		if (this.currentItem.hasClass('ui-multisort-grouped')) {
@@ -310,19 +312,40 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 				var parentNode = $(o.appendTo != 'parent' ? o.appendTo : this.currentItem[0].parentNode)[0];
 				
 				$(helper).each(function(i) {
-					parentNode.appendChild(helper[i]);
+					if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					{
+						document.getElementById("canvasbody").appendChild(helper[i]);
+					}
+					else
+					{
+						parentNode.appendChild(helper[i]);
+					}
+					
 				});
 			}
-		} else {
-			var helper = $.isFunction(o.helper) ? $(o.helper.apply(this.element[0], [event, this.currentItem])) : (o.helper == 'clone' ? this.currentItem.clone() : this.currentItem);
+		} else if(this.currentItem.hasClass('ui-multisort-click')) {
+			singelDrag = true;
+			var helper = $(this.currentItem).add($(this.currentItem).siblings('.ui-multisort-click')).clone();
+			$(this.currentItem).siblings('.ui-multisort-click').hide();
 			
-			if(!helper.parents('body').length) //Add the helper to the DOM if that didn't happen already
-				$(o.appendTo != 'parent' ? o.appendTo : this.currentItem[0].parentNode)[0].appendChild(helper[0]);			
-		}
-
-
-
-		if(helper[0] == this.currentItem[0])
+				if(!helper.parents('body').length) {
+					//Add the helper to the DOM if that didn't happen already
+					var parentNode = $(o.appendTo != 'parent' ? o.appendTo : this.currentItem[0].parentNode)[0];
+					
+					$(helper).each(function(i) {
+						if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+						{
+							document.getElementById("canvasbody").appendChild(helper[i]);
+						}
+						else
+						{
+							parentNode.appendChild(helper[i]);
+						}
+						
+					});
+				}
+			}
+			if(singelDrag)
 			this._storedCSS = { width: this.currentItem[0].style.width, height: this.currentItem[0].style.height, position: this.currentItem.css("position"), top: this.currentItem.css("top"), left: this.currentItem.css("left") };
 
 		if(helper[0].style.width == '' || o.forceHelperSize) helper.width(this.currentItem.width());
@@ -350,11 +373,13 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		if(!this._noFinalSort && this.currentItem[0].parentNode) this.placeholder.before(this.currentItem);
 		this._noFinalSort = null;
 
-		if(this.helper[0] == this.currentItem[0]) {
+		if($(this.helper[0]).hasClass('ui-multisort-click')) {
 			for(var i in this._storedCSS) {
 				if(this._storedCSS[i] == 'auto' || this._storedCSS[i] == 'static') this._storedCSS[i] = '';
 			}
 			this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper");
+			$(this.currentItem).siblings('ui-multisort-click').show();
+			this.currentItem.show();
 		} else {
 			if ($(this.currentItem).parent().children().size() > 0) {
 				$(this.currentItem).siblings('.ui-multisort-grouped').show();
@@ -418,6 +443,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 			$("#people-list").scrollTop(parseInt($(event.target).index() * 15));
 		}
 		rePaintPeopleList();
+		$("body").css("overflow", "auto");
 		return true;
 	}
 }));
