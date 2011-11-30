@@ -129,7 +129,7 @@ def create_user(request):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'], group=request.POST['group'],gender=request.POST['gender'])
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'], group=request.POST['group'],gender=request.POST['gender'],invation_status = "T")
 		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

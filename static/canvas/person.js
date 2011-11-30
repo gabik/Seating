@@ -306,6 +306,28 @@ function selectTab(ui)
 				personData = data;
 				personData.first_name = personData.first_name.replace(" ","_");
 				personData.last_name = personData.last_name.replace(" ","_");
+				if (personData.invation_status == "T")
+				{
+					$("#InvationStatusPersonButton").attr('src', "/static/canvas/images/person/tentative_status_n.png");
+					$("#InvationStatusPersonButton").attr('alt',personData.invation_status);document.getElementById("InvationStatus").innerHTML ="ספק בהגעה";
+
+				}
+				else if (personData.invation_status == "A")
+				{
+					$("#InvationStatusPersonButton").attr('src',"/static/canvas/images/person/accept_status_n.png");
+					$("#InvationStatusPersonButton").attr('alt',personData.invation_status);
+					document.getElementById("InvationStatus").innerHTML ="בוצע אישור הגעה";
+
+				}
+				else
+				{
+					$("#InvationStatusPersonButton").attr('src',"/static/canvas/images/person/noaccept_status_n.png");
+					$("#InvationStatusPersonButton").attr('alt',personData.invation_status);
+					document.getElementById("InvationStatus").innerHTML ="אין כוונה להגעה";
+
+					
+
+				}
 				//SelectedTabIndex = ui.index;
 				SelectedTabIndex = $('#tabs').tabs("option", "selected");
 				if (data.gender == "M")
@@ -343,6 +365,78 @@ function reLoadDetails(personElement)
 				selectTab(ui);
 		});
 		createTab();
+			
+		var invation_status_src = "";
+		var invation_status_text = ""
+
+		if (personData.invation_status == "T")
+		{
+			invation_status_src = "/static/canvas/images/person/tentative_status_n.png";
+			invation_status_text="ספק בהגעה";
+		}
+		else if (personData.invation_status == "A")
+		{
+			invation_status_src = "/static/canvas/images/person/accept_status_n.png";
+			invation_status_text="בוצע אישור הגעה";
+		}
+		else
+		{
+			invation_status_src = "/static/canvas/images/person/noaccept_status_n.png";
+			invation_status_text="אין כוונה להגעה";
+		}
+
+		$("#detailsLeftSide").append($('<table id="InvationStatusDiv" width="140" border="0" cellspacing="0" cellpadding="0 title="סטטוס הגעה" style="position:absolute;"><tr><td align="right" dir="rtl" ><p id="InvationStatus" class="text_14_black">'+invation_status_text+'</p></td><td valign="top" align="right"><img id="InvationStatusPersonButton" style="background: transparent;" class="InvationStatusBtn" alt='+ personData.invation_status +' src= ' + invation_status_src +'/></tr></table>'));
+		$("#InvationStatusDiv").css("top", 25);
+		$("#InvationStatusDiv").css("left", 0);
+		$("#InvationStatusPersonButton").bind('mouseout', function(){
+			if ($(this).attr('alt') == "T")
+			{
+				$(this).attr('src',"/static/canvas/images/person/tentative_status_n.png");
+			}
+			else if ($(this).attr('alt') == "A")
+			{
+				$(this).attr('src',"/static/canvas/images/person/accept_status_n.png");
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/images/person/noaccept_status_n.png");
+			}
+		});
+		$("#InvationStatusPersonButton").bind('mouseover', function(){
+			if ($(this).attr('alt') == "T")
+			{
+				$(this).attr('src',"/static/canvas/images/person/tentative_status_r.png");
+			}
+			else if ($(this).attr('alt') == "A")
+			{
+				$(this).attr('src',"/static/canvas/images/person/accept_status_r.png");
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/images/person/noaccept_status_r.png");
+			}
+		});
+		$("#InvationStatusPersonButton").bind('click', function(){
+			if ($(this).attr('alt') == "T")
+			{
+				$(this).attr('src',"/static/canvas/images/person/accept_status_r.png");
+				$(this).attr('alt',"A");
+				document.getElementById("InvationStatus").innerHTML ="בוצע אישור הגעה";
+			}
+			else if ($(this).attr('alt') == "A")
+			{
+				$(this).attr('src',"/static/canvas/images/person/noaccept_status_r.png");
+				$(this).attr('alt',"N");
+				document.getElementById("InvationStatus").innerHTML ="אין כוונה להגעה";
+
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/images/person/tentative_status_r.png");
+				$(this).attr('alt',"T");
+				document.getElementById("InvationStatus").innerHTML ="ספק בהגעה";
+			}
+		});
 	}
 	});
 }
@@ -395,7 +489,7 @@ function createTab()
 				SelectedTabIndex = "";
 			 }
 		}
-	});
+	});	
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseout', function(){
 			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
 		});
@@ -689,11 +783,12 @@ function savePersonChanges(firstName, lastName)
 	firstName = firstName.replace(" ","_");
 	lastName = lastName.replace(" ","_");
 	if(!emailReg.test($("#detailsE-mail" + firstName + '_'+ lastName).val())) {
-      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red">נא הכנס כתובת חוקית.</span>');
+      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red" class="text_14_black">נא הכנס כתובת חוקית.</span>');
+	  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'red'}, 500);
     }
 	else
 	{
-    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val()},
+    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt')},
       function(data){
 		$("#SaveStatImg").fadeTo(400, 0);
         if (data.status == 'OK')
@@ -706,6 +801,7 @@ function savePersonChanges(firstName, lastName)
 		  personData.facebook_account = $("#detailsFacebookAccount" + firstName + '_'+ lastName).val();
 		  personData.group = $("#detailsGroup" + firstName + '_'+ lastName).val();
 		  personData.gender = $("#detailsGender" + firstName + '_'+ lastName).val();
+		  personData.invation_status =  $("#InvationStatusPersonButton").attr('alt');
 		  if (personData.position > 0)
 		  {
 			document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
@@ -746,7 +842,7 @@ function savePersonChanges(firstName, lastName)
 		  $("#detailsFacebookAccount"+ firstName + '_'+ lastName).attr("id","detailsFacebookAccount"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsGroup"+ firstName + '_'+ lastName).attr("id","detailsGroup"+ personData.first_name + '_'+ personData.last_name);
 		  $("#detailsGender"+ firstName + '_'+ lastName).attr("id","detailsGender"+ personData.first_name + '_'+ personData.last_name);
-		  
+
 		  if ($("#detailsGender"+ personData.first_name + '_'+ personData.last_name).val() == "M")
 		  {
 				$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
@@ -758,8 +854,10 @@ function savePersonChanges(firstName, lastName)
 		  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
 		  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
           setSaveStatus("OK");
+		  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'green'}, 500);
         }else{
           setSaveStatus("Error");
+		  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'red'}, 500);
         }
 		$("#SaveStatImg").fadeTo(400, 1);
     }, 'json');

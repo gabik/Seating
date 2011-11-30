@@ -54,6 +54,18 @@ class Guest(models.Model):
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
 	group = models.CharField(max_length=30, default='Other')
+	invation_choices = (
+		('A', 'Approved'),
+		('N', 'NotApproved'),
+		('T', 'Tentetive'),
+	)
+	invation_status =  models.CharField(max_length=6, choices=invation_choices, default='T')
+	meal_choices = (
+		('M', 'Meat'),
+		('V', 'Vegeterian'),
+		('G', 'Glat'),
+	)
+	meal =  models.CharField(max_length=6, choices=meal_choices, default='M')
 	gender_choices = (
 		('M', 'Male'),
 		('F', 'Female'),

@@ -236,14 +236,14 @@ def get_element_item(request):
 			if (len(element_persons) > 0):
 				for person in element_persons:
 					if (int(person.position) == int(person_position)):
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender})
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
 						break
 		else:
 			first_name = request.POST['firstName']
 			last_name = request.POST['lastName']
 			person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
 			if person is not None:
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender})
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
 	return HttpResponse(json_dump)
 	
 @login_required
@@ -290,6 +290,7 @@ def save_person_element(request):
 			person.facebook_account = request.POST['facebook_account']
 			person.group = request.POST['group']
 			person.gender = request.POST['gender']
+			person.invation_status = request.POST['invation_status']
 			person.save()
 			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
