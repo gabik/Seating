@@ -283,9 +283,13 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 function selectElement(element)
 {
     if (SelectedElem != "" ) {
-      SelectedElem.border('0px white 0');
+      SelectedElem.removeClass('borderSelected');
     }
-    element.border('2px pink .5');
+	element.removeClass('borderSelected');
+	if (!tableMode)
+	{
+		element.addClass('borderSelected');
+	}
 	if (!fromPropMeneBtn)
 	{
 		posPropertyPanel("");
@@ -704,6 +708,26 @@ function insureNumInput(event)
 	}
 }
 
+function updateGroups()
+{
+	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
+	if ($("#addChar").text() == " " || $("#addChar").text() == '')
+	{	
+		$("#personGroup").append($('<option value="Family">משפחה כללי</option>'));
+		$("#personGroup").append($('<option value="Work">חברים כללי</option>'));
+		$("#personGroup").append($('<option value="Friends">עבודה כללי</option>'));
+	}
+	else
+	{
+		$("#personGroup").append($('<option value="Family ' + $("#secondPartnerName").text()+'">משפחה '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Work ' + $("#secondPartnerName").text()+'">חברים '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Friends ' + $("#secondPartnerName").text()+'">עבודה '+ $("#secondPartnerName").text() + '</option>'));
+	}
+	$("#personGroup").append($('<option value="Other" selected>אחר</option>'));
+}
+
 $(document).ready(function() {
 
  var sortFloatListByNameAscending = true
@@ -742,6 +766,7 @@ $(document).ready(function() {
   $.jqplot.config.enablePlugins = true;
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
+  updateGroups();
 
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
@@ -920,7 +945,7 @@ $(document).ready(function() {
 						LoadPerson(table, data.free_position - 1);
 					}
 					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split("\n", 2)[1].trim());
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split(" ", 2)[0].trim());
 					rePaintPeopleList();
 				  }else if (data.status == 'FULL')
 				  {
@@ -1143,6 +1168,10 @@ $(document).ready(function() {
   
   $("#NumOfGuests").keydown(function(e){
     insureNumInput(e);
+  });  
+  
+  $("#ElementNumber").keydown(function(e){
+    insureNumInput(e);
   });
 
   $("#ElementCaption").after(function(){
@@ -1181,9 +1210,9 @@ $(document).ready(function() {
   });
   
   $(document).mouseup(function(e) {
-   if (!($(e.target).hasClass('DragDiv'))&&!($(e.target).hasClass('Property'))){
-      if (SelectedElem != "" ) {
-           //SelectedElem.border('2px pink .5');
+   if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&&!($(e.target).hasClass('Property'))){
+      if (SelectedElem != "" && !tableMode && !detailsMode) {
+           SelectedElem.addClass('borderSelected');
       }
     }
 	isMousePressFromCanvas = false;

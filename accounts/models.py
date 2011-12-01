@@ -53,13 +53,19 @@ class Guest(models.Model):
 	guest_email = models.EmailField()
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
-	group_choices = (
-		('Friends', 'Friends'),
-		('Family', 'Family'),
-		('Work', 'Work'),
-		('Other', 'Other'),
+	group = models.CharField(max_length=30, default='Other')
+	invation_choices = (
+		('A', 'Approved'),
+		('N', 'NotApproved'),
+		('T', 'Tentetive'),
 	)
-	group = models.CharField(max_length=7, choices=group_choices, default='Other')
+	invation_status =  models.CharField(max_length=6, choices=invation_choices, default='T')
+	meal_choices = (
+		('M', 'Meat'),
+		('V', 'Vegeterian'),
+		('G', 'Glat'),
+	)
+	meal =  models.CharField(max_length=6, choices=meal_choices, default='M')
 	gender_choices = (
 		('M', 'Male'),
 		('F', 'Female'),

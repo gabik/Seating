@@ -304,6 +304,7 @@ def save_person_element(request):
 			person.facebook_account = request.POST['facebook_account']
 			person.group = request.POST['group']
 			person.gender = request.POST['gender']
+			person.invation_status = request.POST['invation_status']
 			person.save()
 			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
@@ -403,26 +404,64 @@ def bring_person_to_floatlist_from_postion(request):
 @login_required
 def get_Money_Info(request):
 	json_dump = json.dumps({'status': "Error"})
+	partners = get_object_or_404(Partners, userPartner = request.user)
 	totalSum = 0;
 	totalOtherSum = 0;
-	totalFamilySum = 0;
-	totalFreindsSum = 0;
-	totalWorkSum = 0;
+	totalFirstFamilySum = 0;
+	totalFirstFriendsSum = 0;
+	totalFirstWorkSum = 0;
+	totalSecondFamilySum = 0;
+	totalSecondFriendsSum = 0;
+	totalSecondWorkSum = 0;
 	persons = Guest.objects.filter(user=request.user)
-	for person in persons:
-		totalSum = totalSum + person.present_amount
-		if person.group == 'Other':
-			totalOtherSum = totalOtherSum + person.present_amount
-		else:
-			if person.group == 'Family':
-				totalFamilySum = totalFamilySum + person.present_amount
+	if partners.partner2_first_name != "":
+		for person in persons:
+			totalSum = totalSum + person.present_amount
+			if person.group == 'Other':
+				totalOtherSum = totalOtherSum + person.present_amount
 			else:
-				if person.group == 'Friends':
-					totalFreindsSum = totalFreindsSum + person.present_amount
+				if person.group == 'Family '+ partners.partner2_first_name:
+					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
 				else:
-					if person.group == 'Work':
-						totalWorkSum = totalWorkSum + person.present_amount
-	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
+					if person.group == 'Friends '+ partners.partner2_first_name:
+						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
+					else:
+						if person.group == 'Work '+ partners.partner2_first_name:
+							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
+						else:
+							if person.group == 'Family '+ partners.partner1_first_name:
+								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
+							else:
+								if person.group == 'Friends '+ partners.partner1_first_name:
+									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
+								else:
+									if person.group == 'Work '+ partners.partner1_first_name:
+										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
+		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
+	else:
+		for person in persons:
+			totalSum = totalSum + person.present_amount
+			if person.group == 'Other':
+				totalOtherSum = totalOtherSum + person.present_amount
+			else:
+				if person.group == 'Family':
+					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
+				else:
+					if person.group == 'Friends':
+						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
+					else:
+						if person.group == 'Work':
+							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
+						else:
+							if person.group == 'Family '+ partners.partner1_first_name:
+								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
+							else:
+								if person.group == 'Friends '+ partners.partner1_first_name:
+									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
+								else:
+									if person.group == 'Work '+ partners.partner1_first_name:
+										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
+		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
 	return HttpResponse(json_dump)
 
 		
@@ -464,4 +503,19 @@ def get_Operations(request):
 			opdate = OccasionOperation.operation_date.strftime("%d/%m/%Y - %H:%M:%S")
 			opinfo = OccasionOperation.operation_info
 			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_GuestsEmails(request):
+	json_dump = json.dumps({'status': "Error"})
+	result = ""
+	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
+	if (len(user_GuestsEmails) > 0):
+		for guest in user_GuestsEmails:
+			name = guest.guest_last_name + " " + guest.guest_first_name
+			email = guest.guest_email;
+			result = result + name + "," + email + "|"
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
+	else:
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
 	return HttpResponse(json_dump)

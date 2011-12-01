@@ -70,9 +70,10 @@
 		 $("#SquarePlaceMentShapes").click();
 		 $(".ShapePlacementMenu").hide();
 	  }
-	 }
-	 
+	}
+	
 	$(document).ready(function() {
+	 
 		$(".tableProp").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
 		});
@@ -202,8 +203,8 @@
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl"> האירוע של <span class="titles_blue" dir="rtl">{{ partners.partner1_first_name }} {{addChar}} {{ partners.partner2_first_name }} {{ last_name }}
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך {{date}} </span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
@@ -319,9 +320,9 @@
 									{% for guest in guests %}
 										{% if guest.elem_num == 0 %}
 											{% if guest.gender == 'F' %}
-												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}"> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
-												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.group }}: {{ guest.guest_first_name }} {{ guest.guest_last_name }}  לחיצה כפולה לעריכה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
+												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
 											{% endif %}
 										{% endif %}
 									{% endfor %}
@@ -387,11 +388,7 @@
 						  <td align="right" valign="top" bgcolor="white">
 								<p class="text_14_black_bolt">קבוצה:</br><span>
 								<select id="personGroup" size="1" dir="rtl">
-											<option value="Other" SELECTED>אחר
-											<option value="Friends">חברים
-											<option value="Family">משפחה
-											<option value="Work">עבודה
-										</select></span></p></td>
+								</select></span></p></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>	
@@ -430,6 +427,14 @@
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
 						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אלמנט</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="right" valign="top" bgcolor="white">
+								<p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:75px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
@@ -565,6 +570,9 @@
 						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינוי"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
 						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="53" /></td>
 						</tr>
+						<tr>
+							<td height="22" width="125" colspan="5"><img src="/static/right_interface/images/small_shadow.png" width="125" height="22" /></td>
+						<tr>
 					</table>
 				</div>
 			</div>					

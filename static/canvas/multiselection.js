@@ -46,7 +46,7 @@ function aligmentHorizontal(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			$("#"+selectionElementsList[i]).border('0px white 0');
+			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -102,7 +102,7 @@ function aligmentVertical(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			$("#"+selectionElementsList[i]).border('0px white 0');
+			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -138,7 +138,7 @@ $(document).ready(function() {
 		if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
 			if (SelectedElem != "")
 			{
-				SelectedElem.border('0px white 0');
+				SelectedElem.removeClass('borderSelected');
 				posPropertyPanel("");
 			}
 			SelectedElem ="";
@@ -261,7 +261,7 @@ $(document).ready(function() {
 					{
 					   saveElementByID(selectionElementsList[i]);
 					}
-					$("#"+selectionElementsList[i]).border('0px white 0');
+					$("#"+selectionElementsList[i]).removeClass('borderSelected');
 					var undoElement = new Array(2);
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";

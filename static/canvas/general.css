@@ -41,6 +41,10 @@
  {
   background:#efefef;
  }
+ .FeatureArea
+ {
+  background:#efefef;
+ }
  .ElemImg
  {
   width:90px;
@@ -334,6 +338,14 @@
 	font-weight: normal;
 	line-height: 20px;
 }
+.text_10_black {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 10px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}
 
 .CloseBtn
 {
@@ -341,3 +353,37 @@
 	margin-top:15;
 	margin-left:15;
 }
+
+#emailNotificationList
+{
+  border:1px solid #ABADB3;
+  overflow:auto;
+  height:130px;
+  width:160px;
+  background:#5A8EA3;
+}
+
+#notify_message
+{
+	resize:none;
+	height:130px;
+	-webkit-user-select: none;
+	-khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+ .borderSelected
+ {
+  border:2px solid #5A8EA3;
+  z-index:999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+ }
+ 
+ .InvationStatusBtn
+ {
+ 	cursor:pointer;
+ }
