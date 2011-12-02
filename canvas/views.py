@@ -1,6 +1,9 @@
 # Create your views here.
+from django.utils.safestring import SafeString, EscapeData
+import re
+#from django.utils.html import escapejs
 from Seating.accounts.models import Guest
-from Seating.accounts.models import UserProfile
+from Seating.accounts.models import UserProfile, Partners
 from Seating.accounts.models import OccasionOperationItem
 from django.db.models import Max
 from django.utils import simplejson as json
@@ -15,6 +18,12 @@ from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 from datetime import datetime
 
+def escapeSpecialCharacters ( text ):
+    characters='"&\','
+    for character in characters:
+        text = text.replace( character, '' )
+    return text
+
 @login_required
 def edit_canvas(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
@@ -24,6 +33,8 @@ def edit_canvas(request):
 	cur_width = 90
 	if len(elements_nums) > 40:
 		cur_width = int(90*45/len(elements_nums))
+	profile = get_object_or_404(UserProfile, user = request.user)
+	partners = get_object_or_404(Partners, userPartner = request.user)
 	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
@@ -35,6 +46,20 @@ def edit_canvas(request):
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
 	c['width'] = cur_width
+	date = profile.occasion_date.strftime("%d/%m/%Y")
+	place = profile.occasion_place
+	if partners.partner1_gender == 'M':
+		last_name = partners.partner1_last_name
+	else:
+		last_name = partners.partner2_last_name
+	if last_name == "":
+		last_name = partners.partner1_last_name
+	c['partners'] = partners
+	c['last_name'] = last_name
+	c['date'] = date
+	c['place'] = place
+	if partners.partner2_first_name != "":
+		 c['addChar'] = "&"
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:
@@ -43,28 +68,37 @@ def edit_canvas(request):
 @login_required
 def new_canvas(request):
 	json_dump = json.dumps({'status': "Error"})
-	raise
 	if request.method == 'POST':
-		table_kind = request.POST['tables_kind']
-		amount = int(request.POST['tables_num'])
-		size = int(request.POST['tables_size'])
-		cordx = int(request.POST['tables_startx'])
-		cordy = int(request.POST['tables_starty'])
-		user_elements = SingleElement.objects.filter(user=request.user)
-		if (len(user_elements) <= 0):
-			max_num = 1
-		else:
-			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+		dataString = request.POST['DataString'].split('|')
+		for string in dataString:
+			if (string != ""):
+				dataArray = string.split(',')
+				
+				table_kind = dataArray[0]
+				amount = int(dataArray[1])
+				size = int(dataArray[2])
+				cordx = int(dataArray[3])
+				cordy = int(dataArray[4])
+				
+				user_elements = SingleElement.objects.filter(user=request.user)
+				if (len(user_elements) <= 0):
+					max_num = 1
+				else:
+					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
-		for i in range(0, amount):
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
-			single_element.save()
-			add_char =""
-			if (i > 0):
-				add_char = "s"
-			info = "Add " +amount+" New "+ table_kind +" Table"+add_char
-			writeOpertationFunc(request,info)
+				for i in range(0, amount):
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+					single_element.save()
+
+				add_char =""
+				if (amount > 0):
+					add_char = "s"
+
+				info = "Add " + str(amount) +" New "+ table_kind +" Table"+add_char
+				writeOpertationFunc(request,info)
+				
 		json_dump = json.dumps({'status': "OK"})
+		print json_dump
 	return HttpResponse(json_dump)
 
 @login_required
@@ -123,6 +157,7 @@ def drop_person(request):
 			if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
 				element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
 				for element_person in element_persons:
+					print element_person.position
 					if element_person.position == free_position:
 						free_position = free_position + 1
 					else:
@@ -137,7 +172,10 @@ def drop_person(request):
 				if (single_element.current_sitting >= single_element.max_sitting):
 					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
 				else:
-					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
+					if (single_element.current_sitting == 0):
+						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
+					else:
+						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
 			else:
 				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 	return HttpResponse(json_dump)
@@ -155,11 +193,11 @@ def add_element(request):
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i),x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
-			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
-			single_element.save()
+#			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+#			single_element.save()
 			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
 	return HttpResponse(json_dump)
 
@@ -208,14 +246,18 @@ def get_element_item(request):
 			if (len(element_persons) > 0):
 				for person in element_persons:
 					if (int(person.position) == int(person_position)):
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+						safe_first = escapeSpecialCharacters(person.guest_first_name) 
+						safe_last  = escapeSpecialCharacters(person.guest_last_name)
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
 						break
 		else:
 			first_name = request.POST['firstName']
 			last_name = request.POST['lastName']
 			person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
 			if person is not None:
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+				safe_first = escapeSpecialCharacters(person.guest_first_name)
+				safe_last  = person.guest_last_name
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
 	return HttpResponse(json_dump)
 	
 @login_required
@@ -226,6 +268,8 @@ def swap_position(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		first_person_position = request.POST['first_position']
 		second_person_position = request.POST['second_position']
+		print first_person_position
+		print second_person_position
 		if (int(first_person_position) > 0 and int(second_person_position) > 0):
 			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
 			if (len(element_persons) > 0):
@@ -236,6 +280,12 @@ def swap_position(request):
 					second_element_persons[0].save()
 				element_persons[0].save()
 				json_dump = json.dumps({'status': "OK"})
+			else:
+				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
+				if (len(second_element_persons) > 0):
+					second_element_persons[0].position = int(first_person_position)
+					second_element_persons[0].save()
+					json_dump = json.dumps({'status': "OK"})	
 	return HttpResponse(json_dump)
 
 @login_required
@@ -253,6 +303,8 @@ def save_person_element(request):
 			person.present_amount = request.POST['present_amount']
 			person.facebook_account = request.POST['facebook_account']
 			person.group = request.POST['group']
+			person.gender = request.POST['gender']
+			person.invation_status = request.POST['invation_status']
 			person.save()
 			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
@@ -352,26 +404,64 @@ def bring_person_to_floatlist_from_postion(request):
 @login_required
 def get_Money_Info(request):
 	json_dump = json.dumps({'status': "Error"})
+	partners = get_object_or_404(Partners, userPartner = request.user)
 	totalSum = 0;
 	totalOtherSum = 0;
-	totalFamilySum = 0;
-	totalFreindsSum = 0;
-	totalWorkSum = 0;
+	totalFirstFamilySum = 0;
+	totalFirstFriendsSum = 0;
+	totalFirstWorkSum = 0;
+	totalSecondFamilySum = 0;
+	totalSecondFriendsSum = 0;
+	totalSecondWorkSum = 0;
 	persons = Guest.objects.filter(user=request.user)
-	for person in persons:
-		totalSum = totalSum + person.present_amount
-		if person.group == 'Other':
-			totalOtherSum = totalOtherSum + person.present_amount
-		else:
-			if person.group == 'Family':
-				totalFamilySum = totalFamilySum + person.present_amount
+	if partners.partner2_first_name != "":
+		for person in persons:
+			totalSum = totalSum + person.present_amount
+			if person.group == 'Other':
+				totalOtherSum = totalOtherSum + person.present_amount
 			else:
-				if person.group == 'Friends':
-					totalFreindsSum = totalFreindsSum + person.present_amount
+				if person.group == 'Family '+ partners.partner2_first_name:
+					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
 				else:
-					if person.group == 'Work':
-						totalWorkSum = totalWorkSum + person.present_amount
-	json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFamilySum':totalFamilySum, 'totalFreindsSum':totalFreindsSum, 'totalWorkSum':totalWorkSum})
+					if person.group == 'Friends '+ partners.partner2_first_name:
+						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
+					else:
+						if person.group == 'Work '+ partners.partner2_first_name:
+							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
+						else:
+							if person.group == 'Family '+ partners.partner1_first_name:
+								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
+							else:
+								if person.group == 'Friends '+ partners.partner1_first_name:
+									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
+								else:
+									if person.group == 'Work '+ partners.partner1_first_name:
+										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
+		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
+	else:
+		for person in persons:
+			totalSum = totalSum + person.present_amount
+			if person.group == 'Other':
+				totalOtherSum = totalOtherSum + person.present_amount
+			else:
+				if person.group == 'Family':
+					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
+				else:
+					if person.group == 'Friends':
+						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
+					else:
+						if person.group == 'Work':
+							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
+						else:
+							if person.group == 'Family '+ partners.partner1_first_name:
+								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
+							else:
+								if person.group == 'Friends '+ partners.partner1_first_name:
+									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
+								else:
+									if person.group == 'Work '+ partners.partner1_first_name:
+										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
+		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
 	return HttpResponse(json_dump)
 
 		
@@ -413,4 +503,19 @@ def get_Operations(request):
 			opdate = OccasionOperation.operation_date.strftime("%d/%m/%Y - %H:%M:%S")
 			opinfo = OccasionOperation.operation_info
 			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_GuestsEmails(request):
+	json_dump = json.dumps({'status': "Error"})
+	result = ""
+	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
+	if (len(user_GuestsEmails) > 0):
+		for guest in user_GuestsEmails:
+			name = guest.guest_last_name + " " + guest.guest_first_name
+			email = guest.guest_email;
+			result = result + name + "," + email + "|"
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
+	else:
+		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
 	return HttpResponse(json_dump)
