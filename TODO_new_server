@@ -1,0 +1,18 @@
+instal modules:
+xlrt
+xlwd
+capcha
+
+install:
+mysql-server + create django DB with django:djangino
+install django
+install PIL (python-imaging)
+
+httpd_conf:
+user 2seat
+add the buttom of the httpd
+
+linux:
+add 2seat user and group
+change permisions to /Seating
+create home dir
