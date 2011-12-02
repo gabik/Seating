@@ -1,0 +1,5 @@
+import xlrd
+book = xlrd.open_workbook("curfile.xls")
+sh = book.sheet_by_index(0)
+for r in range(sh.nrows)[0:]:
+    print sh.row(r)[0] , sh.row(r)[1]
