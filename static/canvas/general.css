@@ -280,8 +280,11 @@
 	background:aliceblue;
 }
 .ui-multisort-click {
-	color:purple;
-	 font-size: 1.2em;
+	color:black;
+	font-size: 1.2em;
+	border:2px solid black;
+    z-index:999;
+	
 }
 #OperationList
 {
@@ -373,8 +376,8 @@
 	-o-user-select: none;
 	user-select: none;
 }
-
- .borderSelected
+ 
+  .borderPersonSelected
  {
   border:2px solid #5A8EA3;
   z-index:999;

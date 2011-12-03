@@ -18,7 +18,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 import sys
 sys.path.append("/Seating/static/locale/he")
-import he
+#import he
 
 #@login_required
 def is_login(request):

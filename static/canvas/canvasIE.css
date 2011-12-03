@@ -113,4 +113,14 @@
 	top:50%;
 	left:50%;
 	margin-left:-10; 
+	filter: alpha(opacity = 0);
 }
+
+ .borderSelected
+ {
+  border:2px solid #5A8EA3;
+  z-index:999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+ }

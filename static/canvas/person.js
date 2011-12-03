@@ -13,9 +13,9 @@ jQuery(function() {
 function selectPersonElement(element)
 {
 	$(".TableElementDiv").each(function(i) {
-		$(this).removeClass('borderSelected');
+		$(this).removeClass('borderPersonSelected');
 	});
-	element.addClass('borderSelected');
+	element.addClass('borderPersonSelected');
 }
 
 function enableDetailsMode()
@@ -40,10 +40,42 @@ function LoadPerson(element, i)
         function(data){
 			if (data.status == 'OK')
 			{
-				$("#tableElementDiv"+ data.position).addClass('Pointer');
-				var title = document.getElementById("tableElementDiv" + data.position).title;
+				var title = $("#tableElementDiv" + data.position).attr('title');
+				var originalPosNum = data.position;
+
+				$('.TableElementDiv').each(function(i)
+				{ 
+					var thisTitleNum = "";
+					
+					for (var c = 0; c < $(this).attr('title').length; c++)
+					{
+						if (IsNumeric($(this).attr('title').charAt(c)))
+						{
+							thisTitleNum = thisTitleNum + $(this).attr('title').charAt(c);
+						}
+					}
+					if (thisTitleNum == data.position)
+					{
+						var num = "";
+						
+						for (var c = 0; c < $(this).context.id.length; c++)
+						{
+							if (IsNumeric($(this).context.id.charAt(c)))
+							{
+								num = num + $(this).context.id.charAt(c);
+							}
+						}
+						
+						if (IsNumeric(num))
+						{
+							data.position = num;
+							title = $("#tableElementDiv" + data.position).attr('title');
+							return false;
+						}
+					}
+				});
 				
-				if (title == "personTop"+ data.position || title == "personRight"+ data.position)
+				if (title == "personTop" + originalPosNum || title == "personRight"  + originalPosNum)
 				{
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
 				}
@@ -64,10 +96,11 @@ function LoadPerson(element, i)
 						personData = data;
 						SelectedTable = element;
 						StopDragPerson($(this),element);
+						
 					}
 				});
 				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElement"+ data.position).removeClass('borderSelected');;
+					$("#tableElement"+ data.position).removeClass('borderPersonSelected');;
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position),element,false);
 				});
@@ -78,12 +111,13 @@ function LoadPerson(element, i)
 					SelectedPerson = $(this);
 				});
 				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
+				$("#tableElementDiv"+ data.position).addClass('Pointer');
 			}
 			else
 			{
 				var title = document.getElementById("tableElementDiv" + data.position).title;
 				
-				if (title == "personTop"+ data.position || title == "personRight"+ data.position)
+				if (title == "personTop" + data.position || title == "personRight"  + data.position)
 				{
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
 				}
@@ -309,7 +343,7 @@ function selectTab(ui)
 				if (personData.invation_status == "T")
 				{
 					$("#InvationStatusPersonButton").attr('src', "/static/canvas/images/person/tentative_status_n.png");
-					$("#InvationStatusPersonButton").attr('alt',personData.invation_status);document.getElementById("InvationStatus").innerHTML ="ספק בהגעה";
+					$("#InvationStatusPersonButton").attr('alt',personData.invation_status);document.getElementById("InvationStatus").innerHTML ="ממתין לאישור";
 
 				}
 				else if (personData.invation_status == "A")
@@ -372,7 +406,7 @@ function reLoadDetails(personElement)
 		if (personData.invation_status == "T")
 		{
 			invation_status_src = "/static/canvas/images/person/tentative_status_n.png";
-			invation_status_text="ספק בהגעה";
+			invation_status_text="ממתין לאישור";
 		}
 		else if (personData.invation_status == "A")
 		{
@@ -434,7 +468,7 @@ function reLoadDetails(personElement)
 			{
 				$(this).attr('src',"/static/canvas/images/person/tentative_status_r.png");
 				$(this).attr('alt',"T");
-				document.getElementById("InvationStatus").innerHTML ="ספק בהגעה";
+				document.getElementById("InvationStatus").innerHTML ="ממתין לאישור";
 			}
 		});
 	}
@@ -709,7 +743,7 @@ function StopDragPerson(element,tableElement)
 function hideAllDragDiv()
 {
 	$(".DragDiv").each(function(i) {
-		$(this).removeClass('borderSelected');
+		$(this).removeClass('borderPersonSelected');
 		$(this).fadeTo(400, 0, function() {
 			// Animation complete.
 			$(this).hide();
@@ -734,7 +768,7 @@ function hideTableElementDiv()
 		
 function hideElement(element)
 {
-	element.removeClass('borderSelected');
+	element.removeClass('borderPersonSelected');
 	element.fadeTo(400, 0, function() {
 		// Animation complete.
 		$(this).hide();
@@ -882,7 +916,7 @@ function DeletePerson()
 		  reloadElementStatus(SelectedTable);
 		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "position " + newPositionNum + "</br>empty";
 		  //$("#tableElement" + personData.position).attr("src", "/static/canvas/images/WeddingChair.png");
-		  SelectedPerson.removeClass('borderSelected');
+		  SelectedPerson.removeClass('borderPersonSelected');
 		  selectPersonElement($("#tableElementDiv" + personData.position));
 		  SelectedPerson = "";
           setSaveStatus("OK");
