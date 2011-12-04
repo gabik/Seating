@@ -1,9 +1,10 @@
 var mainFrameWidthOF = 470;
 var mainFrameHeightOF = 400;
 
-var frameStringOF = '<div id="OFFrame" style="position:absolute; z-index:99999;	 margin-right:auto; margin-left: auto;"><table border="0" height="300" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">ישומיי אירוע</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr height="auto"><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td valign="top" align="left" bgcolor="white" width="25"><img id="OccasionFinishCloseBtn" class="CloseBtn" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16" align="left"></img></td><td bgcolor="white" width="15"/><td bgcolor="white" align="left" width="400"><div class="FeatureArea" id="features" width="400" height="200"/></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="420" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
+var frameStringOF = '<div id="OFFrame" style="position:absolute; z-index:99999;	 margin-right:auto; margin-left: auto;"><table border="0" height="300" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25"  bgcolor="#E0E0AD"><img id="OccasionFinishCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16" ></img></td><td height="25" colspan="1" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">ישומיי אירוע</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr height="auto"><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="left" width="460" colspan="2"><div class="FeatureArea" id="features" width="400" height="200"/></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="2" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="2" valign="top"><img src="/static/page/images/shadow.png" width="460" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
 
-var excelDivString = '<div id="tabExcel" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">הורדה:</p><p class="text_14_black" dir="rtl">קובץ הורדה למילוי פרטי המוזמנים&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><img id="excelDownImg" src="/static/canvas/images/features/exceldown_n.png" align="middle" style="cursor:pointer;"/><span></p></td></tr><tr height="15" ><td colspan="2"></tr><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">העלאה:</p><input type=text style="text-align:right; width:245px;" size=10 id="ExcelUploadPath" maxlength="200" value="">&nbsp;<span><img id="excelUpImg" src="/static/canvas/images/features/excelup_n.png" align="middle" style="cursor:pointer;" /><span></input></td></tr></table></br></div>'
+var excelDivString = '<div id="tabExcel" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">הורדה:</p><p class="text_14_black" dir="rtl">קובץ הורדה למילוי פרטי המוזמנים&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><img id="excelDownImg" src="/static/canvas/images/features/exceldown_n.png" align="middle" style="cursor:pointer;"/><span></p></td></tr><tr height="15" ><td colspan="2"></tr><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">העלאה:</p><form enctype="multipart/form-data" action=/accounts/upload method="POST">&nbsp;<input type="file" name="file" id="id_file"><input type="image" id="excelUpImg" src="/static/canvas/images/features/excelup_n.png" value="Upload File" align="top"/></form></input></td></tr></table></br></div>'/*{% csrf_token %}*/
+
 
 var outputDivString = '<div id="tabOutput" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<a href="#" class="text_18_black" dir="rtl">הורדת קובץ רשימת מוזמנים.</a></img></br></br><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ מיפוי שולחנות.</a></span></img></br></br><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ פיתקיות ישיבה.</a></span></img></td></tr></table></br></div>'
 
@@ -98,6 +99,9 @@ $(document).ready(function() {
 	$("#excelDownImg").bind('mouseover', function(){
 		$(this).attr('src',"/static/canvas/images/features/exceldown_r.png");
 	});
+	$("#excelDownImg").bind('click', function(){
+		setTimeout( function() {  document.location.href='/accounts/download'; }, 0 );
+	});
 	$("#excelUpImg").bind('mouseout', function(){
 		$(this).attr('src',"/static/canvas/images/features/excelup_n.png");
 	});
@@ -124,5 +128,7 @@ $(document).ready(function() {
 		sendNotifyChange();
 	});
   });
-}); 
+});
+
+ 
  

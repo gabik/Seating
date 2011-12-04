@@ -119,7 +119,6 @@ function adjustCaption(element)
 	var text =  $("#" + textID).text();
 	var title = $("#" + textID).attr('title');
 	var realWidth = $("#" + elementImgs[0].id).width();
-	
 	if (title.length * 6.2 > element.width())
 	{
 		var newString = "";
@@ -264,7 +263,10 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 {
        var elementCaption = element.context.getElementsByTagName("p");
 	   var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
-	   
+		if (newCaption == " " || newCaption == "")
+		{
+			newCaption  = "ללא שם";
+		}
 	   if (parseInt(elementCaption[1].firstChild.nodeValue.split("/", 1)) > parseInt(newSize))
 	   {
            $.post('/canvas/personOnHigherPos/', {elem_num: element.context.id, new_size: parseInt(newSize) + 1},
@@ -831,7 +833,7 @@ $(document).ready(function() {
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementImgs = $(this).context.getElementsByTagName("img");
-	 $(this).attr('title',elementCaption);
+	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
 	 setWidthAndHeight($(this),elementMaxSize,0);
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {

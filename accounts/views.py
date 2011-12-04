@@ -132,7 +132,17 @@ def create_user(request):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=request.POST['last'], group=request.POST['group'],gender=request.POST['gender'],invation_status = "T")
+		addStr = ""
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
+		if (len(persons) > 0):
+			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(addStr))
+			if (len(exist_num) <= 0):
+				addStr = len(max_match)
+			else:
+				addStr = len(max_match) + 1
+		last_name = request.POST['last'] + str(addStr)
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T")
 		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

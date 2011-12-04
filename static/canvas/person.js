@@ -514,15 +514,7 @@ function createTab()
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", 35);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", 15);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('click', function() {
-		if (SelectedTabIndex >= 0 && SelectedTabIndex < $("#tabs").tabs("length"))
-		{
-			 $("#tabs").tabs("remove",SelectedTabIndex);
-			 if ($("#tabs").tabs("length") == 0)
-			 {
-				$("#personImg").dblclick();
-				SelectedTabIndex = "";
-			 }
-		}
+		closeTabs();
 	});	
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseout', function(){
 			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
@@ -536,6 +528,24 @@ function createTab()
 	$("#SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseover', function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r_white_back.png");
 			});
+}
+
+function closeTabs()
+{
+	if (SelectedTabIndex >= 0 && SelectedTabIndex < $("#tabs").tabs("length"))
+	{
+		 $("#tabs").tabs("remove",SelectedTabIndex);
+		 if ($("#tabs").tabs("length") == 0)
+		 {
+			$("#personImg").dblclick();
+			SelectedTabIndex = "";
+		 }
+	}
+}
+
+function onMainClose()
+{
+	$("#personImg").dblclick();
 }
 
 function updateDetailPersonGroups(element)
@@ -966,6 +976,16 @@ function proccedSearchOnTableMode(data)
 			$("#tableElementDiv"+ data[1]).click();
 		}
 	}
+}
+
+function PersonMainCloseBtnMouseOut(element)
+{
+	element.src = "/static/canvas/images/close_window_btn_n.png";
+}
+
+function PersonMainCloseBtnMouseOver(element)
+{
+	element.src = "/static/canvas/images/close_window_btn_r.png";
 }
 
 $(document).ready(function() {

@@ -112,7 +112,8 @@
 	position:absolute;
 	top:50%;
 	left:50%;
-	margin-left:-10; 
+	margin-top:3;
+	margin-left:-8; 
 	filter: alpha(opacity = 0);
 }
 
