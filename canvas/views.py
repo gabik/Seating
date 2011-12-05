@@ -248,7 +248,7 @@ def get_element_item(request):
 					if (int(person.position) == int(person_position)):
 						safe_first = escapeSpecialCharacters(person.guest_first_name) 
 						safe_last  = escapeSpecialCharacters(person.guest_last_name)
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
 						break
 		else:
 			first_name = request.POST['firstName']
@@ -257,7 +257,7 @@ def get_element_item(request):
 			if person is not None:
 				safe_first = escapeSpecialCharacters(person.guest_first_name)
 				safe_last  = person.guest_last_name
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group})
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
 	return HttpResponse(json_dump)
 	
 @login_required

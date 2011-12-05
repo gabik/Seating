@@ -280,8 +280,11 @@
 	background:aliceblue;
 }
 .ui-multisort-click {
-	color:purple;
-	 font-size: 1.2em;
+	color:black;
+	font-size: 1.2em;
+	border:2px solid black;
+    z-index:999;
+	
 }
 #OperationList
 {
@@ -359,7 +362,7 @@
   border:1px solid #ABADB3;
   overflow:auto;
   height:130px;
-  width:160px;
+  width:195px;
   background:#5A8EA3;
 }
 
@@ -367,14 +370,15 @@
 {
 	resize:none;
 	height:130px;
+	width:195px;
 	-webkit-user-select: none;
 	-khtml-user-select: none;
 	-moz-user-select: none;
 	-o-user-select: none;
 	user-select: none;
 }
-
- .borderSelected
+ 
+  .borderPersonSelected
  {
   border:2px solid #5A8EA3;
   z-index:999;

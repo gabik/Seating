@@ -21,10 +21,6 @@ function turnToRegularMode(element,event)
 		$(this).fadeTo(400, 1, function() {});
 	});
 	
-	$(".tableProp").each(function(i) {
-		$(this).fadeTo(400, 1, function() {});
-	});
-	
 	//originalElement.border('0px white 0');
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -66,6 +62,7 @@ function turnToRegularMode(element,event)
 	disableDBClick = false;
 	tableMode = false;
 	selectElement(element);
+	adjustCaption(element);
 	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;
@@ -155,13 +152,13 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
 	
-	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false;
-});
+	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element);
+	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;
 	elementCaption[1].style.fontSize= tableModeFontSize;
 
-	$("#" + elementImgs[0].id).animate({width: tableModeWidth - 10, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear');
+	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear');
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
