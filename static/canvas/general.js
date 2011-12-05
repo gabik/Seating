@@ -96,9 +96,62 @@ function setWidthAndHeight(element, newScale, lastScale)
 	{
 		if (lastScale > 0)
 		{
-			selectElement(element);
+			selectElement($(this));
+		}
+		if (!isThisPeopleTable(elementImgs[0].id))
+		{
+					 
+			 $(this).css('width', elementImgs[0].width);
+			 $(this).css('height', elementImgs[0].height);
+		}
+		else
+		{
+			adjustCaption($(this));
 		}
 	});
+}
+
+function adjustCaption(element)
+{
+	var elementImgs = element.context.getElementsByTagName("img");
+	var elementCaption = element.context.getElementsByTagName("p");
+	var textID = elementCaption[0].id;
+	var text =  $("#" + textID).text();
+	var title = $("#" + textID).attr('title');
+	var realWidth = $("#" + elementImgs[0].id).width();
+	if (title.length * 6.2 > element.width())
+	{
+		var newString = "";
+		var stop = false;
+		for (var c = 0; c < title.length - 9; c++)
+		{
+			newString = newString + title.charAt(c);
+			if (newString.length * 8 > $("#" + elementImgs[0].id).width())
+			{
+				stop = true;
+			}
+			if (stop)
+			{
+				break;
+			}
+		}
+		if (newString == " " || newString == "")
+		{
+			newString = title;
+		}
+		else
+		{
+			newString = newString + "...";
+		}
+		elementCaption[0].innerHTML = newString;
+		elementCaption[0].title = title;
+		$(this).css('width',realWidth);
+	}
+	else
+	{
+		elementCaption[0].innerHTML = title;
+		elementCaption[0].title = title;
+	}
 }
 
 function getPositions(element)
@@ -210,7 +263,10 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
 {
        var elementCaption = element.context.getElementsByTagName("p");
 	   var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
-	   
+		if (newCaption == " " || newCaption == "")
+		{
+			newCaption  = "ללא שם";
+		}
 	   if (parseInt(elementCaption[1].firstChild.nodeValue.split("/", 1)) > parseInt(newSize))
 	   {
            $.post('/canvas/personOnHigherPos/', {elem_num: element.context.id, new_size: parseInt(newSize) + 1},
@@ -276,6 +332,7 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	setWidthAndHeight(element,newSize,elementMaxSize);
 	elementCaption[0].innerHTML = newCaption;
+	elementCaption[0].title = newCaption;
 	elementCaption[1].innerHTML = sizeStr;
 	reloadElementStatus(element);
 }
@@ -302,9 +359,12 @@ function selectElement(element)
 
 function updateElementScreenProperties(element)
 {
-	var elementCaption = element.context.getElementsByTagName("p");
-	$("#ElementCaption").attr("value",elementCaption[0].firstChild.nodeValue);
-	$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+	if (element.hasClass('DragDiv'))
+	{
+		var elementCaption = element.context.getElementsByTagName("p");
+		$("#ElementCaption").attr("value",elementCaption[0].title);
+		$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(		elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+	}
 }
 
 function updateSeatedLabel()
@@ -773,11 +833,14 @@ $(document).ready(function() {
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementImgs = $(this).context.getElementsByTagName("img");
+	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
 	 setWidthAndHeight($(this),elementMaxSize,0);
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {
-		 elementCaption[1].style.visibility = "hidden";
+		 //elementCaption[1].style.visibility = "hidden";
+		 $(this).find('p').each(function(i){ $(this).remove(); });
 		 $(this).removeClass('DragDiv');
+		 setWidthAndHeight($(this),35,22);
 		 if (elementImgs[0].id.split("-", 1) == "dance_stand")
 		 {
 			$(this).attr('title',"רחבת ריקודים");
@@ -791,8 +854,21 @@ $(document).ready(function() {
 			$(this).attr('title',"עמדת די ג'יי");	
 		 }
 		 $(this).addClass('DragNonDropDiv');
+		 
 	 }
 
+  });
+  $(".DragDiv").mouseover(function(){
+	if (!tableMode && !detailsMode)
+	{
+		$(this).find('img').last().fadeTo(0, 1);
+	}
+  }); 
+  $(".DragDiv").mouseout(function(){
+  	if (!tableMode && !detailsMode)
+	{
+		$(this).find('img').last().fadeTo(0, 0);
+	}
   });
   $("#people_list").multisortable();
   $("#people_list").disableSelection();
