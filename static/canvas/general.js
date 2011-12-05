@@ -19,6 +19,26 @@ if(typeof String.prototype.trim !== 'function') {
   }
 }
 
+function getHebTableName(kind)
+{
+	if (kind == "Square")
+	{
+		return "מרובע";
+	}
+	else if (kind == "Round")
+	{
+		return "עגול";
+	}
+	else if (kind == "Rect")
+	{
+		return "מלבן";
+	}
+	else if (kind == "Lozenge")
+	{
+		return "מעויין";
+	}
+}
+
 function setSaveStatus(status)
 {
 	if (status == "OK")
@@ -54,6 +74,41 @@ function IsNumeric(sText)
    
 }
 
+function refactoringListName()
+{
+  $("#people_list > li").each(function(i){
+		var full_name = $(this).context.id;
+		var deltaToRemove = 5;
+		
+		if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
+		{
+			deltaToRemove = 6;
+		}
+		
+		full_name = full_name.replace("_"," ");
+		
+		if (full_name.length * 11 > $("#people_list").width() - 15)
+		{
+			var newString = "";
+			var stop = false;
+			for (var c = 0; c < full_name.length - deltaToRemove; c++)
+			{
+				newString = newString + full_name.charAt(c);
+				if (newString.length * 8 > $("#people_list").width())
+				{
+					stop = true;
+				}
+				if (stop)
+				{
+					break;
+				}
+			}
+			newString = newString + "..."
+			$(this).text(newString);
+		}
+  });
+}
+
 function setWidthAndHeight(element, newScale, lastScale)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
@@ -76,11 +131,20 @@ function setWidthAndHeight(element, newScale, lastScale)
 	for (var i = 0; i < 1 ; i++)
 	{
 		var addHeight = 0;
+		var addWidth = 0;
 		var img = $("#"+ elementImgs[i].id);
 		
 		if (elementImgs[i].id.indexOf("Rect") > -1 && lastScale == 0)
 		{
 			addHeight = 16;
+		}
+		else if (elementImgs[i].id.split("-", 1) == "dance_stand")
+		{
+			addWidth = 150;
+	    }
+		else if (elementImgs[i].id.split("-", 1) ==  "bar_stand") 
+		{
+			addWidth = 65;
 		}
 		
 		if (i > 0)
@@ -89,12 +153,12 @@ function setWidthAndHeight(element, newScale, lastScale)
 		}
 		else
 		{
-			img.animate({ width:img.width() + scale, height: img.height() + scale + addHeight},300, 'linear');
+			img.animate({ width:img.width() + scale + addWidth, height: img.height() + scale + addHeight},300, 'linear');
 		}
 	}
 	element.animate({ width:element.width() + scale, height: element.height() + scale + addHeight},300, 'linear', function()
 	{
-		if (lastScale > 0)
+		if (lastScale > 0 && isThisPeopleTable(elementImgs[0].id))
 		{
 			selectElement($(this));
 		}
@@ -788,6 +852,44 @@ function updateGroups()
 	$("#personGroup").append($('<option value="Other" selected>אחר</option>'));
 }
 
+function reposElementAtAFreeSpace(element, offsetWidth)
+{
+	var startposX = 20;
+	var startposY = 45;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElement(element))
+		{
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+			break;
+		}
+		
+		curleft = curleft + 60;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 60;
+			curleft = startposX;
+		}
+		
+		if (!placed)
+		{
+			element.css('top', startposY);
+			element.css('left',startposX);
+			saveElement(element);
+			selectElement(element);
+		}
+	}
+}
+
 $(document).ready(function() {
 
  var sortFloatListByNameAscending = true
@@ -809,18 +911,18 @@ $(document).ready(function() {
     }else if (imgs[i].id.split("-", 1) == "dance_stand") {
 	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/dance.png";
 	}else if (imgs[i].id.split("-", 1) == "bar_stand") {
-	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/bar_colored.png";
+	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/bar.png";
 	}else if (imgs[i].id.split("-", 1) == "dj_stand") {
 	  document.getElementById(imgs[i].id).src = "/static/canvas/images/misc/dj.png";
 	}
   }
   
-  var numOfElementsComboBox = document.getElementById("numOfElementsComboBox");
+  var numOfElementsComboBox = 1;//document.getElementById("numOfElementsComboBox");
 
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
-		
+  refactoringListName();
   posPropertyPanel("");
   updateSeatedLabel();
   $.jqplot.config.enablePlugins = true;
@@ -844,19 +946,21 @@ $(document).ready(function() {
 		 if (elementImgs[0].id.split("-", 1) == "dance_stand")
 		 {
 			$(this).attr('title',"רחבת ריקודים");
+			$(this).find('.tableProp').remove();
 		 }
 	     else if (elementImgs[0].id.split("-", 1) ==  "bar_stand") 
 		 {
 			$(this).attr('title',"בר משקאות");	
+			$(this).find('.tableProp').remove();
 		 }
 	     else if (elementImgs[0].id.split("-", 1) ==  "dj_stand")
 		 {
 			$(this).attr('title',"עמדת די ג'יי");	
+			$(this).find('.tableProp').remove();
 		 }
 		 $(this).addClass('DragNonDropDiv');
 		 
 	 }
-
   });
   $(".DragDiv").mouseover(function(){
 	if (!tableMode && !detailsMode)

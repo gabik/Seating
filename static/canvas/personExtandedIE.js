@@ -9,22 +9,22 @@ function createTableElement(i,element,side)
 	{
 		case "left":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td></table></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><p style="text-align:left;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td></table></div></div>'));
 			break;
 		}
 		case "right":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td></table></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" /></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"/></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"><p style="text-align:right;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></td></table></div></div>'));
 			break;
 		}
 		case "top":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><p style="text-align:center;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
 			break;
 		}
 		case "bottom":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><div id="content' + parseInt(i + 1) + '"><table><tr><div id="personElemUpContent'+ parseInt(i + 1) + '" ><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div></tr><tr><div id="personElemDownContent'+ parseInt(i + 1) + '"><p style="text-align:center;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="text_11_black">empty</p></div></tr><td><div id="personElemLeftContent'+ parseInt(i + 1) +'"/></td><td><div id="personElemRightContent'+ parseInt(i + 1) + '"/></td></table></div></div>'));
 			break;
 		}
 	}

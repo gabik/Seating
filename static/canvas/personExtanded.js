@@ -19,12 +19,12 @@ function createTableElement(i,element,side)
 		}
 		case "top":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><p style="text-align:center;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/></div>'));
 			break;
 		}
 		case "bottom":
 		{
-			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
+			$("#canvas-div").append($('<div class="TableElementDiv" Id="tableElementDiv'+ parseInt(i + 1) +'"><img src="" class="TableElemImg" Id="tableElement'+ parseInt(i + 1) +'"/><p style="text-align:center;" Id="tableElementCaption'+ parseInt(i + 1) +'" class="TableElemText">empty</p></div>'));
 			break;
 		}
 	}
@@ -51,6 +51,7 @@ function fixPlaceFloat(side, position)
 			var caption = $("#tableElementCaption"+position);
 			var img = $("#tableElement"+position);
 			
+			caption.context.style="text-align:center;"
 			$("#tableElementCaption"+position).remove();
 			$("#tableElement"+position).remove();	
 			

@@ -70,6 +70,26 @@
 		 $("#SquarePlaceMentShapes").click();
 		 $(".ShapePlacementMenu").hide();
 	  }
+	 
+	 $(".DragDiv").each(function(i){
+		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
+		 {
+			if (collisionWithOtherElement($(this)))
+			{
+				reposElementAtAFreeSpace($(this), 0);
+			}
+		 }
+	 });
+	 
+	 $(".DragNonDropDiv").each(function(i){
+		 if ($(".DragNonDropDiv").last().attr('id') == $(this).context.id)
+		 {
+			if (collisionWithOtherElement($(this)))
+			{
+				reposElementAtAFreeSpace($(this), 200);
+			}
+		 }
+	 });
 	}
 	
 	$(document).ready(function() {
@@ -217,29 +237,14 @@
 			<!--[if IE]>
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
-				<li>
-					<div class="NumOfItemSelect">
-						<select id=numOfElementsComboBox class="Property" size="1">
-							<option value="1" SELECTED>1
-							<option value="2">2
-							<option value="3">3
-							<option value="4">4
-							<option value="5">5
-							<option value="6">6
-							<option value="7">7
-							<option value="8">8
-							<option value="9">9
-						</select>
-					</div>
-				</li>
 				<div style="background:white;" onmouseout="addMenuMouseLeave()">
 					<li><a href="#" onclick="addMenuItemButtonPress('Round')"><img id="Round" border=0 src="" class="MenuItem" title="שולחן עגול"></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('Square')"><img id="Square" border=0 src="" class="MenuItem" title="שולחן מרובע"></a></li>
 					<li style="margin:2px;"><a href="#" onclick="addMenuItemButtonPress('Rect')"><img id="Rect" border=0 src="" class="RectMenuItem" title="שולחן מלבני"></a></li>	
 					<li><a href="#" onclick="addMenuItemButtonPress('Lozenge')"><img id="Lozenge" border=0 src="" class="RectMenuItem" title="שולחן מעויין"></a></li>
-					<li><a href="#" onclick="addMenuItemButtonPress('dance_stand')"><img id="dance_stand" border=0 src="/static/canvas/images/misc/dance.png" class="MenuItem" title="רחבת ריקודים"></a></li>
-					<li><a href="#" onclick="addMenuItemButtonPress('bar_stand')"><img id="bar_stand" border=0 src="/static/canvas/images/misc/bar.png" class="MenuItem" title="בר משקאות"></a></li>
-					<li><a href="#" onclick="addMenuItemButtonPress('dj_stand')"><img id="dj_stand" border=0 src="/static/canvas/images/misc/dj.png" class="MenuItem" title="עמדת די ג'יי"></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('dance&stand')"><img id="dancestand" border=0 src="/static/canvas/images/misc/dance_small.png" class="MenuItem" title="רחבת ריקודים"></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('bar&stand')"><img id="barstand" border=0 src="/static/canvas/images/misc/bar_small.png" class="MenuItem" title="בר משקאות"></a></li>
+					<li><a href="#" onclick="addMenuItemButtonPress('dj&stand')"><img id="djstand" border=0 src="/static/canvas/images/misc/dj.png" class="MenuItem" title="עמדת די ג'יי"></a></li>
 				</div>
  			</ul>
 			<div class="AligmentDiv" title="ישור שולחנות מסומנים" onclick="addAligmentDivButtonPress()"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
@@ -249,29 +254,14 @@
 			<![endif]-->
 			<!--[if !IE]><!-->
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png"></div>
-				 			<ul class="AddMenu">
-				<li>
-					<div class="NumOfItemSelect">
-						<select id=numOfElementsComboBox class="Property" size="1">
-							<option value="1" SELECTED>1
-							<option value="2">2
-							<option value="3">3
-							<option value="4">4
-							<option value="5">5
-							<option value="6">6
-							<option value="7">7
-							<option value="8">8
-							<option value="9">9
-						</select>
-					</div>
-				</li>
+				 <ul class="AddMenu">
  				<li><a href="#"><img id="Round" border=0 src="" class="MenuItem" title="שולחן עגול"></a></li>
  				<li><a href="#"><img id="Square" border=0 src="" class="MenuItem" title="שולחן מרובע"></a></li>
  				<li style="margin:2px;"><a href="#"><img id="Rect" border=0 src="" class="RectMenuItem" title="שולחן מלבני"></a></li>
  				<li><a href="#"><img id="Lozenge" border=0 src="" class="MenuItem" title="שולחן מעויין"></a></li>
-				<li><a href="#"><img id="dance_stand" border=0 src="/static/canvas/images/misc/dance.png" class="MenuItem" title="רחבת ריקודים"></a></li>
-				<li><a href="#"><img id="bar_stand" border=0 src="/static/canvas/images/misc/bar.png"  class="MenuItem" title="בר משקאות"></a></li>
-				<li><a href="#"><img id="dj_stand" border=0 src="/static/canvas/images/misc/dj.png"  class="MenuItem" title="עמדת די ג'יי"></a></li>
+				<li><a href="#"><img id="dance&stand" border=0 src="/static/canvas/images/misc/dance_small.png" class="MenuItem" title="רחבת ריקודים"></a></li>
+				<li><a href="#"><img id="bar&stand" border=0 src="/static/canvas/images/misc/bar_small.png"  class="MenuItem" title="בר משקאות"></a></li>
+				<li><a href="#"><img id="dj&stand" border=0 src="/static/canvas/images/misc/dj.png"  class="MenuItem" title="עמדת די ג'יי"></a></li>
  			</ul>
 			<div class="AligmentDiv" title="ישור שולחנות מסומנים"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
 			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img  id="DelImg"src="/static/canvas/images/minus_n.png"></div>
