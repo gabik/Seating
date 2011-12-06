@@ -6,11 +6,11 @@ mkdir -p ${pngdirname}
 cd ${pngdirname}
 for img in `cat /tmp/pngs`
 do
-	echo mkdir -p `dirname $img`
-	echo cd `dirname $img`
-	echo mv /Seating/${img} .
+	mkdir -p `dirname $img`
+	cd `dirname $img`
+	mv /Seating/${img} .
 	filename=`basename $img .png`
-	echo convert ${filename}.png -quality 75 ${filename}.jpg
-	echo mv ${filename}.jpg /Seating/`dirname $img`
-	echo cd /Seating
+	convert ${filename}.png -quality 50 ${filename}.npng
+	mv ${filename}.npng /Seating/$img
+	cd /Seating/${pngdirname}
 done
