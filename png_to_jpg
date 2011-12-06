@@ -1,6 +1,7 @@
 #!/bin/bash
 cd /Seating
-find . -name "*.png" > /tmp/pngs
+find ./templates -name "*.png" > /tmp/pngs
+find ./static -name "*.png" >> /tmp/pngs
 pngdirname=pngs/`date +"%d%m%H%M"`
 mkdir -p ${pngdirname}
 cd ${pngdirname}
