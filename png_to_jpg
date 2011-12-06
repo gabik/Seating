@@ -1,0 +1,17 @@
+#!/bin/bash
+cd /Seating
+find ./templates -name "*.png" > /tmp/pngs
+find ./static -name "*.png" >> /tmp/pngs
+pngdirname=pngs/`date +"%d%m%H%M"`
+mkdir -p ${pngdirname}
+cd ${pngdirname}
+for img in `cat /tmp/pngs`
+do
+	mkdir -p `dirname $img`
+	cd `dirname $img`
+	mv /Seating/${img} .
+	filename=`basename $img .png`
+	convert ${filename}.png -quality 50 ${filename}.npng
+	mv ${filename}.npng /Seating/$img
+	cd /Seating/${pngdirname}
+done

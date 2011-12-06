@@ -59,7 +59,7 @@ def edit_canvas(request):
 	c['date'] = date
 	c['place'] = place
 	if partners.partner2_first_name != "":
-		 c['addChar'] = "&"
+	 	c['addChar'] = "&"
 	if (user_elements):
 		return render_to_response('canvas/canvas.html', c)
 	else:

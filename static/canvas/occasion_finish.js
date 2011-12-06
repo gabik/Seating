@@ -100,7 +100,9 @@ $(document).ready(function() {
 		$(this).attr('src',"/static/canvas/images/features/exceldown_r.png");
 	});
 	$("#excelDownImg").bind('click', function(){
-		setTimeout( function() {  document.location.href='/accounts/download'; }, 0 );
+		 //window.location='/accounts/download';  
+		 window.open('/accounts/download');
+		 return false;
 	});
 	$("#excelUpImg").bind('mouseout', function(){
 		$(this).attr('src',"/static/canvas/images/features/excelup_n.png");
