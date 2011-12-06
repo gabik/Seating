@@ -1,0 +1,17 @@
+#!/bin/bash
+cd /Seating
+find ./templates -exec grep -l png {} \; > /tmp/png_files
+find ./static -exec grep -l png {} \; >> /tmp/png_files
+pngdirname=fpngs/`date +"%d%m%H%M"`
+mkdir -p ${pngdirname}
+cd ${pngdirname}
+for file in `cat /tmp/png_files`
+do
+	mkdir -p `dirname $file`
+	cd `dirname $file`
+	mv /Seating/${file} .
+	filename=`basename $file `
+	sed -e 's/\.png/\.jpg/g' ${filename} > ${filename}.fix
+	mv ${filename}.fix /Seating/$file
+	cd /Seating/${pngdirname}
+done
