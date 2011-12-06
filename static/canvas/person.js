@@ -125,7 +125,7 @@ function LoadPerson(element, i)
 				{
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
 				}
-				document.getElementById("tableElementCaption" + data.position).innerHTML = "position " + data.position + "</br>empty";
+				document.getElementById("tableElementCaption" + data.position).innerHTML = "מושב " + data.position + "</br>ריק";
 			}
 			}, 'json');
 }
@@ -498,7 +498,7 @@ function createTab()
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">סכום מתנה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">חשבון פייסבוק:&nbsp;<span><input  MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/></span></p>'));
-	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">קבוצה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
+	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;קבוצה:&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
 	updateDetailPersonGroups($("#detailsGroup" + personData.first_name + '_'+ personData.last_name));
 	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );	
 	$("#detailsGender" + personData.first_name + '_'+ personData.last_name).val( personData.gender );
@@ -721,9 +721,9 @@ function StopDragPerson(element,tableElement)
 			element.attr("title" ,collision[1].context.title);
 			collision[1].attr("title" ,tempTitle);
 
-			if ($("#tableElementDiv"+ newPositionNum).text().indexOf("empty") >= 0)
+			if ($("#tableElementDiv"+ newPositionNum).text().indexOf("ריק") >= 0)
 			{
-				document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "position " + realOldPosition + "</br>empty";
+				document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "מושב " + realOldPosition + "</br>ריק";
 			}
 				selectPersonElement($("#tableElementDiv"+ lastPositionNum));
 				SelectedPerson = element;			
@@ -924,7 +924,7 @@ function DeletePerson()
 		  var sizeStr = newSize + "/" + elementMaxSize;
 		  elementCaption[1].innerHTML = sizeStr;
 		  reloadElementStatus(SelectedTable);
-		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "position " + newPositionNum + "</br>empty";
+		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "מושב " + newPositionNum + "</br>ריק";
 		  //$("#tableElement" + personData.position).attr("src", "/static/canvas/images/WeddingChair.png");
 		  SelectedPerson.removeClass('borderPersonSelected');
 		  selectPersonElement($("#tableElementDiv" + personData.position));
