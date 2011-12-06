@@ -1,0 +1,16 @@
+#!/bin/bash
+cd /Seating
+find . -name "*.png" > /tmp/pngs
+pngdirname=pngs/`date +"%d%m%H%M"`
+mkdir -p ${pngdirname}
+cd ${pngdirname}
+for img in `cat /tmp/pngs`
+do
+	echo mkdir -p `dirname $img`
+	echo cd `dirname $img`
+	echo mv /Seating/${img} .
+	filename=`basename $img .png`
+	echo convert ${filename}.png -quality 75 ${filename}.jpg
+	echo mv ${filename}.jpg /Seating/`dirname $img`
+	echo cd /Seating
+done
