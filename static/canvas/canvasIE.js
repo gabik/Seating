@@ -32,18 +32,15 @@ function addMenuItemButtonPress(kind)
 {
     $('ul.AddMenu').hide('medium');
 
-    $.post('/canvas/add/', {kind: kind ,amount: numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text},
+	kind = kind.replace("&","_");
+	
+    $.post('/canvas/add/', {kind: kind ,amount: 1},
       function(data){
         if (data.status == 'OK')
         {
             //undoElement[0] = SelectedElem;
             //undoElement[1] = "delete"; 
-			var addChar = "";
-			if (parseInt(numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text) > 1)
-			{
-				addChar = 's';
-			}
-			writeOccasionInfo("Add " +numOfElementsComboBox.options[numOfElementsComboBox.selectedIndex].text+" New "+kind +" Table"+addChar);
+			writeOccasionInfo(getHebTableName(kind) +" הוספת שולחן מסוג");
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');

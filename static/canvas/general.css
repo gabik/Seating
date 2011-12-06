@@ -14,6 +14,7 @@
 }
  .DragDiv
  {
+  display:inline;
   cursor:pointer;
   background-color:white;
   position:absolute;
@@ -280,9 +281,9 @@
 	background:aliceblue;
 }
 .ui-multisort-click {
-	color:black;
-	font-size: 1.2em;
-	border:2px solid black;
+	color:purple;
+	font-size: 1.03em;
+	border:3px solid purple;
     z-index:999;
 	
 }
