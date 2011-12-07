@@ -14,7 +14,7 @@
 }
  .DragDiv
  {
-  display:inline;
+  display:inline-block;
   cursor:pointer;
   background-color:white;
   position:absolute;

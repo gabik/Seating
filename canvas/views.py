@@ -259,6 +259,17 @@ def get_element_item(request):
 				safe_last  = person.guest_last_name
 				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
 	return HttpResponse(json_dump)
+
+@login_required
+def get_element_item_by_full_name(request):
+	json_dump = json.dumps({'status': "EMPTY"})
+	element_persons = Guest.objects.filter(user=request.user)
+	if (len(element_persons) > 0):
+		for person in element_persons:
+			if (person.guest_first_name + " " + person.guest_last_name == request.POST['full_name']):
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
+				break
+	return HttpResponse(json_dump)
 	
 @login_required
 def swap_position(request):
@@ -294,7 +305,7 @@ def save_person_element(request):
 	if request.method == 'POST':
 		first_name = request.POST['old_first_name']
 		last_name = request.POST['old_last_name']
-		person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
+		person = get_object_or_404(Guest, user=request.user, guest_first_name = request.POST['old_first_name'], guest_last_name = request.POST['old_last_name'])
 		if person is not None:
 			person.guest_first_name = request.POST['first_name']
 			person.guest_last_name = request.POST['last_name']

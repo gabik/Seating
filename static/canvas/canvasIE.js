@@ -392,6 +392,8 @@ $(document).ready(function() {
 	$(document).ready(function(){
 		HideHourGlassWaitingWindow();
 	});
+	
+	$("#canvas-div").append($('<div id="borderSelected" style="position:absolute;"/>'));
 });
 
 $(document).ajaxSend(function(event, xhr, settings) {

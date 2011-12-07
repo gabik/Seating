@@ -404,12 +404,38 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 function selectElement(element)
 {
     if (SelectedElem != "" ) {
-      SelectedElem.removeClass('borderSelected');
+	  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		$("#borderSelected").removeClass('borderSelected');
+	 }
+	 else
+	 {
+		SelectedElem.removeClass('borderSelected');
+	 }
     }
-	element.removeClass('borderSelected');
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		$("#borderSelected").removeClass('borderSelected');
+	 }
+	 else
+	 {
+		element.removeClass('borderSelected');
+	 }
 	if (!tableMode)
-	{
-		element.addClass('borderSelected');
+	{	  
+		if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		 {
+			$("#borderSelected").css('top',element.position().top - 6);
+			$("#borderSelected").css('left',element.position().left - 6);
+			$("#borderSelected").css('width',element.width() + 12);
+			$("#borderSelected").css('height',element.height() + 12);
+			element.css('zIndex',1000);
+			$("#borderSelected").addClass('borderSelected');
+		 }
+		 else
+		 {
+			element.addClass('borderSelected');
+		 }
 	}
 	if (!fromPropMeneBtn)
 	{
@@ -495,10 +521,10 @@ function pointTableAfterSearch(element)
 
 function pointPersonAfterSearch(element, elementImg)
 {
-	selectPersonElement(elementImg);
+	selectPersonElement(element);
 	element.fadeTo(400, 0,function(){
 		element.fadeTo(400, 1,function(){
-		selectPersonElement(elementImg);
+		selectPersonElement(element);
 		});
 	});
 }
@@ -690,6 +716,8 @@ function isThisPeopleTable(id)
 
 function startDrag(element)
 {
+	element.css('zIndex', 99);
+	$("#borderSelected").removeClass('borderSelected');
 	element.fadeTo(200, 0.3);
 	startDradPositionList = new Array(1);
 	startDradPositionList[0] = element.position();
@@ -860,7 +888,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 	var curleft = startposX;
 	var placed = false;
 	
-	while (curtop < $("#canvas-div").height())
+	while (curtop < $("#canvas-div").height() + element.height())
 	{
 		element.css('top',curtop);
 		element.css('left',curleft);
@@ -1281,9 +1309,9 @@ $(document).ready(function() {
 	}
 	else
 	{
-		var full_name = $("#SearchCaption").val().split(" ",2);
+		var fullName = $("#SearchCaption").val();
 
-		$.post('/canvas/getItem/', {position: "", firstName: full_name[0], lastName: full_name[1] },
+		$.post('/canvas/getPersonItemByFullName/', {full_name: fullName},
         function(data){
 			if (data.status == 'OK')
 			{
@@ -1313,10 +1341,12 @@ $(document).ready(function() {
 				{
 					$("#people_list > li").each(function(i) {
 						$(this).removeClass('ui-multisort-click');
+						if ($(this).context.id == data.first_name +"_"+ data.last_name )
+						{
+							$(this).addClass('ui-multisort-click');
+							$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+						}
 					});
-					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
-					
-					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 20));
 				}
 			}
 			}, 'json');
@@ -1392,7 +1422,19 @@ $(document).ready(function() {
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" && !tableMode && !detailsMode) {
-           SelectedElem.addClass('borderSelected');
+	  	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		{
+			$("#borderSelected").css('top',SelectedElem.position().top - 3);
+			$("#borderSelected").css('left',SelectedElem.position().left - 3);
+			$("#borderSelected").css('width',SelectedElem.width() + 6);
+			$("#borderSelected").css('height',SelectedElem.height() + 6);
+			$("#borderSelected").addClass('borderSelected');
+			SelectedElem.css('zIndex',1000);	
+		}
+		else
+		{
+			SelectedElem.addClass('borderSelected');
+		}
       }
     }
 	isMousePressFromCanvas = false;

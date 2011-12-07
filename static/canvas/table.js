@@ -100,6 +100,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	}
 	
 	element.removeClass('borderSelected');
+	$("#borderSelected").removeClass('borderSelected');
 	
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -108,6 +109,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
+				$("#borderSelected").removeClass('borderSelected');
 				$(this).hide();
 			});
 		}
@@ -120,6 +122,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
+				$("#borderSelected").removeClass('borderSelected');
 				$(this).hide();
 			});
 		}
@@ -152,7 +155,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
 	
-	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element);
+	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element);
 	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;

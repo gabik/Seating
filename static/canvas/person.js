@@ -100,7 +100,7 @@ function LoadPerson(element, i)
 					}
 				});
 				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElement"+ data.position).removeClass('borderPersonSelected');;
+					$("#tableElementDiv"+ data.position).removeClass('borderPersonSelected');;
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position),element,false);
 				});
@@ -620,6 +620,7 @@ function StartDragPerson(element)
 {
 	var positionNum;
 	
+	element.css('zIndex', 99);
 	if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
 	{
 		positionNum =  element.context.id.substring(element.context.id.length - 2, element.context.id.length);

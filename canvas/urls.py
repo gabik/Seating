@@ -24,4 +24,5 @@ urlpatterns = patterns('canvas.views',
 	(r'^getOperationsInfo/$', 'get_Operations'),
 	(r'^getOperationsInfoNum/$', 'get_OperationsInfoNum'),
 	(r'^getGuestsEmails/$', 'get_GuestsEmails'),
+	(r'^getPersonItemByFullName/$', 'get_element_item_by_full_name'),
 )
