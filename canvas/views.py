@@ -39,6 +39,8 @@ def edit_canvas(request):
 	#x_cord = single_element.x_cord
 	#y_cord = single_element.y_cord
 	c = {}
+	c.update(csrf(request))
+
 	#c['x_cord'] = x_cord
 	#c['y_cord'] = y_cord
 	c['elements'] = user_elements

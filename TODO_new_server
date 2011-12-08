@@ -4,7 +4,7 @@ xlwd
 capcha
 
 install:
-mysql-server + create django DB with django:djangino
+mysql-server + create django DB with django:djangino : CREATE DATABASE django CHARACTER SET utf8 COLLATE utf8_bin;
 install django
 install PIL (python-imaging)
 

@@ -1,7 +1,10 @@
 <script language="JavaScript">
-var time = null
 function move() {
-window.location = '/static/excel_output/{{ filename }}';
+window.location='/static/excel_output/{{ filename }}';
+setTimeout(continueExecution, 1200);
+}
+function continueExecution() {
+window.close();
 }
 </script>
-<body onload="timer=setTimeout('move()',2)">
+<body onload="move()">
