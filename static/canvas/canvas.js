@@ -4,7 +4,7 @@ function menuItemClick(element)
 	$('ul.AddMenu').hide('medium');
 	var kind = element.context.id;
 	
-	kind = kind.replace("&","_");
+	kind = kind.replace(/\&/g,"_")
 
     $.post('/canvas/add/', {kind: kind ,amount: 1},
       function(data){
@@ -12,7 +12,7 @@ function menuItemClick(element)
         {
             //undoElement[0] = SelectedElem;
             //undoElement[1] = "delete"; 
-			writeOccasionInfo(getHebTableName(kind) +" ����� ����� ����");
+			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
@@ -22,6 +22,7 @@ function posPropertyPanel(element)
 {
 	if (element != "")
 	{
+		$("#element-properties-list").css('zIndex',9999);
 		if (element.position().left < 600)
 		{
 			$("#element-properties-list").css('top',element.position().top);
@@ -41,64 +42,34 @@ function posPropertyPanel(element)
 		propMenuOpen = false;
 	}
 }
+
 $(document).ready(function() {
 
   $(".DelDiv").click( function() {
 	if  (!detailsMode)
 	{
-		var answer;
-
 		if (tableMode)
 		{
 			if (SelectedPerson != "")
 			{
-				answer = confirm("Are You Sure To Delete " + SelectedPerson.text() +" Person?");
+				showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.context.id.replace(/\_/g," ") +" לרשימה הצפה?", "YESNO", "Question");
+				currentMsgTimer = setTimeout("delDivPress()",500);
 			}
 			else
 			{
-				alert ("Please select Person");
+				showLightMsg("החזרת אורח לרשימה הצפה","יש לבחור אורח.","OK","Notice");
 			}
 		}
 		else
 		{
 			if (SelectedElem != "")
 			{
-				answer = confirm("Are You Sure To Delete " + SelectedElem.text().split("\n", 2)[1].trim() + " Element?");
+				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ SelectedElem.find('p').first().attr('title')	+ " ? ", "YESNO", "Question");
+				currentMsgTimer = setTimeout("delDivPress()",500);
 			}
 			else
 			{
-				alert ("Please select Element");
-			}
-		}
-		
-		if (answer != undefined && answer)
-		{
-			if (tableMode)
-			{
-				DeletePerson();
-				updateSeatedLabel();
-				writeOccasionInfo("Move Person "+SelectedPerson.text()+"From Table "+SelectedElem.text().split("\n", 2)[1].trim()+" To Float List.");
-			}
-			else
-			{
-				if (SelectedElem != "") {
-				  setSaveStatus("OK");
-				  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-						function(data){
-					  if (data.status == 'OK')
-					  { 
-						  //undoElement[0] = SelectedElem;
-						  //undoElement[1] = "add"; 
-						  ShowHourGlassWaitingWindow(true);
-						  writeOccasionInfo("Delete Table "+SelectedElem.text().split("\n", 2)[1].trim()+".");
-					  }
-					}, 'json');
-				} else {
-					if (!tableMode && !detailsMode)
-					{
-					  alert ("Please select table");
-					}
-				}
+				showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
 			}
 		}
 	}
@@ -148,7 +119,38 @@ $(document).ready(function() {
 			var caption = $("#ElementCaption").val();
 			var size = $("#ElementSize").val();
 			var elementCaption = SelectedElem.context.getElementsByTagName("p");
-			saveElementWithCaption(SelectedElem,caption,size,"");
+			$.post('/canvas/getFixNumber/', {elem_num : SelectedElem.context.id},
+			function(data){
+				if (data.status == 'OK')
+				{
+					if (data.fix_num == $("#ElementNumber").val())
+					{
+						saveElementWithCaption(SelectedElem,caption,size,"",parseInt($("#ElementNumber").val()));
+					}
+					else
+					{
+						$.post('/canvas/fixNumberStatus/', {fixNumber:parseInt($("#ElementNumber").val()),'elem_num':SelectedElem.context.id},
+						function(dataSave){
+						if (dataSave.status == 'OK')
+						{
+							var answer = true;
+							setSaveStatus("OK");
+							if (dataSave.result != " " && dataSave.result != "")
+							{
+								showLightMsg("מספר אלמנט קיים", " מספר האלמנט משוייך ל "  + dataSave.result + " האם להמשיך בשמירה?", "YESNO", "Question");
+								currentMsgTimer = setTimeout(function(){saveElementWithCaptionIfExist(SelectedElem,caption,size,"",parseInt($("#ElementNumber").val()))},500);
+							}
+							else
+							{
+								saveElementWithCaption(SelectedElem,caption,size,"",parseInt($("#ElementNumber").val()));
+							}
+						 }else{
+								saveElementWithCaption(SelectedElem,caption,size,"",parseInt($("#ElementNumber").val()));
+						 }
+						}, 'json');
+					}
+				}
+			}, 'json');
 			posPropertyPanel(SelectedElem);
 		}
     }

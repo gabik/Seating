@@ -5,6 +5,7 @@ var detailsMode = false;
 var SelectedPerson =""
 var SelectedTabIndex = "";
 var FocusFromFloatList = false;
+var duplicatePerson = false;
 
 jQuery(function() {
         jQuery("#tabs").tabs();
@@ -16,6 +17,7 @@ function selectPersonElement(element)
 		$(this).removeClass('borderPersonSelected');
 	});
 	element.addClass('borderPersonSelected');
+	SelectedPerson = element;
 }
 
 function enableDetailsMode()
@@ -83,6 +85,7 @@ function LoadPerson(element, i)
 				{
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
 				}
+				$("#tableElementDiv"+ data.position).draggable( 'enable' );
 				$("#tableElementDiv"+ data.position).draggable({
 					containment: 'parent',
 					cursor: "move",
@@ -100,7 +103,7 @@ function LoadPerson(element, i)
 					}
 				});
 				$("#tableElementDiv"+ data.position).bind('dblclick',function() {
-					$("#tableElementDiv"+ data.position).removeClass('borderPersonSelected');;
+					$("#tableElementDiv"+ data.position).removeClass('borderPersonSelected');
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position),element,false);
 				});
@@ -148,16 +151,16 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 			data = $.parseJSON(data);
 			if (data.status == 'OK')
 			{
-				if(!$("#tab" + data.first_name.replace(" ","_") + '__'+ data.last_name.replace(" ","_")).length)
+				if(!$("#tab" + data.first_name.replace(/\ /g,"_") + '__'+ data.last_name.replace(/\ /g,"_")).length)
 				{
 					personData = data;
-					personData.first_name = personData.first_name.replace(" ","_");
-					personData.last_name = personData.last_name.replace(" ","_");
+					personData.first_name = personData.first_name.replace(/\ /g,"_");
+					personData.last_name = personData.last_name.replace(/\ /g,"_");
 					$("#tabs").append($('<div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div>'));
 					createTab();
-					$("#tabs").tabs("add","#tab" + personData.first_name + '__'+ personData.last_name, personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," "));
+					$("#tabs").tabs("add","#tab" + personData.first_name + '__'+ personData.last_name, personData.first_name.replace(/\_/g," ") + ' '+ personData.last_name.replace(/\_/g," "));
 				}
-				$("#tabs").tabs("select","#tab" + data.first_name.replace(" ","_") + '__'+ data.last_name.replace(" ","_"));
+				$("#tabs").tabs("select","#tab" + data.first_name.replace(/\ /g,"_") + '__'+ data.last_name.replace(/\ /g,"_"));
 			}
 		});
 	}
@@ -279,6 +282,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 		hideTableElementDiv();
 		tableMode = false;
 		enableDetailsMode();
+		$("#floatListGate").fadeTo(400, 0);
 	}
 	else
 	{
@@ -287,6 +291,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 			$("#PDFrame").animate({top: PersonLastPosition[0],left: PersonLastPosition[1],width: 1, height: 1},300, 'linear', function() {
 				$("#PDFrame").remove();
 				SelectedTable.fadeTo(400, 1,function(){
+					$("#floatListGate").fadeTo(400, 1);
 					$(".TableElementDiv").each(function(i) {
 						$(this).fadeTo(400, 1,function(){
 							if ($(".DragDiv").length - 1 == i)
@@ -338,8 +343,8 @@ function selectTab(ui)
 			if (data.status == 'OK')
 			{
 				personData = data;
-				personData.first_name = personData.first_name.replace(" ","_");
-				personData.last_name = personData.last_name.replace(" ","_");
+				personData.first_name = personData.first_name.replace(/\ /g,"_");
+				personData.last_name = personData.last_name.replace(/\ /g,"_");
 				if (personData.invation_status == "T")
 				{
 					$("#InvationStatusPersonButton").attr('src', "/static/canvas/images/person/tentative_status_n.png");
@@ -390,8 +395,8 @@ function reLoadDetails(personElement)
 	$("#personImg").addClass("Pointer");
 	if (personData != "")
 	{
-		personData.first_name = personData.first_name.replace(" ","_");
-		personData.last_name = personData.last_name.replace(" ","_");
+		personData.first_name = personData.first_name.replace(/\ /g,"_");
+		personData.last_name = personData.last_name.replace(/\ /g,"_");
 		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto; height:30;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
 		SelectedTabIndex = 0;
 		$("#tabs").tabs();
@@ -477,8 +482,8 @@ function reLoadDetails(personElement)
 
 function createTab()
 {
-	personData.first_name = personData.first_name.replace(" ","_");
-	personData.last_name = personData.last_name.replace(" ","_");
+	personData.first_name = personData.first_name.replace(/\ /g,"_");
+	personData.last_name = personData.last_name.replace(/\ /g,"_");
 	
 	var tab = $("#tab" +personData.first_name + '__'+ personData.last_name);
 	
@@ -496,13 +501,18 @@ function createTab()
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מספר טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/></span></p>'));
-	tab.append($('<p align="right" dir="rtl" class="text_14_black">סכום מתנה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=7 type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></p>'));
+	tab.append($('<table id="amountTable'+ personData.first_name + '_'+ personData.last_name+'" border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;סכום מתנה:&nbsp;&nbsp;<span><input MAXLENGTH=7 size="5" type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></td><td><p align="right" dir="rtl" class="text_14_black">ארוחה:&nbsp;<span><select size="1" value='+"personData.meal"+' id="detailsMeal' + personData.first_name + '_'+ personData.last_name+'"><option value="M">בשרית<option value="G">גלאט<option value="V">צמחונית</select></span></p></td></table></br>'));
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		tab.append($('</br>'));
+	 }
+	$("#detailsPresentAmount" + personData.first_name + '_'+ personData.last_name).bind('keydown',function(e){insureNumInput(e);});
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">חשבון פייסבוק:&nbsp;<span><input  MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/></span></p>'));
-	tab.append($('<table border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;קבוצה:&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td>'));
+	tab.append($('<table id="groupTable'+ personData.first_name + '_'+ personData.last_name+'" border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;קבוצה:&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td></table>'));
 	updateDetailPersonGroups($("#detailsGroup" + personData.first_name + '_'+ personData.last_name));
 	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );	
 	$("#detailsGender" + personData.first_name + '_'+ personData.last_name).val( personData.gender );
-	tab.append($('</br>'));
+	$("#detailsMeal" + personData.first_name + '_'+ personData.last_name).val( personData.meal );
 	tab.append($('<img id="SavePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:absolute; cursor:pointer;" alt="שמור שינויים" src="/static/right_interface/images/save_changes_n.png"/>'));
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("top", DetailsHeight - 50);
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).css("left", 15);
@@ -528,6 +538,7 @@ function createTab()
 	$("#SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).bind('mouseover', function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r_white_back.png");
 			});
+	tab.append($('</br></br>'));
 }
 
 function closeTabs()
@@ -571,6 +582,13 @@ function updateDetailPersonGroups(element)
 function DragPerson(personElement,tableElement)
 {
 	$("#dropLayer").remove();
+	
+	var pos = getPositions(document.getElementById("floatListGate"));
+	var pos2 = getPositions(document.getElementById(personElement.context.id));
+	var horizontalMatch = comparePositions(pos[0], pos2[0]);
+	var verticalMatch = comparePositions(pos[1], pos2[1]);
+	var backToFloatListMatch = horizontalMatch && verticalMatch;
+	
 	var lastPositionNum;
 	
 	if (IsNumeric(personElement.context.id.substring(personElement.context.id.length - 2, personElement.context.id.length)))
@@ -599,20 +617,30 @@ function DragPerson(personElement,tableElement)
 		fixPlaceFloat("personTop" , lastPositionNum);
 	}
 	
-	var collision = collisionWithOtherPersonElement(personElement);
-	
-	if (collision[0])
+	if (backToFloatListMatch)
 	{
-		var collisionPerson = collision[1];
+		$("#floatListGate").css("background-color", "rgba(90, 142, 163, 0.3)");
+		$("#floatListGate").find('img').first().attr('src',"/static/canvas/images/arrow_to_float_r.png");
+	}
+	else
+	{
+		$("#floatListGate").css("background-color", "white");
+		$("#floatListGate").find('img').first().attr('src',"/static/canvas/images/arrow_to_float_n.png");
+		var collision = collisionWithOtherPersonElement(personElement);
 		
-		$("#canvas-div").append($('<div Id="dropLayer" style="position:absolute;"/>'));
-		$("#dropLayer").css("background-color", "purple");
-		$("#dropLayer").css('zIndex', 9999);
-		$("#dropLayer").css("top", collisionPerson.position().top);
-		$("#dropLayer").css("left", collisionPerson.position().left);
-		$("#dropLayer").css("width", collisionPerson.width());
-		$("#dropLayer").css("height", collisionPerson.height());
-		$("#dropLayer").css("opacity", 0.1);
+		if (collision[0])
+		{
+			var collisionPerson = collision[1];
+			
+			$("#canvas-div").append($('<div Id="dropLayer" style="position:absolute;"/>'));
+			$("#dropLayer").css("background-color", "purple");
+			$("#dropLayer").css('zIndex', 9999);
+			$("#dropLayer").css("top", collisionPerson.position().top);
+			$("#dropLayer").css("left", collisionPerson.position().left);
+			$("#dropLayer").css("width", collisionPerson.width());
+			$("#dropLayer").css("height", collisionPerson.height());
+			$("#dropLayer").css("opacity", 0.1);
+		}
 	}
 }
 
@@ -620,7 +648,7 @@ function StartDragPerson(element)
 {
 	var positionNum;
 	
-	element.css('zIndex', 99);
+	selectPersonElement(element);
 	if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
 	{
 		positionNum =  element.context.id.substring(element.context.id.length - 2, element.context.id.length);
@@ -638,117 +666,156 @@ function StartDragPerson(element)
 
 function StopDragPerson(element,tableElement)
 {
-	var collision = collisionWithOtherPersonElement(element);
-	var lastPositionNum;
+	var pos = getPositions(document.getElementById("floatListGate"));
+	var pos2 = getPositions(document.getElementById(element.context.id));
+	var horizontalMatch = comparePositions(pos[0], pos2[0]);
+	var verticalMatch = comparePositions(pos[1], pos2[1]);
+	var backToFloatListMatch = horizontalMatch && verticalMatch;
 	
-	if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
+	if (backToFloatListMatch)
 	{
-		lastPositionNum = element.context.id.substring(element.context.id.length - 2, element.context.id.length);
-	}
-	else
-	{
-		lastPositionNum = element.context.id.substring(element.context.id.length - 1, element.context.id.length);
-	}
-
-	var cleanTitleThis;	
-	
-	if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.id.length)))
-	{
-		cleanTitleThis = element.context.title.substring(0, element.context.title.length - 2);
-	}
-	else
-	{
-		cleanTitleThis= element.context.title.substring(0, element.context.title.length - 1);
-	}
-	var realOldPosition;
-	var realNewPosition;
-	
-	$("#dropLayer").remove();
-	if (collision[0])
-	{
-		var collisionPerson = collision[1];
-		var newTop = collision[1].position().top;
-		var newLeft = collision[1].position().left;
-							
-		collision[1].animate({top: PersonLastPosition[0],left: PersonLastPosition[1]});
+		$("#floatListGate").css("background-color", "white");
+		$("#floatListGate").find('img').first().attr('src',"/static/canvas/images/arrow_to_float_n.png");
+		DeletePerson();
+		element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]});
+		
+		var cleanTitleCollision;
+				
 		if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.title.length)))
 		{
-			realOldPosition = element.context.title.substring(element.context.title.length - 2, element.context.title.length);	
+			cleanTitleCollision = element.context.title.substring(0, element.context.title.length - 2);
 		}
 		else
 		{
-			realOldPosition = element.context.title.substring(element.context.title.length - 1, element.context.title.length);	
+			cleanTitleCollision = element.context.title.substring(0, element.context.title.length - 1);
 		}
-		if (IsNumeric(collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length)))
+		
+		var newPositionNum;
+		
+		if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
 		{
-			realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length);
+			newPositionNum = element.context.id.substring(element.context.id.length - 2, element.context.id.length);	
 		}
 		else
 		{
-			realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 1, collision[1].context.title.length);
+			newPositionNum = element.context.id.substring(element.context.id.length - 1, element.context.id.length);	
 		}
-		element.animate({top: newTop,left: newLeft},function() {
-				
-			var newPositionNum;
-			
-			if (IsNumeric(collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length)))
+		fixPlaceFloat(cleanTitleCollision, newPositionNum);
+	}
+	else
+	{
+		var collision = collisionWithOtherPersonElement(element);
+		var lastPositionNum;
+		
+		if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
+		{
+			lastPositionNum = element.context.id.substring(element.context.id.length - 2, element.context.id.length);
+		}
+		else
+		{
+			lastPositionNum = element.context.id.substring(element.context.id.length - 1, element.context.id.length);
+		}
+
+		var cleanTitleThis;	
+		
+		if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.id.length)))
+		{
+			cleanTitleThis = element.context.title.substring(0, element.context.title.length - 2);
+		}
+		else
+		{
+			cleanTitleThis= element.context.title.substring(0, element.context.title.length - 1);
+		}
+		var realOldPosition;
+		var realNewPosition;
+		
+		$("#dropLayer").remove();
+		if (collision[0])
+		{
+			var collisionPerson = collision[1];
+			var newTop = collision[1].position().top;
+			var newLeft = collision[1].position().left;
+								
+			collision[1].animate({top: PersonLastPosition[0],left: PersonLastPosition[1]});
+			if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.title.length)))
 			{
-				newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length);	
+				realOldPosition = element.context.title.substring(element.context.title.length - 2, element.context.title.length);	
 			}
 			else
 			{
-				newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 1, collision[1].context.id.length);	
+				realOldPosition = element.context.title.substring(element.context.title.length - 1, element.context.title.length);	
 			}
-			
-			var cleanTitleCollision;
-			
 			if (IsNumeric(collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length)))
 			{
-				cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 2);
+				realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length);
 			}
 			else
 			{
-				cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 1);
+				realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 1, collision[1].context.title.length);
 			}
+			element.animate({top: newTop,left: newLeft},function() {
+					
+				var newPositionNum;
+				
+				if (IsNumeric(collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length)))
+				{
+					newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length);	
+				}
+				else
+				{
+					newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 1, collision[1].context.id.length);	
+				}
+				
+				var cleanTitleCollision;
+				
+				if (IsNumeric(collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length)))
+				{
+					cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 2);
+				}
+				else
+				{
+					cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 1);
+				}
 
-			if (cleanTitleThis != cleanTitleCollision)
+				if (cleanTitleThis != cleanTitleCollision)
+				{
+					fixPlaceFloat(cleanTitleThis , newPositionNum);
+					fixPlaceFloat(cleanTitleCollision , lastPositionNum);
+				}
+																
+				var tempTitle = element.context.title;
+									
+				element.attr("title" ,collision[1].context.title);
+				collision[1].attr("title" ,tempTitle);
+
+				if ($("#tableElementDiv"+ newPositionNum).text().indexOf("ריק") >= 0)
+				{
+					document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "מושב " + realOldPosition + "</br>ריק";
+				}
+					selectPersonElement($("#tableElementDiv"+ lastPositionNum));
+					SelectedPerson = element;			
+				});
+
+				$.post('/canvas/swapPos/', {elem_num: tableElement.context.id, first_position: realOldPosition, second_position: realNewPosition},
+				function(data){
+			   if (data.status == 'OK')
+			   {
+					setSaveStatus("OK");
+				}
+				else
+				{
+					setSaveStatus("Error");
+				}
+				}, 'json');
+
+			}
+			else
 			{
-				fixPlaceFloat(cleanTitleThis , newPositionNum);
-				fixPlaceFloat(cleanTitleCollision , lastPositionNum);
-			}
-															
-			var tempTitle = element.context.title;
-								
-			element.attr("title" ,collision[1].context.title);
-			collision[1].attr("title" ,tempTitle);
-
-			if ($("#tableElementDiv"+ newPositionNum).text().indexOf("ריק") >= 0)
-			{
-				document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "מושב " + realOldPosition + "</br>ריק";
-			}
-				selectPersonElement($("#tableElementDiv"+ lastPositionNum));
-				SelectedPerson = element;			
-			});
-
-			$.post('/canvas/swapPos/', {elem_num: tableElement.context.id, first_position: realOldPosition, second_position: realNewPosition},
-			function(data){
-           if (data.status == 'OK')
-           {
+				fixPlaceFloat(cleanTitleThis , lastPositionNum);
 				setSaveStatus("OK");
+				element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElementDiv"+lastPositionNum)); SelectedPerson = element;});
 			}
-			else
-			{
-				setSaveStatus("Error");
-			}
-			}, 'json');
-
-		}
-		else
-		{
-			fixPlaceFloat(cleanTitleThis , lastPositionNum);
-			setSaveStatus("OK");
-			element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElementDiv"+lastPositionNum)); SelectedPerson = element;});
-		}
+	}
 }
 
 function hideAllDragDiv()
@@ -825,95 +892,160 @@ function savePersonChanges(firstName, lastName)
 	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	
 	$("#EmailValidtion").remove();
-	firstName = firstName.replace(" ","_");
-	lastName = lastName.replace(" ","_");
+	$("#FirstNameValidtion").remove();
+	$("#LastNameValidtion").remove();
+	firstName = firstName.replace(/\ /g,"_");
+	lastName = lastName.replace(/\ /g,"_");
 	if(!emailReg.test($("#detailsE-mail" + firstName + '_'+ lastName).val())) {
-      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red" class="text_14_black">נא הכנס כתובת חוקית.</span>');
+      $("#detailsE-mail" + firstName + '_'+ lastName).after('<span id="EmailValidtion" style="color:red" class="text_11_black"> יש להזין כתובת חוקית .</span>');
 	  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'red'}, 500);
     }
 	else
 	{
-    $.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt')},
-      function(data){
-		$("#SaveStatImg").fadeTo(400, 0);
-        if (data.status == 'OK')
+		if (!duplicatePerson && ($("#detailsFirstName" + firstName + '_'+ lastName).val() != firstName.replace(/\ /g,"_") || lastName.replace(/\ /g,"_") != $("#detailsLastName" + firstName + '_'+ lastName).val())
+		&& isPersonIsOnList($("#detailsFirstName" + firstName + '_'+ lastName).val(), $("#detailsLastName" + firstName + '_'+ lastName).val()))
 		{
-		  personData.first_name = $("#detailsFirstName" + firstName + '_'+ lastName).val();
-		  personData.last_name = $("#detailsLastName" + firstName + '_'+ lastName).val();
-		  personData.phone_num = $("#detailsPhoneNum" + firstName + '_'+ lastName).val();
-		  personData.person_email = $("#detailsE-mail" + firstName + '_'+ lastName).val();
-		  personData.present_amount = $("#detailsPresentAmount" + firstName + '_'+ lastName).val();
-		  personData.facebook_account = $("#detailsFacebookAccount" + firstName + '_'+ lastName).val();
-		  personData.group = $("#detailsGroup" + firstName + '_'+ lastName).val();
-		  personData.gender = $("#detailsGender" + firstName + '_'+ lastName).val();
-		  personData.invation_status =  $("#InvationStatusPersonButton").attr('alt');
-		  if (personData.position > 0)
-		  {
-			document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
-		  }
-		  else
-		  {
-			document.getElementById(firstName.replace("_"," ") + '_' + lastName.replace("_"," ")).innerHTML = personData.first_name + " " + personData.last_name;
-			
-			var floatPerson = $("#" + firstName.replace("_"," ") + '_' + lastName.replace("_"," "));
-			
-			if (floatPerson.index() < 0)
+			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="FirstNameValidtion"  style="color:red" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
+			$("#detailsLastName" + firstName + '_'+ lastName).after('<span  id="LastNameValidtion" style="color:red" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
+			duplicatePerson = true;
+		}
+		else
+		{
+			if (!duplicatePerson)
 			{
-				$("#people_list > li").each(function(j) { if ($(this).context.id == firstName.replace("_"," ") + '_' + lastName.replace("_"," ")){ floatPerson = $(this);}});
+				$.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
+				  function(data){
+					savePersonOperation(data, firstName, lastName)
+					duplicatePerson = false;
+					$("#SaveStatImg").fadeTo(400, 1);
+				}, 'json');
 			}
-			floatPerson.css("text",personData.first_name + " " + personData.last_name);
-			floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
-			floatPerson.removeClass('femaleli');
-			floatPerson.removeClass('maleli');
-			if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "M")
-		   {
-				floatPerson.addClass('maleli');
-		   }
 			else
-		   {
-				floatPerson.addClass('femaleli');
-		   }
-		  }
-		  $("#tabs li:eq(" + SelectedTabIndex + ") a").html(personData.first_name + " " + personData.last_name);
-		  personData.first_name = personData.first_name.replace(" ","_");
-		  personData.last_name = personData.last_name.replace(" ","_");
-		  $("#tabs li:eq(" + SelectedTabIndex + ") a").attr("href", "#tab" + personData.first_name + '__' + personData.last_name)
-		  $("#tab" + firstName + '__' + lastName).attr("id","tab"+ personData.first_name + '__' + personData.last_name);
-		  $("#detailsFirstName"+ firstName + '_'+ lastName).attr("id","detailsFirstName"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsLastName"+ firstName + '_'+ lastName).attr("id","detailsLastName"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsPhoneNum"+ firstName + '_'+ lastName).attr("id","detailsPhoneNum"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsE-mail"+ firstName + '_'+ lastName).attr("id","detailsE-mail"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsPresentAmount"+ firstName + '_'+ lastName).attr("id","detailsPresentAmount"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsFacebookAccount"+ firstName + '_'+ lastName).attr("id","detailsFacebookAccount"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsGroup"+ firstName + '_'+ lastName).attr("id","detailsGroup"+ personData.first_name + '_'+ personData.last_name);
-		  $("#detailsGender"+ firstName + '_'+ lastName).attr("id","detailsGender"+ personData.first_name + '_'+ personData.last_name);
-
-		  if ($("#detailsGender"+ personData.first_name + '_'+ personData.last_name).val() == "M")
-		  {
-				$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
-		  }
-			else
-		  {
-				$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
-		  }
-		  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
-		  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
-          setSaveStatus("OK");
-		  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'green'}, 500);
-        }else{
-          setSaveStatus("Error");
-		  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'red'}, 500);
-        }
-		$("#SaveStatImg").fadeTo(400, 1);
-    }, 'json');
+			{
+				$.post('/canvas/saveDupPerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
+				  function(data){
+					savePersonOperation(data, firstName, lastName)
+					duplicatePerson = false;
+					$("#SaveStatImg").fadeTo(400, 1);
+				}, 'json');
+			}
+		}
 	}
+}
+
+function savePersonOperation(data, firstName, lastName)
+{
+	$("#SaveStatImg").fadeTo(400, 0);
+	if (data.status == 'OK')
+	{
+	  personData.first_name = $("#detailsFirstName" + firstName + '_'+ lastName).val();
+	  if (duplicatePerson)
+	  {
+	    personData.last_name = data.new_last_name;
+		$("#detailsLastName" + firstName + '_'+ lastName).val(data.new_last_name);
+	  }
+	  else
+	  {
+	    personData.last_name = $("#detailsLastName" + firstName + '_'+ lastName).val();
+	  }
+	  personData.phone_num = $("#detailsPhoneNum" + firstName + '_'+ lastName).val();
+	  personData.person_email = $("#detailsE-mail" + firstName + '_'+ lastName).val();
+	  personData.present_amount = $("#detailsPresentAmount" + firstName + '_'+ lastName).val();
+	  personData.facebook_account = $("#detailsFacebookAccount" + firstName + '_'+ lastName).val();
+	  personData.group = $("#detailsGroup" + firstName + '_'+ lastName).val();
+	  personData.gender = $("#detailsGender" + firstName + '_'+ lastName).val();
+	  personData.meal = $("#detailsMeal" + firstName + '_'+ lastName).val();
+	  personData.invation_status =  $("#InvationStatusPersonButton").attr('alt');
+	  if (personData.position > 0)
+	  {
+		document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
+	  }
+	  else
+	  {
+		document.getElementById(firstName.replace("_"," ") + '_' + lastName.replace("_"," ")).innerHTML = personData.first_name + " " + personData.last_name;
+		
+		var floatPerson = $("#" + firstName.replace("_"," ") + '_' + lastName.replace("_"," "));
+		
+		if (floatPerson.index() < 0)
+		{
+			$("#people_list > li").each(function(j) { if ($(this).context.id == firstName.replace("_"," ") + '_' + lastName.replace("_"," ")){ floatPerson = $(this);}});
+		}
+		floatPerson.css("text",personData.first_name + " " + personData.last_name);
+		floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
+		floatPerson.removeClass('femaleli');
+		floatPerson.removeClass('maleli');
+		if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "M")
+	   {
+			floatPerson.addClass('maleli');
+	   }
+		else
+	   {
+			floatPerson.addClass('femaleli');
+	   }
+	  }
+	  $("#tabs li:eq(" + SelectedTabIndex + ") a").html(personData.first_name + " " + personData.last_name);
+	  personData.first_name = personData.first_name.replace(/\ /g,"_");
+	  personData.last_name = personData.last_name.replace(/\ /g,"_");
+	  $("#tabs li:eq(" + SelectedTabIndex + ") a").attr("href", "#tab" + personData.first_name + '__' + personData.last_name)
+	  $("#tab" + firstName + '__' + lastName).attr("id","tab"+ personData.first_name + '__' + personData.last_name);
+	  $("#detailsFirstName"+ firstName + '_'+ lastName).attr("id","detailsFirstName"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsLastName"+ firstName + '_'+ lastName).attr("id","detailsLastName"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsPhoneNum"+ firstName + '_'+ lastName).attr("id","detailsPhoneNum"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsE-mail"+ firstName + '_'+ lastName).attr("id","detailsE-mail"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsPresentAmount"+ firstName + '_'+ lastName).attr("id","detailsPresentAmount"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsFacebookAccount"+ firstName + '_'+ lastName).attr("id","detailsFacebookAccount"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsGroup"+ firstName + '_'+ lastName).attr("id","detailsGroup"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsGender"+ firstName + '_'+ lastName).attr("id","detailsGender"+ personData.first_name + '_'+ personData.last_name);
+	  $("#detailsMeal"+ firstName + '_'+ lastName).attr("id","detailsMeal"+ personData.first_name + '_'+ personData.last_name);
+
+	  if ($("#detailsGender"+ personData.first_name + '_'+ personData.last_name).val() == "M")
+	  {
+			$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
+	  }
+		else
+	  {
+			$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+	  }
+	  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
+	  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
+	  setSaveStatus("OK");
+	  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'green'}, 500);
+	  }else{
+		  setSaveStatus("Error");
+		  $("#tab" +firstName + '__'+ lastName).effect("highlight", {color: 'red'}, 500);
+		}
+}
+
+function isPersonIsOnList(firstName, lastName)
+{
+	var result = false;
+	$("#people_list > li").each(function(i) {
+		if ($(this).context.id == firstName +"_"+ lastName )
+		{
+			result = true;
+		}
+	});
+	
+	return result;
 }
 
 function DeletePerson()
 {
 	if (SelectedPerson != "" && personData != "" && SelectedTable!= "")
 	{
-	  var newPositionNum = SelectedPerson.context.title.substring(SelectedPerson.context.title.length - 1, SelectedPerson.context.title.length);
+	
+		var newPositionNum = 0;
+		var personTitle = SelectedPerson.context.title;
+		
+		if (IsNumeric(personTitle.substring(personTitle.length - 2, personTitle.length)))
+		{
+			newPositionNum =  personTitle.substring(personTitle.length - 2, personTitle.length);
+		}
+		else
+		{
+			newPositionNum =  personTitle.substring(personTitle.length - 1, personTitle.length);
+		}
+
 	  $.post('/canvas/bringToFloatList/', {elem_num: SelectedTable.context.id, position: parseInt(newPositionNum)},
       function(data){
 		$("#SaveStatImg").fadeTo(400, 0);
@@ -926,13 +1058,45 @@ function DeletePerson()
 		  elementCaption[1].innerHTML = sizeStr;
 		  reloadElementStatus(SelectedTable);
 		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "מושב " + newPositionNum + "</br>ריק";
-		  //$("#tableElement" + personData.position).attr("src", "/static/canvas/images/WeddingChair.png");
 		  SelectedPerson.removeClass('borderPersonSelected');
 		  selectPersonElement($("#tableElementDiv" + personData.position));
 		  SelectedPerson = "";
           setSaveStatus("OK");
-		  ShowHourGlassWaitingWindow(true);
-		  //		  addPersonToFloatList(personData.first_name,personData.last_name);
+		  
+		  if (personTitle == "personTop" + newPositionNum || personTitle == "personRight"  + newPositionNum)
+		 {
+			$("#tableElement"+ personData.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
+		 }
+		 else
+		 {
+			$("#tableElement"+ personData.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
+		 }
+		
+		  $("#tableElementDiv"+ personData.position).removeClass('borderPersonSelected');
+		  $("#tableElementDiv"+ personData.position).unbind('click');
+		  $("#tableElementDiv"+ personData.position).unbind('dblclick');
+		  $("#tableElementDiv"+ personData.position).draggable( 'disable' );
+		  $("#tableElementDiv"+ personData.position).fadeTo(100, 1);
+		  
+		  var classGender = "maleli";
+		  //ShowHourGlassWaitingWindow(true);
+		  if (data.gender == "F")
+		  {
+			classGender = "femaleli";
+		  }
+		  $("#people_list").append($('<li class="'+ classGender +'" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
+		  rePaintPeopleList(); 
+		  $("#people_list > li").each(function(i) {
+			$(this).removeClass('ui-multisort-click');
+			$(this).removeClass('ui-multisort-grouped');
+			if ($(this).context.id == personData.first_name +"_"+ personData.last_name )
+			{
+				$(this).addClass('ui-multisort-click');
+				$(this).bind('dblclick',function(e){ personFloatListDBClick(e,$(this)); });
+				$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+				refactorElementPerson($(this));
+			}
+		  });
         }else{
           setSaveStatus("Error");
         }
@@ -942,7 +1106,7 @@ function DeletePerson()
 	}
 	else
 	{
-		alert ("Please select person");
+		showLightMsg("מחיקת אורח","יש לבחור אורח.","OK","Notice");
 	}
 }
 

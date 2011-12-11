@@ -28,6 +28,7 @@
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
+<script type="text/javascript" src="/static/canvas/light_msg.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -237,7 +238,7 @@
 			<!--[if IE]>
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
-				<div style="background:white;" onmouseout="addMenuMouseLeave()">
+				<div onmouseout="addMenuMouseLeave()">
 					<li><a href="#" onclick="addMenuItemButtonPress('Round')"><img id="Round" border=0 src="" class="MenuItem" title="שולחן עגול"></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('Square')"><img id="Square" border=0 src="" class="MenuItem" title="שולחן מרובע"></a></li>
 					<li style="margin:2px;"><a href="#" onclick="addMenuItemButtonPress('Rect')"><img id="Rect" border=0 src="" class="RectMenuItem" title="שולחן מלבני"></a></li>	
@@ -412,25 +413,17 @@
 			</div>	
 			<div id="right-middel-bar" class="Properties-bar">
 				<div id="element-properties-list">
-					<table width="115" border="0" cellspacing="0" cellpadding="0">
+					<table width="100" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אלמנט</span></td>
+						  <td height="25" colspan="5" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אלמנט</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:75px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">תווית:<br/><span><input style="text-align:right; width:75px;" type="text" id="ElementCaption" class="Property" maxlength="50"/></span></p></td>
+						  <td align="right" valign="top" bgcolor="white" colspan="3">
+								<p class="text_14_black_bolt">תווית:<br/><span><input style="text-align:right; width:100px;" type="text" id="ElementCaption" class="Property" maxlength="50"/></span></p></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
@@ -460,20 +453,22 @@
 									<option class="Property" value="21">21
 									<option class="Property" value="22">22
 								</select></span></p></td>
+						  <td width="5" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						  <td width="35" bgcolor="white" align="right"><p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:35px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>						
 						<tr>
-						  <td width="5" height="63" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="63" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינויים">
+						  <td width="2.5" height="63" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="63" /></td>
+						  <td height="25" colspan="5" bgcolor="#5A8EA3" title="שמור שינויים">
 						  <!--[if IE]>
-						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="125" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()"/>
+						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="110" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()"/>
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="125" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" />
+						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="110" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" />
 						  <!--<![endif]-->
 						  </td>
-						  <td width="5" height="63" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="63" /></td>
+						  <td width="2.5" height="63" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="63" /></td>
 						</tr>
 				</table>
 			</div>

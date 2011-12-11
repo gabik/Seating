@@ -389,7 +389,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 			}
 			this.currentItem.css(this._storedCSS).removeClass("ui-sortable-helper");
 			$(this.currentItem).siblings('.ui-multisort-grouped').show();
-			$(this.currentItem).siblings('ui-multisort-click').show();
+				$(this.currentItem).siblings('ui-multisort-click').show();
 			this.currentItem.show();
 		} else {
 			if ($(this.currentItem).parent().children().size() > 0) {

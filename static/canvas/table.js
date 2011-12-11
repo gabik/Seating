@@ -63,6 +63,7 @@ function turnToRegularMode(element,event)
 	tableMode = false;
 	selectElement(element);
 	adjustCaption(element);
+	$("#floatListGate").animate({height:0},300, 'linear',function(){	$("#floatListGate").remove();});
 	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;
@@ -155,7 +156,8 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
 	
-	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() { selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element);
+	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() {
+	selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element); $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear');
 	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;

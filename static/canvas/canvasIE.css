@@ -58,9 +58,8 @@
  }
  #element-properties-list
  {
-  z-index:5;
+  z-index:999;
   position:absolute;
-  padding: 4px;
   width:120;
  }
  #search-properties-list

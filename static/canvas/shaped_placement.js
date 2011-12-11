@@ -99,7 +99,14 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).removeClass('borderSelected');
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				 {
+					$("#borderSelected").removeClass('borderSelected');
+				 }
+				 else
+				 {
+					$(this).removeClass('borderSelected');
+				 }
 				SelectedElem = "";
 				
 				startDradPositionList[i] = $(this).position();
@@ -217,7 +224,14 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).removeClass('borderSelected');;
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				 {
+					$("#borderSelected").removeClass('borderSelected');
+				 }
+				 else
+				 {
+					$(this).removeClass('borderSelected');
+				 }
 				SelectedElem = "";
 			
 				startDradPositionList[i] = $(this).position();
@@ -332,7 +346,14 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				$(this).removeClass('borderSelected');
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				 {
+					$("#borderSelected").removeClass('borderSelected');
+				 }
+				 else
+				 {
+					$(this).removeClass('borderSelected');
+				 }
 				SelectedElem = "";
 				startDradPositionList[i] = $(this).position();
 				if (newTop + $(this).height() > maxHeight)
