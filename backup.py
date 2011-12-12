@@ -9,17 +9,21 @@ import tarfile
 def tarToS3(directoryName='/Seating', s3Bucket='2seat', s3Key=None, s3AcctId='AKIAIFUNDQAYFXW6RURA', s3SecretAccess='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' ):
         contents = os.listdir(directoryName)
 	curtime=str(time.strftime('%d%m%H%M%S'))
+	isdb=0
         if s3Key==None:
                 s3Key="backup."+curtime+".tar.gx"
         else:
+		if s3Key=='db' or s3Key=='DB':
+			isdb=1
                 s3Key+='-'+curtime+'.tar.gz'
 
         backupFile = "/backups/"+s3Key
 	os.system("mysqldump --all-databases > /backups/dbs/"+curtime+".sqldump")
         tar = tarfile.open(backupFile, "w:gz")
 	tar.add("/backups/dbs/"+curtime+".sqldump")	
-        for item in contents:
-                tar.add(directoryName+'/'+item)
+	if isdb==0:
+	        for item in contents:
+        	        tar.add(directoryName+'/'+item)
         tar.close()
 
         if s3SecretAccess==None:

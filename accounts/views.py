@@ -277,14 +277,19 @@ def download_excel(request):
 	row_num+=1
 	for g in Guests:
 		row1 = sheet1.row(row_num)
-		row1.write(0,g.guest_first_name, style)
-		row1.write(1,g.guest_last_name, style)
-		row1.write(2,g.gender, style)
+		gfirst=unicode(g.guest_first_name, "UTF-8")
+		row1.write(0,gfirst, style)
+		glast=unicode(g.guest_last_name, "UTF-8")
+		row1.write(1,glast, style)
+		ggender=unicode(g.gender, "UTF-8")
+		row1.write(2,ggender, style)
 		row1.write(3,1, style)
 		row1.set_cell_text(4,g.phone_number, style)
+		gemail=unicode(g.guest_email, "UTF-8")
 		row1.write(5,g.guest_email, style)
-		row1.write(6,g.facebook_account, style)
-		ggroup=g.group
+		gfacebook=unicode(g.facebook_account, "UTF-8")
+		row1.write(6,gfacebook, style)
+		ggroup=unicode(g.group, "UTF-8")
 		row1.write(7,ggroup, style)
 		row1.write(8,g.present_amount, style)
 		row_num+=1
