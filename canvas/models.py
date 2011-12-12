@@ -14,4 +14,4 @@ class SingleElement(models.Model):
 	caption = models.CharField(max_length=80)
 	def __unicode__(self):
 		printy = self.user.username + " " + str(self.elem_num)
-		return printy
+		return printy.decode('utf8')

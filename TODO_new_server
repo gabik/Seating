@@ -16,4 +16,5 @@ linux:
 add 2seat user and group
 change permisions to /Seating
 create home dir
-
+install boto http://boto.googlecode.com/files/boto-2.1.1.tar.gz
+mkdir -p /backups/dbs
