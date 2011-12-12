@@ -49,7 +49,7 @@ function showLightMsg(title, text, buttons, icon)
 	
 	if (buttons == "OK")
 	{
-		$("#LightMsgMainWindow"+idSuffix).append($('</br>&nbsp;&nbsp;<img id="OKMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/okbtn_n.png" /></br>')); 
+		$("#LightMsgMainWindow"+idSuffix).append($('</br>&nbsp;&nbsp;<img id="OKMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/okbtn_n.png" style="cursor:pointer;" /></br>')); 
 		$("#OKMsgBtn"+idSuffix).bind('click', function() {
 			$("#lightMsgRectangle"+idSuffix).remove();
 			$("#LMFrame"+idSuffix).remove();
@@ -65,7 +65,7 @@ function showLightMsg(title, text, buttons, icon)
 	}
 	else if (buttons == "YESNO")
 	{
-		$("#LightMsgMainWindow"+idSuffix).append($('</br>&nbsp;&nbsp;<img id="CANCELMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/xbtn_n.png" ><span><img id="OKMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/okbtn_n.png" ></span></img></br>')); 
+		$("#LightMsgMainWindow"+idSuffix).append($('</br>&nbsp;&nbsp;<img id="CANCELMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/xbtn_n.png" style="cursor:pointer;"><span><img id="OKMsgBtn'+idSuffix+'" align="center" src="/static/canvas/images/okbtn_n.png" style="cursor:pointer;"></span></img></br>')); 
 		$("#OKMsgBtn"+idSuffix).bind('click', function() {
 			$("#lightMsgRectangle"+idSuffix).remove();
 			$("#LMFrame"+idSuffix).remove();

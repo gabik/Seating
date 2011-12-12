@@ -13,6 +13,7 @@ var addPersonDivOpen = false;
 var propMenuOpen = false;
 var fromPropMeneBtn = false;
 var currentMsgTimer = "";
+var floatListOriginalPosition = "";
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -1185,7 +1186,6 @@ $(document).ready(function() {
   }
   
   var numOfElementsComboBox = 1;//document.getElementById("numOfElementsComboBox");
-
   $("#ElementPropertiesSaveButton").removeAttr('disabled');
   $("#ElementCaption").removeAttr('disabled');
   $("#ElementSize").removeAttr('disabled');
@@ -1197,6 +1197,9 @@ $(document).ready(function() {
   $("#people-list").addClass('class_overflow_auto');
   updateGroups();
 
+  $("#float-list").after(function() {
+	floatListOriginalPosition = $("#float-list").position();
+  });
   $(".DragDiv").after(function() {
      reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
@@ -1204,7 +1207,6 @@ $(document).ready(function() {
 	 var elementImgs = $(this).context.getElementsByTagName("img");
 	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
 	 setWidthAndHeight($(this),elementMaxSize,0);
-	 $(this).find('img').first()
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {
 		 //elementCaption[1].style.visibility = "hidden";
@@ -1297,7 +1299,7 @@ $(document).ready(function() {
      stop: function (e,ui){
 		stopDrag($(this));
        }
-  });
+  }); 
   
   $(".DragDiv").draggable({
      containment: 'parent',
@@ -1651,6 +1653,39 @@ $(document).ready(function() {
 	$(".ExitCanvasDiv").click(function(){
 		showLightMsg("יציאה מהמערכת", "האם לצאת מהמערכת?", "YESNO", "Question");
 		currentMsgTimer = setTimeout("exitSys()",500);
+	});
+	
+	$("#float-list").draggable({
+     containment: 'body',
+	 cursor: "move",
+     start: function (e,ui){
+		$("body").css("overflow", "hidden");
+     },
+	 stop: function (e,ui){
+		$("body").css("overflow", "auto");
+     }
+   });
+
+	$("#floatListPin").click(function(){
+		if (!tableMode && !detailsMode)
+		{
+			if 	($(this).attr('alt') == "P")
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_off_r.png");
+				$(this).attr('alt',"NP"); 
+				$("#float-list").draggable( 'enable' );
+				$("#float-list").addClass('pointer');
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_on_r.png");
+				$(this).attr('alt',"P"); 
+				$("#float-list").draggable( 'disable' );
+				$("#float-list").fadeTo(0, 1);
+				$("#float-list").animate({ top: floatListOriginalPosition.top, left: floatListOriginalPosition.left},300, 'linear');
+				$("#float-list").removeClass('pointer');
+			}
+		}
 	});
 
  });

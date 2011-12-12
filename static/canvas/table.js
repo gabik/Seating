@@ -100,6 +100,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		originalPropertiesArray[3] =  element.height();
 	}
 	
+	$("#float-list").animate({ top: floatListOriginalPosition.top, left: floatListOriginalPosition.left},300, 'linear');
 	element.removeClass('borderSelected');
 	$("#borderSelected").removeClass('borderSelected');
 	
