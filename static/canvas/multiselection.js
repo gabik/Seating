@@ -16,6 +16,16 @@ function getFullySelectionRectangleElementList()
 		numOfElements = numOfElements + 1;
 	}
 	});
+	$(".DragNonDropDiv").each(function(i) {
+	if ($(this).position().top >= $("#multiSelectionRectangle").position().top &&
+		$(this).position().left >= $("#multiSelectionRectangle").position().left &&
+		$(this).position().left + $(this).width() <= $("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width() &&
+		$(this).position().top + $(this).height() <= $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height())
+	{
+		list = list + $(this).context.id +",";
+		numOfElements = numOfElements + 1;
+	}
+	});
 	return [numOfElements,list];
 }
 
@@ -46,7 +56,14 @@ function aligmentHorizontal(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			$("#"+selectionElementsList[i]).removeClass('borderSelected');
+			 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			{
+				$("#borderSelected").removeClass('borderSelected');
+			 }
+			 else
+			 {
+				$("#"+selectionElementsList[i]).removeClass('borderSelected');
+			 }
 			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -102,7 +119,14 @@ function aligmentVertical(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			$("#"+selectionElementsList[i]).removeClass('borderSelected');
+			 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			 {
+				$("#borderSelected").removeClass('borderSelected');
+			 }
+			 else
+			 {
+				$("#"+selectionElementsList[i]).removeClass('borderSelected');
+			 }
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -138,7 +162,14 @@ $(document).ready(function() {
 		if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
 			if (SelectedElem != "")
 			{
-				SelectedElem.removeClass('borderSelected');
+			   if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				 {
+					$("#borderSelected").removeClass('borderSelected');
+				 }
+				 else
+				 {
+					SelectedElem.removeClass('borderSelected');
+				 }
 				posPropertyPanel("");
 			}
 			SelectedElem ="";
@@ -261,7 +292,14 @@ $(document).ready(function() {
 					{
 					   saveElementByID(selectionElementsList[i]);
 					}
-					$("#"+selectionElementsList[i]).removeClass('borderSelected');
+					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					 {
+						$("#borderSelected").removeClass('borderSelected');
+					 }
+					 else
+					 {
+						$("#"+selectionElementsList[i]).removeClass('borderSelected');
+					 }
 					var undoElement = new Array(2);
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";

@@ -136,11 +136,11 @@ def add_person(request):
 		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
 		if (len(persons) > 0):
 			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
-			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(addStr))
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
 			if (len(exist_num) <= 0):
-				addStr = len(max_match)
-			else:
 				addStr = len(max_match) + 1
+			else:
+				addStr = len(max_match) + 2
 		last_name = request.POST['last'] + str(addStr)
 		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T")
 		new_person.save()

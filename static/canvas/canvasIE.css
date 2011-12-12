@@ -58,9 +58,8 @@
  }
  #element-properties-list
  {
-  z-index:5;
+  z-index:999;
   position:absolute;
-  padding: 4px;
   width:120;
  }
  #search-properties-list
@@ -120,7 +119,7 @@
  .borderSelected
  {
   border:2px solid #5A8EA3;
-  z-index:999;
+  z-index:9999;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
