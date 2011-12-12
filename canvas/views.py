@@ -118,11 +118,40 @@ def save_element(request):
 			single_element.max_sitting = request.POST['size'];
 		if request.POST['sumGuests'] != "": 
 			user_profile.num_of_guests = int(request.POST['sumGuests']);
+		if request.POST['fixNumber'] != "": 
+			single_element.fix_num = int(request.POST['fixNumber']);
 		single_element.save()
 		user_profile.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
+@login_required
+def fix_number_status(request):
+	json_dump = json.dumps({'status': "Empty"})
+	result = ""
+	if request.method == 'POST':
+		if request.POST['fixNumber'] != "":  
+			SingleElements = SingleElement.objects.filter(user=request.user, fix_num=int(request.POST['fixNumber']))
+			elem_delim = request.POST['elem_num'].index('-')
+			elem_num=request.POST['elem_num'][elem_delim+1:]
+			print str(elem_num)
+			if len(SingleElements) > 0:
+				for singel_element in SingleElements:
+					if int(elem_num) != int(singel_element.elem_num):
+						result = result + singel_element.caption + "," 
+				json_dump = json.dumps({'status': "OK", 'result':result})
+	return HttpResponse(json_dump)
+	
+
+def get_fix_number(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		json_dump = json.dumps({'status': "OK", 'fix_num':single_element.fix_num})
+	return HttpResponse(json_dump)
+	
 @login_required
 def update_Num_Of_Guests(request):
 	json_dump = json.dumps({'status': "Error"})
@@ -189,11 +218,12 @@ def add_element(request):
 			max_num = 1
 		else:
 			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+		max_fix_num = user_elements.all().aggregate(Max('fix_num'))['fix_num__max'] + 1
 		table_kind = request.POST['kind']
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i),x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_fix_num+i),x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
 #			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
@@ -248,7 +278,7 @@ def get_element_item(request):
 					if (int(person.position) == int(person_position)):
 						safe_first = escapeSpecialCharacters(person.guest_first_name) 
 						safe_last  = escapeSpecialCharacters(person.guest_last_name)
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
 						break
 		else:
 			first_name = request.POST['firstName']
@@ -257,7 +287,18 @@ def get_element_item(request):
 			if person is not None:
 				safe_first = escapeSpecialCharacters(person.guest_first_name)
 				safe_last  = person.guest_last_name
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status})
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
+	return HttpResponse(json_dump)
+
+@login_required
+def get_element_item_by_full_name(request):
+	json_dump = json.dumps({'status': "EMPTY"})
+	element_persons = Guest.objects.filter(user=request.user)
+	if (len(element_persons) > 0):
+		for person in element_persons:
+			if (person.guest_first_name + " " + person.guest_last_name == request.POST['full_name']):
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
+				break
 	return HttpResponse(json_dump)
 	
 @login_required
@@ -294,7 +335,7 @@ def save_person_element(request):
 	if request.method == 'POST':
 		first_name = request.POST['old_first_name']
 		last_name = request.POST['old_last_name']
-		person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
+		person = get_object_or_404(Guest, user=request.user, guest_first_name = request.POST['old_first_name'], guest_last_name = request.POST['old_last_name'])
 		if person is not None:
 			person.guest_first_name = request.POST['first_name']
 			person.guest_last_name = request.POST['last_name']
@@ -304,11 +345,41 @@ def save_person_element(request):
 			person.facebook_account = request.POST['facebook_account']
 			person.group = request.POST['group']
 			person.gender = request.POST['gender']
+			person.meal = request.POST['meal']
 			person.invation_status = request.POST['invation_status']
 			person.save()
 			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
-
+	
+@login_required
+def save_dup_person_element(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		first_name = request.POST['old_first_name']
+		last_name = request.POST['old_last_name']
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['old_first_name'], guest_last_name=request.POST['old_last_name'])
+		if (len(persons) > 0):
+			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first_name'], guest_last_name__gt=request.POST['last_name'])
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first_name'], guest_last_name=request.POST['last_name'] + str(len(max_match) + 1))
+			if (len(exist_num) <= 0):
+				addStr = len(max_match) + 1
+			else:
+				addStr = len(max_match) + 2
+			last_name = request.POST['last_name'] + str(addStr)
+			persons[0].guest_first_name = request.POST['first_name']
+			persons[0].guest_last_name = last_name
+			persons[0].phone_number = request.POST['phone_num']
+			persons[0].guest_email = request.POST['person_email']
+			persons[0].present_amount = request.POST['present_amount']
+			persons[0].facebook_account = request.POST['facebook_account']
+			persons[0].group = request.POST['group']
+			persons[0].gender = request.POST['gender']
+			persons[0].meal = request.POST['meal']
+			persons[0].invation_status = request.POST['invation_status']
+			persons[0].save()
+			json_dump = json.dumps({'status': "OK", 'new_last_name':last_name})
+	return HttpResponse(json_dump)
+	
 @login_required
 def bring_person_to_float_list_by_position(request):
 	json_dump = json.dumps({'status': "Error"})

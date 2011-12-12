@@ -12,6 +12,7 @@ var maxGuests = 1056;
 var addPersonDivOpen = false;
 var propMenuOpen = false;
 var fromPropMeneBtn = false;
+var currentMsgTimer = "";
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -77,36 +78,41 @@ function IsNumeric(sText)
 function refactoringListName()
 {
   $("#people_list > li").each(function(i){
-		var full_name = $(this).context.id;
-		var deltaToRemove = 5;
-		
-		if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
-		{
-			deltaToRemove = 6;
-		}
-		
-		full_name = full_name.replace("_"," ");
-		
-		if (full_name.length * 11 > $("#people_list").width() - 15)
-		{
-			var newString = "";
-			var stop = false;
-			for (var c = 0; c < full_name.length - deltaToRemove; c++)
-			{
-				newString = newString + full_name.charAt(c);
-				if (newString.length * 8 > $("#people_list").width())
-				{
-					stop = true;
-				}
-				if (stop)
-				{
-					break;
-				}
-			}
-			newString = newString + "..."
-			$(this).text(newString);
-		}
+		refactorElementPerson($(this));
   });
+}
+
+function refactorElementPerson(element)
+{
+	var full_name = element.context.id;
+	var deltaToRemove = 5;
+	
+	if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
+	{
+		deltaToRemove = 6;
+	}
+	
+	full_name = full_name.replace(/\_/g," ")
+	
+	if (full_name.length * 11 > $("#people_list").width() - 15)
+	{
+		var newString = "";
+		var stop = false;
+		for (var c = 0; c < full_name.length - deltaToRemove; c++)
+		{
+			newString = newString + full_name.charAt(c);
+			if (newString.length * 8 > $("#people_list").width())
+			{
+				stop = true;
+			}
+			if (stop)
+			{
+				break;
+			}
+		}
+		newString = newString + "..."
+		element.text(newString);
+	}
 }
 
 function setWidthAndHeight(element, newScale, lastScale)
@@ -167,6 +173,14 @@ function setWidthAndHeight(element, newScale, lastScale)
 					 
 			 $(this).css('width', elementImgs[0].width);
 			 $(this).css('height', elementImgs[0].height);
+			 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			{
+				$("#borderSelected").css('top',element.position().top - 6);
+				$("#borderSelected").css('left',element.position().left - 6);
+				$("#borderSelected").css('width',element.width() + 12);
+				$("#borderSelected").css('height',element.height() + 12);
+				element.css('zIndex',1000);
+			}
 		}
 		else
 		{
@@ -183,7 +197,7 @@ function adjustCaption(element)
 	var text =  $("#" + textID).text();
 	var title = $("#" + textID).attr('title');
 	var realWidth = $("#" + elementImgs[0].id).width();
-	if (title.length * 6.2 > element.width())
+	if (title.length * 6.2 > element.width() || title.length > 25)
 	{
 		var newString = "";
 		var stop = false;
@@ -209,7 +223,7 @@ function adjustCaption(element)
 		}
 		elementCaption[0].innerHTML = newString;
 		elementCaption[0].title = title;
-		$(this).css('width',realWidth);
+		element.css('width',realWidth);
 	}
 	else
 	{
@@ -253,6 +267,24 @@ function collisionWithOtherElement(element)
 			}
 		}
 	});
+	
+	if (!match)
+	{
+		$(".DragNonDropDiv").each(function(i) {
+			if (element.context.id != $(this).context.id)
+			{
+				var pos2 = getPositions(this);
+				var horizontalMatch = comparePositions(pos[0], pos2[0]);
+				var verticalMatch = comparePositions(pos[1], pos2[1]);
+				match = horizontalMatch && verticalMatch;
+				if (match)
+				{
+					return false;
+				}
+			}
+		});
+	}
+	
 	if (match)
 	{
 		return true;
@@ -281,6 +313,24 @@ function collisionWithOtherElementById(elementId)
 			}
 		}
 	});
+	
+	if (!match)
+	{
+		$(".DragNonDropDiv").each(function(i) {
+			if (elementId != $(this).context.id)
+			{
+				var pos2 = getPositions(this);
+				var horizontalMatch = comparePositions(pos[0], pos2[0]);
+				var verticalMatch = comparePositions(pos[1], pos2[1]);
+				match = horizontalMatch && verticalMatch;
+				if (match)
+				{
+					return false;
+				}
+			}
+		});
+	}
+	
 	if (match)
 	{
 		return true;
@@ -299,7 +349,7 @@ function saveElement(element)
 		{
 			elementId = element.attr('id');
 		}
-       $.post('/canvas/save/', {elem_num: elementId, X: element.position().left , Y: element.position().top ,caption: "" ,size: "", sumGuests: ""},
+       $.post('/canvas/save/', {elem_num: elementId, X: element.position().left , Y: element.position().top ,caption: "" ,size: "", sumGuests: "", fixNumber:""},
          function(data){
            if (data.status == 'OK')
            {
@@ -312,7 +362,7 @@ function saveElement(element)
 
 function saveElementByID(elementId)
 {
-       $.post('/canvas/save/', {elem_num: elementId, X: $("#"+elementId).position().left , Y: $("#"+elementId).position().top ,caption: "" ,size: "", sumGuests:""},
+       $.post('/canvas/save/', {elem_num: elementId, X: $("#"+elementId).position().left , Y: $("#"+elementId).position().top ,caption: "" ,size: "", sumGuests:"", fixNumber:""},
          function(data){
            if (data.status == 'OK')
            {
@@ -323,7 +373,75 @@ function saveElementByID(elementId)
          }, 'json');
 }
 
-function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
+function saveElementWithCaptionoWhenSizeIsLower(element,newCaption, newSize, numOfGuests, fixNumber)
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		$.post('/canvas/floatPersonsFromPos/', {elem_num: element.context.id, new_size: parseInt(newSize)},
+	   function(dataPersons){
+	   if (dataPersons.status == 'OK')
+	   { 
+			var floating_persons = dataPersons.floating_persons.split(",",parseInt(dataPersons.numOfFloatingPersons) + 1);
+			//for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
+			//{
+			//	var full_name = floating_persons[i].split(" ",2);
+
+			//	addPersonToFloatList(full_name[0],full_name[1]);
+			//}
+			sizeStr = dataPersons.currentSitting + "/" + newSize;
+			$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests, fixNumber:fixNumber},
+			function(dataSave){
+			if (dataSave.status == 'OK')
+			{
+				writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
+				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
+				setSaveStatus("OK");
+				ShowHourGlassWaitingWindow(true);
+			   }else{
+				setSaveStatus("Error");
+			   }
+			}, 'json');
+	   }
+	   }, 'json');
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		updateElementScreenProperties(element);
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout(function(){saveElementWithCaptionoWhenSizeIsLower(element,newCaption,newSize, numOfGuests, fixNumber)},500);
+	}
+}
+function saveElementWithCaptionIfExist(element,newCaption, newSize, numOfGuests, fixNumber)
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		saveElementWithCaption(element,newCaption,newSize,numOfGuests,fixNumber);
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		updateElementScreenProperties(element);
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout(function(){saveElementWithCaptionIfExist(element,newCaption,newSize,numOfGuests,fixNumber)},500);
+	}
+}
+
+function saveElementWithCaption(element,newCaption, newSize, numOfGuests, fixNumber)
 {
        var elementCaption = element.context.getElementsByTagName("p");
 	   var sizeStr = elementCaption[1].firstChild.nodeValue.split("/", 1) + "/" + newSize;
@@ -337,46 +455,14 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests)
            function(data){
            if (data.status == 'True')
            { 
-				var answer = confirm("There Are Persons Sitting At Higher Position, Bring Then To Float List?");
-				if (answer)
-				{
-					   $.post('/canvas/floatPersonsFromPos/', {elem_num: element.context.id, new_size: parseInt(newSize)},
-					   function(dataPersons){
-					   if (dataPersons.status == 'OK')
-					   { 
-							var floating_persons = dataPersons.floating_persons.split(",",parseInt(dataPersons.numOfFloatingPersons) + 1);
-							//for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
-							//{
-							//	var full_name = floating_persons[i].split(" ",2);
-
-							//	addPersonToFloatList(full_name[0],full_name[1]);
-							//}
-							sizeStr = dataPersons.currentSitting + "/" + newSize;
-							$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests},
-						    function(dataSave){
-						    if (dataSave.status == 'OK')
-						    {
-								writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
-								reloadElementAfterSave(element,newCaption,newSize,sizeStr);
-								setSaveStatus("OK");
-								ShowHourGlassWaitingWindow(true);
-							   }else{
-								setSaveStatus("Error");
-							   }
-							}, 'json');
-					   }
-					   }, 'json');
-				}
-				else
-				{
-					updateElementScreenProperties(element);
-				}
+				showLightMsg("עדכון נתון גודל אלמנט", "ישנם אנשים במיקום גובה יותר, האם להחזיר אותם לרשימה?", "YESNO", "Question");
+				currentMsgTimer = setTimeout(function(){saveElementWithCaptionoWhenSizeIsLower(element,newCaption,newSize, numOfGuests, fixNumber)},500);
            }
            }, 'json');
 	   }
 	   else
 	   {
-		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests},
+		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests, fixNumber:fixNumber},
 		  function(dataSave){
 		    if (dataSave.status == 'OK')
 		    {
@@ -404,12 +490,38 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 function selectElement(element)
 {
     if (SelectedElem != "" ) {
-      SelectedElem.removeClass('borderSelected');
+	  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		$("#borderSelected").removeClass('borderSelected');
+	 }
+	 else
+	 {
+		SelectedElem.removeClass('borderSelected');
+	 }
     }
-	element.removeClass('borderSelected');
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		$("#borderSelected").removeClass('borderSelected');
+	 }
+	 else
+	 {
+		element.removeClass('borderSelected');
+	 }
 	if (!tableMode)
-	{
-		element.addClass('borderSelected');
+	{	  
+		if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		 {
+			$("#borderSelected").css('top',element.position().top - 6);
+			$("#borderSelected").css('left',element.position().left - 6);
+			$("#borderSelected").css('width',element.width() + 12);
+			$("#borderSelected").css('height',element.height() + 12);
+			element.css('zIndex',1000);
+			$("#borderSelected").addClass('borderSelected');
+		 }
+		 else
+		 {
+			element.addClass('borderSelected');
+		 }
 	}
 	if (!fromPropMeneBtn)
 	{
@@ -428,6 +540,13 @@ function updateElementScreenProperties(element)
 		var elementCaption = element.context.getElementsByTagName("p");
 		$("#ElementCaption").attr("value",elementCaption[0].title);
 		$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(		elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+		$.post('/canvas/getFixNumber/', {elem_num: element.context.id},
+		  function(data){
+		  if (data.status == 'OK')
+		  { 
+				$("#ElementNumber").attr("value",data.fix_num);  
+		  }
+		  }, 'json');
 	}
 }
 
@@ -495,10 +614,10 @@ function pointTableAfterSearch(element)
 
 function pointPersonAfterSearch(element, elementImg)
 {
-	selectPersonElement(elementImg);
+	selectPersonElement(element);
 	element.fadeTo(400, 0,function(){
 		element.fadeTo(400, 1,function(){
-		selectPersonElement(elementImg);
+		selectPersonElement(element);
 		});
 	});
 }
@@ -690,6 +809,15 @@ function isThisPeopleTable(id)
 
 function startDrag(element)
 {
+	element.css('zIndex', 99);
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		$("#borderSelected").removeClass('borderSelected');
+	}
+	else
+	{
+		$("#borderSelected").removeClass('borderSelected');
+	}
 	element.fadeTo(200, 0.3);
 	startDradPositionList = new Array(1);
 	startDradPositionList[0] = element.position();
@@ -781,7 +909,7 @@ function undoButtonPress()
 							   ShowHourGlassWaitingWindow(true);
 							} else if (data.status == 'LIMIT')
 											{
-												alert("Maximum 48 tables");
+												showLightMsg("הגבלת שולחנות","מקסימום שולחנות הוצבו.","OK","Notice");
 												ShowHourGlassWaitingWindow(true);
 											}
 							}, 'json');
@@ -860,7 +988,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 	var curleft = startposX;
 	var placed = false;
 	
-	while (curtop < $("#canvas-div").height())
+	while (curtop < $("#canvas-div").height() + element.height())
 	{
 		element.css('top',curtop);
 		element.css('left',curleft);
@@ -887,6 +1015,145 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 			saveElement(element);
 			selectElement(element);
 		}
+	}
+}
+
+function personFloatListDBClick(event, floatElement)
+{
+	if (!event.ctrlKey)
+	{
+		var current_person = floatElement;
+		if (tableMode)
+		{
+			
+			var full_name = "";
+			full_name = floatElement.context.id.split("_", 2);
+
+			var first_Name = full_name[0];
+			var last_Name = full_name[1];
+			var selectedTable = (SelectedElem == "" ? SelectedTable : SelectedElem);
+			$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
+			function(data)
+			{
+				if (data.status == 'OK')
+				{
+					personData = data;
+					FocusDetails(current_person,selectedTable,true);
+				}
+			},'json');
+		}
+		else
+		{
+			FocusDetailsFromFloatList(current_person,true);
+		}
+	}
+}
+
+function exitSys()
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		document.location.href='/accounts/logout';
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout("exitSys()",500);
+	}
+}
+
+
+function delDivPress()
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		if (tableMode)
+		{
+			DeletePerson();
+			updateSeatedLabel();
+			writeOccasionInfo("Move Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Table "+SelectedElem.text().split(" ", 2)[1].trim()+" To Float List.");
+		}
+		else
+		{
+			if (SelectedElem != "") {
+			  setSaveStatus("OK");
+			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+					function(data){
+				  if (data.status == 'OK')
+				  { 
+					  //undoElement[0] = SelectedElem;
+					  //undoElement[1] = "add"; 
+					  ShowHourGlassWaitingWindow(true);
+					  writeOccasionInfo("Delete Table "+SelectedElem.text().split(" ", 2)[1].trim()+".");
+				  }
+				}, 'json');
+			} else {
+				if (!tableMode && !detailsMode)
+				{
+					showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
+				}
+			}
+		}
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout("delDivPress()",500);
+	}
+}
+
+function delPerson()
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		$.post('/canvas/delfp/', {person_id: SelectedPerson.context.id},
+	   function(data){
+		 if (data.status == 'OK')
+		 {
+		   SelectedPerson.remove();
+		   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+		   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
+		   {
+				$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+				$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+		   }
+			writeOccasionInfo("Delete Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Float List.");
+		   setSaveStatus("OK");
+		   updateSeatedLabel();
+		 }else{
+		   setSaveStatus("Error");
+		 }
+		 SelectedPerson = "";
+		 }, 'json');
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout("delPerson()",500);
 	}
 }
 
@@ -937,6 +1204,7 @@ $(document).ready(function() {
 	 var elementImgs = $(this).context.getElementsByTagName("img");
 	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
 	 setWidthAndHeight($(this),elementMaxSize,0);
+	 $(this).find('img').first()
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {
 		 //elementCaption[1].style.visibility = "hidden";
@@ -1125,12 +1393,12 @@ $(document).ready(function() {
 						LoadPerson(table, data.free_position - 1);
 					}
 					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " + table.text().split(" ", 2)[0].trim());
+					writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
 					rePaintPeopleList();
 				  }else if (data.status == 'FULL')
 				  {
 					draged.fadeTo(200, 1.0);
-					alert ("Table " + elementCaption[0].innerHTML + "is full for " + draged.text());
+					showLightMsg("אלמנט מלא"," אלמנט " + elementCaption[0].innerHTML + " מלא עבור " + draged.text(),"OK","Notice")
 					setSaveStatus("OK");
 				  }else{
 					draged.fadeTo(200, 1.0);
@@ -1144,73 +1412,33 @@ $(document).ready(function() {
 	});
 	
   $("#people_list > li").dblclick( function(event){
-		if (!event.ctrlKey)
-		{
-			var current_person = $(this);
-			if (tableMode)
-			{
-				
-				var full_name = "";
-				full_name = $(this).context.id.split("_", 2);
-
-				var first_Name = full_name[0];
-				var last_Name = full_name[1];
-				var selectedTable = (SelectedElem == "" ? SelectedTable : SelectedElem);
-				$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
-				function(data)
-				{
-					if (data.status == 'OK')
-					{
-						personData = data;
-						FocusDetails(current_person,selectedTable,true);
-					}
-				},'json');
-			}
-			else
-			{
-				FocusDetailsFromFloatList(current_person,true);
-			}
-		}
+		personFloatListDBClick(event, $(this));
    });
    
   $(".DelPersonDiv").click( function() {
   
-	if (SelectedPerson != "" && !(tableMode))
+	if ( SelectedPerson != "" )
 	{
-		var answer = confirm("Are You Sure To Delete "+ SelectedPerson.text() +"?");
-		if (answer)
-		{
-		   $.post('/canvas/delfp/', {person_id: SelectedPerson.context.id},
-		   function(data){
-			 if (data.status == 'OK')
-			 {
-			   SelectedPerson.remove();
-			   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
-			   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
-			   {
-					$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-					$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-			   }
-			   	writeOccasionInfo("Delete Person "+SelectedPerson.text()+"From Float List.");
-			   setSaveStatus("OK");
-			   updateSeatedLabel();
-			 }else{
-			   setSaveStatus("Error");
-			 }
-			 SelectedPerson = "";
-			 }, 'json');
-		}
+		showLightMsg("מחיקת אורח", "האם לבצע פעולת מחיקה ל"+ SelectedPerson.context.id.replace(/\_/g," ") + "?", "YESNO", "Question");
+		currentMsgTimer = setTimeout("delPerson()",500);
 	}
 	else
 	{
-		alert("Please Select Person From List");
+		showLightMsg("מחיקת אורח מהרשימה","יש לבחור אורח מהרשימה הצפה.","OK","Notice")
 	}
   });
 
   $(document).keypress(function(e) {
    var code = (e.keyCode ? e.keyCode : e.which);
    if(code == 46) { //Del keycode
-		$(".DelDiv").click();
+   	  	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		{
+			delTableButtonPress();
+		}
+		else
+		{
+			$(".DelDiv").click();
+		}
    }
   });
   
@@ -1281,9 +1509,9 @@ $(document).ready(function() {
 	}
 	else
 	{
-		var full_name = $("#SearchCaption").val().split(" ",2);
+		var fullName = $("#SearchCaption").val();
 
-		$.post('/canvas/getItem/', {position: "", firstName: full_name[0], lastName: full_name[1] },
+		$.post('/canvas/getPersonItemByFullName/', {full_name: fullName},
         function(data){
 			if (data.status == 'OK')
 			{
@@ -1313,10 +1541,12 @@ $(document).ready(function() {
 				{
 					$("#people_list > li").each(function(i) {
 						$(this).removeClass('ui-multisort-click');
+						if ($(this).context.id == data.first_name +"_"+ data.last_name )
+						{
+							$(this).addClass('ui-multisort-click');
+							$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+						}
 					});
-					$("#"+ full_name[0] +"_"+ full_name[1]).addClass('ui-multisort-click');
-					
-					$("#people-list").scrollTop(parseInt($("#"+ full_name[0] +"_"+ full_name[1]).index() * 20));
 				}
 			}
 			}, 'json');
@@ -1392,7 +1622,19 @@ $(document).ready(function() {
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" && !tableMode && !detailsMode) {
-           SelectedElem.addClass('borderSelected');
+	  	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		{
+			$("#borderSelected").css('top',SelectedElem.position().top - 3);
+			$("#borderSelected").css('left',SelectedElem.position().left - 3);
+			$("#borderSelected").css('width',SelectedElem.width() + 6);
+			$("#borderSelected").css('height',SelectedElem.height() + 6);
+			$("#borderSelected").addClass('borderSelected');
+			SelectedElem.css('zIndex',1000);	
+		}
+		else
+		{
+			SelectedElem.addClass('borderSelected');
+		}
       }
     }
 	isMousePressFromCanvas = false;
@@ -1407,11 +1649,8 @@ $(document).ready(function() {
 	});*/
 	
 	$(".ExitCanvasDiv").click(function(){
-		var answer = confirm('האם לצאת מהמערכת');
-		if (answer)
-		{
-			document.location.href='/accounts/logout'; 
-		}
+		showLightMsg("יציאה מהמערכת", "האם לצאת מהמערכת?", "YESNO", "Question");
+		currentMsgTimer = setTimeout("exitSys()",500);
 	});
 
  });
