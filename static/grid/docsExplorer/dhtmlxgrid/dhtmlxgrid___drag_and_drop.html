@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:drag_and_drop    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:drag_and_drop</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:drag_and_drop"  class="breadcrumbs" title="dhtmlxgrid:drag_and_drop">drag_and_drop</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#drag-and-drop" class="toc">Drag-and-Drop</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#simple_drag-and-drop" class="toc">Simple Drag-and-Drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_drag_order" class="toc">Enabling Drag Order</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#extended_drag-n-drop" class="toc">Extended Drag-n-Drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#copy_with_drag-n-drop" class="toc">Copy with Drag-n-Drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#creation_custom_drag_text" class="toc">Creation Custom Drag Text</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#dragging_between_grids" class="toc">Dragging Between Grids</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#move_with_drag-and-drop" class="toc">Move with Drag-and-Drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_drag_behavior" class="toc">Setting Drag Behavior</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="drag-and-drop" id="drag-and-drop">Drag-and-Drop</a></h2>
+<div class="level2">
+
+<p>
+
+The user should not forget to include dhtmlxgrid_drag.js file into his project in order to make drag-and-drop work in the grid.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-211" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Drag-and-Drop" /></div></form></div>
+<h3><a name="simple_drag-and-drop" id="simple_drag-and-drop">Simple Drag-and-Drop</a></h3>
+<div class="level3">
+
+<p>
+To enable/disable drag-and-drop in the grid, the user needs to do the following:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">enableDragAndDrop</span><span class="br0">&#40;</span><span class="kw2">true</span>|false<span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="212-397" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Simple Drag-and-Drop" /></div></form></div>
+<h3><a name="enabling_drag_order" id="enabling_drag_order">Enabling Drag Order</a></h3>
+<div class="level3">
+
+<p>
+The user can  switch to the mode when dragged item are dropped in the target location in the same order as they were in the source grid:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">enableDragOrder</span><span class="br0">&#40;</span>mode<span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="398-630" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Enabling Drag Order" /></div></form></div>
+<h3><a name="extended_drag-n-drop" id="extended_drag-n-drop">Extended Drag-n-Drop</a></h3>
+<div class="level3">
+
+<p>
+To use extended mode for drag-n-drop when the user will see the number of rows dragged and availability of target under the mouse cursor, the user should set the string representing the type of dragging objects:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setDragText</span><span class="br0">&#40;</span>single<span class="sy0">,</span>plural<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters here define text (single and plural forms) for extended visual appearance of drag-n-drop:
+</p>
+<ul>
+<li class="level1"><div class="li">  single - single form (like “product”);</div>
+</li>
+<li class="level1"><div class="li">  plural - plural form (if omitted, then “s” will be added to the single form).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="631-1176" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Extended Drag-n-Drop" /></div></form></div>
+<h3><a name="copy_with_drag-n-drop" id="copy_with_drag-n-drop">Copy with Drag-n-Drop</a></h3>
+<div class="level3">
+
+<p>
+The user should apply mercy drag mode to copy records from one grid to another or within one and the same grid with drag-n-drop:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">enableMercyDrag</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1177-1403" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Copy with Drag-n-Drop" /></div></form></div>
+<h3><a name="creation_custom_drag_text" id="creation_custom_drag_text">Creation Custom Drag Text</a></h3>
+<div class="level3">
+
+<p>
+The second common use case is when some custom content needs to be shown instead of the default item text.
+The grid has a predefined method that is responsible for converting id of the row to its drag representation, but it can be redefined with custom logic:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">rowToDragElement</span><span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="co1">//any custom logic here</span>
+            <span class="kw2">var</span> text <span class="sy0">=</span> <span class="st0">&quot;&lt;img src='some.gif'&gt; - &quot;</span><span class="sy0">+</span>grid.<span class="me1">cells</span><span class="br0">&#40;</span>id<span class="sy0">,</span>0<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">// prepare a text string</span>
+            <span class="kw1">return</span> text;
+        <span class="br0">&#125;</span></pre>
+<p>
+
+In the above mentioned snippet, the text of the dragged element will contain the fixed image and the value of the first column of the dragged row. As it is seen, it is possible to use any <acronym title="HyperText Markup Language">HTML</acronym> inside the dragged text, so it is rather customizable.
+</p>
+
+<p>
+In case of enabled multi-select in drag-and-drop, it is possible to create a drag representation that will reflect not the text of dragged items, but number of them.
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">rowToDragElement</span><span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="co1">//any custom logic here</span>
+            <span class="kw2">var</span> text <span class="sy0">=</span> grid._dragged.<span class="me1">length</span> <span class="sy0">+</span> <span class="st0">&quot;item(s)&quot;</span>;
+            <span class="kw1">return</span> text;
+        <span class="br0">&#125;</span></pre>
+<p>
+
+If the user wants to show the text of all the dragged items in case of drag-and-drop with multiselect, it is possible to define a custom function as follows:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">rowToDragElement</span><span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="co1">//any custom logic here</span>
+            <span class="kw2">var</span> text<span class="sy0">=</span><span class="st0">&quot;&quot;</span>;
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i<span class="sy0">&lt;</span>this._dragged.<span class="me1">length</span>; i<span class="sy0">++</span><span class="br0">&#41;</span>
+                text <span class="sy0">+=</span> grid.<span class="me1">cells</span><span class="br0">&#40;</span>grid._dragged<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">idd</span><span class="sy0">,</span>0<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;&lt;br/&gt;&quot;</span>;
+            <span class="kw1">return</span> text;
+        <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1404-3022" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Creation Custom Drag Text" /></div></form></div>
+<h3><a name="dragging_between_grids" id="dragging_between_grids">Dragging Between Grids</a></h3>
+<div class="level3">
+
+<p>
+Data conversion is required when drag-and-drop process occurs between different grids. This can be done by redefining gridToGrid() method:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">gridToGrid</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>sgrid<span class="sy0">,</span>tgrid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw2">var</span> z<span class="sy0">=</span><span class="br0">&#91;</span><span class="br0">&#93;</span>;
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i<span class="sy0">&lt;</span>sgrid.<span class="me1">getColumnsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; i<span class="sy0">++</span><span class="br0">&#41;</span>    <span class="co1">// for each cell in the source grid</span>
+                z<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">=</span>sgrid.<span class="me1">cells</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>i<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;         <span class="co1">// prepare data for the target grid</span>
+            <span class="kw1">return</span> z;
+        <span class="br0">&#125;</span></pre>
+<p>
+
+The parameters of gridToGrid() method are:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - id of dragged row;</div>
+</li>
+<li class="level1"><div class="li">  sgrid - source grid object;</div>
+</li>
+<li class="level1"><div class="li">  tgrid - target grid object.</div>
+</li>
+</ul>
+
+<p>
+The method returns array of values for cells in the target grid row.
+</p>
+
+<p>
+The snippet mentioned above copies the data without applying any modifications to it. In a real application, it may change data order or add|delete some of it.
+</p>
+
+<p>
+In case when drag-and-drop process occurs from the tree to the grid, the same can be done by redefining treeToGridElement or gridToTreeElement:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">gridToTreeElement</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>tree<span class="sy0">,</span>treeID<span class="sy0">,</span>gridID<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">cells</span><span class="br0">&#40;</span>gridId<span class="sy0">,</span>0<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;  <span class="co1">// take data from the first column as a value for the tree</span>
+        <span class="br0">&#125;</span>
+    grid.<span class="me1">treeToGridElement</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>tree<span class="sy0">,</span>treeID<span class="sy0">,</span>gridID<span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw2">var</span> z<span class="sy0">=</span><span class="br0">&#91;</span>treeObj.<span class="me1">getItemText</span><span class="br0">&#40;</span>treeID<span class="br0">&#41;</span><span class="br0">&#93;</span>;  <span class="co1">// set tree text as a value of the first column in the grid</span>
+        <span class="kw1">return</span> z;
+    <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3023-4447" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Dragging Between Grids" /></div></form></div>
+<h3><a name="move_with_drag-and-drop" id="move_with_drag-and-drop">Move with Drag-and-Drop</a></h3>
+<div class="level3">
+
+<p>
+The user can activate the functionality that will allow to move columns with drag-and-drop:
+
+</p>
+<pre class="code javascript">          grid.<span class="me1">enableColumnMove</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>; <span class="co1">// </span>
+to prohibit<span class="sy0">/</span>allow moving some <span class="br0">&#40;</span>or all<span class="br0">&#41;</span> columns <span class="kw1">in</span> some condition <span class="kw2">use</span> the event handler <span class="br0">&#40;</span>moving <span class="kw1">is</span> allowed <span class="kw1">in</span> <span class="kw1">case</span> of <span class="kw1">return</span> <span class="kw2">true</span><span class="br0">&#41;</span>           
+          grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onBeforeCMove&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sInd<span class="sy0">,</span>tInd<span class="br0">&#41;</span><span class="br0">&#123;</span>
+              <span class="kw1">return</span> <span class="kw3">confirm</span><span class="br0">&#40;</span><span class="st0">&quot;Allow move column &quot;</span><span class="sy0">+</span>sInd<span class="sy0">+</span><span class="st0">&quot; to position &quot;</span><span class="sy0">+</span>tInd<span class="br0">&#41;</span>; <span class="co1">// return true to allow moving, false - to prohibit it</span>
+          <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4448-4999" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Move with Drag-and-Drop" /></div></form></div>
+<h3><a name="setting_drag_behavior" id="setting_drag_behavior">Setting Drag Behavior</a></h3>
+<div class="level3">
+
+<p>
+Drag-and-drop behavior can be set in the following way:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setDragBehavior</span><span class="br0">&#40;</span>sibling<span class="br0">&#41;</span>; <span class="co1">// sibling - drop as sibling</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5000-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit" class="button" title="Setting Drag Behavior" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/drag_and_drop.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Adrag_and_drop&amp;1310069474" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:drag_and_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

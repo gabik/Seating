@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:step_four_google_gears_enters_the_game    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:step_four_google_gears_enters_the_game</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:step_four_google_gears_enters_the_game"  class="breadcrumbs" title="dhtmlxgrid:step_four_google_gears_enters_the_game">step_four_google_gears_enters_the_game</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_four_-_google_gears_enters_the_game" id="step_four_-_google_gears_enters_the_game">Step Four - Google Gears Enters the Game</a></h2>
+<div class="level2">
+
+<p>
+Now when everything works, we can think of some useful ingredients.
+Data saving is one of the things that seem obvious. In my personal experience, data loss is the nastiest thing that may happen (network connection loss, program error, some accidentally pressed button - losing is much easier than creating).
+In case of using Google Gear, you can store all the information on client&#039;s side. Then if a page is reloaded or even closed, the data won&#039;t be lost.
+During your next visit the data can be restored out of the local storage.
+Unlike grid, Gears&#039;s initialization and configuring are troublesome.
+As a first step we need to install Gears and create a database.
+</p>
+
+<p>
+Code (javascript)
+</p>
+<ul>
+<li class="level1"><div class="li">  check the availability of Google Gears; if it is not installed, everything will operate without any changes</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>window.<span class="me1">google</span><span class="br0">&#41;</span> 
+<span class="kw1">return</span> <span class="kw3">alert</span><span class="br0">&#40;</span><span class="st0">&quot;The page requires Google
+ Gears <span class="es0">\n</span> It will work without it as well, but you will not be 
+able to work offline.&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  if Google Gears is installed, we create a local database</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">db <span class="sy0">=</span> google.<span class="me1">gears</span>.<span class="me1">factory</span>.<span class="me1">create</span><span class="br0">&#40;</span>‘beta.<span class="me1">database</span>’<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  check database creation. Gears requests user&#039;s permission and the user can well deny the operation</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>db<span class="br0">&#41;</span> <span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> create the required table, we set all the fields as varchar(255) to avoid any mess</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  a table field is created for each column in grid, plus one additional field - updated - that will save the status of data lines</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">db.<span class="kw3">open</span><span class="br0">&#40;</span>‘gearsgrid’<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <pre class="code javascript">db.<span class="me1">execute</span><span class="br0">&#40;</span>‘create table <span class="kw1">if</span> not exists photodata <span class="br0">&#40;</span>pkID varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span>
+ <span class="kw3">Name</span> varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Manufacturer varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Format varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span>
+ Horizontal varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Vertical varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Zoom varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> 
+varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Viewfinder varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> LCD varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span>
+ Weight varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Width varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Height varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span>
+ Depth varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Known varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> Link varchar<span class="br0">&#40;</span><span class="nu0">255</span><span class="br0">&#41;</span><span class="sy0">,</span> updated int<span class="br0">&#41;</span>’<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  check whether there is data in the database or it is the first loading</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> rs <span class="sy0">=</span> db.<span class="me1">execute</span><span class="br0">&#40;</span>’select count<span class="br0">&#40;</span><span class="sy0">*</span><span class="br0">&#41;</span> from photodata’<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  if the data is not loaded yet </div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>rs.<span class="me1">field</span><span class="br0">&#40;</span>0<span class="br0">&#41;</span><span class="sy0">==</span>0<span class="br0">&#41;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  create the query and get the data</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> request <span class="sy0">=</span> google.<span class="me1">gears</span>.<span class="me1">factory</span>.<span class="me1">create</span><span class="br0">&#40;</span>‘beta.<span class="me1">httprequest</span>’<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">request.<span class="kw3">open</span><span class="br0">&#40;</span>‘GET’<span class="sy0">,</span> ‘data.<span class="me1">csv</span><span class="sy0">?</span>uid<span class="sy0">=</span>’<span class="sy0">+</span><span class="br0">&#40;</span><span class="kw2">new</span> Date<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>.<span class="me1">valueOf</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">request.<span class="me1">onreadystatechange</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>request.<span class="me1">readyState</span> <span class="sy0">==</span> <span class="nu0">4</span><span class="br0">&#41;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  split the derived CSV file into lines</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> data<span class="sy0">=</span>request.<span class="me1">responseText</span>.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i <span class="sy0">&lt;</span> data.<span class="me1">length</span>; i<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  split the lines into columns</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> fields<span class="sy0">=</span>data<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;;&quot;</span><span class="br0">&#41;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  set the reloading flag to 0</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">fields.<span class="me1">push</span><span class="br0">&#40;</span>0<span class="br0">&#41;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  save in the local database</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">db.<span class="me1">execute</span><span class="br0">&#40;</span><span class="st0">&quot;insert into photodata values(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)&quot;</span><span class="sy0">,</span>fields<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  invoke the function of grid filling</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">fill_grid<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">request.<span class="me1">send</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">rs.<span class="kw3">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+<blockquote><div class="no">
+If you don&#039;t receive any data working with the object “request”,<br/>
+check the character encoding in the loaded document. <br/>
+If it is not Us-<acronym title="American Standard Code for Information Interchange">ASCII</acronym> | Unicode, “request” will return null - such a nice peculiarity.</div></blockquote>
+
+<p>
+As promised - this code fragment came out to be fairly big, but it is not complicated. There&#039;s just a lot of text in it.
+The Gears loaded the data into the local database, and now the grid can be populated with this data.
+Code (javascript)
+</p>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">function</span> fill_grid<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>db<span class="br0">&#41;</span><span class="br0">&#123;</span>        <span class="co1">//if there is Google Gears</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> data<span class="sy0">=</span><span class="br0">&#91;</span><span class="br0">&#93;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  choose the data</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw2">var</span> rs<span class="sy0">=</span>db.<span class="me1">execute</span><span class="br0">&#40;</span><span class="st0">&quot;select * from photodata&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  form the array of data for grid</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">while</span> <span class="br0">&#40;</span>rs.<span class="me1">isValidRow</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">data.<span class="me1">push</span><span class="br0">&#40;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">id<span class="sy0">:</span>rs.<span class="me1">field</span><span class="br0">&#40;</span>0<span class="br0">&#41;</span><span class="sy0">,</span>
+&nbsp;
+  <span class="sy0">*</span>  <span class="sy0">&lt;</span>code javascript<span class="sy0">&gt;</span>
+data<span class="sy0">:</span><span class="br0">&#91;</span>rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">4</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">5</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">6</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">7</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">8</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">9</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">10</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">11</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">12</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">13</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">14</span><span class="br0">&#41;</span><span class="sy0">,</span>
+rs.<span class="me1">field</span><span class="br0">&#40;</span><span class="nu0">15</span><span class="br0">&#41;</span><span class="br0">&#93;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">rs.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">rs.<span class="kw3">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  load the data into grid</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">grid.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">grid.<span class="me1">parse</span><span class="br0">&#40;</span><span class="br0">&#123;</span>rows<span class="sy0">:</span>data<span class="br0">&#125;</span><span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span> <span class="kw1">else</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  if there&#039;s no Google Gears, load the data right from the server</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">grid.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;data.csv?uid=&quot;</span><span class="sy0">+</span>grid.<span class="me1">uid</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="st0">&quot;csv&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+
+<p>
+Two examples described above allow us proxying the data through Google Gears. But there&#039;s no other particular use of this, except for some traffic saving (when the second loading takes place, the data will be loaded from the local data store). Though if you load huge datasets, the saving can be substantial.
+There is one step left to make Gears really wholesome:
+Code (javascript)
+</p>
+<pre class="code">  
+*  &lt;code javascript&gt;</pre>
+
+<p>
+grid.attachEvent(“onEditCell”,function(stage,id,ind,value){
+&lt;/code&gt;
+
+</p>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>stage<span class="sy0">==</span><span class="nu0">2</span><span class="br0">&#41;</span><span class="br0">&#123;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">grid.<span class="me1">setRowTextStyle</span><span class="br0">&#40;</span>id<span class="sy0">,</span><span class="st0">&quot;font-weight:bold;&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  if there is Google Gears</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">if</span> <span class="br0">&#40;</span>db<span class="br0">&#41;</span> <span class="co1">//save a new cell value in the local data store</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript">db.<span class="me1">execute</span><span class="br0">&#40;</span><span class="st0">&quot;update photodata set &quot;</span><span class="sy0">+</span>columns<span class="br0">&#91;</span>ind<span class="br0">&#93;</span><span class="sy0">+</span><span class="st0">&quot;=?, updated=1 where pkID=?&quot;</span><span class="sy0">,</span><span class="br0">&#91;</span>value<span class="sy0">,</span>id<span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="br0">&#125;</span></pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li">  <pre class="code javascript"><span class="kw1">return</span> <span class="kw2">true</span>;</pre></div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <pre class="code javascript"><span class="br0">&#125;</span><span class="br0">&#41;</span></pre></div>
+</li>
+</ul>
+
+<p>
+The result is available <a href="http://tech-notes.monoxrom.net/tests/gears/step3.html" class="urlextern" title="http://tech-notes.monoxrom.net/tests/gears/step3.html"  rel="nofollow">here</a>
+If GoogleGears is not installed - everything continues to work as it was with the previous examples.
+If GoogleGears is installed, everything gets rather interesting: edit the cell and press F5. When the page is reloaded, new edited data will be presented in grid. You might just as well close the browser window and visit the same page using some other browser - edited data will still be there. Whatever the software and the network connection troubles are, there&#039;s no way to lose your data!
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Edit" class="button" title="Step Four - Google Gears Enters the Game" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/step_four_google_gears_enters_the_game.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Astep_four_google_gears_enters_the_game&amp;1310069467" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_four_google_gears_enters_the_game" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

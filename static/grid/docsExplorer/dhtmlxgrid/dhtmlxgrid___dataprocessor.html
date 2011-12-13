@@ -1,0 +1,571 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:dataprocessor    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:dataprocessor</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:dataprocessor"  class="breadcrumbs" title="dhtmlxgrid:dataprocessor">dataprocessor</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#dataprocessor" class="toc">DataProcessor</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#data_processing_and_link_with_server_datasource" class="toc">Data Processing and Link with Server Datasource</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#client_side_initialization" class="toc">Client Side Initialization</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#re_definition_of_actions" class="toc">Re\Definition of actions</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#adjusting_server_side_code" class="toc">Adjusting Server Side Code</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#debug_mode" class="toc">Debug Mode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#data_sending_modes" class="toc">Data Sending Modes</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_server_side_responses" class="toc">Custom Server Side Responses</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#common_errors" class="toc">Common Errors</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#data_processing_and_server_errors_handling" class="toc">Data Processing and Server Errors Handling</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="dataprocessor" id="dataprocessor">DataProcessor</a></h2>
+<div class="level2">
+
+<p>
+A DataProcessor is a small library that can integrate ghtmlxGrid  with the server side backend. The library monitors changes in the grid and uses a simple protocol to interchange with the server side code. The DataProcessor consists of the following two parts:
+</p>
+<ul>
+<li class="level1"><div class="li">  Client side code that is common for any use-case;</div>
+</li>
+<li class="level1"><div class="li">  Server side code that works by the same principles but needs to be adjusted to used business-logic.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-505" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="DataProcessor" /></div></form></div>
+<h3><a name="data_processing_and_link_with_server_datasource" id="data_processing_and_link_with_server_datasource">Data Processing and Link with Server Datasource</a></h3>
+<div class="level3">
+
+<p>
+There is an add-in for dhtmlxGrid that manages the process of updating data on the server side.
+</p>
+
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_250fzjzpjcs_b.gif"  class="media" alt="" />
+</p>
+
+<p>
+
+Main Features:
+</p>
+<ul>
+<li class="level1"><div class="li">  Updated/Inserted row is marked with the bold text, deleted one is marked with line-through;</div>
+</li>
+<li class="level1"><div class="li">  The user can set validation functions on any column. By default, it validates whether the specified cell has a value. If validation failed, casual cell is marked with a red border;</div>
+</li>
+<li class="level1"><div class="li">  Mode for data processing can be defined in the following way:</div>
+<ul>
+<li class="level2"><div class="li">  cell – when cell editing is finished, it checks whether all mandatory cells in the row got their values, whether these values have passed the validation, and if yes, the mode sends data to the server;</div>
+</li>
+<li class="level2"><div class="li">  row – the same as described in the previous point, but it occurs when row selection is changed or Enter button pressed;</div>
+</li>
+<li class="level2"><div class="li">  off – means that there is no automatic data sending, all updated/deleted data is sent to the server on calling the script method (the user can assign it to a button, so he can choose when to save);</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  Updated/deleted rows data is sent to the server to the <acronym title="Uniform Resource Locator">URL</acronym> specified by the user (it is called serverProcessor). serverProcessor should return a simple <acronym title="Extensible Markup Language">XML</acronym> of the specified format to let the grid know about successful/not successful processing. All necessary after-save procedures will be done automatically.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="506-1941" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Data Processing and Link with Server Datasource" /></div></form></div>
+<h3><a name="client_side_initialization" id="client_side_initialization">Client Side Initialization</a></h3>
+<div class="level3">
+
+<p>
+To initialize DataProcessor and attach it to the grid, the following two commands can be used:
+
+</p>
+<pre class="code javascript">      <span class="kw2">var</span> dp <span class="sy0">=</span> <span class="kw2">new</span> dataProcessor<span class="br0">&#40;</span>url<span class="br0">&#41;</span>;
+      dp.<span class="me1">init</span><span class="br0">&#40;</span>grid<span class="br0">&#41;</span>;</pre>
+<p>
+
+Where:
+</p>
+<ul>
+<li class="level1"><div class="li">  url - a relative or absolute path to the server side component of the DataProcessor;</div>
+</li>
+<li class="level1"><div class="li">  grid - a dhtmlxGrid object.</div>
+</li>
+</ul>
+
+<p>
+
+By default, the DataProcessor will be initialized in the auto update mode which means that after each change in the grid it will send data to the server. In some cases, it makes sense to use the manual update mode:
+
+</p>
+<pre class="code javascript">      dp.<span class="me1">setUpdateMode</span><span class="br0">&#40;</span><span class="st0">&quot;off&quot;</span><span class="br0">&#41;</span>
+      <span class="co1">//...</span>
+      dp.<span class="me1">sendData</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+In such case, the DataProcessor will store the information about all changes in the grid, but will send them to the server only after sendData() method is executed.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1942-2768" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Client Side Initialization" /></div></form></div>
+<h3><a name="re_definition_of_actions" id="re_definition_of_actions">Re\Definition of actions</a></h3>
+<div class="level3">
+
+<p>
+There are built-in actions in dhtmlxDataProcessor that are used during data processing:
+</p>
+<ul>
+<li class="level1"><div class="li">  update - occurs after a row was updated on the server;</div>
+</li>
+<li class="level1"><div class="li">  delete - occurs after a row was deleted on the server;</div>
+</li>
+<li class="level1"><div class="li">  insert - occurs after a row was inserted on the server.</div>
+</li>
+</ul>
+
+<p>
+
+The user can define his own handlers for each of them by
+
+</p>
+<pre class="code javascript">      DataProcessor.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;update&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;</pre>
+<p>
+
+In such case, myHandler will be called after update operations, returning true from custom handler will allow default update actions.
+</p>
+
+<p>
+The user is able to define any other action himself. All he needs is to use the following syntax in the <acronym title="Extensible Markup Language">XML</acronym> returned by the server side:
+
+</p>
+<pre class="code xml">  <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span> 
+      <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">'[action name]'</span><span class="re2">&gt;</span></span> 
+          anything
+      <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span> 
+  <span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span></pre>
+<p>
+
+The following JavaScript code should also be used:
+
+</p>
+<pre class="code javascript">      DataProcessor.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;[action name]&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;</pre>
+<p>
+
+myHandler function will be called and get &lt;action&gt; tag object as incoming argument.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2769-3829" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Re\Definition of actions" /></div></form></div>
+<h3><a name="adjusting_server_side_code" id="adjusting_server_side_code">Adjusting Server Side Code</a></h3>
+<div class="level3">
+
+<p>
+The default package contains an example of the server side code for <acronym title="Hypertext Preprocessor">PHP</acronym> (by additional request, the similar code for JSP|ColdFusion|C#.Net|RybyOnRails can be sent).
+The code does the following three tasks:
+</p>
+<ul>
+<li class="level1"><div class="li">  Takes parameters from the incoming request;</div>
+</li>
+<li class="level1"><div class="li">  Makes necessary DB operation;</div>
+</li>
+<li class="level1"><div class="li">  Returns information about the operation result.</div>
+</li>
+</ul>
+
+<p>
+
+The incoming parameters are:
+</p>
+<ul>
+<li class="level1"><div class="li">  gr_id - id of a row in the grid for which some operation is executed;</div>
+</li>
+<li class="level1"><div class="li">  !nativeeditor_status - the status of the operation;</div>
+</li>
+<li class="level1"><div class="li">  inserted - the row in question was added;</div>
+</li>
+<li class="level1"><div class="li">  deleted - the row in question was deleted;</div>
+</li>
+<li class="level1"><div class="li">  … any other value … - the row was updated;</div>
+</li>
+<li class="level1"><div class="li">  c0 - the data of the first column in the updated row;</div>
+</li>
+<li class="level1"><div class="li">  c1 - the data of the second column in the updated row;</div>
+</li>
+<li class="level1"><div class="li">  ….</div>
+</li>
+<li class="level1"><div class="li">  cN - the data of the (N+1)th column in the grid.</div>
+</li>
+</ul>
+
+<p>
+
+All these parameters are part of GET request.
+</p>
+
+<p>
+Based on the value of !nativeeditor_status, the related section of the server side logic is triggered.
+</p>
+
+<p>
+The response must be in the following format:
+
+</p>
+<pre class="code xml">  <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">&quot;some&quot;</span> <span class="re0">sid</span>=<span class="st0">&quot;some&quot;</span> <span class="re0">tid</span>=<span class="st0">&quot;some&quot;</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span></pre>
+<p>
+
+Where:
+</p>
+<ul>
+<li class="level1"><div class="li">  type - the type of the operation (it may be “insert”, “update”, “delete”);</div>
+</li>
+<li class="level1"><div class="li">  sid - the original id of the row (the same as gr_id);</div>
+</li>
+<li class="level1"><div class="li">  tid - the id of the row after the operation (may be the same as gr_id, or some different one - it can be used during a new row adding, when a temporary id created on the client side is replaced with the id taken from the DB or by any other business rule).</div>
+</li>
+</ul>
+
+<p>
+
+The response must be a valid <acronym title="Extensible Markup Language">XML</acronym> in order to be processed correctly.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3830-5480" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Adjusting Server Side Code" /></div></form></div>
+<h3><a name="debug_mode" id="debug_mode">Debug Mode</a></h3>
+<div class="level3">
+
+<p>
+
+To debug dataprocessor, just include both
+</p>
+<ul>
+<li class="level1"><div class="li"> dhtmlxdataprocessor.js</div>
+</li>
+<li class="level1"><div class="li"> dhtmlxdataprocessor_debug.js</div>
+</li>
+</ul>
+
+<p>
+
+It will provide debug console similar to next
+</p>
+
+<p>
+<img src="dhtmlxgrid___dataprocessor.png"  class="media" alt="" />
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5481-5690" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Debug Mode" /></div></form></div>
+<h3><a name="data_sending_modes" id="data_sending_modes">Data Sending Modes</a></h3>
+<div class="level3">
+
+<p>
+The following data sending modes are available:
+</p>
+<ul>
+<li class="level1"><div class="li">  Using Meaningful Names;</div>
+</li>
+</ul>
+
+<p>
+The parameters c0-cN, used by default, are not very useful on the server side. The DataProcessor allows to use grid column ids instead of them:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Name of the book,Name of the author&quot;</span><span class="br0">&#41;</span>;
+      grid.<span class="me1">setColumnIds</span><span class="br0">&#40;</span><span class="st0">&quot;book,author&quot;</span><span class="br0">&#41;</span>;
+      <span class="co1">//...</span>
+      dp.<span class="me1">enableDataNames</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+On the server side it will look like this:
+
+</p>
+<pre class="code php">      <span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st_h">'c0'</span><span class="br0">&#93;</span>     <span class="sy0">=&gt;</span>     <span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st_h">'book'</span><span class="br0">&#93;</span>
+      <span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st_h">'c1'</span><span class="br0">&#93;</span>     <span class="sy0">=&gt;</span>     <span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st_h">'author'</span><span class="br0">&#93;</span></pre><ul>
+<li class="level1"><div class="li">  Using POST instead of GET;</div>
+</li>
+</ul>
+
+<p>
+
+POST can be used instead of GET in the following way:
+
+</p>
+<pre class="code javascript">      dp.<span class="me1">setTransactionMode</span><span class="br0">&#40;</span><span class="st0">&quot;POST&quot;</span><span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li">  Sending All Data at Once.</div>
+</li>
+</ul>
+
+<p>
+
+By default, update for each row will be sent as a separate request. This means that when 20 rows are updated - 20 requests will be sent to the server. This is not the best approach, so instead of it a single (more complex) request can be sent to the server side:
+
+</p>
+<pre class="code javascript">      dp.<span class="me1">setTransactionMode</span><span class="br0">&#40;</span><span class="st0">&quot;POST&quot;</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+         <span class="co1">// or</span>
+      dp.<span class="me1">setTransactionMode</span><span class="br0">&#40;</span><span class="st0">&quot;GET&quot;</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+In such mode, the server side receives a slightly different set of parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  ids - a comma separated list of updated rows ids, for each id there will be the set of details in the request.</div>
+</li>
+</ul>
+
+<p>
+
+For example, if the user has two updated rows on the client side with ids = r2 and r3, the server side code will receive:
+
+</p>
+<pre class="code javascript">  ids <span class="sy0">=</span> r2<span class="sy0">,</span>r3</pre><ul>
+<li class="level1"><div class="li">  r2_!nativeeditor_status - the status of the operation for row r2;</div>
+</li>
+<li class="level1"><div class="li">  r2_c0 .. r2_cN - the data for a column of row r2;</div>
+</li>
+<li class="level1"><div class="li">  r3_!nativeeditor_status - the status of the operation for row r3;</div>
+</li>
+<li class="level1"><div class="li">  r3_c0 .. r3_cN - the data for a column of row r3.</div>
+</li>
+</ul>
+
+<p>
+
+The awaited server side response should be in the same format as usual, but should include data for all processed rows:
+
+</p>
+<pre class="code xml">  <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>
+      <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">&quot;some&quot;</span> <span class="re0">sid</span>=<span class="st0">&quot;r2&quot;</span> <span class="re0">tid</span>=<span class="st0">&quot;r2&quot;</span> <span class="re2">/&gt;</span></span>
+      <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">&quot;some&quot;</span> <span class="re0">sid</span>=<span class="st0">&quot;r3&quot;</span> <span class="re0">tid</span>=<span class="st0">&quot;r3&quot;</span> <span class="re2">/&gt;</span></span>
+  <span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5691-7717" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Data Sending Modes" /></div></form></div>
+<h3><a name="custom_server_side_responses" id="custom_server_side_responses">Custom Server Side Responses</a></h3>
+<div class="level3">
+
+<p>
+The DataProcessor has the following predefined response modes:
+</p>
+<ul>
+<li class="level1"><div class="li">  Update;</div>
+</li>
+<li class="level1"><div class="li">  Insert;</div>
+</li>
+<li class="level1"><div class="li">  Delete.</div>
+</li>
+</ul>
+
+<p>
+
+But in some (many) cases, the user will need a way to return some additional information (the most common use-case - an error during a DB operation). In such case, an additional response type can be introduced:
+
+</p>
+<pre class="code javascript">      dp.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;error&quot;</span><span class="sy0">,</span>my_action<span class="br0">&#41;</span>;</pre>
+<p>
+
+Where my_action is a custom function that will be called when the response of “error” type is received.
+
+</p>
+<pre class="code xml">  <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>
+       <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">&quot;error&quot;</span> <span class="re0">sid</span>=<span class="st0">&quot;id&quot;</span> <span class="re0">tid</span>=<span class="st0">&quot;id&quot;</span><span class="re2">&gt;</span></span>Details<span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span>
+  <span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span>
+<span class="sc3"><span class="re1">&lt;code</span> javascript<span class="re2">&gt;</span></span>
+      function my_action(node){
+          alert(node.getAttribute(&quot;action&quot;));    // error
+          alert(node.firstChild.data);    // Details
+          return false;
+      }</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7718-8544" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Custom Server Side Responses" /></div></form></div>
+<h3><a name="common_errors" id="common_errors">Common Errors</a></h3>
+<div class="level3">
+
+<p>
+The following common error can be enumerated:
+</p>
+<ul>
+<li class="level1"><div class="li">  Incorrect <acronym title="Extensible Markup Language">XML</acronym> Error;</div>
+</li>
+</ul>
+
+<p>
+The most probable reason: it is caused by some server side error that breaks the <acronym title="Extensible Markup Language">XML</acronym>. The user can enable the debug mode and check the response of the server side to receive more information.
+
+</p>
+<ul>
+<li class="level1"><div class="li">  Deleted Rows not Removed from Grid;</div>
+</li>
+</ul>
+
+<p>
+Actually, it is not an error as the rows will be removed only after synchronizing with the server.
+
+</p>
+<ul>
+<li class="level1"><div class="li">  Deleted Rows not Removed from Grid after Synchronizing with Server (updated|inserted rows stay bold;)</div>
+</li>
+</ul>
+
+<p>
+The most probable reason: incorrect values of the “action” attribute in the response <acronym title="Extensible Markup Language">XML</acronym>.
+</p>
+<ul>
+<li class="level1"><div class="li">  <acronym title="JavaScript">JS</acronym> Error after Synchronizing with Server.</div>
+</li>
+</ul>
+
+<p>
+The most probable reason: incorrect values of the “sid” and the “tid” attributes in the response <acronym title="Extensible Markup Language">XML</acronym>.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8545-9329" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Common Errors" /></div></form></div>
+<h3><a name="data_processing_and_server_errors_handling" id="data_processing_and_server_errors_handling">Data Processing and Server Errors Handling</a></h3>
+<div class="level3">
+
+<p>
+
+To handle a server side error with dhtmlxDataProcessor, the user can implement his own callback events (events that occur on the client side after server side&#039;s processing) on the client side:
+
+</p>
+<pre class="code javascript">      DataProcessor.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;error_123&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;</pre>
+<p>
+
+On the server side, in case of an error you should return
+
+</p>
+<pre class="code xml">  <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span> 
+      <span class="sc3"><span class="re1">&lt;action</span> <span class="re0">type</span>=<span class="st0">&quot;error_123&quot;</span><span class="re2">&gt;</span></span> 
+          any info
+      <span class="sc3"><span class="re1">&lt;/action<span class="re2">&gt;</span></span></span> 
+  <span class="sc3"><span class="re1">&lt;data</span><span class="re2">/&gt;</span></span></pre>
+<p>
+
+In this case, myHandler function will be executed on the client side in case of an error (error_123). It will get the following as parameter(s):
+</p>
+<ul>
+<li class="level1"><div class="li">  Action tag object</div>
+</li>
+</ul>
+
+<p>
+Returning false from myHandler function will prevent default event processing.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9330-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit" class="button" title="Data Processing and Server Errors Handling" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/dataprocessor.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Adataprocessor&amp;1310069471" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:dataprocessor" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

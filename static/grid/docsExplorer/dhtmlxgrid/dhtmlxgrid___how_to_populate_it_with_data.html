@@ -1,0 +1,168 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:how_to_populate_it_with_data    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:how_to_populate_it_with_data</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:how_to_populate_it_with_data"  class="breadcrumbs" title="dhtmlxgrid:how_to_populate_it_with_data">how_to_populate_it_with_data</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_3_-_populate_grid_with_data" id="step_3_-_populate_grid_with_data">Step 3 - Populate Grid with Data</a></h2>
+<div class="level2">
+
+<p>
+
+As you probably already know dhtmlxGrid can load data from <acronym title="Extensible Markup Language">XML</acronym>, CSV (text file where values separated by some character like comma or any other). It also can be populated with javascript methods. In this article I&#039;ll describe loading from <acronym title="Extensible Markup Language">XML</acronym>. By the way, loading data from <acronym title="Extensible Markup Language">XML</acronym> doesn&#039;t mean that you can&#039;t load data from the database. You&#039;ll see this later in the article.
+</p>
+
+<p>
+<acronym title="Extensible Markup Language">XML</acronym> structure understandable for dhtmlxGrid.
+</p>
+
+<p>
+To populate grid from <acronym title="Extensible Markup Language">XML</acronym> you need the data to be structured in the way grid can understand. This is easy as the structure is intuitively clear. Generally it consists of rows with the cells inside. Each row should have a unique identifier (This is important as grid should be able to distinguish one row from another). Cells values are inside cell tags. To work with our sample we need each row to have 3 cells inside it (as soon as we set 3 columns in grid):
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;?</span>xml version<span class="sy0">=</span><span class="st0">&quot;1.0&quot;</span> encoding<span class="sy0">=</span><span class="st0">&quot;UTF-8&quot;</span><span class="sy0">?&gt;</span>
+    <span class="sy0">&lt;</span>rows<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;a&quot;</span><span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>Model <span class="nu0">1</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">100</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">399</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;b&quot;</span><span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>Model <span class="nu0">2</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">50</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">649</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;c&quot;</span><span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>MOdel <span class="nu0">3</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">70</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+            <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span><span class="nu0">499</span><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span>
+        <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span>
+    <span class="sy0">&lt;/</span>rows<span class="sy0">&gt;</span></pre>
+<p>
+
+ 
+Let&#039;s save this xml into a file with the name “step3.xml” and place this file into the same folder where we have index.html file  and where we implement the grid. You need the only one command to be added to your doInitGrid function which  is mygrid.loadXML(“step3.xml”);. Put it after mygrid.init();
+
+</p>
+<pre class="code javascript">    mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;step3.xml&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+If you run the page now it should look like this:
+</p>
+
+<p>
+
+<img src="dhtmlxgrid___step_3.png"  class="media" alt="" />
+</p>
+
+<p>
+Grid still looks rather simple and has just a few rows of data. In real life people use grids to show much more data in hundreds, thousands or sometimes millions of rows. This is also possible with dhtmlxGrid. But for now three rows is enough. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Edit" class="button" title="Step 3 - Populate Grid with Data" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/how_to_populate_it_with_data.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Ahow_to_populate_it_with_data&amp;1310069488" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_populate_it_with_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

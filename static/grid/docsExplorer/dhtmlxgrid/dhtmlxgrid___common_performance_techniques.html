@@ -1,0 +1,211 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:common_performance_techniques    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:common_performance_techniques</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:common_performance_techniques"  class="breadcrumbs" title="dhtmlxgrid:common_performance_techniques">common_performance_techniques</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#increasing_performance" class="toc">Increasing Performance</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#smart_rendering_or_paging" class="toc">Smart Rendering or Paging</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#dynamic_smart_rendering_or_dynamic_paging" class="toc">Dynamic Smart Rendering or Dynamic Paging</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#distributed_parsing" class="toc">Distributed Parsing</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#fast_mode" class="toc">&quot;FAST&quot; Mode</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="increasing_performance" id="increasing_performance">Increasing Performance</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-89" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit" class="button" title="Increasing Performance" /></div></form></div>
+<h3><a name="smart_rendering_or_paging" id="smart_rendering_or_paging">Smart Rendering or Paging</a></h3>
+<div class="level3">
+
+<p>
+
+The first thing , which need to be tried, if your grid loading too slow - enable smart rendering for it. Just include dhtmlxgrid_srnd.js and add next line to the grid&#039;s initialization
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">enableSmartRendering</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+It most cases not any other changes will be required. Static <a href="dhtmlxgrid___smart_rendering.html" class="wikilink1" title="dhtmlxgrid:smart_rendering">smart rendering</a> mode compatible with nearly any other functionality of grid except of rowspans and grouping functionality. 
+( if you don&#039;t like the live-scroll behavior, you can try to use static <a href="dhtmlxgrid___paging.html" class="wikilink1" title="dhtmlxgrid:paging">paging</a>, which provides the same loading time boost ) 
+</p>
+
+<p>
+Methods works fine for datasets with lesser than 10k of rows. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="90-763" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit" class="button" title="Smart Rendering or Paging" /></div></form></div>
+<h3><a name="dynamic_smart_rendering_or_dynamic_paging" id="dynamic_smart_rendering_or_dynamic_paging">Dynamic Smart Rendering or Dynamic Paging</a></h3>
+<div class="level3">
+
+<p>
+
+If amount of rows event more big, you can try to use dynamical mode. In such mode data will load from server by parts, which allows fast initialization.
+</p>
+
+<p>
+<a href="dhtmlxgrid___toc_dhtmlxgrid_step_by_step.html" class="wikilink1" title="dhtmlxgrid:toc_dhtmlxgrid_step_by_step">Step by step guide</a>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="764-1023" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit" class="button" title="Dynamic Smart Rendering or Dynamic Paging" /></div></form></div>
+<h3><a name="distributed_parsing" id="distributed_parsing">Distributed Parsing</a></h3>
+<div class="level3">
+
+<p>
+
+To decrease time before the grid appears on page, the user can enable Distributed Parsing. In this case, the grid will be shown right after the first portion of data is parsed, although it continues parsing other portions in async mode. Changing number of records per portion and delay (in milliseconds), the user can change the speed of loading.
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">enableDistributedParsing</span><span class="br0">&#40;</span>mode<span class="sy0">,</span>count<span class="sy0">,</span>time<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  mode(true|false) - enable or disable distributed parsing;</div>
+</li>
+<li class="level1"><div class="li">  count - count of nodes parsed by one step (10 by default);</div>
+</li>
+<li class="level1"><div class="li">  time - time between parsing counts in milliseconds (the 250 by default).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1024-1714" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit" class="button" title="Distributed Parsing" /></div></form></div>
+<h3><a name="fast_mode" id="fast_mode">&quot;FAST&quot; Mode</a></h3>
+<div class="level3">
+
+<p>
+The file that should be included into the project to make “FAST” mode work is dhtmlxgrid_fast.js.
+</p>
+
+<p>
+Starting from v1.5, the user can turn on “FAST” mode during some operations in the grid. This enables completing these operations much faster because of skipping rendering stage for each operation and moving it to the end of chain. The following methods should be used:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">startFastOperations</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">// start &quot;FAST&quot; mode</span>
+      <span class="co1">// code for any grid operations placed between start and stop commands</span>
+      grid.<span class="me1">stopFastOperations</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">// stop &quot;FAST&quot; mode (all events will be skipped between start and stop)</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1715-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit" class="button" title="FAST Mode" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/common_performance_techniques.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acommon_performance_techniques&amp;1310069472" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:common_performance_techniques" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

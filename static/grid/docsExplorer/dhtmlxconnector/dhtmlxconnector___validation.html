@@ -1,0 +1,271 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:validation    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:validation</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:validation"  class="breadcrumbs" title="dhtmlxconnector:validation">validation</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#validation" class="toc">Validation</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#common" class="toc">common</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#value_checking" class="toc">value checking</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#processing_in_case_of_validation_error" class="toc">processing in case of validation error</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#custom_status" class="toc">custom status</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#adding_custom_information_to_response" class="toc">adding custom information to response</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="validation" id="validation">Validation</a></h1>
+<div class="level1">
+
+<p>
+Before saving on server you can validate data and assign handler function for any gotten response.
+</p>
+
+<p>
+Shortly, validation contains 2 key points:
+</p>
+<ol>
+<li class="level1"><div class="li"> value checking</div>
+</li>
+<li class="level1"><div class="li"> processing in case of validation error</div>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-330" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="Validation" /></div></form></div>
+<h2><a name="common" id="common">common</a></h2>
+<div class="level2">
+
+<p>
+
+To implement server-side validation of incoming data you can use the following events:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeupdate_event.html" class="wikilink1" title="dhtmlxconnector:beforeupdate_event">beforeUpdate</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeinsert_event.html" class="wikilink1" title="dhtmlxconnector:beforeinsert_event">beforeInsert</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforedelete_event.html" class="wikilink1" title="dhtmlxconnector:beforedelete_event">beforeDelete</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeprocessing_event.html" class="wikilink1" title="dhtmlxconnector:beforeprocessing_event">beforeProcessing</a></div>
+</li>
+</ul>
+
+<p>
+beforeProcessing event occurs for all types of operations while other events occurs only for related operations, i.e. you can set different validation rules for different operations or for all of them at once.
+</p>
+
+<p>
+Event will receive DataAction object as the parameter. This object can be used to retrieve related data and allow|deny operation ( please note, it contains only data which was received from client-side, not the all data related to the record).
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="331-1125" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="common" /></div></form></div>
+<h2><a name="value_checking" id="value_checking">value checking</a></h2>
+<div class="level2">
+
+<p>
+
+To check value of a field you should use the method <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">get_value()</a>
+
+</p>
+<pre class="code php"><span class="kw2">function</span> validate<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+             <span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;some_field&quot;</span><span class="br0">&#41;</span><span class="sy0">==</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>
+                  <span class="sy0">...</span>
+<span class="br0">&#125;</span>
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeProcessing&quot;</span><span class="sy0">,</span><span class="st0">&quot;validate&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1126-1449" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="value checking" /></div></form></div>
+<h2><a name="processing_in_case_of_validation_error" id="processing_in_case_of_validation_error">processing in case of validation error</a></h2>
+<div class="level2">
+
+<p>
+In case of error you can go one of two ways:
+</p>
+<ol>
+<li class="level1"><div class="li"> Use predefined methods for error processing on client-side, i.e. set:<br/>
+ <br/>
+</div>
+<ul>
+<li class="level2"><div class="li"> <strong>$data→invalid()</strong> (invalid record will be highlighted in <em class="u">bold</em> font)</div>
+</li>
+<li class="level2"><div class="li"> <strong>$data→error()</strong> (invalid record will be highlighted in <em class="u">red bold</em> font)<br/>
+ <em>The difference between methods in question consists just in way of highlighting</em>.<br/>
+ <br/>
+ <pre class="code php"><span class="kw2">function</span> validate<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+             <span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span><span class="sy0">==</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>
+                  <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">invalid</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeProcessing&quot;</span><span class="sy0">,</span><span class="st0">&quot;validate&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Assign your own processing on client-side through dataProcessor&#039;s method <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___api_method_dataprocessor_defineaction.html" class="wikilink1" title="dhtmlxdataprocessor:api_method_dataprocessor_defineaction">defineAction()</a> (see details <a href="dhtmlxconnector___dp.html" class="wikilink1" title="dhtmlxconnector:dp">here</a>)<br/>
+ <br/>
+ <pre class="code javascript">dp.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;invalid&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>response<span class="br0">&#41;</span><span class="br0">&#123;</span>
+<span class="kw2">var</span> message <span class="sy0">=</span> response.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;message&quot;</span><span class="br0">&#41;</span>;
+<span class="kw3">alert</span><span class="br0">&#40;</span>message<span class="br0">&#41;</span>;
+<span class="kw1">return</span> <span class="kw2">true</span>;<span class="co1">// return false to cancel default data processing at all</span>
+<span class="br0">&#125;</span><span class="br0">&#41;</span></pre></div>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1450-2509" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="processing in case of validation error" /></div></form></div>
+<h3><a name="custom_status" id="custom_status">custom status</a></h3>
+<div class="level3">
+
+<p>
+You can change returned status and set you own by means of the method <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">set_status()</a>. In this case any default processing (doesn&#039;t matter <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___api_method_dataprocessor_defineaction.html" class="wikilink1" title="dhtmlxdataprocessor:api_method_dataprocessor_defineaction">defineAction()</a> will return true or false) will be cancelled and you will specify data processing on client-side wholly.
+</p>
+
+<p>
+server-side:
+
+</p>
+<pre class="code php"><span class="kw2">function</span> validate<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+             <span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span><span class="sy0">==</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>
+                  <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">set_status</span><span class="br0">&#40;</span><span class="st0">&quot;my_status&quot;</span><span class="br0">&#41;</span>
+<span class="br0">&#125;</span>
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeProcessing&quot;</span><span class="sy0">,</span><span class="st0">&quot;validate&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ 
+client-side:
+
+</p>
+<pre class="code javascript">dp.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;my_status&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>response<span class="br0">&#41;</span><span class="br0">&#123;</span>
+...
+<span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2510-3218" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="custom status" /></div></form></div>
+<h3><a name="adding_custom_information_to_response" id="adding_custom_information_to_response">adding custom information to response</a></h3>
+<div class="level3">
+
+<p>
+You can send some custom information to client-side through the following methods:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">set_response_text</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">set_response_xml</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">set_response_attribute</a></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3219-" /><input type="hidden" name="rev" value="1306854981" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit" class="button" title="adding custom information to response" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/validation.txt &middot; Last modified: 2011/05/31 18:16 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Avalidation&amp;1310069430" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:validation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

@@ -1,0 +1,261 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:data_management_how-tos_loading    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:data_management_how-tos_loading</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:data_management_how-tos_loading"  class="breadcrumbs" title="dhtmlxconnector:data_management_how-tos_loading">data_management_how-tos_loading</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#data_management_how-tos_loading_data" class="toc">Data management how-tos (loading data)</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_enable_dynamic_loading" class="toc">How can I enable dynamic loading?</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_format_change_data_before_loading" class="toc">How can I format/change data before loading?</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_load_data_from_database_table" class="toc">How can I load data from database table?</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_load_data_from_excel_file" class="toc">How can I load data from Excel file?</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_load_data_from_file_system" class="toc">How can I load data from File System?</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#how_can_i_send_additional_information_to_client-side" class="toc">How can I send additional information to client-side?</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___coding_how-tos.html" class="wikilink1" title="dhtmlxconnector:coding_how-tos">How-tos</a></div></div>
+
+</p>
+
+<h1><a name="data_management_how-tos_loading_data" id="data_management_how-tos_loading_data">Data management how-tos (loading data)</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="109-161" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="Data management how-tos (loading data)" /></div></form></div>
+<h2><a name="how_can_i_enable_dynamic_loading" id="how_can_i_enable_dynamic_loading">How can I enable dynamic loading?</a></h2>
+<div class="level2">
+
+<p>
+To enable dynamic loading you should:
+</p>
+<ul>
+<li class="level1"><div class="li"> on client-side enable the related mode (e.g. smart rendering or paging for grid)<br/>
+ <br/>
+ <pre class="code javascript">grid.<span class="me1">enableSmartRendering</span><span class="br0">&#40;</span>mode<span class="sy0">,</span>buffer<span class="br0">&#41;</span>;</pre></div>
+</li>
+<li class="level1"><div class="li"> on server-side call method <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">dynamic_loading()</a><br/>
+ <br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">dynamic_loading</span><span class="br0">&#40;</span><span class="br0">&#91;</span><span class="re0">$rowsNum</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+
+<p>
+See the guide &#039;<a href="dhtmlxconnector___dyn_loading.html" class="wikilink1" title="dhtmlxconnector:dyn_loading">Dynamic loading</a>&#039; for more information.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="162-664" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I enable dynamic loading?" /></div></form></div>
+<h2><a name="how_can_i_format_change_data_before_loading" id="how_can_i_format_change_data_before_loading">How can I format/change data before loading?</a></h2>
+<div class="level2">
+
+<p>
+To set some specific formatting or change data before sending to client-side, you should use the <a href="dhtmlxconnector___beforerender_event.html" class="wikilink1" title="dhtmlxconnector:beforerender_event">beforeRender</a> event handler. For more details of this topic, see &#039;<a href="dhtmlxconnector___formatting.html" class="wikilink1" title="dhtmlxconnector:formatting">Formatting/Changing Data before Loading</a>&#039;
+
+</p>
+<pre class="code php"><span class="kw2">function</span> color_rows<span class="br0">&#40;</span><span class="re0">$row</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+	<span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$row</span><span class="sy0">-&gt;</span><span class="me1">get_index</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">%</span><span class="nu19">2</span><span class="br0">&#41;</span>
+	<span class="re0">$row</span><span class="sy0">-&gt;</span><span class="me1">set_row_color</span><span class="br0">&#40;</span><span class="st0">&quot;red&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeRender&quot;</span><span class="sy0">,</span><span class="st0">&quot;color_rows&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="665-1151" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I format/change data before loading?" /></div></form></div>
+<h2><a name="how_can_i_load_data_from_database_table" id="how_can_i_load_data_from_database_table">How can I load data from database table?</a></h2>
+<div class="level2">
+
+<p>
+To load data from database table you should use one of two methods:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table()</a> (for loading from single table)<br/>
+ <br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;tableA&quot;</span><span class="sy0">,</span><span class="st0">&quot;item_id&quot;</span><span class="sy0">,</span><span class="st0">&quot;column1,column2&quot;</span><span class="sy0">,</span> <span class="st0">&quot;extra_column3&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_sql()</a> (for loading from several tables)<br/>
+ <br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;Select * from tableA, tableB  where  tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;tableA.id&quot;</span><span class="sy0">,</span><span class="st0">&quot;column1,column2&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1152-1722" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I load data from database table?" /></div></form></div>
+<h2><a name="how_can_i_load_data_from_excel_file" id="how_can_i_load_data_from_excel_file">How can I load data from Excel file?</a></h2>
+<div class="level2">
+
+<p>
+To load data from Excel file you should download phpExcel library from <a href="http://support.dhtmlx.com/x-files/connector/phpExcel.zip" class="urlextern" title="http://support.dhtmlx.com/x-files/connector/phpExcel.zip"  rel="nofollow">http://support.dhtmlx.com/x-files/connector/phpExcel.zip</a> and include additional files:
+</p>
+<ul>
+<li class="level1"><div class="li"> &#039;lib/PHPExcel.php&#039; (phpExcel package)</div>
+</li>
+<li class="level2"><div class="li"> &#039;lib/PHPExcel/IOFactory.php&#039; (phpExcel package)</div>
+</li>
+<li class="level2"><div class="li"> &#039;db_excel.php&#039; (standard connector&#039;s package)</div>
+</li>
+</ul>
+
+<p>
+Then, call <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table()</a>) method where as parameters you should specify cell range and Excel columns. Set the second parameter to &#039;id&#039; for auto id generation.
+
+</p>
+<pre class="code php"><span class="co1">//files from phpExcel package</span>
+<span class="kw1">require_once</span><span class="br0">&#40;</span><span class="st_h">'lib/PHPExcel.php'</span><span class="br0">&#41;</span>;
+<span class="kw1">require_once</span><span class="br0">&#40;</span><span class="st_h">'lib/PHPExcel/IOFactory.php'</span><span class="br0">&#41;</span>;
+<span class="co1">//connectors</span>
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../codebase/db_excel.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../codebase/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="st0">&quot;../some.xls&quot;</span><span class="sy0">,</span> <span class="st0">&quot;ExcelDBDataWrapper&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;A18:F83&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,C,D,E,F&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+For more details, see the guide chapter &#039;<a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">loading from Excel file</a>&#039; in &#039;<a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Base concepts</a>&#039; guide.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1723-2812" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I load data from Excel file?" /></div></form></div>
+<h2><a name="how_can_i_load_data_from_file_system" id="how_can_i_load_data_from_file_system">How can I load data from File System?</a></h2>
+<div class="level2">
+
+<p>
+To load data from File System you should include one additional file <em>db_filesystem.php</em> and call <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table()</a> method where as parameters you should specify <strong>folder</strong> (that requires data listing), <strong>field&#039;s id</strong> (leave it empty or use <em>safe_name</em> as ID of file) and <strong>lists of fields</strong>.
+
+</p>
+<pre class="code php"><span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;./codebase/connector/db_filesystem.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;./codebase/connector/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span> <span class="st0">&quot;FileSystem&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;../&quot;</span><span class="sy0">,</span><span class="st0">&quot;safe_name&quot;</span><span class="sy0">,</span><span class="st0">&quot;filename,full_filename,size,name,extention,date,is_folder&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+For more details, see the guide chapter &#039;<a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">loading from File System</a>&#039; in &#039;<a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Base concepts</a>&#039; guide.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2813-3654" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I load data from File System?" /></div></form></div>
+<h2><a name="how_can_i_send_additional_information_to_client-side" id="how_can_i_send_additional_information_to_client-side">How can I send additional information to client-side?</a></h2>
+<div class="level2">
+
+<p>
+To send additional information to client-side that won&#039;t be outputed but you&#039;ll have access to it, use the fourth(optional) parameter of <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table()</a> method. There you should specify columns that contain desired additional information. 
+
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;some_table&quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price&quot;</span><span class="sy0">,</span><span class="st0">&quot;color,count&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ 
+For more inoformation, see the chapter &#039;<a href="dhtmlxconnector___formatting.html" class="wikilink1" title="dhtmlxconnector:formatting">Using extra fields</a>&#039; in &#039;<a href="dhtmlxconnector___formatting.html" class="wikilink1" title="dhtmlxconnector:formatting">Formatting/Changing Data before Loading</a>&#039; guide.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3655-" /><input type="hidden" name="rev" value="1303409217" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit" class="button" title="How can I send additional information to client-side?" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/data_management_how-tos_loading.txt &middot; Last modified: 2011/04/21 21:06 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Adata_management_how-tos_loading&amp;1310069436" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:data_management_how-tos_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

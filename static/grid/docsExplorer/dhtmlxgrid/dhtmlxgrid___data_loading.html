@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:data_loading    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:data_loading</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:data_loading"  class="breadcrumbs" title="dhtmlxgrid:data_loading">data_loading</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#data_loading" class="toc">Data Loading</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#general_loading_rules" class="toc">General Loading Rules</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#loading_from_csv" class="toc">Loading from CSV</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#loading_from_js_array" class="toc">Loading from JS Array</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#loading_data_from_json" class="toc">Loading data from JSON</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#loading_from_xml" class="toc">Loading from XML</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_loading_types_creation" class="toc">Custom Loading Types Creation</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#handling_error_response" class="toc">Handling Error Response</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="data_loading" id="data_loading">Data Loading</a></h2>
+<div class="level2">
+
+<p>
+dhtmlxGrid supports the following types of data sources:
+</p>
+<ul>
+<li class="level1"><div class="li"> CSV;</div>
+</li>
+<li class="level1"><div class="li"> JavaScript Array;</div>
+</li>
+<li class="level1"><div class="li"> JSON ( <a href="dhtmlxgrid___syntax_templates.html" class="wikilink1" title="dhtmlxgrid:syntax_templates">syntax templates</a> );</div>
+</li>
+<li class="level1"><div class="li"> <acronym title="Extensible Markup Language">XML</acronym> ( <a href="dhtmlxgrid___syntax_templates.html" class="wikilink1" title="dhtmlxgrid:syntax_templates">syntax templates</a> );</div>
+</li>
+<li class="level1"><div class="li">  Custom Loading Types.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-303" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Data Loading" /></div></form></div>
+<h3><a name="general_loading_rules" id="general_loading_rules">General Loading Rules</a></h3>
+<div class="level3">
+
+<p>
+dhtmlxGrid 1.5 supported only loading from <acronym title="Extensible Markup Language">XML</acronym>|CSV, and used the following methods for it:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">loadXML</span><span class="br0">&#40;</span>url<span class="br0">&#41;</span>                       <span class="co1">// load data from a remote file</span>
+        grid.<span class="me1">loadXMLString</span><span class="br0">&#40;</span>string<span class="br0">&#41;</span>;          <span class="co1">// load data from a JS string</span>
+        grid.<span class="me1">parseXML</span><span class="br0">&#40;</span>object<span class="br0">&#41;</span>;               <span class="co1">// load data from an XML object (xmlhttprequest or XML island)</span>
+&nbsp;
+&nbsp;
+&nbsp;
+        grid.<span class="me1">loadCSV</span><span class="br0">&#40;</span>url<span class="br0">&#41;</span>                       <span class="co1">// load data from a remote file;</span>
+        grid.<span class="me1">loadCSVString</span><span class="br0">&#40;</span>string<span class="br0">&#41;</span>;          <span class="co1">// load data from a JS string</span></pre>
+<p>
+
+Starting from dhtmlxGrid 1.6, new common loaders were implemented (old <acronym title="Application Programming Interface">API</acronym> is still supported, but it is highly recommended to use new <acronym title="Application Programming Interface">API</acronym>):
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="br0">&#41;</span>                       <span class="co1">// load data from a remote file, XML is expected by default;</span>
+            grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;csv&quot;</span><span class="br0">&#41;</span>           <span class="co1">// the same for CSV format;</span>
+            grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span>          <span class="co1">// the same for JSON format;</span>
+            grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;jsarray&quot;</span><span class="br0">&#41;</span>      <span class="co1">// the same for JSArray format.</span>
+&nbsp;
+&nbsp;
+&nbsp;
+        grid.<span class="me1">parse</span><span class="br0">&#40;</span>object<span class="br0">&#41;</span>               <span class="co1">// load data from a string|object, XML is expected by default;</span>
+            grid.<span class="me1">parse</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;csv&quot;</span><span class="br0">&#41;</span>        <span class="co1">// the same for CSV format;</span>
+            grid.<span class="me1">parse</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span>       <span class="co1">// the same for JSON format;</span>
+            grid.<span class="me1">parse</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;jsarray&quot;</span><span class="br0">&#41;</span>   <span class="co1">// the same for JSArray format.</span></pre>
+<p>
+
+The method load() is used for loading data from an external file (<acronym title="Extensible Markup Language">XML</acronym>, JSON, JSArray, CSV) and has the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  url - url to the external file;</div>
+</li>
+<li class="level1"><div class="li">  call - callback function after loading; optional parameter, can be omitted;</div>
+</li>
+<li class="level1"><div class="li">  type - type of data (xml,csv,json,jsarray); optional parameter; xml by default.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="304-2015" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="General Loading Rules" /></div></form></div>
+<h3><a name="loading_from_csv" id="loading_from_csv">Loading from CSV</a></h3>
+<div class="level3">
+
+<p>
+To load data from a remote file (static CSV file or any kind of script that will generate CSV output), the following command should be called:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;cvs&quot;</span><span class="br0">&#41;</span>;
+            <span class="co1">// or</span>
+        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span>callback<span class="sy0">,</span><span class="st0">&quot;csv&quot;</span><span class="br0">&#41;</span>;  <span class="co1">// callback is an optional function, will be called after data is loaded and processed</span></pre>
+<p>
+
+Data loading from a CSV string requires the following code lines:
+
+</p>
+<pre class="code javascript">        <span class="kw2">var</span>  csvstr<span class="sy0">=</span><span class="st0">&quot;11,12,13<span class="es0">\n</span>21,22,23<span class="es0">\n</span>31,32,33&quot;</span>;
+        grid.<span class="me1">parse</span><span class="br0">&#40;</span>csvstr<span class="sy0">,</span><span class="st0">&quot;csv&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Note: for backward compatibility, methods loadCSVFile() and loadCSVString() can still be used.
+
+</p>
+
+</div>
+
+<h4><a name="setting_cell_row_delimiter" id="setting_cell_row_delimiter">Setting Cell/Row Delimiter</a></h4>
+<div class="level4">
+
+<p>
+
+By default, the component will use:
+</p>
+<ul>
+<li class="level1"><div class="li">  , - cell delimiter;</div>
+</li>
+<li class="level1"><div class="li">  \n - row delimiter.</div>
+</li>
+</ul>
+
+<p>
+These values can be changed in the following way:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">csv</span>.<span class="me1">row</span> <span class="sy0">=</span> <span class="st0">&quot;any row delimiter&quot;</span>;
+        grid.<span class="me1">csv</span>.<span class="me1">cell</span> <span class="sy0">=</span> <span class="st0">&quot;any cell delimiter&quot;</span>;</pre>
+<p>
+
+Note: for backward compatibility, method setCSVDelimiter() can still be used.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2016-3033" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Loading from CSV" /></div></form></div>
+<h3><a name="loading_from_js_array" id="loading_from_js_array">Loading from JS Array</a></h3>
+<div class="level3">
+
+<p>
+To load data from a remote file (a static <acronym title="JavaScript">JS</acronym> file or any kind of script that will generate <acronym title="JavaScript">JS</acronym> Array output), the following code strings should be used:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;jsarray&quot;</span><span class="br0">&#41;</span>;
+            <span class="co1">// or</span>
+        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span>callback<span class="sy0">,</span><span class="st0">&quot;jsarray&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// a callback is an optional function that will be called after the data is loaded and processed</span></pre>
+<p>
+
+To load data from a JSArray object, the following code lines should be written:
+
+</p>
+<pre class="code javascript">        <span class="kw2">var</span> ar <span class="sy0">=</span> <span class="br0">&#91;</span><span class="br0">&#91;</span><span class="nu0">11</span><span class="sy0">,</span><span class="nu0">12</span><span class="sy0">,</span><span class="nu0">13</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="nu0">21</span><span class="sy0">,</span><span class="nu0">22</span><span class="sy0">,</span><span class="nu0">23</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="nu0">31</span><span class="sy0">,</span><span class="nu0">32</span><span class="sy0">,</span><span class="nu0">33</span><span class="br0">&#93;</span><span class="br0">&#93;</span>
+        grid.<span class="me1">parse</span><span class="br0">&#40;</span>ar<span class="sy0">,</span><span class="st0">&quot;jsarray&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3034-3635" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Loading from JS Array" /></div></form></div>
+<h3><a name="loading_data_from_json" id="loading_data_from_json">Loading data from JSON</a></h3>
+<div class="level3">
+
+<p>
+To load data from a remote file (a static JSON file or any kind of script that will generate json output), the following code strings should be used:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span>;
+            <span class="co1">// or</span>
+        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span>callback<span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// a callback is an optional function that will be called after the data is loaded and processed</span></pre>
+<p>
+
+Loading data from a JSON object is also possible:
+
+</p>
+<pre class="code javascript">            <span class="kw2">var</span> js<span class="sy0">=</span><span class="br0">&#123;</span>
+    rows<span class="sy0">:</span><span class="br0">&#91;</span>
+        <span class="br0">&#123;</span> id<span class="sy0">:</span><span class="nu0">1001</span><span class="sy0">,</span>
+     data<span class="sy0">:</span><span class="br0">&#91;</span>
+          <span class="st0">&quot;100&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;A Time to Kill&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;John Grisham&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;12.99&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;1&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;05/01/1998&quot;</span><span class="br0">&#93;</span> <span class="br0">&#125;</span><span class="sy0">,</span>
+       <span class="br0">&#123;</span> id<span class="sy0">:</span><span class="nu0">1002</span><span class="sy0">,</span>
+     data<span class="sy0">:</span><span class="br0">&#91;</span>
+          <span class="st0">&quot;1000&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;Blood and Smoke&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;Stephen King&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;0&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;1&quot;</span><span class="sy0">,</span>
+          <span class="st0">&quot;01/01/2000&quot;</span><span class="br0">&#93;</span> <span class="br0">&#125;</span>
+    <span class="br0">&#93;</span><span class="br0">&#125;</span>
+            grid.<span class="me1">parse</span><span class="br0">&#40;</span>js<span class="sy0">,</span><span class="st0">&quot;json&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3636-4509" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Loading data from JSON" /></div></form></div>
+<h3><a name="loading_from_xml" id="loading_from_xml">Loading from XML</a></h3>
+<div class="level3">
+
+<p>
+To load data from a remote file (static <acronym title="Extensible Markup Language">XML</acronym> file or any kind of script that will generate <acronym title="Extensible Markup Language">XML</acronym> output), the following code strings should be used:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="br0">&#41;</span>;
+            <span class="co1">// or</span>
+        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span>callback<span class="br0">&#41;</span>;    <span class="co1">// a callback is an optional function that will be called after the data is loaded and processed</span></pre>
+<p>
+
+To load data from an <acronym title="Extensible Markup Language">XML</acronym> object or an <acronym title="Extensible Markup Language">XML</acronym> string, the user should apply the following command:    
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">parse</span><span class="br0">&#40;</span>xml_object<span class="br0">&#41;</span>;
+            <span class="co1">// or</span>
+        grid.<span class="me1">parse</span><span class="br0">&#40;</span>xml_string<span class="br0">&#41;</span>;</pre>
+<p>
+
+Note: for backward compatibility, methods loadXML(), loadXMLString(), and parseXML() can still be used.
+</p>
+
+<p>
+Data loaded from <acronym title="Extensible Markup Language">XML</acronym> can contain some <a href="dhtmlxgrid___storing_additional_data.html" class="wikilink1" title="dhtmlxgrid:storing_additional_data">extra values</a>, which will not be visible in grid by still accessible through <acronym title="Application Programming Interface">API</acronym>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4510-5347" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Loading from XML" /></div></form></div>
+<h3><a name="custom_loading_types_creation" id="custom_loading_types_creation">Custom Loading Types Creation</a></h3>
+<div class="level3">
+
+<p>
+dhtmlxGrid 1.6+ allows to customize the incoming data format in many ways. But still, the user may need to define some custom format. This can be done with relatively little effort.
+For each new data format the user needs to use 3 methods:
+</p>
+<ul>
+<li class="level1"><div class="li">  grid._process_[type] - must process the incoming stream of data and separate it in rows;</div>
+</li>
+<li class="level1"><div class="li">  grid._process_[type]_row - takes the data related to rows and processes it;</div>
+</li>
+<li class="level1"><div class="li">  grid._get_[type]_data - must provide the way to locate the value of a column inside a data row.</div>
+</li>
+</ul>
+
+<p>
+For example, we have an <acronym title="Extensible Markup Language">XML</acronym> in the following format:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;data<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;item</span> <span class="re0">name</span>=<span class="st0">&quot;my item A&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;size<span class="re2">&gt;</span></span></span>15<span class="sc3"><span class="re1">&lt;/size<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;mode</span> <span class="re0">step</span>=<span class="st0">&quot;2&quot;</span> <span class="re0">online</span>=<span class="st0">&quot;off&quot;</span><span class="re2">&gt;</span></span>active<span class="sc3"><span class="re1">&lt;/mode<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/item<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;item</span> <span class="re0">name</span>=<span class="st0">&quot;my item B&quot;</span><span class="re2">&gt;</span></span>
+            <span class="sc3"><span class="re1">&lt;size<span class="re2">&gt;</span></span></span>15<span class="sc3"><span class="re1">&lt;/size<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;mode</span> <span class="re0">step</span>=<span class="st0">&quot;2&quot;</span> <span class="re0">online</span>=<span class="st0">&quot;on&quot;</span><span class="re2">&gt;</span></span>active<span class="sc3"><span class="re1">&lt;/mode<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/item<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/data<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+<p>
+
+The format of the data used doesn&#039;t fit for any of grid&#039;s <acronym title="Extensible Markup Language">XML</acronym> format. One of possible solutions is to add <acronym title="Extensible Stylesheet Language Transformations">XSLT</acronym> transformation that will convert data to the format acceptable by the grid.
+But if the user has a lot of data in such custom format, making custom loading type more sensible.
+</p>
+
+</div>
+
+<h4><a name="first_step_-_selecting_data_type_name" id="first_step_-_selecting_data_type_name">First Step - Selecting Data Type Name</a></h4>
+<div class="level4">
+
+<p>
+
+The names <acronym title="Extensible Markup Language">XML</acronym>, XMLA, XMLB, JSON, ASArray, CSV are already taken, so any other name is valid. For example “custom_xml” as the name for this new type.
+</p>
+
+</div>
+
+<h4><a name="second_step_-_defining_row_level_parser" id="second_step_-_defining_row_level_parser">Second Step - Defining Row Level Parser</a></h4>
+<div class="level4">
+
+<p>
+
+The row parser function must separate incoming data in rows and assign IDs to them. In this case, the data is <acronym title="Extensible Markup Language">XML</acronym>, so it is pretty simple to take necessary data by using XPath:
+
+</p>
+<pre class="code javascript">        grid._process_custom_xml<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>xml<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw1">this</span>._parsing<span class="sy0">=</span><span class="kw2">true</span>;
+            <span class="kw2">var</span> rows <span class="sy0">=</span> xml.<span class="me1">doXPath</span><span class="br0">&#40;</span><span class="st0">&quot;//item&quot;</span><span class="br0">&#41;</span>;                     <span class="co1">// get all row elements from XML</span>
+&nbsp;
+            <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i <span class="sy0">=</span> 0; i <span class="sy0">&lt;</span> rows.<span class="me1">length</span>; i<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                <span class="kw2">var</span> id <span class="sy0">=</span> <span class="kw1">this</span>.<span class="me1">getUID</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                                <span class="co1">// XML doesn't have native ids, so custom ones will be generated</span>
+                <span class="kw1">this</span>.<span class="me1">rowsBuffer</span><span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">=</span><span class="br0">&#123;</span>                                   <span class="co1">// store references to each row element</span>
+                    idd<span class="sy0">:</span> id<span class="sy0">,</span>
+                    data<span class="sy0">:</span> rows<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">,</span>
+                    _parser<span class="sy0">:</span> <span class="kw1">this</span>._process_custom_xml_row<span class="sy0">,</span>   <span class="co1">// cell parser method</span>
+                    _locator<span class="sy0">:</span> <span class="kw1">this</span>._get_custom_xml_data        <span class="co1">// data locator method</span>
+                    <span class="br0">&#125;</span>;
+&nbsp;
+                <span class="kw1">this</span>.<span class="me1">rowsAr</span><span class="br0">&#91;</span>id<span class="br0">&#93;</span><span class="sy0">=</span>rows<span class="br0">&#91;</span>i<span class="br0">&#93;</span>;                             <span class="co1">// store id reference</span>
+            <span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+            <span class="kw1">this</span>.<span class="me1">render_dataset</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                                   <span class="co1">// force update of grid's view after data loading</span>
+            <span class="kw1">this</span>._parsing<span class="sy0">=</span><span class="kw2">false</span>;
+        <span class="br0">&#125;</span></pre>
+</div>
+
+<h4><a name="third_step_-_define_cell_level_parser" id="third_step_-_define_cell_level_parser">Third Step - Define Cell Level Parser</a></h4>
+<div class="level4">
+
+<p>
+
+Cell parser must take the data for each column of the grid from row related <acronym title="Extensible Markup Language">XML</acronym>. Before its code will be implemented, the user should make some draft - what data will be mapped for what column.
+</p>
+<table class="inline">
+	<tr class="row0">
+		<th class="col0 leftalign">Column             </th><th class="col1">Data From <acronym title="Extensible Markup Language">XML</acronym></th>
+	</tr>
+	<tr class="row1">
+		<td class="col0 leftalign">0                  </td><td class="col1 rightalign">  item@name </td>
+	</tr>
+	<tr class="row2">
+		<td class="col0 leftalign">1                  </td><td class="col1 rightalign">  size </td>
+	</tr>
+	<tr class="row3">
+		<td class="col0 leftalign">2                  </td><td class="col1 rightalign">  mode </td>
+	</tr>
+	<tr class="row4">
+		<td class="col0 leftalign">3                  </td><td class="col1 rightalign">  mode@online </td>
+	</tr>
+</table>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>    
+        grid._process_custom_xml_row<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>r<span class="sy0">,</span> xml<span class="br0">&#41;</span><span class="br0">&#123;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+            <span class="kw2">var</span> size <span class="sy0">=</span> <span class="kw1">this</span>.<span class="me1">xmlLoader</span>.<span class="me1">doXPath</span><span class="br0">&#40;</span><span class="st0">&quot;./size&quot;</span><span class="sy0">,</span> xml<span class="br0">&#41;</span><span class="br0">&#91;</span>0<span class="br0">&#93;</span>;        <span class="co1">// get size sub-tag</span>
+            <span class="kw2">var</span> mode <span class="sy0">=</span> <span class="kw1">this</span>.<span class="me1">xmlLoader</span>.<span class="me1">doXPath</span><span class="br0">&#40;</span><span class="st0">&quot;./mode&quot;</span><span class="sy0">,</span> xml<span class="br0">&#41;</span><span class="br0">&#91;</span>0<span class="br0">&#93;</span>;    <span class="co1">// get mode sub-tag</span>
+            <span class="kw2">var</span> strAr <span class="sy0">=</span> <span class="br0">&#91;</span>  
+                xml.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;name&quot;</span><span class="br0">&#41;</span><span class="sy0">,</span>
+                size.<span class="me1">firstChild</span>.<span class="me1">data</span><span class="sy0">,</span>
+                mode.<span class="me1">firstChild</span>.<span class="me1">data</span><span class="sy0">,</span>
+                mode.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;online&quot;</span><span class="br0">&#41;</span>
+            <span class="br0">&#93;</span>;
+&nbsp;
+                 <span class="co1">// set just a plain array as no custom attributes are needed</span>
+            r._attrs<span class="sy0">=</span><span class="br0">&#123;</span><span class="br0">&#125;</span>;
+            <span class="kw1">for</span> <span class="br0">&#40;</span>j<span class="sy0">=</span>0; j <span class="sy0">&lt;</span> r.<span class="me1">childNodes</span>.<span class="me1">length</span>; j<span class="sy0">++</span><span class="br0">&#41;</span> r.<span class="me1">childNodes</span><span class="br0">&#91;</span>j<span class="br0">&#93;</span>._attrs<span class="sy0">=</span><span class="br0">&#123;</span><span class="br0">&#125;</span>;
+&nbsp;
+&nbsp;
+&nbsp;
+                <span class="co1">// finish data loading </span>
+            <span class="kw1">this</span>._fillRow<span class="br0">&#40;</span>r<span class="sy0">,</span> strAr<span class="br0">&#41;</span>;
+            <span class="kw1">return</span> r;
+        <span class="br0">&#125;</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="final_step" id="final_step">Final Step</a></h4>
+<div class="level4">
+
+<p>
+
+At this very stage everything is almost done. Now, the user can apply the following method to load the data in the custom format:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="st0">&quot;custom_xml&quot;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_243f789dscn_b.png"  class="media" alt="" />
+The last method can be defined as Locator. It has sense only if the user plans to apply smart rendering mode. This method is not necessary for operations in the standard mode (it is used to locate the data inside unparsed chunks).
+</p>
+
+<p>
+Full code of the sample can be downloaded by next link
+<img src="/dhtmlx/docs/lib/images/smileys/fixme.gif" class="middle" alt="FIXME" /> - url for the sample
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5348-9849" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Custom Loading Types Creation" /></div></form></div>
+<h3><a name="handling_error_response" id="handling_error_response">Handling Error Response</a></h3>
+<div class="level3">
+
+<p>
+When incorrect data retrieved from server, component shows an “Incorrect <acronym title="Extensible Markup Language">XML</acronym>” message, which may be replaced with any other kind of custom reaction. It can be done as
+</p>
+<pre class="code javascript">    dhtmlxError.<span class="me1">catchError</span><span class="br0">&#40;</span><span class="st0">&quot;LoadXML&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>data<span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="co1">//data[0] - request object</span>
+          <span class="co1">//data[0].responseText - incorrect server side response</span>
+          ... <span class="me1">any</span> kind of custom logic here ...
+    <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9850-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit" class="button" title="Handling Error Response" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/data_loading.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Adata_loading&amp;1310069484" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:data_loading" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

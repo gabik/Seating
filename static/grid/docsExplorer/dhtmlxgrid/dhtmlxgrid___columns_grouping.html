@@ -1,0 +1,195 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:columns_grouping    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:columns_grouping</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:columns_grouping"  class="breadcrumbs" title="dhtmlxgrid:columns_grouping">columns_grouping</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="columns_grouping" id="columns_grouping">Columns grouping</a></h2>
+<div class="level2">
+
+<p>
+
+Functionality described below requires dhtmlxgrid_hextra.js 
+</p>
+
+<p>
+Beware that grid not oriented on usage of big count of columns, so grids with <strong>big count of columns</strong> ( &gt;50 ) will be <strong>significantly slower</strong> than grid with lesser amount of columns. And while this feature allow to creates very wide grids, it may result in slowdown.
+</p>
+
+<p>
+
+In many situations, data shown in the grid contains too much columns to be fully shown on the screen. The scrolls solve problem partially, but they may hide important information from initial view. Columns grouping allows to organize view in such a way that all necessary data will be visible at once. Secondary columns may be switched to visible state with a single click.
+</p>
+
+<p>
+For example, we have the following header structure:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Sales,Book Title,Author,Price,In Store,Shipping,Bestseller,Date of Publication&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<img src="dhtmlxgrid___dhhqnnw2_70g35vxp2n_b.png"  class="media" alt="" />
+</p>
+
+<p>
+
+Now we add #collapse shortcut to the header:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Sales,{#collapse}2:Book Title,Author,{#collapse}5:Price,In Store,Shipping,Bestseller,Date of Publication&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<img src="dhtmlxgrid___dhhqnnw2_71fkbhjdcd_b.png"  class="media" alt="" />
+</p>
+
+<p>
+
+“Plus” icons allow to collapse and expand the group of columns.
+The header cell may contain:
+
+</p>
+<pre class="code javascript">  any text <span class="br0">&#123;</span>#collapse<span class="br0">&#125;</span><span class="br0">&#91;</span>size<span class="br0">&#93;</span><span class="sy0">:</span>any text</pre>
+<p>
+
+[size] here is the count of columns that will be included in collapsable group (including the column with shortcut).
+</p>
+
+<p>
+The columns may be forced to be in the collapsed state in the following way:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Sales,{#collapse}2:Book Title,Author,{#collapse}5:Price,In Store,Shipping,Bestseller,Date of Publication&quot;</span><span class="br0">&#41;</span>;
+      ...
+      <span class="me1">grid</span>.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+      grid.<span class="me1">collapseColumns</span><span class="br0">&#40;</span><span class="nu0">3</span><span class="br0">&#41;</span>; <span class="co1">//only after init (!)</span></pre>
+<p>
+
+<img src="dhtmlxgrid___dhhqnnw2_72f3ttq7fz_b.png"  class="media" alt="" />
+</p>
+
+<p>
+
+The same functionality can be applied against multi-line complex headers till the border of collapsable columns do not intersect any colspans.
+</p>
+
+<p>
+<img src="dhtmlxgrid___dhhqnnw2_73sp3hnsff_b.png"  class="media" alt="" />
+</p>
+
+<p>
+
+<img src="dhtmlxgrid___dhhqnnw2_74g4vjpwg2_b.png"  class="media" alt="" />
+</p>
+
+<p>
+
+It should be noted that grid&#039;s performance is heavily affected by the count of columns. The component can render dataset with huge count of rows much faster than dataset with equal count of columns. So, columns grouping must be used carefully.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Edit" class="button" title="Columns grouping" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/columns_grouping.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acolumns_grouping&amp;1310069476" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_grouping" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

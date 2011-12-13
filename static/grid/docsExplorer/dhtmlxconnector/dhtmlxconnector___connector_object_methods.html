@@ -1,0 +1,309 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:connector_object_methods    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:connector_object_methods</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:connector_object_methods"  class="breadcrumbs" title="dhtmlxconnector:connector_object_methods">connector_object_methods</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#connector_object" class="toc">Connector object</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#dynamic_loading" class="toc">dynamic_loading</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#enable_log" class="toc">enable_log</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#is_select_mode" class="toc">is_select_mode</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#render_sql" class="toc">render_sql</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#render_table" class="toc">render_table</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_encoding" class="toc">set_encoding</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___reference.html" class="wikilink1" title="dhtmlxconnector:reference">Reference</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___api_reference.html" class="wikilink1" title="dhtmlxconnector:api_reference">API Methods</a></div></div>
+
+</p>
+
+<h1><a name="connector_object" id="connector_object">Connector object</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="148-178" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="Connector object" /></div></form></div>
+<h2><a name="dynamic_loading" id="dynamic_loading">dynamic_loading</a></h2>
+<div class="level2">
+
+<p>
+enable dynamical loading mode for connector.
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">dynamic_loading</span><span class="br0">&#40;</span><span class="br0">&#91;</span><span class="re0">$rowsNum</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>tree, treegrid</em> - no parameters</div>
+</li>
+<li class="level2"><div class="li"> <em>grid</em> - number of rows which should be initially loaded (the value should be more than number of rows visible in grid, or at least any positive number)</div>
+</li>
+<li class="level2"><div class="li"> <em>combo</em> - maximum number of options which server will send for single data request in autocomplete mode</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="179-638" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="dynamic_loading" /></div></form></div>
+<h2><a name="enable_log" id="enable_log">enable_log</a></h2>
+<div class="level2">
+
+<p>
+enable logging for connector.
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">enable_log</span><span class="br0">&#40;</span><span class="st0">&quot;path to log file&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>path</em> - absolute or relative path to text file where log will be written.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="639-850" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="enable_log" /></div></form></div>
+<h2><a name="is_select_mode" id="is_select_mode">is_select_mode</a></h2>
+<div class="level2">
+
+<p>
+returns current active mode.
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">is_select_mode</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> none.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Returns:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>true</em>, if select mode is active.</div>
+</li>
+<li class="level2"><div class="li"> <em>false</em>, if update mode is active.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="851-1077" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="is_select_mode" /></div></form></div>
+<h2><a name="render_sql" id="render_sql">render_sql</a></h2>
+<div class="level2">
+
+<p>
+configure connector to take data based on provided <acronym title="Structured Query Language">SQL</acronym> text. 
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="re0">$sql</span><span class="sy0">,</span><span class="re0">$id</span><span class="sy0">,</span><span class="re0">$text</span><span class="sy0">,</span><span class="re0">$extra</span><span class="sy0">,</span><span class="re0">$relation</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$sql</em> - any sql code, which will be used as a base for data selection.</div>
+</li>
+<li class="level2"><div class="li"> <em>$id</em> - name of id field.</div>
+</li>
+<li class="level2"><div class="li"> <em>$text</em> - comma separated list of data fields.</div>
+</li>
+<li class="level2"><div class="li"> <em>$extra</em> - comma separated list of extra fields, optional.</div>
+</li>
+<li class="level2"><div class="li"> <em>$relation_id</em> - used for building hierarchy in case of Tree and TreeGrid.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1078-1664" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="render_sql" /></div></form></div>
+<h2><a name="render_table" id="render_table">render_table</a></h2>
+<div class="level2">
+
+<p>
+configure connector to take data from single table.
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="re0">$table</span><span class="sy0">,</span><span class="re0">$id</span><span class="sy0">,</span><span class="re0">$text</span><span class="sy0">,</span><span class="re0">$extra</span><span class="sy0">,</span><span class="re0">$relation</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$table</em> - name of table.</div>
+</li>
+<li class="level1"><div class="li"> <em>$id</em> - name of id field.</div>
+</li>
+<li class="level1"><div class="li"> <em>$text</em> - comma separated list of data fields.</div>
+</li>
+<li class="level1"><div class="li"> <em>$extra</em> - comma separated list of extra fields, optional.</div>
+</li>
+<li class="level1"><div class="li"> <em>$relation_id</em> - used for building hierarchy in case of Tree and TreeGrid.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>Description:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> If you want to render all fields from DB ( except of identity field), you can use simplified command:<br/>
+ <br/>
+ <pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="re0">$table</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+
+<p>
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_sql</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1665-2363" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="render_table" /></div></form></div>
+<h2><a name="set_encoding" id="set_encoding">set_encoding</a></h2>
+<div class="level2">
+
+<p>
+allows to set encoding that will be applied to generated <acronym title="Extensible Markup Language">XML</acronym> (default encoding is UTF-8). 
+
+</p>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">set_encoding</span><span class="br0">&#40;</span><span class="st0">&quot;iso-8859-1&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> encoding name.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2364-" /><input type="hidden" name="rev" value="1306860620" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit" class="button" title="set_encoding" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/connector_object_methods.txt &middot; Last modified: 2011/05/31 19:50 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Aconnector_object_methods&amp;1310069427" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:connector_object_methods" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

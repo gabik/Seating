@@ -1,0 +1,809 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:api_toc_categories    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:api_toc_categories</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:api_toc_categories"  class="breadcrumbs" title="dhtmlxgrid:api_toc_categories">api_toc_categories</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#dhtmlxgrid_api_methods" class="toc">dhtmlxGrid API Methods</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#configuration" class="toc">Configuration</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#data_loading" class="toc">Data Loading</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#rows_manipulations" class="toc">Rows manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#columns_manipulations" class="toc">Columns manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#cells_manipulation" class="toc">Cells manipulation</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#selection" class="toc">Selection</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sorting" class="toc">Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#filtering" class="toc">Filtering</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#grouping" class="toc">Grouping</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#drag-n-drop" class="toc">Drag-n-drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#clipboard_operations" class="toc">Clipboard operations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#cookies_operations" class="toc">Cookies operations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#saving_data" class="toc">Saving data</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#other_extensions" class="toc">Other extensions</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxgrid___api_toc_alpha.html" class="wikilink1" title="dhtmlxgrid:api_toc_alpha">API Methods</a></div></div>
+</p>
+
+
+
+<h2><a name="dhtmlxgrid_api_methods" id="dhtmlxgrid_api_methods">dhtmlxGrid API Methods</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="80-115" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="dhtmlxGrid API Methods" /></div></form></div>
+<h3><a name="configuration" id="configuration">Configuration</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_attachevent.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_attachevent">attachEvent</a> adds any user-defined handler to available events</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_attachfooter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_attachfooter">attachFooter</a> attaches an additional line to the footer</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_attachheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_attachheader">attachHeader</a> attaches an additional line to the header</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_attachtoobject.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_attachtoobject">attachToObject</a> attaches grid to some object in <acronym title="Document Object Model">DOM</acronym></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_destructor.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_destructor">destructor</a> destructor, removes grid and cleans used memory</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_detachevent.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_detachevent">detachEvent</a> removes an event-handler</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_detachfooter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_detachfooter">detachFooter</a> removes the footer line from grid (opposite to attachFooter)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_detachheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_detachheader">detachHeader</a> removes the header line from grid (opposite to attachHeader)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautoheight.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautoheight">enableAutoHeight</a> enables an autoheight of grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautowidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautowidth">enableAutoWidth</a> changes grid&#039;s container size on the fly to fit total width of grid columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecellids.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecellids">enableCellIds</a> enables/disables unique id for cells (id will be automatically created using the following template: “c_[RowId]_[colIndex]”)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableheaderimages.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableheaderimages">enableHeaderImages</a> specifies if values passed to Header are images file names</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_init.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_init">init</a> initializes grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setawaitedrowheight.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setawaitedrowheight">setAwaitedRowHeight</a> sets a height which will be used in the smart rendering mode for row calculation, the function needs to be used if you use a custom skin for grid which changes default row height</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcsvdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcsvdelimiter">setCSVDelimiter</a> change csv delimiter</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolalign.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolalign">setColAlign</a> sets an align of values in columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolsorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolsorting">setColSorting</a> sets column sort types (avaialble: str, int, date, na or function object for custom sorting)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcoltypes.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcoltypes">setColTypes</a> sets column types</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolvalign.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolvalign">setColVAlign</a> sets a vertical align of columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolwidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolwidth">setColWidth</a> sets the width of specified column in pixels (soen&#039;t works with procent based grid)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdelimiter">setDelimiter</a> sets delimiter character used in list values (default is ”,”)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setheader">setHeader</a> sets header label and default params for new headers</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_seticonpath.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_seticonpath">setIconPath</a> sets path to external images used in grid ( tree and img column types )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setimagepath.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setimagepath">setImagePath</a> sets path to grid internal images (sort direction, any images used in editors, checkbox, radiobutton)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setinitwidths.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setinitwidths">setInitWidths</a> sets width of columns in pixels</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setinitwidthsp.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setinitwidthsp">setInitWidthsP</a> sets width of columns in percents</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setnoheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setnoheader">setNoHeader</a> creates grid with no header. Called before initialization, but after setHeader. setHeader have to be called in any way as it defines number of columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setskin.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setskin">setSkin</a> sets one of predefined css styles (xp, mt, gray, light, clear, modern)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setstyle.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setstyle">setStyle</a> modifies default style of grid and its elements. Call before or after Init</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_uid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_uid">uid</a> returns unique ID</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="116-3834" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Configuration" /></div></form></div>
+<h3><a name="data_loading" id="data_loading">Data Loading</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_changepage.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_changepage">changePage</a> changes current page in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_changepagerelative.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_changepagerelative">changePageRelative</a> changes current page in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearall">clearAll</a> deletes all rows in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearandload.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearandload">clearAndLoad</a> clears an existing grid state and load new <acronym title="Extensible Markup Language">XML</acronym></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvautoid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvautoid">enableCSVAutoID</a> enables mode, where ID for rows loaded from CSV autogenerated</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvheader">enableCSVHeader</a> enables recognizing the first row in CSV as header</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledistributedparsing.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledistributedparsing">enableDistributedParsing</a> enables/disables the distributed parsing (rows are parsed portion by portion with some timeout)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablepaging.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablepaging">enablePaging</a> enables the smart paging mode</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablesmartrendering.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablesmartrendering">enableSmartRendering</a> enables the smart rendering mode</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getrowattribute.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getrowattribute">getRowAttribute</a> gets row attribute</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getstateofview.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getstateofview">getStateOfView</a> returns details about current grid state</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getuserdata.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getuserdata">getUserData</a> gets user Data</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_load.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_load">load</a> loads data from an external file ( xml, json, jsarray, csv )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadcsvfile.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadcsvfile">loadCSVFile</a> loads grid from CSV file</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadcsvstring.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadcsvstring">loadCSVString</a> loads grid from CSV string</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_parse.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_parse">parse</a> loads data from local datasource ( xml string, csv string, xml island, xml object, json objecs , javascript array )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_preventiecaching.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_preventiecaching">preventIECaching</a> prevents caching in <acronym title="Internet Explorer">IE</acronym>  by adding random values to <acronym title="Uniform Resource Locator">URL</acronym> string</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setawaitedrowheight.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setawaitedrowheight">setAwaitedRowHeight</a> sets a height which will be used in the smart rendering mode for row calculation, the function needs to be used if you use a custom skin for grid which changes default row height</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcsvdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcsvdelimiter">setCSVDelimiter</a> change csv delimiter</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdelimiter">setDelimiter</a> sets delimiter character used in list values (default is ”,”)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setpagingskin.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setpagingskin">setPagingSkin</a> allows to set custom paging skin</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setpagingtemplates.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setpagingtemplates">setPagingTemplates</a> allows to set paging templates for default skin</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setpagingwtmode.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setpagingwtmode">setPagingWTMode</a> configures paging with toolbar mode ( must be called BEFORE enablePaging)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowattribute.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowattribute">setRowAttribute</a> sets new attribute to the row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setuserdata.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setuserdata">setUserData</a> sets user data to row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_startfastoperations.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_startfastoperations">startFastOperations</a> starts fast operation mode, in such mode events are not generated, some time consuming actions applied only once, which allow to increase performance</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_stopfastoperations.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_stopfastoperations">stopFastOperations</a> turns off fast operation mode, need to be executed to normalize view.</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_updatefromxml.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_updatefromxml">updateFromXML</a> refreshes grid from <acronym title="Extensible Markup Language">XML</acronym> ( doesnt work for buffering, tree grid or rows in smart rendering mode )</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3835-7303" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Data Loading" /></div></form></div>
+<h3><a name="rows_manipulations" id="rows_manipulations">Rows manipulations</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_addrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_addrow">addRow</a> adds row to the grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_changerowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_changerowid">changeRowId</a> changes id of the row to the new one</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_copyrowcontent.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_copyrowcontent">copyRowContent</a> copies row content to another existing row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_deleterow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_deleterow">deleteRow</a> deletes a row from the grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_deleteselectedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_deleteselectedrows">deleteSelectedRows</a> deletes a selected row(s)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_doesrowexist.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_doesrowexist">doesRowExist</a> determines if a row with specified id exists</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablealtercss.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablealtercss">enableAlterCss</a> sets even/odd css styles</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemultiline.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemultiline">enableMultiline</a> sets the multiline rows support to enabled or disabled state</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablerowshover.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablerowshover">enableRowsHover</a> enables/disables hovering row on mouse over</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablerowspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablerowspan">enableRowspan</a> enables rowspan in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_foreachrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_foreachrow">forEachRow</a> executes a code for each row in a grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getallrowids.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getallrowids">getAllRowIds</a> gets a list of all row ids in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getchangedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getchangedrows">getChangedRows</a> gets a list of IDs of changed rows</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcheckedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcheckedrows">getCheckedRows</a> gets a list of Ids of all rows with checked exCell in specified column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getrowid">getRowId</a> gets a row id by index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getrowindex.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getrowindex">getRowIndex</a> gets a row index by id (grid only)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getrowsnum.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getrowsnum">getRowsNum</a> returns count of row in grid ( in case of dynamic mode it will return expected count of rows )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getselectedrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getselectedrowid">getSelectedRowId</a> gets a selected row id</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_lockrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_lockrow">lockRow</a> locks/unlocks a row for editing</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_moverow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_moverow">moveRow</a> moves a row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_moverowdown.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_moverowdown">moveRowDown</a> moves a row one position down if it&#039;s possible</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_moverowto.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_moverowto">moveRowTo</a> moves a row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_moverowup.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_moverowup">moveRowUp</a> moves a row one position up if possible</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectrow">selectRow</a> selects a row (and first cell of it)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectrowbyid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectrowbyid">selectRowById</a> selects a row by ID</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcheckedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcheckedrows">setCheckedRows</a> sets a value for all checkboxes in specified column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowcolor.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowcolor">setRowColor</a> sets background color of row (via bgcolor attribute)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowexcelltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowexcelltype">setRowExcellType</a> sets excell type for all cells in specified row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowhidden.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowhidden">setRowHidden</a> hides/shows row (warning! - this command doesn&#039;t affect row indexes, only visual appearance)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowid">setRowId</a> sets new id for row by its index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowtextbold.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowtextbold">setRowTextBold</a> sets row text BOLD</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowtextnormal.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowtextnormal">setRowTextNormal</a> sets row text weight to normal</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowtextstyle.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowtextstyle">setRowTextStyle</a> sets style to row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_showrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_showrow">showRow</a> scrolls row to the visible area</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7304-10759" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Rows manipulations" /></div></form></div>
+<h3><a name="columns_manipulations" id="columns_manipulations">Columns manipulations</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_adjustcolumnsize.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_adjustcolumnsize">adjustColumnSize</a> autosizes a column to max content size</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_deletecolumn.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_deletecolumn">deleteColumn</a> deletes a column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecolumnmove.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecolumnmove">enableColumnMove</a> enables the move column functionality</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableheadermenu.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableheadermenu">enableHeaderMenu</a> enables the pop up menu which allows hiding/showing columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableresizing.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableresizing">enableResizing</a> enables/disables resizing for specified columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabletooltips.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabletooltips">enableTooltips</a> enables/disables tooltips for specified columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcolindexbyid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcolindexbyid">getColIndexById</a> gets a column index by column id</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcoltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcoltype">getColType</a> gets a column type by column index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcoltypebyid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcoltypebyid">getColTypeById</a> gets a column type by column ID</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcolwidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcolwidth">getColWidth</a> gets the width of specified column in pixels</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcolumnid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcolumnid">getColumnId</a> gets the column id of column specified by index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcollabel.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcollabel">getColLabel</a> gets the label of column specified by index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcolumnsnum.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcolumnsnum">getColumnsNum</a> gets number of columns in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getfooterlabel.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getfooterlabel">getFooterLabel</a> gets the label of the footer specified by index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_insertcolumn.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_insertcolumn">insertColumn</a> adds a new column to the grid. Can be used after grid was initialized. At least one column should be in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_iscolumnhidden.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_iscolumnhidden">isColumnHidden</a> gets show/hidden status of column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_movecolumn.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_movecolumn">moveColumn</a> moves a column of specified index to new position</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolalign.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolalign">setColAlign</a> sets an align of values in columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolsorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolsorting">setColSorting</a> sets column sort types (avaialble: str, int, date, na or function object for custom sorting)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcoltypes.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcoltypes">setColTypes</a> sets column types</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolvalign.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolvalign">setColVAlign</a> sets a vertical align of columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolwidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolwidth">setColWidth</a> sets the width of specified column in pixels (soen&#039;t works with procent based grid)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumncolor.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumncolor">setColumnColor</a> colorizes columns background.</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnexcelltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnexcelltype">setColumnExcellType</a> sets excell type for all cells in specified column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnhidden.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnhidden">setColumnHidden</a> hides/shows a column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnid">setColumnId</a> sets ids to specified column.</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnids.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnids">setColumnIds</a> sets ids to every column. Can be used then to retreive the index of the desired colum</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcollabel.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcollabel">setColLabel</a> sets new column header label</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnminwidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnminwidth">setColumnMinWidth</a> sets minimum column width ( works only for manual resizing )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnsvisibility.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnsvisibility">setColumnsVisibility</a> sets list of visible/hidden columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setfooterlabel.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setfooterlabel">setFooterLabel</a> sets new label for cell in footer</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10760-14243" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Columns manipulations" /></div></form></div>
+<h3><a name="cells_manipulation" id="cells_manipulation">Cells manipulation</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_cellbyid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_cellbyid">cellById</a> gets a dhtmlXGridCellObject object (if no arguments then gets dhtmlXGridCellObject object of currently selected cell)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_cellbyindex.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_cellbyindex">cellByIndex</a> gets a dhtmlXGridCellObject object</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_cells.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_cells">cells</a> gets a dhtmlXGridCellObject object (if no arguments then gets dhtmlXGridCellObject object of currently selected cell)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_cells2.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_cells2">cells2</a> gets a dhtmlXGridCellObject object</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_checkall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_checkall">checkAll</a> checks all checkboxes in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearchangedstate.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearchangedstate">clearChangedState</a> clears wasChanged state for all cells in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_editcell.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_editcell">editCell</a> creates an Editor object and switch a cell to the edit mode if allowed</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_editstop.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_editstop">editStop</a> retuns a value from editor(if presents) to cell and closes editor</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecellids.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecellids">enableCellIds</a> enables/disables unique id for cells (id will be automatically created using the following template: “c_[RowId]_[colIndex]”)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecolspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecolspan">enableColSpan</a> enables/disables the colspan support</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableeditevents.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableeditevents">enableEditEvents</a> enables/disables events which fires excell editing, mutual exclusive with enableLightMouseNavigation</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemarkedcells.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemarkedcells">enableMarkedCells</a> sets the marked cells support to enabled or disabled state</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemathediting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemathediting">enableMathEditing</a> enables/disables editing of math cells</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablerowspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablerowspan">enableRowspan</a> enables rowspan in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabletooltips.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabletooltips">enableTooltips</a> enables/disables tooltips for specified columns</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_foreachcell.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_foreachcell">forEachCell</a> executes a code for each cell in a row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcombo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcombo">getCombo</a> gets a Combo object of specified column. Uses it to change a select box value for a cell before opening editor</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getcustomcombo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getcustomcombo">getCustomCombo</a> gets combobox specific for the cell in question</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getmarked.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getmarked">getMarked</a> gets marked cells</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getselectedcellindex.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getselectedcellindex">getSelectedCellIndex</a> gets the index of selected cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_mark.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_mark">mark</a> sets selection or removes selection from specified cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectcell.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectcell">selectCell</a> sets selection to specified row-cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcellexcelltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcellexcelltype">setCellExcellType</a> sets excell type for cell in question</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcelltextstyle.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcelltextstyle">setCellTextStyle</a> sets a style to cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolspan">setColspan</a> dynamically sets colspan in row starting from specified column index</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolumnexcelltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolumnexcelltype">setColumnExcellType</a> sets excell type for all cells in specified column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdateformat.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdateformat">setDateFormat</a> sets mask for date formatting in cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_seteditable.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_seteditable">setEditable</a> manages editibility of the grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setmathround.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setmathround">setMathRound</a> enables/disable rounding while math calculations</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setnumberformat.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setnumberformat">setNumberFormat</a> sets mask for formatting numeric data ( works for [ed/ro]n excell only or oher cell types with suport for this method)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowexcelltype.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowexcelltype">setRowExcellType</a> sets excell type for all cells in specified row</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setrowspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setrowspan">setRowspan</a> sets rowspan with specified length starting from specified cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_uncheckall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_uncheckall">uncheckAll</a> unchecks all checkboxes in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_unmarkall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_unmarkall">unmarkAll</a> removes selection from all marked cell</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="14244-18319" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Cells manipulation" /></div></form></div>
+<h3><a name="selection" id="selection">Selection</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearselection">clearSelection</a> removes selection from the grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_deleteselectedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_deleteselectedrows">deleteSelectedRows</a> deletes a selected row(s)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableblockselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableblockselection">enableBlockSelection</a> enables the block selection mode in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemultiselect.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemultiselect">enableMultiselect</a> sets the multiselect mode to enabled or disabled state</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_forcelabelselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_forcelabelselection">forceLabelSelection</a> affects the block selection, so it will copy|paste only visible text , not values behind</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getselectedcellindex.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getselectedcellindex">getSelectedCellIndex</a> gets the index of selected cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getselectedrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getselectedrowid">getSelectedRowId</a> gets a selected row id</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectall">selectAll</a> selects all rows in grid, it doesn&#039;t fire any events</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectcell.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectcell">selectCell</a> sets selection to specified row-cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectrow.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectrow">selectRow</a> selects a row (and first cell of it)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_selectrowbyid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_selectrowbyid">selectRowById</a> selects a row by ID</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="18320-19578" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Selection" /></div></form></div>
+<h3><a name="sorting" id="sorting">Sorting</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablestablesorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablestablesorting">enableStableSorting</a> enables stable sorting algorithm</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getsortingstate.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getsortingstate">getSortingState</a> gets sorting state of grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcolsorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcolsorting">setColSorting</a> sets column sort types (avaialble: str, int, date, na or function object for custom sorting)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcustomsorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcustomsorting">setCustomSorting</a> sets custom sorting (custom sort has three params - valueA,valueB,order; where order can be asc or des)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setsortimgstate.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setsortimgstate">setSortImgState</a> sets position and visibility of sort arrow</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_sortrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_sortrows">sortRows</a> sort grid</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="19579-20352" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Sorting" /></div></form></div>
+<h3><a name="filtering" id="filtering">Filtering</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_collectvalues.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_collectvalues">collectValues</a> gets all possible values in column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_filterby.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_filterby">filterBy</a> filters grid by mask</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_filterbyall.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_filterbyall">filterByAll</a> forces grid filtering by registered inputs ( created by # starting shortcuts, or by makeFilter function )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_findcell.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_findcell">findCell</a> finds a cell in grid by value</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getfilterelement.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getfilterelement">getFilterElement</a> gets input object of filter linked to column in question</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_makefilter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_makefilter">makeFilter</a> creates a filter from any input element (text filter), select (dropdown) or DIV (combobox based on dhtmlxCombo)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_makesearch.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_makesearch">makeSearch</a> creates a search box (set selection to the row with found value) from any input</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_refreshfilters.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_refreshfilters">refreshFilters</a> refreshes filtering ( can be used if data in grid changed and filters need to be updated )</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="20353-21434" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Filtering" /></div></form></div>
+<h3><a name="grouping" id="grouping">Grouping</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_collapseallgroups.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_collapseallgroups">collapseAllGroups</a> collapses all groups</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_collapsegroup.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_collapsegroup">collapseGroup</a> collapses group of rows</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_expandallgroups.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_expandallgroups">expandAllGroups</a> expands all groups</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_expandgroup.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_expandgroup">expandGroup</a> expands a group of rows</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_groupby.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_groupby">groupBy</a> groups grid content by values of specified column</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="21435-21953" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Grouping" /></div></form></div>
+<h3><a name="drag-n-drop" id="drag-n-drop">Drag-n-drop</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledraganddrop.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledraganddrop">enableDragAndDrop</a> enables/disables drag-and-drop</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledragorder.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledragorder">enableDragOrder</a> switches to the mode when dragged item, dropped in target location in the same order as they were in the source grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemercydrag.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemercydrag">enableMercyDrag</a> enables dragging without removing (copy instead of move)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_gridtogrid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_gridtogrid">gridToGrid</a> redefines this method in your code to define how grid row values should be used in another grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_gridtotreeelement.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_gridtotreeelement">gridToTreeElement</a> redefines this method in your code to define how grid row values should be used in tree (using input parameters you can change id of new tree node, set label, set userdata blocks etc.).</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_rowtodragelement.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_rowtodragelement">rowToDragElement</a> redefines this method in your code to define how grid row values should be displaied while draging</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdragbehavior.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdragbehavior">setDragBehavior</a> sets Drag-And-Drop behavior (child - drop as chils, sibling - drop as sibling</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdragtext.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdragtext">setDragText</a> defines text (single and plural forms) for extended visual appearence of drag-n-drop</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_treetogridelement.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_treetogridelement">treeToGridElement</a> redefines this method in your code to define how tree node values should be used in grid (using input parameters you can change id of new row, values for cells, userdata blocks etc.).</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="21954-23562" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Drag-n-drop" /></div></form></div>
+<h3><a name="clipboard_operations" id="clipboard_operations">Clipboard operations</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_addrowfromclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_addrowfromclipboard">addRowFromClipboard</a> adds a new row from the clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_celltoclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_celltoclipboard">cellToClipboard</a> copies a value of cell to the clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_copyblocktoclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_copyblocktoclipboard">copyBlockToClipboard</a> copies content of block selection into the clipboard in csv format (delimiter as set for csv serialization)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableblockselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableblockselection">enableBlockSelection</a> enables the block selection mode in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvautoid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvautoid">enableCSVAutoID</a> enables mode, where ID for rows loaded from CSV autogenerated</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvheader">enableCSVHeader</a> enables recognizing the first row in CSV as header</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_forcelabelselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_forcelabelselection">forceLabelSelection</a> affects the block selection, so it will copy|paste only visible text , not values behind</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_gridfromclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_gridfromclipboard">gridFromClipboard</a> init grid from CSV stored in clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_gridtoclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_gridtoclipboard">gridToClipboard</a> copies grid in CSV to clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_pasteblockfromclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_pasteblockfromclipboard">pasteBlockFromClipboard</a> pastes content of clipboard into the block selection of grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_rowtoclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_rowtoclipboard">rowToClipboard</a> copies a value of row to the clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_updatecellfromclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_updatecellfromclipboard">updateCellFromClipboard</a> sets value of cell from clipboard</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_updaterowfromclipboard.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_updaterowfromclipboard">updateRowFromClipboard</a> sets value of row from clipboard</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="23563-25270" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Clipboard operations" /></div></form></div>
+<h3><a name="cookies_operations" id="cookies_operations">Cookies operations</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearconfigcookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearconfigcookie">clearConfigCookie</a> clears cookie with grid config details</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautohiddencolumnssaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautohiddencolumnssaving">enableAutoHiddenColumnsSaving</a> enables automatic saving the column state ( hidden | shown )</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautosaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautosaving">enableAutoSaving</a> enables an automatic saving of all possible params</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautosizesaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautosizesaving">enableAutoSizeSaving</a> enables an automatic size saving to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableordersaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableordersaving">enableOrderSaving</a> enables automatic column order saving to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablesortingsaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablesortingsaving">enableSortingSaving</a> enables automatic sorting state saving to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadhiddencolumnsfromcookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadhiddencolumnsfromcookie">loadHiddenColumnsFromCookie</a> loads sorting order from cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadopenstates.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadopenstates">loadOpenStates</a> loads open state of TreeGrid in cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadorderfromcookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadorderfromcookie">loadOrderFromCookie</a> loads the sorting order from cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadsizefromcookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadsizefromcookie">loadSizeFromCookie</a> loads grid layout from cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_loadsortingfromcookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_loadsortingfromcookie">loadSortingFromCookie</a> loads the sorting order from cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_savehiddencolumnstocookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_savehiddencolumnstocookie">saveHiddenColumnsToCookie</a> saves hidden columns to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_saveopenstates.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_saveopenstates">saveOpenStates</a> stores opened state of TreeGrid in cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_saveordertocookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_saveordertocookie">saveOrderToCookie</a> saves column order to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_savesizetocookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_savesizetocookie">saveSizeToCookie</a> saves grid layout to cookie</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_savesortingtocookie.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_savesortingtocookie">saveSortingToCookie</a> saves sorting order to cookie</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="25271-27193" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Cookies operations" /></div></form></div>
+<h3><a name="saving_data" id="saving_data">Saving data</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvautoid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvautoid">enableCSVAutoID</a> enables mode, where ID for rows loaded from CSV autogenerated</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvheader">enableCSVHeader</a> enables recognizing the first row in CSV as header</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemathserialization.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemathserialization">enableMathSerialization</a> enables/disables serialization of math formulas</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_serialize.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_serialize">serialize</a> gets actual xml of grid. The depth of serialization can be set with setSerializationLevel method</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_serializetocsv.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_serializetocsv">serializeToCSV</a> serializes to CSV string</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcsvdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcsvdelimiter">setCSVDelimiter</a> change csv delimiter</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setfieldname.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setfieldname">setFieldName</a> allows to define input name which will be used for data sending, name may contain next auto-replaced elements - GRID_ID - ID of grids container, ROW_ID - ID of row, ROW_INDEX - index of row, COLUMN_ID - id of column, COLUMN_INDEX - index of column</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setserializablecolumns.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setserializablecolumns">setSerializableColumns</a> configures which column must be serialized (if you do not use this method, then all columns will be serialized)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setserializationlevel.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setserializationlevel">setSerializationLevel</a> configures <acronym title="Extensible Markup Language">XML</acronym> serialization</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitaddedrows.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitaddedrows">submitAddedRows</a> includes additional data with info about which rows was added and which deleted, enabled by default</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlychanged.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlychanged">submitOnlyChanged</a> includes only changed rows in form submit</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlyrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlyrowid">submitOnlyRowID</a> includes only  row&#039;s IDS in form submit</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlyselected.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlyselected">submitOnlySelected</a> includes only selected rows in form submit</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitserialization.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitserialization">submitSerialization</a> includes serialized grid as part of form submit</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="27194-29219" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Saving data" /></div></form></div>
+<h3><a name="other_extensions" id="other_extensions">Other extensions</a></h3>
+<div class="level3">
+
+
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_disableundoredo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_disableundoredo">disableUndoRedo</a> disables Undo/Redo functionality in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_doredo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_doredo">doRedo</a> ReDo</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_doundo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_doundo">doUndo</a> UnDo</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecontextmenu.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecontextmenu">enableContextMenu</a> enables/disables the context menu</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableedittabonly.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableedittabonly">enableEditTabOnly</a> enables/disables the mode when readonly cell is not available with tab</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablekeyboardsupport.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablekeyboardsupport">enableKeyboardSupport</a> enables/disables hot keys in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablelightmousenavigation.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablelightmousenavigation">enableLightMouseNavigation</a> enables/disables the light mouse navigation mode (row selection with mouse over, editing with   * single click), mutual exclusive with enableEditEvents</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableundoredo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableundoredo">enableUndoRedo</a> enables the Undo/Redo functionality in grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getredo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getredo">getRedo</a> gets the length of available ReDo operations</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_getundo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_getundo">getUndo</a> gets the length of available UnDo operations</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_hidepivot.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_hidepivot">hidePivot</a> hides a pivot table related to grid, if any exists, switch grid back to normal mode</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_makepivot.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_makepivot">makePivot</a> shows a pivot table based on grid</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_printview.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_printview">printView</a> generates a print friendly view</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_setexternaltaborder.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setexternaltaborder">setExternalTabOrder</a> sets elements which get focus when tab is pressed in the last or first (tab+shift) cell</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxgrid___api_method_dhtmlxgridobject_settaborder.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_settaborder">setTabOrder</a> sets tab order of columns</div>
+</li>
+</ul>
+
+
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="29220-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit" class="button" title="Other extensions" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/api_toc_categories.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aapi_toc_categories&amp;1310069444" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_toc_categories" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

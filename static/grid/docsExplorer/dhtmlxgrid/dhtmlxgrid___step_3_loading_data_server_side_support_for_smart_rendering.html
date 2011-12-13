@@ -1,0 +1,438 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering"  class="breadcrumbs" title="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering">step_3_loading_data_server_side_support_for_smart_rendering</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#step_3._loading_data._server_side_support_for_smart_rendering" class="toc">Step 3. Loading Data. Server Side Support for Smart Rendering</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#sample_of_server-side_code._php" class="toc">Sample of Server-Side Code. PHP.</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sample_of_server_side_code._jsp" class="toc">Sample of Server Side Code. JSP.</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sample_of_server_side_code._asp" class="toc">Sample of Server Side Code. ASP</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sample_of_server_side_code._cold_fusion" class="toc">Sample of Server Side Code. Cold Fusion.</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_3._loading_data._server_side_support_for_smart_rendering" id="step_3._loading_data._server_side_support_for_smart_rendering">Step 3. Loading Data. Server Side Support for Smart Rendering</a></h2>
+<div class="level2">
+
+<p>
+As you already know (if you&#039;ve read the Introduction) there are two variants of Smart Rendering in dhtmlxGrid. We&#039;ll concentrate on more complex one, which allows you working with much bigger datasets. I mean Smart Rendering with Dynamic Loading.
+Below there are samples of server side code for creating an output <acronym title="Extensible Markup Language">XML</acronym> based on incoming arguments and MySQL database for 4 most popular technologies. Load your variant of file with the following command (put it into script block right after mygrid.enableSmartRendering):
+
+</p>
+<pre class="code javascript">    gridQString <span class="sy0">=</span> <span class="st0">&quot;getGridRecords.php&quot;</span>;<span class="co1">//save query string to global variable (see step 5 for details)</span>
+    mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span>gridQString <span class="br0">&#41;</span>;
+&nbsp;</pre>
+<p>
+
+Sending the request to the <acronym title="Uniform Resource Locator">URL</acronym> you specify inside loadXML method, grid adds two properties:
+posStart - starting position of record in the dataset (if this property was skipped, then it returns records from the beginning of the dataset);
+count - number of records to be returned with <acronym title="Extensible Markup Language">XML</acronym>.
+Thus GET request which comes to the server will look something like this: getGridRecords.php?posStart=199&amp;amp;count=100 .
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-1224" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit" class="button" title="Step 3. Loading Data. Server Side Support for Smart Rendering" /></div></form></div>
+<h3><a name="sample_of_server-side_code._php" id="sample_of_server-side_code._php">Sample of Server-Side Code. PHP.</a></h3>
+<div class="level3">
+<pre class="code javascript">    <span class="sy0">&lt;?</span>php
+        <span class="co1">//set content type and xml tag</span>
+        header<span class="br0">&#40;</span><span class="st0">&quot;Content-type:text/xml&quot;</span><span class="br0">&#41;</span>;
+        <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;?xml version=<span class="es0">\&quot;</span>1.0<span class="es0">\&quot;</span>?&gt;&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+        <span class="co1">//define variables from incoming values</span>
+        <span class="kw1">if</span><span class="br0">&#40;</span>isset<span class="br0">&#40;</span>$_GET<span class="br0">&#91;</span><span class="st0">&quot;posStart&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+            $posStart <span class="sy0">=</span> $_GET<span class="br0">&#91;</span><span class="st0">'posStart'</span><span class="br0">&#93;</span>;
+        <span class="kw1">else</span>
+            $posStart <span class="sy0">=</span> 0;
+        <span class="kw1">if</span><span class="br0">&#40;</span>isset<span class="br0">&#40;</span>$_GET<span class="br0">&#91;</span><span class="st0">&quot;count&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+            $count <span class="sy0">=</span> $_GET<span class="br0">&#91;</span><span class="st0">'count'</span><span class="br0">&#93;</span>;
+        <span class="kw1">else</span>
+            $count <span class="sy0">=</span> <span class="nu0">100</span>;
+&nbsp;
+        <span class="co1">//connect to database</span>
+        $link <span class="sy0">=</span> mysql_pconnect<span class="br0">&#40;</span><span class="st0">&quot;localhost&quot;</span><span class="sy0">,</span> <span class="st0">&quot;user&quot;</span><span class="sy0">,</span> <span class="st0">&quot;pwd&quot;</span><span class="br0">&#41;</span>;
+        $db <span class="sy0">=</span> mysql_select_db <span class="br0">&#40;</span><span class="st0">&quot;sampleDB&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+        <span class="co1">//create query to products table</span>
+        $sql <span class="sy0">=</span> <span class="st0">&quot;SELECT  * FROM products&quot;</span>;
+&nbsp;
+        <span class="co1">//if this is the first query - get total number of records in the query result</span>
+        <span class="kw1">if</span><span class="br0">&#40;</span>$posStart<span class="sy0">==</span>0<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            $sqlCount <span class="sy0">=</span> <span class="st0">&quot;Select count(*) as cnt from ($sql) as tbl&quot;</span>;
+            $resCount <span class="sy0">=</span> mysql_query <span class="br0">&#40;</span>$sqlCount<span class="br0">&#41;</span>;
+            $rowCount<span class="sy0">=</span>mysql_fetch_array<span class="br0">&#40;</span>$resCount<span class="br0">&#41;</span>;
+            $totalCount <span class="sy0">=</span> $rowCount<span class="br0">&#91;</span><span class="st0">&quot;cnt&quot;</span><span class="br0">&#93;</span>;
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="co1">//add limits to query to get only rows necessary for the output</span>
+        $sql.<span class="sy0">=</span> <span class="st0">&quot; LIMIT &quot;</span>.$posStart.<span class="st0">&quot;,&quot;</span>.$count;
+&nbsp;
+        <span class="co1">//query database to retrieve necessary block of data</span>
+        $res <span class="sy0">=</span> mysql_query <span class="br0">&#40;</span>$sql<span class="br0">&#41;</span>;
+&nbsp;
+        <span class="co1">//output data in XML format   </span>
+        <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;rows total_count='&quot;</span>.$totalCount.<span class="st0">&quot;' pos='&quot;</span>.$posStart.<span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>;   
+        <span class="kw1">while</span><span class="br0">&#40;</span>$row<span class="sy0">=</span>mysql_fetch_array<span class="br0">&#40;</span>$res<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;row id='&quot;</span>.$row<span class="br0">&#91;</span><span class="st0">'id'</span><span class="br0">&#93;</span>.<span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>;
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                    <span class="kw3">print</span><span class="br0">&#40;</span>$row<span class="br0">&#91;</span><span class="st0">'nm'</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;  <span class="co1">//value for product name</span>
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                    <span class="kw3">print</span><span class="br0">&#40;</span>$row<span class="br0">&#91;</span><span class="st0">'code'</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;  <span class="co1">//value for internal code</span>
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                    <span class="kw3">print</span><span class="br0">&#40;</span>$row<span class="br0">&#91;</span><span class="st0">'num_val'</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;    <span class="co1">//value for price</span>
+                <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+             <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/row&gt;&quot;</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        <span class="kw3">print</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/rows&gt;&quot;</span><span class="br0">&#41;</span>;
+    <span class="sy0">?&gt;</span>
+&nbsp;
+    <span class="sy0">*</span> <span class="sy0">-</span> sample code was simplified to concentrate you on the main commands. <span class="me1">Some</span> necessary error handlers etc. <span class="me1">were</span> omitted.
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1225-3344" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit" class="button" title="Sample of Server-Side Code. PHP." /></div></form></div>
+<h3><a name="sample_of_server_side_code._jsp" id="sample_of_server_side_code._jsp">Sample of Server Side Code. JSP.</a></h3>
+<div class="level3">
+<pre class="code javascript">  <span class="sy0">&lt;%@</span> page <span class="kw2">import</span> <span class="sy0">=</span> <span class="st0">&quot;java.sql.*&quot;</span> <span class="sy0">%&gt;</span>
+  <span class="sy0">&lt;%</span>
+      String db_ipp_addr <span class="sy0">=</span> <span class="st0">&quot;localhost&quot;</span>;
+      String db_username <span class="sy0">=</span> <span class="st0">&quot;root&quot;</span>;
+      String db_password <span class="sy0">=</span> <span class="st0">&quot;1&quot;</span>;
+      String db_name <span class="sy0">=</span> <span class="st0">&quot;sampleDB&quot;</span>;
+&nbsp;
+      <span class="co1">// set content type and xml tag</span>
+      response.<span class="me1">setContentType</span><span class="br0">&#40;</span><span class="st0">&quot;text/xml&quot;</span><span class="br0">&#41;</span>;
+      out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;?xml version=<span class="es0">\&quot;</span>1.0<span class="es0">\&quot;</span> encoding=<span class="es0">\&quot;</span>UTF-8<span class="es0">\&quot;</span>?&gt;&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+      <span class="co1">// define variables from incoming values</span>
+      String posStart <span class="sy0">=</span> <span class="st0">&quot;&quot;</span>;
+      <span class="kw1">if</span> <span class="br0">&#40;</span>request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;posStart&quot;</span><span class="br0">&#41;</span> <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          posStart <span class="sy0">=</span> request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;posStart&quot;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span><span class="kw1">else</span><span class="br0">&#123;</span>
+          posStart <span class="sy0">=</span> <span class="st0">&quot;0&quot;</span>;
+      <span class="br0">&#125;</span>   
+&nbsp;
+      String count <span class="sy0">=</span> <span class="st0">&quot;&quot;</span>;
+      <span class="kw1">if</span> <span class="br0">&#40;</span>request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;count&quot;</span><span class="br0">&#41;</span> <span class="sy0">!=</span> <span class="kw2">null</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          count <span class="sy0">=</span> request.<span class="me1">getParameter</span><span class="br0">&#40;</span><span class="st0">&quot;count&quot;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span><span class="kw1">else</span><span class="br0">&#123;</span>
+          count <span class="sy0">=</span> <span class="st0">&quot;100&quot;</span>;   
+      <span class="br0">&#125;</span>   
+&nbsp;
+      <span class="co1">// connect to database</span>
+      Connection connection <span class="sy0">=</span> <span class="kw2">null</span>;
+      Statement statement <span class="sy0">=</span> <span class="kw2">null</span>;
+      ResultSet rs <span class="sy0">=</span> <span class="kw2">null</span>;
+      String connectionURL <span class="sy0">=</span> <span class="st0">&quot;jdbc:mysql://&quot;</span> <span class="sy0">+</span> db_ipp_addr <span class="sy0">+</span> <span class="st0">&quot;:3306/&quot;</span> <span class="sy0">+</span> db_name;
+&nbsp;
+      <span class="kw2">Class</span>.<span class="me1">forName</span><span class="br0">&#40;</span><span class="st0">&quot;com.mysql.jdbc.Driver&quot;</span><span class="br0">&#41;</span>.<span class="me1">newInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      connection <span class="sy0">=</span> DriverManager.<span class="me1">getConnection</span><span class="br0">&#40;</span>connectionURL<span class="sy0">,</span> db_username<span class="sy0">,</span> db_password<span class="br0">&#41;</span>;
+&nbsp;
+      <span class="co1">// query to products table</span>
+      String sql <span class="sy0">=</span> <span class="st0">&quot;SELECT  * FROM products&quot;</span>;
+&nbsp;
+      <span class="co1">// if this is the first query - get total number of records in the query result</span>
+      String totalCount <span class="sy0">=</span> <span class="st0">&quot;&quot;</span>;
+      <span class="kw1">if</span> <span class="br0">&#40;</span>posStart.<span class="me1">equals</span><span class="br0">&#40;</span><span class="st0">&quot;0&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          String sqlCount <span class="sy0">=</span> <span class="st0">&quot;Select count(*) as cnt from (&quot;</span> <span class="sy0">+</span> sql <span class="sy0">+</span> <span class="st0">&quot;) as tbl&quot;</span>;
+          statement <span class="sy0">=</span> connection.<span class="me1">createStatement</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+          rs <span class="sy0">=</span> statement.<span class="me1">executeQuery</span><span class="br0">&#40;</span>sqlCount<span class="br0">&#41;</span>;
+          rs.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+          totalCount <span class="sy0">=</span> rs.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;cnt&quot;</span><span class="br0">&#41;</span>;
+          rs.<span class="kw3">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span> <span class="kw1">else</span> <span class="br0">&#123;</span>
+          totalCount <span class="sy0">=</span> <span class="st0">&quot;&quot;</span>;
+      <span class="br0">&#125;</span>
+&nbsp;
+      <span class="co1">// add limits to query to get only rows necessary for output</span>
+      sql <span class="sy0">+=</span> <span class="st0">&quot; LIMIT &quot;</span> <span class="sy0">+</span> posStart <span class="sy0">+</span> <span class="st0">&quot;,&quot;</span> <span class="sy0">+</span> count;
+&nbsp;
+      <span class="co1">// Execute the query</span>
+      statement <span class="sy0">=</span> connection.<span class="me1">createStatement</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      rs <span class="sy0">=</span> statement.<span class="me1">executeQuery</span><span class="br0">&#40;</span>sql<span class="br0">&#41;</span>;
+&nbsp;
+      <span class="co1">// output data in XML format  </span>
+      out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;rows total_count='&quot;</span> <span class="sy0">+</span> totalCount <span class="sy0">+</span> <span class="st0">&quot;' pos='&quot;</span> <span class="sy0">+</span> posStart <span class="sy0">+</span> <span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>;
+      <span class="kw1">while</span> <span class="br0">&#40;</span>rs.<span class="me1">next</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+          out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;row id='&quot;</span> <span class="sy0">+</span> rs.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;id&quot;</span><span class="br0">&#41;</span> <span class="sy0">+</span> <span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>;
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                  out.<span class="me1">println</span><span class="br0">&#40;</span>rs.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;nm&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;  <span class="co1">// value for product name</span>
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                  out.<span class="me1">println</span><span class="br0">&#40;</span>rs.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;code&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>; <span class="co1">// value for internal code</span>
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>;
+                  out.<span class="me1">println</span><span class="br0">&#40;</span>rs.<span class="me1">getString</span><span class="br0">&#40;</span><span class="st0">&quot;num_val&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;   <span class="co1">// value for price</span>
+              out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>;
+          out.<span class="me1">println</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/row&gt;&quot;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+      out.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/rows&gt;&quot;</span><span class="br0">&#41;</span>;
+      rs.<span class="kw3">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="sy0">%&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3345-6096" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit" class="button" title="Sample of Server Side Code. JSP." /></div></form></div>
+<h3><a name="sample_of_server_side_code._asp" id="sample_of_server_side_code._asp">Sample of Server Side Code. ASP</a></h3>
+<div class="level3">
+<pre class="code vb">  &lt;%@ LANGUAGE = VBScript %&gt;
+  &lt;% <span class="kw1">option</span> <span class="kw1">explicit</span> %&gt;
+&nbsp;
+  &lt;%
+      <span class="kw1">Dim</span> db_ipp_addr, db_username, db_password, db_name
+      db_ipp_addr = <span class="st0">&quot;localhost&quot;</span>
+      db_username = <span class="st0">&quot;root&quot;</span>
+      db_password = <span class="st0">&quot;1&quot;</span>
+      db_name = <span class="st0">&quot;sampleDB&quot;</span>
+&nbsp;
+      <span class="co1">' set content type and xml tag</span>
+      Response.<span class="me1">ContentType</span> = <span class="st0">&quot;text/xml&quot;</span>
+      Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;?xml version=&quot;</span><span class="st0">&quot;1.0&quot;</span><span class="st0">&quot; encoding=&quot;</span><span class="st0">&quot;UTF-8&quot;</span><span class="st0">&quot;?&gt;&quot;</span><span class="br0">&#41;</span>
+&nbsp;
+      <span class="co1">' define variables from incoming values</span>
+      <span class="kw1">Dim</span> posStart, <span class="kw1">count</span>
+      <span class="kw1">If</span> <span class="kw1">not</span> <span class="kw1">isEmpty</span><span class="br0">&#40;</span>Request.<span class="me1">QueryString</span><span class="br0">&#40;</span><span class="st0">&quot;posStart&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">Then</span>
+          posStart = Request.<span class="me1">QueryString</span><span class="br0">&#40;</span><span class="st0">&quot;posStart&quot;</span><span class="br0">&#41;</span>
+      <span class="kw1">Else</span>
+          posStart = 0
+      <span class="kw1">End</span> <span class="kw1">If</span>   
+&nbsp;
+      <span class="kw1">If</span> <span class="kw1">not</span> <span class="kw1">isEmpty</span><span class="br0">&#40;</span>Request.<span class="me1">QueryString</span><span class="br0">&#40;</span><span class="st0">&quot;count&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">Then</span>
+          <span class="kw1">count</span> = Request.<span class="me1">QueryString</span><span class="br0">&#40;</span><span class="st0">&quot;count&quot;</span><span class="br0">&#41;</span>
+      <span class="kw1">Else</span>
+          <span class="kw1">count</span> = <span class="nu0">100</span>
+      <span class="kw1">End</span> <span class="kw1">If</span>   
+&nbsp;
+      <span class="co1">' connect to database</span>
+      <span class="kw1">Dim</span> objConnection, rs, connString, sql
+      <span class="kw1">Set</span> objConnection = Server.<span class="kw1">CreateObject</span><span class="br0">&#40;</span><span class="st0">&quot;ADODB.Connection&quot;</span><span class="br0">&#41;</span>
+      <span class="kw1">Set</span> rs = Server.<span class="kw1">CreateObject</span><span class="br0">&#40;</span><span class="st0">&quot;ADODB.Recordset&quot;</span><span class="br0">&#41;</span>
+      connString = <span class="st0">&quot;DRIVER={MySQL ODBC 3.51 Driver}; SERVER=&quot;</span> &amp;amp; db_ipp_addr &amp;amp; <span class="st0">&quot;; 
+DATABASE=&quot;</span> &amp;amp; db_name &amp;amp; <span class="st0">&quot;; UID=&quot;</span> &amp;amp; db_username &amp;amp; <span class="st0">&quot;; PWD=&quot;</span> &amp;amp; db_password
+      objConnection.<span class="kw1">Open</span> connString
+&nbsp;
+&nbsp;
+      <span class="co1">' query to products table</span>
+      sql = <span class="st0">&quot;SELECT  * FROM products&quot;</span>
+&nbsp;
+      <span class="co1">' if this is the first query - get total number of records in the query result</span>
+      <span class="kw1">Dim</span> sqlCount, totalCount
+      <span class="kw1">If</span> posStart = 0 <span class="kw1">Then</span>
+          sqlCount = <span class="st0">&quot;Select count(*) as cnt from (&quot;</span> &amp;amp; sql &amp;amp; <span class="st0">&quot;) as tbl&quot;</span>
+          rs.<span class="kw1">Open</span> sqlCount, objConnection
+          totalCount = rs<span class="br0">&#40;</span><span class="st0">&quot;cnt&quot;</span><span class="br0">&#41;</span>
+          rs.<span class="kw1">Close</span>
+      <span class="kw1">Else</span>
+          totalCount = <span class="st0">&quot;&quot;</span>   
+      <span class="kw1">End</span> <span class="kw1">If</span>
+&nbsp;
+      <span class="co1">' add limits to query to get only rows necessary for output</span>
+      sql = sql &amp;amp; <span class="st0">&quot; LIMIT &quot;</span> &amp;amp; posStart &amp;amp; <span class="st0">&quot;,&quot;</span> &amp;amp; <span class="kw1">count</span>
+&nbsp;
+      <span class="co1">' Execute the query</span>
+      rs.<span class="kw1">Open</span> sql, objConnection
+&nbsp;
+      <span class="co1">' output data in XML format  </span>
+      Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;rows total_count='&quot;</span> &amp;amp; totalCount &amp;amp; <span class="st0">&quot;' pos='&quot;</span> &amp;amp; posStart &amp;amp; <span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>
+      <span class="kw1">Do</span> <span class="kw1">while</span> <span class="kw1">not</span> rs.<span class="kw1">EOF</span>
+          Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;row id='&quot;</span> &amp;amp; rs<span class="br0">&#40;</span><span class="st0">&quot;id&quot;</span><span class="br0">&#41;</span> &amp;amp; <span class="st0">&quot;'&gt;&quot;</span><span class="br0">&#41;</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>
+                  Response.<span class="kw1">write</span><span class="br0">&#40;</span>rs<span class="br0">&#40;</span><span class="st0">&quot;nm&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>  <span class="co1">' value for product name</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>
+                  Response.<span class="kw1">write</span><span class="br0">&#40;</span>rs<span class="br0">&#40;</span><span class="st0">&quot;code&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>  <span class="co1">' value for internal code</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;cell&gt;&quot;</span><span class="br0">&#41;</span>
+                  Response.<span class="kw1">write</span><span class="br0">&#40;</span>rs<span class="br0">&#40;</span><span class="st0">&quot;num_val&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>    <span class="co1">' value for price</span>
+              Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/cell&gt;&quot;</span><span class="br0">&#41;</span>
+          Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/row&gt;&quot;</span><span class="br0">&#41;</span>
+          rs.<span class="me1">MoveNext</span>
+      <span class="kw1">Loop</span>
+      Response.<span class="kw1">write</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;/rows&gt;&quot;</span><span class="br0">&#41;</span>
+      rs.<span class="kw1">Close</span>
+      <span class="kw1">Set</span> rs = <span class="kw1">Nothing</span>
+      objConnection.<span class="kw1">Close</span>
+      <span class="kw1">Set</span> objConnection = <span class="kw1">Nothing</span>
+  %&gt;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6097-8895" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit" class="button" title="Sample of Server Side Code. ASP" /></div></form></div>
+<h3><a name="sample_of_server_side_code._cold_fusion" id="sample_of_server_side_code._cold_fusion">Sample of Server Side Code. Cold Fusion.</a></h3>
+<div class="level3">
+<pre class="code cfm">  <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> dsn <span class="sy0">=</span> <span class="st0">&quot;sampleDB&quot;</span><span class="sy0">&gt;</span></span>
+  <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfsetting</span>  enablecfoutputonly<span class="sy0">=</span><span class="st0">&quot;yes&quot;</span><span class="sy0">&gt;</span></span>
+&nbsp;
+  <span class="sc3"><span class="coMULTI">&lt;!--- set content type and xml tag ---&gt;</span></span>
+  <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfcontent</span> reset<span class="sy0">=</span><span class="st0">&quot;yes&quot;</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/xml; charset=UTF-8&quot;</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span>?xml <span class="kw3">version</span><span class="sy0">=</span><span class="st0">&quot;1.0&quot;</span>?<span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+&nbsp;
+      <span class="sc3"><span class="coMULTI">&lt;!---    define variables from incoming values ---&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfif</span> <span class="kw5">isDefined</span><span class="br0">&#40;</span><span class="st0">&quot;url.posStart&quot;</span><span class="br0">&#41;</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> posStart <span class="sy0">=</span> url.posStart<span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfelse</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> posStart <span class="sy0">=</span> 0<span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfif</span><span class="sy0">&gt;</span></span>   
+&nbsp;
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfif</span> <span class="kw5">isDefined</span><span class="br0">&#40;</span><span class="st0">&quot;url.count&quot;</span><span class="br0">&#41;</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> count <span class="sy0">=</span> url.count<span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfelse</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> count <span class="sy0">=</span> <span class="nu0">100</span><span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfif</span><span class="sy0">&gt;</span></span>   
+&nbsp;
+      <span class="sc3"><span class="coMULTI">&lt;!--- if this is the first query - get total number of records in the query result ---&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfif</span> posStart <span class="kw7">eq</span> 0<span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfquery</span> <span class="kw6">datasource</span><span class="sy0">=</span><span class="st0">&quot;#dsn#&quot;</span> <span class="kw3">name</span><span class="sy0">=</span><span class="st0">&quot;getCount&quot;</span><span class="sy0">&gt;</span></span>
+              Select count(*) as cnt
+              FROM products
+          <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfquery</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfset</span> totalCount <span class="sy0">=</span> getCount.cnt<span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfelse</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">Cfset</span> totalCount <span class="sy0">=</span> <span class="st0">&quot;&quot;</span><span class="sy0">&gt;</span></span>   
+      <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfif</span><span class="sy0">&gt;</span></span>
+&nbsp;
+      <span class="sc3"><span class="coMULTI">&lt;!--- query to products table ---&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfquery</span> <span class="kw6">datasource</span><span class="sy0">=</span><span class="st0">&quot;#dsn#&quot;</span> <span class="kw3">name</span><span class="sy0">=</span><span class="st0">&quot;getRecords&quot;</span><span class="sy0">&gt;</span></span>
+          SELECT  *
+          FROM products
+          <span class="sc3"><span class="coMULTI">&lt;!--- add limits to query to get only rows necessary for output ---&gt;</span></span>
+          LIMIT <span class="sc1">#posStart#</span>, <span class="sc1">#count#</span>
+      <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfquery</span><span class="sy0">&gt;</span></span>
+&nbsp;
+      <span class="sc3"><span class="coMULTI">&lt;!--- output data in XML format   ---&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span><span class="kw3">rows</span> total_count<span class="sy0">=</span><span class="st0">&quot;#totalCount#&quot;</span> pos<span class="sy0">=</span><span class="st0">&quot;#posStart#&quot;</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>  
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfloop</span> <span class="kw6">query</span><span class="sy0">=</span><span class="st0">&quot;getRecords&quot;</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span>row <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;#getRecords.id#&quot;</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+              <span class="sc3"><span class="coMULTI">&lt;!--- value for product name ---&gt;</span></span>
+              <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span></span><span class="sc1">#getRecords.nm#</span><span class="sc4"><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+              <span class="sc3"><span class="coMULTI">&lt;!--- value for internal code ---&gt;</span></span>
+              <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span></span><span class="sc1">#getRecords.code#</span><span class="sc4"><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+              <span class="sc3"><span class="coMULTI">&lt;!--- value for price ---&gt;</span></span>
+              <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span></span><span class="sc1">#getRecords.num_val#</span><span class="sc4"><span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+          <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfloop</span><span class="sy0">&gt;</span></span>
+      <span class="sc4"><span class="sy0">&lt;</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw3">rows</span><span class="sy0">&gt;</span></span><span class="sc4"><span class="sy0">&lt;/</span><span class="kw1">cfoutput</span><span class="sy0">&gt;</span></span></pre>
+<p>
+After loading the file the grid will look something like in the picture below. When you stop scrolling the grid will load and draw a new portion of records.
+</p>
+
+<p>
+<img src="dhtmlxgrid___dcbhphmh_14gwg3wwfw_b.gif"  class="media" alt="" />
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8896-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit" class="button" title="Sample of Server Side Code. Cold Fusion." /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/step_3_loading_data_server_side_support_for_smart_rendering.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Astep_3_loading_data_server_side_support_for_smart_rendering&amp;1310069473" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_3_loading_data_server_side_support_for_smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

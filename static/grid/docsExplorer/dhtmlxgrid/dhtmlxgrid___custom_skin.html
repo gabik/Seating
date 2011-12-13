@@ -1,0 +1,262 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:custom_skin    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:custom_skin</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:custom_skin"  class="breadcrumbs" title="dhtmlxgrid:custom_skin">custom_skin</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="custom_skin" id="custom_skin">Custom Skin</a></h2>
+<div class="level2">
+
+</div>
+
+<h4><a name="changing_defaults" id="changing_defaults">Changing Defaults</a></h4>
+<div class="level4">
+
+<p>
+The look of the grid can be fully (or nearly fully) customized in <acronym title="Cascading Style Sheets">CSS</acronym>. dhtmlxGrid contains a set of <acronym title="Cascading Style Sheets">CSS</acronym> classes that define different aspects of the grid. ( all above rules defined in dhtmlxgrid.css ) 
+</p>
+
+<p>
+Most commonly-used styles are the following:
+
+</p>
+<pre class="code css">    div<span class="re1">.gridbox</span> // grid container
+    div<span class="re1">.gridbox</span> table<span class="re1">.hdr</span> td // inner element of the header
+    div<span class="re1">.gridbox</span> table<span class="re1">.hdr</span> td div<span class="re1">.hdrcell</span> // outer element of the header
+    div<span class="re1">.gridbox</span> table<span class="re1">.obj</span> td // data cell
+    div<span class="re1">.gridbox</span> table<span class="re1">.obj</span> tr<span class="re1">.rowselected</span> td<span class="re1">.cellselected</span><span class="sy0">,</span> div<span class="re1">.gridbox</span> table<span class="re1">.obj</span> td<span class="re1">.cellselected</span> // element in the selected cell
+    div<span class="re1">.gridbox</span> table<span class="re1">.obj</span> tr<span class="re1">.rowselected</span> td // elements in the selected row</pre>
+<p>
+
+Footers:
+
+</p>
+<pre class="code css">    div<span class="re1">.gridbox</span> div<span class="re1">.ftr</span> // container of all footers
+    div<span class="re1">.gridbox</span> div<span class="re1">.ftr</span> td // footer element</pre>
+<p>
+
+Column moving:
+
+</p>
+<pre class="code css">    div<span class="re1">.gridbox</span> table<span class="re1">.hdr</span> td<span class="re1">.columnTargetR</span> div<span class="re1">.hdrcell</span> // the marker used to mark drop-<span class="kw1">right</span> in case of column moving
+    div<span class="re1">.gridbox</span> table<span class="re1">.hdr</span> td<span class="re1">.columnTargetL</span> div<span class="re1">.hdrcell</span> // the marker used to mark drop-<span class="kw1">left</span> in case of column moving
+    <span class="re1">.dhx_dragColDiv</span> // representation of the dragged column</pre>
+<p>
+
+Edit related styles:
+
+</p>
+<pre class="code css">    div<span class="re1">.gridbox</span> table<span class="re1">.obj</span> td<span class="re1">.editable</span><span class="br0">&#123;</span> // data cell in edit state
+    <span class="re1">.dhx_combo_select</span> // select boxes <span class="kw2">inside</span> grid editors
+    <span class="re1">.dhx_combo_edit</span> // inputs <span class="kw2">inside</span> grid editors
+    <span class="re1">.dhx_textarea</span> // textareas <span class="kw2">inside</span> grid editors
+    <span class="re1">.dhx_clist</span> // checkbox list <span class="br0">&#40;</span>clist excell<span class="br0">&#41;</span></pre>
+<p>
+
+Drag-and-Drop related styles:
+
+</p>
+<pre class="code css">    <span class="re1">.dragSpanDiv</span> // the element used as the drag <span class="kw2">text</span> holder
+    <span class="re1">.gridDragLine</span> // the marker of <span class="kw1">position</span> during drag-and-drop <span class="br0">&#40;</span>sibling and complex modes<span class="br0">&#41;</span></pre>
+<p>
+
+Rare used styles:
+
+</p>
+<pre class="code css">    <span class="re1">.dhx_sub_row</span> // a sub-row <span class="kw2">inside</span> the grid
+    div<span class="re1">.gridbox</span> <span class="re1">.xhdr</span> // the space to the <span class="kw1">right</span> of the last header <span class="br0">&#40;</span>if <span class="kw1">width</span> of grid is greater than the sum of widths of the columns<span class="br0">&#41;</span>
+    div<span class="re1">.gridbox</span> table<span class="re1">.row<span class="re3">20px</span></span> tr td // additional styles for data cell in case of <span class="kw2">fixed</span> row <span class="kw1">height</span> mode
+    div<span class="re1">.gridbox</span> <span class="re1">.objbox</span> // data part of the grid</pre>
+</div>
+
+<h4><a name="skin_customization" id="skin_customization">Skin Customization</a></h4>
+<div class="level4">
+
+<p>
+
+Each skin is actually a subset of the default <acronym title="Cascading Style Sheets">CSS</acronym> class. For example, the following rules are defined in dhtmlxgrid.css for xp skin:
+
+</p>
+<pre class="code javascript">    div.<span class="me1">gridbox_xp</span>
+    div.<span class="me1">gridbox_xp</span> .<span class="me1">xhdr</span>
+    div.<span class="me1">gridbox_xp</span> table.<span class="me1">hdr</span> td
+&nbsp;</pre>
+<p>
+
+As it is seen, the only difference is in _xp postfix that is skin name. Thus, it will be _modern for modern skin, _light for light skin, etc.
+So, if the user needs to change the font for data cell in case of xp skin, he needs to edit div.gridbox_xp table.obj td rule instead of div.gridbox table.obj td.
+</p>
+
+<p>
+
+The grid with the skin defined will use all the default <acronym title="Cascading Style Sheets">CSS</acronym> rules and all skin related rules.There is no need to write the same values again and again. Skin-related styles contain information that differs from the default one.
+</p>
+
+</div>
+
+<h4><a name="alter_css" id="alter_css">Alter CSS</a></h4>
+<div class="level4">
+
+<p>
+
+Skin-related <acronym title="Cascading Style Sheets">CSS</acronym> classes have two additional rules that can be set:
+
+</p>
+<pre class="code javascript">    div.<span class="me1">gridbox_xp</span> .<span class="me1">ev_xp</span> <span class="co1">// style will be applied to an even row</span>
+    div.<span class="me1">gridbox_xp</span> .<span class="me1">odd_xp</span> <span class="co1">// style will be applied to an odd row</span>
+&nbsp;</pre>
+<p>
+
+The right part of the style name here is also based on the name of the used skin, as it was described in the previous sample.
+</p>
+
+</div>
+
+<h4><a name="new_skin_creation" id="new_skin_creation">New Skin Creation</a></h4>
+<div class="level4">
+
+<p>
+
+To create a new skin, the user should just create new <acronym title="Cascading Style Sheets">CSS</acronym> rules with necessary names. There is no need to do any code modifications to apply a new skin.
+For example, the following subset of rules are added:
+
+</p>
+<pre class="code javascript">    div.<span class="me1">gridbox_inverse</span> <span class="br0">&#123;</span>
+        border<span class="sy0">:</span>1px solid #004000;
+    <span class="br0">&#125;</span>
+    div.<span class="me1">gridbox_inverse</span> table.<span class="me1">hdr</span> td <span class="br0">&#123;</span>
+        background<span class="sy0">-</span>color<span class="sy0">:</span>#004000;
+        color<span class="sy0">:</span>white;
+        font<span class="sy0">-</span>weight<span class="sy0">:</span>bold;
+    <span class="br0">&#125;</span>
+    div.<span class="me1">gridbox_inverse</span> table.<span class="me1">obj</span> td<span class="br0">&#123;</span>
+        background<span class="sy0">-</span>color<span class="sy0">:</span>black;
+        color<span class="sy0">:</span>white;
+    <span class="br0">&#125;</span>
+&nbsp;</pre>
+<p>
+
+And later in <acronym title="JavaScript">JS</acronym> code the following line will be used:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setSkin</span><span class="br0">&#40;</span><span class="st0">&quot;inverse&quot;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+These custom styles will be applied to the grid and, as a result, the grid will be displayed like this:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_235n3jsk9k7_b.png"  class="media" alt="" />
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Edit" class="button" title="Custom Skin" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/custom_skin.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acustom_skin&amp;1310069482" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:custom_skin" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

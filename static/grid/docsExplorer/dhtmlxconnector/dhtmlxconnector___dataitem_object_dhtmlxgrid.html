@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:dataitem_object_dhtmlxgrid    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:dataitem_object_dhtmlxgrid</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:dataitem_object_dhtmlxgrid"  class="breadcrumbs" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">dataitem_object_dhtmlxgrid</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#dhtmlxgrid" class="toc">dhtmlxGrid</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#get_id" class="toc">get_id</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#get_index" class="toc">get_index</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#get_value" class="toc">get_value</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_cell_attribute" class="toc">set_cell_attribute</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_cell_class" class="toc">set_cell_class</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_cell_style" class="toc">set_cell_style</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_id" class="toc">set_id</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#skip" class="toc">skip</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_row_attribute" class="toc">set_row_attribute</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_row_color" class="toc">set_row_color</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_row_style" class="toc">set_row_style</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#set_value" class="toc">set_value</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___reference.html" class="wikilink1" title="dhtmlxconnector:reference">Reference</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___api_reference.html" class="wikilink1" title="dhtmlxconnector:api_reference">API Methods</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___dataitem_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_methods">DataItem Object</a></div></div>
+
+</p>
+
+<h1><a name="dhtmlxgrid" id="dhtmlxgrid">dhtmlxGrid</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="204-228" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="dhtmlxGrid" /></div></form></div>
+<h2><a name="get_id" id="get_id">get_id</a></h2>
+<div class="level2">
+
+<p>
+returns id of the item.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">get_id</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>See also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_id</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="229-392" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="get_id" /></div></form></div>
+<h2><a name="get_index" id="get_index">get_index</a></h2>
+<div class="level2">
+
+<p>
+returns an index of the currently selected item (for example, in grid, it will be an index of row ) 
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">get_index</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> none.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="393-586" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="get_index" /></div></form></div>
+<h2><a name="get_value" id="get_value">get_value</a></h2>
+<div class="level2">
+
+<p>
+returns value of a field.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="re0">$name</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$name</em> - name or alias of the field.</div>
+</li>
+</ul>
+
+<p>
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_value</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="587-832" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="get_value" /></div></form></div>
+<h2><a name="set_cell_attribute" id="set_cell_attribute">set_cell_attribute</a></h2>
+<div class="level2">
+
+<p>
+sets attribute for a cell of item.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_cell_attribute</span><span class="br0">&#40;</span><span class="re0">$name</span><span class="sy0">,</span><span class="re0">$attr</span><span class="sy0">,</span><span class="re0">$value</span><span class="br0">&#41;</span></pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$name</em> - name of alias of the cell</div>
+</li>
+<li class="level2"><div class="li"> <em>$attr</em> - name of attribute</div>
+</li>
+<li class="level2"><div class="li"> <em>$value</em> - value of attribute</div>
+</li>
+</ul>
+
+<p>
+<strong>See Also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_style</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_class</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="833-1279" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_cell_attribute" /></div></form></div>
+<h2><a name="set_cell_class" id="set_cell_class">set_cell_class</a></h2>
+<div class="level2">
+
+<p>
+sets css class for a cell of item.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_cell_class</span><span class="br0">&#40;</span><span class="re0">$name</span><span class="sy0">,</span><span class="re0">$value</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$name</em> - name or alias of the cell</div>
+</li>
+<li class="level2"><div class="li"> <em>$value</em> - css class for the cell</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_style</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_attribute</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1280-1691" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_cell_class" /></div></form></div>
+<h2><a name="set_cell_style" id="set_cell_style">set_cell_style</a></h2>
+<div class="level2">
+
+<p>
+sets style for a cell of item.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_cell_style</span><span class="br0">&#40;</span><span class="re0">$style</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$style</em> - <acronym title="HyperText Markup Language">HTML</acronym> style attributes.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_class</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_cell_attribute</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1692-2049" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_cell_style" /></div></form></div>
+<h2><a name="set_id" id="set_id">set_id</a></h2>
+<div class="level2">
+
+<p>
+sets id of the item.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_id</span><span class="br0">&#40;</span><span class="re0">$value</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$value</em> - id of the item.</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">get_id</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2050-2267" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_id" /></div></form></div>
+<h2><a name="skip" id="skip">skip</a></h2>
+<div class="level2">
+
+<p>
+ignores the current item while rendering output. Allows to define custom filtration rules. 
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">skip</span><span class="br0">&#40;</span><span class="br0">&#41;</span></pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> none</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2268-2442" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="skip" /></div></form></div>
+<h2><a name="set_row_attribute" id="set_row_attribute">set_row_attribute</a></h2>
+<div class="level2">
+
+<p>
+sets attribute for any row in the component.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_row_attribute</span><span class="br0">&#40;</span><span class="re0">$attr</span><span class="sy0">,</span><span class="re0">$value</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$attr</em> - name of attribute</div>
+</li>
+<li class="level2"><div class="li"> <em>$value</em> - value of attribute</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_style</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_attribute</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2443-2853" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_row_attribute" /></div></form></div>
+<h2><a name="set_row_color" id="set_row_color">set_row_color</a></h2>
+<div class="level2">
+
+<p>
+sets color for any row in the component.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_row_color</span><span class="br0">&#40;</span><span class="re0">$color</span><span class="br0">&#41;</span></pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$color</em> - color of a row</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_style</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_attribute</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2854-3205" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_row_color" /></div></form></div>
+<h2><a name="set_row_style" id="set_row_style">set_row_style</a></h2>
+<div class="level2">
+
+<p>
+sets style for any row of the component.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_row_style</span><span class="br0">&#40;</span><span class="re0">$style</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$style</em> - <acronym title="HyperText Markup Language">HTML</acronym> style attributes</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_color</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">set_row_attribute</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3206-3566" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_row_style" /></div></form></div>
+<h2><a name="set_value" id="set_value">set_value</a></h2>
+<div class="level2">
+
+<p>
+sets value of a field.
+
+</p>
+<pre class="code php"><span class="re0">$dataItem</span><span class="sy0">-&gt;</span><span class="me1">set_value</span><span class="br0">&#40;</span><span class="re0">$name</span><span class="sy0">,</span><span class="re0">$value</span><span class="br0">&#41;</span></pre>
+<p>
+
+<strong>Parameters:</strong> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em>$name</em> - name or alias of the field</div>
+</li>
+<li class="level2"><div class="li"> <em>$value</em> - value of the field in question</div>
+</li>
+</ul>
+
+<p>
+
+<strong>See Also:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___dataitem_object_dhtmlxgrid.html" class="wikilink1" title="dhtmlxconnector:dataitem_object_dhtmlxgrid">get_value</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3567-" /><input type="hidden" name="rev" value="1306861129" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit" class="button" title="set_value" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/dataitem_object_dhtmlxgrid.txt &middot; Last modified: 2011/05/31 19:58 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Adataitem_object_dhtmlxgrid&amp;1310069429" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dataitem_object_dhtmlxgrid" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

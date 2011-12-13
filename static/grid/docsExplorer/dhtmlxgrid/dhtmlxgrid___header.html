@@ -1,0 +1,547 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:header    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:header</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:header"  class="breadcrumbs" title="dhtmlxgrid:header">header</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#headers_and_footers" class="toc">Headers and Footers</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#attaching_grid_header" class="toc">Attaching Grid Header</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_header_s_align" class="toc">Setting Header&#039;s Align</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#grid_without_header" class="toc">Grid without Header</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#multi-line_headers_footers" class="toc">Multi-Line Headers | Footers</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#attaching_grid_footer" class="toc">Attaching Grid Footer</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#detaching_header_footer" class="toc">Detaching Header/Footer</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_getting_header_values" class="toc">Setting/Getting Header Values</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#colspans_and_rowspans_in_header" class="toc">Colspans and Rowspans in Header</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#initialization_from_xml" class="toc">Initialization from XML</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#initialization_from_html" class="toc">Initialization from HTML</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#initialization_from_csv" class="toc">Initialization from CSV</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#icons_in_header" class="toc">Icons in Header</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_header_images" class="toc">Enabling Header Images</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="headers_and_footers" id="headers_and_footers">Headers and Footers</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-88" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Headers and Footers" /></div></form></div>
+<h3><a name="attaching_grid_header" id="attaching_grid_header">Attaching Grid Header</a></h3>
+<div class="level3">
+
+<p>
+By default, the grid is rendered with a single line header that is defined by the following command:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span>hdrStr<span class="sy0">,</span> splitSign<span class="sy0">,</span> styles<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters of this method are:
+</p>
+<ul>
+<li class="level1"><div class="li">  hdrStr - header string with delimiters;</div>
+</li>
+<li class="level1"><div class="li">  splitSign - string used as a split marker, default is #cspan. The parameter is optional;</div>
+</li>
+<li class="level1"><div class="li">  styles - array of header styles.</div>
+</li>
+</ul>
+
+<p>
+
+The first parameter of this method can be set like this:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>;
+          <span class="co1">// or</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;A&quot;</span><span class="sy0">,</span><span class="st0">&quot;B&quot;</span><span class="sy0">,</span><span class="st0">&quot;C&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The values of the header are treated as <acronym title="HyperText Markup Language">HTML</acronym>, so the user can put any <acronym title="HyperText Markup Language">HTML</acronym> tag inside setHeader() command:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;img src='some.gif'&gt;,B,C&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>cript<span class="sy0">&gt;</span></pre>
+<p>
+
+The above mentioned snippet will render the grid header with an image as a label for the first column.
+</p>
+
+<p>
+The syntax of setHeader() command uses a comma as a separator. So, the user needs to escape it in a special way and then it will be processed correctly.
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>;       <span class="co1">// there will be three columns &quot;A&quot; , &quot;B&quot;, and &quot;C&quot;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A<span class="es0">\\</span>,B,C&quot;</span><span class="br0">&#41;</span>;    <span class="co1">//  there will be two columns &quot;A,B&quot;, and &quot;C&quot;</span>
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="89-1409" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Attaching Grid Header" /></div></form></div>
+<h3><a name="setting_header_s_align" id="setting_header_s_align">Setting Header&#039;s Align</a></h3>
+<div class="level3">
+
+<p>
+The align of header labels is defined by <acronym title="Cascading Style Sheets">CSS</acronym> and is not equal to the align of data columns.
+If the user needs to specify some different align (or any other styling for different columns), the following two approaches can be used:
+</p>
+<ul>
+<li class="level1"><div class="li">  Using the third parameter of setHeader() command:</div>
+</li>
+</ul>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="sy0">,</span><span class="kw2">null</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="st0">&quot;text-align:right;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:left;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:center&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+As a result, each column will have its own align settings.
+</p>
+<ul>
+<li class="level1"><div class="li">  Using inline <acronym title="HyperText Markup Language">HTML</acronym> tags to define the align:</div>
+</li>
+</ul>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;div style='width:100%; text-align:left;'&gt;A&lt;/div&gt;,B,C&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1410-2125" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Setting Header's Align" /></div></form></div>
+<h3><a name="grid_without_header" id="grid_without_header">Grid without Header</a></h3>
+<div class="level3">
+
+<p>
+The grid can be initialized in such a way that the header line will not be visible. To do so, the following initializing code should be used:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>; <span class="co1">// has to be called in any way as it defines the number of columns</span>
+      grid.<span class="me1">setNoHeader</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Note: the user still needs setHeader() command with a correct list of parameters (the grid detects the count of columns based on the values of setHeader() method. So, it is mandatory, even in case when the grid header won&#039;t be visible).
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2126-2715" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Grid without Header" /></div></form></div>
+<h3><a name="multi-line_headers_footers" id="multi-line_headers_footers">Multi-Line Headers | Footers</a></h3>
+<div class="level3">
+
+<p>
+attachHeader() command can be used to add one more line into the header, after the first one. The syntax here is nearly the same as for setHeader() command:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span>values<span class="sy0">,</span> style<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters here are responsible for:
+</p>
+<ul>
+<li class="level1"><div class="li">  values - array of header titles;</div>
+</li>
+<li class="level1"><div class="li">  style - array of styles, optional parameter.</div>
+</li>
+</ul>
+
+<p>
+
+For example:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>;
+          <span class="co1">// or</span>
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;A&quot;</span><span class="sy0">,</span><span class="st0">&quot;B&quot;</span><span class="sy0">,</span><span class="st0">&quot;C&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Assigning custom style to the header is also quite easy:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="st0">&quot;text-align:right;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:left;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:center&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+attachHeader() command supports <acronym title="HyperText Markup Language">HTML</acronym> as values, so it may contain any <acronym title="HyperText Markup Language">HTML</acronym> compatible content.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2716-3588" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Multi-Line Headers | Footers" /></div></form></div>
+<h3><a name="attaching_grid_footer" id="attaching_grid_footer">Attaching Grid Footer</a></h3>
+<div class="level3">
+
+<p>
+There is a sibling command to attach footers (the first line and more):
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachFooter</span><span class="br0">&#40;</span>values<span class="sy0">,</span> style<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The user should specify the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  values - array of footer titles;</div>
+</li>
+<li class="level1"><div class="li">  style - array of styles, optional parameter.</div>
+</li>
+</ul>
+
+<p>
+
+For example:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachFooter</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>;
+          <span class="co1">// or</span>
+      grid.<span class="me1">attachFooter</span><span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;A&quot;</span><span class="sy0">,</span><span class="st0">&quot;B&quot;</span><span class="sy0">,</span><span class="st0">&quot;C&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Some custom style can be assigned as well:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">attachFooter</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="st0">&quot;text-align:right;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:left;&quot;</span><span class="sy0">,</span><span class="st0">&quot;text-align:center&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+attachFooter() command supports <acronym title="HyperText Markup Language">HTML</acronym> as values, so it may contain any <acronym title="HyperText Markup Language">HTML</acronym> compatible content.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3589-4359" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Attaching Grid Footer" /></div></form></div>
+<h3><a name="detaching_header_footer" id="detaching_header_footer">Detaching Header/Footer</a></h3>
+<div class="level3">
+
+<p>
+Any footer|header line can be detached using the following commands:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">detachHeader</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span>;
+      grid.<span class="me1">detachFooter</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Parameter index is 1-based index of a header|footer row that should be detached. It should be noted that the first header row can&#039;t be detached.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4360-4724" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Detaching Header/Footer" /></div></form></div>
+<h3><a name="setting_getting_header_values" id="setting_getting_header_values">Setting/Getting Header Values</a></h3>
+<div class="level3">
+
+<p>
+The user can set values of the grid header like this:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setColumnLabel</span><span class="br0">&#40;</span>c_index<span class="sy0">,</span>value<span class="sy0">,</span>r_index<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters that should be specified are:
+</p>
+<ul>
+<li class="level1"><div class="li">  c_index - index of the column;</div>
+</li>
+<li class="level1"><div class="li">  value - new label for the specified header; can contain image:[imageUrl]Text Label;</div>
+</li>
+<li class="level1"><div class="li">  r_index - header row index (default is 0).</div>
+</li>
+</ul>
+
+<p>
+
+Values of header cells can be set in the following way:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> label <span class="sy0">=</span> grid.<span class="me1">getColumnLabel</span><span class="br0">&#40;</span>c_index<span class="sy0">,</span>r_index<span class="br0">&#41;</span>; <span class="co1">// returns label of the column</span>
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The following should be specified for this method:
+</p>
+<ul>
+<li class="level1"><div class="li">  c_index - 0-based index of the column;</div>
+</li>
+<li class="level1"><div class="li">  r_index - 1-based index of the row, optional parameter; if it is omitted, the first header row will be used.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4725-5543" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Setting/Getting Header Values" /></div></form></div>
+<h3><a name="colspans_and_rowspans_in_header" id="colspans_and_rowspans_in_header">Colspans and Rowspans in Header</a></h3>
+<div class="level3">
+
+<p>
+Multi-line headers (footers) can have colspans and rowspans. There is no special <acronym title="Application Programming Interface">API</acronym> for such task, the functionality is based on special cell values.
+</p>
+
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_242fzn929qv_b.gif"  class="media" alt="" />
+</p>
+
+<p>
+
+If the header cell contains the following in setHeader() command:
+</p>
+<ul>
+<li class="level1"><div class="li">  #cspan - the cell will be joined with the cell to the left of the current one;</div>
+</li>
+<li class="level1"><div class="li">  #rspan - the cell will be joined with the cell above the current one.</div>
+</li>
+</ul>
+
+<p>
+
+For example:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,#cspan,B&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_240cfbchdfn_b.gif"  class="media" alt="" />
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,#cspan,#cspan&quot;</span><span class="br0">&#41;</span>;
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A1,B1,#cspan&quot;</span><span class="br0">&#41;</span>;
+      grid.<span class="me1">attachHeader</span><span class="br0">&#40;</span><span class="st0">&quot;#rspan,B2,C2&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_2417v82nqff_b.gif"  class="media" alt="" />
+</p>
+
+<p>
+
+Note: One and the same cell can&#039;t be included in both rowspan and colspan at the same time.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5544-6468" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Colspans and Rowspans in Header" /></div></form></div>
+<h3><a name="initialization_from_xml" id="initialization_from_xml">Initialization from XML</a></h3>
+<div class="level3">
+
+<p>
+With initialization from <acronym title="Extensible Markup Language">XML</acronym>, values of the first header line can be defined as a part of head|column structure. Additional lines of headers|footers can be specified using the afterInit/call@commands:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>rows<span class="sy0">&gt;</span>
+      <span class="sy0">&lt;</span>head<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>column ... <span class="sy0">&gt;</span>A<span class="sy0">&lt;/</span>column<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>column ... <span class="sy0">&gt;</span>B<span class="sy0">&lt;/</span>column<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>column ... <span class="sy0">&gt;</span>C<span class="sy0">&lt;/</span>column<span class="sy0">&gt;</span>
+       <span class="sy0">&lt;</span>afterInit<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>call command<span class="sy0">=</span><span class="st0">&quot;attachHeader&quot;</span><span class="sy0">&gt;&lt;</span>param<span class="sy0">&gt;</span>A1<span class="sy0">,</span>B1<span class="sy0">,</span>C1<span class="sy0">&lt;/</span>param<span class="sy0">&gt;&lt;/</span>call<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>call command<span class="sy0">=</span><span class="st0">&quot;attachHeader&quot;</span><span class="sy0">&gt;&lt;</span>param<span class="sy0">&gt;</span>A2<span class="sy0">,</span>B2<span class="sy0">,</span>C2<span class="sy0">&lt;/</span>param<span class="sy0">&gt;&lt;/</span>call<span class="sy0">&gt;</span>
+          <span class="sy0">&lt;</span>call command<span class="sy0">=</span><span class="st0">&quot;attachFooter&quot;</span><span class="sy0">&gt;&lt;</span>param<span class="sy0">&gt;</span>AF<span class="sy0">,</span>BF<span class="sy0">,</span>CF<span class="sy0">&lt;/</span>param<span class="sy0">&gt;&lt;/</span>call<span class="sy0">&gt;</span>
+       <span class="sy0">&lt;/</span>afterInit<span class="sy0">&gt;</span>
+      <span class="sy0">&lt;/</span>head<span class="sy0">&gt;</span></pre>
+<p>
+
+The same syntax is used to define colspans and rowspans working with initialization from <acronym title="Extensible Markup Language">XML</acronym> (whitespaces around #rspan and #cspan values must be omitted).
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6469-7276" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Initialization from XML" /></div></form></div>
+<h3><a name="initialization_from_html" id="initialization_from_html">Initialization from HTML</a></h3>
+<div class="level3">
+
+<p>
+In case of grid initialization from an <acronym title="HyperText Markup Language">HTML</acronym> table, the first line of the table will be treated as the header line. There is no way to define additional lines of header|footer in such case (they can be added later by JavaScript).
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>table<span class="sy0">&gt;</span>
+      <span class="sy0">&lt;</span>tr<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>A<span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>B<span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>C<span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;/</span>tr<span class="sy0">&gt;</span>
+      <span class="sy0">&lt;</span>tr<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>data <span class="nu0">1</span><span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>data <span class="nu0">2</span><span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;</span>td<span class="sy0">&gt;</span>data <span class="nu0">3</span><span class="sy0">&lt;/</span>td<span class="sy0">&gt;&lt;/</span>tr<span class="sy0">&gt;</span>
+         ...</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7277-7700" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Initialization from HTML" /></div></form></div>
+<h3><a name="initialization_from_csv" id="initialization_from_csv">Initialization from CSV</a></h3>
+<div class="level3">
+
+<p>
+In case of initialization from CSV, the first line of the header can be treated as the header line. This can be enabled|disabled in the following way:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">enableCSVHeader</span><span class="br0">&#40;</span><span class="kw2">true</span>|false<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>scirpt<span class="sy0">&gt;</span></pre>
+<p>
+
+If this mode is enabled (true) - the first line of CSV will be used as the header. If it is disabled (false) - the CSV will be treated as data only (in such case, the header must be defined by <acronym title="JavaScript">JS</acronym> <acronym title="Application Programming Interface">API</acronym> before CSV loading).
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7701-8199" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Initialization from CSV" /></div></form></div>
+<h3><a name="icons_in_header" id="icons_in_header">Icons in Header</a></h3>
+<div class="level3">
+
+<p>
+Icons can be used in the grid header. Their size should be 18x18px. There are two ways of setting icons: 
+</p>
+<ul>
+<li class="level1"><div class="li">  Via <acronym title="Extensible Markup Language">XML</acronym> configuration:</div>
+</li>
+</ul>
+<pre class="code javascript">&nbsp;
+    <span class="sy0">&lt;</span>head<span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>column width<span class="sy0">=</span><span class="st0">&quot;50&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;dyn&quot;</span> align<span class="sy0">=</span><span class="st0">&quot;right&quot;</span> sort<span class="sy0">=</span><span class="st0">&quot;str&quot;</span><span class="sy0">&gt;</span>Without Icon<span class="sy0">&lt;/</span>column<span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>column width<span class="sy0">=</span><span class="st0">&quot;150&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;ed&quot;</span> align<span class="sy0">=</span><span class="st0">&quot;left&quot;</span> sort<span class="sy0">=</span><span class="st0">&quot;str&quot;</span><span class="sy0">&gt;</span>img<span class="sy0">:</span><span class="br0">&#91;</span>path<span class="sy0">/</span>to<span class="sy0">/</span>icon.<span class="me1">gif</span><span class="br0">&#93;</span><span class="kw1">With</span> Icon<span class="sy0">&lt;/</span>column<span class="sy0">&gt;</span></pre><ul>
+<li class="level1"><div class="li">  By setHeader() method:</div>
+</li>
+</ul>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Without Icon,img:[path/to/icon.gif]With Icon&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8200-8755" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Icons in Header" /></div></form></div>
+<h3><a name="enabling_header_images" id="enabling_header_images">Enabling Header Images</a></h3>
+<div class="level3">
+
+<p>
+The user can specify whether values passed to the header are images file names in the following way:
+</p>
+<pre class="code javascript">&nbsp;
+    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableHeaderImages</span><span class="br0">&#40;</span>mode<span class="br0">&#41;</span>; <span class="co1">// true to treat column header values as image names</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8756-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit" class="button" title="Enabling Header Images" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/header.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aheader&amp;1310069485" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:header" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

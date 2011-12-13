@@ -1,0 +1,197 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:step_5_server_side_sorting    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:step_5_server_side_sorting</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:step_5_server_side_sorting"  class="breadcrumbs" title="dhtmlxgrid:step_5_server_side_sorting">step_5_server_side_sorting</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_5._server_side_sorting" id="step_5._server_side_sorting">Step 5. Server Side Sorting.</a></h2>
+<div class="level2">
+
+<p>
+When we have 50,000 records in grid or just going to have but do not really have (as we work with Smart Rendering, with Dynamic Loading) client side sorting will not help a lot. Our grid just doesn&#039;t know all the values yet. So we need to move sorting to server side. How? Just relax. It is really simple.
+</p>
+
+<p>
+
+There will be 3 stages of the plan:
+</p>
+
+<p>
+
+Cancel client side sorting;
+Clear grid and load the data sorted on server side;
+Set position and direction of a marker in the grid header to show sorting direction.
+</p>
+
+<p>
+To cancel client side sorting we need to enable sorting for the columns first. Like it was described in the previous tutorial, you can do this with setColSorting method, but the sorting type for all three columns will be “server”:
+
+</p>
+<pre class="code javascript">  mygrid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;server,server,server&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+The “server” sorting type means nothing for sorting routine of the grid, so it&#039;ll just ignore it. This information is mostly for myself as column sorting was moved to server side. Put this command somewhere before mygrid.init() .
+Now we are ready to execute stages 1 and 2 of the plan. We&#039;ll do this with onBeforeSorting event handler. First let&#039;s define the handler function. According to <a href="http://www.dhtmlx.com/docs/products/dhtmlxGrid/doc/events.html" class="urlextern" title="http://www.dhtmlx.com/docs/products/dhtmlxGrid/doc/events.html"  rel="nofollow">events documentation</a> it gets 3 incoming arguments:
+</p>
+
+<p>
+
+Column index;
+Grid object;
+Sorting direction (asc for ASC, des for DESC).
+</p>
+
+<p>
+And this function will work IN PROFESSIONAL EDITION of the grid. Only. Sorry, from now on only those who “got the tickets” go further…
+OK, if you are still reading, here is the complete code for the event handler function. Put it into the script block we&#039;ve left for functions (or in any other one):
+</p>
+<pre class="code javascript">      <span class="kw2">function</span> sortGridOnServer<span class="br0">&#40;</span>ind<span class="sy0">,</span>gridObj<span class="sy0">,</span>direct<span class="br0">&#41;</span><span class="br0">&#123;</span>
+              mygrid.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+              mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span>gridQString<span class="sy0">+</span><span class="br0">&#40;</span>gridQString.<span class="me1">indexOf</span><span class="br0">&#40;</span><span class="st0">&quot;?&quot;</span><span class="br0">&#41;</span><span class="sy0">&gt;=</span>0<span class="sy0">?</span><span class="st0">&quot;&amp;amp;&quot;</span><span class="sy0">:</span><span class="st0">&quot;?&quot;</span><span class="br0">&#41;</span><span class="sy0">+</span><span class="st0">&quot;orderby=&quot;</span><span class="sy0">+</span>ind<span class="sy0">+</span><span class="st0">&quot;&amp;amp;direct=&quot;</span><span class="sy0">+</span>direct<span class="br0">&#41;</span>;
+              mygrid.<span class="me1">setSortImgState</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="sy0">,</span>ind<span class="sy0">,</span>direct<span class="br0">&#41;</span>;
+              <span class="kw1">return</span> <span class="kw2">false</span>;
+          <span class="br0">&#125;</span></pre>
+<p>
+
+The above mentioned code does the following:
+</p>
+
+<p>
+
+Removes all rows from grid;
+Loads new content passing column index as orderby parameter and order direction (asc for ASC or des for DESC) as direct parameter. Here it becomes clear why we needed to save gridQString in the previous steps - because we need to sort exactly the same content which we got last time we loaded grid.
+Sets Sort Image visible for the column we sort and with the direction we need.
+Cancels client side sorting by returning “false” from event handler function for onBeforeSorting event. This is what we meant in point 1 of the plan.
+</p>
+
+<p>
+Now when we have sortGridOnServer function, we can add the following command to set the event handler to grid initialization script:
+
+</p>
+<pre class="code javascript">  mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onBeforeSorting&quot;</span><span class="sy0">,</span>sortGridOnServer<span class="br0">&#41;</span>;</pre>
+<p>
+
+Server side changes are simple, as we just add Order by statement for the field in table that corresponds to a column in grid, and set the direction: ASC if asc, DESC if des.
+Here is a code sample for <acronym title="Hypertext Preprocessor">PHP</acronym>:
+
+</p>
+<pre class="code php">      <span class="co1">//order by</span>
+      <span class="re0">$columns</span> <span class="sy0">=</span> <a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">&quot;nm&quot;</span><span class="sy0">,</span><span class="st0">&quot;code&quot;</span><span class="sy0">,</span><span class="st0">&quot;num_val&quot;</span><span class="br0">&#41;</span>;
+      <span class="kw1">if</span><span class="br0">&#40;</span><a href="http://www.php.net/isset"><span class="kw3">isset</span></a><span class="br0">&#40;</span><span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st0">&quot;orderby&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="kw1">if</span><span class="br0">&#40;</span><span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st0">&quot;direct&quot;</span><span class="br0">&#93;</span><span class="sy0">==</span><span class="st_h">'des'</span><span class="br0">&#41;</span>
+              <span class="re0">$direct</span> <span class="sy0">=</span> <span class="st0">&quot;DESC&quot;</span>;
+          <span class="kw1">else</span>   
+              <span class="re0">$direct</span> <span class="sy0">=</span> <span class="st0">&quot;ASC&quot;</span>;
+          <span class="re0">$sql</span><span class="sy0">.=</span><span class="st0">&quot; Order by &quot;</span><span class="sy0">.</span><span class="re0">$columns</span><span class="br0">&#91;</span><span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st0">&quot;orderby&quot;</span><span class="br0">&#93;</span><span class="br0">&#93;</span><span class="sy0">.</span><span class="st0">&quot; &quot;</span><span class="sy0">.</span><span class="re0">$direct</span>;
+      <span class="br0">&#125;</span></pre>
+<p>
+<img src="/dhtmlx/docs/lib/images/smileys/fixme.gif" class="middle" alt="FIXME" /> <a href="http://./dhtmlxGrid_sbs_biggrid.zip" class="urlextern" title="http://./dhtmlxGrid_sbs_biggrid.zip"  rel="nofollow">Download related files</a>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Edit" class="button" title="Step 5. Server Side Sorting." /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/step_5_server_side_sorting.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Astep_5_server_side_sorting&amp;1310069473" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_5_server_side_sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

@@ -1,4 +1,4 @@
 *.pyc
 /localdb
 *.swp
-static/excel_output/guests.xls
+static/excel_output

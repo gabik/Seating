@@ -1,0 +1,301 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:sub-grids    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:sub-grids</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:sub-grids"  class="breadcrumbs" title="dhtmlxgrid:sub-grids">sub-grids</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#sub-grid" class="toc">Sub-Grid</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#related_events" class="toc">Related Events</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sub_grid_events_and_sub_grid_customizing" class="toc">Sub grid events and sub grid customizing</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h3><a name="sub-grid" id="sub-grid">Sub-Grid</a></h3>
+<div class="level3">
+
+<p>
+
+dhtmlxgrid_excell_sub_row.js required
+</p>
+
+<p>
+As any content can be loaded as a value of the <a href="dhtmlxgrid___sub-rows.html" class="wikilink1" title="dhtmlxgrid:sub-rows">sub-row</a>, one of possible use-cases is to load a sub-grid as a sub-row. While it can be achieved with the usage of a sub_row only, the component also provides a special type of excell - sub_row_grid that allows to simplify such task.
+</p>
+
+<p>
+In case of sub_row_grid usage, the value of the cell is treated as a <acronym title="Uniform Resource Locator">URL</acronym> to the configuration <acronym title="Extensible Markup Language">XML</acronym> of the sub-grid:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;sub_row_grid,ed,ed&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Later in <acronym title="Extensible Markup Language">XML</acronym> the user will have the following code:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row</span> <span class="re0">id</span>=<span class="st0">&quot;some&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>my_grid.xml<span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+<p>
+
+And in my_data.html there will be the following lines:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;head<span class="re2">&gt;</span></span></span>
+            ... configuration of grid here ...
+        <span class="sc3"><span class="re1">&lt;/head<span class="re2">&gt;</span></span></span>
+        ... data of grid here ...
+    <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+<p>
+
+After clicking ”+” image, the component will fetch configuration <acronym title="Extensible Markup Language">XML</acronym> and build the sub-grid based on it:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_2393j6mqdd5_b.png"  class="media" alt="" />
+</p>
+
+<p>
+As the sub-grid has different configuration, it can have a different set of columns and its style can differ from that of the main grid. The sub-grid object can be accessed in the following way:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">getSubGrid</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-1413" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit" class="button" title="Sub-Grid" /></div></form></div>
+<h3><a name="related_events" id="related_events">Related Events</a></h3>
+<div class="level3">
+
+<p>
+
+onSubGridCreated - executed when sub-grid opened first time, and related object created ( before data loaded in subgrid ), blockable:
+</p>
+<ul>
+<li class="level1"><div class="li"> subgrid object;</div>
+</li>
+<li class="level1"><div class="li"> row id;</div>
+</li>
+<li class="level1"><div class="li"> row index;</div>
+</li>
+<li class="level1"><div class="li"> content of the related cell.</div>
+</li>
+</ul>
+
+<p>
+
+onSubGridLoaded - executed when data loaded in subgrid:
+</p>
+<ul>
+<li class="level1"><div class="li"> subgrid object;</div>
+</li>
+<li class="level1"><div class="li"> row id;</div>
+</li>
+<li class="level1"><div class="li"> row index;</div>
+</li>
+<li class="level1"><div class="li"> content of the related cell.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1414-1791" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit" class="button" title="Related Events" /></div></form></div>
+<h3><a name="sub_grid_events_and_sub_grid_customizing" id="sub_grid_events_and_sub_grid_customizing">Sub grid events and sub grid customizing</a></h3>
+<div class="level3">
+
+<p>
+There are two events in the component that allow you to customize the sub grid:
+</p>
+
+<p>
+a) onSubGridCreated
+It is called when the sub grid object is created (triggered by sub_row opening), but before data is loaded from the related <acronym title="Extensible Markup Language">XML</acronym> file.
+It provides the following values:
+</p>
+<ul>
+<li class="level1"><div class="li">  sub grid object;</div>
+</li>
+<li class="level1"><div class="li">  row id;</div>
+</li>
+<li class="level1"><div class="li">  cell index;</div>
+</li>
+<li class="level1"><div class="li">  sub_row_grid cell value.</div>
+</li>
+</ul>
+
+<p>
+b) onSubGridLoaded
+This event is called when the sub grid has loaded the configuration <acronym title="Extensible Markup Language">XML</acronym> and parsed its values.
+It provides the following values:
+</p>
+<ul>
+<li class="level1"><div class="li">  sub grid object;</div>
+</li>
+<li class="level1"><div class="li">  row id;</div>
+</li>
+<li class="level1"><div class="li">  cell index;</div>
+</li>
+<li class="level1"><div class="li">  sub_row_grid cell value. </div>
+</li>
+</ul>
+
+<p>
+
+Events can be used to change the grid behavior:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onSubGridCreated&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>subgrid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      subgrid.<span class="me1">enableMultiselect</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+      subgrid.<span class="me1">enableEditEvents</span><span class="br0">&#40;</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">false</span><span class="br0">&#41;</span>;
+      <span class="kw1">return</span> <span class="kw2">true</span>; <span class="co1">// mandatory!</span>
+  <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+<p>
+
+Add|preselect some data after configuration was loaded:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onSubGridLoaded&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>subgrid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      subgrid.<span class="me1">addRow</span><span class="br0">&#40;</span>someid<span class="sy0">,</span>value<span class="br0">&#41;</span>;
+      subgid.<span class="me1">selectCell</span><span class="br0">&#40;</span>someid<span class="sy0">,</span>0<span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+<p>
+Events can be used to fully change the way the sub grid is loaded. E.g. the sub grid can be built manually:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onSubGridCreated&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>subgrid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      subgrid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;A,B,C&quot;</span><span class="br0">&#41;</span>;
+      subgrid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;ro,ro,ro&quot;</span><span class="br0">&#41;</span>;
+      subgrid.<span class="me1">setInitWidths</span><span class="br0">&#40;</span><span class="st0">&quot;100,100,100&quot;</span><span class="br0">&#41;</span>
+      subgrid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="kw1">return</span> <span class="kw2">false</span>;  <span class="co1">// block default behavior</span>
+  <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+<p>
+Or the sub grid can be loaded from <acronym title="Extensible Markup Language">XML</acronym> string:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onSubGridCreated&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>subgrid<span class="sy0">,</span>id<span class="sy0">,</span>ind<span class="sy0">,</span>data<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      subgrid.<span class="me1">loadXMLString</span><span class="br0">&#40;</span>data<span class="br0">&#41;</span>; <span class="co1">// use the current data as configuration xml</span>
+      <span class="kw1">return</span> <span class="kw2">false</span>; <span class="co1">// prevent default behavior</span>
+  <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1792-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit" class="button" title="Sub grid events and sub grid customizing" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/sub-grids.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Asub-grids&amp;1310069476" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-grids" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

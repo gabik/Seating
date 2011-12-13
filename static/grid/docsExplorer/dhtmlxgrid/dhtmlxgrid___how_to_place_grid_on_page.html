@@ -1,0 +1,181 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:how_to_place_grid_on_page    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:how_to_place_grid_on_page</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:how_to_place_grid_on_page"  class="breadcrumbs" title="dhtmlxgrid:how_to_place_grid_on_page">how_to_place_grid_on_page</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_2_-_place_grid_on_the_page" id="step_2_-_place_grid_on_the_page">Step 2 - Place Grid on the Page</a></h2>
+<div class="level2">
+
+<p>
+There are two ways to place grid on the page, but as the main goal of this article is to show you the simplicity of dhtmlx components&#039; usage, I&#039;ll go the most common way. So I need to place DIV on my page and set ID attribute to some unique value. Also I&#039;ll specify the grid&#039;s width and height right in the style attribute of the DIV.
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>div id<span class="sy0">=</span><span class="st0">&quot;mygrid_container&quot;</span> style<span class="sy0">=</span><span class="st0">&quot;width:600px;height:150px;&quot;</span><span class="sy0">&gt;&lt;/</span>div<span class="sy0">&gt;</span></pre>
+<p>
+
+Now I proceed to the main phase of the process - defining the grid parameters. So in the script block (remember? I left it empty right after external javascript files inclusions) I write the following:
+
+</p>
+<pre class="code javascript">    <span class="kw2">var</span> mygrid;
+    <span class="kw2">function</span> doInitGrid<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+&nbsp;
+&nbsp;
+    <span class="br0">&#125;</span></pre>
+<p>
+
+doInitGrid function will contain grid initialization code (not so much code I would say):
+
+</p>
+<ul>
+<li class="level1"><div class="li"> create grid object based on DIV we placed on the page. Using constructor function dhtmlXGridObject ;</div>
+</li>
+<li class="level2"><div class="li"> set grid images path. This is a path to the folder which contains all the necessary images for the grid to look nice. In most cases it is codebase/imgs/. It is important to use this last ”/” in the path. By the way, this path has no relation to the images which you will use when representing your data in grid;</div>
+</li>
+<li class="level2"><div class="li"> define grid header with setHeader method;</div>
+</li>
+<li class="level2"><div class="li"> define the width of columns in grid with setInitWidths (in pixels) or setInitWidthsP (in percents). Use * to make the column use all available space;</div>
+</li>
+<li class="level2"><div class="li"> define a column&#039;s horizontal align. Numeric values is better to align right;</div>
+</li>
+<li class="level2"><div class="li"> set grid skin with setSkin. I&#039;ll use the “light” skin from the list of predefined ones;</div>
+</li>
+<li class="level2"><div class="li"> and finaly initialize grid with these settings using init method. We&#039;ll add some more parameters to grid later. But for now the content of doInitGrid function will be the following:</div>
+</li>
+</ul>
+<pre class="code javascript">    mygrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">'mygrid_container'</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">setImagePath</span><span class="br0">&#40;</span><span class="st0">&quot;codebase/imgs/&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Model,Qty,Price&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">setInitWidths</span><span class="br0">&#40;</span><span class="st0">&quot;*,150,150&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">setColAlign</span><span class="br0">&#40;</span><span class="st0">&quot;left,right,right&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">setSkin</span><span class="br0">&#40;</span><span class="st0">&quot;light&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    mygrid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Now we need to run this function. It is important to run it after DIV element that we would use for grid iniialization was loaded. So I could place this function call in the script block right after the mentioned DIV, but I prefer to use onload event of the “body: element for this. So my “body” tag will look like this:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>body <span class="kw3">onload</span><span class="sy0">=</span><span class="st0">&quot;doInitGrid();&quot;</span><span class="sy0">&gt;</span></pre>
+<p>
+
+If you run the page now it should look like this:
+</p>
+
+<p>
+<img src="dhtmlxgrid___step_2_last.png"  class="media" alt="" />
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Edit" class="button" title="Step 2 - Place Grid on the Page" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/how_to_place_grid_on_page.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Ahow_to_place_grid_on_page&amp;1310069488" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_place_grid_on_page" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

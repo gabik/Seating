@@ -1,0 +1,249 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:client_side_sample    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:client_side_sample</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:client_side_sample"  class="breadcrumbs" title="dhtmlxconnector:client_side_sample">client_side_sample</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#samples_client-side_initialization" class="toc">Samples client-side initialization</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#grid" class="toc">grid</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#treegrid" class="toc">treeGrid</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#static_mode" class="toc">static mode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#dynamic_mode" class="toc">dynamic mode</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#tree" class="toc">tree</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#static_mode1" class="toc">static mode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#dynamic_mode1" class="toc">dynamic mode</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#combo" class="toc">combo</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#static_mode2" class="toc">static mode</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#auto-complete_mode" class="toc">auto-complete mode</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#scheduler" class="toc">scheduler</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#form" class="toc">form</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#dataview" class="toc">dataView</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#chart" class="toc">chart</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#datastore" class="toc">dataStore</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___samples.html" class="wikilink1" title="dhtmlxconnector:samples">Samples</a></div></div>
+
+</p>
+
+<h1><a name="samples_client-side_initialization" id="samples_client-side_initialization">Samples client-side initialization</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="102-150" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="Samples client-side initialization" /></div></form></div>
+<h2><a name="grid" id="grid">grid</a></h2>
+<div class="level2">
+<pre class="code javascript">myGrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">&quot;myContainer&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">//... grid configuration commands</span>
+myGrid.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;myconnector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="151-305" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="grid" /></div></form></div>
+<h2><a name="treegrid" id="treegrid">treeGrid</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="306-326" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="treeGrid" /></div></form></div>
+<h3><a name="static_mode" id="static_mode">static mode</a></h3>
+<div class="level3">
+<pre class="code javascript">myGrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">&quot;myContainer&quot;</span><span class="br0">&#41;</span>;
+myGrid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;tree,...&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">//...grid configuration commands</span>
+myGrid.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;myconnector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="327-520" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="static mode" /></div></form></div>
+<h3><a name="dynamic_mode" id="dynamic_mode">dynamic mode</a></h3>
+<div class="level3">
+<pre class="code javascript">myGrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">'myContainer'</span><span class="br0">&#41;</span>;
+myGrid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;tree,...&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">//...</span>
+myGrid.<span class="me1">kidsXmlFile</span><span class="sy0">=</span><span class="st0">&quot;connector.php&quot;</span>;
+myGrid.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="521-723" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="dynamic mode" /></div></form></div>
+<h2><a name="tree" id="tree">tree</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="724-740" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="tree" /></div></form></div>
+<h3><a name="static_mode1" id="static_mode1">static mode</a></h3>
+<div class="level3">
+<pre class="code javascript">tree<span class="sy0">=</span><span class="kw2">new</span> dhtmlXTreeObject<span class="br0">&#40;</span><span class="st0">&quot;treeboxbox_tree&quot;</span><span class="sy0">,</span><span class="st0">&quot;100%&quot;</span><span class="sy0">,</span><span class="st0">&quot;100%&quot;</span><span class="sy0">,</span>0<span class="br0">&#41;</span>;
+<span class="co1">//...</span>
+tree.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="741-886" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="static mode" /></div></form></div>
+<h3><a name="dynamic_mode1" id="dynamic_mode1">dynamic mode</a></h3>
+<div class="level3">
+<pre class="code javascript">tree<span class="sy0">=</span><span class="kw2">new</span> dhtmlXTreeObject<span class="br0">&#40;</span><span class="st0">&quot;treeboxbox_tree&quot;</span><span class="sy0">,</span><span class="st0">&quot;100%&quot;</span><span class="sy0">,</span><span class="st0">&quot;100%&quot;</span><span class="sy0">,</span>0<span class="br0">&#41;</span>;
+<span class="co1">//...</span>
+tree.<span class="me1">setXMLAutoLoading</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;
+tree.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="887-1074" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="dynamic mode" /></div></form></div>
+<h2><a name="combo" id="combo">combo</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1075-1092" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="combo" /></div></form></div>
+<h3><a name="static_mode2" id="static_mode2">static mode</a></h3>
+<div class="level3">
+<pre class="code javascript"><span class="kw2">var</span> combo<span class="sy0">=</span><span class="kw2">new</span> dhtmlXCombo<span class="br0">&#40;</span><span class="st0">&quot;combo_zone2&quot;</span><span class="sy0">,</span><span class="st0">&quot;alfa2&quot;</span><span class="sy0">,</span><span class="nu0">200</span><span class="br0">&#41;</span>;
+combo.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1093-1225" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="static mode" /></div></form></div>
+<h3><a name="auto-complete_mode" id="auto-complete_mode">auto-complete mode</a></h3>
+<div class="level3">
+<pre class="code javascript"><span class="kw2">var</span> combo<span class="sy0">=</span><span class="kw2">new</span> dhtmlXCombo<span class="br0">&#40;</span><span class="st0">&quot;combo_zone2&quot;</span><span class="sy0">,</span><span class="st0">&quot;alfa2&quot;</span><span class="sy0">,</span><span class="nu0">200</span><span class="br0">&#41;</span>;
+combo.<span class="me1">enableFilteringMode</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="sy0">,</span><span class="st0">&quot;connector.php&quot;</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+combo.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1226-1419" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="auto-complete mode" /></div></form></div>
+<h2><a name="scheduler" id="scheduler">scheduler</a></h2>
+<div class="level2">
+<pre class="code javascript">scheduler.<span class="me1">init</span><span class="br0">&#40;</span>some_obj<span class="br0">&#41;</span>
+scheduler.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1420-1526" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="scheduler" /></div></form></div>
+<h2><a name="form" id="form">form</a></h2>
+<div class="level2">
+<pre class="code javascript"><span class="kw2">var</span> form <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXForm<span class="br0">&#40;</span>someId<span class="br0">&#41;</span>;
+form.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1527-1633" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="form" /></div></form></div>
+<h2><a name="dataview" id="dataview">dataView</a></h2>
+<div class="level2">
+<pre class="code javascript"><span class="kw2">var</span> view <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXDataView<span class="br0">&#40;</span><span class="br0">&#123;</span>...<span class="br0">&#125;</span><span class="br0">&#41;</span>;
+view.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1634-1747" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="dataView" /></div></form></div>
+<h2><a name="chart" id="chart">chart</a></h2>
+<div class="level2">
+<pre class="code javascript"><span class="kw2">var</span> mychart <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXChart<span class="br0">&#40;</span><span class="br0">&#123;</span>...<span class="br0">&#125;</span><span class="br0">&#41;</span>;
+mychart.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1748-1861" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="chart" /></div></form></div>
+<h2><a name="datastore" id="datastore">dataStore</a></h2>
+<div class="level2">
+<pre class="code javascript"><span class="kw2">var</span> myDataStore <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXDataStore<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+myDataStore.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;connector.php&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1862-" /><input type="hidden" name="rev" value="1308746543" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit" class="button" title="dataStore" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/client_side_sample.txt &middot; Last modified: 2011/06/22 15:42 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Aclient_side_sample&amp;1310069434" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:client_side_sample" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

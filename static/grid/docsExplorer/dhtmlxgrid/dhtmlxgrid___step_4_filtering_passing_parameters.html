@@ -1,0 +1,151 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:step_4_filtering_passing_parameters    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:step_4_filtering_passing_parameters</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:step_4_filtering_passing_parameters"  class="breadcrumbs" title="dhtmlxgrid:step_4_filtering_passing_parameters">step_4_filtering_passing_parameters</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_4._filtering._passing_additional_parameters_to_server_side" id="step_4._filtering._passing_additional_parameters_to_server_side">Step 4. Filtering. Passing Additional Parameters to Server Side</a></h2>
+<div class="level2">
+
+<p>
+Why do you think you need additional parameters and why am I talking about them together with Smart Rendering? There are two situations which come to my mind right away:
+</p>
+<ul>
+<li class="level1"><div class="li"> Filtering data;</div>
+</li>
+<li class="level1"><div class="li"> Server side sorting (client side sorting kills all advantages of Smart Rendering, so you&#039;d better move sorting to the server side. I&#039;ll tell you how to do this in Step 5).</div>
+</li>
+</ul>
+
+<p>
+
+Let&#039;s add the possibility to filter grid data by product name mask. Put the following code right before the DIV container we used for grid initialization:
+</p>
+<pre class="code html4strict">  <span class="sc2">&lt;<a href="http://december.com/html/4/element/input.html"><span class="kw2">input</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;Text&quot;</span> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;nm_mask&quot;</span>&gt;</span>
+  <span class="sc2">&lt;<a href="http://december.com/html/4/element/input.html"><span class="kw2">input</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;Button&quot;</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">&quot;Filter&quot;</span> <span class="kw3">onclick</span><span class="sy0">=</span><span class="st0">&quot;applyFilter()&quot;</span>&gt;</span></pre>
+<p>
+
+As you see, clicking the “Filter” button we call applyFilter function, which doesn&#039;t exist as we haven&#039;t created it yet. Let&#039;s do it now. It will contain the magic of getting the content for grid based on additional parameter :)
+
+</p>
+<pre class="code javascript">  <span class="kw2">function</span> applyFilter<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      mygrid.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">//remove all data</span>
+      gridQString <span class="sy0">=</span> <span class="st0">&quot;getGridRecords.php?name_mask=&quot;</span><span class="sy0">+</span>document.<span class="me1">getElementById</span><span class="br0">&#40;</span><span class="st0">&quot;nm_mask&quot;</span><span class="br0">&#41;</span>.<span class="me1">value</span>;<span class="co1">//save query string in global variable (see step 5 for details)</span>
+      mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span>gridQString<span class="br0">&#41;</span>; <span class="co1">// load new dataset from sever with additional parameter passed</span>
+  <span class="br0">&#125;</span></pre>
+<p>
+
+Put it into the script block we left for functions (or any other - it doesn&#039;t matter).
+Now getGridRecords file gets additional parameter named name_mask, which you can add to the query to filter the results by name. For example (<acronym title="Hypertext Preprocessor">PHP</acronym>):
+</p>
+<pre class="code php">      <span class="co1">//query to products table</span>
+      <span class="re0">$sql</span> <span class="sy0">=</span> <span class="st0">&quot;SELECT  * FROM products&quot;</span>;
+      <span class="kw1">if</span><span class="br0">&#40;</span><a href="http://www.php.net/isset"><span class="kw3">isset</span></a><span class="br0">&#40;</span><span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st0">&quot;name_mask&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+          <span class="re0">$sql</span><span class="sy0">.=</span><span class="st0">&quot; Where nm like '&quot;</span><span class="sy0">.</span><span class="re0">$_GET</span><span class="br0">&#91;</span><span class="st0">&quot;name_mask&quot;</span><span class="br0">&#93;</span><span class="sy0">.</span><span class="st0">&quot;%'&quot;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Edit" class="button" title="Step 4. Filtering. Passing Additional Parameters to Server Side" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/step_4_filtering_passing_parameters.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Astep_4_filtering_passing_parameters&amp;1310069473" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:step_4_filtering_passing_parameters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

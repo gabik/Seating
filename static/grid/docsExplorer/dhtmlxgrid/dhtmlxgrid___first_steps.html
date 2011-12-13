@@ -1,0 +1,201 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:first_steps    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:first_steps</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:first_steps"  class="breadcrumbs" title="dhtmlxgrid:first_steps">first_steps</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#initialization_of_dhtmlxgrid" class="toc">Initialization of dhtmlxGrid</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#java_script_initialization" class="toc">Java Script Initialization</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_image_icon_path" class="toc">Setting Image/Icon Path</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="initialization_of_dhtmlxgrid" id="initialization_of_dhtmlxgrid">Initialization of dhtmlxGrid</a></h2>
+<div class="level2">
+
+<p>
+The first things that need to be done for any type of dhtmlxGrid&#039;s initialization are the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  Download the dhtmlxGrid package from the server and place it in a folder;</div>
+</li>
+<li class="level1"><div class="li">  Create an <acronym title="HyperText Markup Language">HTML</acronym> file;</div>
+</li>
+<li class="level1"><div class="li">  Place the full paths to dhtmlxGrid&#039;s <acronym title="Cascading Style Sheets">CSS</acronym> and <acronym title="JavaScript">JS</acronym> files into the header of the created <acronym title="HyperText Markup Language">HTML</acronym> file.</div>
+</li>
+</ul>
+<pre class="code html4strict">    <span class="sc2">&lt;<a href="http://december.com/html/4/element/link.html"><span class="kw2">link</span></a> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">&quot;STYLESHEET&quot;</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/css&quot;</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">&quot;[full path to this file]/dhtmlxgrid.css&quot;</span>&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a> <span class="kw3">src</span><span class="sy0">=</span><span class="st0">&quot;[full path to this file]/dhtmlxcommon.js&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a>&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a> <span class="kw3">src</span><span class="sy0">=</span><span class="st0">&quot;[full path to this file]/dhtmlxgrid.js&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a>&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a> <span class="kw3">src</span><span class="sy0">=</span><span class="st0">&quot;[full path to this file]/dhtmlxgridcell.js&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a>&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-723" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit" class="button" title="Initialization of dhtmlxGrid" /></div></form></div>
+<h3><a name="java_script_initialization" id="java_script_initialization">Java Script Initialization</a></h3>
+<div class="level3">
+
+<p>
+
+You need to create an <acronym title="HyperText Markup Language">HTML</acronym> container where dhtmlxGrid will be placed. In this example, the container is a &lt;div&gt; element on page that is placed in the &lt;body&gt; tag:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>div id<span class="sy0">=</span><span class="st0">&quot;gridbox&quot;</span> style<span class="sy0">=</span><span class="st0">&quot;width:600px;height:200px&quot;</span><span class="sy0">&gt;&lt;/</span>div<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The next step is to create a new dhtmlXGridObject and define main parameters needed for grid to look and behave as you need (the sample below doesn&#039;t show all possibilities. it just demonstrates commonly used methods):
+
+</p>
+<pre class="code javascript">        mygrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">'gridbox'</span><span class="br0">&#41;</span>;
+	mygrid.<span class="me1">setImagePath</span><span class="br0">&#40;</span><span class="st0">&quot;./codebase/imgs/&quot;</span><span class="br0">&#41;</span>;<span class="co1">//path to images required by grid</span>
+	mygrid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Column A, Column B&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set column names</span>
+	mygrid.<span class="me1">setInitWidths</span><span class="br0">&#40;</span><span class="st0">&quot;100,250&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set column width in px</span>
+	mygrid.<span class="me1">setColAlign</span><span class="br0">&#40;</span><span class="st0">&quot;right,left&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set column values align</span>
+	mygrid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;ro,ed&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set column types</span>
+	mygrid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;int,str&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set sorting</span>
+	mygrid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;<span class="co1">//initialize grid</span>
+	mygrid.<span class="me1">setSkin</span><span class="br0">&#40;</span><span class="st0">&quot;dhx_skyblue&quot;</span><span class="br0">&#41;</span>;<span class="co1">//set grid skin</span>
+	mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;../common/grid.xml&quot;</span><span class="br0">&#41;</span>;<span class="co1">//load data</span></pre>
+<p>
+
+The parameter passed to the constructor is the object to attach the grid to (should be loaded before the constructor is called). If none is used, then the user can apply attachToObject method to attach grid to some parent (object in <acronym title="Document Object Model">DOM</acronym>) in the following way:
+
+</p>
+<pre class="code javascript">        mygrid.<span class="me1">attachToObject</span><span class="br0">&#40;</span>obj<span class="br0">&#41;</span>; <span class="co1">// obj - object the grid will be attached to</span></pre>
+<p>
+Since v.2.5 we added the possibility to *use object notation for initialization of dhtmlx components*. See <a href="dhtmlxgrid___api_constructor.html" class="wikilink1" title="dhtmlxgrid:api_constructor">Object constructor chapter</a> for details. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="724-2324" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit" class="button" title="Java Script Initialization" /></div></form></div>
+<h3><a name="setting_image_icon_path" id="setting_image_icon_path">Setting Image/Icon Path</a></h3>
+<div class="level3">
+
+<p>
+Full path to grid&#039;s internal images (sort direction, any images used in editors, checkboxes, radiobuttons) can be set in dhtmlxGrid with the help of method setImagePath():
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setImagePath</span><span class="br0">&#40;</span>url<span class="br0">&#41;</span>; <span class="co1">// url - full path to img directory with closing &quot;/&quot;</span></pre>
+<p>
+
+The above mentioned method should be used after creation of new dhtmlXGridObject, but before any of data loading methods.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2325-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit" class="button" title="Setting Image/Icon Path" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/first_steps.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Afirst_steps&amp;1310069486" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:first_steps" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>
