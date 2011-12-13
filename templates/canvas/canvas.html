@@ -193,7 +193,31 @@
 		});
 		$("#MaxGuestSaveButton").mouseover(function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
+		});		
+		$("#floatListPin").mouseout(function(){
+			if 	($(this).attr('alt') == "P")
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_on_n.png");
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_off_n.png");
+			}
 		});
+		$("#floatListPin").mouseover(function(){
+			if 	($(this).attr('alt') == "P")
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_on_r.png");
+			}
+			else
+			{
+				$(this).attr('src',"/static/canvas/icons/pin_off_r.png");
+			}
+		});
+			
+		$("#float-list").draggable( 'disable' );
+		$("#float-list").fadeTo(0, 1);
+
 	});
 
 </script>
@@ -293,7 +317,9 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימת אורחים</span></td>
+						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
+						  /></td>
+						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr>

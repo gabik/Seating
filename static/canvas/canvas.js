@@ -52,7 +52,7 @@ $(document).ready(function() {
 		{
 			if (SelectedPerson != "")
 			{
-				showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.context.id.replace(/\_/g," ") +" לרשימה הצפה?", "YESNO", "Question");
+				showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.find('p').first().html() +" לרשימה הצפה?", "YESNO", "Question");
 				currentMsgTimer = setTimeout("delDivPress()",500);
 			}
 			else
