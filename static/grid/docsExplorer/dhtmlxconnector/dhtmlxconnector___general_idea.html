@@ -1,0 +1,187 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:general_idea    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:general_idea</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:general_idea"  class="breadcrumbs" title="dhtmlxconnector:general_idea">general_idea</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="general_idea_of_dhtmlxconnector" id="general_idea_of_dhtmlxconnector">GENERAL IDEA OF DHTMLXCONNECTOR</a></h1>
+<div class="level1">
+
+<p>
+dhtmlxConnector is a server-side library that lets you access data sources. 
+It consists of individual component-specific connectors and a set of additional ones providing advanced functionality.
+</p>
+
+<p>
+A dhtmlxConnector&#039;s job is to provide necessary data exchange conditions so that you do
+ not have to deal with the technical details of working with 
+various data stores, systems or services. As such, each type of dhtmlxConnector is designed to use a specific <acronym title="Application Programming Interface">API</acronym>.
+</p>
+
+<p>
+As the library is server-side it provides different manipulations just on server backend:
+</p>
+<ul>
+<li class="level1"><div class="li"> loading data (static or dynamic) from database, File System, Excel file.</div>
+</li>
+<li class="level1"><div class="li"> server-side filtration, sorting and validation.</div>
+</li>
+</ul>
+
+<p>
+When you need to deal with client-side as well, i.e. pass data back to server, you should use DataProcessor additionally (for more details of this topic, see the chapter &#039;<a href="dhtmlxconnector___dp.html" class="wikilink1" title="dhtmlxconnector:dp">Client-side requirement - dataProcessor</a>&#039;).
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-1065" /><input type="hidden" name="rev" value="1308745344" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Edit" class="button" title="GENERAL IDEA OF DHTMLXCONNECTOR" /></div></form></div>
+<h3><a name="general_list_of_connectors" id="general_list_of_connectors">general list of connectors</a></h3>
+<div class="level3">
+
+<p>
+
+Component-specific:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>ChartConnector</strong> (relates to <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxchart:toc" class="wikilink1" title="dhtmlxchart:toc">dhtmlxChart</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>ComboConnector</strong> (relates to <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxcombo:toc" class="wikilink1" title="dhtmlxcombo:toc">dhtmlxCombo</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>DataViewConnector</strong> (relates to <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxdataview:toc" class="wikilink1" title="dhtmlxdataview:toc">dhtmlxDataView</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>FormConnector</strong> (relates to <a href="/dhtmlx/docs/doku.php?id=dhtmlxform:title" class="wikilink2" title="dhtmlxform:title" rel="nofollow">dhtmlxForm</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>GridConnector</strong> (relates to <a href="../dhtmlxgrid/index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxGrid</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>TreeConnector</strong> (relates to <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxtree:toc" class="wikilink1" title="dhtmlxtree:toc">dhtmlxTree</a>)</div>
+</li>
+<li class="level1"><div class="li"> <strong>TreeGridConnector</strong> (relates to <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxtreegrid:toc" class="wikilink1" title="dhtmlxtreegrid:toc">dhtmlxTreeGrid</a>)</div>
+</li>
+</ul>
+
+<p>
+Additional (most important):
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___jsondataconnector.html" class="wikilink1" title="dhtmlxconnector:jsondataconnector">JSONDataConnector/DataConnector</a> (<strong>DHTMLX Touch components</strong> and <strong>dhtmlXDataStore</strong> specificity)</div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___keygridconnector.html" class="wikilink1" title="dhtmlxconnector:keygridconnector">KeyGridConnector</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___treegroupconnector.html" class="wikilink1" title="dhtmlxconnector:treegroupconnector">TreeGroupConnector/TreeGridGroupConnector</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___treemultitableconnector.html" class="wikilink1" title="dhtmlxconnector:treemultitableconnector">TreeMultitableConnector</a></div>
+</li>
+</ul>
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+Throughout the documentation you'll see examples that use 'GridConnector'. Subject to using component, replace it with the needed connector. 
+</div>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1066-" /><input type="hidden" name="rev" value="1308745344" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Edit" class="button" title="general list of connectors" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/general_idea.txt &middot; Last modified: 2011/06/22 15:22 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Ageneral_idea&amp;1310069435" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:general_idea" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

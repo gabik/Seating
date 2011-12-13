@@ -1,0 +1,47 @@
+<html>
+<head>
+<link rel="STYLESHEET" type="text/css" href="/static/grid/dhtmlxGrid/codebase/dhtmlxgrid.css">
+<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
+<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>
+<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
+<script>
+var mygrid;
+function addRow(){
+    var newId = (new Date()).valueOf()
+    mygrid.addRow(newId,"gabi,70,300",mygrid.getRowsNum())
+    mygrid.lockRow(newId,true);
+    mygrid.setRowColor(newId,"#22FF44");
+    mygrid.selectRow(mygrid.getRowIndex(newId),false,false,true);
+}
+function removeRow(){
+    var selId = mygrid.getSelectedId()
+    mygrid.deleteRow(selId);
+}
+function doOnRowSelected(rowID,celInd){
+	mygrid.setRowTextBold(rowID);
+//	alert(rowID);
+}
+
+function doInitGrid(){
+mygrid = new dhtmlXGridObject('mygrid_container');
+mygrid.setImagePath("/static/grid/dhtmlxGrid/codebase/imgs/");
+mygrid.setHeader('first, last, gender, qty, phone, email, facebook, group, present');
+mygrid.setInitWidths("100,100,100,100,100,100,100,100,100");
+mygrid.setColAlign("right,right,right,right,right,right,right,right,right");
+mygrid.setSkin("light");
+mygrid.init();
+mygrid.load("{{ filename }}","csv");
+//mygrid.setColSorting("str,int,na");
+//mygrid.setColTypes("en,coro,price");
+mygrid.attachEvent("onRowSelect",doOnRowSelected);
+mygrid.lockRow("3",true);
+mygrid.setRowColor("3","#22FF44");
+}
+</script>
+</head>
+<body onload="doInitGrid()" dir=rtl>
+<div id="mygrid_container" style="width:700px;height:550px;"></div>
+  <button onclick="addRow()">Add Row</button>  
+  <button onclick="removeRow()">Remove Row</button>
+</body>
+</html>

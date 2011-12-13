@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:attaching_custom_code_to_events    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:attaching_custom_code_to_events</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:attaching_custom_code_to_events"  class="breadcrumbs" title="dhtmlxgrid:attaching_custom_code_to_events">attaching_custom_code_to_events</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="attaching_custom_code_to_events" id="attaching_custom_code_to_events">Attaching custom code to events</a></h2>
+<div class="level2">
+
+<p>
+The grid provides a rich set of events, you can attach any kind of custom code to them using the following syntax:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span>eventName<span class="sy0">,</span> code<span class="br0">&#41;</span>;</pre>
+<p>
+
+For example:
+
+</p>
+<pre class="code javascript">  <span class="kw2">function</span> myHandler<span class="br0">&#40;</span>id<span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="kw3">alert</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span>; <span class="br0">&#125;</span>
+  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;</pre>
+<p>
+
+Or simpler syntax:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw3">alert</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span>;
+  <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+You can attach multiple handlers to one and the same event:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;
+  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>myHandler2<span class="br0">&#41;</span>;</pre>
+<p>
+
+In case of row selection both attached functions will be called.
+</p>
+
+<p>
+If it is necessary, the custom code can be detached from an event:
+
+</p>
+<pre class="code javascript">  <span class="kw2">var</span> id1<span class="sy0">=</span>grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>myHandler<span class="br0">&#41;</span>;
+  <span class="kw2">var</span> id2<span class="sy0">=</span>grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>myHandler2<span class="br0">&#41;</span>;
+  grid.<span class="me1">detachEvent</span><span class="br0">&#40;</span>id2<span class="br0">&#41;</span>;    <span class="co1">// detach myHandler2 from onRowSelect event</span></pre>
+<p>
+
+Some of the events can be blocked. So based on the return value, the grid will react differently:
+</p>
+<ul>
+<li class="level1"><div class="li"> return “true”; -  confirm action</div>
+</li>
+<li class="level1"><div class="li"> return “false”; - deny action</div>
+</li>
+<li class="level1"><div class="li"> no return command - treated as return “false”</div>
+</li>
+</ul>
+<pre class="code javascript">  grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onEditCell&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw1">return</span> <span class="kw2">false</span>;     <span class="co1">// will block any edit operation</span>
+  <span class="br0">&#125;</span><span class="br0">&#41;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Edit" class="button" title="Attaching custom code to events" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/attaching_custom_code_to_events.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aattaching_custom_code_to_events&amp;1310069482" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_custom_code_to_events" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

@@ -1,0 +1,180 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions"  class="breadcrumbs" title="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions">how_to_add_event_handlers_to_the_grid_and_react_on_user_actions</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_7_-_event_handlers" id="step_7_-_event_handlers">Step 7 - Event Handlers</a></h2>
+<div class="level2">
+
+<p>
+Like with any other component you need to have the ability to set your own reaction on some user action. For example, you need something to be done when a user clicks on a row in grid. dhtmlxGrid provides this possibility together with impressive list of events.
+</p>
+
+<p>
+The way of setting event handler is common for all events. Just call attachEvent method of the grid object with the event name as the first argument and the event handler function as the second argument. Depending on the event, an event handler will get various number of incoming parameters. For example, onRowSelect event handler will get 2 incoming parameters: row ID and cell index where user clicked to the select row:
+
+</p>
+<pre class="code javascript">    <span class="kw2">function</span> doOnRowSelected<span class="br0">&#40;</span>rowID<span class="sy0">,</span>celInd<span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw3">alert</span><span class="br0">&#40;</span><span class="st0">&quot;Selected row ID is &quot;</span><span class="sy0">+</span>rowID<span class="sy0">+</span><span class="st0">&quot;<span class="es0">\n</span>User clicked cell with index &quot;</span><span class="sy0">+</span>celInd<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="br0">&#125;</span>
+    mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>doOnRowSelected<span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-995" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Edit" class="button" title="Step 7 - Event Handlers" /></div></form></div>
+<h3><a name="resulting_code" id="resulting_code">Resulting code</a></h3>
+<div class="level3">
+
+<p>
+Here is what we get at the end:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>title<span class="sy0">&gt;</span>dhtmlxGrid Sample Page<span class="sy0">&lt;/</span>title<span class="sy0">&gt;</span>
+&nbsp;
+     <span class="sy0">&lt;</span>link rel<span class="sy0">=</span><span class="st0">&quot;STYLESHEET&quot;</span> type<span class="sy0">=</span><span class="st0">&quot;text/css&quot;</span> href<span class="sy0">=</span><span class="st0">&quot;codebase/dhtmlxgrid.css&quot;</span><span class="sy0">&gt;</span>
+     <span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;codebase/dhtmlxcommon.js&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span>
+     <span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;codebase/dhtmlxgrid.js&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span>
+     <span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;codebase/dhtmlxgridcell.js&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+     <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> mygrid;
+      <span class="kw2">function</span> doInitGrid<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       mygrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">'mygrid_container'</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setImagePath</span><span class="br0">&#40;</span><span class="st0">&quot;codebase/imgs/&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setHeader</span><span class="br0">&#40;</span><span class="st0">&quot;Model,Qty,Price&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setInitWidths</span><span class="br0">&#40;</span><span class="st0">&quot;*,150,150&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setColAlign</span><span class="br0">&#40;</span><span class="st0">&quot;left,right,right&quot;</span><span class="br0">&#41;</span>
+       mygrid.<span class="me1">setSkin</span><span class="br0">&#40;</span><span class="st0">&quot;light&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;str,int,int&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;ed,ed,price&quot;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onRowSelect&quot;</span><span class="sy0">,</span>doOnRowSelected<span class="br0">&#41;</span>;
+       mygrid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+       mygrid.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;step3.xml&quot;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+&nbsp;
+      <span class="kw2">function</span> addRow<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="kw2">var</span> newId <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw2">new</span> Date<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>.<span class="me1">valueOf</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+       mygrid.<span class="me1">addRow</span><span class="br0">&#40;</span>newId<span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span>mygrid.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+       mygrid.<span class="me1">selectRow</span><span class="br0">&#40;</span>mygrid.<span class="me1">getRowIndex</span><span class="br0">&#40;</span>newId<span class="br0">&#41;</span><span class="sy0">,</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+      <span class="kw2">function</span> removeRow<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="kw2">var</span> selId <span class="sy0">=</span> mygrid.<span class="me1">getSelectedId</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+       mygrid.<span class="me1">deleteRow</span><span class="br0">&#40;</span>selId<span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+&nbsp;
+      <span class="kw2">function</span> doOnRowSelected<span class="br0">&#40;</span>rowID<span class="sy0">,</span>celInd<span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="kw3">alert</span><span class="br0">&#40;</span><span class="st0">&quot;Selected row ID is &quot;</span><span class="sy0">+</span>rowID<span class="sy0">+</span><span class="st0">&quot;<span class="es0">\n</span>User clicked cell with index &quot;</span><span class="sy0">+</span>celInd<span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+&nbsp;
+     <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+     <span class="sy0">&lt;</span>body <span class="kw3">onload</span><span class="sy0">=</span><span class="st0">&quot;doInitGrid()&quot;</span><span class="sy0">&gt;</span>
+      <span class="sy0">&lt;</span>div id<span class="sy0">=</span><span class="st0">&quot;mygrid_container&quot;</span> style<span class="sy0">=</span><span class="st0">&quot;width:600px;height:150px;&quot;</span><span class="sy0">&gt;&lt;/</span>div<span class="sy0">&gt;</span>
+     <span class="sy0">&lt;/</span>body<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="996-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Edit" class="button" title="Resulting code" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/how_to_add_event_handlers_to_the_grid_and_react_on_user_actions.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Ahow_to_add_event_handlers_to_the_grid_and_react_on_user_actions&amp;1310069487" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_event_handlers_to_the_grid_and_react_on_user_actions" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

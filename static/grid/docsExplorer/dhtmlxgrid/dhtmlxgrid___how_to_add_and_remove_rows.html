@@ -1,0 +1,160 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:how_to_add_and_remove_rows    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:how_to_add_and_remove_rows</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:how_to_add_and_remove_rows"  class="breadcrumbs" title="dhtmlxgrid:how_to_add_and_remove_rows">how_to_add_and_remove_rows</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="step_6_-_add_remove_rows_in_grid" id="step_6_-_add_remove_rows_in_grid">Step 6 - Add/Remove Rows in Grid</a></h2>
+<div class="level2">
+
+<p>
+Here I would say some words about adding rows into grid and removing rows with the help of Script <acronym title="Application Programming Interface">API</acronym> (set of methods which help you manage grid through JavaScript). First of all we&#039;ll need to add two buttons to the page: “Add Row” and “Remove Row”. Do this by adding the following <acronym title="HyperText Markup Language">HTML</acronym> code to the body of your page right after grid:
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>button onclick<span class="sy0">=</span><span class="st0">&quot;addRow()&quot;</span><span class="sy0">&gt;</span>Add Row<span class="sy0">&lt;/</span>button<span class="sy0">&gt;</span>   <span class="sy0">&lt;</span>button onclick<span class="sy0">=</span><span class="st0">&quot;removeRow()&quot;</span><span class="sy0">&gt;</span>Remove Row<span class="sy0">&lt;/</span>button<span class="sy0">&gt;</span></pre>
+<p>
+
+Most important things here are two function calls, which occure when you click the first or the second button: addRow() and removeRow() respectively. Let&#039;s add these function to the script block where you already have doInitGrid() function. The code you need to add is the following:
+
+</p>
+<pre class="code javascript">    <span class="kw2">function</span> addRow<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw2">var</span> newId <span class="sy0">=</span> <span class="br0">&#40;</span><span class="kw2">new</span> Date<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>.<span class="me1">valueOf</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+        mygrid.<span class="me1">addRow</span><span class="br0">&#40;</span>newId<span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span>mygrid.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>
+        mygrid.<span class="me1">selectRow</span><span class="br0">&#40;</span>mygrid.<span class="me1">getRowIndex</span><span class="br0">&#40;</span>newId<span class="br0">&#41;</span><span class="sy0">,</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">false</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw2">function</span> removeRow<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw2">var</span> selId <span class="sy0">=</span> mygrid.<span class="me1">getSelectedId</span><span class="br0">&#40;</span><span class="br0">&#41;</span>
+        mygrid.<span class="me1">deleteRow</span><span class="br0">&#40;</span>selId<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span></pre>
+<p>
+
+Some comments about addRow() function code (line by line):
+
+</p>
+<ul>
+<li class="level1"><div class="li"> Creates a unique value (number of millisecond since 1970) to use as row identifier;</div>
+</li>
+<li class="level2"><div class="li"> Adds a row with a new Id, empty values and put it after the last row in grid;</div>
+</li>
+<li class="level2"><div class="li"> Selects the newly created row (by index), without calling for On-Select event handler, without preserving previously selected rows and with setting focus on the selected row (will scroll to it if vertical scroller exists).</div>
+</li>
+</ul>
+
+<p>
+
+Some comments about removeRow() function code (line by line):
+
+</p>
+<ul>
+<li class="level1"><div class="li"> Gets Id of the selected row;</div>
+</li>
+<li class="level2"><div class="li"> Deletes the row with the  specified Id.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Edit" class="button" title="Step 6 - Add/Remove Rows in Grid" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/how_to_add_and_remove_rows.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Ahow_to_add_and_remove_rows&amp;1310069487" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:how_to_add_and_remove_rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

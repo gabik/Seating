@@ -1,0 +1,318 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:dp    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:dp</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:dp"  class="breadcrumbs" title="dhtmlxconnector:dp">dp</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#client-side_requirement_-_dataprocessor" class="toc">Client-side requirement - dataProcessor</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#files_to_include_on_client-side" class="toc">Files to include on client-side</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#initialization_and_linking_to_connector" class="toc">Initialization and linking to connector</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#client-side_logging" class="toc">Client-side logging</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#validation" class="toc">Validation</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#client-side_validation" class="toc">client-side validation</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#server-side_validation" class="toc">server-side validation</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#changing_default_processing" class="toc">Changing default processing</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#changing_default_data_processing_on_server-side" class="toc">changing default data processing on server-side</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#changing_default_data_processing_on_client-side" class="toc">changing default data processing on client-side</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="client-side_requirement_-_dataprocessor" id="client-side_requirement_-_dataprocessor">Client-side requirement - dataProcessor</a></h1>
+<div class="level1">
+
+<p>
+Connector itself lets just pass data from server- to client-side.<br/>
+
+When you need to pass data back (e.g. you&#039;ve updated record and want to save updates in database) you should use dataProcessor additionally.
+</p>
+
+<p>
+<img src="dhtmlxconnector___scheme_04.png"  class="media" alt="" />
+</p>
+
+<p>
+Shortly, data exchange with dataProcessor can be characterized as follows:
+</p>
+<ol>
+<li class="level1"><div class="li"> After you make some changes client sends query to server. Query is passed with one of the following statuses:</div>
+<ul>
+<li class="level2"><div class="li"> <strong>updated</strong></div>
+</li>
+<li class="level2"><div class="li"> <strong>inserted</strong></div>
+</li>
+<li class="level2"><div class="li"> <strong>deleted</strong></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Server tries to implement the required query. If the operation was performed successfully, server returns the same status it got. Otherwise - status “<strong>error</strong>”.</div>
+</li>
+<li class="level1"><div class="li"> While exchanging, data is undergone default processing both on server- and client-side, i.e. data will be updated/inserted/deleted automatically (just initialize dataProcessor and dhtmlxConnector), no additional code needs to be added. You can affect on this default processing by means of events (see details below).</div>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-1136" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Client-side requirement - dataProcessor" /></div></form></div>
+<h2><a name="files_to_include_on_client-side" id="files_to_include_on_client-side">Files to include on client-side</a></h2>
+<div class="level2">
+
+<p>
+To use functionality of dataProcessor you should add the only file - <strong>dataprocessor.js</strong>.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1137-1272" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Files to include on client-side" /></div></form></div>
+<h2><a name="initialization_and_linking_to_connector" id="initialization_and_linking_to_connector">Initialization and linking to connector</a></h2>
+<div class="level2">
+
+<p>
+To initialize dataProcessor you should write 2 commands:
+
+</p>
+<pre class="code javascript"><span class="kw2">var</span> dp <span class="sy0">=</span> <span class="kw2">new</span> dataProcessor<span class="br0">&#40;</span>url<span class="br0">&#41;</span>
+dp.<span class="me1">init</span><span class="br0">&#40;</span><span class="st0">&quot;mygrid&quot;</span><span class="br0">&#41;</span></pre>
+<p>
+
+To link dataProcessor with connector you should specify connector file as a parameter of the constructor:
+
+</p>
+<pre class="code javascript">dp <span class="sy0">=</span> <span class="kw2">new</span> dataProcessor<span class="br0">&#40;</span><span class="st0">&quot;myconnector.php&quot;</span><span class="br0">&#41;</span>;
+dp.<span class="me1">init</span><span class="br0">&#40;</span><span class="st0">&quot;mygrid&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1273-1652" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Initialization and linking to connector" /></div></form></div>
+<h2><a name="client-side_logging" id="client-side_logging">Client-side logging</a></h2>
+<div class="level2">
+
+<p>
+Dataprocessor has its own client-side logger, which can be enabled by including one additional js file - <em>dhtmlxdataprocessor_debug.js</em>
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1653-1822" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Client-side logging" /></div></form></div>
+<h2><a name="validation" id="validation">Validation</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1823-1845" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Validation" /></div></form></div>
+<h3><a name="client-side_validation" id="client-side_validation">client-side validation</a></h3>
+<div class="level3">
+
+<p>
+
+Dataprocessor allows to validate data before sending to server-side (see details <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___config_debug.html" class="wikilink1" title="dhtmlxdataprocessor:config_debug">here</a>).
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1846-2014" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="client-side validation" /></div></form></div>
+<h3><a name="server-side_validation" id="server-side_validation">server-side validation</a></h3>
+<div class="level3">
+
+<p>
+
+Details of server-side validation also see in the <a href="dhtmlxconnector___validation.html" class="wikilink1" title="dhtmlxconnector:validation">related chapter of this documentation</a>.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2015-2167" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="server-side validation" /></div></form></div>
+<h2><a name="changing_default_processing" id="changing_default_processing">Changing default processing</a></h2>
+<div class="level2">
+
+<p>
+As it was mentioned before, to affect on default data processing either on server- or client-side you should use events (they can be either dataProcessor or dhtmlxConnector events).
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2168-2389" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="Changing default processing" /></div></form></div>
+<h3><a name="changing_default_data_processing_on_server-side" id="changing_default_data_processing_on_server-side">changing default data processing on server-side</a></h3>
+<div class="level3">
+
+<p>
+To affect on server-side processing you should use one the following events of <strong>dhtmlxConnector</strong>:
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___event_beforeupdate.html" class="wikilink1" title="dhtmlxconnector:event_beforeupdate">beforeUpdate Event</a>   </div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___event_beforeinsert.html" class="wikilink1" title="dhtmlxconnector:event_beforeinsert">beforeInsert Event</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___event_beforedelete.html" class="wikilink1" title="dhtmlxconnector:event_beforedelete">beforeDelete Event</a>  </div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___event_beforeprocessing.html" class="wikilink1" title="dhtmlxconnector:event_beforeprocessing">beforeProcessing Event</a></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2390-2745" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="changing default data processing on server-side" /></div></form></div>
+<h3><a name="changing_default_data_processing_on_client-side" id="changing_default_data_processing_on_client-side">changing default data processing on client-side</a></h3>
+<div class="level3">
+
+<p>
+Changing on client-side can be done in one of the following ways:
+</p>
+<ol>
+<li class="level1"><div class="li"> On server-side through handler functions of <strong>dhtmlxConnector</strong> events:</div>
+<ul>
+<li class="level2"><div class="li"> <a href="dhtmlxconnector___event_afterupdate.html" class="wikilink1" title="dhtmlxconnector:event_afterupdate">afterUpdate Event</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="dhtmlxconnector___event_afterinsert.html" class="wikilink1" title="dhtmlxconnector:event_afterinsert">afterInsert Event</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="dhtmlxconnector___event_afterdelete.html" class="wikilink1" title="dhtmlxconnector:event_afterdelete">afterDelete Event</a>  </div>
+</li>
+<li class="level2"><div class="li"> <a href="dhtmlxconnector___event_afterprocessing.html" class="wikilink1" title="dhtmlxconnector:event_afterprocessing">afterProcessing Event</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> On client-side through handler functions of <strong>dataProcessor</strong> events:</div>
+<ul>
+<li class="level2"><div class="li"> <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___event_onbeforeupdate.html" class="wikilink1" title="dhtmlxdataprocessor:event_onbeforeupdate">onBeforeUpdate</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___event_onafterupdate.html" class="wikilink1" title="dhtmlxdataprocessor:event_onafterupdate">onAfterUpdate</a></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> On client-side through <strong>dataProcessor</strong>&#039;s method <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___api_method_dataprocessor_defineaction.html" class="wikilink1" title="dhtmlxdataprocessor:api_method_dataprocessor_defineaction">defineAction()</a>.<br/>
+ The method allows to define handler function of the specified status.<br/>
+ <br/>
+ <pre class="code javascript">dp.<span class="me1">defineAction</span><span class="br0">&#40;</span><span class="st0">&quot;update&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>response<span class="br0">&#41;</span><span class="br0">&#123;</span>
+...
+<span class="kw1">return</span> <span class="kw2">true</span>;<span class="co1">// return false to cancel default data processing at all</span>
+<span class="br0">&#125;</span><span class="br0">&#41;</span></pre></div>
+<ul>
+<li class="level2"><div class="li"> meanwhile, you can change status of server-side response through <strong>dhtmlxConnector</strong>&#039;s method <a href="dhtmlxconnector___dataaction_object_methods.html" class="wikilink1" title="dhtmlxconnector:dataaction_object_methods">set_status()</a> and assign the appropriate processing through <a href="../dhtmlxdataprocessor/dhtmlxdataprocessor___api_method_dataprocessor_defineaction.html" class="wikilink1" title="dhtmlxdataprocessor:api_method_dataprocessor_defineaction">defineAction()</a>.<br/>
+ Status can be changed in 2 ways:</div>
+<ol>
+<li class="level3"><div class="li"> by setting other predefined status (&#039;updated&#039;, &#039;inserted&#039;, &#039;deleted&#039;). In this case you just change default processing, write some additions to it.</div>
+</li>
+<li class="level3"><div class="li"> by setting custom status. In this case you cancel default processing at all and should define all actions on client-side by yourself.<br/>
+ <br/>
+ <pre class="code javascript">$data<span class="sy0">-&gt;</span>set_status<span class="br0">&#40;</span><span class="st0">&quot;my_status&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ For more details see chapter <a href="dhtmlxconnector___validation.html" class="wikilink1" title="dhtmlxconnector:validation">&#039;Custom status&#039;</a>
+</p>
+</div>
+</li>
+</ol>
+</li>
+</ul>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2746-" /><input type="hidden" name="rev" value="1306854250" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit" class="button" title="changing default data processing on client-side" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/dp.txt &middot; Last modified: 2011/05/31 18:04 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Adp&amp;1310069431" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:dp" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

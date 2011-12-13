@@ -1,0 +1,480 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:sorting    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:sorting</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:sorting"  class="breadcrumbs" title="dhtmlxgrid:sorting">sorting</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#in-grid_sorting" class="toc">In-Grid Sorting</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#forcing_sorting" class="toc">Forcing Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_sorting_state" class="toc">Getting Sorting State</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sorting_types" class="toc">Sorting Types</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_sorting" class="toc">Custom Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#case_insensitive_sorting" class="toc">Case Insensitive Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_time_sorting" class="toc">Custom Time Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_date_sorting" class="toc">Custom Date Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#stable_sorting" class="toc">Stable Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sorting_by_multiple_columns" class="toc">Sorting by Multiple Columns</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#predefined_sorting" class="toc">Predefined Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#server_side_sorting" class="toc">Server Side Sorting</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#sorting_by_combo_label" class="toc">Sorting by Combo Label</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#partial_sorting" class="toc">Partial Sorting</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="in-grid_sorting" id="in-grid_sorting">In-Grid Sorting</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-84" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="In-Grid Sorting" /></div></form></div>
+<h3><a name="forcing_sorting" id="forcing_sorting">Forcing Sorting</a></h3>
+<div class="level3">
+
+<p>
+
+The grid allows to sort data rows on the client side. By default, sorting is triggered by a single click on any header row. If the grid has multiple rows, a click on any of them will trigger sorting.
+Sorting can be forced by <acronym title="JavaScript">JS</acronym> code like this:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">sortRows</span><span class="br0">&#40;</span>col<span class="sy0">,</span> type<span class="sy0">,</span> order<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  col - index of the column by which the grid should be sorted;</div>
+</li>
+<li class="level1"><div class="li">  type - sorting type (str,int,date), optional, by default sorting type is taken from column setting;</div>
+</li>
+<li class="level1"><div class="li">  order - sorting order (asc,des), optional, by default sorting order is based on the previous sorting operation.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="85-744" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Forcing Sorting" /></div></form></div>
+<h3><a name="getting_sorting_state" id="getting_sorting_state">Getting Sorting State</a></h3>
+<div class="level3">
+
+<p>
+
+The following method is responsible for getting sorting state:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">getSortingState</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+The method returns the array the first element of which is the index of the sorter column, and the second one is direction of sorting (“asc” or “des”).
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="745-1052" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Getting Sorting State" /></div></form></div>
+<h3><a name="sorting_types" id="sorting_types">Sorting Types</a></h3>
+<div class="level3">
+
+<p>
+
+The way of sorting depends on column sorting types. There are 4 predefined sorting types:
+
+</p>
+<ul>
+<li class="level1"><div class="li">  str - data will be sorted as strings (case sensitive);</div>
+</li>
+<li class="level1"><div class="li">  int - data will be sorted as numbers (numbers must be in <acronym title="JavaScript">JS</acronym> recognizable format, or the user can apply number formating feature of the grid); </div>
+</li>
+<li class="level1"><div class="li">  date - data will be sorted as a date (dates must be in <acronym title="JavaScript">JS</acronym> recognizable format, or the user can apply date formating feature of the grid);</div>
+</li>
+<li class="level1"><div class="li">  na - sorting is not available for a column (a column will not react on a header click and sortRows() calls).</div>
+</li>
+</ul>
+
+<p>
+  
+Sorting types are assigned to columns in the following way:
+
+</p>
+<pre class="code javascript">        <span class="co1">//grid.setColSorting(list_of_values);</span>
+        grid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;int,str,na,str&quot;</span><span class="br0">&#41;</span>; <span class="co1">// define sorting state for columns 0-3</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1053-1857" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Sorting Types" /></div></form></div>
+<h3><a name="custom_sorting" id="custom_sorting">Custom Sorting</a></h3>
+<div class="level3">
+
+<p>
+
+It should be noted that 4 existing sorting types are not enough to cover all use-cases, so the grid allows to create custom sorting types.
+Basically the user should define a function that will receive two values and the required order of sorting. The return value will be as follows:
+
+</p>
+<pre class="code javascript">    valueA <span class="sy0">&gt;</span> valueB <span class="sy0">=&gt;</span> <span class="kw1">return</span> <span class="nu0">1</span>
+    valueA <span class="sy0">&lt;</span> valueB <span class="sy0">=&gt;</span> <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span></pre>
+<p>
+
+The following method should be used to setting custom sorting:
+
+</p>
+<pre class="code javascript">          grid.<span class="me1">setCustomSorting</span><span class="br0">&#40;</span>func<span class="sy0">,</span> col<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters are as follows:
+</p>
+<ul>
+<li class="level1"><div class="li">  func - function to use for comparison;</div>
+</li>
+<li class="level1"><div class="li">  col - index of the column to apply custom sorting to.</div>
+</li>
+</ul>
+
+<p>
+Also, if unknown type was used as parameter of setColSorting - grid will try to locate the function with the same name and use it as sorting function.
+The snippets below show some common use-cases.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1858-2727" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Custom Sorting" /></div></form></div>
+<h3><a name="case_insensitive_sorting" id="case_insensitive_sorting">Case Insensitive Sorting</a></h3>
+<div class="level3">
+<pre class="code javascript">    <span class="kw2">function</span> str_custom<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>order<span class="br0">&#41;</span><span class="br0">&#123;</span>    <span class="co1">// the name of the function must be &gt; than 5 chars</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="br0">&#41;</span>
+            <span class="kw1">return</span> <span class="br0">&#40;</span>a.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">&gt;</span>b.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+        <span class="kw1">else</span>
+            <span class="kw1">return</span> <span class="br0">&#40;</span>a.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">&gt;</span>b.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">?-</span><span class="nu0">1</span><span class="sy0">:</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    grid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;int,str_custom,na,str&quot;</span><span class="br0">&#41;</span>; <span class="co1">// define sorting state for columns 0-3</span></pre>
+<p>
+
+The code above is pretty simple, but can be written in a simpler or more difficult way (it depends on user&#039;s definition of simplicity) like this:
+
+</p>
+<pre class="code javascript">        <span class="kw2">function</span> str_custom<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>order<span class="br0">&#41;</span><span class="br0">&#123;</span> 
+            <span class="kw1">return</span> <span class="br0">&#40;</span>a.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">&gt;</span>b.<span class="me1">toLowerCase</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2728-3434" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Case Insensitive Sorting" /></div></form></div>
+<h3><a name="custom_time_sorting" id="custom_time_sorting">Custom Time Sorting</a></h3>
+<div class="level3">
+
+<p>
+This type of custom sorting can be applied for such data as 14:56:
+
+</p>
+<pre class="code javascript">        <span class="kw2">function</span> time_custom<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>order<span class="br0">&#41;</span><span class="br0">&#123;</span> 
+            a<span class="sy0">=</span>a.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;:&quot;</span><span class="br0">&#41;</span>
+            b<span class="sy0">=</span>a.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;:&quot;</span><span class="br0">&#41;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">==</span>b<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="br0">&#41;</span>
+                 <span class="kw1">return</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">&gt;</span>b<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+            <span class="kw1">else</span>
+                 <span class="kw1">return</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">&gt;</span>b<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        grid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;int,time_custom,na,str&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3435-3892" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Custom Time Sorting" /></div></form></div>
+<h3><a name="custom_date_sorting" id="custom_date_sorting">Custom Date Sorting</a></h3>
+<div class="level3">
+
+<p>
+One more type of custom sorting can be for such data as dd/mm/yyyy (the user doesn&#039;t need it, if he is using setDateFormat() functionality):
+
+</p>
+<pre class="code javascript">        <span class="kw2">function</span> date_custom<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>order<span class="br0">&#41;</span><span class="br0">&#123;</span> 
+            a<span class="sy0">=</span>a.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;/&quot;</span><span class="br0">&#41;</span>
+            b<span class="sy0">=</span>b.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;/&quot;</span><span class="br0">&#41;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">==</span>b<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                <span class="kw1">if</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">==</span>b<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+                    <span class="kw1">return</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">&gt;</span>b<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+                <span class="kw1">else</span>
+                    <span class="kw1">return</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">&gt;</span>b<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+            <span class="br0">&#125;</span> <span class="kw1">else</span>
+                 <span class="kw1">return</span> <span class="br0">&#40;</span>a<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">&gt;</span>b<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        grid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;int,date_custom,na,str&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3893-4547" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Custom Date Sorting" /></div></form></div>
+<h3><a name="stable_sorting" id="stable_sorting">Stable Sorting</a></h3>
+<div class="level3">
+
+<p>
+
+Default sorting routine used by the grid is a quick sort algorithm that is unstable (it means that rows with the same value may change their position after sorting).
+There is a way to switch to the stable sorting algorithm in the grid. This can be done with the help of:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">enableStableSorting</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Basically, stable sorting is a little slower than the default one, so the user should bear in mind that this mode should be enabled only if it is really necessary.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4548-5078" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Stable Sorting" /></div></form></div>
+<h3><a name="sorting_by_multiple_columns" id="sorting_by_multiple_columns">Sorting by Multiple Columns</a></h3>
+<div class="level3">
+
+<p>
+The default sorting routine is designed to sort the grid by values of a single column, but in some use-cases it is necessary to sort the grid by values of multiple columns.
+While native <acronym title="Application Programming Interface">API</acronym> doesn&#039;t have legal ways to achieve such feature, there are 3 possible workarounds:
+</p>
+<ul>
+<li class="level1"><div class="li">   Using <a href="http://en.wikipedia.org/wiki/Stable_sorting" class="urlextern" title="http://en.wikipedia.org/wiki/Stable_sorting"  rel="nofollow">stable sorting</a> - In case of stable sorting, the rows with the same values will not change their position; it can be exploited to organize sorting by multiple columns:</div>
+</li>
+</ul>
+<pre class="code javascript">        grid.<span class="me1">enableStableSorting</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">sortRows</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="sy0">,</span><span class="st0">&quot;str&quot;</span><span class="sy0">,</span><span class="st0">&quot;asc&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// sort by the sibling column</span>
+        grid.<span class="me1">sortRows</span><span class="br0">&#40;</span>0<span class="sy0">,</span><span class="st0">&quot;str&quot;</span><span class="sy0">,</span><span class="st0">&quot;des&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// sort by the main column</span></pre>
+<p>
+
+As a result, the grid will be sorted by a column of lesser importance and after that by a column of higher importance. In combination with stable sorting, it will give the same result as sorting by two columns.
+</p>
+<ul>
+<li class="level1"><div class="li">   Using complex function - complex soring function similar to the following one can be used:</div>
+</li>
+</ul>
+<pre class="code javascript">        <span class="kw2">function</span> sort_by_two<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>order<span class="sy0">,</span>aid<span class="sy0">,</span>bid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="kw1">if</span> <span class="br0">&#40;</span>a<span class="sy0">==</span>b<span class="br0">&#41;</span><span class="br0">&#123;</span>
+             <span class="kw2">var</span> a2<span class="sy0">=</span>grid.<span class="me1">cells</span><span class="br0">&#40;</span>aid<span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+             <span class="kw2">var</span> b2<span class="sy0">=</span>grid.<span class="me1">cells</span><span class="br0">&#40;</span>bid<span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+             <span class="kw1">if</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="br0">&#41;</span>
+                <span class="kw1">return</span> a2<span class="sy0">&gt;</span>b2<span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span>;
+             <span class="kw1">else</span>
+                <span class="kw1">return</span> a2<span class="sy0">&lt;</span>b2<span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span>;
+          <span class="br0">&#125;</span>
+&nbsp;
+&nbsp;
+&nbsp;
+          <span class="kw1">if</span><span class="br0">&#40;</span>order<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="br0">&#41;</span>
+             <span class="kw1">return</span> a<span class="sy0">&gt;</span>b<span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span>;
+          <span class="kw1">else</span>
+             <span class="kw1">return</span> a<span class="sy0">&lt;</span>b<span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span>;
+        <span class="br0">&#125;</span></pre>
+<p>
+
+Two values marked in bold - index of the second column, which will be used in sorting as an addition to the main column.
+</p>
+<ul>
+<li class="level1"><div class="li">   Using predefined sorting .</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5079-6743" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Sorting by Multiple Columns" /></div></form></div>
+<h3><a name="predefined_sorting" id="predefined_sorting">Predefined Sorting</a></h3>
+<div class="level3">
+
+<p>
+In some scenarios it is pretty complex to get sortable values on the client side. In such case, it is possible to create a separate column with plain values that can be used for sorting. Such column can be set to invisible mode by the following method:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setColumnHidden</span><span class="br0">&#40;</span>some2<span class="br0">&#41;</span>;</pre>
+<p>
+
+And later, any search action is redirected to it in the following way:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onBeforeSorting&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>ind<span class="sy0">,</span>type<span class="sy0">,</span>direction<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw1">if</span> <span class="br0">&#40;</span>ind <span class="sy0">==</span> some1<span class="br0">&#41;</span><span class="br0">&#123;</span>                                      <span class="co1">// if sorting for a problematic column</span>
+                <span class="kw1">this</span>.<span class="me1">sortRows</span><span class="br0">&#40;</span>some2<span class="sy0">,</span>type<span class="sy0">,</span>direction<span class="br0">&#41;</span>;         <span class="co1">// sort grid by the column with prepared values</span>
+                <span class="kw1">this</span>.<span class="me1">setSortImgState</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="sy0">,</span>ind<span class="sy0">,</span>direction<span class="br0">&#41;</span>;    <span class="co1">// set a correct sorting image</span>
+                <span class="kw1">return</span> <span class="kw2">false</span>;                                          <span class="co1">// block default sorting</span>
+            <span class="br0">&#125;</span>
+            <span class="kw1">return</span> <span class="kw2">true</span>;   
+        <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Method setSortImgState() should be used to set position and visibility of a sort arrow, this method takes the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  state(true|false) - show|hide an image;</div>
+</li>
+<li class="level1"><div class="li">  ind - index of the field;</div>
+</li>
+<li class="level1"><div class="li">  order(asc|desc) - type of image;</div>
+</li>
+<li class="level1"><div class="li">  row - one based index of header row (used in multi-row headers, top row by default).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6744-8063" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Predefined Sorting" /></div></form></div>
+<h3><a name="server_side_sorting" id="server_side_sorting">Server Side Sorting</a></h3>
+<div class="level3">
+
+<p>
+Starting with 2.1 - this task can be automated with help of <a href="../dhtmlxconnector/index.html" class="wikilink1" title="dhtmlxconnector:toc">dhtmlxconnector</a>
+</p>
+
+<p>
+If none of the above mentioned methods works for user needs, the user can implement server side sorting:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onBeforeSorting&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>ind<span class="sy0">,</span>type<span class="sy0">,</span>direction<span class="br0">&#41;</span><span class="br0">&#123;</span>
+                <span class="kw1">this</span>.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                                            <span class="co1">// clear grid</span>
+                <span class="kw1">this</span>.<span class="me1">loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;some.url?dir=&quot;</span><span class="sy0">+</span>dir<span class="sy0">+</span><span class="st0">&quot;&amp;amp;ind=&quot;</span><span class="sy0">+</span>ind<span class="br0">&#41;</span>; <span class="co1">// load a new dataset from the server, with necessary order</span>
+                <span class="kw1">this</span>.<span class="me1">setSortImgState</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="sy0">,</span>ind<span class="sy0">,</span>direction<span class="br0">&#41;</span>;        <span class="co1">//set a correct sorting image</span>
+                <span class="kw1">return</span> <span class="kw2">false</span>;   
+            <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8064-8763" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Server Side Sorting" /></div></form></div>
+<h3><a name="sorting_by_combo_label" id="sorting_by_combo_label">Sorting by Combo Label</a></h3>
+<div class="level3">
+
+<p>
+
+The sorting uses the cell value for sorting. It works fine in most cases, but if you are using combo cells you may need to sort by cell labels (which may differ from cell values).
+</p>
+
+<p>
+Such use-case can be implemented with the usage of custom sorting:
+
+</p>
+<pre class="code javascript">     <span class="kw2">function</span> custom_1<span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>ord<span class="sy0">,</span>a_id<span class="sy0">,</span>b_id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+        a<span class="sy0">=</span>mygrid2.<span class="me1">cells</span><span class="br0">&#40;</span>a_id<span class="sy0">,</span><span class="nu0">5</span><span class="br0">&#41;</span>.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        b<span class="sy0">=</span>mygrid2.<span class="me1">cells</span><span class="br0">&#40;</span>b_id<span class="sy0">,</span><span class="nu0">5</span><span class="br0">&#41;</span>.<span class="me1">getText</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        <span class="kw1">return</span> ord<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="br0">&#40;</span>a<span class="sy0">&gt;</span>b<span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">:</span><span class="br0">&#40;</span>a<span class="sy0">&gt;</span>b<span class="sy0">?-</span><span class="nu0">1</span><span class="sy0">:</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+     <span class="br0">&#125;</span></pre>
+<p>
+
+Where 5  - the index of the column for which sorting will be applied.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8764-9327" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Sorting by Combo Label" /></div></form></div>
+<h3><a name="partial_sorting" id="partial_sorting">Partial Sorting</a></h3>
+<div class="level3">
+
+<p>
+
+Another rare situation that may still occur is the following: the grid contains a few rows which must have fixed position, while other rows must be sorted.
+And again the grid does not provide any native solution. But using custom sorting use-case can be implemented in this case:
+</p>
+<pre class="code javascript">     <span class="kw2">function</span> custom <span class="br0">&#40;</span>a<span class="sy0">,</span>b<span class="sy0">,</span>ord<span class="sy0">,</span>aid<span class="sy0">,</span>bid<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw2">var</span> aid<span class="sy0">=</span>aid.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;_&quot;</span><span class="br0">&#41;</span>
+        <span class="kw2">var</span> bid<span class="sy0">=</span>bid.<span class="me1">split</span><span class="br0">&#40;</span><span class="st0">&quot;_&quot;</span><span class="br0">&#41;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>aid<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">==</span><span class="st0">&quot;top&quot;</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="nu0">1</span>;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>bid<span class="br0">&#91;</span>0<span class="br0">&#93;</span><span class="sy0">==</span><span class="st0">&quot;top&quot;</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="sy0">-</span><span class="nu0">1</span>;
+&nbsp;
+&nbsp;
+&nbsp;
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>a<span class="sy0">&gt;</span>b<span class="br0">&#41;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="br0">&#40;</span>ord<span class="sy0">==</span><span class="st0">&quot;asc&quot;</span><span class="sy0">?</span><span class="nu0">1</span><span class="sy0">:-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+     <span class="br0">&#125;</span></pre>
+<p>
+The snippet above adds logic to custom sorting, which will move rows with ID=“top_*” to the top of the grid, while sorting other datasets in the required order.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9328-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit" class="button" title="Partial Sorting" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/sorting.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Asorting&amp;1310069475" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sorting" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

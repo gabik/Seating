@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:implementing_new_types_of_statistics_counters    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:implementing_new_types_of_statistics_counters</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:implementing_new_types_of_statistics_counters"  class="breadcrumbs" title="dhtmlxgrid:implementing_new_types_of_statistics_counters">implementing_new_types_of_statistics_counters</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="implementing_new_types_of_statistics_counters" id="implementing_new_types_of_statistics_counters">Implementing New Types of Statistics Counters</a></h2>
+<div class="level2">
+
+<p>
+
+Statistics Counters are sub-sets of header|footer shortcuts which are used to show aggregated values inside header|footer cells. They are created in the way similar to that of <a href="dhtmlxgrid___math_in_grid.html" class="wikilink1" title="dhtmlxgrid:math_in_grid">normal shortcuts</a> creation but have some specific features.
+</p>
+
+<p>
+The simplest statistics counter can be created by using the code snippet similar to the following one:
+
+</p>
+<pre class="code javascript">  grid._in_header_stat_count<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>tag<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span><span class="br0">&#123;</span>      <span class="co1">//shortcut for statistics counter</span>
+      <span class="kw2">var</span> calck<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>                              <span class="co1">// define the function which will be used for calculations</span>
+          <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+      <span class="kw1">this</span>._stat_in_header<span class="br0">&#40;</span>tag<span class="sy0">,</span>calck<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span>;           <span class="co1">//call default statistics handler processor</span>
+  <span class="br0">&#125;</span></pre>
+<p>
+
+There are some differences between default shortcuts and statistics counters:
+</p>
+<ol>
+<li class="level1"><div class="li"> Instead of setting some predefined value, statistics value is defined as an inner function. As for the normal content, we define a function, which will be called each time when the data  is changed in the grid. The result of such function will be used as a header|footer value.</div>
+</li>
+<li class="level1"><div class="li"> _stat_in_header method is used to register a new statistics counter. It is possible to attach all the necessary events manually, but it is much simpler to call the predefined method which will do it automatically;</div>
+</li>
+<li class="level1"><div class="li"> The third argument of the function is the array of the surrounding content (if you have “about {#stat_sum}$” as header value, then c == [“above”,”$”]); it will be processed automatically, there is no need to take any additional steps to process it.</div>
+</li>
+</ol>
+
+<p>
+The previous snippet is pretty simple - it always returns the current number of rows. Lets look at the more advanced case:
+
+</p>
+<pre class="code javascript">  grid._in_header_stat_summ<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>tag<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span><span class="br0">&#123;</span>         <span class="co1">// shortcut for statistics counter</span>
+      <span class="kw2">var</span> calck<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>                                <span class="co1">// define the function which will be used for calculations</span>
+          <span class="kw2">var</span> summ<span class="sy0">=</span>0;                                      <span class="co1">// set initial counter value</span>
+          <span class="kw1">this</span>.<span class="me1">forEachRow</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>                    <span class="co1">// for each row</span>
+              summ<span class="sy0">+=</span><span class="kw1">this</span>.<span class="me1">cells</span><span class="br0">&#40;</span>id<span class="sy0">,</span>index<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="nu0">1</span>;     <span class="co1">// add row_value</span>
+          <span class="br0">&#125;</span><span class="br0">&#41;</span>
+          <span class="kw1">return</span> summ;
+      <span class="br0">&#125;</span>
+  <span class="kw1">this</span>._stat_in_header<span class="br0">&#40;</span>tag<span class="sy0">,</span>calck<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span>;             <span class="co1">//call default statistics handler processor</span>
+  <span class="br0">&#125;</span></pre>
+<p>
+
+This snippet uses a slightly more complex approach: each time when any changes in the grid occur and the calculation function is called, the code iterates through all the rows and calculates the sum of value in the related cells.
+Be sure you checked the <a href="http://docs.google.com/View?docid=dhhqnnw2_3d89qvwd7" class="urlextern" title="http://docs.google.com/View?docid=dhhqnnw2_3d89qvwd7"  rel="nofollow">iteration through grid</a> article.
+</p>
+
+<p>
+Basically you can use the above mentioned snippet, as it is pretty universal and you just need to change the name and the math function inside it.
+For example, the following code can be used to calculate the mean square deviation:
+
+</p>
+<pre class="code javascript">  grid._in_header_stat_deviation<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>tag<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span><span class="br0">&#123;</span> <span class="co1">//the marker for statistics counter</span>
+      <span class="kw2">var</span> calck<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span> <span class="co1">// define the function which will be used for calculations</span>
+          <span class="kw2">var</span> summ<span class="sy0">=</span>0; <span class="co1">//set initial</span>
+          <span class="kw1">this</span>.<span class="me1">forEachRow</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+              summ<span class="sy0">+=</span>Math.<span class="me1">pow</span><span class="br0">&#40;</span><span class="kw1">this</span>.<span class="me1">cells</span><span class="br0">&#40;</span>id<span class="sy0">,</span>index<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="nu0">2</span><span class="br0">&#41;</span>;
+          <span class="br0">&#125;</span><span class="br0">&#41;</span>
+          <span class="kw1">return</span> summ<span class="sy0">/</span><span class="kw1">this</span>.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+  <span class="kw1">this</span>._stat_in_header<span class="br0">&#40;</span>tag<span class="sy0">,</span>calck<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span>; <span class="co1">//call the default statistics handler processor</span>
+  <span class="br0">&#125;</span></pre>
+<p>
+
+As you can see the changes are minimal - we just added some math to the calculations.
+The given above code has one problem - the result of the divisions can be the fractional value (such as 0.33333333). But in most cases we want the result to be neatly formated.
+The simplest way to fix this issue directly is as follows:
+
+</p>
+<pre class="code javascript">  <span class="kw1">return</span> Math.<span class="me1">round</span><span class="br0">&#40;</span>summ<span class="sy0">/</span><span class="kw1">this</span>.<span class="me1">getRowsCount</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">*</span><span class="nu0">100</span><span class="br0">&#41;</span><span class="sy0">/</span><span class="nu0">100</span>;</pre>
+<p>
+
+This will round the value to 2 digits in a simple and fast way.
+To apply a more complex formatting it is possible to use the grid built-in formatting (set by grid.setNumberFormat) command:
+
+</p>
+<pre class="code javascript">  <span class="kw1">return</span> <span class="kw1">this</span>._aplNF<span class="br0">&#40;</span>summ<span class="sy0">,</span>index<span class="br0">&#41;</span>;</pre>
+<p>
+
+The confusing _aplNF stands for the name of the inner grid function which is used for edn excells and can be reused to apply the same formating to autocalculated values.
+</p>
+
+<p>
+As with the normal shortcuts, statistics counters can be defined on prototype level, so all the instances of the grid will be affected:
+</p>
+<pre class="code javascript">  dhtmlXGridObject.<span class="me1">prototype</span>._in_header_SOME<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>tag<span class="sy0">,</span>index<span class="br0">&#41;</span><span class="br0">&#123;</span>
+  ....
+  <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Edit" class="button" title="Implementing New Types of Statistics Counters" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/implementing_new_types_of_statistics_counters.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aimplementing_new_types_of_statistics_counters&amp;1310069471" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:implementing_new_types_of_statistics_counters" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

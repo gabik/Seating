@@ -1,0 +1,508 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:extending    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:extending</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:extending"  class="breadcrumbs" title="dhtmlxconnector:extending">extending</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#extending_functionality" class="toc">Extending functionality</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#protocol_details" class="toc">protocol details</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#data_fetching" class="toc">data fetching</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#data_updating_using_dataprocessor" class="toc">data updating (using dataProcessor)</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#porting_connectors_to_another_platforms" class="toc">porting connectors to another platforms</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#implementation_levels" class="toc">implementation levels</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="extending_functionality" id="extending_functionality">Extending functionality</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-137" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="Extending functionality" /></div></form></div>
+<h2><a name="protocol_details" id="protocol_details">protocol details</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="138-166" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="protocol details" /></div></form></div>
+<h3><a name="data_fetching" id="data_fetching">data fetching</a></h3>
+<div class="level3">
+
+<p>
+<em class="u"><strong>POST</strong></em>
+</p>
+
+<p>
+Command parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> none</div>
+</li>
+</ul>
+
+<p>
+
+<em class="u"><strong>GET</strong></em>
+</p>
+
+<p>
+Command parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong><em>connector=true</em></strong> - flag of connector based request</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <strong> <em>dhx_colls=field1,field2…fieldN</em></strong> - optional, can contain a list of fields for which collections will be requested. dhtmlxGrid use such parameters to request data for combo columns and select filters ( such requests are executed just once , for initial data loading)<br/>
+ <br/>
+ <pre class="code php">some<span class="sy0">.</span>php?connector<span class="sy0">=</span>true<span class="sy0">&amp;</span>dhx_colls<span class="sy0">=</span><span class="nu0">2</span><span class="sy0">,</span><span class="nu0">3</span> </pre></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>dhx_sort[field]=directon</em></strong> - instruct server-side connector to sort dataset by defined field<br/>
+ <br/>
+  <pre class="code php">some<span class="sy0">.</span>php?connector<span class="sy0">=</span>true<span class="sy0">&amp;</span>dhx_sort<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">=</span>asc </pre></div>
+</li>
+<li class="level1"><div class="li"> <strong><em>dhx_filter[field]=mask</em></strong> - instruct server-side connector to filter dataset by defined field<br/>
+ <br/>
+ <pre class="code php"><span class="co1">//filter by %test%</span>
+some<span class="sy0">.</span>php?connector<span class="sy0">=</span>true<span class="sy0">&amp;</span>dhx_filter<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">=</span>test</pre></div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="grid_specific" id="grid_specific">grid specific</a></h4>
+<div class="level4">
+
+<p>
+<em>Requsting part of data (Dynamic Smart Rendering or Dynamic Paging) </em>
+</p>
+
+<p>
+<em class="u"><strong>GET</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>posStart</strong></em> - position from which data is requested</div>
+</li>
+<li class="level1"><div class="li"> <em><strong>count</strong></em> - count of requested rows</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="combo_specific" id="combo_specific">combo specific</a></h4>
+<div class="level4">
+
+<p>
+<em>Requsting part of data</em>
+</p>
+
+<p>
+<em class="u"><strong>GET</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>pos</strong></em> - position from which data is requested</div>
+</li>
+</ul>
+
+<p>
+
+<em>Filter by label field</em>
+</p>
+
+<p>
+<em class="u"><strong>GET</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>mask</strong></em> - filtering mask for label field</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="tree_treegrid_specific" id="tree_treegrid_specific">tree/treeGrid specific</a></h4>
+<div class="level4">
+
+<p>
+<em>Requesting branch of tree</em>
+</p>
+
+<p>
+<em class="u"><strong>GET</strong></em> 
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>id</strong></em> - parent id for requested branch</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="167-1574" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="data fetching" /></div></form></div>
+<h3><a name="data_updating_using_dataprocessor" id="data_updating_using_dataprocessor">data updating (using dataProcessor)</a></h3>
+<div class="level3">
+
+<p>
+
+<em class="u"><strong>GET</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>editing=true</strong></em> - mark of dataprocessor-based call</div>
+</li>
+</ul>
+
+<p>
+<em class="u"><strong>POST</strong></em>
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>ids</strong></em> - list of updated records</div>
+</li>
+<li class="level1"><div class="li"> <em><strong>[id]_[property]</strong></em> - for each field inside updated record related field in POST is generated</div>
+</li>
+<li class="level1"><div class="li"> <em><strong>[id]_!nativeeditor_status</strong></em> - action type</div>
+</li>
+</ul>
+
+<p>
+
+<span class="curid"><a href="dhtmlxconnector___extending.html" class="wikilink1" title="dhtmlxconnector:extending">Back to top</a></span>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1575-1947" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="data updating (using dataProcessor)" /></div></form></div>
+<h2><a name="porting_connectors_to_another_platforms" id="porting_connectors_to_another_platforms">porting connectors to another platforms</a></h2>
+<div class="level2">
+
+<p>
+<strong>when should you use it?</strong>
+</p>
+
+<p>
+The existing version of connectors supports a limited set of server platforms. In case database/framework/scripting language you&#039;d like to use is not supported, you can port existing solution on your platform. 
+</p>
+
+<p>
+<strong>when shouldn&#039;t you use it?</strong>
+</p>
+
+<p>
+Connectors are just wrappers around existing grid functionality, that&#039;s why if you need to use this solution once, you would better use grid <acronym title="Application Programming Interface">API</acronym> directly, instead of creating your own server connector. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1948-2477" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="porting connectors to another platforms" /></div></form></div>
+<h3><a name="implementation_levels" id="implementation_levels">implementation levels</a></h3>
+<div class="level3">
+
+<p>
+Connector supports many operations implementing data processing. There is an opportunity to provide supporting basic operations and ignore higher-level ones, in case they are not used in your project. 
+
+</p>
+
+</div>
+
+<h4><a name="basic_support" id="basic_support">basic support</a></h4>
+<div class="level4">
+
+<p>
+Data assignment is basic connector operation which proceeds in the following way: connector connects to database, selects data and outputs this in <em>stdout</em> using <acronym title="Extensible Markup Language">XML</acronym> format of the current component.
+</p>
+
+<p>
+<strong>Key points:</strong>
+</p>
+<ol>
+<li class="level1"><div class="li"> <acronym title="Extensible Markup Language">XML</acronym>-data input must occur only after sending the appropriate http-header</div>
+</li>
+<li class="level1"><div class="li"> <acronym title="Extensible Markup Language">XML</acronym> must start with <acronym title="Extensible Markup Language">XML</acronym> declaration containing the appropriate data coding</div>
+</li>
+<li class="level1"><div class="li"> None other content must be sent to <em>stdout</em> (neither before nor after sending data by connector)<br/>
+ <br/>
+ <pre class="code php">header(&quot;Content-type:text/xml&quot;);
+print(&quot;<span class="sy0">&lt;</span>?xml version<span class="sy0">=</span><span class="st_h">'1.0'</span> encoding<span class="sy0">=</span><span class="st_h">'utf-8'</span> <span class="kw2">?&gt;</span>&quot;);
+print(xml_formatted_data);</pre></div>
+<ul>
+<li class="level2"><div class="li"> incoming parameters - there are no any;</div>
+</li>
+<li class="level2"><div class="li"> restriction for output data - there is no restriction.</div>
+</li>
+</ul>
+</li>
+</ol>
+
+<p>
+
+<a href="dhtmlxconnector___xml_format_used_by_connector.html" class="wikilink1" title="dhtmlxconnector:xml_format_used_by_connector">XML Format used by connector</a>
+</p>
+
+<p>
+Basic implementation allows to use resulting script as input parameter for load()/loadXML() methods.
+</p>
+
+<p>
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+Technically, there is an opportunity to use JSON or any other supported by component format, but you should bear in mind that complex scenarios are XML-oriented and you would better use XML
+</div>
+</p>
+
+</div>
+
+<h4><a name="filtration_and_sorting" id="filtration_and_sorting">filtration and sorting</a></h4>
+<div class="level4">
+
+<p>
+At this stage, the number of supported operations is considerably extended: you are 
+allowed to use #connector_text_filter, sorting type &#039;connector&#039; and filter/sort data through <acronym title="Uniform Resource Locator">URL</acronym> manipulations. 
+</p>
+
+<p>
+<strong>Key points:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> An obvious advantage of this functionality can be estimated only for operating with grid, for other components such functionality doesn&#039;t seem to be necessary (it can be used only to filter/sort data through <acronym title="Uniform Resource Locator">URL</acronym> manipulations).</div>
+</li>
+<li class="level1"><div class="li"> The level &#039;uses&#039; code from the previous one. Beware, that now, before using <acronym title="Extensible Markup Language">XML</acronym>, data is sorted/filtered according to incoming data. </div>
+</li>
+</ul>
+
+<p>
+
+<strong>GET</strong>
+</p>
+
+<p>
+Command parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>dhx_filter</strong></em> - hash of filtering rules</div>
+<ul>
+<li class="level2"><div class="li"> filtration pattern - any entry( like %x% )</div>
+</li>
+<li class="level2"><div class="li"> in case you have a few parameters, you should link them by AND logic</div>
+</li>
+<li class="level2"><div class="li"> parameter is available only for fields with active filter</div>
+</li>
+<li class="level2"><div class="li"> empty filter value means that filter wasn&#039;t set and it must be ignored<br/>
+ <br/>
+ <pre class="code php"><span class="co1">// where field1 like %some% AND field2 like %other%</span>
+dhx_filter<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">=</span>some<span class="sy0">&amp;</span>dhx_filter<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">=</span>other</pre></div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <em><strong>dhx_sort</strong></em> - hash of sorting rules</div>
+<ul>
+<li class="level2"><div class="li"> possible values for <em>asc</em> and <em>dsc</em> parameters</div>
+</li>
+<li class="level2"><div class="li"> in case you have a few parameters, you should link them by AND logic</div>
+</li>
+<li class="level2"><div class="li"> order of filtering implementation - not defined, at the moment no one component is able to create multi-field sorting<br/>
+ <br/>
+ <pre class="code php"><span class="co1">// order by field1 ASC, field2 DESC</span>
+dhx_sort<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="sy0">=</span>asc<span class="sy0">&amp;</span>dhx_filter<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="sy0">=</span>dsc</pre>
+<p>
+ Hashes of rules in question use name of fields (where filtration is enabled) or columns&#039; indices (in case of grid).
+</p>
+</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+
+Restriction for output data: order and structure are defined through filtering/sorting parameters.
+</p>
+
+<p>
+<strong>combo specific:</strong><br/>
+
+dhtmlxCombo has an additional filtering GET parameter:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>mask</strong></em> - sets filtration in text label columns using “like x%” rule.<br/>
+ <br/>
+ <pre class="code php">some<span class="sy0">.</span><span class="kw1">do</span>?mask<span class="sy0">=</span>abc </pre></div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="dynamic_loading" id="dynamic_loading">dynamic loading</a></h4>
+<div class="level4">
+
+<p>
+After data output implementation goes dynamical loading. Dynamical loading has some particular features while working with hierarchical (tree/treegrid) and simple (grid/combo) components.
+</p>
+
+<p>
+For hierarchical components, loading of data branch occurs at once. 
+</p>
+<pre class="code php">some<span class="sy0">.</span><span class="kw1">do</span>?id<span class="sy0">=</span><span class="nu0">123</span></pre>
+<p>
+ 
+Command parameters:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>id</strong></em> - &#039;parent id&#039; which defines the appropriate branch (beware, all filtration/sorting rules set while the previous stage are applied to component). </div>
+</li>
+</ul>
+
+<p>
+
+For other components, data will be outputted according to incoming parameters. 
+</p>
+<pre class="code php"><span class="co1">//grid</span>
+some<span class="sy0">.</span><span class="kw1">do</span>?posStart<span class="sy0">=</span><span class="nu0">20</span><span class="sy0">&amp;</span>count<span class="sy0">=</span><span class="nu0">50</span>
+<span class="co1">//combo</span>
+some<span class="sy0">.</span><span class="kw1">do</span>?<a href="http://www.php.net/pos"><span class="kw3">pos</span></a><span class="sy0">=</span><span class="nu0">50</span></pre>
+<p>
+
+Command parameters:
+</p>
+
+<p>
+grid:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>posStart</strong></em> - index of initial string</div>
+</li>
+<li class="level1"><div class="li"> <em><strong>count</strong></em> - number of strings to output</div>
+</li>
+</ul>
+
+<p>
+combo:
+</p>
+<ul>
+<li class="level1"><div class="li"> <em><strong>pos</strong></em> - index of initial string</div>
+</li>
+<li class="level1"><div class="li"> number of strings is defined by server settings</div>
+</li>
+</ul>
+
+<p>
+
+<div class='dhx_note'><div class='dhx_note_img'>&nbsp;</div>
+While working with grid, initial request (grid doesn't know yet how many strings are expected) doesn't contain any additional parameters ( 'posStart' and 'count' are not defined) 
+</div>
+</p>
+
+<p>
+<span class="curid"><a href="dhtmlxconnector___extending.html" class="wikilink1" title="dhtmlxconnector:extending">Back to top</a></span>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2478-" /><input type="hidden" name="rev" value="1306855367" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit" class="button" title="implementation levels" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/extending.txt &middot; Last modified: 2011/05/31 18:22 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Aextending&amp;1310069427" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:extending" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

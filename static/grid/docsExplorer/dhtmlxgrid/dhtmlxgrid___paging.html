@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:paging    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:paging</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:paging"  class="breadcrumbs" title="dhtmlxgrid:paging">paging</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#paging_in_grid" class="toc">Paging in grid</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#changing_page" class="toc">Changing Page</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#available_paging_skins" class="toc">Available Paging Skins</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#applying_paging_skin" class="toc">Applying Paging Skin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#customizing_default_paging_skin" class="toc">Customizing Default Paging Skin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#customizing_toolbar_paging_skin" class="toc">Customizing Toolbar Paging Skin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#customizing_bricks_paging_skin" class="toc">Customizing Bricks Paging Skin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#internationalization_in_paging_skins" class="toc">Internationalization in Paging Skins</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#creating_custom_paging_skin" class="toc">Creating Custom Paging Skin</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#attaching_grid_with_paging_to_other_components" class="toc">Attaching Grid with Paging to other components</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#attaching_toolbar_to_status" class="toc">Attaching toolbar to status</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="paging_in_grid" id="paging_in_grid">Paging in grid</a></h2>
+<div class="level2">
+
+<p>
+
+dhtmlxgrid_pgn.js required ( this functionality is available only in dhtmlxGrid PRO )
+</p>
+
+<p>
+
+To turn paging on is the following:
+
+</p>
+<pre class="code javascript">   grid.<span class="me1">enablePaging</span><span class="br0">&#40;</span>mode<span class="sy0">,</span>pageSize<span class="sy0">,</span>pagesInGrp<span class="sy0">,</span>pagingControlsContainer<span class="sy0">,</span>showRecInfo<span class="sy0">,</span>pagingStateContainer<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters the user should specify are the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  mode(true|false) - enable|disable paging mode;</div>
+</li>
+<li class="level1"><div class="li">  pageSize - set count of rows per page;</div>
+</li>
+<li class="level1"><div class="li">  pagesInGrp - set count of visible page selectors;</div>
+</li>
+<li class="level1"><div class="li">  pagingControlsContainer - id or container that will be used for showing paging controls;</div>
+</li>
+<li class="level1"><div class="li">  showRecInfo(true|false) - enable|disable showing of additional information about paging state;</div>
+</li>
+<li class="level1"><div class="li">  pagingStateContainer - id or container that will be used for showing paging state.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-827" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Paging in grid" /></div></form></div>
+<h3><a name="changing_page" id="changing_page">Changing Page</a></h3>
+<div class="level3">
+
+<p>
+
+There is the possibility to change the current pare in the grid from script. This can be executed in one of the following ways:
+
+</p>
+<ul>
+<li class="level1"><div class="li">   Change Page</div>
+</li>
+</ul>
+<pre class="code javascript">      grid.<span class="me1">changePage</span><span class="br0">&#40;</span>pageNum<span class="br0">&#41;</span>; <span class="co1">// new active page</span></pre><ul>
+<li class="level1"><div class="li">  Change Page Relatively</div>
+</li>
+</ul>
+<pre class="code javascript">      grid.<span class="me1">changePageRelative</span><span class="br0">&#40;</span>ind<span class="br0">&#41;</span>; <span class="co1">// correction ( -1,1,2, etc) to the current active page</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="828-1229" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Changing Page" /></div></form></div>
+<h3><a name="available_paging_skins" id="available_paging_skins">Available Paging Skins</a></h3>
+<div class="level3">
+
+<p>
+
+The possibility to apply predefined skins on paging was created. The user can choose between:
+
+</p>
+<ul>
+<li class="level1"><div class="li">  default - the skin has configurable text line, requires two areas:</div>
+</li>
+</ul>
+
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_244p6trkcd8_b.png"  class="media" alt="" />
+
+</p>
+<ul>
+<li class="level1"><div class="li">  toolbar - uses dhtmlxToolbar for navigation, requires a single area:</div>
+</li>
+</ul>
+
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_245d78m4vgp_b.png"  class="media" alt="" />
+<img src="/dhtmlx/docs/lib/images/smileys/fixme.gif" class="middle" alt="FIXME" /> - new screen required
+
+</p>
+<ul>
+<li class="level1"><div class="li">  bricks - uses a slick, web-like navigation, requires a single area:</div>
+</li>
+</ul>
+
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_246d4d9wffx_b.png"  class="media" alt="" />
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1230-1740" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Available Paging Skins" /></div></form></div>
+<h3><a name="applying_paging_skin" id="applying_paging_skin">Applying Paging Skin</a></h3>
+<div class="level3">
+
+<p>
+The following method should be used for applying a paging skin (should be used <strong>after</strong> paging was enabled and after setSkin(), if it is used in the grid):
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingSkin</span><span class="br0">&#40;</span><span class="st0">&quot;bricks&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+To use “bricks” paging skin the user have to include dhtmlxgrid_pgn_bricks.css file.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1741-2081" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Applying Paging Skin" /></div></form></div>
+<h3><a name="customizing_default_paging_skin" id="customizing_default_paging_skin">Customizing Default Paging Skin</a></h3>
+<div class="level3">
+
+<p>
+
+The default skin creates two information lines, one of which provides the information about the current state of paging. The second one provides navigation controls.
+Both lines can be configured through templates:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingTemplates</span><span class="br0">&#40;</span>navigation_template<span class="sy0">,</span>info_template<span class="br0">&#41;</span>;</pre>
+<p>
+
+The default templates are:
+
+</p>
+<ul>
+<li class="level1"><div class="li">  navigation_template:</div>
+</li>
+</ul>
+<pre class="code javascript">  <span class="br0">&#91;</span>prevpages<span class="sy0">:&amp;</span>amp;lt;:&amp;amp;nbsp;<span class="br0">&#93;</span> <span class="br0">&#91;</span>currentpages<span class="sy0">:,&amp;</span>amp;nbsp;<span class="br0">&#93;</span> <span class="br0">&#91;</span>nextpages<span class="sy0">:&amp;</span>amp;gt;:&amp;amp;nbsp;<span class="br0">&#93;</span></pre><ul>
+<li class="level1"><div class="li">  info_template:</div>
+</li>
+</ul>
+<pre class="code javascript">  Results <span class="sy0">&lt;</span>b<span class="sy0">&gt;</span><span class="br0">&#91;</span>from<span class="br0">&#93;</span><span class="sy0">-</span><span class="br0">&#91;</span>to<span class="br0">&#93;</span><span class="sy0">&lt;/</span>b<span class="sy0">&gt;</span> of <span class="sy0">&lt;</span>b<span class="sy0">&gt;</span><span class="br0">&#91;</span>total<span class="br0">&#93;</span><span class="sy0">&lt;/</span>b<span class="sy0">&gt;</span></pre>
+<p>
+
+The following values are automatically replaced:
+</p>
+<ul>
+<li class="level1"><div class="li">  [from] - index of the first row on the page;</div>
+</li>
+<li class="level1"><div class="li">  [to] - index of the last row on the page;</div>
+</li>
+<li class="level1"><div class="li">  [total] - total count of rows in the grid;</div>
+</li>
+<li class="level1"><div class="li">  [current] - link to the current page (or next | prev - the relative position can be used);</div>
+</li>
+<li class="level1"><div class="li">  [prepages] - link to the previous set of pages;</div>
+</li>
+<li class="level1"><div class="li">  [nextpages] - link to the next set of pages;</div>
+</li>
+<li class="level1"><div class="li">  [currentpages] - render the current set of pages.</div>
+</li>
+</ul>
+
+<p>
+
+All link markers allow to define the text as
+
+</p>
+<pre class="code javascript">  <span class="br0">&#91;</span>prev<span class="sy0">:</span>text_in_normal_state<span class="sy0">:</span>text_in_disabled_state<span class="br0">&#93;</span></pre>
+<p>
+
+The user can use any combination of markers and static text|<acronym title="HyperText Markup Language">HTML</acronym> inside a template:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingTemplates</span><span class="br0">&#40;</span><span class="st0">&quot;Pages - [current:0] [current:+1] [current:+2] , from [total] rows&quot;</span><span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_247d6z9bnf4_b.png"  class="media" alt="" />
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingTemplates</span><span class="br0">&#40;</span><span class="st0">&quot;Pages - [prevpages:Previos:] [currentpages:-] [nextpages:Next:]&quot;</span><span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<img src="dhtmlxgrid___dgr5rjkf_248f2vtrgds_b.png"  class="media" alt="" />
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2082-3701" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Customizing Default Paging Skin" /></div></form></div>
+<h3><a name="customizing_toolbar_paging_skin" id="customizing_toolbar_paging_skin">Customizing Toolbar Paging Skin</a></h3>
+<div class="level3">
+
+<p>
+The toolbar skin is based on dhtmlxToolbar. The user can get reference to the toolbar object in the following way:
+
+</p>
+<pre class="code javascript">   grid.<span class="me1">load</span><span class="br0">&#40;</span>url<span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw2">var</span> myToolbar<span class="sy0">=</span>grid.<span class="me1">aToolBar</span>;
+   <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Note, aToolBar property is available only after all rows are loaded.<br/>
+
+There is the possibility to use any of <a href="http://docs.dhtmlx.com/doku.php?id=dhtmlxtoolbar:toc" class="wikilink1" title="dhtmlxtoolbar:toc">dhtmlxToolbar</a> related methods to change the toolbar object.
+</p>
+
+<p>
+In addition to that, the user can also configure which buttons (among the default ones) he expects to see in the toolbar:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingWTMode</span><span class="br0">&#40;</span>navButtons<span class="sy0">,</span>navLabel<span class="sy0">,</span>pageSelect<span class="sy0">,</span>perPageSelect<span class="br0">&#41;</span>;</pre>
+<p>
+
+Each of the above mentioned parameters can be true or false:
+</p>
+<ul>
+<li class="level1"><div class="li">  navButtons - the first, prev, next, last buttons;</div>
+</li>
+<li class="level1"><div class="li">  navLabel - label with information about currently shown pages;</div>
+</li>
+<li class="level1"><div class="li">  pageSelect - selectbox that allows to choose the current page;</div>
+</li>
+<li class="level1"><div class="li">  perPageSelect - selectbox that allows to choose the count of rows per page.</div>
+</li>
+</ul>
+
+<p>
+
+The user can change style of the “tooblar” paging skin using 2nd parameter of setPagingSkin() method:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setPagingSkin</span><span class="br0">&#40;</span><span class="st0">&quot;toolbar&quot;</span><span class="sy0">,</span><span class="st0">&quot;dhx_black&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+To apply toolbar skin the user should include appropriate .css file from the folder dhtmlxToolbar\codebase\skins\
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3702-5004" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Customizing Toolbar Paging Skin" /></div></form></div>
+<h3><a name="customizing_bricks_paging_skin" id="customizing_bricks_paging_skin">Customizing Bricks Paging Skin</a></h3>
+<div class="level3">
+
+<p>
+
+The bricks skin requires an additional <acronym title="Cascading Style Sheets">CSS</acronym> file to be included into the project - dhtmlxgrid_pgn_bricks.css.
+This file defines the look and feel of controls. The user can adjust the necessary class in it in order to change their look and feel:
+</p>
+<ul>
+<li class="level1"><div class="li">  .dhx_pbox - a border line around navigation controls;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_pline - an area with page buttons;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_page - a navigation button;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_pager_info - an area with information about the current position inside paging;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_page_active - an active page button.</div>
+</li>
+</ul>
+
+<p>
+
+The file also contains different styles for different grid skins:
+</p>
+<ul>
+<li class="level1"><div class="li">  .dhx_pbox - default skin;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_pbox_modern - modern skin;</div>
+</li>
+<li class="level1"><div class="li">  .dhx_pbox_light - light skin;</div>
+</li>
+<li class="level1"><div class="li">  etc.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5005-5752" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Customizing Bricks Paging Skin" /></div></form></div>
+<h3><a name="internationalization_in_paging_skins" id="internationalization_in_paging_skins">Internationalization in Paging Skins</a></h3>
+<div class="level3">
+
+<p>
+All text labels used in toolbar and bricks skins are stored in a separate structure. So, it is not a problem to support different languages.
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">i18n</span>.<span class="me1">paging</span><span class="sy0">=</span><span class="br0">&#123;</span>
+      results<span class="sy0">:</span><span class="st0">&quot;Results&quot;</span><span class="sy0">,</span>
+      records<span class="sy0">:</span><span class="st0">&quot;Records from &quot;</span><span class="sy0">,</span>
+      to<span class="sy0">:</span><span class="st0">&quot; to &quot;</span><span class="sy0">,</span>
+      page<span class="sy0">:</span><span class="st0">&quot;Page &quot;</span><span class="sy0">,</span>
+      perpage<span class="sy0">:</span><span class="st0">&quot;rows per page&quot;</span><span class="sy0">,</span>
+      first<span class="sy0">:</span><span class="st0">&quot;To first Page&quot;</span><span class="sy0">,</span>
+      previous<span class="sy0">:</span><span class="st0">&quot;Previous Page&quot;</span><span class="sy0">,</span>
+      found<span class="sy0">:</span><span class="st0">&quot;Found records&quot;</span><span class="sy0">,</span>
+      next<span class="sy0">:</span><span class="st0">&quot;Next Page&quot;</span><span class="sy0">,</span>
+      last<span class="sy0">:</span><span class="st0">&quot;To last Page&quot;</span><span class="sy0">,</span>
+      of<span class="sy0">:</span><span class="st0">&quot; of &quot;</span><span class="sy0">,</span>
+      notfound<span class="sy0">:</span><span class="st0">&quot;No Records Found&quot;</span> <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5753-6309" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Internationalization in Paging Skins" /></div></form></div>
+<h3><a name="creating_custom_paging_skin" id="creating_custom_paging_skin">Creating Custom Paging Skin</a></h3>
+<div class="level3">
+
+<p>
+If none of built-in skins suits user needs, a custom one can be easily created. Basically, some custom code can be attached to events of the grid, but paging provides more simple way to define custom skins.
+Just define a grid method with the name:
+
+</p>
+<pre class="code javascript">      grid._pgn_<span class="br0">&#91;</span><span class="kw3">NAME</span><span class="br0">&#93;</span></pre>
+<p>
+
+And call the following method:
+
+</p>
+<pre class="code javascript">      grid.<span class="me1">setSkin</span><span class="br0">&#40;</span><span class="st0">&quot;[NAME]&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+As a result, this new grid method will be called each time when some paging information is changed and needs to be updated.
+</p>
+
+<p>
+For example, creating a group of paging controls like this:
+
+</p>
+<pre class="code html4strict">  <span class="sc2">&lt;<a href="http://december.com/html/4/element/input.html"><span class="kw2">input</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;button&quot;</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">&quot;Previos&quot;</span>&gt;</span>
+  <span class="sc2">&lt;<a href="http://december.com/html/4/element/span.html"><span class="kw2">span</span></a>&gt;</span>Current page: NN<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/span.html"><span class="kw2">span</span></a>&gt;</span>
+  <span class="sc2">&lt;<a href="http://december.com/html/4/element/input.html"><span class="kw2">input</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;button&quot;</span> <span class="kw3">value</span><span class="sy0">=</span><span class="st0">&quot;Next&quot;</span>&gt;</span></pre>
+<p>
+
+This can be done in the following way:
+
+</p>
+<pre class="code javascript">      grid._pgn_custom<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>page<span class="sy0">,</span>start<span class="sy0">,</span>end<span class="br0">&#41;</span><span class="br0">&#123;</span>
+              <span class="coMULTI">/* page - the current page
+                  start - the first visible row
+                  last - the last visible row */</span>
+          <span class="kw2">var</span> html<span class="sy0">=</span><span class="st0">'&lt;input type=&quot;button&quot; value=&quot;Previos&quot;&gt;&lt;span&gt;Current page: '</span><span class="sy0">+</span>page<span class="sy0">+</span><span class="st0">'&lt;/span&gt;&lt;input type=&quot;button&quot; value=&quot;Next&quot;&gt;'</span>;
+          grid._pgn_parentObj.<span class="me1">innerHTML</span><span class="sy0">=</span>html;
+          grid._pgn_parentObj.<span class="me1">childNodes</span><span class="br0">&#91;</span>0<span class="br0">&#93;</span>.<span class="me1">onclick</span><span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">// the previous button logic</span>
+              grid.<span class="me1">changePageRelative</span><span class="br0">&#40;</span><span class="sy0">-</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+          <span class="br0">&#125;</span>
+          grid._pgn_parentObj.<span class="me1">childNodes</span><span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span>.<span class="me1">onclick</span><span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span> <span class="co1">// the next button logic</span>
+              grid.<span class="me1">changePageRelative</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+          <span class="br0">&#125;</span>
+      <span class="br0">&#125;</span>
+      grid.<span class="me1">setPagingSkin</span><span class="br0">&#40;</span><span class="st0">&quot;custom&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6310-7815" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Creating Custom Paging Skin" /></div></form></div>
+<h3><a name="attaching_grid_with_paging_to_other_components" id="attaching_grid_with_paging_to_other_components">Attaching Grid with Paging to other components</a></h3>
+<div class="level3">
+
+<p>
+If you need to attach grid with paging to other DHTMLX components (dhtmlxAccordion, dhtmlxLayout, dhtmlxTabbar or dhtmlxWindows) you should use appropriate <acronym title="Application Programming Interface">API</acronym> method to attach container with grid and paging area.
+</p>
+
+<p>
+Container with grid and paging area:
+
+</p>
+<pre class="code html4strict"><span class="sc2">&lt;<a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a> <span class="kw3">width</span><span class="sy0">=</span><span class="st0">&quot;500px&quot;</span> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;paging_container&quot;</span>&gt;</span>
+   <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+      <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;recinfoArea&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+   <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+   <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+      <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+         <span class="sc2">&lt;<a href="http://december.com/html/4/element/div.html"><span class="kw2">div</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;gridbox&quot;</span> <span class="kw3">style</span><span class="sy0">=</span><span class="st0">&quot;widht:100%; height:150px; background-color:white;overflow:hidden&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/div.html"><span class="kw2">div</span></a>&gt;</span>
+      <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+   <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+   <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+      <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;pagingArea&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+   <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a>&gt;</span></pre>
+<p>
+dhtmlxAccordion:
+
+</p>
+<pre class="code javascript">   dhxAccordion.<span class="me1">cells</span><span class="br0">&#40;</span><span class="st0">&quot;a&quot;</span><span class="br0">&#41;</span>.<span class="me1">attachObject</span><span class="br0">&#40;</span><span class="st0">&quot;paging_container&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+dhtmlxLayout:
+
+</p>
+<pre class="code javascript">   dhxLayout.<span class="me1">cells</span><span class="br0">&#40;</span><span class="st0">&quot;a&quot;</span><span class="br0">&#41;</span>.<span class="me1">attachObject</span><span class="br0">&#40;</span><span class="st0">&quot;paging_container&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+dhtmlxTabbar:
+
+</p>
+<pre class="code javascript">   tabbar.<span class="me1">setContent</span><span class="br0">&#40;</span><span class="st0">&quot;a1&quot;</span><span class="sy0">,</span><span class="st0">&quot;paging_container&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+dhtmlxWindows:
+
+</p>
+<pre class="code javascript">   dhxWins.<span class="me1">window</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span>.<span class="me1">attachObject</span><span class="br0">&#40;</span><span class="st0">&quot;paging_container&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7816-8836" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Attaching Grid with Paging to other components" /></div></form></div>
+<h3><a name="attaching_toolbar_to_status" id="attaching_toolbar_to_status">Attaching toolbar to status</a></h3>
+<div class="level3">
+
+<p>
+
+If you&#039;re using grid, attached to window, layout or accordion, you may put toolbar into status.
+</p>
+
+<p>
+First you should include custom css (required for proper toolbar rendering):
+
+</p>
+<ul>
+<li class="level1"><div class="li">  <a href="/dhtmlx/docs/lib/exe/fetch.php?media=dhtmlxgrid:status_toolbar_accordion.zip" class="media mediafile mf_zip" title="dhtmlxgrid:status_toolbar_accordion.zip">status_toolbar_accordion.zip</a></div>
+</li>
+<li class="level1"><div class="li">  <a href="/dhtmlx/docs/lib/exe/fetch.php?media=dhtmlxgrid:status_toolbar_layout.zip" class="media mediafile mf_zip" title="dhtmlxgrid:status_toolbar_layout.zip">status_toolbar_layout.zip</a></div>
+</li>
+<li class="level1"><div class="li">  <a href="/dhtmlx/docs/lib/exe/fetch.php?media=dhtmlxgrid:status_toolbar_window.zip" class="media mediafile mf_zip" title="dhtmlxgrid:status_toolbar_window.zip">status_toolbar_window.zip</a></div>
+</li>
+</ul>
+<pre class="code html4strict">    <span class="sc-1">&lt;!-- for accordion --&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/link.html"><span class="kw2">link</span></a> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">&quot;STYLESHEET&quot;</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/css&quot;</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">&quot;status_toolbar_accordion.css&quot;</span>&gt;</span>
+    <span class="sc-1">&lt;!-- for layout --&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/link.html"><span class="kw2">link</span></a> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">&quot;STYLESHEET&quot;</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/css&quot;</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">&quot;status_toolbar_layout.css&quot;</span>&gt;</span>
+    <span class="sc-1">&lt;!-- for window --&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/link.html"><span class="kw2">link</span></a> <span class="kw3">rel</span><span class="sy0">=</span><span class="st0">&quot;STYLESHEET&quot;</span> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;text/css&quot;</span> <span class="kw3">href</span><span class="sy0">=</span><span class="st0">&quot;status_toolbar_window.css&quot;</span>&gt;</span></pre>
+<p>
+Then you may init grid and paging:
+</p>
+<pre class="code javascript">    <span class="co1">// init layout</span>
+    <span class="kw2">var</span> dhxLayout <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXLayoutObject<span class="br0">&#40;</span>...<span class="br0">&#41;</span>;
+    <span class="co1">// prepare status bar</span>
+    <span class="kw2">var</span> sb <span class="sy0">=</span> dhxLayout.<span class="me1">cells</span><span class="br0">&#40;</span><span class="st0">&quot;a&quot;</span><span class="br0">&#41;</span>.<span class="me1">attachStatusBar</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    sb.<span class="me1">setText</span><span class="br0">&#40;</span><span class="st0">&quot;&lt;div id='recinfoArea'&gt;&lt;/div&gt;&quot;</span><span class="br0">&#41;</span>;
+    <span class="co1">// init grid</span>
+    <span class="kw2">var</span> dhxGrid <span class="sy0">=</span> dhxLayout.<span class="me1">cells</span><span class="br0">&#40;</span><span class="st0">&quot;a&quot;</span><span class="br0">&#41;</span>.<span class="me1">attachGrid</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="co1">// configure paging</span>
+    dhxGrid.<span class="me1">enablePaging</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="sy0">,</span> <span class="nu0">10</span><span class="sy0">,</span> <span class="nu0">3</span><span class="sy0">,</span> <span class="st0">&quot;recinfoArea&quot;</span><span class="br0">&#41;</span>;
+    dhxGrid.<span class="me1">setPagingSkin</span><span class="br0">&#40;</span><span class="st0">&quot;toolbar&quot;</span><span class="sy0">,</span> <span class="st0">&quot;dhx_skyblue&quot;</span><span class="br0">&#41;</span>
+    ...</pre>
+<p>
+Screenshot:
+</p>
+
+<p>
+<img src="dhtmlxgrid___status_toolbar_window.png"  class="media" alt="" />
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8837-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit" class="button" title="Attaching toolbar to status" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/paging.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Apaging&amp;1310069472" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:paging" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

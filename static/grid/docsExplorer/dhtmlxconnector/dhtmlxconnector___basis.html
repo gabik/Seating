@@ -1,0 +1,549 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:basis    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:basis</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:basis"  class="breadcrumbs" title="dhtmlxconnector:basis">basis</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#basic_concepts" class="toc">Basic concepts</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#loading_from_database_table" class="toc">loading from database table</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#work_with_one_table" class="toc">work with one table</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#work_with_several_tables" class="toc">work with several tables</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#extra_data" class="toc">extra data</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#tree_and_treegrid_specificity" class="toc">tree and treegrid specificity</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#aliases" class="toc">aliases</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#loading_from_file_system" class="toc">loading from File System</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#limiting_files_in_output" class="toc">limiting files in output</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#loading_from_excel_file" class="toc">loading from Excel file</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#loading_both_data_and_header" class="toc">loading both data and header</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="basic_concepts" id="basic_concepts">Basic concepts</a></h1>
+<div class="level1">
+
+<p>
+In this chapter you&#039;ll find base information concerning static loading data from:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">database table</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">File System</a></span></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___excel_file.html" class="wikilink1" title="dhtmlxconnector:excel_file">Excel file</a></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-370" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="Basic concepts" /></div></form></div>
+<h2><a name="loading_from_database_table" id="loading_from_database_table">loading from database table</a></h2>
+<div class="level2">
+
+<p>
+<strong>APPLICABLE TO:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTMLX Touch components
+</p>
+
+<p>
+Loading characteristics are defined at stage of component configuration.<br/>
+
+There are 2 ways to specify the desired data:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">by render_table() method when you work with one table</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">by render_sql() method when you work with several tables (to implement complex queries)</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="371-897" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="loading from database table" /></div></form></div>
+<h3><a name="work_with_one_table" id="work_with_one_table">work with one table</a></h3>
+<div class="level3">
+
+<p>
+When all necessary data is placed in one database table you should  use the <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_table()</a> method: 
+
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;grid50&quot;</span><span class="sy0">,</span><span class="st0">&quot;item_id&quot;</span><span class="sy0">,</span><span class="st0">&quot;item_nm,item_cd&quot;</span><span class="sy0">,</span> <span class="st0">&quot;extra1, extra2&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>database table name</strong></div>
+</li>
+<li class="level1"><div class="li"> <strong>name of identity field</strong> (optional)</div>
+</li>
+<li class="level1"><div class="li"> <strong>list of fields</strong> which should be used as values of component item (cells of grid, item label in tree, text of option in combo)</div>
+</li>
+<li class="level1"><div class="li"> <strong>list of extra fields</strong> (know more about extra fields <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">here</a></span>)</div>
+</li>
+</ul>
+
+<p>
+If you want to render all fields from DB ( except of key field ), you can use simplified command: 
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;grid50&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+That&#039;s enough to make connector implement select, insert, update and delete operations. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="898-1741" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="work with one table" /></div></form></div>
+<h3><a name="work_with_several_tables" id="work_with_several_tables">work with several tables</a></h3>
+<div class="level3">
+
+<p>
+If your <acronym title="Structured Query Language">SQL</acronym> statement contains more than one table, connector won&#039;t be able to generate insert/update/delete operations correctly and you will need to do one from the next:
+</p>
+<ol>
+<li class="level1"><div class="li"> Define sql for each operation manually</div>
+</li>
+<li class="level1"><div class="li"> Use server-side events to define your own processing logic</div>
+</li>
+<li class="level1"><div class="li"> Define different configs for select and update operations</div>
+</li>
+</ol>
+
+<p>
+
+The 3rd approach is shown in the code snippet below:
+
+</p>
+<pre class="code php"><span class="kw1">if</span> <span class="br0">&#40;</span><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">is_select_mode</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="co1">//code for loading data</span>
+    <span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;Select * from tableA, tableB  where  tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;a.id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price,other&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">else</span> <span class="co1">//code for other operations - i.e. update/insert/delete</span>
+    <span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;tableA&quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ 
+ 
+With such init code grid will be loaded with three columns of data from 2 tables, but during saving only data from the first table will be saved. 
+</p>
+
+</div>
+
+<h4><a name="complex_queries" id="complex_queries">complex queries</a></h4>
+<div class="level4">
+
+<p>
+You are allowed to use any <acronym title="Structured Query Language">SQL</acronym> statements to populate a dhtmlx component through dhtmlxConnector. In this case you should use the <a href="dhtmlxconnector___connector_object_methods.html" class="wikilink1" title="dhtmlxconnector:connector_object_methods">render_sql()</a> method: 
+
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;SELECT * from tableA INNER JOIN tableB  ON tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price&quot;</span><span class="sy0">,</span> <span class="st0">&quot;extra1, extra2&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li">  <strong><em>sql</em> statement</strong></div>
+</li>
+<li class="level1"><div class="li">  <strong>name of identity field</strong> (optional)</div>
+</li>
+<li class="level1"><div class="li">  <strong>list of fields</strong> which should be used as values of component item (cells for grid, item label for tree, text of option for combo)</div>
+</li>
+<li class="level1"><div class="li">  <strong>list of extra fields</strong> (know more about extra fields <span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">here</a></span>)</div>
+</li>
+<li class="level1"><div class="li">  <strong>parent ID field name</strong> for hierarchical structures (required for tree and treegrid)</div>
+</li>
+</ul>
+
+<p>
+
+In case your <acronym title="Structured Query Language">SQL</acronym> query was against a single table, it is quite probable that insert/update/delete
+operations do not require any additional code. dhtmlxConnector will parse your <acronym title="Structured Query Language">SQL</acronym> and generate 
+insert/update/delete statements based on used table and fields names. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1742-3674" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="work with several tables" /></div></form></div>
+<h3><a name="extra_data" id="extra_data">extra data</a></h3>
+<div class="level3">
+
+<p>
+The last parameter of <em>render_sql</em> and <em>render_table</em> methods allows to define a list of fields which will be extracted from database table but won&#039;t be sent to client-side.<br/>
+
+These fields can be used as attributes or flags, mapped to different properties of records ( userdata, row styles, images, etc. ). 
+
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;tableA&quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price&quot;</span><span class="sy0">,</span><span class="st0">&quot;extra1,extra2&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">// or</span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;Select * from tableA, tableB  where  tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;table_a_id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price,other&quot;</span><span class="sy0">,</span><span class="st0">&quot;extra1,extra2&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+extra1 and extra2 fields will be available in all server-side events but won&#039;t be sent to client-side, and won&#039;t be included in update|insert operations. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3675-4381" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="extra data" /></div></form></div>
+<h3><a name="tree_and_treegrid_specificity" id="tree_and_treegrid_specificity">tree and treegrid specificity</a></h3>
+<div class="level3">
+
+<p>
+In case of Tree and TreeGrid , both <em>render_sql</em> and <em>render_table</em> accept one more parameter - relation ID. For default treegrid hierarchy - it&#039;s name of field , which will be used to link parent and child records. 
+
+</p>
+<pre class="code php"><span class="re0">$treeGrid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;tableA&quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price&quot;</span><span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><span class="st0">&quot;parent_id&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">// or</span>
+<span class="re0">$treeGrid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;Select * from tableA, tableB  where  tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;a.id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price,other&quot;</span><span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><span class="st0">&quot;parent_id&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4382-4861" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="tree and treegrid specificity" /></div></form></div>
+<h3><a name="aliases" id="aliases">aliases</a></h3>
+<div class="level3">
+
+<p>
+To make usage of extracted data handier you can use aliases for DB field names (makes sense only if you use server-side events):
+
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;tableA&quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price(product_price)&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">// or</span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot;Select *,tableA.id as aid from tableA, tableB  where  tableA.id=tableB.id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;tableA.id(aid)&quot;</span><span class="sy0">,</span><span class="st0">&quot;name,price(product_price),other&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+<span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Back to top</a></span>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4862-5286" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="aliases" /></div></form></div>
+<h2><a name="loading_from_file_system" id="loading_from_file_system">loading from File System</a></h2>
+<div class="level2">
+
+<p>
+<strong>APPLICABLE TO:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form
+</p>
+
+<p>
+Starting from version 1.0, dhtmlxConnector allows to use FileSystem as datasource (please note, to start use this functionality you should include <em>db_filesystem.php</em> file located in connector&#039;s package). 
+
+</p>
+<pre class="code php"><span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;./codebase/connector/db_filesystem.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;./codebase/connector/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span> <span class="st0">&quot;FileSystem&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;../&quot;</span><span class="sy0">,</span><span class="st0">&quot;safe_name&quot;</span><span class="sy0">,</span><span class="st0">&quot;filename,full_filename,size,name,extention,date,is_folder&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ 
+In the code snippet above, grid is filled with info about files located in &#039;d:/www&#039; folder 
+</p>
+
+<p>
+<strong>Parameters of &#039;render-table&#039; method:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>folder</strong>, for which data listing is required</div>
+</li>
+<li class="level1"><div class="li"> <strong>field&#039;s id</strong>. Leave it empty or use safe_name as ID of file</div>
+</li>
+<li class="level1"><div class="li"> <strong>list of fields</strong>, possible values are:</div>
+<ul>
+<li class="level2"><div class="li"> <em><strong>filename</strong></em> - name of file</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>full_filename</strong></em> - full path to file</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>size</strong></em> - size of file in bytes</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>name</strong></em> - name part of file name</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>extension</strong></em> - extension part of file name</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>date</strong></em> - timestamp of file</div>
+</li>
+<li class="level2"><div class="li"> <em><strong>is_folder</strong></em> - file|folder flag</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5287-6495" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="loading from File System" /></div></form></div>
+<h3><a name="limiting_files_in_output" id="limiting_files_in_output">limiting files in output</a></h3>
+<div class="level3">
+
+<p>
+There are 3 ways to limit files in output:
+</p>
+<ol>
+<li class="level1"><div class="li"> by extension type </div>
+</li>
+<li class="level1"><div class="li"> by regexp pattern </div>
+</li>
+<li class="level1"><div class="li"> by meta-type </div>
+</li>
+</ol>
+
+<p>
+
+<strong>by extension type:</strong>
+
+</p>
+<pre class="code php"><span class="re0">$fileTypes</span> <span class="sy0">=</span> FileSystemTypes<span class="sy0">::</span><span class="me2">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="re0">$fileTypes</span><span class="sy0">-&gt;</span><span class="me1">addExtention</span><span class="br0">&#40;</span><span class="st_h">'png'</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>by regexp pattern:</strong>
+
+</p>
+<pre class="code php"><span class="re0">$fileTypes</span> <span class="sy0">=</span> FileSystemTypes<span class="sy0">::</span><span class="me2">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="re0">$fileTypes</span><span class="sy0">-&gt;</span><span class="me1">addPattern</span><span class="br0">&#40;</span><span class="st_h">'/^.+\..*$/'</span><span class="br0">&#41;</span>;</pre>
+<p>
+<strong>by meta-type:</strong>
+</p>
+
+<p>
+The following meta-types can be used:
+</p>
+<ul>
+<li class="level1"><div class="li"> <strong>image</strong> - image files</div>
+</li>
+<li class="level2"><div class="li"> <strong>document</strong> - doc, xls, txt, rtf</div>
+</li>
+<li class="level2"><div class="li"> <strong>web</strong> - php, html, js, css</div>
+</li>
+<li class="level2"><div class="li"> <strong>audio</strong> - mp3, wav, ogg</div>
+</li>
+<li class="level2"><div class="li"> <strong>video</strong> - avi, mpg, mpeg, mp4</div>
+</li>
+<li class="level2"><div class="li"> <strong>only_dir</strong> - folders</div>
+</li>
+</ul>
+<pre class="code php"><span class="re0">$fileTypes</span> <span class="sy0">=</span> FileSystemTypes<span class="sy0">::</span><span class="me2">getInstance</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="re0">$fileTypes</span><span class="sy0">-&gt;</span><span class="me1">setType</span><span class="br0">&#40;</span><span class="st_h">'web'</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Back to top</a></span>
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6496-7275" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="limiting files in output" /></div></form></div>
+<h2><a name="loading_from_excel_file" id="loading_from_excel_file">loading from Excel file</a></h2>
+<div class="level2">
+
+<p>
+<strong>APPLICABLE TO:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form
+</p>
+
+<p>
+Starting from version 1.0, dhtmlxConnector allows to use Excel file as datasource.
+</p>
+
+<p>
+To start use this functionlity you should:
+</p>
+<ol>
+<li class="level1"><div class="li"> Download phpExcel.<br/>
+ It isn&#039;t included in the connector&#039;s package. You can grab it from 2 sources:</div>
+<ul>
+<li class="level2"><div class="li"> <a href="http://support.dhtmlx.com/x-files/connector/phpExcel.zip" class="urlextern" title="http://support.dhtmlx.com/x-files/connector/phpExcel.zip"  rel="nofollow">http://support.dhtmlx.com/x-files/connector/phpExcel.zip</a></div>
+</li>
+<li class="level2"><div class="li"> <a href="http://www.codeplex.com/PHPExcel" class="urlextern" title="http://www.codeplex.com/PHPExcel"  rel="nofollow">http://www.codeplex.com/PHPExcel</a>.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> Unzip library to the connector&#039;s folder. </div>
+</li>
+<li class="level1"><div class="li"> Include related files:</div>
+<ul>
+<li class="level2"><div class="li"> &#039;<em>lib/PHPExcel.php</em>&#039; (phpExcel package)</div>
+</li>
+<li class="level2"><div class="li"> &#039;<em>lib/PHPExcel/IOFactory.php</em>&#039; (phpExcel package)</div>
+</li>
+<li class="level2"><div class="li"> &#039;<em>db_excel.php</em>&#039; (standard connector&#039;s package)</div>
+</li>
+</ul>
+</li>
+</ol>
+<pre class="code php"><span class="co1">//files from libExcel package</span>
+<span class="kw1">require_once</span><span class="br0">&#40;</span><span class="st_h">'lib/PHPExcel.php'</span><span class="br0">&#41;</span>;
+<span class="kw1">require_once</span><span class="br0">&#40;</span><span class="st_h">'lib/PHPExcel/IOFactory.php'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="co1">//connectors</span>
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../codebase/db_excel.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../codebase/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="st0">&quot;../some.xls&quot;</span><span class="sy0">,</span> <span class="st0">&quot;ExcelDBDataWrapper&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;A18:F83&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,C,D,E,F&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> constructor <em><strong>GridConnector()</strong></em></div>
+<ul>
+<li class="level2"><div class="li"> <strong>name of excel file</strong>, absolute path or path related to the php file</div>
+</li>
+<li class="level2"><div class="li"> <strong>database type</strong>  </div>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> <em><strong>render_table()</strong></em> method</div>
+<ul>
+<li class="level2"><div class="li"> <strong>first parameter</strong> can be</div>
+<ul>
+<li class="level4"><div class="li"> range of cells in the spreadsheet, for example A18:F83<br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;A18:F83&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,C,D,E,F&quot;</span><span class="br0">&#41;</span>; </pre></div>
+</li>
+<li class="level4"><div class="li"> number of the top row, from which output need to be started, for example A4<br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;A1&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,C,D,E,F&quot;</span><span class="br0">&#41;</span>; </pre></div>
+</li>
+<li class="level4"><div class="li"> &#039;*&#039;, which means include all not empty rows<br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;*&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,C,D,E,F&quot;</span><span class="br0">&#41;</span>; </pre></div>
+</li>
+</ul>
+</li>
+<li class="level2"><div class="li"> <strong>name of identity field</strong>. You can use &#039;id&#039; value for auto id generation</div>
+</li>
+<li class="level2"><div class="li"> <strong>list of fields</strong> which will be used as columns in the grid</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7276-9102" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="loading from Excel file" /></div></form></div>
+<h3><a name="loading_both_data_and_header" id="loading_both_data_and_header">loading both data and header</a></h3>
+<div class="level3">
+
+<p>
+<strong>Applicable to:</strong> Grid
+</p>
+
+<p>
+When you need to load both data and header from excel file, you can make it through GridConfiguration:
+
+</p>
+<pre class="code php"><span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="re0">$excel_file</span><span class="sy0">,</span> <span class="st0">&quot;Excel&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$config</span><span class="sy0">=</span><span class="kw2">new</span> GridConfiguration<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="co1">//array of cells, with labels for grid's header</span>
+<span class="re0">$config</span><span class="sy0">-&gt;</span><span class="me1">setHeader</span><span class="br0">&#40;</span><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">excel_data</span><span class="br0">&#40;</span><a href="http://www.php.net/array"><span class="kw3">array</span></a><span class="br0">&#40;</span><span class="st0">&quot;A3&quot;</span><span class="sy0">,</span><span class="st0">&quot;B3&quot;</span><span class="sy0">,</span><span class="st0">&quot;F13&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">set_config</span><span class="br0">&#40;</span><span class="re0">$config</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;A18&quot;</span><span class="sy0">,</span> <span class="st0">&quot;id&quot;</span><span class="sy0">,</span> <span class="st0">&quot;A,B,F&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+ 
+<span class="curid"><a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Back to top</a></span>
+ 
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9103-" /><input type="hidden" name="rev" value="1308745801" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit" class="button" title="loading both data and header" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/basis.txt &middot; Last modified: 2011/06/22 15:30 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Abasis&amp;1310069432" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:basis" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

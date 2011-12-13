@@ -1,0 +1,353 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:loading_from_html    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:loading_from_html</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:loading_from_html"  class="breadcrumbs" title="dhtmlxgrid:loading_from_html">loading_from_html</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h3><a name="initialization_from_html" id="initialization_from_html">Initialization from HTML</a></h3>
+<div class="level3">
+
+<p>
+
+dhtlmxGrid can be initialized from an <acronym title="HyperText Markup Language">HTML</acronym> markup. This allows converting existing tables to active grids, or the user can generate data as an <acronym title="HyperText Markup Language">HTML</acronym> table and convert it into the grid, instead of working with a raw <acronym title="Extensible Markup Language">XML</acronym>.
+</p>
+
+<p>
+There are two ways to initialize the grid from the <acronym title="HyperText Markup Language">HTML</acronym>:
+</p>
+<ul>
+<li class="level1"><div class="li">  Table-Based Initialization;</div>
+</li>
+<li class="level1"><div class="li">  Automatic Initialization by a <acronym title="Cascading Style Sheets">CSS</acronym> Class.</div>
+</li>
+</ul>
+
+<p>
+In both cases, the user needs to add dhtmlxgrid_start.js file to the page.
+</p>
+
+<p>
+Note: only one of the above mentioned methods should be used at a time (not both at the same time).
+</p>
+
+</div>
+
+<h4><a name="table-based_initialization" id="table-based_initialization">Table-Based Initialization</a></h4>
+<div class="level4">
+
+<p>
+
+A table can be converted to the grid by dhtmlXGridFromTable command:
+
+</p>
+<pre class="code html4strict">    <span class="sc2">&lt;<a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;some_table&quot;</span>&gt;</span>
+        <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+            <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Header A<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Header B<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+        <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+        <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+            <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Data A<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Data B<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+        <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+        ...
+    <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a>&gt;</span>
+    <span class="sc2">&lt;<a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a>&gt;</span>
+        var grid = dhtmlXGridFromTable(&quot;some_table&quot;);
+    <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/script.html"><span class="kw2">script</span></a>&gt;</span></pre>
+<p>
+
+Before the initialization:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_232gb9x7qr8_b.png"  class="media" alt="" />
+</p>
+
+<p>
+After the initialization:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_233fgwxf2g2_b.png"  class="media" alt="" />
+</p>
+
+</div>
+
+<h4><a name="automatic_initialization_by_a_css_class" id="automatic_initialization_by_a_css_class">Automatic Initialization by a CSS Class</a></h4>
+<div class="level4">
+
+<p>
+The initialization by a <acronym title="Cascading Style Sheets">CSS</acronym> class will work only for those tables that were on page at the moment of loading. If the page was created dynamically or loaded by some kind of <acronym title="Asynchronous JavaScript and XML">AJAX</acronym>, only the direct initialization method can be used.
+
+</p>
+<pre class="code html4strict">      <span class="sc2">&lt;<a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;some_table&quot;</span> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span>&gt;</span>
+          <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+              <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Header A<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Header B<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+          <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+          <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+              <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Data A<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Data B<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+          <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+          ...
+      <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a>&gt;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="grid_configuration_during_loading_from_html" id="grid_configuration_during_loading_from_html">Grid Configuration during Loading from HTML</a></h4>
+<div class="level4">
+
+<p>
+The first row of the table will be used for grid headers. The user can apply some attributes to define properties of grid&#039;s columns (all of them are optional).
+
+</p>
+<pre class="code html4strict">      <span class="sc2">&lt;<a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span>&gt;</span>
+          <span class="sc2">&lt;<a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+             <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a> <span class="kw3">width</span><span class="sy0">=</span><span class="st0">&quot;150&quot;</span> <span class="kw3">align</span><span class="sy0">=</span><span class="st0">&quot;left&quot;</span>&gt;</span>Column 1<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+             <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;co&quot;</span> sort<span class="sy0">=</span><span class="st0">&quot;str&quot;</span>&gt;</span>Column 2<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+             <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a> <span class="kw3">type</span><span class="sy0">=</span><span class="st0">&quot;edn&quot;</span> format<span class="sy0">=</span><span class="st0">&quot;0,000.00&quot;</span>&gt;</span>Column 3<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+             <span class="sc2">&lt;<a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>Column 4<span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/td.html"><span class="kw2">td</span></a>&gt;</span>
+          <span class="sc2">&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/tr.html"><span class="kw2">tr</span></a>&gt;</span>
+&nbsp;</pre>
+<p>
+
+The user can indicate:
+</p>
+<ul>
+<li class="level1"><div class="li">  width - width of a column in pixels; by default the width of a column in the source table will be taken;</div>
+</li>
+<li class="level1"><div class="li">  align - align of data in a column;</div>
+</li>
+<li class="level1"><div class="li">  sort - type of sorting used against a column;</div>
+</li>
+<li class="level1"><div class="li">  type - cell type (“ro” by default);</div>
+</li>
+<li class="level1"><div class="li">  format - data format (can be used against edn|ron|dhxCalendar|dhxCalendarA column types - mimics setNumberFormat|setDateFormat functionality).</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="global_grid_settings" id="global_grid_settings">Global Grid Settings</a></h4>
+<div class="level4">
+
+<p>
+
+Some grid modes can be enabled directly from source table attributes:
+
+</p>
+<pre class="code javascript">          <span class="co1">//enable drag-and-drop in the grid  </span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> dragAndDrop<span class="sy0">=</span><span class="st0">&quot;true&quot;</span> 
+          <span class="co1">//set path to the image folder of the grid</span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> imgpath<span class="sy0">=</span><span class="st0">&quot;../some/..&quot;</span>  
+          <span class="co1">//enable multi-line mode in the grid</span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> multiline<span class="sy0">=</span><span class="st0">&quot;true&quot;</span>  
+          <span class="co1">//enable light mouse navigation mode</span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> lightnavigation<span class="sy0">=</span><span class="st0">&quot;true&quot;</span>
+          <span class="co1">//enables the alter CSS mode (it is equal to grid.enableAlterCss(&quot;someA&quot;,&quot;someB&quot;))  </span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> unevenrow<span class="sy0">=</span><span class="st0">&quot;someA&quot;</span> evenrow<span class="sy0">=</span><span class="st0">&quot;someB&quot;</span>
+          <span class="co1">//enables the split mode</span>
+      <span class="sy0">&lt;</span>table <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> split<span class="sy0">=</span><span class="st0">&quot;2&quot;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="setting_grid_size" id="setting_grid_size">Setting Grid Size</a></h4>
+<div class="level4">
+
+<p>
+
+By default, the grid will take the same size as the table from which it was created. But the user can specify its size directly through source table attributes:
+
+</p>
+<pre class="code html4strict">      <span class="sc2">&lt;<a href="http://december.com/html/4/element/table.html"><span class="kw2">table</span></a> <span class="kw3">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> gridWidth<span class="sy0">=</span><span class="st0">&quot;600&quot;</span> gridHeight<span class="sy0">=</span><span class="st0">&quot;400&quot;</span></span>
+&nbsp;</pre>
+<p>
+
+If the user wants to set grid&#039;s size to auto, he can use the default approach: 
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          <span class="kw2">var</span> grid<span class="sy0">=</span>dhtmlXGridFromTable<span class="br0">&#40;</span><span class="st0">&quot;some_table&quot;</span><span class="br0">&#41;</span>;
+          grid.<span class="me1">enableAutoWidth</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+          grid.<span class="me1">enableAutoHeight</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+          grid.<span class="me1">setSizes</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; 
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The following methods were used in the code snippet above:
+</p>
+<ul>
+<li class="level1"><div class="li">  enableAutoWidth(mode, max_limit, min_limit) - changes grid&#039;s container size on the fly to fit total width of grid columns. The parameters are as follows:</div>
+<ul>
+<li class="level2"><div class="li">  mode(true|false) - enable|disable autowidth;</div>
+</li>
+<li class="level2"><div class="li">  max_limit - maximal allowed width, not limited by default;</div>
+</li>
+<li class="level2"><div class="li">  min_limit - minimal allowed width, not limited by default.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  enableAutoHeight(mode, maxHeight, countFullHeight) - enables autoheight of the grid with the following parameters:</div>
+<ul>
+<li class="level2"><div class="li">  mode(true|false) - enable|disable autoheight;</div>
+</li>
+<li class="level2"><div class="li">  maxHeight - maximum height before scrolling appears, not limited by default;</div>
+</li>
+<li class="level2"><div class="li">  countFullHeight(true|false) - controls the usage of maxHeight parameter, when it is set to true, the whole grid height is included in max height calculation, false means that only data part (without the header) of the grid is included in calculation; set to false be default.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  setSizes() - this method can be called to refresh grid sizes in case when the grid was customized with some user code.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="reference_to_grid_object_and_initialization_events" id="reference_to_grid_object_and_initialization_events">Reference to Grid Object and Initialization Events</a></h4>
+<div class="level4">
+
+<p>
+
+When the grid is created by dhtmlXGridFromTable command, the reference to the grid object is returned from the method.
+</p>
+
+<p>
+In case of initialization by a <acronym title="Cascading Style Sheets">CSS</acronym> class, the user can define the name of the global variable that will be used as a reference:
+
+</p>
+<pre class="code htlm">    &lt;table class=&quot;dhtmlxGrid&quot; name=&quot;grid&quot;&gt;</pre>
+<p>
+It allows to call any <acronym title="Application Programming Interface">API</acronym> method of such grid by:
+
+</p>
+<pre class="code javascript">    grid.<span class="me1">some</span><span class="br0">&#40;</span>...
+&nbsp;</pre>
+<p>
+
+It should be noted that the object becomes available only after initialization (which occurs with onLoad event).
+</p>
+
+<p>
+It is possible to attach some custom code to the moment when grid&#039;s configuration is being initialized and to the moment when the grid has already been initialized:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>table <span class="kw3">name</span><span class="sy0">=</span><span class="st0">&quot;grid&quot;</span> <span class="kw2">class</span><span class="sy0">=</span><span class="st0">&quot;dhtmlxGrid&quot;</span> onbeforeinit<span class="sy0">=</span><span class="st0">&quot;myfunc1()&quot;</span> oninit<span class="sy0">=</span><span class="st0">&quot;myfunc2()&quot;</span>
+    ...
+    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">function</span> myfunc1<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            grid.<span class="me1">enableMultiselect</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        <span class="kw2">function</span> myfunc2<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+            grid.<span class="me1">selectRow</span><span class="br0">&#40;</span>0<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The code of onbeforeinit attribute is executed before grid&#039;s structure and data are initialized from the <acronym title="HyperText Markup Language">HTML</acronym>, so the user can place any global setting here.
+The code of oninit attribute is executed when grid&#039;s configuration and data are loaded, so it is the best place for some after-initialization calls - row selecting, data operation, etc.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Edit" class="button" title="Initialization from HTML" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/loading_from_html.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aloading_from_html&amp;1310069484" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:loading_from_html" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

@@ -1,0 +1,178 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:smart_rendering    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:smart_rendering</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:smart_rendering"  class="breadcrumbs" title="dhtmlxgrid:smart_rendering">smart_rendering</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="smart_rendering_in_grid" id="smart_rendering_in_grid">Smart Rendering in Grid</a></h2>
+<div class="level2">
+
+<p>
+
+dhtmlxgrid_srnd.js required
+</p>
+
+<p>
+Smart Rendering mode increases overall grid performance working with big amounts of data by saving time on render operation that is most time consuming in dhtml.
+When this mode is activated, only those rows are rendered that are in the visible area. The user can apply it with already loaded content or activate dynamical loading to fetch rows from the server each time (or activate buffering additionally to decrease the number of server requests).
+</p>
+
+<p>
+If the user activates dynamical loading, he should understand that rows that are not loaded yet can&#039;t be used in script methods (select, delete etc). The following method should be called before data loading takes place:
+
+</p>
+<pre class="code javascript">mygrid.<span class="me1">enableSmartRendering</span><span class="br0">&#40;</span>mode<span class="sy0">,</span>buffer<span class="br0">&#41;</span>;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  <em><strong>mode(true|false)</strong></em> - enable|disable smart rendering;</div>
+</li>
+<li class="level1"><div class="li">  <em><strong>buffer</strong></em> - count of rows requested from the server by single operation, optional parameter; has sense only in dynamical loading mode.</div>
+</li>
+</ul>
+
+<p>
+
+To pre-render rows during scrolling,the following method should be used:
+
+</p>
+<pre class="code javascript">mygrid.<span class="me1">enablePrerendering</span><span class="br0">&#40;</span>buffer<span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li"> <strong><em>buffer</em></strong> - count of rows which will be prerendered</div>
+</li>
+</ul>
+
+<p>
+In case of dynamical loading, <acronym title="Extensible Markup Language">XML</acronym> should be created on the server taking the following <acronym title="Uniform Resource Locator">URL</acronym> parameters into account:
+</p>
+<ul>
+<li class="level1"><div class="li">  <em><strong>posStart</strong></em> - starting position of the row in the dataset to start output with. For example, the user has 1000 records in the dataset and got posStart=200. This means that first 199 rows will be ignored and start <acronym title="Extensible Markup Language">XML</acronym> with 200th row of the dataset;</div>
+</li>
+<li class="level1"><div class="li">  <em><strong>count</strong></em> - the number of rows is expected in the output (the user can change it with the second parameter of script method). So, if count=100, then the output should contain 100 rows starting from the one specified with posStart.</div>
+</li>
+</ul>
+
+<p>
+<acronym title="Extensible Markup Language">XML</acronym> also should contain two additional parameters within &lt;rows&gt; tag:
+</p>
+<ul>
+<li class="level1"><div class="li">  <em><strong>total_count</strong></em> - number of records in the dataset (in total);</div>
+</li>
+<li class="level1"><div class="li">  <em><strong>pos</strong></em> - start position of the first row in <acronym title="Extensible Markup Language">XML</acronym> in the dataset (generally it is the same as incoming posStart parameter).</div>
+</li>
+</ul>
+
+<p>
+
+In case you&#039;ve modified grid row height (for example updating css or setting specific style for rows), you need to let grid know new height using the following command:
+
+</p>
+<pre class="code javascript">mygrid.<span class="me1">setAwaitedRowHeight</span><span class="br0">&#40;</span><span class="nu0">25</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1307116646" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Edit" class="button" title="Smart Rendering in Grid" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/smart_rendering.txt &middot; Last modified: 2011/06/03 18:57 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Asmart_rendering&amp;1310069473" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:smart_rendering" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

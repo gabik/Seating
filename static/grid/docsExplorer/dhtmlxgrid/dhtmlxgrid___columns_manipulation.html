@@ -1,0 +1,649 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:columns_manipulation    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:columns_manipulation</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:columns_manipulation"  class="breadcrumbs" title="dhtmlxgrid:columns_manipulation">columns_manipulation</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#columns_manipulation" class="toc">Columns Manipulation</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#hiding_showing_columns" class="toc">Hiding/Showing Columns</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#split_mode._frozen_columns" class="toc">Split Mode. Frozen Columns</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#adjusting_column_size" class="toc">Adjusting Column Size</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_columns_resizing" class="toc">Enabling Columns Resizing</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_columns_tooltips" class="toc">Enabling Columns Tooltips</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#column_id_index_manipulations" class="toc">Column Id/Index Manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_column_type" class="toc">Getting Column Type</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_getting_column_width" class="toc">Setting/Getting Column Width</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_number_of_columns" class="toc">Getting Number of Columns</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_column_status" class="toc">Getting Column Status</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_column_align" class="toc">Setting Column Align</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_column_width" class="toc">Setting Column Width</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_column_color" class="toc">Setting Column Color</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#controlling_columns_visibility" class="toc">Controlling Columns Visibility</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_column_excell_type" class="toc">Setting Column Excell Type</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#adding_removing_column" class="toc">Adding/Removing Column</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#moving_column" class="toc">Moving Column</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="columns_manipulation" id="columns_manipulation">Columns Manipulation</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-89" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Columns Manipulation" /></div></form></div>
+<h3><a name="hiding_showing_columns" id="hiding_showing_columns">Hiding/Showing Columns</a></h3>
+<div class="level3">
+
+<p>
+
+It is possible to define a column as hidden - in such case, it will not be visible for a user, but it will be accessible by <acronym title="Application Programming Interface">API</acronym>. So it will be possible to take the data from it.
+</p>
+
+<p>
+In case of initialization from <acronym title="JavaScript">JS</acronym> code, the user should write the following:
+
+</p>
+<pre class="code javascript">        <span class="co1">//...</span>
+        grid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">setColumnHidden</span><span class="br0">&#40;</span>index<span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>; <span class="co1">// indicate column index and set the state to true to hire the column</span></pre>
+<p>
+In case of initialization from <acronym title="Extensible Markup Language">XML</acronym>, the syntax will be like this:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;head<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;column</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span><span class="re2">&gt;</span></span>Dummy<span class="sc3"><span class="re1">&lt;/column<span class="re2">&gt;</span></span></span>
+        ...</pre>
+<p>
+
+The data can be accessed as data of any other columns:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">setValue</span><span class="br0">&#40;</span>some<span class="br0">&#41;</span>;</pre>
+<p>
+
+Data of a hidden column is included in the serialization by default ( this can be controlled by setSerializableColumns() command )
+This data is available during dataprocessor calls
+</p>
+
+<p>
+Starting from v1.5, the users can enable popup menu for the grid setting visibility for different columns (hide/show them) right on the fly. To do this, the user just needs to include dhtmlxgrid_hmenu.js in page with the grid and call the following command:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableHeaderMenu</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+Each time when column hidden|shown - <a href="dhtmlxgrid___event_oncolumnhidden.html" class="wikilink1" title="dhtmlxgrid:event_oncolumnhidden">onColumnHidden</a> event generated
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="90-1507" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Hiding/Showing Columns" /></div></form></div>
+<h3><a name="split_mode._frozen_columns" id="split_mode._frozen_columns">Split Mode. Frozen Columns</a></h3>
+<div class="level3">
+
+<p>
+The user can activate split mode to have the grid separated into two parts with independent horizontal scrolling. Using this mode is recommended with some performance optimization technologies (paginal output, smart rendering) taking into account complex script processing in the split mode.
+</p>
+
+<p>
+First, the user should include the file dhtmlxgrid_splt.js into the <acronym title="HyperText Markup Language">HTML</acronym>. Then the following code string should be written for split mode activation:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">splitAt</span><span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>; <span class="co1">// index of the column before which the grid should be split</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Note: this method should be called when the grid is initialized. This mode is incompatible with some grid functionality.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1508-2255" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Split Mode. Frozen Columns" /></div></form></div>
+<h3><a name="adjusting_column_size" id="adjusting_column_size">Adjusting Column Size</a></h3>
+<div class="level3">
+
+<p>
+Sometimes it is necessary to adjust column size to content size automatically. This task can be achieved in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">adjustColumnSize</span><span class="br0">&#40;</span>cInd<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here is cInd - index of the column in question.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2256-2573" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Adjusting Column Size" /></div></form></div>
+<h3><a name="enabling_columns_resizing" id="enabling_columns_resizing">Enabling Columns Resizing</a></h3>
+<div class="level3">
+
+<p>
+The user should enable/disable resizing of specified columns from script in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableResizing</span><span class="br0">&#40;</span>list<span class="br0">&#41;</span>; <span class="co1">// resizing is enabled for all columns by default</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Only one parameter should be indicated: list - list of true|false values.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2574-2922" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Enabling Columns Resizing" /></div></form></div>
+<h3><a name="enabling_columns_tooltips" id="enabling_columns_tooltips">Enabling Columns Tooltips</a></h3>
+<div class="level3">
+
+<p>
+Tooltips for specified columns can be specified in the following ways:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableTooltips</span><span class="br0">&#40;</span>list<span class="br0">&#41;</span>; <span class="co1">// tooltips are enabled for all columns by default</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameter that is to be indicated is list - list of true|false values.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2923-3250" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Enabling Columns Tooltips" /></div></form></div>
+<h3><a name="column_id_index_manipulations" id="column_id_index_manipulations">Column Id/Index Manipulations</a></h3>
+<div class="level3">
+
+</div>
+
+<h4><a name="getting_id_through_index_and_vice_versa" id="getting_id_through_index_and_vice_versa">Getting Id through Index and Vice Versa</a></h4>
+<div class="level4">
+
+<p>
+There are methods allowing to get id/index of the specified column quite easily:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> colInd <span class="sy0">=</span> grid.<span class="me1">getColIndexById</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span>; <span class="co1">// get column index through its id</span>
+        <span class="kw2">var</span> colId <span class="sy0">=</span> grid.<span class="me1">getColumnId</span><span class="br0">&#40;</span>ind<span class="br0">&#41;</span>; <span class="co1">// get column id through its index</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The first method returns index of the column, while the second one - column id.
+</p>
+
+</div>
+
+<h4><a name="setting_column_id" id="setting_column_id">Setting Column Id</a></h4>
+<div class="level4">
+
+<p>
+The user can set new id for a certain column with the help of the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColumnId</span><span class="br0">&#40;</span>ind<span class="sy0">,</span> id<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  ind- index of the column;</div>
+</li>
+<li class="level1"><div class="li">  id- new id for the column in question.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="setting_ids_for_all_columns" id="setting_ids_for_all_columns">Setting Ids for All Columns</a></h4>
+<div class="level4">
+
+<p>
+
+There is also the possibility to set new ids for every column in the grid:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColumnIds</span><span class="br0">&#40;</span>ids<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The user should specify ids - list of ids separated by a delimiter (default one is ”,”), or empty if using values set earlier.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3251-4358" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Column Id/Index Manipulations" /></div></form></div>
+<h3><a name="getting_column_type" id="getting_column_type">Getting Column Type</a></h3>
+<div class="level3">
+
+<p>
+The user can get column type by specifying its id:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> type <span class="sy0">=</span> grid.<span class="me1">getColTypeById</span><span class="br0">&#40;</span>cId<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The method returns type code of the column in question.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4359-4599" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Column Type" /></div></form></div>
+<h3><a name="setting_getting_column_width" id="setting_getting_column_width">Setting/Getting Column Width</a></h3>
+<div class="level3">
+
+<p>
+Initial column width can be set either in pixels or in percents in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setInitWidths</span><span class="br0">&#40;</span>wp<span class="br0">&#41;</span>; <span class="co1">// list of column width in pixels</span>
+        grid.<span class="me1">setInitWidthsP</span><span class="br0">&#40;</span>wp<span class="br0">&#41;</span>; <span class="co1">// list of column width in percents</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Column width can be easily got in the following way indicating index of the column in question:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> width <span class="sy0">=</span> grid.<span class="me1">getColWidth</span><span class="br0">&#40;</span>ind<span class="br0">&#41;</span>; <span class="co1">// returns column width in pixels</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4600-5146" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Setting/Getting Column Width" /></div></form></div>
+<h3><a name="getting_number_of_columns" id="getting_number_of_columns">Getting Number of Columns</a></h3>
+<div class="level3">
+
+<p>
+Only one line of code is enough for the user to get total number of columns in the grid:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> cols <span class="sy0">=</span> grid.<span class="me1">getColumnsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5147-5371" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Number of Columns" /></div></form></div>
+<h3><a name="getting_column_status" id="getting_column_status">Getting Column Status</a></h3>
+<div class="level3">
+
+<p>
+Column status (shown|hidden) can be got with the help of isColumnHidden() method. The user should indicate this column index:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> state <span class="sy0">=</span> grid.<span class="me1">isColumnHidden</span><span class="br0">&#40;</span>ind<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The method returns true if the column is hidden, otherwise it will return false.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5372-5715" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Column Status" /></div></form></div>
+<h3><a name="setting_column_align" id="setting_column_align">Setting Column Align</a></h3>
+<div class="level3">
+
+<p>
+Setting horizontal align of values for the grid columns is quite simple:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColAlign</span><span class="br0">&#40;</span>alStr<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameter the user should  indicate is alStr - list of align values for columns. Default delimiter is ”,”. Possible values are:
+</p>
+<ul>
+<li class="level1"><div class="li">  right;</div>
+</li>
+<li class="level1"><div class="li">  left;</div>
+</li>
+<li class="level1"><div class="li">  center;</div>
+</li>
+<li class="level1"><div class="li">  justify.</div>
+</li>
+</ul>
+
+<p>
+The following method is responsible for vertical align of values in grid columns:
+
+</p>
+<pre class="code javascript">&nbsp;
+      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">setColVAlign</span><span class="br0">&#40;</span>valStr<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+<p>
+
+Parameter valStr indicates vertical align values list for columns. Default delimiter is ”,”.<br/>
+
+ Possible values are:
+</p>
+<ul>
+<li class="level1"><div class="li">  baseline;</div>
+</li>
+<li class="level1"><div class="li">  sub;</div>
+</li>
+<li class="level1"><div class="li">  super;</div>
+</li>
+<li class="level1"><div class="li">  top;</div>
+</li>
+<li class="level1"><div class="li">  text-top;</div>
+</li>
+<li class="level1"><div class="li">  middle;</div>
+</li>
+<li class="level1"><div class="li">  bottom;</div>
+</li>
+<li class="level1"><div class="li">  text-bottom.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5716-6505" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Column Align" /></div></form></div>
+<h3><a name="setting_column_width" id="setting_column_width">Setting Column Width</a></h3>
+<div class="level3">
+
+<p>
+The user can apply the method that sets width of the specified column in pixels.
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColWidth</span><span class="br0">&#40;</span>ind<span class="sy0">,</span> value<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  ind - index of the column;</div>
+</li>
+<li class="level1"><div class="li">  value - new width value.</div>
+</li>
+</ul>
+
+<p>
+Note: this method will not work with percent-based grid.
+</p>
+
+<p>
+Column minimal width can be set through the following method (works only for manual resizing):
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColumnMinWidth</span><span class="br0">&#40;</span>width<span class="sy0">,</span> ind<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  width - minimum column width; can be set for one specified column, or as a comma separated list for all columns;</div>
+</li>
+<li class="level1"><div class="li">  ind - index of the column.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6506-7230" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Column Width" /></div></form></div>
+<h3><a name="setting_column_color" id="setting_column_color">Setting Column Color</a></h3>
+<div class="level3">
+
+<p>
+The user can colorize columns background from script using the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColumnColor</span><span class="br0">&#40;</span>clr<span class="br0">&#41;</span>;  <span class="co1">// list of colors for each column should be specified</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7231-7490" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Column Color" /></div></form></div>
+<h3><a name="controlling_columns_visibility" id="controlling_columns_visibility">Controlling Columns Visibility</a></h3>
+<div class="level3">
+
+<p>
+The user can set the list of visible|hidden grid columns from script like this:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setColumnsVisibility</span><span class="br0">&#40;</span>list<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameter here is the list of true (visible) or false (hidden) values separated by commas.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7491-7806" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Controlling Columns Visibility" /></div></form></div>
+<h3><a name="setting_column_excell_type" id="setting_column_excell_type">Setting Column Excell Type</a></h3>
+<div class="level3">
+
+<p>
+The user can set/change excell type of a column in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+         grid.<span class="me1">setColumnExcellType</span><span class="br0">&#40;</span>colIndex<span class="sy0">,</span>type<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters the user should indicate:
+</p>
+<ul>
+<li class="level1"><div class="li">  colIndex - index of the column in question;</div>
+</li>
+<li class="level1"><div class="li">  type - type of the <a href="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru" class="urlextern" title="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru"  rel="nofollow">excell</a>.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7807-8212" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Column Excell Type" /></div></form></div>
+<h3><a name="adding_removing_column" id="adding_removing_column">Adding/Removing Column</a></h3>
+<div class="level3">
+
+<p>
+The user should include dhtmlxgrid_mcol.js file into the page first. Then any column in the grid can be added/removed with script in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">insertColumn</span><span class="br0">&#40;</span>ind<span class="sy0">,</span>header<span class="sy0">,</span>type<span class="sy0">,</span>width<span class="sy0">,</span>sort<span class="sy0">,</span>align<span class="sy0">,</span>valign<span class="sy0">,</span>hidden<span class="sy0">,</span>columnColor<span class="br0">&#41;</span>;
+ <span class="co1">// can be used after grid's initialization but there should be at least one column in the grid</span>
+        grid.<span class="me1">deleteColumn</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters for insertColumn() method are:
+</p>
+<ul>
+<li class="level1"><div class="li">  ind - index of the column;</div>
+</li>
+<li class="level1"><div class="li">  header - header content of the column;</div>
+</li>
+<li class="level1"><div class="li">  type - type of the column;</div>
+</li>
+<li class="level1"><div class="li">  width - width of the column;</div>
+</li>
+<li class="level1"><div class="li">  sort - sort type of the column;</div>
+</li>
+<li class="level1"><div class="li">  align - align of the column;</div>
+</li>
+<li class="level1"><div class="li">  valign - vertical align of the column;</div>
+</li>
+<li class="level1"><div class="li">  hidden - hidden state of the column;</div>
+</li>
+<li class="level1"><div class="li">  columnColor - background color of the column.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8213-9070" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Adding/Removing Column" /></div></form></div>
+<h3><a name="moving_column" id="moving_column">Moving Column</a></h3>
+<div class="level3">
+
+<p>
+The following method moves column with the specified index to a new position:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">moveColumn</span><span class="br0">&#40;</span>oldInd<span class="sy0">,</span>newInd<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The user should include the following file: dhtmlxgrid_mcol.js , and indicate the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  oldInd - current index of the column;</div>
+</li>
+<li class="level1"><div class="li">  newInd - new index of the column.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9071-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit" class="button" title="Moving Column" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/columns_manipulation.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acolumns_manipulation&amp;1310069483" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:columns_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

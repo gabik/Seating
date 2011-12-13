@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:errors    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:errors</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:errors"  class="breadcrumbs" title="dhtmlxconnector:errors">errors</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#errors_handling_and_logging" class="toc">Errors handling and logging</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#server-side_logging" class="toc">server-side logging</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#basic" class="toc">basic</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#detailed" class="toc">detailed</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#adding_custom_records_to_the_log" class="toc">adding custom records to the log</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#client-side_logging" class="toc">client-side logging</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="errors_handling_and_logging" id="errors_handling_and_logging">Errors handling and logging</a></h1>
+<div class="level1">
+
+<p>
+While developing we strongly recommend to use logs for errors detection.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-214" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="Errors handling and logging" /></div></form></div>
+<h2><a name="server-side_logging" id="server-side_logging">server-side logging</a></h2>
+<div class="level2">
+
+<p>
+DHTMLX permits logging to be controlled in two ways:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___errors.html" class="wikilink1" title="dhtmlxconnector:errors">Basic</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___errors.html" class="wikilink1" title="dhtmlxconnector:errors">Detailed</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="215-392" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="server-side logging" /></div></form></div>
+<h3><a name="basic" id="basic">basic</a></h3>
+<div class="level3">
+
+<p>
+If any error occurs during data processing, client-side data processor object 
+will receive “error”  action containing short info about the problem 
+(full info will be written to the log).
+</p>
+<pre class="code javascript">$conn<span class="sy0">-&gt;</span>enable_log<span class="br0">&#40;</span><span class="st0">&quot;path&quot;</span><span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li"> <em>path</em> - absolute or relative path to text file where log will be written.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="393-733" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="basic" /></div></form></div>
+<h3><a name="detailed" id="detailed">detailed</a></h3>
+<div class="level3">
+
+<p>
+When critical error occurs all log records for current session (full error info) will be sent to client and shown in browser (useful for debugging, not recommended for production):
+
+</p>
+<pre class="code javascript">$conn<span class="sy0">-&gt;</span>enable_log<span class="br0">&#40;</span><span class="st0">&quot;path&quot;</span><span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li"> <em>path</em> - absolute or relative path to text file where log will be written.</div>
+</li>
+<li class="level1"><div class="li"> The second parameter enables detailed mode. </div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="734-1122" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="detailed" /></div></form></div>
+<h3><a name="adding_custom_records_to_the_log" id="adding_custom_records_to_the_log">adding custom records to the log</a></h3>
+<div class="level3">
+
+<p>
+During development you may need to write some custom data to the log (can be useful for custom server-side events).<br/>
+
+To add custom text or data to log file:
+</p>
+<ul>
+<li class="level1"><div class="li"> Activate logging (basic or detailed).</div>
+</li>
+<li class="level1"><div class="li"> Call <em>log()</em> function with your data inside.</div>
+</li>
+</ul>
+<pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">enable_log</span><span class="br0">&#40;</span><span class="st0">&quot;temp.log&quot;</span><span class="br0">&#41;</span>;
+LogMaster<span class="sy0">::</span><a href="http://www.php.net/log"><span class="kw3">log</span></a><span class="br0">&#40;</span><span class="st0">&quot;any text here&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1123-1500" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="adding custom records to the log" /></div></form></div>
+<h2><a name="client-side_logging" id="client-side_logging">client-side logging</a></h2>
+<div class="level2">
+
+<p>
+Dataprocessor has its own client-side logger, which can be enabled by including one additional js file - <em>dhtmlxdataprocessor_debug.js</em>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1501-" /><input type="hidden" name="rev" value="1306855115" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit" class="button" title="client-side logging" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/errors.txt &middot; Last modified: 2011/05/31 18:18 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Aerrors&amp;1310069430" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:errors" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

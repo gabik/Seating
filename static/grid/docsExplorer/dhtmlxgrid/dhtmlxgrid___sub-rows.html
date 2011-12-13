@@ -1,0 +1,266 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:sub-rows    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:sub-rows</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:sub-rows"  class="breadcrumbs" title="dhtmlxgrid:sub-rows">sub-rows</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#sub_rows_-_new_data_dimension" class="toc">Sub rows - New Data Dimension</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#adding_sub-row" class="toc">Adding Sub-Row</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#loading_sub-rows_by_ajax" class="toc">Loading Sub-Rows by AJAX</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#expanding_collapsing_sub-row" class="toc">Expanding/Collapsing Sub-Row</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#related_events" class="toc">Related Events</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="sub_rows_-_new_data_dimension" id="sub_rows_-_new_data_dimension">Sub rows - New Data Dimension</a></h2>
+<div class="level2">
+
+<p>
+
+dhtmlxgrid_excell_sub_row.js is required.
+</p>
+
+<p>
+Sometimes grid data may contain some extra content that is too big to be included in a grid line. But on the other hand, this content is related to the grid row and needs to be shown with it. To implement such “main record → details” pattern, sub-rows can be used.
+</p>
+
+<p>
+Basically, a sub-row is a hidden row attached to the main one that may be shown|hidden by using the related control.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-525" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit" class="button" title="Sub rows - New Data Dimension" /></div></form></div>
+<h3><a name="adding_sub-row" id="adding_sub-row">Adding Sub-Row</a></h3>
+<div class="level3">
+
+<p>
+A simple sub-row can be created by using “sub_row” excell type:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;sub_row,ed,ed&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+And later in <acronym title="Extensible Markup Language">XML</acronym>, the user will have the following code:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row</span> <span class="re0">id</span>=<span class="st0">&quot;some&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span> Some long data here .... <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span></pre>
+<p>
+
+Immediately after loading, the row will look like this:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_238dnq2gs6p_b.png"  class="media" alt="" />
+</p>
+
+<p>
+And after clicking ”+” image, it will look in the following way:
+</p>
+
+<p>
+<img src="dhtmlxgrid___dgr5rjkf_237fcr6kchf_b.png"  class="media" alt="" />
+</p>
+
+<p>
+The content of the sub-row may contain any <acronym title="HyperText Markup Language">HTML</acronym> tags, so additional data may not be only the content itself, but some kind of a form, for example.
+</p>
+
+<p>
+In case of <a href="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru" class="urlextern" title="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru"  rel="nofollow">adding a new row</a> with a sub-row, the value of the row is defined in the standard manner:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">addRow</span><span class="br0">&#40;</span>id<span class="sy0">,</span><span class="br0">&#91;</span><span class="st0">&quot;Some long data here ....&quot;</span><span class="sy0">,</span><span class="st0">&quot;Data&quot;</span><span class="sy0">,</span><span class="st0">&quot;Data&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="526-1520" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit" class="button" title="Adding Sub-Row" /></div></form></div>
+<h3><a name="loading_sub-rows_by_ajax" id="loading_sub-rows_by_ajax">Loading Sub-Rows by AJAX</a></h3>
+<div class="level3">
+
+<p>
+By default, the data of the sub-row is provided as a part of the main data that is not very useful if additional data is huge. In such case, sub_row_ajax column type may be used. It works exactly the same as the default one, but it will treat cell value as a link to the external file:
+
+</p>
+<pre class="code javascript">          grid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;sub_row_ajax,ed,ed&quot;</span><span class="br0">&#41;</span>;
+&nbsp;</pre>
+<p>
+Later in <acronym title="Extensible Markup Language">XML</acronym> the user will have the following code:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row</span> <span class="re0">id</span>=<span class="st0">&quot;some&quot;</span><span class="re2">&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>my_data.html<span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>Data <span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;row<span class="re2">&gt;</span></span></span>
+    <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span>
+&nbsp;</pre>
+<p>
+
+And in my_data.html, there will be the following line:
+
+</p>
+<pre class="code html4strict">    Some long data here</pre>
+<p>
+After pressing the ”+” image, the component will load my_data.html and will show its content as a sub row of the related one.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1521-2346" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit" class="button" title="Loading Sub-Rows by AJAX" /></div></form></div>
+<h3><a name="expanding_collapsing_sub-row" id="expanding_collapsing_sub-row">Expanding/Collapsing Sub-Row</a></h3>
+<div class="level3">
+
+<p>
+<acronym title="Application Programming Interface">API</acronym> of the grid allows the user to expand|collapse a sub row programmatically in such a way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="kw3">open</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="kw3">close</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2347-2601" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit" class="button" title="Expanding/Collapsing Sub-Row" /></div></form></div>
+<h3><a name="related_events" id="related_events">Related Events</a></h3>
+<div class="level3">
+
+<p>
+
+onSubRowOpen - executed for both opening and closing of sub-row (sub-grid): 
+</p>
+<ul>
+<li class="level1"><div class="li"> row id;</div>
+</li>
+<li class="level1"><div class="li"> true - open, false - close.</div>
+</li>
+</ul>
+
+<p>
+onSubAjaxLoad - generated by sub-row-ajax, when data loaded in sub-row:
+</p>
+<ul>
+<li class="level1"><div class="li"> row id;</div>
+</li>
+<li class="level1"><div class="li"> loaded content.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2602-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit" class="button" title="Related Events" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/sub-rows.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Asub-rows&amp;1310069476" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:sub-rows" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

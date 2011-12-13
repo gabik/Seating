@@ -1,0 +1,310 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:iterating    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:iterating</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:iterating"  class="breadcrumbs" title="dhtmlxgrid:iterating">iterating</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#iterating_through_grid" class="toc">Iterating through grid</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#iterator_types" class="toc">Iterator Types</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#iterating_rows" class="toc">Iterating Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#iterating_cells" class="toc">Iterating Cells</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#iteration_through_treegrid" class="toc">Iteration through TreeGrid</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#iteration_through_rows_in_group_grid_after_groupby" class="toc">Iteration through Rows in Group ( grid after groupBy )</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="iterating_through_grid" id="iterating_through_grid">Iterating through grid</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-88" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iterating through grid" /></div></form></div>
+<h3><a name="iterator_types" id="iterator_types">Iterator Types</a></h3>
+<div class="level3">
+
+<p>
+The base element of the grid is a row. So, one of the most common tasks is iteration through grid setting|getting row specific data.
+There are two ways to iterate rows in the grid:
+</p>
+<ul>
+<li class="level1"><div class="li">  Iterating rows</div>
+<ul>
+<li class="level2"><div class="li">  Classic iterator;</div>
+</li>
+<li class="level2"><div class="li">  Built-in iterator;</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  Iterating cells</div>
+<ul>
+<li class="level2"><div class="li">  Classic cell iterator;</div>
+</li>
+<li class="level2"><div class="li">  Built-in cell iterator.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+In should be noted that there is no fundamental difference between two cell iteration approaches.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="89-549" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iterator Types" /></div></form></div>
+<h3><a name="iterating_rows" id="iterating_rows">Iterating Rows</a></h3>
+<div class="level3">
+
+</div>
+
+<h4><a name="classic_iterator" id="classic_iterator">Classic Iterator</a></h4>
+<div class="level4">
+
+<p>
+This way of iteration has the following characteristics:
+</p>
+<ul>
+<li class="level1"><div class="li">  Used parameter - row index (not ID), zero based position of a row in the grid;</div>
+</li>
+<li class="level1"><div class="li">  The order of iteration equals the order of elements in the grid;</div>
+</li>
+<li class="level1"><div class="li">  In case of paging mode - only current page is iterated;</div>
+</li>
+<li class="level1"><div class="li">  In case of tree grid - only currently visible rows are iterated;</div>
+</li>
+<li class="level1"><div class="li">  In case of applied filtering - only rows that accept filtering rules will be included in iteration;</div>
+</li>
+<li class="level1"><div class="li">  In case of smart rendering mode - not usable.</div>
+</li>
+</ul>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i<span class="sy0">&lt;</span>grid.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; i<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                  <span class="co1">// here i - index of the row in the grid</span>
+             do_something_with_row<span class="br0">&#40;</span>index<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="built-in_iterator" id="built-in_iterator">Built-in Iterator</a></h4>
+<div class="level4">
+
+<p>
+
+This way of iteration has the following characteristics:
+</p>
+<ul>
+<li class="level1"><div class="li">  Used parameter - row ID;</div>
+</li>
+<li class="level1"><div class="li">  Order of iteration is not equal to the current rows order in the grid (basically, it is equal to the adding order of rows to the grid, but it can be inconsistent);</div>
+</li>
+<li class="level1"><div class="li">  In case of paging or smart rendering mode - all rows parsed at the current moment will be affected;</div>
+</li>
+<li class="level1"><div class="li">   In case of applied filtering - all rows in the grid (including filtered out ones) will be included in iteration.</div>
+</li>
+</ul>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">forEachRow</span><span class="br0">&#40;</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span> <span class="co1">// function that gets id of the row as an incoming argument</span>
+                <span class="co1">// here id - id of the row</span>
+             do_something_with_row<span class="br0">&#40;</span>id<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span><span class="br0">&#41;</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="550-2075" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iterating Rows" /></div></form></div>
+<h3><a name="iterating_cells" id="iterating_cells">Iterating Cells</a></h3>
+<div class="level3">
+
+</div>
+
+<h4><a name="classic_iterator1" id="classic_iterator1">Classic Iterator</a></h4>
+<div class="level4">
+
+<p>
+Classic cell iterator is the following:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i<span class="sy0">&lt;</span>grid.<span class="me1">getColumnCount</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; i<span class="sy0">++</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+                <span class="co1">// i - index of the column</span>
+            <span class="kw3">alert</span><span class="br0">&#40;</span>grid.<span class="me1">cells</span><span class="br0">&#40;</span>id<span class="sy0">,</span>i<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="built-in_iterator1" id="built-in_iterator1">Built-in Iterator</a></h4>
+<div class="level4">
+
+<p>
+Built-in cell iterator has the following structure:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">forEachCell</span><span class="br0">&#40;</span>id<span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>c<span class="br0">&#41;</span><span class="br0">&#123;</span>
+            <span class="kw3">alert</span><span class="br0">&#40;</span>c.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Method forEachCell() takes the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - id of the row where the cell must be iterated;</div>
+</li>
+<li class="level1"><div class="li">  custom_code - function that gets eXcell object as an incoming argument.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2076-2800" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iterating Cells" /></div></form></div>
+<h3><a name="iteration_through_treegrid" id="iteration_through_treegrid">Iteration through TreeGrid</a></h3>
+<div class="level3">
+
+<p>
+You can loop from all child-rows of some row in treegrid as
+</p>
+<pre class="code javascript">grid._h2.<span class="me1">forEachChild</span><span class="br0">&#40;</span>parent_id<span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>element<span class="br0">&#41;</span><span class="br0">&#123;</span>
+<span class="co1">//element.id - id of child row</span>
+<span class="co1">//element.parent.id - parent id</span>
+do_something_with_row<span class="br0">&#40;</span>element.<span class="me1">id</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+where parent_id - id of rows, against which functionality will be executed.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2801-3161" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iteration through TreeGrid" /></div></form></div>
+<h3><a name="iteration_through_rows_in_group_grid_after_groupby" id="iteration_through_rows_in_group_grid_after_groupby">Iteration through Rows in Group ( grid after groupBy )</a></h3>
+<div class="level3">
+
+<p>
+You can loop through all rows in some group by
+</p>
+<pre class="code javascript">&nbsp;
+mygrid.<span class="me1">forEachRowInGroup</span><span class="br0">&#40;</span><span class="kw3">name</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>id<span class="br0">&#41;</span><span class="br0">&#123;</span>
+do_something_with_row<span class="br0">&#40;</span>id<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+where name - key-value of group
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3162-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit" class="button" title="Iteration through Rows in Group ( grid after groupBy )" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/iterating.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aiterating&amp;1310069474" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:iterating" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

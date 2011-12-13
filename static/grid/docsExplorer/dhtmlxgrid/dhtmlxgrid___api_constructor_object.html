@@ -1,0 +1,333 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:api_constructor_object    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:api_constructor_object</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:api_constructor_object"  class="breadcrumbs" title="dhtmlxgrid:api_constructor_object">api_constructor_object</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#list_of_initialization_properties" class="toc">List of initialization properties</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#common_initialization" class="toc">Common initialization</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#drag_and_drop" class="toc">Drag and Drop</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#csv" class="toc">CSV</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#cookies" class="toc">Cookies</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#form_integration" class="toc">Form integration</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#extensions" class="toc">Extensions</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#events" class="toc">Events</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#columns_configuration" class="toc">Columns configuration</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxgrid___api_toc_alpha.html" class="wikilink1" title="dhtmlxgrid:api_toc_alpha">API Methods</a></div></div>
+
+</p>
+
+<h2><a name="list_of_initialization_properties" id="list_of_initialization_properties">List of initialization properties</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="79-125" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="List of initialization properties" /></div></form></div>
+<h3><a name="common_initialization" id="common_initialization">Common initialization</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> parent - string or object, id of container, where tree will be initialized, <strong>mandatory</strong></div>
+</li>
+<li class="level1"><div class="li"> image_path - string, path to image folder, which will be used for icons in tree</div>
+</li>
+<li class="level1"><div class="li"> skin - string, skin used by grid</div>
+</li>
+</ul>
+<ul>
+<li class="level1"><div class="li"> auto_height - {boolean} enable autoheight of grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautoheight.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautoheight">enableAutoHeight</a>)</div>
+</li>
+<li class="level1"><div class="li"> auto_width - {boolean} changes grid&#039;s container size on the fly to fit total width of grid columns(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautowidth.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautowidth">enableAutoWidth</a>)</div>
+</li>
+<li class="level1"><div class="li"> context_menu - {object} enable/disable context menu(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecontextmenu.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecontextmenu">enableContextMenu</a>)</div>
+</li>
+<li class="level1"><div class="li"> css - {string} set even/odd css styles(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablealtercss.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablealtercss">enableAlterCss</a>)</div>
+</li>
+<li class="level1"><div class="li"> hover - {string} enable/disable hovering row on mouse over(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablerowshover.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablerowshover">enableRowsHover</a>)</div>
+</li>
+<li class="level1"><div class="li"> editable - {boolean} manage editibility of the grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_seteditable.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_seteditable">setEditable</a>)</div>
+</li>
+<li class="level1"><div class="li"> multiline - {boolean} set multiline rows support to enabled or disabled state(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemultiline.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemultiline">enableMultiline</a>)</div>
+</li>
+<li class="level1"><div class="li"> multiselect - {boolean} set multiselect mode to enabled or disabled state(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemultiselect.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemultiselect">enableMultiselect</a>)</div>
+</li>
+<li class="level1"><div class="li"> smart - {boolean} enable smart rendering mode(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablesmartrendering.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablesmartrendering">enableSmartRendering</a>)</div>
+</li>
+<li class="level1"><div class="li"> without_header - {boolean} create grid with no header. (<a href="dhtmlxgrid___api_method_dhtmlxgridobject_setnoheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setnoheader">setNoHeader</a>)</div>
+</li>
+<li class="level1"><div class="li"> xml - {string}, url of data xml file </div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="126-1713" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Common initialization" /></div></form></div>
+<h3><a name="drag_and_drop" id="drag_and_drop">Drag and Drop</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> drag - {boolean} enable/disable drag-and-drop(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledraganddrop.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledraganddrop">enableDragAndDrop</a>)</div>
+</li>
+<li class="level1"><div class="li"> drag_order - {boolean} switch to mode when draged item, droped in target location in same order as they was in source grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledragorder.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledragorder">enableDragOrder</a>)</div>
+</li>
+<li class="level1"><div class="li"> drag_behavior - {string} set Drag-And-Drop behavior (child - drop as chils, sibling - drop as sibling(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdragbehavior.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdragbehavior">setDragBehavior</a>)</div>
+</li>
+<li class="level1"><div class="li"> drag_copy - {boolean} enable drag without removing (copy instead of move)(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemercydrag.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemercydrag">enableMercyDrag</a>)</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1714-2363" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Drag and Drop" /></div></form></div>
+<h3><a name="csv" id="csv">CSV</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> csv_id - {boolean} enable mode, where ID for rows loaded from CSV autogenerated(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvautoid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvautoid">enableCSVAutoID</a>)</div>
+</li>
+<li class="level1"><div class="li"> csv_header - {boolean} enable recognizing first row in CSV as header(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecsvheader.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecsvheader">enableCSVHeader</a>)</div>
+</li>
+<li class="level1"><div class="li"> csv_cell - {string} change csv delimiter(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_setcsvdelimiter.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setcsvdelimiter">setCSVDelimiter</a>)</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2364-2776" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="CSV" /></div></form></div>
+<h3><a name="cookies" id="cookies">Cookies</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> save_hidden - {boolean} enable automatic saving column state ( hidden | shown )(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautohiddencolumnssaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautohiddencolumnssaving">enableAutoHiddenColumnsSaving</a>)</div>
+</li>
+<li class="level1"><div class="li"> save_cookie - {boolean} enable automatic saving of all possible params(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautosaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautosaving">enableAutoSaving</a>)</div>
+</li>
+<li class="level1"><div class="li"> save_size - {boolean} enable automatic size saving to cookie(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableautosizesaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableautosizesaving">enableAutoSizeSaving</a>)</div>
+</li>
+<li class="level1"><div class="li"> save_column_order - {boolean} enable automatic column order saving to cookie(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableordersaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableordersaving">enableOrderSaving</a>)</div>
+</li>
+<li class="level1"><div class="li"> save_sorting - {boolean} enable automatic sorting state saving to cookie(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablesortingsaving.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablesortingsaving">enableSortingSaving</a>)</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2777-3554" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Cookies" /></div></form></div>
+<h3><a name="form_integration" id="form_integration">Form integration</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> submit_changed - {boolean} include only changed rows in form submit(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlychanged.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlychanged">submitOnlyChanged</a>)</div>
+</li>
+<li class="level1"><div class="li"> submit_serialization - {boolean} include serialized grid as part of form submit(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitserialization.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitserialization">submitSerialization</a>)</div>
+</li>
+<li class="level1"><div class="li"> submit_selected - {boolean} include only selected rows in form submit(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlyselected.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlyselected">submitOnlySelected</a>)</div>
+</li>
+<li class="level1"><div class="li"> submit_id - {boolean} include only  row&amp;#039;s IDS in form submit(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_submitonlyrowid.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_submitonlyrowid">submitOnlyRowID</a>)</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3555-4161" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Form integration" /></div></form></div>
+<h3><a name="extensions" id="extensions">Extensions</a></h3>
+<div class="level3">
+<ul>
+<li class="level1"><div class="li"> block_selection - {boolean} enables block selection mode in grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableblockselection.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableblockselection">enableBlockSelection</a>)</div>
+</li>
+<li class="level1"><div class="li"> cell_ids - {boolean} enable/disable unique id for cells (id will be automaticaly created using the following template: “c_[RowId]_[colIndex]”)(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecellids.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecellids">enableCellIds</a>)</div>
+</li>
+<li class="level1"><div class="li"> colspan - {boolean} enable/disable colspan support(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecolspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecolspan">enableColSpan</a>)</div>
+</li>
+<li class="level1"><div class="li"> column_move - {boolean} enable move column functionality(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablecolumnmove.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablecolumnmove">enableColumnMove</a>)</div>
+</li>
+<li class="level1"><div class="li"> date_format - {string} set mask for date formatting in cell(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_setdateformat.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_setdateformat">setDateFormat</a>)</div>
+</li>
+<li class="level1"><div class="li"> distributed - {boolean} enable/disable distributed parsing (rows paresed portion by portion with some timeout)(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enabledistributedparsing.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enabledistributedparsing">enableDistributedParsing</a>)</div>
+</li>
+<li class="level1"><div class="li"> header_images - {boolean} specify if values passed to Header are images file names(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableheaderimages.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableheaderimages">enableHeaderImages</a>)</div>
+</li>
+<li class="level1"><div class="li"> header_menu - {boolean} enable pop up menu which allows hidding/showing columns(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableheadermenu.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableheadermenu">enableHeaderMenu</a>)</div>
+</li>
+<li class="level1"><div class="li"> keymap - {boolean} enable/disable hot keys in grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablekeyboardsupport.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablekeyboardsupport">enableKeyboardSupport</a>)</div>
+</li>
+<li class="level1"><div class="li"> markers - {boolean} sets marked cells support to enabled or disabled state(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemarkedcells.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemarkedcells">enableMarkedCells</a>)</div>
+</li>
+<li class="level1"><div class="li"> math_editing - {boolean} enable/disable editing of math cells(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemathediting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemathediting">enableMathEditing</a>)</div>
+</li>
+<li class="level1"><div class="li"> math_serialization - {boolean} enable/disable serialization of math formulas(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablemathserialization.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablemathserialization">enableMathSerialization</a>)</div>
+</li>
+<li class="level1"><div class="li"> mouse_navigation - {boolean} enable/disable light mouse navigation mode (row selection with mouse over, editing with single click), mutual exclusive with enableEditEvents(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablelightmousenavigation.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablelightmousenavigation">enableLightMouseNavigation</a>)</div>
+</li>
+<li class="level1"><div class="li"> rowspan - {boolean} enable rowspan in grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablerowspan.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablerowspan">enableRowspan</a>)</div>
+</li>
+<li class="level1"><div class="li"> stable_sorting - {boolean} enables stable sorting algorithm(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enablestablesorting.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enablestablesorting">enableStableSorting</a>)</div>
+</li>
+<li class="level1"><div class="li"> tabulation - {boolean} enables/disables mode when readonly cell is not available with tab(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableedittabonly.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableedittabonly">enableEditTabOnly</a>)</div>
+</li>
+<li class="level1"><div class="li"> undo - {boolean} enable Undo/Redo functionality in grid(<a href="dhtmlxgrid___api_method_dhtmlxgridobject_enableundoredo.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_enableundoredo">enableUndoRedo</a>)</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4162-6786" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Extensions" /></div></form></div>
+<h3><a name="events" id="events">Events</a></h3>
+<div class="level3">
+
+<p>
+
+any event can be assigned by using property equal to event name
+</p>
+<pre class="code javascript">	grid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="br0">&#123;</span>
+		parent<span class="sy0">:</span><span class="st0">&quot;a_grid&quot;</span><span class="sy0">,</span>
+		onRowSelect<span class="sy0">:</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+			<span class="kw3">alert</span><span class="br0">&#40;</span><span class="st0">&quot;I'm clicked&quot;</span><span class="br0">&#41;</span>;	
+		<span class="br0">&#125;</span>
+	<span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6787-7007" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Events" /></div></form></div>
+<h3><a name="columns_configuration" id="columns_configuration">Columns configuration</a></h3>
+<div class="level3">
+
+<p>
+
+Columns of grid can be defined through “columns” collection
+
+</p>
+<pre class="code javascript">    <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="br0">&#123;</span>
+        columns<span class="sy0">:</span><span class="br0">&#91;</span>
+           <span class="br0">&#123;</span> column object <span class="nu0">1</span> <span class="br0">&#125;</span><span class="sy0">,</span>
+           ...
+           <span class="br0">&#123;</span> column object N <span class="br0">&#125;</span>
+        <span class="br0">&#93;</span>
+        ...
+    <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+Where column object can contain next properties. 
+</p>
+<ul>
+<li class="level1"><div class="li"> label - column label</div>
+</li>
+<li class="level1"><div class="li"> id - column id</div>
+</li>
+<li class="level1"><div class="li"> width - width of column</div>
+</li>
+<li class="level1"><div class="li"> align - h-align of data in the column</div>
+</li>
+<li class="level1"><div class="li"> valign - v-align of data in the column </div>
+</li>
+<li class="level1"><div class="li"> sort - sort type of column</div>
+</li>
+<li class="level1"><div class="li"> type - column type</div>
+</li>
+<li class="level1"><div class="li"> options - collection, which may contain default set of options for co|coro column types</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7008-" /><input type="hidden" name="rev" value="1279031283" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit" class="button" title="Columns configuration" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/api_constructor_object.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aapi_constructor_object&amp;1310069467" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:api_constructor_object" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

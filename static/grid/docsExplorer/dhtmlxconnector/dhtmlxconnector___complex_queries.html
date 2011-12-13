@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:complex_queries    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:complex_queries</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:complex_queries"  class="breadcrumbs" title="dhtmlxconnector:complex_queries">complex_queries</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#making_queries" class="toc">Making Queries</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#simple_queries" class="toc">simple queries</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#complex_queries" class="toc">complex queries</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#custom_queries_for_an_action" class="toc">custom queries for an action</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#using_server-side_events" class="toc">using server-side events</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#transactions" class="toc">transactions</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#insert_operation_in_oracle_db" class="toc">INSERT operation in Oracle DB</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="making_queries" id="making_queries">Making Queries</a></h1>
+<div class="level1">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-128" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="Making Queries" /></div></form></div>
+<h2><a name="simple_queries" id="simple_queries">simple queries</a></h2>
+<div class="level2">
+
+<p>
+<strong>Applicable:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTMLX Touch Components
+</p>
+
+<p>
+By default, connector generates all INSERT/UPDATE/DELETE queries automatically, based on configuration.<br/>
+
+For more details of this topic, see <a href="dhtmlxconnector___basis.html" class="wikilink1" title="dhtmlxconnector:basis">Base Concepts</a> chapter.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="129-462" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="simple queries" /></div></form></div>
+<h2><a name="complex_queries" id="complex_queries">complex queries</a></h2>
+<div class="level2">
+
+<p>
+
+When you need to define your own logic you should use one of two ways:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___complex_queries.html" class="wikilink1" title="dhtmlxconnector:complex_queries">defining custom SQL code for operation</a></span></div>
+</li>
+<li class="level2"><div class="li"> <span class="curid"><a href="dhtmlxconnector___complex_queries.html" class="wikilink1" title="dhtmlxconnector:complex_queries">using server-side events to customize operations</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="463-790" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="complex queries" /></div></form></div>
+<h3><a name="custom_queries_for_an_action" id="custom_queries_for_an_action">custom queries for an action</a></h3>
+<div class="level3">
+
+<p>
+<strong>Applicable to:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTXML Touch Components
+</p>
+
+<p>
+You can define your own <acronym title="Structured Query Language">SQL</acronym> code for specific action (INSERT, UPDATE or DELETE) as follows:
+</p>
+<pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;Update&quot;</span><span class="sy0">,</span><span class="st0">&quot;Update tableA set name='{name}', price={price} where id={id}&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">//...</span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_sql</span><span class="br0">&#40;</span><span class="st0">&quot; .. &quot;</span><span class="sy0">,</span><span class="st0">&quot;id&quot;</span><span class="sy0">,</span><span class="st0">&quot;price,name&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+<strong>Parameters:</strong>
+</p>
+<ul>
+<li class="level1"><div class="li"> action name. Possible values are: &#039;Update&#039;, &#039;Insert&#039;, &#039;Delete&#039;</div>
+</li>
+<li class="level2"><div class="li"> <acronym title="Structured Query Language">SQL</acronym> statement. It can use fields(or their aliases) which were mentioned in <em>render_sql</em> or <em>render_table</em> method while loading data.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="791-1432" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="custom queries for an action" /></div></form></div>
+<h3><a name="using_server-side_events" id="using_server-side_events">using server-side events</a></h3>
+<div class="level3">
+
+<p>
+<strong>Applicable to:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTMLX Touch Components
+</p>
+
+<p>
+To customize operations you can use the following server-side events:
+
+</p>
+<ul>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeupdate_event.html" class="wikilink1" title="dhtmlxconnector:beforeupdate_event">beforeUpdate</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeinsert_event.html" class="wikilink1" title="dhtmlxconnector:beforeinsert_event">beforeInsert</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforedelete_event.html" class="wikilink1" title="dhtmlxconnector:beforedelete_event">beforeDelete</a></div>
+</li>
+<li class="level1"><div class="li"> <a href="dhtmlxconnector___beforeprocessing_event.html" class="wikilink1" title="dhtmlxconnector:beforeprocessing_event">beforeProcessing</a></div>
+</li>
+</ul>
+<pre class="code php"><span class="co1">//data preprocessing before update</span>
+<span class="kw2">function</span> my_update<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="re0">$price</span> <span class="sy0">=</span> <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;price&quot;</span><span class="br0">&#41;</span>;
+       <span class="re0">$price</span> <span class="sy0">=</span> <a href="http://www.php.net/intval"><span class="kw3">intval</span></a><span class="br0">&#40;</span><span class="re0">$price</span><span class="br0">&#41;</span>;
+       <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">set_value</span><span class="br0">&#40;</span><span class="st0">&quot;price&quot;</span><span class="sy0">,</span><span class="st0">&quot;10&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span> 
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeUpdate&quot;</span><span class="sy0">,</span><span class="st0">&quot;my_update&quot;</span><span class="br0">&#41;</span></pre><pre class="code php"><span class="co1">//including additional field to request</span>
+<span class="kw2">function</span> my_update<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">add_field</span><span class="br0">&#40;</span><span class="st0">&quot;userId&quot;</span><span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>; <span class="co1">//will be included in update processing</span>
+<span class="br0">&#125;</span> 
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeUpdate&quot;</span><span class="sy0">,</span><span class="st0">&quot;my_update&quot;</span><span class="br0">&#41;</span></pre><pre class="code php"><span class="co1">//fully custom code</span>
+<span class="kw2">function</span> my_update<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+       <a href="http://www.php.net/global"><span class="kw3">global</span></a> <span class="re0">$conn</span>;
+       <span class="re0">$price</span><span class="sy0">=</span><span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;price&quot;</span><span class="br0">&#41;</span>;
+       <span class="re0">$id</span><span class="sy0">=</span><span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">get_value</span><span class="br0">&#40;</span><span class="st0">&quot;id&quot;</span><span class="br0">&#41;</span>;
+       <span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">query</span><span class="br0">&#40;</span><span class="st0">&quot;UPDATE some_table SET price='{$price}' where id={$id}&quot;</span><span class="br0">&#41;</span>;
+       <span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">success</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">//success() marks operation as finished and stops any further action processing</span>
+<span class="br0">&#125;</span> 
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeUpdate&quot;</span><span class="sy0">,</span><span class="st0">&quot;my_update&quot;</span><span class="br0">&#41;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1433-2757" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="using server-side events" /></div></form></div>
+<h3><a name="transactions" id="transactions">transactions</a></h3>
+<div class="level3">
+
+<p>
+<strong>APPLICABLE TO:</strong> Grid
+</p>
+
+<p>
+Grid allows to use transactions , for data INSERT/UPDATE/DELETE operations ( be sure that used DB engine has support for transactions).<br/>
+ They can be enabled in 2 modes:
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>global</strong><br/>
+ <br/>
+ <pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">set_transaction_mode</span><span class="br0">&#40;</span><span class="st0">&quot;global&quot;</span><span class="br0">&#41;</span>; </pre></div>
+<ul>
+<li class="level2"><div class="li"> Component uses single transaction for all records inside single request. </div>
+</li>
+<li class="level2"><div class="li"> If any operation fails - all record operations will be rolled back, all updated rows will be returned with error status</div>
+</li>
+<li class="level2"><div class="li"> If custom validation was assigned and block any record - all records inside request will be blocked</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li"> <strong>record</strong><br/>
+ <br/>
+ <pre class="code php"><span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">set_transaction_mode</span><span class="br0">&#40;</span><span class="st0">&quot;record&quot;</span><span class="br0">&#41;</span>;</pre></div>
+<ul>
+<li class="level2"><div class="li"> Component uses separate transactions for each record in request</div>
+</li>
+<li class="level2"><div class="li"> If any operation fails, it will not affect other operations</div>
+</li>
+</ul>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2758-3593" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="transactions" /></div></form></div>
+<h2><a name="insert_operation_in_oracle_db" id="insert_operation_in_oracle_db">INSERT operation in Oracle DB</a></h2>
+<div class="level2">
+
+<p>
+<strong>Applicable to:</strong> Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTMLX Touch Components
+</p>
+
+<p>
+Oracle doesn&#039;t have auto ID generation functionality, so you need to provide some custom ID for each insert operations.
+</p>
+
+<p>
+There are 2 ways to achive this:
+</p>
+<ol>
+<li class="level1"><div class="li"> <strong>custom ID generation</strong> - id generated by <acronym title="Hypertext Preprocessor">PHP</acronym> code<br/>
+ <br/>
+ <pre class="code php"><span class="kw2">function</span> pre_insert<span class="br0">&#40;</span><span class="re0">$data</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+    	<span class="re0">$new_id</span> <span class="sy0">=</span> <a href="http://www.php.net/time"><span class="kw3">time</span></a><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="sy0">%</span><span class="nu19">10000</span>; <span class="co1">//any other ID generation logic can be used here</span>
+	<span class="re0">$data</span><span class="sy0">-&gt;</span><span class="me1">add_field</span><span class="br0">&#40;</span><span class="st0">&quot;EMPLOYEE_ID&quot;</span><span class="sy0">,</span><span class="re0">$new_id</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeInsert&quot;</span><span class="sy0">,</span><span class="st0">&quot;pre_insert&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;EMPLOYEES&quot;</span><span class="sy0">,</span><span class="st0">&quot;EMPLOYEE_ID&quot;</span><span class="sy0">,</span><span class="st0">&quot;FIRST_NAME,LAST_NAME&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+<li class="level1"><div class="li"> <strong>using sequence</strong> for ID generation<br/>
+ <br/>
+ <pre class="code php"><span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">sql</span><span class="sy0">-&gt;</span><span class="me1">sequence</span><span class="br0">&#40;</span><span class="st0">&quot;EMPLOYEES_INC.nextVal&quot;</span><span class="br0">&#41;</span>; <span class="co1">//sequence name</span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;EMPLOYEES&quot;</span><span class="sy0">,</span><span class="st0">&quot;EMPLOYEE_ID&quot;</span><span class="sy0">,</span><span class="st0">&quot;FIRST_NAME,LAST_NAME&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3594-" /><input type="hidden" name="rev" value="1308746172" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit" class="button" title="INSERT operation in Oracle DB" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/complex_queries.txt &middot; Last modified: 2011/06/22 15:36 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Acomplex_queries&amp;1310069430" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:complex_queries" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

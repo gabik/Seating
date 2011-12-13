@@ -1,0 +1,226 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:grid_data_export    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:grid_data_export</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:grid_data_export"  class="breadcrumbs" title="dhtmlxconnector:grid_data_export">grid_data_export</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="data_export" id="data_export">DATA EXPORT</a></h1>
+<div class="level1">
+
+<p>
+External <em>grid-to-pdf</em> and <em>grid-to-excel</em> services allow to convert grid&#039;s data to <acronym title="Portable Document Format">PDF</acronym> or Excel format directly on server-side: from any table without actually rendering data in the grid.
+Shortly, you should perform the following steps:
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___grid_data_export.html" class="wikilink1" title="dhtmlxconnector:grid_data_export">prepare data</a></span>.</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___grid_data_export.html" class="wikilink1" title="dhtmlxconnector:grid_data_export">activate conversion service</a></span>.</div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___grid_data_export.html" class="wikilink1" title="dhtmlxconnector:grid_data_export">start exporting</a></span>.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="data_preparation" id="data_preparation">data preparation</a></h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> data to export is defined by render_table() or render_sql() method.</div>
+</li>
+<li class="level1"><div class="li"> to define grid structure (header, footer etc.) on server-side, see chapter &#039;&#039;.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="activation_conversion_service" id="activation_conversion_service">activation conversion service</a></h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <strong>pdf</strong><br/>
+ <pre class="code php"><span class="re0">$convert</span> <span class="sy0">=</span> <span class="kw2">new</span> ConvertService<span class="br0">&#40;</span><span class="st0">&quot;http://dhtmlx.com/docs/products/devExchange/samples/grid2pdf_02/server/generate.php&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+<li class="level1"><div class="li"> <strong>excel</strong><br/>
+ <pre class="code php"><span class="re0">$convert</span> <span class="sy0">=</span> <span class="kw2">new</span> ConvertService<span class="br0">&#40;</span><span class="st0">&quot;http://dhtmlx.com/docs/products/devExchange/samples/grid2excel_02/server/generate.php&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="start_exporting" id="start_exporting">start exporting</a></h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <strong>pdf</strong><br/>
+ <pre class="code php"><span class="re0">$convert</span><span class="sy0">-&gt;</span><span class="me1">pdf</span><span class="br0">&#40;</span><span class="st0">&quot;some.pdf&quot;</span><span class="sy0">,</span><span class="kw2">false</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+<li class="level1"><div class="li"> <strong>excel</strong><br/>
+ <pre class="code php"><span class="re0">$convert</span><span class="sy0">-&gt;</span><span class="me1">excel</span><span class="br0">&#40;</span><span class="st0">&quot;some.xls&quot;</span><span class="sy0">,</span><span class="kw2">false</span><span class="br0">&#41;</span>;</pre>
+<p>
+<br/>
+ <strong>Parameters:</strong>
+</p>
+</div>
+<ul>
+<li class="level2"><div class="li"> (optional) name of result file. The default value - data.pdf (data.xls)</div>
+</li>
+<li class="level2"><div class="li"> (optional) the second parameter specifies how file will be exported: </div>
+<ul>
+<li class="level4"><div class="li"> <em>true</em> - as inline content ( if browser has related plugin - document will be opened automatically)</div>
+</li>
+<li class="level4"><div class="li"> <em>false</em> - as individual file.<br/>
+ The default value - <em>false</em>.</div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+<p>
+Service automatically start to export data defined through GridConnector. 
+
+</p>
+
+</div>
+
+<h4><a name="samples" id="samples">samples</a></h4>
+<div class="level4">
+<ul>
+<li class="level1"><div class="li"> <strong>pdf</strong><br/>
+ <br/>
+ <pre class="code php"><span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../../codebase/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../../codebase/convert.php&quot;</span><span class="br0">&#41;</span>; 
+&nbsp;
+<span class="co1">//url to data conversion service</span>
+<span class="re0">$convert</span> <span class="sy0">=</span> <span class="kw2">new</span> ConvertService<span class="br0">&#40;</span><span class="st0">&quot;http://dhtmlx.com/docs/products/devExchange/samples/grid2pdf_02/server/generate.php&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$convert</span><span class="sy0">-&gt;</span><span class="me1">pdf</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">//equal to calling pdf(&quot;data.pdf&quot;, false)</span>
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="re0">$res</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">set_config</span><span class="br0">&#40;</span><span class="kw2">new</span> GridConfiguration<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;	<span class="co1">//mandatory </span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;grid50&quot;</span><span class="br0">&#41;</span>;		<span class="co1">//table name and optional list of fields</span></pre></div>
+</li>
+<li class="level1"><div class="li"> <strong>Excel</strong><br/>
+ <br/>
+ <pre class="code php"><span class="kw1">require_once</span><span class="br0">&#40;</span><span class="st0">&quot;../../config.php&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$res</span><span class="sy0">=</span><a href="http://www.php.net/mysql_connect"><span class="kw3">mysql_connect</span></a><span class="br0">&#40;</span><span class="re0">$mysql_server</span><span class="sy0">,</span><span class="re0">$mysql_user</span><span class="sy0">,</span><span class="re0">$mysql_pass</span><span class="br0">&#41;</span>;
+<a href="http://www.php.net/mysql_select_db"><span class="kw3">mysql_select_db</span></a><span class="br0">&#40;</span><span class="re0">$mysql_db</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../../codebase/grid_connector.php&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;../../../codebase/convert.php&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="co1">//url to data conversion service</span>
+<span class="re0">$convert</span> <span class="sy0">=</span> <span class="kw2">new</span> ConvertService<span class="br0">&#40;</span><span class="st0">&quot;http://dhtmlx.com/docs/products/devExchange/samples/grid2excel_02/server/generate.php&quot;</span><span class="br0">&#41;</span>;
+<span class="re0">$convert</span><span class="sy0">-&gt;</span><span class="me1">excel</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">//equal to calling excel(&quot;data.xls&quot;, false)</span>
+&nbsp;
+<span class="re0">$grid</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="re0">$res</span><span class="br0">&#41;</span>;
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">set_config</span><span class="br0">&#40;</span><span class="kw2">new</span> GridConfiguration<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>; <span class="co1">//mandatory </span>
+<span class="re0">$grid</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;grid50&quot;</span><span class="br0">&#41;</span>; 	       <span class="co1">//table name and optional list of fields</span></pre></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-" /><input type="hidden" name="rev" value="1303227385" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Edit" class="button" title="DATA EXPORT" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/grid_data_export.txt &middot; Last modified: 2011/04/19 18:36 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Agrid_data_export&amp;1310069433" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:grid_data_export" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

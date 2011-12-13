@@ -1,0 +1,214 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:init    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:init</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:init"  class="breadcrumbs" title="dhtmlxconnector:init">init</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#initialization" class="toc">Initialization</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#client-side" class="toc">client-side</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#if_you_need_just_load_data_from_database_with_or_without_data_preprocessing" class="toc">if you need just load data from database (with or without data preprocessing)</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#if_you_need_to_perform_any_update_operations" class="toc">if you need to perform any update operations</a></span></div></li>
+</ul>
+</li>
+<li class="level2"><div class="li"><span class="li"><a href="#server-side" class="toc">server-side</a></span></div></li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="initialization" id="initialization">Initialization</a></h1>
+<div class="level1">
+
+<p>
+To use functionality of DHTMLX Connector, first you should initialize it.<br/>
+ Generally, both client- and server-sides are concerned in it.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-267" /><input type="hidden" name="rev" value="1307620383" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit" class="button" title="Initialization" /></div></form></div>
+<h2><a name="client-side" id="client-side">client-side</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="268-291" /><input type="hidden" name="rev" value="1307620383" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit" class="button" title="client-side" /></div></form></div>
+<h3><a name="if_you_need_just_load_data_from_database_with_or_without_data_preprocessing" id="if_you_need_just_load_data_from_database_with_or_without_data_preprocessing">if you need just load data from database (with or without data preprocessing)</a></h3>
+<div class="level3">
+<ol>
+<li class="level1"><div class="li"> Specify connector file in <em><em class="u">load</em></em> (or <em><em class="u">loadXML</em></em>) method of a component.<br/>
+ <br/>
+ <pre class="code javascript"><span class="co1">//index.html</span>
+myGrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">&quot;someContainer&quot;</span><span class="br0">&#41;</span>;<span class="co1">// initializes grid</span>
+...
+<span class="me1">myGrid</span>.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;my_connector.php&quot;</span><span class="br0">&#41;</span>;</pre></div>
+</li>
+</ol>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="292-615" /><input type="hidden" name="rev" value="1307620383" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit" class="button" title="if you need just load data from database (with or without data preprocessing)" /></div></form></div>
+<h3><a name="if_you_need_to_perform_any_update_operations" id="if_you_need_to_perform_any_update_operations">if you need to perform any update operations</a></h3>
+<div class="level3">
+<ol>
+<li class="level1"><div class="li"> Include <em><em class="u">connector.js</em></em> file (located in dhtmlxConnector_php/codebase).<br/>
+ </div>
+</li>
+<li class="level1"><div class="li"> Specify connector file in <em><em class="u">load</em></em> (or <em><em class="u">loadXML</em></em>) method of a component.</div>
+</li>
+<li class="level1"><div class="li"> Initialize <em><em class="u">dhtmlxDataProcessor</em></em> on client-side (read more about it <a href="../dhtmlxdataprocessor/index.html" class="wikilink1" title="dhtmlxdataprocessor:toc">here</a>).<br/>
+ <br/>
+ <pre class="code javascript"><span class="co1">//index.html</span>
+<span class="sy0">&lt;</span>script src<span class="sy0">=</span><span class="st0">&quot;codebase/connector/connector.js&quot;</span><span class="sy0">&gt;&lt;/</span>script<span class="sy0">&gt;</span>
+myGrid <span class="sy0">=</span> <span class="kw2">new</span> dhtmlXGridObject<span class="br0">&#40;</span><span class="st0">&quot;someContainer&quot;</span><span class="br0">&#41;</span>;<span class="co1">// initializes grid</span>
+...
+<span class="me1">myGrid</span>.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;my_connector.php&quot;</span><span class="br0">&#41;</span>;
+myDP <span class="sy0">=</span> <span class="kw2">new</span> dataProcessor<span class="br0">&#40;</span><span class="st0">&quot;myconnector.php&quot;</span><span class="br0">&#41;</span>;<span class="co1">// initializes dhtmlxDataProcessor</span>
+myDP.<span class="me1">init</span><span class="br0">&#40;</span>myGrid<span class="br0">&#41;</span>;</pre></div>
+</li>
+</ol>
+
+<p>
+
+<a href="dhtmlxconnector___client_side_sample.html" class="wikilink1" title="dhtmlxconnector:client_side_sample">Samples of client-side initialization for all components</a>
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="616-1354" /><input type="hidden" name="rev" value="1307620383" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit" class="button" title="if you need to perform any update operations" /></div></form></div>
+<h2><a name="server-side" id="server-side">server-side</a></h2>
+<div class="level2">
+<ol>
+<li class="level1"><div class="li"> Include appropriate connector file into the page.</div>
+</li>
+<li class="level1"><div class="li"> Create Database connection.</div>
+</li>
+<li class="level1"><div class="li"> Instantiate connector object. Linking variable is a mandatory parameter in all constructors. The second parameter(database type)- optional. By default “MySQL”. Other possible: “Postgre”</div>
+</li>
+<li class="level1"><div class="li"> The last step is data configuration.<br/>
+ <br/>
+ <pre class="code php"><span class="co1">//my_connector.php</span>
+<span class="kw1">require</span><span class="br0">&#40;</span><span class="st0">&quot;connector/grid_connector.php&quot;</span><span class="br0">&#41;</span>;<span class="co1">// connector file</span>
+<span class="re0">$res</span><span class="sy0">=</span><a href="http://www.php.net/mysql_connect"><span class="kw3">mysql_connect</span></a><span class="br0">&#40;</span><span class="st0">&quot;localhost&quot;</span><span class="sy0">,</span><span class="st0">&quot;root&quot;</span><span class="sy0">,</span><span class="st0">&quot;&quot;</span><span class="br0">&#41;</span>;<span class="co1">// db connection</span>
+<a href="http://www.php.net/mysql_select_db"><span class="kw3">mysql_select_db</span></a><span class="br0">&#40;</span><span class="st0">&quot;myDatabase&quot;</span><span class="br0">&#41;</span>; <span class="co1">// db connection</span>
+<span class="re0">$gridConn</span> <span class="sy0">=</span> <span class="kw2">new</span> GridConnector<span class="br0">&#40;</span><span class="re0">$res</span><span class="sy0">,</span><span class="st0">&quot;MySQL&quot;</span><span class="br0">&#41;</span>; <span class="co1">// connector object</span>
+<span class="re0">$gridConn</span><span class="sy0">-&gt;</span><span class="me1">render_table</span><span class="br0">&#40;</span><span class="st0">&quot;mytable&quot;</span><span class="sy0">,</span><span class="st0">&quot;item_id&quot;</span><span class="sy0">,</span><span class="st0">&quot;item_nm,item_cd&quot;</span><span class="br0">&#41;</span>;<span class="co1">// data configuration</span></pre></div>
+</li>
+</ol>
+
+<p>
+
+<a href="dhtmlxconnector___server_side_sample.html" class="wikilink1" title="dhtmlxconnector:server_side_sample">Samples of server-side initialization for all components</a>
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1355-" /><input type="hidden" name="rev" value="1307620383" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit" class="button" title="server-side" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/init.txt &middot; Last modified: 2011/06/09 14:53 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Ainit&amp;1310069435" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:init" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

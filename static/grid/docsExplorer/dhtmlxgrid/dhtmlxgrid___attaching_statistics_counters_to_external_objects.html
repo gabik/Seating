@@ -1,0 +1,152 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:attaching_statistics_counters_to_external_objects    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:attaching_statistics_counters_to_external_objects</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:attaching_statistics_counters_to_external_objects"  class="breadcrumbs" title="dhtmlxgrid:attaching_statistics_counters_to_external_objects">attaching_statistics_counters_to_external_objects</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="attaching_statistics_counters_to_external_objects" id="attaching_statistics_counters_to_external_objects">Attaching Statistics Counters to External Objects</a></h2>
+<div class="level2">
+
+<p>
+While the main purpose of statistics counters is to show data inside the headers|footers of the grid, it is pretty easy to use them to fill some custom area on the page with the related data.
+</p>
+
+<p>
+For example, if you have the following code:
+
+</p>
+<pre class="code javascript">  grid._in_header_stat_count<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span>tag<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span><span class="br0">&#123;</span>  <span class="co1">//shortcut for statistics counter</span>
+      <span class="kw2">var</span> calck<span class="sy0">=</span><span class="kw2">function</span><span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>                          <span class="co1">// define the function which will be used for calculations</span>
+          <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="br0">&#125;</span>
+      <span class="kw1">this</span>._stat_in_header<span class="br0">&#40;</span>tag<span class="sy0">,</span>calck<span class="sy0">,</span>index<span class="sy0">,</span>c<span class="br0">&#41;</span>;       <span class="co1">//call the default statistics handler processor</span>
+  <span class="br0">&#125;</span></pre>
+<p>
+
+And somewhere on the page you have:
+
+</p>
+<pre class="code html4strict">  there are <span class="sc2">&lt;<a href="http://december.com/html/4/element/span.html"><span class="kw2">span</span></a> <span class="kw3">id</span><span class="sy0">=</span><span class="st0">&quot;grid_count&quot;</span>&gt;&lt;<span class="sy0">/</span><a href="http://december.com/html/4/element/span.html"><span class="kw2">span</span></a>&gt;</span> rows in my grid</pre>
+<p>
+
+You can link stat_count to the span element in the following way:
+
+</p>
+<pre class="code javascript">  grid._in_header_stat_count<span class="br0">&#40;</span>document.<span class="me1">getElementById</span><span class="br0">&#40;</span><span class="st0">'grid_count'</span><span class="br0">&#41;</span><span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+After such command the content of grid_count element will be always equal to the number of rows in the grid.
+One cool detail should be noted here: if you add|delete the rows or reload the grid, the content of html tag will be correctly updated after each operation.
+</p>
+
+<p>
+The same trick can be used with any “in header shortcut”, but there is no much sense in it for the static ones.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Edit" class="button" title="Attaching Statistics Counters to External Objects" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/attaching_statistics_counters_to_external_objects.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Aattaching_statistics_counters_to_external_objects&amp;1310069471" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:attaching_statistics_counters_to_external_objects" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

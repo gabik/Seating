@@ -1,5 +1,6 @@
 # Create your views here.
 # -*- coding: utf-8 -*-
+import csv, codecs, cStringIO
 import math
 import random
 from tempfile import TemporaryFile
@@ -507,3 +508,26 @@ def download_map(request):
         book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
         return render_to_response('accounts/xls.html', c)
+
+def online_excel(request):
+	Guests = Guest.objects.filter(user=request.user)
+	#response = HttpResponse(mimetype='text/csv')
+	#response['Content-Disposition'] = 'attachment; /Seating/static/excel_output/' + str(request.user.id) + 'guests.csv'
+	f = open('/Seating/static/excel_output/' + str(request.user.id) + 'guests.csv', "wb")
+	writer = csv.writer(f)
+	row_num = 1
+	#writer.writerow(['0', 'first', 'last', 'gender', 'qty', 'phone', 'email', 'facebook', 'group', 'present'])
+	for g in Guests:
+		gfirst=unicode(g.guest_first_name, "UTF-8")
+		glast=unicode(g.guest_last_name, "UTF-8")
+		ggender=unicode(g.gender, "UTF-8")
+		gemail=unicode(g.guest_email, "UTF-8")
+		gfacebook=unicode(g.facebook_account, "UTF-8")
+		ggroup=unicode(g.group, "UTF-8")
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'), g.present_amount])
+		row_num+=1
+	f.close()
+        c = {}
+	c['rows']=row_num
+	c['filename']='/static/excel_output/' + str(request.user.id) + 'guests.csv'
+        return render_to_response('accounts/online_xls.html', c)

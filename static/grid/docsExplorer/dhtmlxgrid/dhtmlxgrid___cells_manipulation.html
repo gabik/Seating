@@ -1,0 +1,750 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:cells_manipulation    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:cells_manipulation</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:cells_manipulation"  class="breadcrumbs" title="dhtmlxgrid:cells_manipulation">cells_manipulation</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#cells_manipulation" class="toc">Cells Manipulation</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#available_types_of_cell_editors_excell" class="toc">Available Types of Cell Editors (Excell)</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#assigning_cell_editor" class="toc">Assigning Cell Editor</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_type_for_cell_row" class="toc">Setting Type for Cell/Row</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#cell_text_manipulations" class="toc">Cell Text Manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_select_box_collection" class="toc">Getting Select Box Collection</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#managing_select_box_collection" class="toc">Managing Select Box Collection</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#merging_cells" class="toc">Merging Cells</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_dhtmlxgridcellobject_object" class="toc">Getting dhtmlXGridCellObject Object</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#editing_cells" class="toc">Editing Cells</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#marked_cells_manipulation" class="toc">Marked Cells Manipulation</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_cells_unique_ids" class="toc">Enabling Cells Unique Ids</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#finding_cell" class="toc">Finding Cell</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_index_of_selected_cell" class="toc">Getting Index of Selected Cell</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#clearing_waschanged_state" class="toc">Clearing wasChanged State</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#enabling_edit_events" class="toc">Enabling Edit Events</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#selecting_cell" class="toc">Selecting Cell</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="cells_manipulation" id="cells_manipulation">Cells Manipulation</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-91" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Cells Manipulation" /></div></form></div>
+<h3><a name="available_types_of_cell_editors_excell" id="available_types_of_cell_editors_excell">Available Types of Cell Editors (Excell)</a></h3>
+<div class="level3">
+
+<p>
+There are some predefined cell editors delivered with dhtmlxGrid. They are:
+</p>
+<ul>
+<li class="level1"><div class="li">  ReadOnly (ro) - the cell can&#039;t be edited;</div>
+</li>
+<li class="level1"><div class="li">  Simple Editor (ed) - the text is edited inside a cell;</div>
+</li>
+<li class="level1"><div class="li">  Text Editor (txt) - the text is edited in a popup multi-line textarea;</div>
+</li>
+<li class="level1"><div class="li">  Checkbox (ch) - a standard checkbox;</div>
+</li>
+<li class="level1"><div class="li">  Radio button (ra) - a column oriented radio button;</div>
+</li>
+<li class="level1"><div class="li">  Select box (coro) - a simple select box;</div>
+</li>
+<li class="level1"><div class="li">  Combobox (co) - a select box with the ability to add some other value;</div>
+</li>
+<li class="level1"><div class="li">  Image (img) - not editable; the value is considered as a <acronym title="Uniform Resource Locator">URL</acronym> of image;</div>
+</li>
+<li class="level1"><div class="li">  sub_row - shows <acronym title="HyperText Markup Language">HTML</acronym> content in a sub-row; </div>
+</li>
+<li class="level1"><div class="li">  sub_row_ajax - treats content as a <acronym title="Uniform Resource Locator">URL</acronym> to load sub-row content from;</div>
+</li>
+<li class="level1"><div class="li">  dhxCalendar - popup calendar;</div>
+</li>
+<li class="level1"><div class="li">  dhxCalendarA - popup calendar with the ability to enter data manually.</div>
+</li>
+</ul>
+
+<p>
+
+Special types of cell editors:
+</p>
+<ul>
+<li class="level1"><div class="li">  Color picker (cp) - a simple color picker (just for example); the value is considered as color code or name;</div>
+</li>
+<li class="level1"><div class="li">  Price oriented (price) - shows $ before the value, all values equal 0 are shown as na in red color;</div>
+</li>
+<li class="level1"><div class="li">  Dynamic of Sales (dyn) - shows up|down icon depending on the value; color coding is also available (green|red).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="92-1313" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Available Types of Cell Editors (Excell)" /></div></form></div>
+<h3><a name="assigning_cell_editor" id="assigning_cell_editor">Assigning Cell Editor</a></h3>
+<div class="level3">
+
+<p>
+To assign necessary types to columns, the following script method with comma delimited list of editor codes should be used:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setColTypes</span><span class="br0">&#40;</span><span class="st0">&quot;ro,ed,txt,txt,ro,co&quot;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameter here is typeStr - list of type codes (default delimiter is ”,”).
+</p>
+
+<p>
+There is possibility to change type of the colum dinamically:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setColumnExcellType</span><span class="br0">&#40;</span>columnIndex<span class="sy0">,</span>type<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  columnIndex - index of a column which you want to change;</div>
+</li>
+<li class="level1"><div class="li">  type - type of the excell.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1314-1933" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Assigning Cell Editor" /></div></form></div>
+<h3><a name="setting_type_for_cell_row" id="setting_type_for_cell_row">Setting Type for Cell/Row</a></h3>
+<div class="level3">
+
+<p>
+Since v1.2, the user can set the type for each cell, row, or change the default column type.
+</p>
+
+<p>
+Setting all cells in a row to the specified type from script is done through the following method:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setRowExcellType</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>type<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters are:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  type - type of the excell.</div>
+</li>
+</ul>
+
+<p>
+
+Setting particular cell type for a certain cell from script in a row is also possible:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setCellExcellType</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>cellIndex<span class="sy0">,</span>type<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The user should indicate:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  cellIndex - index of the cell;</div>
+</li>
+<li class="level1"><div class="li">  type - type of the excell (code like “ed”, “txt”, “ch”, etc).</div>
+</li>
+</ul>
+
+<p>
+
+Setting column type from <acronym title="Extensible Markup Language">XML</acronym> looks like this:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>cell type<span class="sy0">=</span><span class="st0">&quot;[eXcell code]&quot;</span><span class="sy0">&gt;</span>...<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1934-2802" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Type for Cell/Row" /></div></form></div>
+<h3><a name="cell_text_manipulations" id="cell_text_manipulations">Cell Text Manipulations</a></h3>
+<div class="level3">
+
+<p>
+The user can set text style for a specified cell in the following way:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">setCellTextStyle</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> ind<span class="sy0">,</span> styleString<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  ind - index of the cell;</div>
+</li>
+<li class="level1"><div class="li">  styleString - style string in the common format (example: “color:red;border:1px solid gray;”).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2803-3202" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Cell Text Manipulations" /></div></form></div>
+<h3><a name="getting_select_box_collection" id="getting_select_box_collection">Getting Select Box Collection</a></h3>
+<div class="level3">
+
+<p>
+The following method can be used to get Combo object of the specified column:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> combo <span class="sy0">=</span> grid.<span class="me1">getCombo</span><span class="br0">&#40;</span>index<span class="br0">&#41;</span>; <span class="co1">// index of the column to get combo object for</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+If the user needs a collection to be specific for a cell, the following method should be used:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> combo <span class="sy0">=</span> grid.<span class="me1">getCustomCombo</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>cIndex<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters of this method are:
+</p>
+<ul>
+<li class="level1"><div class="li">  id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  ind - index of the column.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3203-3765" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Select Box Collection" /></div></form></div>
+<h3><a name="managing_select_box_collection" id="managing_select_box_collection">Managing Select Box Collection</a></h3>
+<div class="level3">
+
+<p>
+The collection supports the following <acronym title="Application Programming Interface">API</acronym>:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        combo.<span class="me1">put</span><span class="br0">&#40;</span>value<span class="sy0">,</span>label<span class="br0">&#41;</span> <span class="sy0">-</span> adds a <span class="kw2">new</span> record <span class="kw1">in</span> the collection;
+        combo.<span class="me1">remove</span><span class="br0">&#40;</span>value<span class="br0">&#41;</span> <span class="sy0">-</span> removes a record from the collection;
+        combo.<span class="me1">clear</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> removes all records from the collection;
+&nbsp;
+&nbsp;
+&nbsp;
+        combo.<span class="me1">size</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> returns the current size of the combo box;
+        combo.<span class="me1">get</span><span class="br0">&#40;</span>value<span class="br0">&#41;</span> <span class="sy0">-</span> returns the label by value;
+        combo.<span class="me1">getKeys</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> returns the array of all possible values;
+&nbsp;
+&nbsp;
+&nbsp;
+        combo.<span class="me1">save</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> saves the current state;
+        combo.<span class="me1">restore</span><span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="sy0">-</span> restores the previously saved state.
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The less common use-case is the one that gets the value by label. This can be done using the following code:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        <span class="kw2">var</span> value <span class="sy0">=</span> combo.<span class="me1">values</span><span class="br0">&#91;</span>combo.<span class="me1">keys</span>._dhx_find<span class="br0">&#40;</span>key<span class="br0">&#41;</span><span class="br0">&#93;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3766-4642" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Managing Select Box Collection" /></div></form></div>
+<h3><a name="merging_cells" id="merging_cells">Merging Cells</a></h3>
+<div class="level3">
+
+<p>
+
+Activating the possibility to merge cells in the grid, the user can display row cells the same way as he uses colspan or rowspan (since v1.5) in the <acronym title="HyperText Markup Language">HTML</acronym> table. Cell groups can be managed from <acronym title="Extensible Markup Language">XML</acronym> or Script. In both cases rowspan and colspan must be enabled while dhtmlxGrid initialization:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">enableRowspan</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+          grid.<span class="me1">enableColSpan</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+The user should include dhtmlxgrid_rowspan.js file into the page to make rowspan work. Colspan doesn&#039;t require any additional files. There are several methods responsible for grouping and ungrouping cells with colspan and rowspan.
+</p>
+
+</div>
+
+<h4><a name="managing_cell_groups_from_xml" id="managing_cell_groups_from_xml">Managing Cell Groups from XML</a></h4>
+<div class="level4">
+
+<p>
+
+The number of cell tags in a row should not be changed. The example of a row with 3 cells, 2 of which are grouped, is presented below:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;r01&quot;</span><span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>cell colspan<span class="sy0">=</span><span class="st0">&quot;2&quot;</span><span class="sy0">&gt;</span>value<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>cell<span class="sy0">/&gt;</span> 
+        <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>value of third cell<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span> 
+    <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The same for rowspan:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;r01&quot;</span><span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>cell rowspan<span class="sy0">=</span><span class="st0">&quot;2&quot;</span><span class="sy0">&gt;</span>value0<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>value1<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span> 
+    <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span> 
+    <span class="sy0">&lt;</span>row id<span class="sy0">=</span><span class="st0">&quot;r02&quot;</span><span class="sy0">&gt;</span> 
+        <span class="sy0">&lt;</span>cell<span class="sy0">/&gt;</span> 
+        <span class="sy0">&lt;</span>cell<span class="sy0">&gt;</span>value2<span class="sy0">&lt;/</span>cell<span class="sy0">&gt;</span> 
+    <span class="sy0">&lt;/</span>row<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+
+<h4><a name="managing_cell_groups_from_script" id="managing_cell_groups_from_script">Managing Cell Groups from Script</a></h4>
+<div class="level4">
+
+<p>
+
+1. Setting colspan in a row starting from the specified column index:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">setColspan</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> col_ind<span class="sy0">,</span> colspan<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters of this method are as follows:
+
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  col_ind - index of the column;</div>
+</li>
+<li class="level1"><div class="li">  colspan - size of the colspan (number of cells in group).</div>
+</li>
+</ul>
+
+<p>
+
+2. Setting rowspan with specified length starting from the specified cell
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span> 
+          grid.<span class="me1">setRowspan</span><span class="br0">&#40;</span>rowID<span class="sy0">,</span>colInd<span class="sy0">,</span>length<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters of this method are as follows:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowID - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  colInd - index of the first cell in group;</div>
+</li>
+<li class="level1"><div class="li">  length - length of the rowspan (number of cells in group).</div>
+</li>
+</ul>
+
+<p>
+For example:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+              <span class="co1">// group two cells with colspan</span>
+          grid.<span class="me1">setColspan</span><span class="br0">&#40;</span><span class="st0">&quot;r01&quot;</span><span class="sy0">,</span>0<span class="sy0">,</span><span class="nu0">2</span><span class="br0">&#41;</span>;
+              <span class="co1">// ungroup cells</span>
+          grid.<span class="me1">setColspan</span><span class="br0">&#40;</span><span class="st0">&quot;r01&quot;</span><span class="sy0">,</span>0<span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+              <span class="co1">// group two cells with rowspan</span>
+          grid.<span class="me1">setRowspan</span><span class="br0">&#40;</span><span class="st0">&quot;r01&quot;</span><span class="sy0">,</span>0<span class="sy0">,</span><span class="nu0">2</span><span class="br0">&#41;</span>;
+              <span class="co1">// ungroup cells</span>
+          grid.<span class="me1">setRowspan</span><span class="br0">&#40;</span><span class="st0">&quot;r01&quot;</span><span class="sy0">,</span>0<span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+&nbsp;</pre>
+<p>
+
+Note: simultaneous usage of rowspan and colspan for one cell is not possible. Also note setColspan() and setRowspan() methods must be called only after proper rows are loaded
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4643-7193" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Merging Cells" /></div></form></div>
+<h3><a name="getting_dhtmlxgridcellobject_object" id="getting_dhtmlxgridcellobject_object">Getting dhtmlXGridCellObject Object</a></h3>
+<div class="level3">
+
+<p>
+The user can get dhtmlXGridCellObject object in the following way:
+</p>
+
+<p>
+1. By Cell Id:
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          <span class="kw2">var</span> cellObj <span class="sy0">=</span> grid.<span class="me1">cellById</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> col<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Using this functionality, the user should indicate the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  col - index of the column.</div>
+</li>
+</ul>
+
+<p>
+Note: if no parameters are indicated, the method gets dhtmlXGridCellObject object of currently selected cell.
+</p>
+
+<p>
+2. By Cell Index:
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          <span class="kw2">var</span> cellObj <span class="sy0">=</span> grid.<span class="me1">cellByIndex</span><span class="br0">&#40;</span>row_index<span class="sy0">,</span> col<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+The user should specify the following parameters of this method:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_index - index of the row;</div>
+</li>
+<li class="level1"><div class="li">  col - index of the columns.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7194-7955" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Getting dhtmlXGridCellObject Object" /></div></form></div>
+<h3><a name="editing_cells" id="editing_cells">Editing Cells</a></h3>
+<div class="level3">
+
+<p>
+The following method creates the Editor object and switches the currently selected cell to edit mode if it is allowed:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">editCell</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The following method should be used to return the value from the editor (if it is present) to the cell and close the editor:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">editStop</span><span class="br0">&#40;</span>mode<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7956-8407" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Editing Cells" /></div></form></div>
+<h3><a name="marked_cells_manipulation" id="marked_cells_manipulation">Marked Cells Manipulation</a></h3>
+<div class="level3">
+
+<p>
+There is the possibility to set marked cells support for enabled or disabled state in dhtmlxGrid. The user should include dhtmlxgrid_markers.js file into the page to work with this functionality.
+
+</p>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span> 
+            grid.<span class="me1">enableMarkedCells</span><span class="br0">&#40;</span>state<span class="br0">&#41;</span>; <span class="co1">// true|false </span>
+        <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+<p>
+
+A cell can be marked/unmarked (selected or deselected) from script in the following way:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">mark</span><span class="br0">&#40;</span>r<span class="sy0">,</span>cInd<span class="sy0">,</span>state<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  r - row object or index of the row;</div>
+</li>
+<li class="level1"><div class="li">  cInd - index of the cell;</div>
+</li>
+<li class="level1"><div class="li">  state(true|false) - select or deselect the cell in question.</div>
+</li>
+</ul>
+
+<p>
+The user can get marked cells in the following way:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">getMarked</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The method returns the array of marked cells (pairs of row id and column index).
+To unmark all cells in the grid, the user should call the following command:
+
+</p>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span> 
+            grid.<span class="me1">unmarkAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8408-9539" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Marked Cells Manipulation" /></div></form></div>
+<h3><a name="enabling_cells_unique_ids" id="enabling_cells_unique_ids">Enabling Cells Unique Ids</a></h3>
+<div class="level3">
+
+<p>
+There is a method that is capable of enabling/disabling unique ids for cells. Ids will be automatically created using the following template: “c_[RowId]_[colIndex]”.
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+           grid.<span class="me1">enableCellIds</span><span class="br0">&#40;</span>mode<span class="br0">&#41;</span>; <span class="co1">// true to enable, false to disable</span>
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9540-9879" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Enabling Cells Unique Ids" /></div></form></div>
+<h3><a name="finding_cell" id="finding_cell">Finding Cell</a></h3>
+<div class="level3">
+
+<p>
+To find a cell in the grid by its value, the user should apply the following method:
+
+</p>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+&nbsp;
+          <span class="kw2">var</span> cell <span class="sy0">=</span> grid.<span class="me1">findCell</span><span class="br0">&#40;</span>value<span class="sy0">,</span> c_ind<span class="sy0">,</span> first<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The user shouldn&#039;t forget to include dhtmlxgrid_filter.js file into his project. The parameters of the method mentioned above are:
+</p>
+<ul>
+<li class="level1"><div class="li">  value - search string;</div>
+</li>
+<li class="level1"><div class="li">  c_ind - index of column to search in (optional; if it is not specified, then search everywhere);</div>
+</li>
+<li class="level1"><div class="li">  first - finds only the first occurrence (optional parameter).</div>
+</li>
+</ul>
+
+<p>
+The method returns array, each member of which contains array with row id and cell index.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9880-10544" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Finding Cell" /></div></form></div>
+<h3><a name="getting_index_of_selected_cell" id="getting_index_of_selected_cell">Getting Index of Selected Cell</a></h3>
+<div class="level3">
+
+<p>
+Index of the selected cell can be easily got like this:
+
+</p>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+            grid.<span class="me1">getSelectedCellIndex</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;  
+        <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+<p>
+
+The method returns either index of selected cell or -1 if there is no any selected cell.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10545-10856" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Index of Selected Cell" /></div></form></div>
+<h3><a name="clearing_waschanged_state" id="clearing_waschanged_state">Clearing wasChanged State</a></h3>
+<div class="level3">
+
+<p>
+The user can clear wasChanged state for all cells in the grid in the following way:
+
+</p>
+<pre class="code javascript">      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">clearChangedState</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10857-11077" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Clearing wasChanged State" /></div></form></div>
+<h3><a name="enabling_edit_events" id="enabling_edit_events">Enabling Edit Events</a></h3>
+<div class="level3">
+
+<p>
+enableEditEvents() method is responsible for enabling|disabling events that start excell editing. This method is mutually exclusive with enableLightMouseNavigation() method.
+The user should indicate the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  click(true|false) - enable|disable editing by a single click;</div>
+</li>
+<li class="level1"><div class="li">  dblclick(true|false) - enable/disable editing by a double click;</div>
+</li>
+<li class="level1"><div class="li">  f2Key - enable|disable editing by pressing the F2 key.</div>
+</li>
+</ul>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span> 
+            grid.<span class="me1">enableEditEvents</span><span class="br0">&#40;</span>click<span class="sy0">,</span> dblclick<span class="sy0">,</span> f2Key<span class="br0">&#41;</span>;
+        <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="11078-11663" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Enabling Edit Events" /></div></form></div>
+<h3><a name="selecting_cell" id="selecting_cell">Selecting Cell</a></h3>
+<div class="level3">
+
+<p>
+The method selectCell() should be used to select the specified cell in the grid. The user indicates the following parameters:
+</p>
+<ul>
+<li class="level1"><div class="li">  r - row object or row index;</div>
+</li>
+<li class="level1"><div class="li">  cInd - cell index;</div>
+</li>
+<li class="level1"><div class="li">  fl - if set to true, onRowSelect function will be called;</div>
+</li>
+<li class="level1"><div class="li">  preserve(true|false) - preserve previously selected rows, false by default;</div>
+</li>
+<li class="level1"><div class="li">  edit - switch the selected cell to edit mode;</div>
+</li>
+<li class="level1"><div class="li">  show(true|false) - scroll row to view, true by default.</div>
+</li>
+</ul>
+<pre class="code javascript">&nbsp;
+        <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+            grid.<span class="me1">selectCell</span><span class="br0">&#40;</span>r<span class="sy0">,</span> cInd<span class="sy0">,</span> fl<span class="sy0">,</span> preserve<span class="sy0">,</span> edit<span class="sy0">,</span> show<span class="br0">&#41;</span>;
+        <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="11664-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit" class="button" title="Selecting Cell" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/cells_manipulation.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acells_manipulation&amp;1310069483" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:cells_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

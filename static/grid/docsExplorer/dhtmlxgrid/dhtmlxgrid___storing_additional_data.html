@@ -1,0 +1,326 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:storing_additional_data    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:storing_additional_data</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:storing_additional_data"  class="breadcrumbs" title="dhtmlxgrid:storing_additional_data">storing_additional_data</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#storing_additional_data" class="toc">Storing Additional Data</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#hidden_columns" class="toc">Hidden Columns</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#userdata" class="toc">UserData</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#attributes" class="toc">Attributes</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="storing_additional_data" id="storing_additional_data">Storing Additional Data</a></h2>
+<div class="level2">
+
+<p>
+There are three possible approaches to load additional data:
+</p>
+<ul>
+<li class="level1"><div class="li">  Hidden Columns;</div>
+</li>
+<li class="level1"><div class="li">  UserData;</div>
+</li>
+<li class="level1"><div class="li">  Attributes.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-207" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit" class="button" title="Storing Additional Data" /></div></form></div>
+<h3><a name="hidden_columns" id="hidden_columns">Hidden Columns</a></h3>
+<div class="level3">
+
+<p>
+
+It is possible to define a column as hidden - in such case, it will not be visible for a user, but it will be accessible by <acronym title="Application Programming Interface">API</acronym>. So it will be possible to take the data from it.
+</p>
+
+<p>
+In case of initialization from <acronym title="JavaScript">JS</acronym> code, the user should write the following:
+
+</p>
+<pre class="code javascript">        <span class="co1">//...</span>
+        grid.<span class="me1">init</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">setColumnHidden</span><span class="br0">&#40;</span>index<span class="sy0">,</span><span class="kw2">true</span><span class="br0">&#41;</span>; <span class="co1">// indicate column index and set the state to true to hire the column</span></pre>
+<p>
+In case of initialization from <acronym title="Extensible Markup Language">XML</acronym>, the syntax will be like this:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;head<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;column</span> <span class="re0">hidden</span>=<span class="st0">&quot;true&quot;</span><span class="re2">&gt;</span></span>Dummy<span class="sc3"><span class="re1">&lt;/column<span class="re2">&gt;</span></span></span>
+        ...</pre>
+<p>
+
+The data can be accessed as data of any other columns:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">setValue</span><span class="br0">&#40;</span>some<span class="br0">&#41;</span>;</pre>
+<p>
+
+Data of a hidden column is included in the serialization by default, and can&#039;t be controlled by setSerializableColumns() command.
+This data is available during dataprocessor calls
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="208-1175" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit" class="button" title="Hidden Columns" /></div></form></div>
+<h3><a name="userdata" id="userdata">UserData</a></h3>
+<div class="level3">
+
+<p>
+UserData is a special tag that can be:
+</p>
+<ul>
+<li class="level1"><div class="li">  child of &lt;rows&gt; - userdata is related to the whole grid;</div>
+</li>
+<li class="level1"><div class="li">  &lt;row&gt; tags - userdata is related to a specific row.</div>
+</li>
+</ul>
+
+<p>
+
+UserData can be set in <acronym title="Extensible Markup Language">XML</acronym> in the following way:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">'1.0'</span> <span class="re0">encoding</span>=<span class="st0">'iso-8859-1'</span><span class="re2">?&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;userdata</span> <span class="re0">name</span>=<span class="st0">&quot;somName1&quot;</span><span class="re2">&gt;</span></span>some data<span class="sc3"><span class="re1">&lt;/userdata<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;row</span> <span class="re0">id</span>=<span class="st0">&quot;unique_rowid&quot;</span><span class="re2">&gt;</span></span>
+                    <span class="sc3"><span class="re1">&lt;userdata</span> <span class="re0">name</span>=<span class="st0">&quot;someName1&quot;</span><span class="re2">&gt;</span></span> some row data <span class="sc3"><span class="re1">&lt;/userdata<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;userdata</span> <span class="re0">name</span>=<span class="st0">&quot;someName2&quot;</span><span class="re2">&gt;</span></span> some row data <span class="sc3"><span class="re1">&lt;/userdata<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span>cell content<span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+                    <span class="sc3"><span class="re1">&lt;cell<span class="re2">&gt;</span></span></span><span class="sc2">&lt;![CDATA[&lt;font color=&quot;red&quot;&gt;cell&lt;/font&gt; content]]&gt;</span><span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/row<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span></pre>
+</div>
+
+<h4><a name="accessing_global_userdata" id="accessing_global_userdata">Accessing Global UserData</a></h4>
+<div class="level4">
+
+<p>
+The following methods are used for this purpose:
+
+</p>
+<pre class="code javascript">        <span class="kw2">var</span> userdata <span class="sy0">=</span> grid.<span class="me1">getUserData</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><span class="st0">&quot;someName1&quot;</span><span class="br0">&#41;</span>;  <span class="co1">// some data</span>
+        grid.<span class="me1">setUserData</span><span class="br0">&#40;</span><span class="st0">&quot;&quot;</span><span class="sy0">,</span><span class="st0">&quot;someName1&quot;</span><span class="sy0">,</span><span class="st0">&quot;new value&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+The following methods are used in the code sample above:
+</p>
+<ul>
+<li class="level1"><div class="li">  getUserData(row_id, name) - this method gets user data; the parameters that should be indicated are:</div>
+<ul>
+<li class="level2"><div class="li">   row_id - id of the row; if it is set as an empty string, user data is for the grid (not a row);</div>
+</li>
+<li class="level2"><div class="li">  name - name of user data.</div>
+</li>
+</ul>
+</li>
+<li class="level1"><div class="li">  setUserData(row_id, name, value) - sets user data to a row with the following parameters:</div>
+<ul>
+<li class="level2"><div class="li">   row_id - id of the row, if it is set as an empty string, user data is set for the grid (not a row);</div>
+</li>
+<li class="level2"><div class="li">  name - name of user data block;</div>
+</li>
+<li class="level2"><div class="li">  value - value of user data block.</div>
+</li>
+</ul>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="accessing_row-related_userdata" id="accessing_row-related_userdata">Accessing Row-Related UserData</a></h4>
+<div class="level4">
+
+<p>
+Row-related UserData can be accessed like this:
+
+</p>
+<pre class="code javascript">        <span class="kw2">var</span> userdata <span class="sy0">=</span> grid.<span class="me1">getUserData</span><span class="br0">&#40;</span><span class="st0">&quot;unique_rowid&quot;</span><span class="sy0">,</span><span class="st0">&quot;someName1&quot;</span><span class="br0">&#41;</span>;                 <span class="co1">// some row data</span>
+        grid.<span class="me1">setUserData</span><span class="br0">&#40;</span><span class="st0">&quot;unique_rowid&quot;</span><span class="sy0">,</span><span class="st0">&quot;someName1&quot;</span><span class="sy0">,</span><span class="st0">&quot;new value&quot;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+UserData may be included in the serialization process using setSerializationLevel() command (it is disabled by default).
+</p>
+
+<p>
+
+This data is available during dataprocessor calls.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1176-3177" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit" class="button" title="UserData" /></div></form></div>
+<h3><a name="attributes" id="attributes">Attributes</a></h3>
+<div class="level3">
+
+<p>
+dhtmlxgrid 1.6+ allows accessing any attribute of row or cell tag programmatically when loading from <acronym title="Extensible Markup Language">XML</acronym>:
+
+</p>
+<pre class="code xml">    <span class="sc3"><span class="re1">&lt;?xml</span> <span class="re0">version</span>=<span class="st0">'1.0'</span> <span class="re0">encoding</span>=<span class="st0">'iso-8859-1'</span><span class="re2">?&gt;</span></span>
+        <span class="sc3"><span class="re1">&lt;rows<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;row</span> <span class="re0">id</span>=<span class="st0">&quot;unique_rowid&quot;</span> <span class="re0">some</span>=<span class="st0">&quot;data&quot;</span><span class="re2">&gt;</span></span>
+                    <span class="sc3"><span class="re1">&lt;cell</span> <span class="re0">some</span>=<span class="st0">&quot;data&quot;</span><span class="re2">&gt;</span></span>cell content<span class="sc3"><span class="re1">&lt;/cell<span class="re2">&gt;</span></span></span>
+            <span class="sc3"><span class="re1">&lt;/row<span class="re2">&gt;</span></span></span>
+        <span class="sc3"><span class="re1">&lt;/rows<span class="re2">&gt;</span></span></span></pre>
+</div>
+
+<h4><a name="accessing_row_attributes" id="accessing_row_attributes">Accessing Row Attributes</a></h4>
+<div class="level4">
+
+<p>
+
+The following methods are used to access row attributes:
+
+</p>
+<pre class="code javascript">        <span class="kw2">var</span> rowAttr <span class="sy0">=</span> grid.<span class="me1">getRowAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;unique_rowid&quot;</span><span class="sy0">,</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">setRowAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;unique_rowid&quot;</span><span class="sy0">,</span><span class="st0">&quot;some&quot;</span><span class="sy0">,</span><span class="st0">&quot;new value&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+
+<h4><a name="accessing_cell_attributes" id="accessing_cell_attributes">Accessing Cell Attributes</a></h4>
+<div class="level4">
+
+<p>
+To access cell attributes, the following code lines should be used:
+
+</p>
+<pre class="code javascript">        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">getAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span>;
+        grid.<span class="me1">cells</span><span class="br0">&#40;</span>i<span class="sy0">,</span>j<span class="br0">&#41;</span>.<span class="me1">setAttribute</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="sy0">,</span><span class="st0">&quot;new value&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+
+<h4><a name="including_attributes_in_serialization" id="including_attributes_in_serialization">Including Attributes in Serialization</a></h4>
+<div class="level4">
+
+<p>
+If the user wants to include such custom attributes in the serialization, some special steps are required:
+
+</p>
+<pre class="code javascript">            grid.<span class="me1">xml</span>.<span class="me1">row_attrs</span>.<span class="me1">push</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// will include some attribute of a row in the serialization</span>
+            grid.<span class="me1">xml</span>.<span class="me1">cell_attrs</span>.<span class="me1">push</span><span class="br0">&#40;</span><span class="st0">&quot;some&quot;</span><span class="br0">&#41;</span>;    <span class="co1">// will include some attribute of a cell in the serialization</span></pre>
+<p>
+
+Note: This data is <strong>not available</strong> during dataprocessor calls.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="3178-" /><input type="hidden" name="rev" value="1279031289" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit" class="button" title="Attributes" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/storing_additional_data.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Astoring_additional_data&amp;1310069484" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:storing_additional_data" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

@@ -1,0 +1,205 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:control_drop    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:control_drop</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:control_drop"  class="breadcrumbs" title="dhtmlxgrid:control_drop">control_drop</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="control_drop" id="control_drop">Control Drop</a></h2>
+<div class="level2">
+
+<p>
+
+After the item was dragged and dropped, the next stage of process is initiated - the item needs to be correctly inserted in its new place.
+And again there is no need to do anything, but default existing logic that will process operation on its own.
+But in some cases we need to customize the operation:
+</p>
+<ul>
+<li class="level1"><div class="li">  block d-n-d operation:</div>
+</li>
+</ul>
+<pre class="code javascript">  mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onDrag&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>some_check<span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="kw1">return</span> <span class="kw2">false</span>; <span class="co1">//block d-n-d</span>
+      <span class="kw1">return</span> <span class="kw2">true</span>;
+  <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li">  dynamically switch between move and copy behaviors:</div>
+</li>
+</ul>
+<pre class="code javascript">  mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onDrag&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span>some_check<span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#41;</span> mygrid.<span class="me1">dragContext</span>.<span class="me1">mode</span><span class="sy0">=</span><span class="st0">&quot;copy&quot;</span>; <span class="co1">// copy item instead of moving it</span>
+      <span class="kw1">return</span> <span class="kw2">true</span>;
+  <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+The dragContext object is available during the onDrag event and it contains the following properties:
+</p>
+<ol>
+<li class="level1"><div class="li"> dragContext.source - type of the source component (“tree”,”grid”,”treeGrid”);</div>
+</li>
+<li class="level1"><div class="li"> dragContext.target - type of the target component;</div>
+</li>
+<li class="level1"><div class="li"> dragContext.sobj - the source object;</div>
+</li>
+<li class="level1"><div class="li"> dragContext.tobj - the target object;</div>
+</li>
+<li class="level1"><div class="li"> dragContext.dropmode - whether the dragged item will be a “child” or a “sibling”;</div>
+</li>
+<li class="level1"><div class="li"> dragConetxt.mode - whether the dragged item will be copied or just moved: “copy” or “move”;</div>
+</li>
+<li class="level1"><div class="li"> dragContext.slist() - ID(s) of the dragged item(s);</div>
+</li>
+<li class="level1"><div class="li"> dragContext.tid - ID of the drag landing item;</div>
+</li>
+</ol>
+
+<p>
+Any of these properties can be changed, and further dragging process will use the changed value instead of the original one.
+</p>
+<ul>
+<li class="level1"><div class="li">  just fire some custom functionality instead of moving an item:</div>
+</li>
+</ul>
+<pre class="code javascript">  mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onDrag&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      some_custom_code<span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span>;
+      <span class="kw1">return</span> <span class="kw2">false</span>;
+  <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre><ul>
+<li class="level1"><div class="li">  moving an item, but with some specific rules:</div>
+</li>
+</ul>
+<pre class="code javascript">  mygrid.<span class="me1">attachEvent</span><span class="br0">&#40;</span><span class="st0">&quot;onDrag&quot;</span><span class="sy0">,</span><span class="kw2">function</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>tid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      mygrid.<span class="me1">moveRowTo</span><span class="br0">&#40;</span>sid<span class="sy0">,</span>someID<span class="sy0">,</span><span class="st0">&quot;copy&quot;</span><span class="sy0">,</span><span class="st0">&quot;sibling&quot;</span><span class="br0">&#41;</span>; <span class="co1">//moving an item as a sibling of some other element</span>
+      <span class="kw1">return</span> <span class="kw2">false</span>; <span class="co1">// block default d-n-d</span>
+  <span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+Data conversion is required when d-n-d process occurs between different grids. This can be done by redefining gridToGrid method:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">gridToGrid</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>sgrid<span class="sy0">,</span>tgrid<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw2">var</span> z<span class="sy0">=</span><span class="br0">&#91;</span><span class="br0">&#93;</span>; 
+      <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw2">var</span> i<span class="sy0">=</span>0; i<span class="sy0">&lt;</span>sgrid.<span class="me1">getColumCount</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; i<span class="sy0">++</span><span class="br0">&#41;</span>    <span class="co1">// for each cell in the source grid</span>
+          z<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="sy0">=</span>sgrid.<span class="me1">cells</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>i<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;         <span class="co1">// prepare data for target grid</span>
+      <span class="kw1">return</span> z;
+  <span class="br0">&#125;</span></pre>
+<p>
+
+This snippet just copies the data, without applying any modifications to it. In a real application it may change data order or add|delete some of it.
+</p>
+
+<p>
+In case when d-n-d process occurs from tree to grid, the same can be done by redefining treeToGridElement or gridToTreeElement:
+
+</p>
+<pre class="code javascript">  grid.<span class="me1">gridToTreeElement</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>tree<span class="sy0">,</span>treeID<span class="sy0">,</span>gridID<span class="br0">&#41;</span><span class="br0">&#123;</span>
+      <span class="kw1">return</span> <span class="kw1">this</span>.<span class="me1">cells</span><span class="br0">&#40;</span>gridId<span class="sy0">,</span>0<span class="br0">&#41;</span>.<span class="me1">getValue</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;  <span class="co1">// take data from the first column as a value for tree</span>
+  <span class="br0">&#125;</span></pre><pre class="code javascript">&nbsp;
+    grid.<span class="me1">treeToGridElement</span> <span class="sy0">=</span> <span class="kw2">function</span><span class="br0">&#40;</span>tree<span class="sy0">,</span>treeID<span class="sy0">,</span>gridID<span class="br0">&#41;</span><span class="br0">&#123;</span>
+        <span class="kw2">var</span> z<span class="sy0">=</span><span class="br0">&#91;</span>treeObj.<span class="me1">getItemText</span><span class="br0">&#40;</span>treeID<span class="br0">&#41;</span><span class="br0">&#93;</span>;  <span class="co1">//set the tree text as a value of the first column in the grid</span>
+        <span class="kw1">return</span> z;
+    <span class="br0">&#125;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-" /><input type="hidden" name="rev" value="1279031287" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Edit" class="button" title="Control Drop" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/control_drop.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Acontrol_drop&amp;1310069473" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:control_drop" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

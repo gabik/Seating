@@ -1,0 +1,221 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxconnector:sort    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxconnector:sort</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxconnector:sort"  class="breadcrumbs" title="dhtmlxconnector:sort">sort</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="level1"><div class="li"><span class="li"><a href="#sorting" class="toc">Sorting</a></span></div>
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#url_manipulation" class="toc">URL manipulation</a></span></div></li>
+<li class="level2"><div class="li"><span class="li"><a href="#sorting_type_connector" class="toc">sorting type &#039;connector&#039;</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#default_sorting_by_one_field" class="toc">default sorting by one field</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#default_sorting_by_multiple_fields" class="toc">default sorting by multiple fields</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#custom_sorting_rule" class="toc">custom sorting rule</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="dhtmlxconnector___start.html" class="wikilink1" title="dhtmlxconnector:start">Connector</a></div><div class='arrow'></div><div class='backlink'><a href="dhtmlxconnector___guides.html" class="wikilink1" title="dhtmlxconnector:guides">Guides</a></div></div>
+
+</p>
+
+<h1><a name="sorting" id="sorting">Sorting</a></h1>
+<div class="level1">
+
+<p>
+There are 2 ways to implement server-side sorting: 
+</p>
+<ul>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___sort.html" class="wikilink1" title="dhtmlxconnector:sort">by specifying additional parameters in URL</a></span></div>
+</li>
+<li class="level1"><div class="li"> <span class="curid"><a href="dhtmlxconnector___sort.html" class="wikilink1" title="dhtmlxconnector:sort">by using sorting type &#039;connector&#039; while component configuration</a></span></div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="100-379" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="Sorting" /></div></form></div>
+<h2><a name="url_manipulation" id="url_manipulation">URL manipulation</a></h2>
+<div class="level2">
+
+<p>
+<em class="u"><strong>APPLICABLE TO:</strong> </em>Grid, TreeGrid, Tree, Combo, Scheduler, DataView, Chart, Form, DataStore, DHTMXL Touch components, 
+</p>
+
+<p>
+You can control how data will be sorted inside column by specifying additional parameters in <acronym title="Uniform Resource Locator">URL</acronym>.
+</p>
+<pre class="code javascript"><span class="co1">//ORDER by field_2 ASC</span>
+grid.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;some.php?connector=true&amp;dhx_sort[2]=asc&quot;</span><span class="br0">&#41;</span>;
+<span class="co1">//ORDER by field_2 ASC, field_3 DESC</span>
+grid.<span class="me1">load</span><span class="br0">&#40;</span><span class="st0">&quot;some.php?connector=true&amp;dhx_sort[2]=asc&amp;dhx_sort[3]=desc&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="380-843" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="URL manipulation" /></div></form></div>
+<h2><a name="sorting_type_connector" id="sorting_type_connector">sorting type &#039;connector&#039;</a></h2>
+<div class="level2">
+
+<p>
+<em class="u"><strong>APPLICABLE TO:</strong> </em>Grid, TreeGrid
+</p>
+
+<p>
+To sort grid/treegrid content with connectors you need to use &#039;<em>connector</em>&#039; as sorting type while grid initialization.
+
+</p>
+<pre class="code javascript">grid.<span class="me1">setColSorting</span><span class="br0">&#40;</span><span class="st0">&quot;connector,str,na);</span></pre>
+<p>
+
+In the code snippet above, the first column will be sorted on server-side with connectors, the second as string on client-side, the third column won&#039;t be sortable.
+</p>
+
+<p>
+By assigning to sorting type &#039;connector&#039; you just &#039;say&#039; that sorting will be implemented on server-side.<br/>
+
+To define the way, &#039;behaviour&#039; of sorting  you should use <a href="dhtmlxconnector___beforesort_event.html" class="wikilink1" title="dhtmlxconnector:beforesort_event">beforeSort</a> event.<br/>
+
+Event doesn&#039;t allow to write custom sorting logic, but you can affect SORT BY clause of generated <acronym title="Structured Query Language">SQL</acronym> request.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="844-1606" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="sorting type 'connector'" /></div></form></div>
+<h3><a name="default_sorting_by_one_field" id="default_sorting_by_one_field">default sorting by one field</a></h3>
+<div class="level3">
+<pre class="code php"><span class="kw2">function</span> custom_sort<span class="br0">&#40;</span><span class="re0">$sorted_by</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="co1">//SORT BY some_field ASC</span>
+          <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span><a href="http://www.php.net/sizeof"><span class="kw3">sizeof</span></a><span class="br0">&#40;</span><span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">rules</span><span class="br0">&#41;</span><span class="br0">&#41;</span> 
+               <span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;some_field&quot;</span><span class="sy0">,</span><span class="st0">&quot;ASC&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeSort&quot;</span><span class="sy0">,</span><span class="st0">&quot;custom_sort&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1607-1880" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="default sorting by one field" /></div></form></div>
+<h3><a name="default_sorting_by_multiple_fields" id="default_sorting_by_multiple_fields">default sorting by multiple fields</a></h3>
+<div class="level3">
+<pre class="code php"><span class="kw2">function</span> custom_sort<span class="br0">&#40;</span><span class="re0">$sorted_by</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="co1">//SORT BY some_field ASC, some_other ASC</span>
+          <span class="kw1">if</span> <span class="br0">&#40;</span><span class="sy0">!</span><a href="http://www.php.net/sizeof"><span class="kw3">sizeof</span></a><span class="br0">&#40;</span><span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">rules</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+               <span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;some_field&quot;</span><span class="sy0">,</span><span class="st0">&quot;ASC&quot;</span><span class="br0">&#41;</span>;
+               <span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">add</span><span class="br0">&#40;</span><span class="st0">&quot;some_other&quot;</span><span class="sy0">,</span><span class="st0">&quot;ASC&quot;</span><span class="br0">&#41;</span>;
+          <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeSort&quot;</span><span class="sy0">,</span><span class="st0">&quot;custom_sort&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1881-2240" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="default sorting by multiple fields" /></div></form></div>
+<h3><a name="custom_sorting_rule" id="custom_sorting_rule">custom sorting rule</a></h3>
+<div class="level3">
+<pre class="code php"><span class="kw2">function</span> custom_sort<span class="br0">&#40;</span><span class="re0">$sorted_by</span><span class="br0">&#41;</span><span class="br0">&#123;</span>
+          <span class="co1">// SORT BY LENGTH(some_field)</span>
+          <span class="re0">$sorted_by</span><span class="sy0">-&gt;</span><span class="me1">rules</span><span class="br0">&#91;</span><span class="nu19">0</span><span class="br0">&#93;</span><span class="br0">&#91;</span><span class="st0">&quot;name&quot;</span><span class="br0">&#93;</span><span class="sy0">=</span><span class="st0">&quot;LENGTH(some_field)&quot;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="re0">$conn</span><span class="sy0">-&gt;</span><span class="me1">event</span><span class="sy0">-&gt;</span><span class="me1">attach</span><span class="br0">&#40;</span><span class="st0">&quot;beforeSort&quot;</span><span class="sy0">,</span><span class="st0">&quot;custom_sort&quot;</span><span class="br0">&#41;</span>;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2241-" /><input type="hidden" name="rev" value="1308745732" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit" class="button" title="custom sorting rule" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxconnector/sort.txt &middot; Last modified: 2011/06/22 15:28 by 192.168.1.110      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxconnector%3Asort&amp;1310069432" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxconnector:sort" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>

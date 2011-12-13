@@ -1,0 +1,783 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en"
+ lang="en" dir="ltr">
+<head><meta http-equiv="Content-Type" content="text/html; charset=utf-8" /><link rel="stylesheet" href="../codebase/default.css" type="text/css" media="screen" title="no title" charset="utf-8"><title>
+    dhtmlxgrid:rows_manipulation    [DHX documentation]
+  </title></head>
+
+<body>
+<div class="dokuwiki">
+  
+  <div class="stylehead">
+
+    <div class="header">
+    <a class="logo" href="http://dhtmlx.com" title="DHTMLX Home Page"></a>
+    <span class="tittle-dhtmlx">DHTMLX Docs & Samples Explorer</span>
+
+    <div class="search-field">
+        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>    </div>
+        <div class="buttons">
+                <a class="doc"></a>
+                <a title="DHTMLX Samples homepage" href="../samples.html" class="sample"/></a>
+        </div>
+     <!-- <div class="pagename">
+        [[<a href="#"  title="Backlinks">dhtmlxgrid:rows_manipulation</a>]]
+      </div>
+      <div class="logo">
+        <a href="/dhtmlx/docs/doku.php"  name="dokuwiki__top" id="dokuwiki__top" accesskey="h" title="[H]">DHX documentation</a>      </div>
+
+      <div class="clearer"></div>-->
+        
+    </div>
+
+    
+<!--   <div class="bar" id="bar__top">
+      <div class="bar-left" id="bar__topleft">
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>        <form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>      </div>
+
+      <div class="bar-right" id="bar__topright">
+        <form class="button btn_recent" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="recent" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Recent changes" class="button" accesskey="r" title="Recent changes [R]" /></div></form>        <form action="/dhtmlx/docs/doku.php" accept-charset="utf-8" id="dw__search"><div class="no"><input type="hidden" name="do" value="search" /><input type="text" id="qsearch__in" accesskey="f" name="id" title="Search" /><button type="submit"></button><div id="qsearch__out" class="ajax_qsearch JSpopup"></div></div></form>&nbsp;
+      </div>
+
+      <div class="clearer"></div>
+    </div> -->
+
+<!--        <div class="breadcrumbs">
+      <span class="bchead">Trace:</span> <span class="bcsep">&raquo;</span> <span class="curid"><a href="/dhtmlx/docs/doku.php?id=dhtmlxgrid:rows_manipulation"  class="breadcrumbs" title="dhtmlxgrid:rows_manipulation">rows_manipulation</a></span>    </div>
+    -->
+
+    
+  </div>
+  
+  
+  <div class="page">
+    <!-- wikipage start -->
+    <!-- TOC START -->
+<div class="toc">
+<div class="tocheader toctoggle" id="toc__header">Table of Contents</div>
+<div id="toc__inside">
+
+<ul class="toc">
+<li class="clear">
+
+<ul class="toc">
+<li class="level2"><div class="li"><span class="li"><a href="#rows_manipulation" class="toc">Rows Manipulation</a></span></div>
+<ul class="toc">
+<li class="level3"><div class="li"><span class="li"><a href="#adding_removing_rows" class="toc">Adding/Removing Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#checking_row_existence" class="toc">Checking Row Existence</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#selecting_rows" class="toc">Selecting Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#row_id_index_manipulations" class="toc">Row Id/Index Manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#changing_row_id" class="toc">Changing Row Id</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_new_row_id" class="toc">Setting New Row Id</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#row_s_text_manipulations" class="toc">Row&#039;s Text Manipulations</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#moving_rows" class="toc">Moving Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#multi-line_grid_rows" class="toc">Multi-line Grid Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#copying_row_content" class="toc">Copying Row Content</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#rows_hover" class="toc">Rows Hover</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#locking_unlocking_rows" class="toc">Locking/Unlocking Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_row_height" class="toc">Setting Row Height</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_row_color" class="toc">Setting Row Color</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#setting_row_hidden" class="toc">Setting Row Hidden</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#scrolling_row_to_visible_area" class="toc">Scrolling Row to Visible Area</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#clearing_rows" class="toc">Clearing Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#updating_rows" class="toc">Updating Rows</a></span></div></li>
+<li class="level3"><div class="li"><span class="li"><a href="#getting_rows_number" class="toc">Getting Rows Number</a></span></div></li></ul>
+</li></ul>
+</li></ul>
+</div>
+</div>
+<!-- TOC END -->
+
+<p>
+<div class='backlinks'><div class='backlink last_backlink'><img src="icons___file.gif"  class="media" alt="" /><a href="../index.html" class="wikilink1" title="start">Index</a></div><div class='arrow'></div><div class='backlink last_backlink'><img src="icons___grid.gif"  class="media" alt="" /><a href="index.html" class="wikilink1" title="dhtmlxgrid:toc">dhtmlxgrid</a></div></div>
+
+</p>
+
+<h2><a name="rows_manipulation" id="rows_manipulation">Rows Manipulation</a></h2>
+<div class="level2">
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="53-86" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Rows Manipulation" /></div></form></div>
+<h3><a name="adding_removing_rows" id="adding_removing_rows">Adding/Removing Rows</a></h3>
+<div class="level3">
+
+<p>
+Adding a new row is quite simple in dhtmlxGrid with the help of the following method:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">addRow</span><span class="br0">&#40;</span>new_id<span class="sy0">,</span> text<span class="sy0">,</span> ind<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters are responsible for the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  new_id - id of the new row;</div>
+</li>
+<li class="level1"><div class="li">  text - array|string of row&#039;s labels, may be a comma separated list or an array;</div>
+</li>
+<li class="level1"><div class="li">  ind - position of the row (optional), row is added to the last position by default.</div>
+</li>
+</ul>
+
+<p>
+
+The user can provide values of a new row as a comma-separated list or as an array:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span> 
+      grid.<span class="me1">addRow</span><span class="br0">&#40;</span><span class="nu0">123</span><span class="sy0">,</span><span class="st0">&quot;text1,text2&quot;</span><span class="sy0">,</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+          <span class="co1">// or</span>
+      grid.<span class="me1">addRow</span><span class="br0">&#40;</span><span class="nu0">124</span><span class="sy0">,</span><span class="br0">&#91;</span><span class="st0">&quot;text1&quot;</span><span class="sy0">,</span><span class="st0">&quot;text2&quot;</span><span class="br0">&#93;</span><span class="sy0">,</span><span class="nu0">2</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Any row in the grid can be easily deleted like this:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">deleteRow</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>;
+      grid.<span class="me1">deleteSelectedRows</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">// for removing selected row(s)</span>
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The user should specify id of the row in question - row_id.
+</p>
+
+<p>
+There is also the possibility to add  a new <a href="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru" class="urlextern" title="http://docs.google.com/Doc?docid=dgr5rjkf_229gq9z9mc7&amp;hl=ru"  rel="nofollow">row from clipboard</a>. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="87-1181" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Adding/Removing Rows" /></div></form></div>
+<h3><a name="checking_row_existence" id="checking_row_existence">Checking Row Existence</a></h3>
+<div class="level3">
+
+<p>
+There is a method that should be used when the user needs to check whether a row with specified id exists:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> row <span class="sy0">=</span> grid.<span class="me1">doesRowExist</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+This method returns true if the specified row exists, and false - if there is no such row.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1182-1509" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Checking Row Existence" /></div></form></div>
+<h3><a name="selecting_rows" id="selecting_rows">Selecting Rows</a></h3>
+<div class="level3">
+
+<p>
+The user can select a row from script in the following way:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">selectRow</span><span class="br0">&#40;</span>r<span class="sy0">,</span> fl<span class="sy0">,</span> preserve<span class="sy0">,</span> show<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+Using this method, the system will select the specified row and its first cell. The parameters that should be specified are:
+</p>
+<ul>
+<li class="level1"><div class="li">  r - row index or row object;</div>
+</li>
+<li class="level1"><div class="li">  fl - if true, then call function on select;</div>
+</li>
+<li class="level1"><div class="li">  preserve - preserve previously selected rows (true) or not (false); set to false by default;</div>
+</li>
+<li class="level1"><div class="li">  show(true|false) - scroll the row to view, true by default.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="selecting_rows_by_id" id="selecting_rows_by_id">Selecting Rows by Id</a></h4>
+<div class="level4">
+
+<p>
+There is a method that is capable of selecting a grid row by its id:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      grid.<span class="me1">selectRowById</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> multiFL<span class="sy0">,</span> show<span class="sy0">,</span> call<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters here are as follows:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  multiFL - select multiple rows;</div>
+</li>
+<li class="level1"><div class="li">  show(true|false) - scroll the row to view, true by default;</div>
+</li>
+<li class="level1"><div class="li">  call(true|false) - true to call the function on select.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="selecting_all_rows" id="selecting_all_rows">Selecting All Rows</a></h4>
+<div class="level4">
+
+<p>
+
+There is possibility to select all rows in Grid:
+</p>
+<pre class="code javascript">     grid.<span class="me1">selectAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre>
+<p>
+
+This method doesn&#039;t fire any events.
+Note, this method is incompatible with dynamic loading. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="1510-2727" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Selecting Rows" /></div></form></div>
+<h3><a name="row_id_index_manipulations" id="row_id_index_manipulations">Row Id/Index Manipulations</a></h3>
+<div class="level3">
+
+</div>
+
+<h4><a name="getting_id_through_index_and_vice_versa" id="getting_id_through_index_and_vice_versa">Getting Id through Index and Vice Versa</a></h4>
+<div class="level4">
+
+<p>
+There are methods allowing to get id/index of the specified row quite easily:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> rId <span class="sy0">=</span> grid.<span class="me1">getRowId</span><span class="br0">&#40;</span>ind<span class="br0">&#41;</span>; <span class="co1">// get row id by its index</span>
+      <span class="kw2">var</span> rInd <span class="sy0">=</span> grid.<span class="me1">getRowIndex</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>; <span class="co1">// get row index by its id</span>
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The methods return the following:
+</p>
+<ul>
+<li class="level1"><div class="li">  row id or null if there is no row with specified index;</div>
+</li>
+<li class="level1"><div class="li">   row index or -1 if there is no row with specified id.</div>
+</li>
+</ul>
+
+</div>
+
+<h4><a name="getting_selected_row_id" id="getting_selected_row_id">Getting Selected Row Id</a></h4>
+<div class="level4">
+
+<p>
+The following method allows to get id of the selected row:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> selId <span class="sy0">=</span> grid.<span class="me1">getSelectedId</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+It returns id of the selected row in the grid (list of ids with default delimiter) or null if no row is selected.
+</p>
+
+</div>
+
+<h4><a name="getting_all_rows_ids" id="getting_all_rows_ids">Getting All Rows Ids</a></h4>
+<div class="level4">
+
+<p>
+There is also a method for getting the list of ids of all rows in the grid:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> rowsAll <span class="sy0">=</span> grid.<span class="me1">getAllRowIds</span><span class="br0">&#40;</span>separator<span class="br0">&#41;</span>; <span class="co1">// delimiter to use in the list should be specified</span>
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+
+<h4><a name="getting_nested_rows_ids" id="getting_nested_rows_ids">Getting Nested Rows Ids</a></h4>
+<div class="level4">
+
+<p>
+
+There is a method that allows to get ids of all nested rows for a specified row:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> nestIds <span class="sy0">=</span> grid.<span class="me1">getAllSubItems</span><span class="br0">&#40;</span>rowId<span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+
+<h4><a name="getting_changed_rows_ids" id="getting_changed_rows_ids">Getting Changed Rows Ids</a></h4>
+<div class="level4">
+
+<p>
+Ids of changed rows in the grid can be also got quite easily:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+  <span class="kw2">var</span> chngIds <span class="sy0">=</span> grid.<span class="me1">getChangedRows</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+  <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+The user can clear wasChanged state for all cells using <a href="dhtmlxgrid___api_method_dhtmlxgridobject_clearchangedstate.html" class="wikilink1" title="dhtmlxgrid:api_method_dhtmlxgridobject_clearchangedstate">clearChangedState()</a> method. 
+
+</p>
+
+</div>
+
+<h4><a name="getting_checked_rows_ids" id="getting_checked_rows_ids">Getting Checked Rows Ids</a></h4>
+<div class="level4">
+
+<p>
+List of Ids of all rows with checked exCell in the specified column can be got in the following way:
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+      <span class="kw2">var</span> checkIds <span class="sy0">=</span> grid.<span class="me1">getCheckedRows</span><span class="br0">&#40;</span>col_ind<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The user should indicate col_ind - column index. 
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="2728-4657" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Row Id/Index Manipulations" /></div></form></div>
+<h3><a name="changing_row_id" id="changing_row_id">Changing Row Id</a></h3>
+<div class="level3">
+
+<p>
+Current row id can be changed to a new one very easily by means of changeRowId() method:
+
+</p>
+<pre class="code javascript">  <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+&nbsp;
+        grid.<span class="me1">changeRowId</span><span class="br0">&#40;</span>oldRowId<span class="sy0">,</span> newRowId<span class="br0">&#41;</span>;
+&nbsp;
+&nbsp;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+<p>
+
+The parameters that should be specified are as follows:
+</p>
+<ul>
+<li class="level1"><div class="li">  oldRowId - row id that is going to be changed;</div>
+</li>
+<li class="level1"><div class="li">  newRowId - new row id.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="4658-5023" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Changing Row Id" /></div></form></div>
+<h3><a name="setting_new_row_id" id="setting_new_row_id">Setting New Row Id</a></h3>
+<div class="level3">
+
+<p>
+The user has the opportunity to set new id for a row. To do this, index of this row and new id for this row should be specified:
+</p>
+<pre class="code javascript">&nbsp;
+    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowId</span><span class="br0">&#40;</span>ind<span class="sy0">,</span> row_id<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span></pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5024-5286" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Setting New Row Id" /></div></form></div>
+<h3><a name="row_s_text_manipulations" id="row_s_text_manipulations">Row&#039;s Text Manipulations</a></h3>
+<div class="level3">
+
+<p>
+The user can set row&#039;s text bold with the help of setRowTextBold() method. The parameter that should be specified for this method is id of the row in question:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowTextBold</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+To set row&#039;s text normal, the user should apply the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowTextNormal</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+There also the possibility to set style for row text like this:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowTextStyle</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> styleString<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  styleString - style string in the common format (example: “color:red;border:1px solid gray;”).</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="5287-6065" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Row's Text Manipulations" /></div></form></div>
+<h3><a name="moving_rows" id="moving_rows">Moving Rows</a></h3>
+<div class="level3">
+
+<p>
+There is the possibility to move any row in the grid. The user should include dhtmlxgrid_drag.js file into the page to make moving rows from script possible. Then the following method should be applied:
+
+</p>
+<pre class="code javascript">&nbsp;
+      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">moveRow</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span>mode<span class="sy0">,</span>targetId<span class="sy0">,</span>targetGrid<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+<p>
+
+Parameters that should be specified are:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - source row id;</div>
+</li>
+<li class="level1"><div class="li">  mode - moving mode (up,down,row_sibling);</div>
+</li>
+<li class="level1"><div class="li">  targetId - target row in row_sibling mode;</div>
+</li>
+<li class="level1"><div class="li">  targetGrid - used for moving between grids (optional).</div>
+</li>
+</ul>
+
+<p>
+A more complex method for moving a row is the following (this method also requires dhtmlxgrid_drag.js file):
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">moveRowTo</span><span class="br0">&#40;</span>srowId<span class="sy0">,</span>trowId<span class="sy0">,</span>mode<span class="sy0">,</span>dropmode<span class="sy0">,</span>sourceGrid<span class="sy0">,</span>targetGrid<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+There are more parameters here in comparison with the previously mentioned method:
+</p>
+<ul>
+<li class="level1"><div class="li">  srowId - source row id;</div>
+</li>
+<li class="level1"><div class="li">  trowId - target row id;</div>
+</li>
+<li class="level1"><div class="li">  mode - move or copy;</div>
+</li>
+<li class="level1"><div class="li">  dropmode - sibling or child;</div>
+</li>
+<li class="level1"><div class="li">  sourceGrid - target row in row_sibling mode;</div>
+</li>
+<li class="level1"><div class="li">  targetGrid - used for moving between grids (optional).</div>
+</li>
+</ul>
+
+<p>
+This method returns id of the moved item.
+</p>
+
+<p>
+Any row in the grid can be moved one position down/up (if it is possible) indicating this row id:
+
+</p>
+<pre class="code javascript">&nbsp;
+      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">moveRowDown</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>;
+          grid.<span class="me1">moveRowUp</span><span class="br0">&#40;</span>row_id<span class="br0">&#41;</span>; 
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="6066-7477" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Moving Rows" /></div></form></div>
+<h3><a name="multi-line_grid_rows" id="multi-line_grid_rows">Multi-line Grid Rows</a></h3>
+<div class="level3">
+
+<p>
+Grid rows are allowed to be displayed in multi-line mode (that is the default state for Mozilla), or to be displayed as single-line rows (<acronym title="Internet Explorer">IE</acronym> only). To enable multi-line feature, the user needs to do the following:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableMultiline</span><span class="br0">&#40;</span><span class="kw2">true</span>|false<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7478-7823" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Multi-line Grid Rows" /></div></form></div>
+<h3><a name="copying_row_content" id="copying_row_content">Copying Row Content</a></h3>
+<div class="level3">
+
+<p>
+Row content can be copied to another existing row with the help of the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">copyRowContent</span><span class="br0">&#40;</span>from_row_id<span class="sy0">,</span> to_row_id<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  from_row_id - id of the row to copy the content from;</div>
+</li>
+<li class="level1"><div class="li">  to_row_id - id of the row to copy the content to.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="7824-8193" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Copying Row Content" /></div></form></div>
+<h3><a name="rows_hover" id="rows_hover">Rows Hover</a></h3>
+<div class="level3">
+
+<p>
+Rows hover on mouse over can be specified and enabled for rows in the grid through the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">enableRowsHover</span><span class="br0">&#40;</span>mode<span class="sy0">,</span> cssClass<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  mode(true|false) - enable|disable rows hover;</div>
+</li>
+<li class="level1"><div class="li">  cssClass - css class for hovering a row.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8194-8546" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Rows Hover" /></div></form></div>
+<h3><a name="locking_unlocking_rows" id="locking_unlocking_rows">Locking/Unlocking Rows</a></h3>
+<div class="level3">
+
+<p>
+Any row in dhtmlxGrid can be locked from script with the following method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">lockRow</span><span class="br0">&#40;</span>rowId<span class="sy0">,</span> mode<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The following parameters should be specified:
+</p>
+<ul>
+<li class="level1"><div class="li">  rowId - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  mode(true|false) - lock|unlock the row in question.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8547-8879" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Locking/Unlocking Rows" /></div></form></div>
+<h3><a name="setting_row_height" id="setting_row_height">Setting Row Height</a></h3>
+<div class="level3">
+
+<p>
+There is the possibility to set row height that will be used in smart rendering mode for row calculation. The function should be used if the user applies custom skin for the grid that changes the default row height. The user should not forget to include dhtmlxgrid_srnd.js file into the page to make this functionality work.
+
+</p>
+<pre class="code javascript">&nbsp;
+      <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+          grid.<span class="me1">setAwaitedRowHeight</span><span class="br0">&#40;</span>height<span class="br0">&#41;</span>;
+      <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;
+&nbsp;</pre>
+<p>
+
+The parameter here is {int} height - awaited height of the row in question.
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="8880-9427" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Row Height" /></div></form></div>
+<h3><a name="setting_row_color" id="setting_row_color">Setting Row Color</a></h3>
+<div class="level3">
+
+<p>
+Background color can be set for a grid row in the following way:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowColor</span><span class="br0">&#40;</span>row_id<span class="sy0">,</span> color<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The user should specify:
+</p>
+<ul>
+<li class="level1"><div class="li">  row_id - id of the row;</div>
+</li>
+<li class="level1"><div class="li">  color - color value.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9428-9700" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Row Color" /></div></form></div>
+<h3><a name="setting_row_hidden" id="setting_row_hidden">Setting Row Hidden</a></h3>
+<div class="level3">
+
+<p>
+To hide/show a grid row, use the following command:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">setRowHidden</span><span class="br0">&#40;</span>id<span class="sy0">,</span> state<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+Note: This command doesn&#039;t affect row indexes, only visual appearance.
+</p>
+
+<p>
+The parameters here are:
+</p>
+<ul>
+<li class="level1"><div class="li">  ind - index of the column;</div>
+</li>
+<li class="level1"><div class="li">  state(true|false) - hide|show the row in question.</div>
+</li>
+</ul>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="9701-10065" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Setting Row Hidden" /></div></form></div>
+<h3><a name="scrolling_row_to_visible_area" id="scrolling_row_to_visible_area">Scrolling Row to Visible Area</a></h3>
+<div class="level3">
+
+<p>
+Method showRow() does the very thing:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">showRow</span><span class="br0">&#40;</span>rowID<span class="br0">&#41;</span>; <span class="co1">// id of the row in question should be indicated</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10066-10280" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Scrolling Row to Visible Area" /></div></form></div>
+<h3><a name="clearing_rows" id="clearing_rows">Clearing Rows</a></h3>
+<div class="level3">
+
+<p>
+All rows in dhtmlxGrid can be deleted by means of clearAll() method:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="br0">&#41;</span>; <span class="co1">// deletes all rows in the grid</span>
+            <span class="co1">// or</span>
+        grid.<span class="me1">clearAll</span><span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>; <span class="co1">// deletes all grid rows together with grid header</span>
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10281-10587" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Clearing Rows" /></div></form></div>
+<h3><a name="updating_rows" id="updating_rows">Updating Rows</a></h3>
+<div class="level3">
+
+<p>
+updateFromXML() method updates values of existing grid rows without reconstructing. As a result, it doesn&#039;t cause any visual glitches the in the grid and works significantly faster in comparison with full grid reconstruction:
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">updateFromXML</span><span class="br0">&#40;</span>url<span class="sy0">,</span> insert_new<span class="sy0">,</span> del_missed<span class="sy0">,</span> afterCall<span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+<p>
+
+The parameters here are as follows:
+</p>
+<ul>
+<li class="level1"><div class="li">  url - updating data url;</div>
+</li>
+<li class="level1"><div class="li">  insert_new - if it is set to true, items new in <acronym title="Extensible Markup Language">XML</acronym> will be inserted in the grid;</div>
+</li>
+<li class="level1"><div class="li">  del_missed - if it is set to true, rows missed in <acronym title="Extensible Markup Language">XML</acronym> will be deleted from the grid;</div>
+</li>
+<li class="level1"><div class="li">  afterCall - function, will be executed after refreshing is completed.</div>
+</li>
+</ul>
+
+<p>
+Note: this functionality doesn&#039;t work for buffering, tree grid, or rows in smart rendering mode.
+</p>
+
+<p>
+The format of <acronym title="Extensible Markup Language">XML</acronym> is exactly the same as the one used for initialization. The grid will update each row in the grid (corresponding to <acronym title="Extensible Markup Language">XML</acronym> data with the same ids) with data from <acronym title="Extensible Markup Language">XML</acronym>.
+
+</p>
+
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="10588-11564" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Updating Rows" /></div></form></div>
+<h3><a name="getting_rows_number" id="getting_rows_number">Getting Rows Number</a></h3>
+<div class="level3">
+
+<p>
+The user should use the following method to get count of rows in the grid (in case of dynamic mode, it will return expected count of rows):
+
+</p>
+<pre class="code javascript">    <span class="sy0">&lt;</span>script<span class="sy0">&gt;</span>
+        grid.<span class="me1">getRowsNum</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="sy0">&lt;/</span>script<span class="sy0">&gt;</span>
+&nbsp;</pre>
+</div>
+<div class="secedit"><form class="button btn_secedit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="lines" value="11565-" /><input type="hidden" name="rev" value="1279031288" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit" class="button" title="Getting Rows Number" /></div></form></div>
+    <!-- wikipage stop -->
+  </div>
+
+  <div class="clearer">&nbsp;</div>
+
+  
+  <div class="stylefoot">
+
+    <div class="meta">
+      <div class="user">
+              </div>
+     <!-- <div class="doc">
+        dhtmlxgrid/rows_manipulation.txt &middot; Last modified: 2010/07/13 17:28 (external edit)      </div>
+    </div>-->
+
+   
+    <!--<div class="bar" id="bar__bottom">-->
+      <!--<div class="bar-left" id="bar__bottomleft">-->
+        <!--<form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>-->
+        <!--<form class="button btn_revs" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="revisions" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Old revisions" class="button" accesskey="o" title="Old revisions [O]" /></div></form>-->
+      <!--</div>-->
+      <!--<div class="bar-right" id="bar__bottomright">-->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!---->
+        <!--<form class="button btn_index" method="get" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="index" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Index" class="button" accesskey="x" title="Index [X]" /></div></form>-->
+        <!--<a class="nolink" href="#dokuwiki__top"><input type="button" class="button" value="Back to top" onclick="window.scrollTo(0, 0)" title="Back to top" /></a>&nbsp;-->
+      <!--</div>-->
+      <!--<div class="clearer"></div>-->
+    <!--</div>-->
+
+  </div>
+
+  
+
+</div>
+
+<div class="footerinc">
+
+
+</div>
+
+<div class="no"><img src="/dhtmlx/docs/lib/exe/indexer.php?id=dhtmlxgrid%3Arows_manipulation&amp;1310069484" width="1" height="1" alt=""  /></div>
+     <div class="footer">
+        <div class="footer-logo"></div>
+        <div class="copyright">Copyright © 1998-2011 DHTMLX LTD.<br />All rights reserved.</div>
+        <form class="button btn_edit" method="post" action="/dhtmlx/docs/doku.php"><div class="no"><input type="hidden" name="do" value="edit" /><input type="hidden" name="rev" value="" /><input type="hidden" name="id" value="dhtmlxgrid:rows_manipulation" /><input type="submit" value="Edit this page" class="button" accesskey="e" title="Edit this page [E]" /></div></form>    	    </div>
+</body>
+</html>
