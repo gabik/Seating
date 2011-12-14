@@ -509,6 +509,7 @@ def download_map(request):
 	book.save(TemporaryFile())
         return render_to_response('accounts/xls.html', c)
 
+@login_required
 def online_excel(request):
 	Guests = Guest.objects.filter(user=request.user)
 	#response = HttpResponse(mimetype='text/csv')

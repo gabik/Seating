@@ -1,25 +1,44 @@
 <html>
 <head>
 <link rel="STYLESHEET" type="text/css" href="/static/grid/dhtmlxGrid/codebase/dhtmlxgrid.css">
-<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxcommon.js"></script>
-<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxgrid.js"></script>
-<script src="/static/grid/dhtmlxGrid/codebase/dhtmlxgridcell.js"></script>
+<script src="/static/grid/gabi/dhtmlxcommon.js"></script>
+<script src="/static/grid/gabi/dhtmlxgrid.js"></script>
+<script src="/static/grid/gabi/dhtmlxgridcell.js"></script>
+</head>
+<body onload="doInitGrid()" dir=rtl>
+<div id="mygrid_container" style="width:900px;height:550px;" ></div>
 <script>
 var mygrid;
 function addRow(){
     var newId = (new Date()).valueOf()
     mygrid.addRow(newId,"gabi,70,300",mygrid.getRowsNum())
-    mygrid.lockRow(newId,true);
-    mygrid.setRowColor(newId,"#22FF44");
     mygrid.selectRow(mygrid.getRowIndex(newId),false,false,true);
 }
 function removeRow(){
     var selId = mygrid.getSelectedId()
     mygrid.deleteRow(selId);
 }
+function lock(){
+	for (var i=1; i<{{ rows }}; i++)
+	{
+		var cur_row=i + "";
+        	mygrid.lockRow(cur_row,true);
+        	mygrid.setRowColor(cur_row,"#E5E5E5");
+	}
+}
 function doOnRowSelected(rowID,celInd){
 	mygrid.setRowTextBold(rowID);
 //	alert(rowID);
+}
+function save() {
+	//mygrid.csv.cell="||";
+	//var csvNew = mygrid.serializeToCSV();
+	//mygrid.parse(csvNew,"csv"); 
+	//mygrid.setCSVDelimiter("||");
+	mygrid.setSerializationLevel(true, true);
+	var csvNew = mygrid.serialize();
+	document.write(csvNew);//.replace(/></g, ">\n<");
+	//myDataProcessor.sendData();
 }
 
 function doInitGrid(){
@@ -33,15 +52,17 @@ mygrid.init();
 mygrid.load("{{ filename }}","csv");
 //mygrid.setColSorting("str,int,na");
 //mygrid.setColTypes("en,coro,price");
-mygrid.attachEvent("onRowSelect",doOnRowSelected);
-mygrid.lockRow("3",true);
-mygrid.setRowColor("3","#22FF44");
+//mygrid.attachEvent("onRowSelect",doOnRowSelected);
+//mygrid.attachEvent("onRowAdded", lock());
+//myDataProcessor = new dataProcessor("/static/gabi.html");
+//myDataProcessor.setTransactionMode("POST", true);
+//myDataProcessor.setUpdateMode("off");
+//myDataProcessor.init(mygrid);
+setTimeout('lock()',2500);
 }
 </script>
-</head>
-<body onload="doInitGrid()" dir=rtl>
-<div id="mygrid_container" style="width:700px;height:550px;"></div>
   <button onclick="addRow()">Add Row</button>  
   <button onclick="removeRow()">Remove Row</button>
+  <button onclick="save()">save</button>
 </body>
 </html>
