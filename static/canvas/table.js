@@ -69,7 +69,7 @@ function turnToRegularMode(element,event)
 	elementCaption[0].style.fontSize= originalFontSize;
 	elementCaption[1].style.fontSize= originalFontSize;
 	
-	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 3 * originalFontSize},300, 'linear');
+	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 2.5 * originalFontSize},300, 'linear');
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{

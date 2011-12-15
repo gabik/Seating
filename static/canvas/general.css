@@ -402,3 +402,8 @@
 	 position:absolute;
 	 width:75;
  }
+ .dropLayerClass
+ {
+	background-image: url("/static/canvas/images/background.png");
+	z-index:9999;
+ }

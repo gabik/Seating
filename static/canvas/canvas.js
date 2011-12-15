@@ -5,14 +5,30 @@ function menuItemClick(element)
 	var kind = element.context.id;
 	
 	kind = kind.replace(/\&/g,"_")
-
-    $.post('/canvas/add/', {kind: kind ,amount: 1},
+	var width = 90 + (8 - maxElementCapacity) * 2;
+	var height = 90 + (8 - maxElementCapacity) * 2;
+	var addWidth = 0;
+	var addHeight = 0;
+			
+	if (kind.indexOf("Rect") > -1)
+	{
+		addHeight = 16;
+	}
+	else if (kind == "dance_stand")
+	{
+		addWidth = 150;
+	}
+	else if (kind ==  "bar_stand") 
+	{
+		addWidth = 65;
+	}
+	
+    $.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
       function(data){
         if (data.status == 'OK')
         {
             //undoElement[0] = SelectedElem;
-            //undoElement[1] = "delete"; 
-			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
+            //undoElement[1] = "delete";			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');

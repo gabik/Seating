@@ -185,6 +185,10 @@ function setWidthAndHeight(element, newScale, lastScale)
 		}
 		else
 		{
+		   $.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:elementImgs[0].width, height:elementImgs[0].height},
+           function(data){
+           if (data.status == 'OK')
+           {}});
 			adjustCaption($(this));
 		}
 	});
@@ -1158,6 +1162,94 @@ function delPerson()
 	}
 }
 
+function dropPerson(draged,table, place)
+{
+	if (draged  != "")
+	{
+		var elementCaption = table.context.getElementsByTagName("p");
+		var elementImgs = table.context.getElementsByTagName("img");
+		table.fadeTo(300, 0,function(){
+		table.fadeTo(300, 1)});
+		$.post('/canvas/sit/', {table_id: table.context.id, person_id: draged.context.id, place: place},
+		function(data){
+		  if (data.status == 'OK')
+		  {
+			if ($("#" + draged.context.id).index() < 0)
+			{
+				$("#people_list > li").each(function(j) { if ($(this).context.id == draged.context.id){$(this).remove();}});
+			}
+			else
+			{
+				$("#" + draged.context.id).remove();
+			}
+			draged.hide();
+			draged.remove();
+			setSaveStatus("OK");
+			if (data.table_status == 'Red')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
+				}
+				//$("#" + elementImgs[0].id).attr("src", "/static/canvas/images/YellowStatus.png");
+			}
+			else if (data.table_status == 'Green')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
+				}
+				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+			}
+			else if (data.table_status == 'Yellow')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+				}
+				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+			}
+			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			
+			elementSize = parseInt(elementSize) + 1;
+			elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
+			if (tableMode)
+			{
+				LoadPerson(table, data.free_position - 1);
+			}
+			updateSeatedLabel();
+			writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
+			rePaintPeopleList();
+		  }else if (data.status == 'FULL')
+		  {
+			draged.fadeTo(200, 1.0);
+			showLightMsg("אלמנט מלא"," אלמנט " + elementCaption[0].innerHTML + " מלא עבור " + draged.text(),"OK","Notice")
+			setSaveStatus("OK");
+		  }else{
+			draged.fadeTo(200, 1.0);
+			setSaveStatus("Error");
+		  }
+		}, 'json');
+		$("#dropLayer").remove();
+	}
+}
+
 $(document).ready(function() {
 
  var sortFloatListByNameAscending = true
@@ -1206,13 +1298,13 @@ $(document).ready(function() {
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementImgs = $(this).context.getElementsByTagName("img");
 	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
-	 setWidthAndHeight($(this),elementMaxSize,0);
+	 //setWidthAndHeight($(this),elementMaxSize,0);
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {
 		 //elementCaption[1].style.visibility = "hidden";
 		 $(this).find('p').each(function(i){ $(this).remove(); });
 		 $(this).removeClass('DragDiv');
-		 setWidthAndHeight($(this),35,22);
+		 //setWidthAndHeight($(this),35,22);
 		 if (elementImgs[0].id.split("-", 1) == "dance_stand")
 		 {
 			$(this).attr('title',"רחבת ריקודים");
@@ -1230,6 +1322,10 @@ $(document).ready(function() {
 		 }
 		 $(this).addClass('DragNonDropDiv');
 		 
+	 }
+	 else
+	 {
+	 	adjustCaption($(this));
 	 }
   });
   $(".DragDiv").mouseover(function(){
@@ -1324,94 +1420,10 @@ $(document).ready(function() {
 	  var table = $(this);
 	
 	  ui.helper.each(function(i){
-		  var draged = $(this);
-		  if (draged  != "")
-		  {
-			  var elementCaption = table.context.getElementsByTagName("p");
-			  var elementImgs = table.context.getElementsByTagName("img");
-			   table.fadeTo(300, 0,function(){
-			   table.fadeTo(300, 1)});
-			   $.post('/canvas/sit/', {table_id: table.context.id, person_id: draged.context.id},
-				function(data){
-				  if (data.status == 'OK')
-				  {
-					if ($("#" + draged.context.id).index() < 0)
-					{
-						$("#people_list > li").each(function(j) { if ($(this).context.id == draged.context.id){$(this).remove();}});
-					}
-					else
-					{
-						$("#" + draged.context.id).remove();
-					}
-					draged.hide();
-					draged.remove();
-					setSaveStatus("OK");
-					if (data.table_status == 'Red')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
-						}
-						//$("#" + elementImgs[0].id).attr("src", "/static/canvas/images/YellowStatus.png");
-					}
-					else if (data.table_status == 'Green')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
-						}
-						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-					}
-					else if (data.table_status == 'Yellow')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
-						}
-						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-					}
-					var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-					var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-					
-					elementSize = parseInt(elementSize) + 1;
-					elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
-					if (tableMode)
-					{
-						LoadPerson(table, data.free_position - 1);
-					}
-					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
-					rePaintPeopleList();
-				  }else if (data.status == 'FULL')
-				  {
-					draged.fadeTo(200, 1.0);
-					showLightMsg("אלמנט מלא"," אלמנט " + elementCaption[0].innerHTML + " מלא עבור " + draged.text(),"OK","Notice")
-					setSaveStatus("OK");
-				  }else{
-					draged.fadeTo(200, 1.0);
-					setSaveStatus("Error");
-				  }
-				}, 'json');
-				$("#dropLayer").remove();
-		  }
+			dropPerson($(this), table, "");  
+		  });
+		}
 	  });
-     }
-	});
 	
   $("#people_list > li").dblclick( function(event){
 		personFloatListDBClick(event, $(this));

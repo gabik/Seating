@@ -26,6 +26,7 @@
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
+<script type="text/javascript" src="/static/canvas/occasion_properties.js"></script>
 <script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
@@ -46,7 +47,7 @@
  <!--<![endif]-->
 
 <script type="text/javascript">
-	 window.onload = function()
+	 $(document).before(function()
 	 {
 	  var firstInit = false;
 	  var DivId = [];
@@ -56,6 +57,12 @@
 	   DDiv[{{ elem.elem_num }}] = document.getElementById(DivId[{{ elem.elem_num }}]);
 	   DDiv[{{ elem.elem_num }}].style.left = {{ elem.x_cord }} + "px";
 	   DDiv[{{ elem.elem_num }}].style.top = {{ elem.y_cord }} + "px";
+	   
+	   var divimg = $("#" + DivId[{{ elem.elem_num }}]).find('img').first();
+	   
+	   divimg.css('width',{{ elem.width }});
+	   divimg.css('height',{{ elem.height }});
+	   
 	   DDiv[{{ elem.elem_num }}].onmousedown = function()
 	   {
 		Dragging = true;
@@ -68,6 +75,12 @@
 	  
 	  if (firstInit)
 	  {
+		 	$(".DragDiv").each(function(i){
+			var elementCaption = $(this).context.getElementsByTagName("p");
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
+			setWidthAndHeight($(this),elementMaxSize,0);
+		});
 		 $("#SquarePlaceMentShapes").click();
 		 $(".ShapePlacementMenu").hide();
 	  }
@@ -91,7 +104,7 @@
 			}
 		 }
 	 });
-	}
+	});
 	
 	$(document).ready(function() {
 	 
@@ -243,13 +256,14 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+							<marquee id="occasionMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <![endif]-->
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<p class="titles_black" dir="rtl" style="cursor:pointer;" id="occasionMarquee"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span id="OccasionPlace" class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<div id="phone_number">{{ phone_num }}</div>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>

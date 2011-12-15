@@ -34,8 +34,32 @@ function addMenuItemButtonPress(kind)
     $('ul.AddMenu').hide('medium');
 
 	kind = kind.replace(/\&/g,"_");
+	var width = 90 + (8 - maxElementCapacity) * 2;
+	var height = 90 + (8 - maxElementCapacity) * 2;
+	var addWidth = 0;
+	var addHeight = 0;
+			
+	if (kind.indexOf("Rect") > -1)
+	{
+		addHeight = 16;
+	}
+	else if (kind == "dance_stand")
+	{
+		addWidth = 210;
+		addHeight = 50;
+	}
+	else if (kind ==  "bar_stand") 
+	{
+		addWidth = 155;
+		addHeight = 50;
+	}
+	else if (kind ==  "dj_stand") 
+	{
+		addWidth = 25;
+		addHeight = 25;
+	}
 	
-    $.post('/canvas/add/', {kind: kind ,amount: 1},
+    $.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
       function(data){
         if (data.status == 'OK')
         {

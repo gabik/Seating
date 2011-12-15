@@ -33,7 +33,7 @@
   .personOverTableDropLayer
    {
 	background-color:#5A8EA3;
-	z-index:9999;
+	z-index:99999;
 	filter: alpha(opacity = 10);
   }
  #right-bar

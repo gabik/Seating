@@ -8,6 +8,8 @@ class SingleElement(models.Model):
 	fix_num = models.IntegerField()
 	x_cord = models.FloatField()
 	y_cord = models.FloatField()
+	width = models.FloatField()
+	height = models.FloatField()
 	kind = models.CharField(max_length=100)
 	current_sitting = models.IntegerField()
 	max_sitting = models.IntegerField()
