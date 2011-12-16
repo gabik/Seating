@@ -43,6 +43,8 @@ a:active {
 -->
 </style>
 <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 <!--
 function MM_preloadImages() { //v3.0
@@ -68,6 +70,13 @@ function MM_swapImage() { //v3.0
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 //-->
+$(document).before(function()
+{
+	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0)
+	{
+		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><a href="/canvas/edit"><img src="images/mobile_img.png" width="980" height="430" align="center" /></a><div>');
+	}
+});
 </script>
 </head>
 
