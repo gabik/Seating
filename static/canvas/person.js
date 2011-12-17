@@ -1190,7 +1190,9 @@ function DeletePerson()
 			if ($(this).context.id == personData.first_name +"_"+ personData.last_name )
 			{
 				$(this).addClass('ui-multisort-click');
-				$(this).bind('dblclick',function(e){ personFloatListDBClick(e,$(this)); });
+				$(this).bind('dblclick',function(e){
+						personFloatListDBClick(e,$(this));
+					});
 				$("#people-list").scrollTop(parseInt($(this).index()) * 20);
 				refactorElementPerson($(this));
 			}

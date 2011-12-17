@@ -21,6 +21,39 @@ if(typeof String.prototype.trim !== 'function') {
   }
 }
 
+function getScreenWidthHeight()
+{
+	 var viewportwidth;
+	 var viewportheight;
+	  
+	 // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	  
+	 if (typeof window.innerWidth != 'undefined')
+	 {
+		  viewportwidth = window.innerWidth,
+		  viewportheight = window.innerHeight
+	 }
+	  
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	 
+	 else if (typeof document.documentElement != 'undefined'
+		 && typeof document.documentElement.clientWidth !=
+		 'undefined' && document.documentElement.clientWidth != 0)
+	 {
+		   viewportwidth = document.documentElement.clientWidth,
+		   viewportheight = document.documentElement.clientHeight
+	 }
+	  
+	 // older versions of IE
+	  
+	 else
+	 {
+		   viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+		   viewportheight = document.getElementsByTagName('body')[0].clientHeight
+	 }
+	return [viewportwidth,viewportheight];
+}
+
 function getHebTableName(kind)
 {
 	if (kind == "Square")
@@ -201,12 +234,12 @@ function adjustCaption(element)
 	var textID = elementCaption[0].id;
 	var text =  $("#" + textID).text();
 	var title = $("#" + textID).attr('title');
-	var realWidth = $("#" + elementImgs[0].id).width();
-	if (title.length * 6.2 > element.width() || title.length > 25)
+	var realWidth = element.width();
+	if (title.length * 6.2 > element.width() || title.length > 10)
 	{
 		var newString = "";
 		var stop = false;
-		for (var c = 0; c < title.length - 9; c++)
+		for (var c = 0; c < title.length - 10; c++)
 		{
 			newString = newString + title.charAt(c);
 			if (newString.length * 8 > $("#" + elementImgs[0].id).width())
@@ -237,6 +270,47 @@ function adjustCaption(element)
 	}
 }
 
+function adjustCaptionInit(element,elementId, titleInit, textInit, realWidthInit)
+{
+	var elementImg = element.find('img').first();
+	var elementCaption = "Caption" + elementId;
+	var text =  textInit;
+	var title = titleInit;
+	var realWidth = realWidthInit;
+	if (title.length * 6.2 > realWidthInit || title.length > 10)
+	{
+		var newString = "";
+		var stop = false;
+		for (var c = 0; c < title.length - 9; c++)
+		{
+			newString = newString + title.charAt(c);
+			if (newString.length * 8 > elementImg.width())
+			{
+				stop = true;
+			}
+			if (stop)
+			{
+				break;
+			}
+		}
+		if (newString == " " || newString == "")
+		{
+			newString = title;
+		}
+		else
+		{
+			newString = newString + "...";
+		}
+		$("#"+elementCaption).text(newString);
+		$("#"+elementCaption).attr('title',title);
+		element.css('width',realWidth);
+	}
+	else
+	{
+		$("#"+elementCaption).text(newString);
+		$("#"+elementCaption).attr('title',title);
+	}
+}
 function getPositions(element)
  {
 	var $element = $(element);
@@ -993,7 +1067,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 	var curleft = startposX;
 	var placed = false;
 	
-	while (curtop < $("#canvas-div").height() + element.height())
+	while (curtop + element.height() < $("#canvas-div").height())
 	{
 		element.css('top',curtop);
 		element.css('left',curleft);
@@ -1006,10 +1080,10 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 			break;
 		}
 		
-		curleft = curleft + 60;
+		curleft = curleft + 45;
 		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
 		{
-			curtop = curtop + 60;
+			curtop = curtop + 45;
 			curleft = startposX;
 		}
 		
@@ -1320,12 +1394,7 @@ $(document).ready(function() {
 			$(this).attr('title',"עמדת די ג'יי");	
 			$(this).find('.tableProp').remove();
 		 }
-		 $(this).addClass('DragNonDropDiv');
-		 
-	 }
-	 else
-	 {
-	 	adjustCaption($(this));
+		 $(this).addClass('DragNonDropDiv');	 
 	 }
   });
   $(".DragDiv").mouseover(function(){

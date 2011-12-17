@@ -1,6 +1,6 @@
-var mainFrameWidth = 750;
-var mainFrameHeight = 425;
-var frameStringMI = '<div id="MIFrame" style="position:absolute; z-index:99999;"><table width="740" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="350" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="350"></br><div id="moneyInfoMainWindow"/></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="740" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
+var mainFrameWidthMI = 750;
+var mainFrameHeightMI = 425;
+var frameStringMI = '<div id="MIFrame" width="740" style="position:absolute; z-index:99999;"><table  width="740" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="350" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="390"></br><div id="moneyInfoMainWindow" /></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="740" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
 	
 //return [total sum,other group total sum,family group total sum,friends group total sum,work group total sum]
 function getFullMoneyInfo()
@@ -73,20 +73,29 @@ $(document).ready(function() {
 
  $(".MoneyInfoDiv").click(function()
  {
-	var screenWidth = document.body.clientWidth;
-	var screenHeight = document.body.clientHeight;
+	$("body").css("overflow", "hidden");
+	var screenVP = getScreenWidthHeight();
+	var screenWidth = screenVP[0];
+	var screenHeight = screenVP[1];
 	
 	//creating window
 	$("#canvas-div").append($('<div id="moneyInfoRectangle" class="BlackOverlayRectangle"/>'));
-	$("#moneyInfoRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});
+	$("#moneyInfoRectangle").css('top',0);
+	$("#moneyInfoRectangle").css('left',0);
+	$("#moneyInfoRectangle").css('width',screenWidth);
+	$("#moneyInfoRectangle").css('height',screenHeight);
 	$("#moneyInfoRectangle").draggable( 'disable' );
 	$("#canvas-div").append($(frameStringMI));
-	$("#MIFrame").animate({top:screenHeight / 2 - mainFrameHeight / 2,left:screenWidth / 2 - mainFrameWidth / 2,width:mainFrameWidth,height:mainFrameHeight},function(){ getFullMoneyInfo();});
+	$("#MIFrame").css('top',screenHeight / 2 - mainFrameHeightMI / 2);
+	$("#MIFrame").css('left',screenWidth / 2 - mainFrameWidthMI / 2);
+	$("#MIFrame").css('width',mainFrameWidthMI);
+	$("#MIFrame").css('height',mainFrameHeightMI);
+	getFullMoneyInfo();
 	$("#moneyInfoMainWindow").draggable( 'disable' );
 	$("#moneyInfoCloseBtn").bind('click', function() {
-		$("#moneyInfoRectangle").animate({top:0,left:0,width:0,height:0},function(){$("#moneyInfoRectangle").remove();});
-		$("#MIFrame").animate({top:0,left:0,width:0,height:0},function(){$("#MIFrame").remove(); 
-		});
+		$("#moneyInfoRectangle").remove();
+		$("#MIFrame").remove();
+		$("body").css("overflow", "auto"); 
 	});
 	$("#moneyInfoCloseBtn").bind('mouseout', function(){
 			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");

@@ -68,23 +68,31 @@ function sendNotifyChange()
 $(document).ready(function() { 
  $(".OccasionFinishDiv").click(function()
  {
-	var screenWidth = document.body.clientWidth;
-	var screenHeight = document.body.clientHeight;
+ 	$("body").css("overflow", "hidden");
+	var screenVP = getScreenWidthHeight();
+	var screenWidth = screenVP[0];
+	var screenHeight = screenVP[1];
 	
 	//creating window
 	$("#canvas-div").append($('<div id="OccasionFinishRectangle" class="BlackOverlayRectangle"/>'));
-	$("#OccasionFinishRectangle").animate({top:0,left:0,width:screenWidth,height:screenHeight});
+	$("#OccasionFinishRectangle").css('top',0);
+	$("#OccasionFinishRectangle").css('left',0);
+	$("#OccasionFinishRectangle").css('width',screenWidth);
+	$("#OccasionFinishRectangle").css('height',screenHeight);
 	$("#OccasionFinishRectangle").draggable( 'disable' );
 	$("#canvas-div").append($(frameStringOF));
-	$("#OFFrame").animate({top:screenHeight / 2 - mainFrameHeightOF / 2,left:screenWidth / 2 - mainFrameWidthOF / 2,width:mainFrameWidthOF,height:mainFrameHeightOF},function(){ fillNotificationList(); });
+	$("#OFFrame").css('top',screenHeight / 2 - mainFrameHeightOF / 2);
+	$("#OFFrame").css('left',screenWidth / 2 - mainFrameWidthOF / 2);
+	$("#OFFrame").css('width',mainFrameWidthOF);
+	$("#OFFrame").css('height',mainFrameHeightOF);
 	$("#OFFrame").draggable( 'disable' );
 	$("#features").append($(ofTabString));
 	$("#OFtabs").tabs();
 	sendNotifyChange();
 	$("#OccasionFinishCloseBtn").bind('click', function() {
-		$("#OccasionFinishRectangle").animate({top:0,left:0,width:0,height:0},function(){$("#OccasionFinishRectangle").remove();});
-		$("#OFFrame").animate({top:0,left:0,width:0,height:0},function(){$("#OFFrame").remove(); 
-		});
+		$("#OccasionFinishRectangle").remove();
+		$("#OFFrame").remove(); 
+		$("body").css("overflow", "auto");
 	}); 
 
 	$("#OccasionFinishCloseBtn").bind('mouseout', function(){
