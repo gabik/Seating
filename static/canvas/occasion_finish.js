@@ -103,6 +103,7 @@ $(document).ready(function() {
 	});
 	$("#excelDownImg").bind('click', function(){
 		 //window.location='/accounts/download';  
+		 $("#OccasionFinishCloseBtn").click();
 		 window.open('/accounts/download');
 		 return false;
 	});

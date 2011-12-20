@@ -1,11 +1,13 @@
 # Create your views here.
 # -*- coding: utf-8 -*-
 import csv, codecs, cStringIO
-import math
+from django.core.mail import send_mail
+import math, re 
 import random
 from tempfile import TemporaryFile
 from xlwt import Workbook, Style
 import xlrd, xlwt
+from django.views.decorators.csrf import csrf_exempt
 from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
 from django.utils import simplejson as json
@@ -17,6 +19,7 @@ from Seating.canvas.models import SingleElement
 from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
+from xml.etree.ElementTree import parse
 import sys
 sys.path.append("/Seating/static/locale/he")
 import he
@@ -514,9 +517,12 @@ def online_excel(request):
 	Guests = Guest.objects.filter(user=request.user)
 	#response = HttpResponse(mimetype='text/csv')
 	#response['Content-Disposition'] = 'attachment; /Seating/static/excel_output/' + str(request.user.id) + 'guests.csv'
-	f = open('/Seating/static/excel_output/' + str(request.user.id) + 'guests.csv', "wb")
+	f = open('/Seating/static/excel_output/' + str(request.user.id) + 'guests.csv', "w")
 	writer = csv.writer(f)
 	row_num = 1
+	partners = get_object_or_404(Partners, userPartner = request.user)
+	names=[partners.partner1_first_name,partners.partner2_first_name]
+
 	#writer.writerow(['0', 'first', 'last', 'gender', 'qty', 'phone', 'email', 'facebook', 'group', 'present'])
 	for g in Guests:
 		gfirst=unicode(g.guest_first_name, "UTF-8")
@@ -529,6 +535,75 @@ def online_excel(request):
 		row_num+=1
 	f.close()
         c = {}
+	c.update(csrf(request))
 	c['rows']=row_num
+	c['partner1']=names[0]
+	c['partner2']=names[1]
 	c['filename']='/static/excel_output/' + str(request.user.id) + 'guests.csv'
         return render_to_response('accounts/online_xls.html', c)
+
+@login_required
+def online_save(request):
+	if request.method == 'POST': # If the form has been submitted...
+		tmpXmlFile=open('/tmp/'+str(request.user.id)+'xmlsave.xml', 'w')
+		tmpXmlFile.write(request.POST['xml'].encode('utf-8'))
+		tmpXmlFile.close()
+		tmpXmlFile=open('/tmp/'+str(request.user.id)+'xmlsave.xml', 'r')
+                userXml = parse(tmpXmlFile).getroot()
+		tmpXmlFile.close()
+		starting_row=request.POST['start_row']
+		gender_choice=["U","M","F"]
+		partners = get_object_or_404(Partners, userPartner = request.user)
+		names=[partners.partner1_first_name,partners.partner2_first_name]
+		if names[1] != "":
+			names[1]=" "+names[1]
+		group_choice=["Family "+names[0],"Friends "+names[0],"Work "+names[0],"Family"+names[1],"Friends"+names[1],"Work"+names[1],"Other"]
+		xxml=""
+		for row in userXml.findall('row'):
+			if int(row.get('id')) >= int(starting_row):
+				cur_col=0
+				cur_list=[]
+				for cell in row.findall('cell'):
+					if type(cell.text).__name__=='unicode':
+						celltext=cell.text.encode('utf-8')
+					elif type(cell.text).__name__=='NoneType':
+						celltext=""
+					else:
+						celltext=str(cell.text)
+					cur_list.append(celltext)
+				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, fpresent = cur_list
+				cells=row.findall('cell')
+				if (ffirst != "" or flast != ""): 
+					if fgroup in group_choice:
+						if fgender not in gender_choice :
+							fgender="U"
+						if fqty <> "":
+							fqty=re.sub("\D", "", fqty)
+						else:
+							fqty=1
+						fqty=str(fqty)
+						xxml+=ffirst+"||"+flast+"||"+fgender+"||"+fqty+"||"+fphone+"||"+femail+"||"+ffacebook + "||" +  fgroup + "||" +  fpresent
+						xxml+="<BR>"
+				#ffirst=
+				#flast=cells[1].text.encode('utf-8')
+				#fgender=cells[2].text.encode('utf-8')
+				#fqty=cells[3].text.encode('utf-8')
+				#fphone=cells[4].text.encode('utf-8')
+				#femail=cells[5].text.encode('utf-8')
+				#ffacebook=cells[6].text.encode('utf-8')
+				#fgroup=cells[7].text.encode('utf-8')
+				#fpresent=cells[8].text.encode('utf-8')
+	c = {}
+	c['xml']=xxml
+	return render_to_response('accounts/testxml.html', c)
+        #return HttpResponseRedirect('/canvas/edit')
+
+@csrf_exempt
+def contact_view(request):
+	c={}
+	c.update(csrf(request))
+	if request.META['REQUEST_URI'] == '/site/contact.html':
+		return render_to_response('site/contact.html', c)
+	elif request.method == 'POST':
+		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
+		return HttpResponseRedirect('/')
