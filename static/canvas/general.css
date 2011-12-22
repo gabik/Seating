@@ -134,31 +134,38 @@
   top:-2px;
   cursor:pointer;
  }
- .PlaceMentShapesDiv
+ .SpinDiv
  {
   position:absolute;
-  left:243px;
+  left:186px;
   top:-2px;
   cursor:pointer;
  }
- .MoneyInfoDiv
+ .PlaceMentShapesDiv
  {
   position:absolute;
   left:300px;
   top:-2px;
   cursor:pointer;
  }
+ .MoneyInfoDiv
+ {
+  position:absolute;
+  left:357px;
+  top:-2px;
+  cursor:pointer;
+ }
  .OccasionFinishDiv
   {
   position:absolute;
-  left:357px;
+  left:414px;
   top:-2px;
   cursor:pointer;
  }
  .OperationsInfoDiv
   {
   position:absolute;
-  left:414px;
+  left:471px;
   top:-2px;
   cursor:pointer;
  }
@@ -166,14 +173,14 @@
  .ExitCanvasDiv
  {
    position:absolute;
-   left:471px;
+   left:528px;
    top:-2px;	
    cursor:pointer;
  }
   .AligmentDiv
  {
   position:absolute;
-  left:186px;
+  left:243px;
   top:-2px;
   cursor:pointer;
  }

@@ -14,6 +14,13 @@ class SingleElement(models.Model):
 	current_sitting = models.IntegerField()
 	max_sitting = models.IntegerField()
 	caption = models.CharField(max_length=80)
+	orientation_choices = (
+		('V', 'Vertical'),
+		('H', 'Horizontal'),
+		('FH', 'Horizontal'),
+		('FV', 'Horizontal'),
+	)
+	orientation =  models.CharField(max_length=10, choices=orientation_choices, default='V')
 	def __unicode__(self):
 		printy = self.user.username + " " + str(self.elem_num)
 		return printy

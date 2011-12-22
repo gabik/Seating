@@ -94,6 +94,15 @@
 	float: left;
 	margin-left: 10px;
 }
+
+.buttons_right{
+	height: 37px;
+	width: 116px;
+	margin-right: 10px;
+	float: right;
+	margin-left: 10px;
+}
+
 #demo_button {
 	text-align: center;
 }

@@ -35,8 +35,6 @@ a:active {
 <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
 <script src="SpryAssets/SpryValidationTextField.js" type="text/javascript"></script>
 <script src="SpryAssets/SpryValidationTextarea.js" type="text/javascript"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
-<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 <!--
 function MM_preloadImages() { //v3.0
@@ -62,13 +60,6 @@ function MM_swapImage() { //v3.0
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
 //-->
-$(document).before(function()
-{
-	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0)
-	{
-		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><a href="/canvas/edit"><img src="images/mobile_img.png" width="980" height="430" align="center" /></a><div>');
-	}
-});
 </script>
 <link href="SpryAssets/SpryValidationTextField.css" rel="stylesheet" type="text/css" />
 <link href="SpryAssets/SpryValidationTextarea.css" rel="stylesheet" type="text/css" />
@@ -87,6 +78,8 @@ $(document).before(function()
     <div class="buttons"><a href="about_us.html"><img src="images/about_nr.png" alt="אודותנו" name="about_us" width="116" height="37" border="0" id="about_us" onmouseover="MM_swapImage('about_us','','images/about_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
     <div class="buttons"><a href="product.html"><img src="images/product_nr.png" alt="המוצר שלנו" name="product" width="116" height="37" border="0" id="product" onmouseover="MM_swapImage('product','','images/product_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
     <div class="buttons"><a href="index.html"><img src="images/home_nr.png" alt="עמוד הבית" name="home" width="116" height="37" border="0" id="home" onmouseover="MM_swapImage('home','','images/home_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
+	<div class="buttons_right">
+	<iframe align="right" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2seat-%25D7%2590%25D7%25AA%25D7%25A8-%25D7%25A1%25D7%2599%25D7%2593%25D7%2595%25D7%25A8%25D7%2599-%25D7%2594%25D7%2599%25D7%25A9%25D7%2599%25D7%2591%25D7%2594-%25D7%25A9%25D7%259C-%25D7%2599%25D7%25A9%25D7%25A8%25D7%2590%25D7%259C%2F266220463433352&amp;send=false&amp;layout=standard&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:70px; height:35px; margin-top:6.5px;" allowTransparency="true"></iframe></div>
   </div>
   
    <div id="flash">

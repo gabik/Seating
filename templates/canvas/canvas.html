@@ -99,7 +99,7 @@
 		 {
 			if (collisionWithOtherElement($(this)))
 			{
-				reposElementAtAFreeSpace($(this), 0);
+				reposElementAtAFreeSpaceNonDrag($(this), 0);
 			}
 		 }
 	 });
@@ -178,6 +178,13 @@
 		});
 		$("#AddDivImg").mouseover(function(){
 			$(this).attr('src',"/static/canvas/images/pluse_r.png");
+		});	
+
+		$("#SpinImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/spin_n.png");
+		});
+		$("#SpinImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/spin_r.png");
 		});
 					  
 		$("#AlignImg").mouseout(function(){
@@ -261,7 +268,7 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
-					  <td height="32" width="521" bgcolor="#5A8EA3"></td>
+					  <td height="32" width="575" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
@@ -277,7 +284,7 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
 					<tr>
-					  <td height="10" width="1141" colspan="5"><img src="/static/canvas/images/shadowUpperMenu.png" width="1141" height="10" /></td>
+					  <td height="10" width="1195" colspan="5"><img src="/static/canvas/images/shadowUpperMenu.png" width="1195" height="10" /></td>
 					</tr>
 				</table>				
 			</div>
@@ -316,6 +323,7 @@
 			<div class="UndoDiv" title="חזור למצב שולחן קודם"><img id="UndoImg" src="/static/canvas/images/back_n.png"></div>
 			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
+			 <div class="SpinDiv"  title="סובב שולחן"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
 			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
 			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
 			<div class="OperationsInfoDiv" title="פירוט פעולות עריכת אירוע"><img id="OIImg" src="/static/canvas/images/calender_n.png"></div>
@@ -340,8 +348,8 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
-						  /></td>
+						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
+						  /></div></td>
 						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>

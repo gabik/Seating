@@ -973,7 +973,7 @@ function savePersonChanges(firstName, lastName)
 		if (!duplicatePerson && ($("#detailsFirstName" + firstName + '_'+ lastName).val() != firstName.replace(/\ /g,"_") || lastName.replace(/\ /g,"_") != $("#detailsLastName" + firstName + '_'+ lastName).val())
 		&& isPersonIsOnList($("#detailsFirstName" + firstName + '_'+ lastName).val(), $("#detailsLastName" + firstName + '_'+ lastName).val()))
 		{
-			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="NameValidtion"  style="color:red" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
+			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="NameValidtion"  style="color:red; margin-top:20px; position:absolute;" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
 			duplicatePerson = true;
 		}
 		else

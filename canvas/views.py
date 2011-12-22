@@ -17,9 +17,10 @@ from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 from datetime import datetime
+from django.core.mail import send_mail
 
 def escapeSpecialCharacters ( text ):
-    characters='"&\','
+    characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
     for character in characters:
         text = text.replace( character, '' )
     return text
@@ -608,3 +609,38 @@ def get_GuestsEmails(request):
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
 	return HttpResponse(json_dump)
+	
+@login_required
+def get_element_orientation(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		if single_element is not None:
+			json_dump = json.dumps({'status': "OK",'orientation': single_element.orientation ,'elem_num':elem_num})
+	return HttpResponse(json_dump)
+	
+@login_required
+def change_element_orientation(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		if single_element is not None:
+			if single_element.orientation == 'V':
+				single_element.orientation = 'H'
+			else:
+				if single_element.orientation == 'H':
+					single_element.orientation = 'FV'
+				else:
+					if single_element.orientation == 'FV':
+						single_element.orientation = 'FH'
+					else:
+						single_element.orientation = 'V'
+			single_element.save()
+			json_dump = json.dumps({'status': "OK"})				
+	return HttpResponse(json_dump)
+
+

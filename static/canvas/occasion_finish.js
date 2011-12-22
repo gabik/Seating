@@ -122,6 +122,9 @@ $(document).ready(function() {
 	$("#sendNotifyImg").bind('mouseover', function(){
 		$(this).attr('src',"/static/page/images/send_btn.png");
 	});
+	$("#sendNotifyImg").bind('click', function(){
+
+	});
 	$("#emailsSelectAll").bind('click', function(){
 		$("#emailNotificationList > li").each(function(i) {
 			$(this).find('input').first().attr('checked', true);

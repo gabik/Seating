@@ -111,7 +111,13 @@ function delTableButtonPress()
 		{
 			if (SelectedElem != "")
 			{
-				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ SelectedElem.find('p').first().attr('title') + " ? ", "YESNO", "Question");
+				var name = SelectedElem.find('p').first().attr('title');
+				
+				if (name == undefined)
+				{
+					name = SelectedElem.attr('title');
+				}
+				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
 				currentMsgTimer = setTimeout("delDivPress()",500);
 			}
 			else
