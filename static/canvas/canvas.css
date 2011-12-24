@@ -79,6 +79,14 @@
   top:460;
   left:1201;
  }
+  #occasionDetailsAdvanceR
+   {
+  position:absolute;
+  padding: 4px;
+  width:135;
+  top:460;
+  left:995;
+ }
  #ElementStatus
  {
   position:absolute;
@@ -133,5 +141,11 @@
   -webkit-border-radius: 5px;
   border-radius: 5px;
   padding:3px;
+ }
+ 
+ #setting
+ {
+	cursor:pointer;
+	float:left; 
  }
  

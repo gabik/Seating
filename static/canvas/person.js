@@ -197,7 +197,7 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 	var last_Name = full_name[1];
 		
 	posPropertyPanel("");
-	  
+
 	if (detailsMode)
 	{
 		$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
@@ -226,7 +226,10 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 			hideAllDragDiv();
 			hideTableElementDiv();
 		}
-
+		if (occDetailsOpen)
+		{
+			$("#occassionDetailsAdvanceBtn").click();
+		}
 		$.post('/canvas/getItem/', {position: "", firstName: first_Name, lastName: last_Name},
         function(data)
 		{
@@ -306,6 +309,10 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 	posPropertyPanel("");
 	if (tableMode)
 	{
+		if (occDetailsOpen)
+		{
+			$("#occassionDetailsAdvanceBtn").click();
+		}
 		var newPositionNum = SelectedPerson.context.title.substring(SelectedPerson.context.title.length - 1, SelectedPerson.context.title.length);
 		
 		if (hideAll)

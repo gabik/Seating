@@ -14,6 +14,7 @@ var propMenuOpen = false;
 var fromPropMeneBtn = false;
 var currentMsgTimer = "";
 var floatListOriginalPosition = "";
+var occDetailsOpen = false;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -1611,7 +1612,6 @@ function dropPerson(draged,table, place)
 }
 
 $(document).ready(function() {
-
  var sortFloatListByNameAscending = true
  var sortFloatListByGroupAscending = true
  var imgs,i;
@@ -2085,7 +2085,49 @@ $(document).ready(function() {
 			}
 		}
 	});
-
+	
+	$("#occassionDetailsAdvanceBtn").mouseout(function(){
+		if (!occDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_left_n.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_right_n.png");
+	});
+	$("#occassionDetailsAdvanceBtn").mouseover(function(){
+		if (!occDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_left_r.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_right_r.png");
+	});
+	$("#occassionDetailsAdvanceBtn").click(function(){
+		occDetailsOpen = !occDetailsOpen;
+		if (!occDetailsOpen)
+		{
+			$(this).attr('src',"/static/page/images/expander_left_r.png");
+			$("#occasionDetailsAdvanceR").hide("slide", { direction: "right" }, 150);
+		}
+		else
+		{
+			$.post('/canvas/getOccasionMealAndInvDetails/', {},
+				   function(data){
+				   if (data.status == 'OK')
+				   {
+						setSaveStatus("OK");
+						$("#inv_accept_amount").text(data.GuestsInvAccept);
+						$("#inv_tentative_amount").text(data.GuestsTentativeInv);
+						$("#inv_noaccept_amount").text(data.GuestsInvNotAccept);
+						$("#meat_amount").text(data.GuestsMeatMeal);
+						$("#veg_amount").text(data.GuestsVegMeal);
+						$("#glat_amount").text(data.GuestsGlatMeal);
+					}
+				   else
+				   {
+						setSaveStatus("Error");
+				   }
+				   }, 'json');
+			$(this).attr('src',"/static/page/images/expander_right_r.png");
+			$("#occasionDetailsAdvanceR").show("slide", { direction: "right" }, 150);
+		}
+	});
  });
   
 $(document).ajaxSend(function(event, xhr, settings) {
