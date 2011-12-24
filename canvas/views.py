@@ -644,3 +644,16 @@ def change_element_orientation(request):
 	return HttpResponse(json_dump)
 
 
+@login_required
+def change_user_profile(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		profile = get_object_or_404(UserProfile, user = request.user)
+		if profile is not None:
+			print profile
+			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
+			profile.occasion_place = ugettext(request.POST['place'])
+			profile.phone_number = ugettext(request.POST['phone'])
+			profile.save()
+			json_dump = json.dumps({'status': "OK"})				
+	return HttpResponse(json_dump)

@@ -47,6 +47,8 @@
  <!--<![endif]-->
 
 <script type="text/javascript">
+	 var partnersPhoneNumbers  = "";
+	 
 	 $(document).before(function()
 	 {
 	  var firstInit = false;
@@ -117,6 +119,8 @@
 	
 	$(document).ready(function() {
 	 
+		partnersPhoneNumbers = "{{ phone_num }}";
+		
 		$(".tableProp").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
 		});
@@ -223,6 +227,12 @@
 		$("#MaxGuestSaveButton").mouseover(function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
 		});		
+		$("#setting").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/setting_n.png");
+		});
+		$("#setting").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/setting_r.png");
+		});		
 		$("#floatListPin").mouseout(function(){
 			if 	($(this).attr('alt') == "P")
 			{
@@ -233,6 +243,7 @@
 				$(this).attr('src',"/static/canvas/icons/pin_off_n.png");
 			}
 		});
+		$("marquee").hover(function () {      this.stop(); }, function () {     this.start(); });
 		$("#floatListPin").mouseover(function(){
 			if 	($(this).attr('alt') == "P")
 			{
@@ -272,14 +283,13 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee id="occasionMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <![endif]-->
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl" style="cursor:pointer;" id="occasionMarquee"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span id="OccasionPlace" class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
-							<div id="phone_number">{{ phone_num }}</div>
+							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span> ב-</span><span id="OccasionPlace" class="titles_black" dir="rtl"> {{place}}</span><span title="הגדרות אירוע"><img alt="הגדרות אירוע" id="setting" src="/static/canvas/images/setting_n.png" style="cursor:pointer;" width="24" height="24" align="top"/></span></p></marquee></span></img>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
