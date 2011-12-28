@@ -157,7 +157,8 @@ def handle_uploaded_file(f, request):
 		destination.write(chunk)
 	destination.close()
 
-def check_person(first, last, list):
+def check_person(first, last, user):
+	list = Guest.objects.filter(user=user)
 	for i in list:
 		if i.guest_first_name == first and i.guest_last_name == last:
 			return True
@@ -175,7 +176,7 @@ def upload_file(request):
 			starting_row = shX.cell_value(0,0)
 			cur_hash = shX.cell_value(0,1)
 			cur_user = UserProfile.objects.get(user=request.user)
-			cur_list = Guest.objects.filter(user=request.user)
+			#cur_list = Guest.objects.filter(user=request.user)
 			DupGuest.objects.filter(user=request.user).delete()
 			UnknownGroups.objects.filter(user=request.user).delete()
 			duplicate_list = []
@@ -205,7 +206,7 @@ def upload_file(request):
 
 
 				if privName <> "" or lastName <> "" :
-					if check_person(privName, lastName, cur_list):
+					if check_person(privName, lastName, request,user):
 						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
@@ -558,7 +559,8 @@ def online_save(request):
 		if names[1] != "":
 			names[1]=" "+names[1]
 		group_choice=["Family "+names[0],"Friends "+names[0],"Work "+names[0],"Family"+names[1],"Friends"+names[1],"Work"+names[1],"Other"]
-		xxml=""
+		#xxml=""
+		DupGuest.objects.filter(user=request.user).delete()
 		for row in userXml.findall('row'):
 			if int(row.get('id')) >= int(starting_row):
 				cur_col=0
@@ -581,22 +583,26 @@ def online_save(request):
 							fqty=re.sub("\D", "", fqty)
 						else:
 							fqty=1
-						fqty=str(fqty)
-						xxml+=ffirst+"||"+flast+"||"+fgender+"||"+fqty+"||"+fphone+"||"+femail+"||"+ffacebook + "||" +  fgroup + "||" +  fpresent
-						xxml+="<BR>"
-				#ffirst=
-				#flast=cells[1].text.encode('utf-8')
-				#fgender=cells[2].text.encode('utf-8')
-				#fqty=cells[3].text.encode('utf-8')
-				#fphone=cells[4].text.encode('utf-8')
-				#femail=cells[5].text.encode('utf-8')
-				#ffacebook=cells[6].text.encode('utf-8')
-				#fgroup=cells[7].text.encode('utf-8')
-				#fpresent=cells[8].text.encode('utf-8')
-	c = {}
-	c['xml']=xxml
-	return render_to_response('accounts/testxml.html', c)
-        #return HttpResponseRedirect('/canvas/edit')
+						if check_person(ffirst, flast, request.user):
+							dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+							dup_person.save()
+						else:
+							if int(fqty) > 1:
+								for i in range(1,int(fqty)+1):
+									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+									new_person.save()
+							else:
+								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+								new_person.save()
+
+	duplicate_list = DupGuest.objects.filter(user=request.user)
+	if duplicate_list :
+		c= {}
+		c.update(csrf(request))
+		c['duplicate_list']=duplicate_list
+		return render_to_response('accounts/duplicate.html', c)
+ 	else:
+		return HttpResponseRedirect('/canvas/edit')
 
 @csrf_exempt
 def contact_view(request):
@@ -606,4 +612,4 @@ def contact_view(request):
 		return render_to_response('site/contact.html', c)
 	elif request.method == 'POST':
 		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
-		return HttpResponseRedirect('/')
+		return HttpResponseRedirect('/site/sent.html')

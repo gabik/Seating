@@ -85,6 +85,13 @@ class DupGuest(models.Model):
 	present_amount = models.IntegerField(default=0)
 	facebook_account = models.CharField(max_length=30, blank=True)
 	group = models.CharField(max_length=30, blank=True)
+        gender_choices = (
+                ('M', 'Male'),
+                ('F', 'Female'),
+                ('U', 'Unknon'),
+        )
+        gender = models.CharField(max_length=6, choices=gender_choices, default='U')
+
 	
 class OccasionOperationItem(models.Model):
         user = models.ForeignKey(User, unique=False)
