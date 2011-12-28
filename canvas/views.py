@@ -17,9 +17,10 @@ from Seating.canvas.forms import InitCanvas
 from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 from datetime import datetime
+from django.core.mail import send_mail
 
 def escapeSpecialCharacters ( text ):
-    characters='"&\','
+    characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
     for character in characters:
         text = text.replace( character, '' )
     return text
@@ -50,6 +51,7 @@ def edit_canvas(request):
 	c['width'] = cur_width
 	date = profile.occasion_date.strftime("%d/%m/%Y")
 	place = profile.occasion_place
+	phone = profile.phone_number
 	if partners.partner1_gender == 'M':
 		last_name = partners.partner1_last_name
 	else:
@@ -60,6 +62,7 @@ def edit_canvas(request):
 	c['last_name'] = last_name
 	c['date'] = date
 	c['place'] = place
+	c['phone_num'] = phone
 	if partners.partner2_first_name != "":
 	 	c['addChar'] = "&"
 	if (user_elements):
@@ -89,7 +92,7 @@ def new_canvas(request):
 					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
 
 				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), width = 90 , height = 90, user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
 					single_element.save()
 
 				add_char =""
@@ -127,6 +130,19 @@ def save_element(request):
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
+@login_required
+def save_element_width_height(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		single_element.width = float(request.POST['width']);
+		single_element.height = float(request.POST['height']);
+		single_element.save()
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+	
 @login_required
 def fix_number_status(request):
 	json_dump = json.dumps({'status': "Empty"})
@@ -184,15 +200,18 @@ def drop_person(request):
 			elem_delim = request.POST['table_id'].index('-')
 			elem_num=request.POST['table_id'][elem_delim+1:]
 			table_id = request.POST['table_id']
-			free_position = 1
-			if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
-				element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
-				for element_person in element_persons:
-					print element_person.position
-					if element_person.position == free_position:
-						free_position = free_position + 1
-					else:
-						break
+			place = request.POST['place']
+			if (place == "" or place < 1):
+				free_position = 1
+				if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
+					element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
+					for element_person in element_persons:
+						if element_person.position == free_position:
+							free_position = free_position + 1
+						else:
+							break
+			else:
+				free_position = place;
 			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 			if single_element.current_sitting < single_element.max_sitting:
 				single_element.current_sitting = single_element.current_sitting + 1
@@ -225,7 +244,7 @@ def add_element(request):
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_fix_num+i),x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_fix_num+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
 #			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
@@ -592,3 +611,38 @@ def get_GuestsEmails(request):
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
 	return HttpResponse(json_dump)
+	
+@login_required
+def get_element_orientation(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		if single_element is not None:
+			json_dump = json.dumps({'status': "OK",'orientation': single_element.orientation ,'elem_num':elem_num})
+	return HttpResponse(json_dump)
+	
+@login_required
+def change_element_orientation(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		if single_element is not None:
+			if single_element.orientation == 'V':
+				single_element.orientation = 'H'
+			else:
+				if single_element.orientation == 'H':
+					single_element.orientation = 'FV'
+				else:
+					if single_element.orientation == 'FV':
+						single_element.orientation = 'FH'
+					else:
+						single_element.orientation = 'V'
+			single_element.save()
+			json_dump = json.dumps({'status': "OK"})				
+	return HttpResponse(json_dump)
+
+

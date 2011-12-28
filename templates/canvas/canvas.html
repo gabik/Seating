@@ -34,6 +34,7 @@
 <script type="text/javascript" src="/static/canvas/occasion_finish.js"></script>
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
+<script type="text/javascript" src="/static/canvas/occasion_properties.js"></script>
 <script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
@@ -54,7 +55,7 @@
  <!--<![endif]-->
 
 <script type="text/javascript">
-	 window.onload = function()
+	 $(document).before(function()
 	 {
 	  var firstInit = false;
 	  var DivId = [];
@@ -64,6 +65,21 @@
 	   DDiv[{{ elem.elem_num }}] = document.getElementById(DivId[{{ elem.elem_num }}]);
 	   DDiv[{{ elem.elem_num }}].style.left = {{ elem.x_cord }} + "px";
 	   DDiv[{{ elem.elem_num }}].style.top = {{ elem.y_cord }} + "px";
+	   
+	   var div = $("#" + DivId[{{ elem.elem_num }}]);
+	   var divId = "DragDiv-{{ elem.elem_num }}";
+	   var divimg = $("#" + DivId[{{ elem.elem_num }}]).find('img').first();
+	   var divp = $("#" + DivId[{{ elem.elem_num }}]).find('p').first();
+	   
+	   divimg.css('width',{{ elem.width }});
+	   divimg.css('height',{{ elem.height }});
+	   divp.attr('title',"{{ elem.caption }}");
+	   divp.text("{{ elem.caption }}");
+	   if (isThisPeopleTable("{{ elem.kind }}"))
+		{
+			adjustCaptionInit(div,divId, divp.text(), divp.text(), divimg.css('width'));
+		}
+	   
 	   DDiv[{{ elem.elem_num }}].onmousedown = function()
 	   {
 		Dragging = true;
@@ -76,6 +92,12 @@
 	  
 	  if (firstInit)
 	  {
+		 	$(".DragDiv").each(function(i){
+			var elementCaption = $(this).context.getElementsByTagName("p");
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
+			setWidthAndHeight($(this),elementMaxSize,0);
+		});
 		 $("#SquarePlaceMentShapes").click();
 		 $(".ShapePlacementMenu").hide();
 	  }
@@ -85,7 +107,7 @@
 		 {
 			if (collisionWithOtherElement($(this)))
 			{
-				reposElementAtAFreeSpace($(this), 0);
+				reposElementAtAFreeSpaceNonDrag($(this), 0);
 			}
 		 }
 	 });
@@ -99,7 +121,7 @@
 			}
 		 }
 	 });
-	}
+	});
 	
 	$(document).ready(function() {
 	 
@@ -164,6 +186,13 @@
 		});
 		$("#AddDivImg").mouseover(function(){
 			$(this).attr('src',"/static/canvas/images/pluse_r.png");
+		});	
+
+		$("#SpinImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/spin_n.png");
+		});
+		$("#SpinImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/spin_r.png");
 		});
 					  
 		$("#AlignImg").mouseout(function(){
@@ -236,10 +265,10 @@
 	<DIV id="main">
 		<div id="canvas-div" class="CanvasDiv">
 			{% for div in elements %}
-    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה למצב עריכה">
+    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה למצב עריכה" width={{ div.width }} height{{ div.height }}>
 					<p id="CaptionDragDiv-{{ div.elem_num }}" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.caption}}</p>
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.current_sitting}}/{{div.max_sitting}}</p>
-					<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}" width={{ width }} height={{ height }} />
+					<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
 					<img id="elemProp_DragDiv-{{ div.elem_num }}" class="tableProp" src="/static/canvas/images/table_prop_n.png" width="16" height="16" onmousedown="propMenuBtnClick('DragDiv-'+{{ div.elem_num }})"/>
 				</div>
 			{% endfor %}
@@ -247,22 +276,23 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
-					  <td height="32" width="521" bgcolor="#5A8EA3"></td>
+					  <td height="32" width="575" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+							<marquee id="occasionMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <![endif]-->
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<p class="titles_black" dir="rtl" style="cursor:pointer;" id="occasionMarquee"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span id="OccasionPlace" class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
+							<div id="phone_number">{{ phone_num }}</div>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
 					<tr>
-					  <td height="10" width="1141" colspan="5"><img src="/static/canvas/images/shadowUpperMenu.png" width="1141" height="10" /></td>
+					  <td height="10" width="1195" colspan="5"><img src="/static/canvas/images/shadowUpperMenu.png" width="1195" height="10" /></td>
 					</tr>
 				</table>				
 			</div>
@@ -301,6 +331,7 @@
 			<div class="UndoDiv" title="חזור למצב שולחן קודם"><img id="UndoImg" src="/static/canvas/images/back_n.png"></div>
 			<div class="PlaceMentShapesDiv" title="סידור שולחנות צורני"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
+			 <div class="SpinDiv"  title="סובב שולחן"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
 			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
 			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
 			<div class="OperationsInfoDiv" title="פירוט פעולות עריכת אירוע"><img id="OIImg" src="/static/canvas/images/calender_n.png"></div>
@@ -325,8 +356,8 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
-						  /></td>
+						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
+						  /></div></td>
 						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>

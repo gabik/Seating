@@ -1,5 +1,5 @@
-var mainFrameWidth = 450;
-var mainFrameHeight = 390;
+var mainFrameWidthLM = 450;
+var mainFrameHeightLM = 390;
 var MsgTitle = "";
 var MsgTextContent ="";
 var MsgBoxLastAnswer = "";
@@ -12,8 +12,9 @@ function showLightMsg(title, text, buttons, icon)
 	MsgTitle = title;
 	MsgTextContent = text;
 	$("body").css("overflow", "hidden");
-	var screenWidth = document.body.clientWidth;
-	var screenHeight = document.body.clientHeight;
+	var screenVP = getScreenWidthHeight();
+	var screenWidth = screenVP[0];
+	var screenHeight = screenVP[1];
 	
 	var idSuffix = MsgTitle.replace(/\ /g,"_");
 	
@@ -28,10 +29,10 @@ function showLightMsg(title, text, buttons, icon)
 	$("#lightMsgRectangle"+idSuffix).css('height',screenHeight);
 	$("#lightMsgRectangle"+idSuffix).draggable( 'disable' );
 	$("#canvas-div").append($(frameStringLM));
-	$("#LMFrame"+idSuffix).css('top',screenHeight / 2 - mainFrameHeight / 2);
-	$("#LMFrame"+idSuffix).css('left',screenWidth / 2 - mainFrameWidth / 2);
-	$("#LMFrame"+idSuffix).css('width',mainFrameWidth);
-	$("#LMFrame"+idSuffix).css('height',mainFrameHeight);
+	$("#LMFrame"+idSuffix).css('top',screenHeight / 2 - mainFrameHeightLM / 2);
+	$("#LMFrame"+idSuffix).css('left',screenWidth / 2 - mainFrameWidthLM / 2);
+	$("#LMFrame"+idSuffix).css('width',mainFrameWidthLM);
+	$("#LMFrame"+idSuffix).css('height',mainFrameHeightLM);
 	$("#LightMsgMainWindow"+idSuffix).draggable( 'disable' );
 	
 	$("#LightMsgCloseBtn"+idSuffix).bind('click', function() {

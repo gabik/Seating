@@ -72,6 +72,7 @@ function LoadPerson(element, i)
 						{
 							data.position = num;
 							title = $("#tableElementDiv" + data.position).attr('title');
+							$("#tableElementDiv" + data.position).fadeTo(0, 1);
 							return false;
 						}
 					}
@@ -85,6 +86,7 @@ function LoadPerson(element, i)
 				{
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
 				}
+				$("#tableElementDiv"+ data.position).droppable( 'disable' );
 				$("#tableElementDiv"+ data.position).draggable( 'enable' );
 				$("#tableElementDiv"+ data.position).draggable({
 					containment: 'parent',
@@ -129,8 +131,61 @@ function LoadPerson(element, i)
 					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
 				}
 				document.getElementById("tableElementCaption" + data.position).innerHTML = "מושב " + data.position + "</br>ריק";
+				 $("#tableElementDiv"+ data.position).droppable({
+							accept: "#people_list li",
+							hoverClass: "dropLayerClass",
+							drop: function(e, ui ) {
+								dropPersonFromChair(ui, data, element);
+							}
+				});
 			}
 			}, 'json');
+}
+
+function dropPersonFromChair(ui, data, element)
+{
+	if (ui.helper.size() == 1)
+	{
+		$('.TableElementDiv').each(function(i)
+		{ 
+			var thisTitleNum = "";
+			
+			for (var c = 0; c < $(this).attr('title').length; c++)
+			{
+				if (IsNumeric($(this).attr('title').charAt(c)))
+				{
+					thisTitleNum = thisTitleNum + $(this).attr('title').charAt(c);
+				}
+			}
+			if (thisTitleNum == data.position)
+			{
+				var num = "";
+				
+				for (var c = 0; c < $(this).context.id.length; c++)
+				{
+					if (IsNumeric($(this).context.id.charAt(c)))
+					{
+						num = num + $(this).context.id.charAt(c);
+					}
+				}
+				
+				if (IsNumeric(num))
+				{
+					data.position = num;
+					return false;
+				}
+			}
+		});
+	  ui.helper.each(function(j){
+	  dropPerson($(this), element, data.position); 
+	  $("#tableElementDiv"+ data.position).data('dropEvent', 1);
+	  
+	  });
+	}
+	else
+	{
+		showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד.","OK","Notice");
+	}
 }
 
 function FocusDetailsFromFloatList(personElement,hideAll)
@@ -369,6 +424,8 @@ function selectTab(ui)
 				}
 				//SelectedTabIndex = ui.index;
 				SelectedTabIndex = $('#tabs').tabs("option", "selected");
+				$("#NameValidtion").remove();
+				duplicatePerson = false;
 				if (data.gender == "M")
 				{
 					$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
@@ -383,6 +440,10 @@ function selectTab(ui)
 
 function reLoadDetails(personElement)
 { 
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	 {
+		$("#borderSelected").removeClass('borderSelected');
+	 }
 	$("#PDFrame").css("top",personElement.position().top);
 	$("#PDFrame").css("left",personElement.position().left);
 	$("#PDFrame").css("height","1");
@@ -499,6 +560,14 @@ function createTab()
 
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace("_"," ") +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/></span></p>'));
+	$("#detailsFirstName" + personData.first_name + '_'+ personData.last_name).bind('keydown', function() {
+		$("#NameValidtion").remove();
+		duplicatePerson = false;
+	});	
+	$("#detailsLastName" + personData.first_name + '_'+ personData.last_name).bind('keydown', function() {
+		$("#NameValidtion").remove();
+		duplicatePerson = false;
+	});
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מספר טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsPhoneNum' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.phone_num +'"/></span></p>'));
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsE-mail' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.person_email +'"/></span></p>'));
 	tab.append($('<table id="amountTable'+ personData.first_name + '_'+ personData.last_name+'" border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;סכום מתנה:&nbsp;&nbsp;<span><input MAXLENGTH=7 size="5" type="text" id="detailsPresentAmount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.present_amount +'"/></span></td><td><p align="right" dir="rtl" class="text_14_black">ארוחה:&nbsp;<span><select size="1" value='+"personData.meal"+' id="detailsMeal' + personData.first_name + '_'+ personData.last_name+'"><option value="M">בשרית<option value="G">גלאט<option value="V">צמחונית</select></span></p></td></table></br>'));
@@ -892,8 +961,7 @@ function savePersonChanges(firstName, lastName)
 	var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
 	
 	$("#EmailValidtion").remove();
-	$("#FirstNameValidtion").remove();
-	$("#LastNameValidtion").remove();
+	$("#NameValidtion").remove();
 	firstName = firstName.replace(/\ /g,"_");
 	lastName = lastName.replace(/\ /g,"_");
 	if(!emailReg.test($("#detailsE-mail" + firstName + '_'+ lastName).val())) {
@@ -905,8 +973,7 @@ function savePersonChanges(firstName, lastName)
 		if (!duplicatePerson && ($("#detailsFirstName" + firstName + '_'+ lastName).val() != firstName.replace(/\ /g,"_") || lastName.replace(/\ /g,"_") != $("#detailsLastName" + firstName + '_'+ lastName).val())
 		&& isPersonIsOnList($("#detailsFirstName" + firstName + '_'+ lastName).val(), $("#detailsLastName" + firstName + '_'+ lastName).val()))
 		{
-			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="FirstNameValidtion"  style="color:red" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
-			$("#detailsLastName" + firstName + '_'+ lastName).after('<span  id="LastNameValidtion" style="color:red" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
+			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="NameValidtion"  style="color:red; margin-top:20px; position:absolute;" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
 			duplicatePerson = true;
 		}
 		else
@@ -1029,6 +1096,22 @@ function isPersonIsOnList(firstName, lastName)
 	return result;
 }
 
+function isPersonFirstNameIsOnList(firstName, lastName)
+{
+	var result = false;
+	$("#people_list > li").each(function(i) {
+		if ($(this).context.id == firstName +"_"+ lastName )
+		{
+			if ($(this).context.id.indexOf(firstName) > -1)
+			{
+				result = true;
+			}
+		}
+	});
+	
+	return result;
+}
+
 function DeletePerson()
 {
 	if (SelectedPerson != "" && personData != "" && SelectedTable!= "")
@@ -1076,6 +1159,21 @@ function DeletePerson()
 		  $("#tableElementDiv"+ personData.position).unbind('click');
 		  $("#tableElementDiv"+ personData.position).unbind('dblclick');
 		  $("#tableElementDiv"+ personData.position).draggable( 'disable' );
+		  if (($("#tableElementDiv"+ personData.position).data('dropEvent') || 0) > 0)
+		  {
+				$("#tableElementDiv"+ personData.position).droppable( 'enable' );
+		  }
+		  else
+		  {
+				$("#tableElementDiv"+ personData.position).droppable({
+							accept: "#people_list li",
+							hoverClass: "dropLayerClass",
+							drop: function(e, ui ) {
+								dropPersonFromChair(ui, personData, SelectedTable);
+							}
+				});
+				$("#tableElementDiv"+ personData.position).droppable( 'enable' );
+		  }
 		  $("#tableElementDiv"+ personData.position).fadeTo(100, 1);
 		  
 		  var classGender = "maleli";
@@ -1092,7 +1190,9 @@ function DeletePerson()
 			if ($(this).context.id == personData.first_name +"_"+ personData.last_name )
 			{
 				$(this).addClass('ui-multisort-click');
-				$(this).bind('dblclick',function(e){ personFloatListDBClick(e,$(this)); });
+				$(this).bind('dblclick',function(e){
+						personFloatListDBClick(e,$(this));
+					});
 				$("#people-list").scrollTop(parseInt($(this).index()) * 20);
 				refactorElementPerson($(this));
 			}

@@ -21,6 +21,39 @@ if(typeof String.prototype.trim !== 'function') {
   }
 }
 
+function getScreenWidthHeight()
+{
+	 var viewportwidth;
+	 var viewportheight;
+	  
+	 // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	  
+	 if (typeof window.innerWidth != 'undefined')
+	 {
+		  viewportwidth = window.innerWidth,
+		  viewportheight = window.innerHeight
+	 }
+	  
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	 
+	 else if (typeof document.documentElement != 'undefined'
+		 && typeof document.documentElement.clientWidth !=
+		 'undefined' && document.documentElement.clientWidth != 0)
+	 {
+		   viewportwidth = document.documentElement.clientWidth,
+		   viewportheight = document.documentElement.clientHeight
+	 }
+	  
+	 // older versions of IE
+	  
+	 else
+	 {
+		   viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+		   viewportheight = document.getElementsByTagName('body')[0].clientHeight
+	 }
+	return [viewportwidth,viewportheight];
+}
+
 function getHebTableName(kind)
 {
 	if (kind == "Square")
@@ -185,6 +218,10 @@ function setWidthAndHeight(element, newScale, lastScale)
 		}
 		else
 		{
+		   $.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:elementImgs[0].width, height:elementImgs[0].height},
+           function(data){
+           if (data.status == 'OK')
+           {}}, 'json');
 			adjustCaption($(this));
 		}
 	});
@@ -197,12 +234,12 @@ function adjustCaption(element)
 	var textID = elementCaption[0].id;
 	var text =  $("#" + textID).text();
 	var title = $("#" + textID).attr('title');
-	var realWidth = $("#" + elementImgs[0].id).width();
-	if (title.length * 6.2 > element.width() || title.length > 25)
+	var realWidth = element.width();
+	if (title.length * 6.2 > element.width() || title.length > 10)
 	{
 		var newString = "";
 		var stop = false;
-		for (var c = 0; c < title.length - 9; c++)
+		for (var c = 0; c < title.length - 10; c++)
 		{
 			newString = newString + title.charAt(c);
 			if (newString.length * 8 > $("#" + elementImgs[0].id).width())
@@ -233,6 +270,47 @@ function adjustCaption(element)
 	}
 }
 
+function adjustCaptionInit(element,elementId, titleInit, textInit, realWidthInit)
+{
+	var elementImg = element.find('img').first();
+	var elementCaption = "Caption" + elementId;
+	var text =  textInit;
+	var title = titleInit;
+	var realWidth = realWidthInit;
+	if (title.length * 6.2 > realWidthInit || title.length > 10)
+	{
+		var newString = "";
+		var stop = false;
+		for (var c = 0; c < title.length - 9; c++)
+		{
+			newString = newString + title.charAt(c);
+			if (newString.length * 8 > elementImg.width())
+			{
+				stop = true;
+			}
+			if (stop)
+			{
+				break;
+			}
+		}
+		if (newString == " " || newString == "")
+		{
+			newString = title;
+		}
+		else
+		{
+			newString = newString + "...";
+		}
+		$("#"+elementCaption).text(newString);
+		$("#"+elementCaption).attr('title',title);
+		element.css('width',realWidth);
+	}
+	else
+	{
+		$("#"+elementCaption).text(newString);
+		$("#"+elementCaption).attr('title',title);
+	}
+}
 function getPositions(element)
  {
 	var $element = $(element);
@@ -255,6 +333,79 @@ function collisionWithOtherElement(element)
 {
 	var match = false;
 	var pos = getPositions(document.getElementById(element.context.id));
+	$(".DragDiv").each(function(i) {
+		if (element.context.id != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	
+	if (!match)
+	{
+		$(".DragNonDropDiv").each(function(i) {
+			if (element.context.id != $(this).context.id)
+			{
+				var pos2 = getPositions(this);
+				var horizontalMatch = comparePositions(pos[0], pos2[0]);
+				var verticalMatch = comparePositions(pos[1], pos2[1]);
+				match = horizontalMatch && verticalMatch;
+				if (match)
+				{
+					return false;
+				}
+			}
+		});
+	}
+	
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function collisionWithOtherElementWithOutNonDragElements(element)
+{
+	var match = false;
+	var pos = getPositions(document.getElementById(element.context.id));
+	$(".DragDiv").each(function(i) {
+		if (element.context.id != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
+function collisionWithOtherElementWithPos(element, posElem)
+{
+	var match = false;
+	var pos = posElem;
 	$(".DragDiv").each(function(i) {
 		if (element.context.id != $(this).context.id)
 		{
@@ -557,50 +708,217 @@ function updateSeatedLabel()
 	document.getElementById("TotalGuestsLabelValue").innerHTML = $("#people_list > li").size() + findNumOfAllSeaters()
 }
 
+function canFlip(element)
+{
+	var result = false;
+	var elementImgs = element.context.getElementsByTagName("img");
+
+	if (elementImgs[0].id.split("-", 1) == "Rect" || elementImgs[0].id.split("-", 1) == "Lozenge" || !(isThisPeopleTable(elementImgs[0].id)))
+	{
+		if (!(collisionWithOtherElementWithPos(element,[ [ element.position().left, element.position().left + element.height() ], [ element.position().top, element.position().top + element.width() ] ])) && element.position().top + element.width() < $("#canvas-div").height() && element.position().left + element.height() < $("#canvas-div").width())
+		{
+			result = true;
+		}
+	}
+	
+	return result;
+}
+
+function changeOrientation(element)
+{
+	$.post('/canvas/getElementOrientation/', {elem_num:element.context.id},
+	  function(data){
+	  if (data.status == 'OK')
+	   {
+	   		var elementImgs = element.context.getElementsByTagName("img");
+			if (elementImgs[0].id.split("-", 1) == "Rect" || !(isThisPeopleTable(elementImgs[0].id)))
+			{
+				var thisImg = $("#" + elementImgs[0].id);
+				var tempSize = thisImg.width();
+				
+				thisImg.css('width', thisImg.height());
+				thisImg.css('height',tempSize);
+				if (isThisPeopleTable(elementImgs[0].id))
+				{
+					adjustCaption(element);
+				}
+				if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				{
+					$("#borderSelected").css('top',element.position().top - 6);
+					$("#borderSelected").css('left',element.position().left - 6);
+					$("#borderSelected").css('width',element.width() + 12);
+					$("#borderSelected").css('height',element.height() + 12);
+					element.css('zIndex',1000);
+				}
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:thisImg.width(), height:thisImg.height()},
+			   function(data){
+			   if (data.status == 'OK')
+			   {	setSaveStatus("OK"); }}, 'json');
+			}
+	   }
+	  }, 'json');
+}
+
 function reloadElementStatus(element)
 {
-	var elementCaption = element.context.getElementsByTagName("p");
-	var elementImgs = element.context.getElementsByTagName("img");
-	var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-	
-	//used for table status
-	if (elementSize == 0)
-	{
-		if (elementImgs[0].id.split("-", 1) == "Square") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
-		} else if (elementImgs[0].id.split("-", 1) == "Round") {
-			  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
+	$.post('/canvas/getElementOrientation/', {elem_num:element.context.id},
+	  function(data){
+	  if (data.status == 'OK')
+	   {
+	   	var elementImgs = element.context.getElementsByTagName("img");
+		if (isThisPeopleTable(elementImgs[0].id))
+		{
+			var elementCaption = element.context.getElementsByTagName("p");
+			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			
+			//used for table status
+			if (elementSize == 0)
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+					  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
+					}
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
+					}
+				}
+			}
+			else if (elementSize == elementMaxSize)
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+					  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
+					}
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
+					}
+				}
+			}
+			else
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+					  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+					}
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+					if (data.orientation == 'H' || data.orientation == 'FH')
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY_H.png";
+					}
+					else
+					{
+						document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+					}
+				}
+			}
 		}
-	}
-	else if (elementSize == elementMaxSize)
-	{
-		if (elementImgs[0].id.split("-", 1) == "Square") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
-		} else if (elementImgs[0].id.split("-", 1) == "Round") {
-			  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
+		else
+		{
+			if (elementImgs[0].id.split("-", 1) == "dance_stand")
+			 {
+				if (data.orientation == 'V')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dance.png";
+				}
+				else if (data.orientation == 'H')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dance_H.png";
+				}
+				else if (data.orientation == 'FV')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dance_FV.png";
+				}
+				else
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dance_FH.png";
+				}
+			 }
+			 else if (elementImgs[0].id.split("-", 1) ==  "bar_stand") 
+			 {
+				if (data.orientation == 'V')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR.png";
+				}
+				else if (data.orientation == 'H')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_H.png";
+				}
+				else if (data.orientation == 'FV')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_FV.png";
+				}
+				else
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_FH.png";
+				}
+			 }
+			 else if (elementImgs[0].id.split("-", 1) ==  "dj_stand")
+			 {
+				if (data.orientation == 'V')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dj.png";
+				}
+				else if (data.orientation == 'H')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dj_H.png";
+				}
+				else if (data.orientation == 'FV')
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dj_FV.png";
+				}
+				else
+				{
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/dj_FH.png";
+				}
+			 }
 		}
-	}
-	else
-	{
-		if (elementImgs[0].id.split("-", 1) == "Square") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
-		} else if (elementImgs[0].id.split("-", 1) == "Round") {
-			  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
-		}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-		  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
-		}
-	}
+		setSaveStatus("OK");
+	   }
+	   else
+	   {
+			setSaveStatus("Error");
+	   }
+	   }, 'json');
 }
 
 function pointTableAfterSearch(element)
@@ -697,6 +1015,13 @@ function rePaintPeopleList()
   });
 }
 
+function cleanStringFromUnIDChars(str)
+{
+  str = str.replace(/\'/g,""); str = str.replace(/\"/g,""); str = str.replace(/\</g,""); str = str.replace(/\>/g,""); str = str.replace(/\?/g,""); str = str.replace(/\!/g,""); str = str.replace(/\@/g,""); str = str.replace(/\#/g,""); str = str.replace(/\$/g,""); str = str.replace(/\%/g,""); str = str.replace(/\^/g,""); str = str.replace(/\&/g,""); str = str.replace(/\*/g,""); str = str.replace(/\(/g,""); str = str.replace(/\)/g,""); str = str.replace(/\{/g,""); str = str.replace(/\}/g,""); str = str.replace(/\[/g,""); str = str.replace(/\]/g,""); str = str.replace(/\:/g,""); str = str.replace(/\;/g,""); str = str.replace(/\\/g,""); str = str.replace(/\+/g,""); str = str.replace(/\=/g,""); str = str.replace(/\//g,""); str = str.replace(/\./g,""); str = str.replace(/\,/g,""); str = str.replace(/\|/g,""); str = str.replace(/\`/g,""); str = str.replace(/\|/g,""); str = str.replace(/\~/g,"");
+  
+  return str;
+}
+
 function addPersonToFloatList(first_name,last_name, personGroup)
 {
 	var gender = 'F';
@@ -704,7 +1029,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
 	{
 		gender = 'M';
 	}
-    $.post('/accounts/add_person/', {first: first_name, last: last_name, group: personGroup, gender:gender},
+    $.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
       function(data){
         if (data.status == 'OK')
         {
@@ -989,7 +1314,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 	var curleft = startposX;
 	var placed = false;
 	
-	while (curtop < $("#canvas-div").height() + element.height())
+	while (curtop + element.height() < $("#canvas-div").height())
 	{
 		element.css('top',curtop);
 		element.css('left',curleft);
@@ -1002,20 +1327,59 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 			break;
 		}
 		
-		curleft = curleft + 60;
+		curleft = curleft + 45;
 		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
 		{
-			curtop = curtop + 60;
+			curtop = curtop + 45;
 			curleft = startposX;
 		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
+		selectElement(element);
+	}
+}
+
+
+function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
+{
+	var startposX = 20;
+	var startposY = 45;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop + element.height() < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
 		
-		if (!placed)
+		if (!collisionWithOtherElementWithOutNonDragElements(element))
 		{
-			element.css('top', startposY);
-			element.css('left',startposX);
 			saveElement(element);
 			selectElement(element);
+			placed = true;
+			break;
 		}
+		
+		curleft = curleft + 45;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 45;
+			curleft = startposX;
+		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
+		selectElement(element);
 	}
 }
 
@@ -1158,6 +1522,94 @@ function delPerson()
 	}
 }
 
+function dropPerson(draged,table, place)
+{
+	if (draged  != "")
+	{
+		var elementCaption = table.context.getElementsByTagName("p");
+		var elementImgs = table.context.getElementsByTagName("img");
+		table.fadeTo(300, 0,function(){
+		table.fadeTo(300, 1)});
+		$.post('/canvas/sit/', {table_id: table.context.id, person_id: draged.context.id, place: place},
+		function(data){
+		  if (data.status == 'OK')
+		  {
+			if ($("#" + draged.context.id).index() < 0)
+			{
+				$("#people_list > li").each(function(j) { if ($(this).context.id == draged.context.id){$(this).remove();}});
+			}
+			else
+			{
+				$("#" + draged.context.id).remove();
+			}
+			draged.hide();
+			draged.remove();
+			setSaveStatus("OK");
+			if (data.table_status == 'Red')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
+				}
+				//$("#" + elementImgs[0].id).attr("src", "/static/canvas/images/YellowStatus.png");
+			}
+			else if (data.table_status == 'Green')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
+				}
+				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+			}
+			else if (data.table_status == 'Yellow')
+			{
+				if (elementImgs[0].id.split("-", 1) == "Square") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+				} else if (elementImgs[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
+				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+				}
+				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
+			}
+			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+			
+			elementSize = parseInt(elementSize) + 1;
+			elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
+			if (tableMode)
+			{
+				LoadPerson(table, data.free_position - 1);
+			}
+			updateSeatedLabel();
+			writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
+			rePaintPeopleList();
+		  }else if (data.status == 'FULL')
+		  {
+			draged.fadeTo(200, 1.0);
+			showLightMsg("אלמנט מלא"," אלמנט " + elementCaption[0].innerHTML + " מלא עבור " + draged.text(),"OK","Notice")
+			setSaveStatus("OK");
+		  }else{
+			draged.fadeTo(200, 1.0);
+			setSaveStatus("Error");
+		  }
+		}, 'json');
+		$("#dropLayer").remove();
+	}
+}
+
 $(document).ready(function() {
 
  var sortFloatListByNameAscending = true
@@ -1201,18 +1653,17 @@ $(document).ready(function() {
 	floatListOriginalPosition = $("#float-list").position();
   });
   $(".DragDiv").after(function() {
-     reloadElementStatus($(this)); 
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementImgs = $(this).context.getElementsByTagName("img");
 	 elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
-	 setWidthAndHeight($(this),elementMaxSize,0);
+	 //setWidthAndHeight($(this),elementMaxSize,0);
 	 if (!isThisPeopleTable(elementImgs[0].id))
      {
 		 //elementCaption[1].style.visibility = "hidden";
 		 $(this).find('p').each(function(i){ $(this).remove(); });
 		 $(this).removeClass('DragDiv');
-		 setWidthAndHeight($(this),35,22);
+		 //setWidthAndHeight($(this),35,22);
 		 if (elementImgs[0].id.split("-", 1) == "dance_stand")
 		 {
 			$(this).attr('title',"רחבת ריקודים");
@@ -1228,9 +1679,9 @@ $(document).ready(function() {
 			$(this).attr('title',"עמדת די ג'יי");	
 			$(this).find('.tableProp').remove();
 		 }
-		 $(this).addClass('DragNonDropDiv');
-		 
+		 $(this).addClass('DragNonDropDiv');	 
 	 }
+	reloadElementStatus($(this)); 
   });
   $(".DragDiv").mouseover(function(){
 	if (!tableMode && !detailsMode)
@@ -1324,94 +1775,10 @@ $(document).ready(function() {
 	  var table = $(this);
 	
 	  ui.helper.each(function(i){
-		  var draged = $(this);
-		  if (draged  != "")
-		  {
-			  var elementCaption = table.context.getElementsByTagName("p");
-			  var elementImgs = table.context.getElementsByTagName("img");
-			   table.fadeTo(300, 0,function(){
-			   table.fadeTo(300, 1)});
-			   $.post('/canvas/sit/', {table_id: table.context.id, person_id: draged.context.id},
-				function(data){
-				  if (data.status == 'OK')
-				  {
-					if ($("#" + draged.context.id).index() < 0)
-					{
-						$("#people_list > li").each(function(j) { if ($(this).context.id == draged.context.id){$(this).remove();}});
-					}
-					else
-					{
-						$("#" + draged.context.id).remove();
-					}
-					draged.hide();
-					draged.remove();
-					setSaveStatus("OK");
-					if (data.table_status == 'Red')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
-						}
-						//$("#" + elementImgs[0].id).attr("src", "/static/canvas/images/YellowStatus.png");
-					}
-					else if (data.table_status == 'Green')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
-						}
-						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-					}
-					else if (data.table_status == 'Yellow')
-					{
-						if (elementImgs[0].id.split("-", 1) == "Square") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
-						} else if (elementImgs[0].id.split("-", 1) == "Round") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
-						}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-						  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
-						}
-						//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-					}
-					var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-					var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-					
-					elementSize = parseInt(elementSize) + 1;
-					elementCaption[1].innerHTML = elementSize + "/" + elementMaxSize;
-					if (tableMode)
-					{
-						LoadPerson(table, data.free_position - 1);
-					}
-					updateSeatedLabel();
-					writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
-					rePaintPeopleList();
-				  }else if (data.status == 'FULL')
-				  {
-					draged.fadeTo(200, 1.0);
-					showLightMsg("אלמנט מלא"," אלמנט " + elementCaption[0].innerHTML + " מלא עבור " + draged.text(),"OK","Notice")
-					setSaveStatus("OK");
-				  }else{
-					draged.fadeTo(200, 1.0);
-					setSaveStatus("Error");
-				  }
-				}, 'json');
-				$("#dropLayer").remove();
-		  }
+			dropPerson($(this), table, "");  
+		  });
+		}
 	  });
-     }
-	});
 	
   $("#people_list > li").dblclick( function(event){
 		personFloatListDBClick(event, $(this));
@@ -1433,14 +1800,14 @@ $(document).ready(function() {
   $(document).keypress(function(e) {
    var code = (e.keyCode ? e.keyCode : e.which);
    if(code == 46) { //Del keycode
-   	  	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-		{
-			delTableButtonPress();
-		}
-		else
-		{
-			$(".DelDiv").click();
-		}
+   	  	//if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		//{
+		//	delTableButtonPress();
+		//}
+		//else
+		//{
+		//	$(".DelDiv").click();
+		//}
    }
   });
   
@@ -1621,6 +1988,37 @@ $(document).ready(function() {
 	}*/
   });
   
+  $(".SpinDiv").click(function(){ 
+	if (SelectedElem != "")
+	{
+		if (canFlip(SelectedElem))
+		{
+			 $.post('/canvas/changeElementOrientation/', {elem_num:SelectedElem.context.id},
+				   function(data){
+				   if (data.status == 'OK')
+				   {
+						setSaveStatus("OK");
+						reloadElementStatus(SelectedElem);
+						changeOrientation(SelectedElem);
+				   }
+				   else
+				   {
+						setSaveStatus("Error");
+				   }
+				   }, 'json');
+		}
+		else
+		{	
+			var elementImgs = SelectedElem.context.getElementsByTagName("img");
+
+			if (elementImgs[0].id.split("-", 1) == "Rect" || elementImgs[0].id.split("-", 1) == "Lozenge" || !(isThisPeopleTable(elementImgs[0].id)))
+			{
+				showLightMsg("סיבוב אלמנט","לא ניתן לסובב אלמנט, יש לרווח את שטח הקרוב לאלמנט.","OK","Notice");
+			}
+		}
+	}
+  });
+ 
   $(document).mouseup(function(e) {
    if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&&!($(e.target).hasClass('Property'))){
       if (SelectedElem != "" && !tableMode && !detailsMode) {

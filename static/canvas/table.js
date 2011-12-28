@@ -62,15 +62,13 @@ function turnToRegularMode(element,event)
 	disableDBClick = false;
 	tableMode = false;
 	selectElement(element);
-	adjustCaption(element);
 	$("#floatListGate").animate({height:0},300, 'linear',function(){	$("#floatListGate").remove();});
 	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;
 	elementCaption[1].style.fontSize= originalFontSize;
 	
-	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 3 * originalFontSize},300, 'linear');
-		
+	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 2.5 * originalFontSize},300, 'linear',function(){adjustCaption(element);});
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
 		//$("#tableElement"+ parseInt(i + 1)).border('0px white 0');

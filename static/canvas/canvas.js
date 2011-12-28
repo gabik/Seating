@@ -5,14 +5,37 @@ function menuItemClick(element)
 	var kind = element.context.id;
 	
 	kind = kind.replace(/\&/g,"_")
-
-    $.post('/canvas/add/', {kind: kind ,amount: 1},
+	var width = 90 + (8 - maxElementCapacity) * 2;
+	var height = 90 + (8 - maxElementCapacity) * 2;
+	var addWidth = 0;
+	var addHeight = 0;
+			
+	if (kind.indexOf("Rect") > -1)
+	{
+		addHeight = 16;
+	}
+	else if (kind == "dance_stand")
+	{
+		addWidth = 210;
+		addHeight = 50;
+	}
+	else if (kind ==  "bar_stand") 
+	{
+		addWidth = 155;
+		addHeight = 50;
+	}
+	else if (kind ==  "dj_stand") 
+	{
+		addWidth = 25;
+		addHeight = 25;
+	}
+	
+    $.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
       function(data){
         if (data.status == 'OK')
         {
             //undoElement[0] = SelectedElem;
-            //undoElement[1] = "delete"; 
-			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
+            //undoElement[1] = "delete";			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
 			ShowHourGlassWaitingWindow(true);
         }
       }, 'json');
@@ -64,7 +87,13 @@ $(document).ready(function() {
 		{
 			if (SelectedElem != "")
 			{
-				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ SelectedElem.find('p').first().attr('title')	+ " ? ", "YESNO", "Question");
+				var name = SelectedElem.find('p').first().attr('title');
+				
+				if (name == undefined)
+				{
+					name = SelectedElem.attr('title');
+				}
+				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
 				currentMsgTimer = setTimeout("delDivPress()",500);
 			}
 			else
