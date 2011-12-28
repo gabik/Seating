@@ -2,3 +2,4 @@
 /localdb
 *.swp
 static/excel_output
+apache/django.wsgi
