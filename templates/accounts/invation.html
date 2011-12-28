@@ -1,0 +1,72 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
+
+<title>Invation Status</title>
+</head>
+
+<link rel="stylesheet" type="text/css" href="/static/page/page.css" />
+<script type="text/javascript">
+$(document).ready(function() {
+	$("#saveChanges").mouseout(function(){
+		$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
+	});
+	$("#saveChanges").mouseover(function(){
+		$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
+	});
+	
+	$("#saveChanges").click(function(){
+		$.post('/accounts/changePersonInvation/', {},
+		function(data){
+	    if (data.status == 'OK')
+	    {
+			setSaveStatus("OK");
+		}
+		else
+		{
+			setSaveStatus("Error");
+		}
+		}, 'json');
+	});
+});
+</script>
+
+<body id="pagebody">
+
+<div id="content">
+  <table width="765" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
+      <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" height="12" valign="top"><img src="/static/page/images/logo_t.png" width="195" height="20" border="0" /></td>
+    </tr>
+	 <tr>
+      <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
+	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"><img id="saveChanges" src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" style="cursor:pointer;" width="110" height="38"/></td>
+      <td align="right" dir= "rtl" valign="top" bgcolor="#FFFFFF">
+	    <p class="titles_blue">אישור הגעה {{first_name}} {{last_name}}</p>
+		<p class="text_14_black_bold">שלום רב,</p>
+		<p class="text_14_black">שם המשתמש\ים מתכבדים להזמין אותך לאירוע המתקיים במקום בתאריך,</p>
+		<p class="text_14_black">נודה לך אם ינתנו מזמנך מספר רגעים למלא את הפרטים הבאים.</p>
+		<p class="text_14_black_bold">בתודה 2Seat אתר סידורי הישיבה של ישראל.</p>
+		</br>
+		<p class="text_14_black">סטטוס הגעה:&nbsp;<span><select size="1" id="personMeal"><option value="A">מגיע<option value="N">לא מגיע<option value="T">אולי</select></span></span></p>
+		<p class="text_14_black">סוג מנה:&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select size="1" id="personMeal"><option value="M">בשרית<option value="G">גלאט<option value="V">צמחונית</select></span></span></p>
+	  </td>
+	  <td width="22" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
+    </tr>
+    <tr>
+      <td width="12" valign="top"><img src="/static/page/images/bl.png" width="12" height="20" /></td>
+      <td colspan="3" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top"><img src="/static/page/images/bt_r.png" width="195" height="20" /></td>
+    </tr>
+  </table>
+  <img id="newPageShadow" src="/static/canvas/images/new_shadow.png" width="765" height="26" />
+</div>
+</body>
+</html>
+

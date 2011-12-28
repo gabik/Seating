@@ -11,7 +11,7 @@ admin.autodiscover()
 urlpatterns = patterns('',
 	(r'^accounts/', include('accounts.urls')),
 	(r'^canvas/', include('canvas.urls')),
-        (r'^admin/', include(admin.site.urls)),
+    (r'^admin/', include(admin.site.urls)),
 	(r'^static/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT}),
 	(r'^media/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.ADMIN_MEDIA_ROOT}),
 	(r'^site/(?P<path>.*)$', 'django.views.static.serve', {'document_root': settings.MEDIA_ROOT + '/site'}),

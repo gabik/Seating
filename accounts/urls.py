@@ -14,4 +14,6 @@ urlpatterns = patterns('accounts.views',
 	(r'^map/$', 'download_map'),
 	(r'^registered/$', 'registered'),
 	(r'^do_duplicates/$', 'do_duplicates'),
+	(r'^invation/(?P<first>\w+)-(?P<last>\w+)/$', 'invation'),
+	(r'^changePersonInvation/$', 'change_person_invation'),
 )
