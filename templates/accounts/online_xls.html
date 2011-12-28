@@ -9,14 +9,20 @@
 <div id="mygrid_container" style="width:900px;height:550px;" ></div>
 <script>
 var mygrid;
+var newId;
+newId={{ rows }};
 function addRow(){
-    var newId = (new Date()).valueOf()
-    mygrid.addRow(newId,"gabi,70,300",mygrid.getRowsNum())
+    //var newId = (new Date()).valueOf()
+    mygrid.addRow(newId,",,,,,,,Other,",mygrid.getRowsNum());
+    newId++;
     mygrid.selectRow(mygrid.getRowIndex(newId),false,false,true);
 }
 function removeRow(){
     var selId = mygrid.getSelectedId()
-    mygrid.deleteRow(selId);
+    if ( selId >= {{ rows }})
+	{
+    	mygrid.deleteRow(selId);
+	}
 }
 function lock(){
 	for (var i=1; i<{{ rows }}; i++)
@@ -27,19 +33,51 @@ function lock(){
 	}
 }
 function doOnRowSelected(rowID,celInd){
-	mygrid.setRowTextBold(rowID);
-//	alert(rowID);
+	lock()
+	//mygrid.setRowTextBold(rowID);
+	//alert(rowID);
 }
 function save() {
 	//mygrid.csv.cell="||";
 	//var csvNew = mygrid.serializeToCSV();
 	//mygrid.parse(csvNew,"csv"); 
 	//mygrid.setCSVDelimiter("||");
+	var inputs = document.getElementsByTagName("button");
+	for (var i = 0; i < inputs.length; i++) {
+        	inputs[i].disabled = true;
+	}
 	mygrid.setSerializationLevel(true, true);
 	var csvNew = mygrid.serialize();
-	document.write(csvNew);//.replace(/></g, ">\n<");
+	//document.write(csvNew);//.replace(/></g, ">\n<");
 	//myDataProcessor.sendData();
+	var myForm = document.createElement("form");
+	myForm.method="post" ;
+	myForm.action = "/accounts/online_save/" ;
+	var start_row = document.createElement("input") ;
+	start_row.setAttribute("name", "start_row") ;
+	start_row.setAttribute("value", {{ rows }});
+	myForm.appendChild(start_row) ;
+	var myInput = document.createElement("input") ;
+	myInput.setAttribute("name", "xml") ;
+	myInput.setAttribute("value", csvNew);
+	myForm.appendChild(myInput) ;
+	var myToken = document.createElement("input") ;
+	myToken.setAttribute("name", "csrfmiddlewaretoken") ;
+	myToken.setAttribute("value", "{{ csrf_token }}");
+	myForm.appendChild(myToken) ;
+	document.body.appendChild(myForm) ;
+	myForm.submit() ;
+	document.body.removeChild(myForm) ;
 }
+
+function is_int(value){ 
+  if((parseFloat(value) == parseInt(value)) && !isNaN(value)){
+      return true;
+  } else { 
+      return false;
+  } 
+}
+
 
 function doInitGrid(){
 mygrid = new dhtmlXGridObject('mygrid_container');
@@ -50,14 +88,42 @@ mygrid.setColAlign("right,right,right,right,right,right,right,right,right");
 mygrid.setSkin("light");
 mygrid.init();
 mygrid.load("{{ filename }}","csv");
-//mygrid.setColSorting("str,int,na");
-//mygrid.setColTypes("en,coro,price");
-//mygrid.attachEvent("onRowSelect",doOnRowSelected);
+mygrid.setColTypes("ed,ed,coro,ed,ed,ed,ed,coro,ed");
+var p1name= " {{ partner1 }}";
+var p2name= " {{ partner2 }}";
+var p2back= " {{ partner2 }}";
+if (p2name == " ") 
+{
+	p2name=" כללי";
+	p2back = "";
+}
+var group_combo = mygrid.getCombo(7);
+group_combo.put("Family"+p1name, "משפחה"+p1name);
+group_combo.put("Friends"+p1name, "חברים"+p1name);
+group_combo.put("Work"+p1name, "עבודה"+p1name);
+group_combo.put("Family"+p2back, "משפחה"+p2name);
+group_combo.put("Friends"+p2back, "חברים"+p2name);
+group_combo.put("Work"+p2back, "עבודה"+p2name);
+group_combo.put("Other", "אחר");
+group_combo.save();
+var gender_combo = mygrid.getCombo(2);
+gender_combo.put("U","אחר");
+gender_combo.put("M","זכר");
+gender_combo.put("F","נקבה");
+gender_combo.save();
+mygrid.attachEvent("onRowSelect",doOnRowSelected);
+mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
+     if (stage == 2 && index == 3 && !is_int(new_value)) {
+          return false; 
+     } else {
+          return true;
+     } });
 //mygrid.attachEvent("onRowAdded", lock());
 //myDataProcessor = new dataProcessor("/static/gabi.html");
 //myDataProcessor.setTransactionMode("POST", true);
 //myDataProcessor.setUpdateMode("off");
 //myDataProcessor.init(mygrid);
+setTimeout('lock()',1500);
 setTimeout('lock()',2500);
 }
 </script>
