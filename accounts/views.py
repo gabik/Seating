@@ -504,16 +504,18 @@ def download_map(request):
         return render_to_response('accounts/xls.html', c)
 
 def invation(request, first, last):
-	first_name = str(first)
-	last_name = str(last)
-	#persons = Guest.objects.filter(user=request.user,guest_first_name=first_name, guest_last_name=last_name)
-	#if (len(persons) > 0):
-	persomdata = {}
-	persomdata['first_name'] = first_name
-	persomdata['last_name'] = last_name
-	return render_to_response('accounts/invation.html', persomdata)
-	#else:
-	#return HttpResponse('Guest not exist')
+	if request.method == 'POST':
+		return render_to_response('accounts/invation_updated.html')
+	else:
+		first_name = str(first)
+		last_name = str(last)
+		#persons = Guest.objects.filter(user=request.user,guest_first_name=first_name, guest_last_name=last_name)
+		#if (len(persons) > 0):
+		persomdata = {}
+		persomdata['first_name'] = first_name
+		persomdata['last_name'] = last_name
+		#need to send user data also(user first name,user last name ,date, place)
+		return render_to_response('accounts/invation.html', persomdata)
+		#else:
+		#return HttpResponse('Guest not exist')
 
-def change_person_invation(request):
-	print "Save Invation Changes"

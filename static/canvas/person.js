@@ -1048,6 +1048,7 @@ function savePersonOperation(data, firstName, lastName)
 		floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
 		floatPerson.removeClass('femaleli');
 		floatPerson.removeClass('maleli');
+		refactorElementPerson(floatPerson);
 		if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "M")
 	   {
 			floatPerson.addClass('maleli');

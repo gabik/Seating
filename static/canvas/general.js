@@ -119,7 +119,7 @@ function refactoringListName()
 
 function refactorElementPerson(element)
 {
-	var full_name = element.context.id;
+	var full_name = element.attr('id');
 	var deltaToRemove = 5;
 	
 	if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
@@ -129,7 +129,7 @@ function refactorElementPerson(element)
 	
 	full_name = full_name.replace(/\_/g," ")
 	
-	if (full_name.length * 11 > $("#people_list").width() - 15)
+	if (full_name.length * 11 > $("#people_list").width() - 15 || full_name.length > 10)
 	{
 		var newString = "";
 		var stop = false;
@@ -1025,19 +1025,26 @@ function cleanStringFromUnIDChars(str)
 
 function addPersonToFloatList(first_name,last_name, personGroup)
 {
-	var gender = 'F';
-	if (maleAdd)
+	if (first_name.trim() == "" || last_name.trim() == "")
 	{
-		gender = 'M';
+		showLightMsg("הוספת אורח","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
 	}
-    $.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
-      function(data){
-        if (data.status == 'OK')
-        {
-			  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-			  ShowHourGlassWaitingWindow(true);
-        }
-      }, 'json');
+	else
+	{
+		var gender = 'F';
+		if (maleAdd)
+		{
+			gender = 'M';
+		}
+		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
+		  function(data){
+			if (data.status == 'OK')
+			{
+				  writeOccasionInfo("Added Person " +first_name+" "+last_name);
+				  ShowHourGlassWaitingWindow(true);
+			}
+		  }, 'json');
+	}
 }
 
 function openAddInterface()

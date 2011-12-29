@@ -17,20 +17,6 @@ $(document).ready(function() {
 	$("#saveChanges").mouseover(function(){
 		$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
 	});
-	
-	$("#saveChanges").click(function(){
-		$.post('/accounts/changePersonInvation/', {},
-		function(data){
-	    if (data.status == 'OK')
-	    {
-			setSaveStatus("OK");
-		}
-		else
-		{
-			setSaveStatus("Error");
-		}
-		}, 'json');
-	});
 });
 </script>
 
@@ -45,16 +31,21 @@ $(document).ready(function() {
     </tr>
 	 <tr>
       <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
-	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"><img id="saveChanges" src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" style="cursor:pointer;" width="110" height="38"/></td>
+	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"></td>
       <td align="right" dir= "rtl" valign="top" bgcolor="#FFFFFF">
+	  	<form action="." method="post">
 	    <p class="titles_blue">אישור הגעה {{first_name}} {{last_name}}</p>
 		<p class="text_14_black_bold">שלום רב,</p>
 		<p class="text_14_black">שם המשתמש\ים מתכבדים להזמין אותך לאירוע המתקיים במקום בתאריך,</p>
 		<p class="text_14_black">נודה לך אם ינתנו מזמנך מספר רגעים למלא את הפרטים הבאים.</p>
 		<p class="text_14_black_bold">בתודה 2Seat אתר סידורי הישיבה של ישראל.</p>
 		</br>
-		<p class="text_14_black">סטטוס הגעה:&nbsp;<span><select size="1" id="personMeal"><option value="A">מגיע<option value="N">לא מגיע<option value="T">אולי</select></span></span></p>
+		<p class="text_14_black">סטטוס הגעה:&nbsp;<span><select size="1" id="personInvationStatus"><option value="A">מגיע<option value="N">לא מגיע<option value="T">אולי</select></span></span></p>
 		<p class="text_14_black">סוג מנה:&nbsp;<span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<select size="1" id="personMeal"><option value="M">בשרית<option value="G">גלאט<option value="V">צמחונית</select></span></span></p>
+		<input align="left" type="image" id="saveChanges" src="/static/right_interface/images/save_changes_n.png" value="Submit" style="border: 0; float:left;"/>
+		<input type="hidden" name="next" value="/accounts/invation" />
+		{% csrf_token %}
+		</form>
 	  </td>
 	  <td width="22" bgcolor="#FFFFFF">&nbsp;</td>
       <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>

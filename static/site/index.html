@@ -46,7 +46,8 @@ a:active {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
-<!--
+<!-- 
+
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
@@ -69,13 +70,33 @@ function MM_swapImage() { //v3.0
   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
+
+var imgArray = ["home/img_01.jpg","home/img_02.jpg","home/img_03.jpg","home/img_04.jpg","home/img_05.jpg","home/img_06.jpg","home/img_07.jpg","home/img_08.jpg"];
+var curIndex = 0;
+var maxIndex = 8;
+
+function swapImgMobile()
+{
+	$("#frontFrameImg").fadeTo(1500, 0, function() {
+		curIndex = curIndex + 1;
+		$("#frontFrameImg").attr('src',imgArray[curIndex]);
+		$("#frontFrameImg").fadeTo(0, 1);
+		if (curIndex > maxIndex - 1)
+		{
+			curIndex =  - 1;
+		}
+		$("#backFrameImg").attr('src',imgArray[curIndex + 1]);
+		setTimeout("swapImgMobile()",1500);
+	});
+}
 //-->
 
 $(document).before(function()
 {
-	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0)
+	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0 || navigator.userAgent.toLowerCase().indexOf('mobile') > 0)
 	{
-		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><a href="/canvas/edit"><img src="images/mobile_img.png" width="980" height="430" align="center" /></a><div>');
+		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
+		setTimeout("swapImgMobile()",500);
 	}
 });
 </script>
