@@ -613,3 +613,20 @@ def contact_view(request):
 	elif request.method == 'POST':
 		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
 		return HttpResponseRedirect('/site/sent.html')
+
+def invation(request, first, last):
+	if request.method == 'POST':
+		return render_to_response('accounts/invation_updated.html')
+	else:
+		first_name = str(first)
+		last_name = str(last)
+		#persons = Guest.objects.filter(user=request.user,guest_first_name=first_name, guest_last_name=last_name)
+		#if (len(persons) > 0):
+		persomdata = {}
+		persomdata['first_name'] = first_name
+		persomdata['last_name'] = last_name
+		#need to send user data also(user first name,user last name ,date, place)
+		return render_to_response('accounts/invation.html', persomdata)
+		#else:
+		#return HttpResponse('Guest not exist')
+

@@ -78,13 +78,21 @@
   top:453;
   left:-2;
  }
+ #occasionDetailsAdvanceR
+   {
+  position:absolute;
+  padding: 4px;
+  width:135;
+  top:453;
+  left:-209;
+ }
   #AddPersonList
  {
   position:absolute;
   padding: 4px;
   width:127;
   top:-22px;
-  left:-124;
+  left:-127;
   height:175px;
   z-index:9999;
  }
@@ -123,4 +131,14 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+ }
+ 
+  
+ #setting
+ {
+	cursor:pointer;
+	float:left; 
+	position:relative;
+	margin-top:-25;
+	margin-left:-30;
  }

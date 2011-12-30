@@ -14,6 +14,7 @@ var propMenuOpen = false;
 var fromPropMeneBtn = false;
 var currentMsgTimer = "";
 var floatListOriginalPosition = "";
+var occDetailsOpen = false;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -118,7 +119,7 @@ function refactoringListName()
 
 function refactorElementPerson(element)
 {
-	var full_name = element.context.id;
+	var full_name = element.attr('id');
 	var deltaToRemove = 5;
 	
 	if (navigator.userAgent.toLowerCase().indexOf('chrome') > 0)
@@ -128,7 +129,7 @@ function refactorElementPerson(element)
 	
 	full_name = full_name.replace(/\_/g," ")
 	
-	if (full_name.length * 11 > $("#people_list").width() - 15)
+	if (full_name.length * 11 > $("#people_list").width() - 15 || full_name.length > 10)
 	{
 		var newString = "";
 		var stop = false;
@@ -1024,19 +1025,26 @@ function cleanStringFromUnIDChars(str)
 
 function addPersonToFloatList(first_name,last_name, personGroup)
 {
-	var gender = 'F';
-	if (maleAdd)
+	if (first_name.trim() == "" || last_name.trim() == "")
 	{
-		gender = 'M';
+		showLightMsg("הוספת אורח","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
 	}
-    $.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
-      function(data){
-        if (data.status == 'OK')
-        {
-			  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-			  ShowHourGlassWaitingWindow(true);
-        }
-      }, 'json');
+	else
+	{
+		var gender = 'F';
+		if (maleAdd)
+		{
+			gender = 'M';
+		}
+		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
+		  function(data){
+			if (data.status == 'OK')
+			{
+				  writeOccasionInfo("Added Person " +first_name+" "+last_name);
+				  ShowHourGlassWaitingWindow(true);
+			}
+		  }, 'json');
+	}
 }
 
 function openAddInterface()
@@ -1611,7 +1619,6 @@ function dropPerson(draged,table, place)
 }
 
 $(document).ready(function() {
-
  var sortFloatListByNameAscending = true
  var sortFloatListByGroupAscending = true
  var imgs,i;
@@ -2085,7 +2092,49 @@ $(document).ready(function() {
 			}
 		}
 	});
-
+	
+	$("#occassionDetailsAdvanceBtn").mouseout(function(){
+		if (!occDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_left_n.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_right_n.png");
+	});
+	$("#occassionDetailsAdvanceBtn").mouseover(function(){
+		if (!occDetailsOpen)
+			$(this).attr('src',"/static/page/images/expander_left_r.png");
+		else
+			$(this).attr('src',"/static/page/images/expander_right_r.png");
+	});
+	$("#occassionDetailsAdvanceBtn").click(function(){
+		occDetailsOpen = !occDetailsOpen;
+		if (!occDetailsOpen)
+		{
+			$(this).attr('src',"/static/page/images/expander_left_r.png");
+			$("#occasionDetailsAdvanceR").hide("slide", { direction: "right" }, 150);
+		}
+		else
+		{
+			$.post('/canvas/getOccasionMealAndInvDetails/', {},
+				   function(data){
+				   if (data.status == 'OK')
+				   {
+						setSaveStatus("OK");
+						$("#inv_accept_amount").text(data.GuestsInvAccept);
+						$("#inv_tentative_amount").text(data.GuestsTentativeInv);
+						$("#inv_noaccept_amount").text(data.GuestsInvNotAccept);
+						$("#meat_amount").text(data.GuestsMeatMeal);
+						$("#veg_amount").text(data.GuestsVegMeal);
+						$("#glat_amount").text(data.GuestsGlatMeal);
+					}
+				   else
+				   {
+						setSaveStatus("Error");
+				   }
+				   }, 'json');
+			$(this).attr('src',"/static/page/images/expander_right_r.png");
+			$("#occasionDetailsAdvanceR").show("slide", { direction: "right" }, 150);
+		}
+	});
  });
   
 $(document).ajaxSend(function(event, xhr, settings) {

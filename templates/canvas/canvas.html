@@ -38,6 +38,7 @@
 <script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
+<script type="text/javascript" src="/static/canvas/excelOnLineWindow.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -55,6 +56,8 @@
  <!--<![endif]-->
 
 <script type="text/javascript">
+	 var partnersPhoneNumbers  = "";
+	 
 	 $(document).before(function()
 	 {
 	  var firstInit = false;
@@ -125,6 +128,9 @@
 	
 	$(document).ready(function() {
 	 
+		partnersPhoneNumbers = "{{ phone_num }}";
+		
+		$("#occasionDetailsAdvanceR").hide();
 		$(".tableProp").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
 		});
@@ -231,6 +237,36 @@
 		$("#MaxGuestSaveButton").mouseover(function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
 		});		
+		$("#setting").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/setting_n.png");
+		});
+		$("#setting").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/setting_r.png");
+		});
+		$("#delperson").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/delete_guest.png");
+		});
+		$("#delperson").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/delete_guest_r.png");
+		});	
+		$("#AddMaleGuestDivID").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/add_ma.png");
+		});
+		$("#AddMaleGuestDivID").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/add_ma_r.png");
+		});	
+		$("#AddFemaleGuestDivID").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/add_fe.png");
+		});
+		$("#AddFemaleGuestDivID").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/add_fe_r.png");
+		});
+		$("#excelOnLineBtn").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/excel_online_n.png");
+		});
+		$("#excelOnLineBtn").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/excel_online_r.png");
+		});			
 		$("#floatListPin").mouseout(function(){
 			if 	($(this).attr('alt') == "P")
 			{
@@ -241,6 +277,7 @@
 				$(this).attr('src',"/static/canvas/icons/pin_off_n.png");
 			}
 		});
+		$("marquee").hover(function () {      this.stop(); }, function () {     this.start(); });
 		$("#floatListPin").mouseover(function(){
 			if 	($(this).attr('alt') == "P")
 			{
@@ -254,7 +291,6 @@
 			
 		$("#float-list").draggable( 'disable' );
 		$("#float-list").fadeTo(0, 1);
-
 	});
 
 </script>
@@ -280,14 +316,13 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee id="occasionMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <![endif]-->
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
 					  <!--<![endif]-->
-							<p class="titles_black" dir="rtl" style="cursor:pointer;" id="occasionMarquee"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span id="OccasionPlace" class="titles_black" dir="rtl"> ב{{place}}</span></p></marquee>
-							<div id="phone_number">{{ phone_num }}</div>
+							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span> ב-</span><span id="OccasionPlace" class="titles_black" dir="rtl"> {{place}}</span><span title="הגדרות אירוע"><img alt="הגדרות אירוע" id="setting" src="/static/canvas/images/setting_n.png" width="24" height="24" align="top"/></span></p></marquee></span></img>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>
@@ -358,19 +393,20 @@
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
 						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
 						  /></div></td>
-						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3" title="מחק אורח/ת" ><img src="/static/right_interface/images/delete_guest.png" class="DelPersonDiv" alt="מחק אורח/ת" width="29" height="25" /></td>
+						  <td width="5" bgcolor="#5A8EA3" title="מחק אורח/ת" ><img src="/static/right_interface/images/delete_guest.png" id="delperson" class="DelPersonDiv" alt="מחק אורח/ת" width="29" height="25" /></td>
 						  <td width="5" bgcolor="#5A8EA3" title="הוסף אורח"><img src="/static/right_interface/images/add_ma.png" alt="הוסף אורח" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
-						  <td width="5" bgcolor="#5A8EA3" id="AddFemaleGuestDivID" class="pointer" title="הוסף אורחת"><img src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="הוסף אורחת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="אקסל און ליין"><img  id="excelOnLineBtn"  src="/static/right_interface/images/excel_online_n.png" alt="אקסל און ליין" width="29" height="25" vspace="10" /></td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td colspan="3" valign="top">
+						  <td colspan="4" valign="top">
 							<div id="people-list">
 								<ul id="people_list">
 									{% for guest in guests %}
@@ -389,7 +425,7 @@
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td height="30" colspan="3" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
+						  <td height="30" colspan="4" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
 							<select name="filterList" id="filterListRI" dir="rtl">
 							  <option value="Name">שם מלא</option>
 							  <option value="Group">קבוצה</option>
@@ -399,7 +435,7 @@
 						</tr>
 						<tr>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td colspan="3" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
+						  <td colspan="4" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
 						</tr>
 					  </table>
@@ -583,7 +619,9 @@
 				 <table width="115" border="0" cellspacing="0" cellpadding="0">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="occassionDetailsAdvance" title="פרטים נוספים"><img id="occassionDetailsAdvanceBtn" src="/static/page/images/expander_left_n.png" width="16" height="16" align="left" alt="פרטים נוספים" style="cursor:pointer;"
+						  /></div></td>
+						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr height="5" bgcolor="#5A8EA3">
@@ -625,6 +663,61 @@
 						<tr>
 							<td height="22" width="125" colspan="5"><img src="/static/right_interface/images/small_shadow.png" width="125" height="22" /></td>
 						<tr>
+					</table>
+				</div>
+				<div id="occasionDetailsAdvanceR" class="Properties-bar">
+				 <table width="95" border="0" cellspacing="0" cellpadding="0">
+						<tr>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטים נוספים</span></td>
+						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						</tr>
+						<tr height="5" bgcolor="#5A8EA3">
+							<td colspan="5" bgcolor="#5A8EA3"></td>
+						</tr>
+						<tr bgcolor="white">
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td bgcolor="white" align="right" valign="top">
+							<table id="inv_meal_status_list" width="95" border="0" cellspacing="0" cellpadding="0">
+								<tr>
+								<td>
+								<table width="95" border="0" cellspacing="0" cellpadding="0">
+									<tr><td align="right" colspan="2" bgcolor="white"><p class="text_14_black_bolt" bgcolor="white" style="text-align:right;"dir="rtl">סטטוס הגעה:</td></tr>
+									<tr><td align="right" bgcolor="white"><p class="text_11_black" id="inv_accept_amount"/></td><td align="center" bgcolor="white"><img src="/static/canvas/images/person/accept_status_n.png" width="16" height="16" align="right">&nbsp;&nbsp;&nbsp;<span class="text_11_black" dir="rtl" style="text-align:right;">מגיעים
+									</span></img></td></tr>
+									<tr><td align="right" bgcolor="white"><p class="text_11_black" id="inv_tentative_amount"/></td><td align="center" bgcolor="white"><img src="/static/canvas/images/person/tentative_status_n.png" align="right" width="16" height="16" align="right">&nbsp;&nbsp;&nbsp;<span class="text_11_black" dir="rtl" style="text-align:right;">מתנדנדים
+									</span></img></td></tr>
+									<tr><td align="right" bgcolor="white"><p class="text_11_black" id="inv_noaccept_amount"/></td>
+									<td align="center" bgcolor="white"><img src="/static/canvas/images/person/noaccept_status_n.png" width="16" height="16" align="right">&nbsp;&nbsp;&nbsp;<span class="text_11_black" dir="rtl" style="text-align:right;">לא מגיעים
+									</span></img></td><td width="5" bgcolor="white" >&nbsp;</td></tr>
+								</table>
+								</td>
+								<td width="5" bgcolor="#5A8EA3">&nbsp;</td>	
+								<td>
+								<table width="95" border="0" cellspacing="0" cellpadding="0">
+									<tr><td align="right" colspan="2" bgcolor="white"><p class="text_14_black_bolt" style="text-align:right;" dir="rtl">סטטוס מנות:</p></td></tr>
+									<tr><td align="right" valign="top" bgcolor="white"><span id ="meat_amount" class="text_11_black"/></td>
+									<td align="right" valign="top" bgcolor="white"><p class="text_11_black" dir="rtl" style="text-align:right;">&nbsp;&nbsp;בשריות:&nbsp;&nbsp;</p></td></tr>
+									<tr><td align="right" valign="top" bgcolor="white"><span id ="veg_amount" class="text_11_black"/></td>
+									<td align="right" valign="top"  bgcolor="white"><p class="text_11_black" dir="rtl" style="text-align:right;">&nbsp;&nbsp;צמחונית:&nbsp;&nbsp;</p></td>
+									<tr>
+									<td align="right" valign="top" bgcolor="white"><span id ="glat_amount" class="text_11_black"/></td>
+									<td align="right" valign="top" bgcolor="white"><p class="text_11_black" dir="rtl" style="text-align:right;">&nbsp;&nbsp;גלאט:&nbsp;&nbsp;</p></td>
+									</tr>
+								</table>
+								</td>
+								</tr>
+							</table>
+						  </td>
+						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						</tr>													
+						<tr>
+						  <td width="5" height="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
+						  <td bgcolor="#5A8EA3" valign="bottom" colspan="3"></td>
+						  <td width="5" height="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
+						</tr>
 					</table>
 				</div>
 			</div>					

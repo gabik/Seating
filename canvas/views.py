@@ -646,3 +646,29 @@ def change_element_orientation(request):
 	return HttpResponse(json_dump)
 
 
+@login_required
+def change_user_profile(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		profile = get_object_or_404(UserProfile, user = request.user)
+		if profile is not None:
+			print profile
+			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
+			profile.occasion_place = ugettext(request.POST['place'])
+			profile.phone_number = ugettext(request.POST['phone'])
+			profile.save()
+			json_dump = json.dumps({'status': "OK"})				
+	return HttpResponse(json_dump)
+	
+@login_required
+def get_occasion_meal_and_inv_details(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		GuestsInvAccept = Guest.objects.filter(user=request.user , invation_status = 'A')
+		GuestsNotInvAccept = Guest.objects.filter(user=request.user , invation_status = 'N')
+		GuestsTentativeInv = Guest.objects.filter(user=request.user , invation_status = 'T')
+		GuestsMeatMeal = Guest.objects.filter(user=request.user , meal = 'M')
+		GuestsVegMeal = Guest.objects.filter(user=request.user , meal= 'V')
+		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
+		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
+	return HttpResponse(json_dump)
