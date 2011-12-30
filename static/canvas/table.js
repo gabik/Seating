@@ -162,7 +162,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	elementCaption[0].style.fontSize= tableModeFontSize;
 	elementCaption[1].style.fontSize= tableModeFontSize;
 
-	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear');
+	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer"); });
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{

@@ -51,8 +51,6 @@ $(document).ready(function() {
 	$("#OPFrame").css('height',mainFrameHeightOP);
 	createWindow();
 	$("#OPFrame").draggable( 'disable' );
-	$("#OFtabs").tabs();
-	sendNotifyChange();
 	$("#OcassionPropCloseBtn").bind('click', function() {
 		$("#OccasionpPropRectangle").remove();
 		$("#OPFrame").remove();

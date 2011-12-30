@@ -30,6 +30,7 @@
 <script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
+<script type="text/javascript" src="/static/canvas/excelOnLineWindow.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -233,7 +234,31 @@
 		});
 		$("#setting").mouseover(function(){
 			$(this).attr('src',"/static/canvas/images/setting_r.png");
-		});		
+		});
+		$("#delperson").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/delete_guest.png");
+		});
+		$("#delperson").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/delete_guest_r.png");
+		});	
+		$("#AddMaleGuestDivID").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/add_ma.png");
+		});
+		$("#AddMaleGuestDivID").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/add_ma_r.png");
+		});	
+		$("#AddFemaleGuestDivID").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/add_fe.png");
+		});
+		$("#AddFemaleGuestDivID").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/add_fe_r.png");
+		});
+		$("#excelOnLineBtn").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/excel_online_n.png");
+		});
+		$("#excelOnLineBtn").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/excel_online_r.png");
+		});			
 		$("#floatListPin").mouseout(function(){
 			if 	($(this).attr('alt') == "P")
 			{
@@ -360,19 +385,20 @@
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
 						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
 						  /></div></td>
-						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
+						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3" title="מחק אורח/ת" ><img src="/static/right_interface/images/delete_guest.png" class="DelPersonDiv" alt="מחק אורח/ת" width="29" height="25" /></td>
+						  <td width="5" bgcolor="#5A8EA3" title="מחק אורח/ת" ><img src="/static/right_interface/images/delete_guest.png" id="delperson" class="DelPersonDiv" alt="מחק אורח/ת" width="29" height="25" /></td>
 						  <td width="5" bgcolor="#5A8EA3" title="הוסף אורח"><img src="/static/right_interface/images/add_ma.png" alt="הוסף אורח" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
-						  <td width="5" bgcolor="#5A8EA3" id="AddFemaleGuestDivID" class="pointer" title="הוסף אורחת"><img src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="הוסף אורחת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף אורחת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="אקסל און ליין"><img  id="excelOnLineBtn"  src="/static/right_interface/images/excel_online_n.png" alt="אקסל און ליין" width="29" height="25" vspace="10" /></td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td colspan="3" valign="top">
+						  <td colspan="4" valign="top">
 							<div id="people-list">
 								<ul id="people_list">
 									{% for guest in guests %}
@@ -391,7 +417,7 @@
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td height="30" colspan="3" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
+						  <td height="30" colspan="4" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
 							<select name="filterList" id="filterListRI" dir="rtl">
 							  <option value="Name">שם מלא</option>
 							  <option value="Group">קבוצה</option>
@@ -401,7 +427,7 @@
 						</tr>
 						<tr>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td colspan="3" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
+						  <td colspan="4" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
 						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
 						</tr>
 					  </table>
