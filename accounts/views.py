@@ -602,7 +602,7 @@ def online_save(request):
 		c['duplicate_list']=duplicate_list
 		return render_to_response('accounts/duplicate.html', c)
  	else:
-		return HttpResponseRedirect('/canvas/edit')
+		return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
 
 @csrf_exempt
 def contact_view(request):
