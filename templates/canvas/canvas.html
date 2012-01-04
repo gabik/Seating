@@ -39,6 +39,7 @@
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
 <script type="text/javascript" src="/static/canvas/excelOnLineWindow.js"></script>
+<script type="text/javascript" src="/static/canvas/excel_download_upload.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -145,11 +146,11 @@
 			$(this).attr('src',"/static/canvas/images/exit_canvas_r.png");
 		});
 			  
-		$("#OIImg").mouseout(function(){
-			$(this).attr('src',"/static/canvas/images/calender_n.png");
+		$("#EUDImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/excel_n.png");
 		});
-		$("#OIImg").mouseover(function(){
-			$(this).attr('src',"/static/canvas/images/calender_r.png");
+		$("#EUDImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/excel_o.png");
 		});
 			  
 		$("#OFImg").mouseout(function(){
@@ -369,7 +370,7 @@
 			 <div class="SpinDiv"  title="סובב שולחן"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
 			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
 			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
-			<div class="OperationsInfoDiv" title="פירוט פעולות עריכת אירוע"><img id="OIImg" src="/static/canvas/images/calender_n.png"></div>
+			<div class="EUDDiv" title="העלאה והורדה קובץ אקסל"><img id="EUDImg" src="/static/canvas/images/excel_n.png"></div>
 			<div class="ExitCanvasDiv" title="יציאה מהמערכת"><img id="ExitImg" style="border: 0;" src="/static/canvas/images/exit_canvas_n.png"></img></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="ישור אופקי לשמאל"><img src="/static/canvas/images/HorizontalLeft.png" class="Pointer"></div></li>

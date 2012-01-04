@@ -46,6 +46,10 @@
  {
   background:#efefef;
  }
+  .ExcelUDArea
+ {
+  background:white;
+ }
  .ElemImg
  {
   width:90px;
@@ -162,7 +166,7 @@
   top:-2px;
   cursor:pointer;
  }
- .OperationsInfoDiv
+ .EUDDiv
   {
   position:absolute;
   left:471px;
