@@ -878,19 +878,19 @@ function reloadElementStatus(element)
 			 {
 				if (data.orientation == 'V')
 				{
-					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR.png";
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/bar.png";
 				}
 				else if (data.orientation == 'H')
 				{
-					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_H.png";
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/bar_h.png";
 				}
 				else if (data.orientation == 'FV')
 				{
-					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_FV.png";
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/bar_fV.png";
 				}
 				else
 				{
-					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/BAR_FH.png";
+					document.getElementById(elementImgs[0].id).src = "/static/canvas/images/misc/bar_fH.png";
 				}
 			 }
 			 else if (elementImgs[0].id.split("-", 1) ==  "dj_stand")

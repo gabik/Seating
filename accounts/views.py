@@ -602,7 +602,7 @@ def online_save(request):
 		c['duplicate_list']=duplicate_list
 		return render_to_response('accounts/duplicate.html', c)
  	else:
-		return HttpResponseRedirect('/canvas/edit')
+		return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
 
 @csrf_exempt
 def contact_view(request):
@@ -630,3 +630,108 @@ def invation(request, first, last):
 		#else:
 		#return HttpResponse('Guest not exist')
 
+
+@login_required
+def stickers(request):
+	Guests = Guest.objects.filter(user=request.user)
+	user_elements = SingleElement.objects.filter(user=request.user)
+        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#max_rows = math.ceil(len(elements_nums)/3)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	row_num = 0
+	#row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	#for g in elements_nums:
+	cur_3_cul=-1
+	cur_row=0
+	max_sitting_row=0
+	for g in Guests:
+		#element_name=user_elements[g].caption
+		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
+		firstname=unicode(g.guest_first_name, "UTF-8")
+		lastname=unicode(g.guest_last_name, "UTF-8")
+		if g.elem_num != 0:
+			table=SingleElement.objects.get(user=request.user,elem_num=g.elem_num)
+			table_name=unicode(table.caption, "UTF-8")
+			table_num=table.fix_num
+		else:
+			table_name="None"
+			table_num=""
+		group_name=unicode(g.group, "UTF-8")
+		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
+			cur_3_cul=0
+			cur_row+=5
+		else:
+			cur_3_cul+=1
+		row_num=cur_row
+		
+		alignment = xlwt.Alignment()
+		alignment.horz = xlwt.Alignment.HORZ_CENTER
+		alignment.vert = xlwt.Alignment.VERT_CENTER
+	        border1 = xlwt.Borders()
+	        border2 = xlwt.Borders()
+	        border3 = xlwt.Borders()
+        	border1.left = xlwt.Borders.DOUBLE
+        	border1.right = xlwt.Borders.DOUBLE
+        	border2.left = xlwt.Borders.DOUBLE
+        	border2.right = xlwt.Borders.DOUBLE
+        	border3.left = xlwt.Borders.DOUBLE
+        	border3.right = xlwt.Borders.DOUBLE
+        	border2.top = xlwt.Borders.DOUBLE
+        	border3.bottom = xlwt.Borders.DOUBLE
+        	border1.left_colour = 0x40
+        	border1.right_colour = 0x40
+        	border2.left_colour = 0x40
+        	border2.right_colour = 0x40
+        	border3.left_colour = 0x40
+        	border3.right_colour = 0x40
+        	border2.top_colour = 0x40
+        	border3.bottom_colour = 0x40
+	        pattern = xlwt.Pattern()
+        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        	pattern.pattern_fore_colour = 1
+        	style1 = xlwt.XFStyle()
+        	style2 = xlwt.XFStyle()
+        	style3 = xlwt.XFStyle()
+        	protection = xlwt.Protection()
+        	protection.cell_locked = 1
+        	style1.protection = protection
+        	style1.pattern = pattern
+		style1.alignment = alignment
+        	style2.protection = protection
+        	style2.pattern = pattern
+		style2.alignment = alignment
+        	style3.protection = protection
+        	style3.pattern = pattern
+		style3.alignment = alignment
+        	style1.borders = border1
+        	style2.borders = border2
+        	style3.borders = border3
+		
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,"", style2)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,firstname + " " + lastname, style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,group_name, style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,table_name + " - " + str(table_num), style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,"", style3)
+	for i in range(0,3):
+		sheet1.col(i).width = 8000
+	for i in range(0,row_num+1):
+		sheet1.row(i).height=450
+		sheet1.row(i).height_mismatch = True
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
+        c = {}
+        c['filename'] = str(request.user.id) + 'stickers.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
+	book.save(TemporaryFile())
+        return render_to_response('accounts/xls.html', c)
