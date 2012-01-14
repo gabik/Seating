@@ -150,7 +150,7 @@ function refactorElementPerson(element)
 	}
 }
 
-function setWidthAndHeight(element, newScale, lastScale)
+function setWidthAndHeight(element, newScale, lastScale, init)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
@@ -224,8 +224,107 @@ function setWidthAndHeight(element, newScale, lastScale)
            if (data.status == 'OK')
            {}}, 'json');
 			adjustCaption($(this));
+			if ($(".DragDiv").last().attr('id') == $(this).context.id && init) 
+			{
+				zoomingCanvas(true);
+			}
+			else if ($(".DragDiv").size() > 45 && !init)
+			{
+				var zoomSize = $(".DragDiv").size() / 30;
+				zoomSize = zoomSize + 30;
+				ZoomElement($(this),22, zoomSize, false);
+			}
 		}
 	});
+}
+
+function ZoomElement(element, newScale, lastScale, firstInit)
+ {
+	var elementImgs = element.context.getElementsByTagName("img");
+	var elementCaption = element.context.getElementsByTagName("p");
+	
+	var realWidth = 0;
+	
+	if (newScale == 0)
+	{
+		return;
+	}
+	
+	if (lastScale > 0)
+	{
+		scale =  (newScale - lastScale)  * 2;
+	}
+	else
+	{
+		scale =  (newScale - maxElementCapacity) * 2;
+	}
+
+	for (var i = 0; i < 1 ; i++)
+	{
+		var addHeight = 0;
+		var addWidth = 0;
+		var img = $("#"+ elementImgs[i].id);
+		
+		if (elementImgs[i].id.indexOf("Rect") > -1 && lastScale == 0)
+		{
+			addHeight = 16;
+		}
+		else if (elementImgs[i].id.split("-", 1) == "dance_stand")
+		{
+			addWidth = 150;
+	    }
+		else if (elementImgs[i].id.split("-", 1) ==  "bar_stand") 
+		{
+			addWidth = 65;
+		}
+		
+		if (i > 0)
+		{
+			img.animate({ width:img.width() + scale / 3, height: img.height() + scale / 3},300, 'linear');
+		}
+		else
+		{
+			realWidth = img.width() + scale + addWidth;
+			img.animate({ width:img.width() + scale + addWidth, height: img.height() + scale + addHeight},300, 'linear');
+		}
+	}
+	element.animate({ width:realWidth, height: element.height() + scale + addHeight},300, 'linear', function()
+	{
+		if (isThisPeopleTable(elementImgs[0].id))
+		{
+			adjustCaption($(this));
+		}
+		if (firstInit)
+		{
+			setTimeout("reArrangeElementFirstInit()",6000);
+		}
+	});
+}
+
+function zoomingCanvas(firstInit)
+{
+	//zooming
+		 if ($(".DragDiv").size() > 45)
+		 {
+			 var zoomSize = $(".DragDiv").size() / 30;
+			 zoomSize = zoomSize + 30;
+			 $(".DragDiv").each(function(i){
+					if ($(".DragDiv").last().attr('id') == $(this).context.id && firstInit)
+					{
+						ZoomElement($(this),22, zoomSize, true);
+					}
+					else
+					{
+						ZoomElement($(this),22, zoomSize, false);
+					}
+			 });
+		 }
+}
+
+function reArrangeElementFirstInit()
+{
+	$("#SquarePlaceMentShapes").click();
+	$(".ShapePlacementMenu").hide();
 }
 
 function adjustCaption(element)
@@ -240,7 +339,14 @@ function adjustCaption(element)
 	{
 		var newString = "";
 		var stop = false;
-		for (var c = 0; c < title.length - 10; c++)
+		var letterCount = Math.abs(title.length - 10);
+		
+		if (letterCount == 0)
+		{
+			letterCount = 1;
+		}
+
+		for (var c = 0; c < letterCount; c++)
 		{
 			newString = newString + title.charAt(c);
 			if (newString.length * 8 > $("#" + elementImgs[0].id).width())
@@ -633,7 +739,7 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 {
 	var elementCaption = element.context.getElementsByTagName("p");
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-	setWidthAndHeight(element,newSize,elementMaxSize);
+	setWidthAndHeight(element,newSize,elementMaxSize,false);
 	elementCaption[0].innerHTML = newCaption;
 	elementCaption[0].title = newCaption;
 	elementCaption[1].innerHTML = sizeStr;
@@ -1553,45 +1659,7 @@ function dropPerson(draged,table, place)
 			draged.hide();
 			draged.remove();
 			setSaveStatus("OK");
-			if (data.table_status == 'Red')
-			{
-				if (elementImgs[0].id.split("-", 1) == "Square") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareR.png";
-				} else if (elementImgs[0].id.split("-", 1) == "Round") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundR.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectR.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeR.png";
-				}
-				//$("#" + elementImgs[0].id).attr("src", "/static/canvas/images/YellowStatus.png");
-			}
-			else if (data.table_status == 'Green')
-			{
-				if (elementImgs[0].id.split("-", 1) == "Square") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
-				} else if (elementImgs[0].id.split("-", 1) == "Round") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectG.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
-				}
-				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-			}
-			else if (data.table_status == 'Yellow')
-			{
-				if (elementImgs[0].id.split("-", 1) == "Square") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
-				} else if (elementImgs[0].id.split("-", 1) == "Round") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Rect") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/RectY.png";
-				}else if (elementImgs[0].id.split("-", 1) == "Lozenge") {
-				  document.getElementById(elementImgs[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
-				}
-				//$("#" + elementImgs[1].id).attr("src", "/static/canvas/images/GreenStatus.png");
-			}
+			reloadElementStatus(table);
 			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
 			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 			

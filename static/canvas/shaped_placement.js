@@ -122,6 +122,7 @@ $(document).ready(function() {
 					newLeft = newLeft + $(this).width() + placementMargin;
 					if (middleCircleHalfIndex == i)
 					{
+						middleCircleHalfIndex = i + 15;
 						newTop = newTop + maxMiddleCircleHeigth;
 						newLeft = startLeft;
 					}
@@ -180,8 +181,19 @@ $(document).ready(function() {
 							if (newLeft + $(this).width() > circleEndLeft)
 							{
 								middleCircle = true;
-								middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 2);
+								if ($(".DragDiv").size() > 50)
+								{
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 4);
+								}
+								else
+								{
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 2);
+								}
 								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 2.5 * tableElementSize);
+								if (newLeft < 50)
+								{
+									newLeft = 80;
+								}
 								startLeft = newLeft;
 								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 14) * currentHeigthMargin);
 							}

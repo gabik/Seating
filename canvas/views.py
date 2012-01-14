@@ -18,6 +18,7 @@ from django.core.context_processors import csrf
 from django.utils.translation import ugettext
 from datetime import datetime
 from django.core.mail import send_mail
+from hashlib import md5
 
 def escapeSpecialCharacters ( text ):
     characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
@@ -85,14 +86,21 @@ def new_canvas(request):
 				cordx = int(dataArray[3])
 				cordy = int(dataArray[4])
 				
+				fixNum = -1;
 				user_elements = SingleElement.objects.filter(user=request.user)
 				if (len(user_elements) <= 0):
 					max_num = 1
+					if (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge"):
+						fixNum = 1
 				else:
 					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
+					if (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge"):
+						fixNum = user_elements.all().aggregate(Max('fix_num'))['fix_num__max'] + 1
+						if (fixNum < 0):
+							fixNum = 0
 
 				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), width = 90 , height = 90, user=request.user, kind=table_kind, caption="Element-"+ str(max_num+i), current_sitting=0, max_sitting=size)
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i), x_cord=cordx, y_cord=(cordy + i*18), width = 90 , height = 90, user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=size)
 					single_element.save()
 
 				add_char =""
@@ -234,17 +242,24 @@ def drop_person(request):
 def add_element(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
+		table_kind = request.POST['kind']
+		fixNum = -1;
 		user_elements = SingleElement.objects.filter(user=request.user)
 		if (len(user_elements) <= 0):
 			max_num = 1
+			if (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge"):
+				fixNum = 1
 		else:
 			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
-		max_fix_num = user_elements.all().aggregate(Max('fix_num'))['fix_num__max'] + 1
-		table_kind = request.POST['kind']
+			if (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge"):
+				fixNum = user_elements.all().aggregate(Max('fix_num'))['fix_num__max'] + 1
+				if (fixNum < 0):
+					fixNum = 0
+
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_fix_num+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
 #			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
@@ -397,6 +412,8 @@ def save_dup_person_element(request):
 			persons[0].gender = request.POST['gender']
 			persons[0].meal = request.POST['meal']
 			persons[0].invation_status = request.POST['invation_status']
+			hash = str(str(request.user) + request.POST['first_name'].encode('utf-8') + last_name.encode('utf-8'))
+			persons[0].guest_hash = str(md5(hash).hexdigest())
 			persons[0].save()
 			json_dump = json.dumps({'status': "OK", 'new_last_name':last_name})
 	return HttpResponse(json_dump)

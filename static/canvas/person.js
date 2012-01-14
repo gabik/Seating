@@ -243,9 +243,13 @@ function FocusDetailsFromFloatList(personElement,hideAll)
 					{
 						$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
 					}
-					else
+					else if (data.gender == "F")	
 					{
 						$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+					}
+					else
+					{
+						$("#personImg").attr('src',"/static/canvas/images/person/both_128X128.png");
 					}
 					FocusFromFloatList = true;
 					$("#personImg").bind('dblclick', function(event) {
@@ -329,9 +333,13 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 		{
 			$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
 		}
-		else
+		else if (personData.gender == "F")
 		{
 			$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+		}
+		else
+		{
+			$("#personImg").attr('src',"/static/canvas/images/person/both_128X128.png");
 		}		
 		FocusFromFloatList = false;
 		$("#personImg").bind('dblclick', function(event) {
@@ -437,10 +445,14 @@ function selectTab(ui)
 				{
 					$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
 				}
-				else
+				else if (data.gender == "F")
 				{
 					$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
 				}
+				else
+				{
+					$("#personImg").attr('src',"/static/canvas/images/person/both_128X128.png");
+				}	
 			}
 		});
 }
@@ -584,7 +596,7 @@ function createTab()
 	 }
 	$("#detailsPresentAmount" + personData.first_name + '_'+ personData.last_name).bind('keydown',function(e){insureNumInput(e);});
 	tab.append($('<p align="right" dir="rtl" class="text_14_black">חשבון פייסבוק:&nbsp;<span><input  MAXLENGTH=30 type="text" id="detailsFacebookAccount' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.facebook_account +'"/></span></p>'));
-	tab.append($('<table id="groupTable'+ personData.first_name + '_'+ personData.last_name+'" border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;קבוצה:&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה</select></span></p></td></table>'));
+	tab.append($('<table id="groupTable'+ personData.first_name + '_'+ personData.last_name+'" border="0" cellspacing="0" cellpadding="0" align="right"><td align="right"><p align="right" dir="rtl" class="text_14_black">&nbsp;&nbsp;קבוצה:&nbsp;&nbsp;<span><select size="1" value='+"personData.group"+' id="detailsGroup' + personData.first_name + '_'+ personData.last_name+'">&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p align="right" dir="rtl" class="text_14_black">מין:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select size="1" value='+"personData.gender"+' id="detailsGender' + personData.first_name + '_'+ personData.last_name+'"><option value="M">זכר<option value="F">נקבה<option value="U">אחר</select></span></p></td></table>'));
 	updateDetailPersonGroups($("#detailsGroup" + personData.first_name + '_'+ personData.last_name));
 	$("#detailsGroup" + personData.first_name + '_'+ personData.last_name).val( personData.group );	
 	$("#detailsGender" + personData.first_name + '_'+ personData.last_name).val( personData.gender );
@@ -1049,13 +1061,13 @@ function savePersonOperation(data, firstName, lastName)
 		floatPerson.removeClass('femaleli');
 		floatPerson.removeClass('maleli');
 		refactorElementPerson(floatPerson);
-		if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "M")
+		if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "F")
 	   {
-			floatPerson.addClass('maleli');
+			floatPerson.addClass('femaleli');
 	   }
 		else
 	   {
-			floatPerson.addClass('femaleli');
+			floatPerson.addClass('maleli');
 	   }
 	  }
 	  $("#tabs li:eq(" + SelectedTabIndex + ") a").html(personData.first_name + " " + personData.last_name);
@@ -1077,9 +1089,13 @@ function savePersonOperation(data, firstName, lastName)
 	  {
 			$("#personImg").attr('src',"/static/canvas/images/person/man_128X128.png");
 	  }
-		else
+	  else if ($("#detailsGender"+ personData.first_name + '_'+ personData.last_name).val() == "F")
 	  {
 			$("#personImg").attr('src',"/static/canvas/images/person/woman_128X128.png");
+	  }
+	  else
+	  {
+	 		$("#personImg").attr('src',"/static/canvas/images/person/both_128X128.png");
 	  }
 	  $("#SavePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","SavePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);
 	  $("#ClosePersonDetailsButton_"+ firstName + '_'+ lastName).attr("id","ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name);

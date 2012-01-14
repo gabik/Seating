@@ -34,10 +34,11 @@ $(document).ready(function() {
 	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"></td>
       <td align="right" dir= "rtl" valign="top" bgcolor="#FFFFFF">
 	  	<form action="." method="post">
-	    <p class="titles_blue">אישור הגעה {{first_name}} {{last_name}}</p>
+	    <p class="titles_blue" dir="rtl">אישור הגעה {{first_name}} {{last_name}}</p>
 		<p class="text_14_black_bold">שלום רב,</p>
-		<p class="text_14_black">שם המשתמש\ים מתכבדים להזמין אותך לאירוע המתקיים במקום בתאריך,</p>
-		<p class="text_14_black">נודה לך אם ינתנו מזמנך מספר רגעים למלא את הפרטים הבאים.</p>
+		<p class="text_14_black" dir="rtl"> לידעתך האירוע של {{user1_first_name}} {{addChar}} {{user2_first_name}}  {{user_last_name}} ,</p>
+		<p class="text_14_black" dir="rtl">מתקיים ב- {{place}} בתאריך {{date}}.</p>
+		<p class="text_14_black">נודה לך אם ינתנו מזמנך מספר רגעים למלא את הפרטים הבאים,</p>
 		<p class="text_14_black_bold">בתודה 2Seat אתר סידורי הישיבה של ישראל.</p>
 		</br>
 		<p class="text_14_black">סטטוס הגעה:&nbsp;<span><select size="1" id="personInvationStatus"><option value="A">מגיע<option value="N">לא מגיע<option value="T">אולי</select></span></span></p>

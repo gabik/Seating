@@ -3,6 +3,7 @@ var listTableElementString = '<li><label class="text_14_black">כמות: </label
 var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
 var dataString = "";
+var canPost = true;
 
 function IsNumeric(sText)
 {
@@ -412,14 +413,19 @@ $(document).ready(function(){
 	   
 	   if ($("#TableTypeList > li").size() > 0 && getTotalAmount() > 0 && getTotalSeat() < maxSeated  && getTotalSeat() > 0 && noZeroDataFlag)
 	   {
-		   writeOccasionInfo("Init Canvas");
-		   $("#errorMsg").text("");
-		   $("#TableTypeList > li").each(function(i) {
-				var type =  $(this).find('select').first().val();
-				
-				createElementByLi($(this),type,0,0);
-			});
-			postDataString();
+		   if (canPost)
+		   {
+			   canPost = false;
+			   $("#CanvasEditButton").unbind('click');
+			   writeOccasionInfo("Init Canvas");
+			   $("#errorMsg").text("");
+			   $("#TableTypeList > li").each(function(i) {
+					var type =  $(this).find('select').first().val();
+					
+					createElementByLi($(this),type,0,0);
+				});
+				postDataString();
+			}
 		}
 		else
 		{
