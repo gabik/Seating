@@ -73,7 +73,7 @@ class Guest(models.Model):
 	)
 	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
         def __unicode__(self):
-                printy = self.user.username + "- " + self.guest_first_name+ " " +self.guest_last_name
+                printy = unicode(self.user.username,"UTF-8") + "- " + unicode(self.guest_first_name,"UTF-8")+ " " +unicode(self.guest_last_name,"UTF-8")
                 return printy
 
 class DupGuest(models.Model):

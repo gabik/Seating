@@ -11,14 +11,14 @@
 </head>
 <!--<body onload="if (location.href.indexOf('reload')==-1) location.replace(location.href+'?reload'); doInitGrid()" dir=rtl> -->
 <body onload="doInitGrid()" dir=rtl>
-<div id="mygrid_container" style="width:1017px;height:550px;" dir=rtl></div>
+<div id="mygrid_container" style="width:1000px;height:550px;" dir=rtl></div>
 <script>
 var mygrid;
 var newId;
 newId={{ rows }};
 function addRow(){
     //var newId = (new Date()).valueOf()
-    mygrid.addRow(newId,",,,,,,,Other,",mygrid.getRowsNum());
+    mygrid.addRow(newId,",,U,,,,,Other,T,0",mygrid.getRowsNum());
     newId++;
     mygrid.selectRow(mygrid.getRowIndex(newId),false,false,true);
 }
