@@ -1,677 +1,756 @@
 # Create your views here.
-from django.utils.safestring import SafeString, EscapeData
-import re
-#from django.utils.html import escapejs
-from Seating.accounts.models import Guest
-from Seating.accounts.models import UserProfile, Partners
-from Seating.accounts.models import OccasionOperationItem
-from django.db.models import Max
-from django.utils import simplejson as json
+# -*- coding: utf-8 -*-
+import csv, codecs, cStringIO
+from django.core.mail import send_mail
+import math, re 
+import random
+from tempfile import TemporaryFile
+from xlwt import Workbook, Style
+import xlrd, xlwt
+from django.views.decorators.csrf import csrf_exempt
+from django.core.context_processors import csrf
 from django.contrib.auth.decorators import login_required
+from django.utils import simplejson as json
 from django.http import HttpResponseRedirect, HttpResponse, Http404
 from django.template import RequestContext
-from django.shortcuts import render_to_response, get_object_or_404, redirect
-from django.contrib.auth.models import User
+from Seating.accounts.forms import UserForm, UserProfileForm, PartnersForm, UploadFileForm, AgreeForm
+from Seating.accounts.models import UserProfile, Partners , Guest, DupGuest, group_choices, UnknownGroups
 from Seating.canvas.models import SingleElement
-from Seating.canvas.forms import InitCanvas
-from django.core.context_processors import csrf
-from django.utils.translation import ugettext
-from datetime import datetime
-from django.core.mail import send_mail
+from django.shortcuts import render_to_response, get_object_or_404, get_list_or_404
+from django.contrib.auth.models import User
+from django.contrib.auth import authenticate, login
+from xml.etree.ElementTree import parse
+import sys
+sys.path.append("/Seating/static/locale/he")
+import he
 from hashlib import md5
 
-def escapeSpecialCharacters ( text ):
-    characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
-    for character in characters:
-        text = text.replace( character, '' )
-    return text
-
-@login_required
-def edit_canvas(request):
-	user_elements = SingleElement.objects.filter(user=request.user)
-	elements_nums = user_elements.values_list('elem_num', flat=1)
-	Guests = Guest.objects.filter(user=request.user)
-	userProfile = UserProfile.objects.filter(user=request.user)
-	cur_width = 90
-	if len(elements_nums) > 40:
-		cur_width = int(90*45/len(elements_nums))
-	profile = get_object_or_404(UserProfile, user = request.user)
-	partners = get_object_or_404(Partners, userPartner = request.user)
-	#single_element = get_object_or_404(SingleElement, user=request.user, elem_num=1)
-	#x_cord = single_element.x_cord
-	#y_cord = single_element.y_cord
-	c = {}
-	c.update(csrf(request))
-
-	#c['x_cord'] = x_cord
-	#c['y_cord'] = y_cord
-	c['elements'] = user_elements
-	c['elements_nums'] = elements_nums
-	c['guests'] = Guests
-	c['user_profile'] = userProfile
-	c['width'] = cur_width
-	date = profile.occasion_date.strftime("%d/%m/%Y")
-	place = profile.occasion_place
-	phone = profile.phone_number
-	if partners.partner1_gender == 'M':
-		last_name = partners.partner1_last_name
-	else:
-		last_name = partners.partner2_last_name
-	if last_name == "":
-		last_name = partners.partner1_last_name
-	c['partners'] = partners
-	c['last_name'] = last_name
-	c['date'] = date
-	c['place'] = place
-	c['phone_num'] = phone
-	if partners.partner2_first_name != "":
-	 	c['addChar'] = "&"
-	if (user_elements):
-		return render_to_response('canvas/canvas.html', c)
-	else:
-		return render_to_response('canvas/new.html')
-
-@login_required
-def new_canvas(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		dataString = request.POST['DataString'].split('|')
-		for string in dataString:
-			if (string != ""):
-				dataArray = string.split(',')
-				
-				table_kind = dataArray[0]
-				amount = int(dataArray[1])
-				size = int(dataArray[2])
-				cordx = int(dataArray[3])
-				cordy = int(dataArray[4])
-				
-				user_elements = SingleElement.objects.filter(user=request.user)
-				if (len(user_elements) <= 0):
-					max_num = 1
-				else:
-					max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
-
-				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_num+i), x_cord=cordx, y_cord=(cordy + i*18), width = 90 , height = 90, user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=size)
-					single_element.save()
-
-				add_char =""
-				if (amount > 0):
-					add_char = "s"
-
-				info = "Add " + str(amount) +" New "+ table_kind +" Table"+add_char
-				writeOpertationFunc(request,info)
-				
-		json_dump = json.dumps({'status': "OK"})
-		print json_dump
-	return HttpResponse(json_dump)
-
-@login_required
-def save_element(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		user_profile = get_object_or_404(UserProfile, user=request.user)
-		single_element.x_cord = float(request.POST['X']);
-		single_element.y_cord = float(request.POST['Y']);
-		if request.POST['caption'] != "":
-			newCaption = ugettext(request.POST['caption']);
-			single_element.caption = newCaption;
-		if request.POST['size'] != "": 
-			single_element.max_sitting = request.POST['size'];
-		if request.POST['sumGuests'] != "": 
-			user_profile.num_of_guests = int(request.POST['sumGuests']);
-		if request.POST['fixNumber'] != "": 
-			single_element.fix_num = int(request.POST['fixNumber']);
-		single_element.save()
-		user_profile.save()
-		json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-
-@login_required
-def save_element_width_height(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		single_element.width = float(request.POST['width']);
-		single_element.height = float(request.POST['height']);
-		single_element.save()
-		json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def fix_number_status(request):
-	json_dump = json.dumps({'status': "Empty"})
-	result = ""
-	if request.method == 'POST':
-		if request.POST['fixNumber'] != "":  
-			SingleElements = SingleElement.objects.filter(user=request.user, fix_num=int(request.POST['fixNumber']))
-			elem_delim = request.POST['elem_num'].index('-')
-			elem_num=request.POST['elem_num'][elem_delim+1:]
-			print str(elem_num)
-			if len(SingleElements) > 0:
-				for singel_element in SingleElements:
-					if int(elem_num) != int(singel_element.elem_num):
-						result = result + singel_element.caption + "," 
-				json_dump = json.dumps({'status': "OK", 'result':result})
-	return HttpResponse(json_dump)
-	
-
-def get_fix_number(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		json_dump = json.dumps({'status': "OK", 'fix_num':single_element.fix_num})
-	return HttpResponse(json_dump)
-	
-@login_required
-def update_Num_Of_Guests(request):
-	json_dump = json.dumps({'status': "Error"})
-	user_profile = get_object_or_404(UserProfile, user=request.user)
-	if request.POST['sumGuests'] != "": 
-		user_profile.num_of_guests = int(request.POST['sumGuests']);
-		user_profile.save()
-		json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_Num_Of_Guests(request):
-	json_dump = json.dumps({'status': "Error"})
-	user_profile = get_object_or_404(UserProfile, user=request.user)
-	json_dump = json.dumps({'status': "OK", 'numOfGuests' : user_profile.num_of_guests})
-	return HttpResponse(json_dump)
-	
-@login_required
-def drop_person(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		person_id = ugettext(request.POST['person_id'])
-		person_delim = person_id.index('_')
-		person_first = person_id[:person_delim]
-		person_last = person_id[person_delim+1:]
-		single_person = Guest.objects.filter(user=request.user, guest_first_name=person_first, guest_last_name=person_last)
-		if (len(single_person) > 0):
-			elem_delim = request.POST['table_id'].index('-')
-			elem_num=request.POST['table_id'][elem_delim+1:]
-			table_id = request.POST['table_id']
-			place = request.POST['place']
-			if (place == "" or place < 1):
-				free_position = 1
-				if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
-					element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
-					for element_person in element_persons:
-						if element_person.position == free_position:
-							free_position = free_position + 1
-						else:
-							break
-			else:
-				free_position = place;
-			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-			if single_element.current_sitting < single_element.max_sitting:
-				single_element.current_sitting = single_element.current_sitting + 1
-				single_element.save()
-				single_person[0].elem_num = elem_num
-				single_person[0].position = free_position
-				single_person[0].save()
-				if (single_element.current_sitting >= single_element.max_sitting):
-					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
-				else:
-					if (single_element.current_sitting == 0):
-						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
-					else:
-						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
-			else:
-				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
-	return HttpResponse(json_dump)
-
-@login_required
-def add_element(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		user_elements = SingleElement.objects.filter(user=request.user)
-		if (len(user_elements) <= 0):
-			max_num = 1
+#@login_required
+def is_login(request):
+	if request.user.is_authenticated():
+		partners = get_object_or_404(Partners, userPartner = request.user)
+		profile = get_object_or_404(UserProfile, user = request.user)
+		date = profile.occasion_date.strftime("%d/%m/%Y")
+		place = profile.occasion_place
+		if partners.partner1_gender == 'M':
+			last_name = partners.partner1_last_name
 		else:
-			max_num = user_elements.all().aggregate(Max('elem_num'))['elem_num__max'] + 1
-		max_fix_num = user_elements.all().aggregate(Max('fix_num'))['fix_num__max'] + 1
-		table_kind = request.POST['kind']
-		amount = int(request.POST['amount'])
-		for i in range(0, amount):
-			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(max_fix_num+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
-				single_element.save()
-		if max_num+amount < 500:
-#			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
-#			single_element.save()
-			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
-	return HttpResponse(json_dump)
+			last_name = partners.partner2_last_name
+		if last_name == "":
+			last_name = partners.partner1_last_name
+		c = {}
+		c['partners'] = partners
+		c['last_name'] = last_name
+		c['date'] = date
+		c['place'] = place
+		if partners.partner2_first_name != "":
+			c['addChar'] = "&"
+		return render_to_response('accounts/after_login.html', c)
+	else: # Nothing has been posted
+		return HttpResponse('Please login')
+
+def registered(request):
+	if request.method == 'POST':
+		return render_to_response('registration/login.html');
+	else:
+		return render_to_response('registration/registered.html')
+
+def create_user(request):
+	if request.method == 'POST': # If the form has been submitted...
+		agree_form = AgreeForm(request.POST)
+		userprofile_form = UserProfileForm(request.POST)
+		user_form = UserForm(request.POST)
+		partners_form = PartnersForm(request.POST)
+		if userprofile_form.is_valid() and user_form.is_valid() and partners_form.is_valid():	
+			user_clean_data = user_form.cleaned_data
+			created_user = User.objects.create_user(user_clean_data['username'], user_clean_data['email'], user_clean_data['password1'])
+			created_user.save()
+			userprofile = userprofile_form.save(commit=False)
+			userprofile.user = created_user
+			userprofile.occasion_date = user_clean_data['occasiondate'];
+			userprofile.excel_hash = 'New'
+			userprofile.save()
+			partners = partners_form.save(commit=False)
+			partners.userPartner = created_user
+			partners.save()
+			'''convertXLS2CSV(r"/tmp/list.xls")
+			readCSV(r"/tmp/list.csv", created_user)'''
+			new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
+			login(request, new_user)
+			return HttpResponseRedirect('/accounts/registered')
+	else:
+		userprofile_form = UserProfileForm()
+		user_form = UserForm()
+		partners_form = PartnersForm()
+		agree_form = AgreeForm()
+	return render_to_response('registration/create_user.html', { 'userprofile_form': userprofile_form, 'user_form': user_form, 'partners_form': partners_form, 'agree_form': agree_form}, context_instance=RequestContext(request))
+	
+
+#def convertXLS2CSV(aFile): 
+#	'''converts a MS Excel file to csv w/ the same name in the same directory'''
+#
+#	print "------ beginning to convert XLS to CSV ------"
+#	xlsIsOpen = False
+#	xlsFile = None
+#	try:
+#		import os
+#		import win32com.client
+#		
+#		excel = win32com.client.Dispatch('Excel.Application')
+#		fileDir, fileName = os.path.split(aFile)
+#		nameOnly = os.path.splitext(fileName)
+#		newName = nameOnly[0] + ".csv"
+#		outCSV = os.path.join(fileDir, newName)
+#		excel.Visible = False
+#		workbook = excel.Workbooks.Open(aFile)
+#		xlsFile = workbook
+#		xlsIsOpen = True
+#		workbook.SaveAs(outCSV, FileFormat=24)
+#		workbook.Close(False)
+#		xlsIsOpen = False 
+#		excel.Quit()
+#		del excel
+#		
+#		print "...Converted " + str(nameOnly) + " to CSV"
+#	except:
+#		print ">>>>>>> FAILED to convert " + aFile + " to CSV!"
+#		if xlsIsOpen and xlsFile is not None:
+#			xlsFile.Close(False)
+#			win32com.client.Dispatch('Excel.Application').Quit()
+
+		
+#def readCSV(aFile, User):
+#	
+#	try:
+#		import csv
+#
+#		reader = csv.reader(open(aFile), dialect='excel')
+#		for row in reader:
+#			guest = Guest.objects.create(user = User, guest_first_name = row[0], guest_last_name = row[1])
+#			guest.save()
+#		print ">>>>>>> read succes CSV!"
+#
+#	except:
+#		print ">>>>>>> read succes CSV!"
 
 @login_required
-def del_element(request):
+def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		single_element.delete()
-		element_persons = Guest.objects.filter(user=request.user, elem_num = elem_num)
-		for person in element_persons:
-			person.elem_num = 0
-			person.position = 0
-			person.save()
-		json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def del_float_person(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		person_id = request.POST['person_id']
-		person_delim = person_id.index('_')
-		person_first = person_id[:person_delim]
-		person_last = person_id[person_delim+1:]
-		single_person = Guest.objects.filter(user=request.user, guest_first_name=person_first, guest_last_name=person_last)
-		if (len(single_person) > 0):
-			single_person.delete()
-			json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_element_item(request):
-	json_dump = json.dumps({'status': "EMPTY"})
-	if request.method == 'POST':
-		person_position = request.POST['position']
-		if person_position == "":
-			person_position = 0
-		if (person_position > 0):
-			json_dump = json.dumps({'status': "EMPTY", 'position': person_position})
-			elem_delim = request.POST['elem_num'].index('-')
-			elem_num=request.POST['elem_num'][elem_delim+1:]
-			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num))
-			if (len(element_persons) > 0):
-				for person in element_persons:
-					if (int(person.position) == int(person_position)):
-						safe_first = escapeSpecialCharacters(person.guest_first_name) 
-						safe_last  = escapeSpecialCharacters(person.guest_last_name)
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
-						break
-		else:
-			first_name = request.POST['firstName']
-			last_name = request.POST['lastName']
-			person = get_object_or_404(Guest, user=request.user, guest_first_name = first_name, guest_last_name = last_name)
-			if person is not None:
-				safe_first = escapeSpecialCharacters(person.guest_first_name)
-				safe_last  = person.guest_last_name
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
-	return HttpResponse(json_dump)
-
-@login_required
-def get_element_item_by_full_name(request):
-	json_dump = json.dumps({'status': "EMPTY"})
-	element_persons = Guest.objects.filter(user=request.user)
-	if (len(element_persons) > 0):
-		for person in element_persons:
-			if (person.guest_first_name + " " + person.guest_last_name == request.POST['full_name']):
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
-				break
-	return HttpResponse(json_dump)
-	
-@login_required
-def swap_position(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		first_person_position = request.POST['first_position']
-		second_person_position = request.POST['second_position']
-		print first_person_position
-		print second_person_position
-		if (int(first_person_position) > 0 and int(second_person_position) > 0):
-			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
-			if (len(element_persons) > 0):
-				element_persons[0].position = int(second_person_position)
-				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
-				if (len(second_element_persons) > 0):
-					second_element_persons[0].position = int(first_person_position)
-					second_element_persons[0].save()
-				element_persons[0].save()
-				json_dump = json.dumps({'status': "OK"})
-			else:
-				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
-				if (len(second_element_persons) > 0):
-					second_element_persons[0].position = int(first_person_position)
-					second_element_persons[0].save()
-					json_dump = json.dumps({'status': "OK"})	
-	return HttpResponse(json_dump)
-
-@login_required
-def save_person_element(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		first_name = request.POST['old_first_name']
-		last_name = request.POST['old_last_name']
-		person = get_object_or_404(Guest, user=request.user, guest_first_name = request.POST['old_first_name'], guest_last_name = request.POST['old_last_name'])
-		if person is not None:
-			person.guest_first_name = request.POST['first_name']
-			person.guest_last_name = request.POST['last_name']
-			person.phone_number = request.POST['phone_num']
-			person.guest_email = request.POST['person_email']
-			person.present_amount = request.POST['present_amount']
-			person.facebook_account = request.POST['facebook_account']
-			person.group = request.POST['group']
-			person.gender = request.POST['gender']
-			person.meal = request.POST['meal']
-			person.invation_status = request.POST['invation_status']
-			person.save()
-			json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def save_dup_person_element(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		first_name = request.POST['old_first_name']
-		last_name = request.POST['old_last_name']
-		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['old_first_name'], guest_last_name=request.POST['old_last_name'])
+		addStr = ""
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
 		if (len(persons) > 0):
-			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first_name'], guest_last_name__gt=request.POST['last_name'])
-			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first_name'], guest_last_name=request.POST['last_name'] + str(len(max_match) + 1))
+			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
 			if (len(exist_num) <= 0):
 				addStr = len(max_match) + 1
 			else:
 				addStr = len(max_match) + 2
-			last_name = request.POST['last_name'] + str(addStr)
-			persons[0].guest_first_name = request.POST['first_name']
-			persons[0].guest_last_name = last_name
-			persons[0].phone_number = request.POST['phone_num']
-			persons[0].guest_email = request.POST['person_email']
-			persons[0].present_amount = request.POST['present_amount']
-			persons[0].facebook_account = request.POST['facebook_account']
-			persons[0].group = request.POST['group']
-			persons[0].gender = request.POST['gender']
-			persons[0].meal = request.POST['meal']
-			persons[0].invation_status = request.POST['invation_status']
-			hash = str(str(request.user) + request.POST['first_name'].encode('utf-8') + last_name.encode('utf-8'))
-			persons[0].guest_hash = str(md5(hash).hexdigest())
-			persons[0].save()
-			json_dump = json.dumps({'status': "OK", 'new_last_name':last_name})
-	return HttpResponse(json_dump)
-	
-@login_required
-def bring_person_to_float_list_by_position(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		person_position = request.POST['position']
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		element_persons = Guest.objects.filter(user=request.user, elem_num = elem_num)
-		for person in element_persons:
-			if (int(person.position) == int(person_position)):
-				person.elem_num = 0
-				person.position = 0
-				person.save()
-				single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-				single_element.current_sitting = single_element.current_sitting - 1
-				single_element.save()
-				json_dump = json.dumps({'status': "OK"})
-				break
+		last_name = request.POST['last'] + str(addStr)
+		hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()))
+		new_person.save()
+		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
-@login_required
-def find_tables_strings(request):
-	json_dump = json.dumps({'status': "Empty"})
-	if request.method == 'POST':
-		name = request.POST['name']
-		matching_tables = "";
-		num_of_results = 0;
-		single_elements = SingleElement.objects.filter(user=request.user)
-		for element in single_elements:
-			lowname = element.caption.lower()
-			if (lowname.find(name.lower()) >= 0):
-				matching_tables = matching_tables + "," + element.caption
-				num_of_results = num_of_results + 1;
-		if (num_of_results > 0):
-			json_dump = json.dumps({'status': "OK", 'objects':matching_tables, 'numOfResults':num_of_results})
-	return HttpResponse(json_dump)
+def handle_uploaded_file(f, request):
+	destination = open('/tmp/' + str(request.user.id) + 'curfile.xls', 'wb+')
+	for chunk in f.chunks():
+		destination.write(chunk)
+	destination.close()
+
+def check_person(first, last, user):
+	list = Guest.objects.filter(user=user)
+	for i in list:
+		if i.guest_first_name == first and i.guest_last_name == last:
+			return True
 	
+	return False
+
 @login_required
-def find_persons_strings(request):
-	json_dump = json.dumps({'status': "Empty"})
+def upload_file(request):
 	if request.method == 'POST':
-		name = request.POST['name']
-		matching_tables = "";
-		num_of_results = 0;
-		person_elements = Guest.objects.filter(user=request.user)
-		for element in person_elements:
-			lowfirstname = element.guest_first_name.lower()
-			lowlastname = element.guest_last_name.lower()
-			if ((lowfirstname.find(name.lower()) >= 0) or (lowlastname.find(name.lower()) >= 0)):
-				matching_tables = matching_tables + "," + element.guest_first_name + " " + element.guest_last_name
-				num_of_results = num_of_results + 1;
-		if (num_of_results > 0):
-			json_dump = json.dumps({'status': "OK", 'objects':matching_tables, 'numOfResults':num_of_results})
-	return HttpResponse(json_dump)
-	
-@login_required
-def is_persons_on_higher_position(request):
-	json_dump = json.dumps({'status': "False"})
-	if request.method == 'POST':
-		newSize = request.POST['new_size']
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		element_persons = Guest.objects.filter(user=request.user, elem_num = int(elem_num))
-		for person in element_persons:
-			if (person.position >= int(newSize)):
-				json_dump = json.dumps({'status': "True"})
-				break
-	return HttpResponse(json_dump)
-	
-@login_required
-def bring_person_to_floatlist_from_postion(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		floating_persons = "";
-		numOfFloatingPersons = 0;
-		newSize = request.POST['new_size']
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		element_persons = Guest.objects.filter(user=request.user, elem_num = int(elem_num)).order_by('position')
-		for i in range(int(newSize), len(element_persons)):
-			single_element.current_sitting = single_element.current_sitting - 1
-			single_element.save()
-			element_persons[i].elem_num = 0
-			element_persons[i].position = 0
-			element_persons[i].save()
-			floating_persons = floating_persons + "," + element_persons[i].guest_first_name + " " +  element_persons[i].guest_last_name
-			numOfFloatingPersons = int(numOfFloatingPersons) + 1
-		if (numOfFloatingPersons > 0):
-			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_Money_Info(request):
-	json_dump = json.dumps({'status': "Error"})
-	partners = get_object_or_404(Partners, userPartner = request.user)
-	totalSum = 0;
-	totalOtherSum = 0;
-	totalFirstFamilySum = 0;
-	totalFirstFriendsSum = 0;
-	totalFirstWorkSum = 0;
-	totalSecondFamilySum = 0;
-	totalSecondFriendsSum = 0;
-	totalSecondWorkSum = 0;
-	persons = Guest.objects.filter(user=request.user)
-	if partners.partner2_first_name != "":
-		for person in persons:
-			totalSum = totalSum + person.present_amount
-			if person.group == 'Other':
-				totalOtherSum = totalOtherSum + person.present_amount
-			else:
-				if person.group == 'Family '+ partners.partner2_first_name:
-					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
-				else:
-					if person.group == 'Friends '+ partners.partner2_first_name:
-						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
+		form = UploadFileForm(request.POST, request.FILES)
+		if form.is_valid():
+			handle_uploaded_file(request.FILES['file'], request)
+			book = xlrd.open_workbook("/tmp/" + str(request.user.id) + "curfile.xls")
+			shX = book.sheet_by_index(1)
+			starting_row = shX.cell_value(0,0)
+			cur_hash = shX.cell_value(0,1)
+			cur_user = UserProfile.objects.get(user=request.user)
+			#cur_list = Guest.objects.filter(user=request.user)
+			DupGuest.objects.filter(user=request.user).delete()
+			UnknownGroups.objects.filter(user=request.user).delete()
+			duplicate_list = []
+			if cur_user.excel_hash != cur_hash : return HttpResponse('Hash not match - contact Gabi')
+			if starting_row == 0 : 
+				starting_row = 3
+			sh = book.sheet_by_index(0)
+			sheet = [] 
+			for r in range(sh.nrows)[int(starting_row):]:
+				privName=sh.cell_value(r,0)
+				lastName=sh.cell_value(r,1)
+				gender=sh.cell_value(r,2)
+				if gender == "":
+					gender="U"
+				quantity=sh.cell_value(r,3)
+				if quantity == "":
+					quantity=1
+				phoneNum=sh.cell_value(r,4)
+				mailAddr=sh.cell_value(r,5)
+				faceAcnt=sh.cell_value(r,6)
+				groupNme=sh.cell_value(r,7)
+				giftAmnt=sh.cell_value(r,8)
+
+				#privName=he.u(privName)
+				#lastName=he.u(lastName)
+				#groupNme=he.u(groupNme)
+
+
+				if privName <> "" or lastName <> "" :
+					if check_person(privName, lastName, request,user):
+						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+						dup_person.save()
 					else:
-						if person.group == 'Work '+ partners.partner2_first_name:
-							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
+						if quantity > 1:
+							for i in range(1,int(quantity)+1):
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								new_person.save()
 						else:
-							if person.group == 'Family '+ partners.partner1_first_name:
-								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
-							else:
-								if person.group == 'Friends '+ partners.partner1_first_name:
-									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
-								else:
-									if person.group == 'Work '+ partners.partner1_first_name:
-										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
-		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
+							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+							new_person.save()
+
+				if groupNme not in group_choices:
+					un_group = UnknownGroups(user=request.user, group=groupNme);
+					un_group.save()
+				
+			cur_user.excel_hash='Locked'
+			cur_user.save()
+
+			duplicate_list = DupGuest.objects.filter(user=request.user)
+			un_group_list = UnknownGroups.objects.filter(user=request.user)
+			if duplicate_list or un_group_list:
+				c= {}
+				c.update(csrf(request))
+				c['duplicate_list']=duplicate_list
+				c['un_group_list']=un_group_list
+				c['group_choices']=group_choices
+				return render_to_response('accounts/duplicate.html', c)
+			else:
+				return HttpResponseRedirect('/canvas/edit')
+				#return render_to_response('accounts/uploaded.html', {'sheet': sheet})
 	else:
-		for person in persons:
-			totalSum = totalSum + person.present_amount
-			if person.group == 'Other':
-				totalOtherSum = totalOtherSum + person.present_amount
-			else:
-				if person.group == 'Family':
-					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
-				else:
-					if person.group == 'Friends':
-						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
-					else:
-						if person.group == 'Work':
-							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
-						else:
-							if person.group == 'Family '+ partners.partner1_first_name:
-								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
-							else:
-								if person.group == 'Friends '+ partners.partner1_first_name:
-									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
-								else:
-									if person.group == 'Work '+ partners.partner1_first_name:
-										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
-		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
-	return HttpResponse(json_dump)
+		form = UploadFileForm()
+	c= {}
+	c.update(csrf(request))
+	c['form'] = form
+	return render_to_response('accounts/upload.html', c)
 
+@login_required
+def download_excel(request):
+	Guests = Guest.objects.filter(user=request.user)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	borders = xlwt.Borders()
+	borders.left = xlwt.Borders.THIN
+	borders.right = xlwt.Borders.THIN
+	borders.top = xlwt.Borders.THIN
+	borders.bottom = xlwt.Borders.THIN
+	borders.left_colour = 0x40
+	borders.right_colour = 0x40
+	borders.top_colour = 0x40
+	borders.bottom_colour = 0x40
+	row_num = 0
+	row1 = sheet1.row(row_num)
+	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.gender, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(7, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(8, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+        pattern = xlwt.Pattern()
+        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        pattern.pattern_fore_colour = 22 
+        style = xlwt.XFStyle()
+	protection = xlwt.Protection()
+	protection.cell_locked = 1
+	style.protection = protection
+        style.pattern = pattern
+        style.borders = borders
+	row_num+=1
+	for g in Guests:
+		row1 = sheet1.row(row_num)
+		gfirst=unicode(g.guest_first_name, "UTF-8")
+		row1.write(0,gfirst, style)
+		glast=unicode(g.guest_last_name, "UTF-8")
+		row1.write(1,glast, style)
+		ggender=unicode(g.gender, "UTF-8")
+		row1.write(2,ggender, style)
+		row1.write(3,1, style)
+		row1.set_cell_text(4,g.phone_number, style)
+		gemail=unicode(g.guest_email, "UTF-8")
+		row1.write(5,g.guest_email, style)
+		gfacebook=unicode(g.facebook_account, "UTF-8")
+		row1.write(6,gfacebook, style)
+		ggroup=unicode(g.group, "UTF-8")
+		row1.write(7,ggroup, style)
+		row1.write(8,g.present_amount, style)
+		row_num+=1
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = 1
+        protection = xlwt.Protection()
+        protection.cell_locked = False
+	style = xlwt.XFStyle()
+        style.protection = protection
+	style.pattern = pattern
+	style.borders = borders
+	for k in range(row_num,1000):
+		row1 = sheet1.row(k)
+		for g in range(0,9):
+			row1.write(g, "", style)
+	sheet1.col(0).width = 4000
+	sheet1.col(1).width = 4000
+	sheet1.col(2).width = 4000
+	sheet1.col(3).width = 4000
+	sheet1.col(4).width = 5000
+	sheet1.col(5).width = 9000
+	sheet1.col(6).width = 5000
+	sheet1.col(7).width = 4000
+	sheet1.col(8).width = 4000
+	sheet2 = book.add_sheet('X')
+	sheet2.write(0,0,row_num)
+	random.seed()
+	hash = random.getrandbits(128)
+	sheet2.write(0,1,str(hash))	
+	sheet1.protect = True
+	sheet2.protect = True
+	sheet1.password = "DubaGdola"
+	sheet2.password = "DubaGdola"
+        c = {}
+        c['filename'] = str(request.user.id) + 'guests.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
+	book.save(TemporaryFile())
+	cur_user = UserProfile.objects.get(user=request.user)
+	cur_user.excel_hash=str(hash)
+	cur_user.save()
+        return render_to_response('accounts/xls.html', c)
+
+@login_required
+def sorted_excel(request):
+	Guests = Guest.objects.filter(user=request.user).order_by('guest_last_name')
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	borders = xlwt.Borders()
+	borders.left = xlwt.Borders.THIN
+	borders.right = xlwt.Borders.THIN
+	borders.top = xlwt.Borders.THIN
+	borders.bottom = xlwt.Borders.THIN
+	borders.left_colour = 0x40
+	borders.right_colour = 0x40
+	borders.top_colour = 0x40
+	borders.bottom_colour = 0x40
+	row_num = 0
+	row1 = sheet1.row(row_num)
+	row1.write(0, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(1, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+        pattern = xlwt.Pattern()
+        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        pattern.pattern_fore_colour = 1 
+        style = xlwt.XFStyle()
+	protection = xlwt.Protection()
+	protection.cell_locked = 1
+	style.protection = protection
+        style.pattern = pattern
+        style.borders = borders
+	row_num+=1
+	user_elements = SingleElement.objects.filter(user=request.user)
+	for g in Guests:
+		row1 = sheet1.row(row_num)
+		row1.write(0,g.guest_last_name, style)
+		row1.write(1,g.guest_first_name, style)
+		cur_caption = "No Table"
+		cur_fix_num = 0
+		for h in user_elements:
+			if h.elem_num == g.elem_num:
+				cur_caption=h.caption
+				cur_fix_num=h.fix_num
+		row1.write(2,cur_caption, style)
+		row1.write(3,cur_fix_num, style)
+		row_num+=1
+	sheet1.col(0).width = 6000
+	sheet1.col(1).width = 6000
+	sheet1.col(2).width = 8000
+	sheet1.col(3).width = 5000
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
+	c = {}
+	c['filename'] = str(request.user.id) + 'sorted.xls'
+	book.save('/Seating/static/excel_output/' + c['filename'])
+	book.save(TemporaryFile())
+	return render_to_response('accounts/xls.html', c)
+
+@login_required
+def do_duplicates(request):
+	duplicate_list=DupGuest.objects.filter(user=request.user)
+	for i in duplicate_list:
+		cur_check = i.guest_first_name + '-' + i.guest_last_name
+		if cur_check in request.POST:
+			if request.POST[cur_check] == "on":
+				new_person = Guest(user=request.user, guest_first_name=i.guest_first_name, guest_last_name=i.guest_last_name, phone_number=i.phone_number, guest_email=i.guest_email, present_amount=i.present_amount, facebook_account=i.facebook_account)
+				new_person.save()
+	DupGuest.objects.filter(user=request.user).delete()
+
+	un_group_list = UnknownGroups.objects.filter(user=request.user)
+	for i in un_group_list:
+		fix_list=Guest.objects.filter(user=request.user, group=i.group)
+		for f in fix_list:
+			f.group=request.POST[f.group]
+			f.save()
+	UnknownGroups.objects.filter(user=request.user).delete()	
+	return HttpResponseRedirect('/canvas/edit')
+
+@login_required
+def download_map(request):
+	#Guests = Guest.objects.filter(user=request.user)
+	user_elements = SingleElement.objects.filter(user=request.user)
+        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#max_rows = math.ceil(len(elements_nums)/3)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	row_num = 0
+	#row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	#for g in elements_nums:
+	cur_3_cul=0
+	cur_row=1
+	max_sitting_row=0
+	for g in user_elements:
+		#element_name=user_elements[g].caption
+		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
+		element_name=g.caption
+		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
+		if len(sitting_on_element) > max_sitting_row:
+			max_sitting_row=len(sitting_on_element)
+		if (cur_3_cul > 0) and (cur_3_cul % 12 == 0):
+			cur_3_cul=1
+			cur_row+=(max_sitting_row / 3)
+			if (max_sitting_row % 3 != 0) or (max_sitting_row == 0):
+				cur_row+=1
+			cur_row+=3
+			max_sitting_row=0
+		else:
+			cur_3_cul+=1
+		row_num=cur_row
 		
-@login_required
-def write_Operation(request):
-	json_dump = json.dumps({'status': "Error"})
-	info = request.POST['info']
-	writeOpertationFunc(request, info)
-	json_dump = json.dumps({'status': "OK"})
-	return HttpResponse(json_dump)
-	
-def writeOpertationFunc(request, info):
-	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
-	if (len(user_OccasionOperations) <= 0):
-		max_num = 1
-	else:
-		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max'] + 1
-	single_item = OccasionOperationItem(user=request.user, operation_number=max_num, operation_date=datetime.now() ,operation_info=info)
-	single_item.save()
+	        borders = xlwt.Borders()
+        	borders.left = xlwt.Borders.THIN
+        	borders.right = xlwt.Borders.THIN
+        	borders.top = xlwt.Borders.THIN
+        	borders.bottom = xlwt.Borders.THIN
+        	borders.left_colour = 0x40
+        	borders.right_colour = 0x40
+        	borders.top_colour = 0x40
+        	borders.bottom_colour = 0x40
+	        pattern = xlwt.Pattern()
+        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        	pattern.pattern_fore_colour = 49
+        	style = xlwt.XFStyle()
+        	protection = xlwt.Protection()
+        	protection.cell_locked = 1
+        	style.protection = protection
+        	style.pattern = pattern
+        	style.borders = borders
+
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul+1,element_name, style)
+		row1.write(cur_3_cul+2,"", style)
+		row1.write(cur_3_cul,"", style)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		
+		styleIn=xlwt.XFStyle()
+		patternIn = xlwt.Pattern()
+		patternIn.pattern = xlwt.Pattern.SOLID_PATTERN
+		patternIn.pattern_fore_colour = 22
+		styleIn.protection = protection
+		styleIn.borders = borders
+		styleIn.pattern = patternIn
+		for s in sitting_on_element:
+			if (cur_3_cul == 4) or (cur_3_cul == 8) or (cur_3_cul == 12):
+				cur_3_cul-=3
+				row_num+=1
+				row1 = sheet1.row(row_num)
+			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, styleIn)
+			cur_3_cul+=1
+		row_num+=1
+		if cur_3_cul <= 4:
+			cur_3_cul=3
+		elif cur_3_cul <= 8:
+			cur_3_cul=7
+		elif cur_3_cul > 8:
+			cur_3_cul=11
+		#while ( cur_3_cul % 3 != 0) :
+		#	cur_3_cul+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul-1,len(sitting_on_element), style)
+		row1.write(cur_3_cul-2,"", style)
+		row1.write(cur_3_cul,"", style)
+		cur_3_cul+=1
+	sheet1.col(0).width = 400
+	for i in range(1,12):
+		sheet1.col(i).width = 5000
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
+        c = {}
+        c['filename'] = str(request.user.id) + 'map.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
+	book.save(TemporaryFile())
+        return render_to_response('accounts/xls.html', c)
 
 @login_required
-def get_OperationsInfoNum(request):
-	json_dump = json.dumps({'status': "Error"})
-	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user)
-	if (len(user_OccasionOperations) <= 0):
-		max_num = 0
-	else:
-		max_num = user_OccasionOperations.all().aggregate(Max('operation_number'))['operation_number__max']
-	json_dump = json.dumps({'status': "OK",'Total':max_num})
-	return HttpResponse(json_dump)
-	
+def online_excel(request):
+	Guests = Guest.objects.filter(user=request.user)
+	#response = HttpResponse(mimetype='text/csv')
+	#response['Content-Disposition'] = 'attachment; /Seating/static/excel_output/' + str(request.user.id) + 'guests.csv'
+	f = open('/Seating/static/excel_output/' + str(request.user.id) + 'guests.csv', "w")
+	writer = csv.writer(f)
+	row_num = 1
+	partners = get_object_or_404(Partners, userPartner = request.user)
+	names=[partners.partner1_first_name,partners.partner2_first_name]
+
+	#writer.writerow(['0', 'first', 'last', 'gender', 'qty', 'phone', 'email', 'facebook', 'group', 'present'])
+	for g in Guests:
+		gfirst=unicode(g.guest_first_name, "UTF-8")
+		glast=unicode(g.guest_last_name, "UTF-8")
+		ggender=unicode(g.gender, "UTF-8")
+		gemail=unicode(g.guest_email, "UTF-8")
+		gfacebook=unicode(g.facebook_account, "UTF-8")
+		ggroup=unicode(g.group, "UTF-8")
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'), g.present_amount])
+		row_num+=1
+	f.close()
+        c = {}
+	c.update(csrf(request))
+	c['rows']=row_num
+	c['partner1']=names[0]
+	c['partner2']=names[1]
+	c['filename']='/static/excel_output/' + str(request.user.id) + 'guests.csv'
+        return render_to_response('accounts/online_xls.html', c)
+
 @login_required
-def get_Operations(request):
-	json_dump = json.dumps({'status': "Error"})
-	num = int(request.POST['num'])
-	user_OccasionOperations = OccasionOperationItem.objects.filter(user=request.user , operation_number = num)
-	if (len(user_OccasionOperations) == 1):
-		for OccasionOperation in user_OccasionOperations:
-			opdate = OccasionOperation.operation_date.strftime("%d/%m/%Y - %H:%M:%S")
-			opinfo = OccasionOperation.operation_info
-			json_dump = json.dumps({'status': "OK", 'opnum': num, 'date':opdate , 'info':opinfo})
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_GuestsEmails(request):
-	json_dump = json.dumps({'status': "Error"})
-	result = ""
-	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
-	if (len(user_GuestsEmails) > 0):
-		for guest in user_GuestsEmails:
-			name = guest.guest_last_name + " " + guest.guest_first_name
-			email = guest.guest_email;
-			result = result + name + "," + email + "|"
-		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
-	else:
-		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_element_orientation(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		if single_element is not None:
-			json_dump = json.dumps({'status': "OK",'orientation': single_element.orientation ,'elem_num':elem_num})
-	return HttpResponse(json_dump)
-	
-@login_required
-def change_element_orientation(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		elem_delim = request.POST['elem_num'].index('-')
-		elem_num=request.POST['elem_num'][elem_delim+1:]
-		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-		if single_element is not None:
-			if single_element.orientation == 'V':
-				single_element.orientation = 'H'
-			else:
-				if single_element.orientation == 'H':
-					single_element.orientation = 'FV'
-				else:
-					if single_element.orientation == 'FV':
-						single_element.orientation = 'FH'
+def online_save(request):
+	if request.method == 'POST': # If the form has been submitted...
+		tmpXmlFile=open('/tmp/'+str(request.user.id)+'xmlsave.xml', 'w')
+		tmpXmlFile.write(request.POST['xml'].encode('utf-8'))
+		tmpXmlFile.close()
+		tmpXmlFile=open('/tmp/'+str(request.user.id)+'xmlsave.xml', 'r')
+                userXml = parse(tmpXmlFile).getroot()
+		tmpXmlFile.close()
+		starting_row=request.POST['start_row']
+		gender_choice=["U","M","F"]
+		partners = get_object_or_404(Partners, userPartner = request.user)
+		names=[partners.partner1_first_name,partners.partner2_first_name]
+		if names[1] != "":
+			names[1]=" "+names[1]
+		group_choice=["Family "+names[0],"Friends "+names[0],"Work "+names[0],"Family"+names[1],"Friends"+names[1],"Work"+names[1],"Other"]
+		#xxml=""
+		DupGuest.objects.filter(user=request.user).delete()
+		for row in userXml.findall('row'):
+			if int(row.get('id')) >= int(starting_row):
+				cur_col=0
+				cur_list=[]
+				for cell in row.findall('cell'):
+					if type(cell.text).__name__=='unicode':
+						celltext=cell.text.encode('utf-8')
+					elif type(cell.text).__name__=='NoneType':
+						celltext=""
 					else:
-						single_element.orientation = 'V'
-			single_element.save()
-			json_dump = json.dumps({'status': "OK"})				
-	return HttpResponse(json_dump)
+						celltext=str(cell.text)
+					cur_list.append(celltext)
+				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, fpresent = cur_list
+				cells=row.findall('cell')
+				if (ffirst != "" or flast != ""): 
+					if fgroup in group_choice:
+						if fgender not in gender_choice :
+							fgender="U"
+						if fqty <> "":
+							fqty=re.sub("\D", "", fqty)
+						else:
+							fqty=1
+						if check_person(ffirst, flast, request.user):
+							dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+							dup_person.save()
+						else:
+							if int(fqty) > 1:
+								for i in range(1,int(fqty)+1):
+									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+									new_person.save()
+							else:
+								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+								new_person.save()
+
+	duplicate_list = DupGuest.objects.filter(user=request.user)
+	if duplicate_list :
+		c= {}
+		c.update(csrf(request))
+		c['duplicate_list']=duplicate_list
+		return render_to_response('accounts/duplicate.html', c)
+ 	else:
+		return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
+
+@csrf_exempt
+def contact_view(request):
+	c={}
+	c.update(csrf(request))
+	if request.META['REQUEST_URI'] == '/site/contact.html':
+		return render_to_response('site/contact.html', c)
+	elif request.method == 'POST':
+		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
+		return HttpResponseRedirect('/site/sent.html')
+
+def invation(request, guestHash):
+	if request.method == 'POST':
+		return render_to_response('accounts/invation_updated.html')
+	else:
+		guestHashCode = str(guestHash)
+		persons = Guest.objects.filter(guest_hash = guestHashCode)
+		if (len(persons) > 0):
+			persondata = {}
+			persondata['first_name'] = persons[0].guest_first_name
+			persondata['last_name'] = persons[0].guest_last_name
+			partners = get_object_or_404(Partners, userPartner = persons[0].user)
+			profile = get_object_or_404(UserProfile, user = persons[0].user)
+			date = profile.occasion_date.strftime("%d/%m/%Y")
+			place = profile.occasion_place
+			persondata['date'] = date
+			persondata['place'] = place
+			user_last_name = ""
+			if partners.partner1_gender == 'M':
+				user_last_name = partners.partner1_last_name
+			else:
+				user_last_name = partners.partner2_last_name
+			if user_last_name == "":
+				user_last_name = partners.partner1_last_name
+			persondata['addChar'] = ""
+			if partners.partner2_first_name != "":
+				persondata['addChar'] = "&"
+			persondata['user1_first_name'] = partners.partner1_first_name
+			persondata['user2_first_name'] = partners.partner2_first_name
+			persondata['user_last_name'] = user_last_name
+			return render_to_response('accounts/invation.html', persondata)
+		else:
+			return HttpResponse('Guest not exist')
 
 
 @login_required
-def change_user_profile(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		profile = get_object_or_404(UserProfile, user = request.user)
-		if profile is not None:
-			print profile
-			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
-			profile.occasion_place = ugettext(request.POST['place'])
-			profile.phone_number = ugettext(request.POST['phone'])
-			profile.save()
-			json_dump = json.dumps({'status': "OK"})				
-	return HttpResponse(json_dump)
-	
-@login_required
-def get_occasion_meal_and_inv_details(request):
-	json_dump = json.dumps({'status': "Error"})
-	if request.method == 'POST':
-		GuestsInvAccept = Guest.objects.filter(user=request.user , invation_status = 'A')
-		GuestsNotInvAccept = Guest.objects.filter(user=request.user , invation_status = 'N')
-		GuestsTentativeInv = Guest.objects.filter(user=request.user , invation_status = 'T')
-		GuestsMeatMeal = Guest.objects.filter(user=request.user , meal = 'M')
-		GuestsVegMeal = Guest.objects.filter(user=request.user , meal= 'V')
-		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
-		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
-	return HttpResponse(json_dump)
+def stickers(request):
+	Guests = Guest.objects.filter(user=request.user)
+	user_elements = SingleElement.objects.filter(user=request.user)
+        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#max_rows = math.ceil(len(elements_nums)/3)
+	book = Workbook()
+	sheet1 = book.add_sheet('2Seat.co.il')
+	sheet1.cols_right_to_left = True
+	row_num = 0
+	#row1.write(6, 'Present', Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	#for g in elements_nums:
+	cur_3_cul=-1
+	cur_row=0
+	max_sitting_row=0
+	for g in Guests:
+		#element_name=user_elements[g].caption
+		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
+		firstname=unicode(g.guest_first_name, "UTF-8")
+		lastname=unicode(g.guest_last_name, "UTF-8")
+		if g.elem_num != 0:
+			table=SingleElement.objects.get(user=request.user,elem_num=g.elem_num)
+			table_name=unicode(table.caption, "UTF-8")
+			table_num=table.fix_num
+		else:
+			table_name="None"
+			table_num=""
+		group_name=unicode(g.group, "UTF-8")
+		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
+			cur_3_cul=0
+			cur_row+=5
+		else:
+			cur_3_cul+=1
+		row_num=cur_row
+		
+		alignment = xlwt.Alignment()
+		alignment.horz = xlwt.Alignment.HORZ_CENTER
+		alignment.vert = xlwt.Alignment.VERT_CENTER
+	        border1 = xlwt.Borders()
+	        border2 = xlwt.Borders()
+	        border3 = xlwt.Borders()
+        	border1.left = xlwt.Borders.DOUBLE
+        	border1.right = xlwt.Borders.DOUBLE
+        	border2.left = xlwt.Borders.DOUBLE
+        	border2.right = xlwt.Borders.DOUBLE
+        	border3.left = xlwt.Borders.DOUBLE
+        	border3.right = xlwt.Borders.DOUBLE
+        	border2.top = xlwt.Borders.DOUBLE
+        	border3.bottom = xlwt.Borders.DOUBLE
+        	border1.left_colour = 0x40
+        	border1.right_colour = 0x40
+        	border2.left_colour = 0x40
+        	border2.right_colour = 0x40
+        	border3.left_colour = 0x40
+        	border3.right_colour = 0x40
+        	border2.top_colour = 0x40
+        	border3.bottom_colour = 0x40
+	        pattern = xlwt.Pattern()
+        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+        	pattern.pattern_fore_colour = 1
+        	style1 = xlwt.XFStyle()
+        	style2 = xlwt.XFStyle()
+        	style3 = xlwt.XFStyle()
+        	protection = xlwt.Protection()
+        	protection.cell_locked = 1
+        	style1.protection = protection
+        	style1.pattern = pattern
+		style1.alignment = alignment
+        	style2.protection = protection
+        	style2.pattern = pattern
+		style2.alignment = alignment
+        	style3.protection = protection
+        	style3.pattern = pattern
+		style3.alignment = alignment
+        	style1.borders = border1
+        	style2.borders = border2
+        	style3.borders = border3
+		
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,"", style2)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,firstname + " " + lastname, style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,group_name, style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,table_name + " - " + str(table_num), style1)
+		row_num+=1
+		row1 = sheet1.row(row_num)
+		row1.write(cur_3_cul,"", style3)
+	for i in range(0,3):
+		sheet1.col(i).width = 8000
+	for i in range(0,row_num+1):
+		sheet1.row(i).height=450
+		sheet1.row(i).height_mismatch = True
+	sheet1.protect = True
+	sheet1.password = "DubaGdola"
+        c = {}
+        c['filename'] = str(request.user.id) + 'stickers.xls'
+        book.save('/Seating/static/excel_output/' + c['filename'])
+	book.save(TemporaryFile())
+        return render_to_response('accounts/xls.html', c)
