@@ -374,15 +374,15 @@ def sorted_excel(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	for g in Guests:
 		row1 = sheet1.row(row_num)
-		row1.write(0,g.guest_last_name, style)
-		row1.write(1,g.guest_first_name, style)
+		row1.write(0,unicode(g.guest_last_name, "UTF-8"), style)
+		row1.write(1,unicode(g.guest_first_name, "UTF-8"), style)
 		cur_caption = "No Table"
 		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=h.caption
 				cur_fix_num=h.fix_num
-		row1.write(2,cur_caption, style)
+		row1.write(2,unicode(cur_caption, "UTF-8"), style)
 		row1.write(3,cur_fix_num, style)
 		row_num+=1
 	sheet1.col(0).width = 6000
@@ -488,7 +488,7 @@ def download_map(request):
 				cur_3_cul-=3
 				row_num+=1
 				row1 = sheet1.row(row_num)
-			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, styleIn)
+			row1.write(cur_3_cul,unicode(s.guest_first_name, "UTF-8") + " " + unicode(s.guest_last_name, "UTF-8"), styleIn)
 			cur_3_cul+=1
 		row_num+=1
 		if cur_3_cul <= 4:
