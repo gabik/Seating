@@ -117,8 +117,10 @@ INSTALLED_APPS = (
     'Seating.accounts',
     'Seating.canvas',
     'captcha',
+    'google_analytics',
 )
 
+GOOGLE_ANALYTICS_ACCOUNT_CODE='UA-27811388-1'
 #Captcha define - by Gabi
 CAPTCHA_FONT_SIZE=32
 CAPTCHA_NOISE_FUNCTIONS=('captcha.helpers.noise_dots',)
