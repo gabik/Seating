@@ -649,7 +649,6 @@ def invation(request, guestHash):
 		else:
 			return HttpResponse('Guest not exist')
 
-
 @login_required
 def stickers(request):
 	Guests = Guest.objects.filter(user=request.user)

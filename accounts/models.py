@@ -44,7 +44,7 @@ class Partners(models.Model):
 	partner2_gender = models.CharField(max_length=1, choices=gender_choices, blank=True)
 	
 class Guest(models.Model):
-        user = models.ForeignKey(User, unique=False)
+	user = models.ForeignKey(User, unique=False)
 	elem_num = models.IntegerField(default=0)
 	position = models.IntegerField(default=0)
 	guest_first_name = models.CharField(max_length=30)
@@ -74,7 +74,7 @@ class Guest(models.Model):
 	)
 	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
         def __unicode__(self):
-                printy = unicode(self.user.username,"UTF-8") + "- " + unicode(self.guest_first_name,"UTF-8")+ " " +unicode(self.guest_last_name,"UTF-8")
+                printy = self.user.username + "- " + self.guest_first_name+ " " +self.guest_last_name
                 return printy
 
 class DupGuest(models.Model):
