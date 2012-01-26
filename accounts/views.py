@@ -534,7 +534,7 @@ def online_excel(request):
 		gemail=unicode(g.guest_email, "UTF-8")
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		ggroup=unicode(g.group, "UTF-8")
-		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'), g.present_amount])
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
 		row_num+=1
 	f.close()
         c = {}
@@ -591,10 +591,12 @@ def online_save(request):
 						else:
 							if int(fqty) > 1:
 								for i in range(1,int(fqty)+1):
-									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
+									hash = str(str(request.user) + ffirst + " " + str(i) + flast)
+									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
 									new_person.save()
 							else:
-								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
+								hash = str(str(request.user) + ffirst +  flast)
+								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
 								new_person.save()
 
 	duplicate_list = DupGuest.objects.filter(user=request.user)
