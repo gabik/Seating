@@ -214,10 +214,12 @@ def upload_file(request):
 					else:
 						if quantity > 1:
 							for i in range(1,int(quantity)+1):
-								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								hash = str(str(request.user) + privName + " " + str(i) + lastName)
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 								new_person.save()
 						else:
-							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+							hash = str(str(request.user) + privName + lastName
+							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							new_person.save()
 
 				if groupNme not in group_choices:
