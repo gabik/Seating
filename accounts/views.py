@@ -618,6 +618,12 @@ def contact_view(request):
 
 def invation(request, guestHash):
 	if request.method == 'POST':
+		guestHashCode = str(guestHash)
+		persons = Guest.objects.filter(guest_hash = guestHashCode)
+		if (len(persons) > 0):
+			persons[0].invation_status=request.POST['personInvationStatus']
+			persons[0].meal=request.POST['personMeal']
+			persons[0].save()
 		return render_to_response('accounts/invation_updated.html')
 	else:
 		guestHashCode = str(guestHash)
@@ -645,6 +651,7 @@ def invation(request, guestHash):
 			persondata['user1_first_name'] = partners.partner1_first_name
 			persondata['user2_first_name'] = partners.partner2_first_name
 			persondata['user_last_name'] = user_last_name
+			persondata.update(csrf(request))
 			return render_to_response('accounts/invation.html', persondata)
 		else:
 			return HttpResponse('Guest not exist')
