@@ -8,17 +8,20 @@
 <script src="/static/grid/gabi/dhtmlxcommon.js"></script>
 <script src="/static/grid/gabi/dhtmlxgrid.js"></script>
 <script src="/static/grid/gabi/dhtmlxgridcell.js"></script>
+ {% load googleanalytics_tags %}
+ {% googleanalytics %}
+
 </head>
 <!--<body onload="if (location.href.indexOf('reload')==-1) location.replace(location.href+'?reload'); doInitGrid()" dir=rtl> -->
 <body onload="doInitGrid()" dir=rtl>
-<div id="mygrid_container" style="width:930px;height:550px;" ></div>
+<div id="mygrid_container" style="width:1000px;height:550px;" dir=rtl></div>
 <script>
 var mygrid;
 var newId;
 newId={{ rows }};
 function addRow(){
     //var newId = (new Date()).valueOf()
-    mygrid.addRow(newId,",,,,,,,Other,",mygrid.getRowsNum());
+    mygrid.addRow(newId,",,U,,,,,Other,T,0",mygrid.getRowsNum());
     newId++;
     mygrid.selectRow(mygrid.getRowIndex(newId),false,false,true);
 }
@@ -83,17 +86,27 @@ function is_int(value){
   } 
 }
 
+function is_mail(value){
+  AtPos = value.indexOf("@")
+  StopPos = value.lastIndexOf(".")
+  if (AtPos == -1 || StopPos == -1) {
+    return false;
+  }
+  return true;
+}
+
 
 function doInitGrid(){
 mygrid = new dhtmlXGridObject('mygrid_container');
 mygrid.setImagePath("/static/grid/dhtmlxGrid/codebase/imgs/");
-mygrid.setHeader('first, last, gender, qty, phone, email, facebook, group, present');
-mygrid.setInitWidths("100,100,100,100,100,100,100,100,100");
+//mygrid.setHeader('first, last, gender, qty, phone, email, facebook, group, present');
+mygrid.setHeader('שם פרטי,שם משפחה,מין,כמות,טלפון,E-mail,Facebook,קבוצה,סטטוס הגעה,סכום מתנה');
+mygrid.setInitWidths("100,100,100,100,100,100,100,100,100,100");
 mygrid.setColAlign("right,right,right,right,right,right,right,right,right");
 mygrid.setSkin("light");
 mygrid.init();
 mygrid.load("{{ filename }}","csv");
-mygrid.setColTypes("ed,ed,coro,ed,ed,ed,ed,coro,ed");
+mygrid.setColTypes("ed,ed,coro,ed,ed,ed,ed,coro,coro,ed");
 var p1name= " {{ partner1 }}";
 var p2name= " {{ partner2 }}";
 var p2back= " {{ partner2 }}";
@@ -116,13 +129,24 @@ gender_combo.put("U","אחר");
 gender_combo.put("M","זכר");
 gender_combo.put("F","נקבה");
 gender_combo.save();
+var invation_combo = mygrid.getCombo(8);
+invation_combo.put("A","מגיע");
+invation_combo.put("N","לא מגיע");
+invation_combo.put("T","ממתין לאישור");
+invation_combo.save();
 mygrid.attachEvent("onRowSelect",doOnRowSelected);
 mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
      if (stage == 2 && index == 3 && !is_int(new_value)) {
           return false; 
+     } else if (stage == 2 && index == 5 && !is_mail(new_value)) {
+	  return false;
      } else {
           return true;
      } });
+//mygrid.attachEvent("onCellChanged",function(id,index,value){
+     //if (index == 5 && !is_mail(value))
+          //mygrid.cells(id,index).setCValue("GABI");
+//})
 //mygrid.attachEvent("onRowAdded", lock());
 //myDataProcessor = new dataProcessor("/static/gabi.html");
 //myDataProcessor.setTransactionMode("POST", true);

@@ -84,9 +84,11 @@ function swapImgMobile()
 
 $(document).ready(function()
 {
-
+	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0 || navigator.userAgent.toLowerCase().indexOf('mobile') > 0)
+	     {
 		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
 		setTimeout("swapImgMobile()",500);
+	}
 	
 });
 </script>

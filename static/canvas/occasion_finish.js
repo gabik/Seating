@@ -8,7 +8,7 @@ var token = window.csrf_token;
 var excelDivString = '<div id="tabExcel" ><table border="0" cellspacing="0" cellpadding="0" width="400" height="245" align="center"><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">הורדה:</p><p class="text_14_black" dir="rtl">קובץ הורדה למילוי פרטי המוזמנים&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><img id="excelDownImg" src="/static/canvas/images/features/exceldown_n.png" align="middle" style="cursor:pointer;"/><span></p></td></tr><tr height="15" ><td colspan="2"></tr><tr><td align="right" dir="rtl"><p class="text_18_black" dir="rtl">העלאה:</p><form enctype="multipart/form-data" action=/accounts/upload/ method="POST">' + token + '&nbsp;<div style="position: relative;"><div><input id="fileText" style="margin-left:10; margin-top:5;" size="28"><span><input type="file" name="file" id="id_file" style="position: absolute; float:right; width: 116px; text-align:right; z-index: 2; -moz-opacity:0 ; filter:alpha(opacity: 0); opacity: 0; cursor:pointer; margin-top:5px;" size="1"/><img id="browseImg" style="cursor:pointer; z-index:1;" src="/static/canvas/images/browse_n.png" align="top"/><span><input type="image" id="excelUpImg" src="/static/canvas/images/features/excelup_n.png" value="Upload File" style=" margin-top:2.5; visibility:hidden;" align="top"/></span></div></div></span></form></input></td></tr></table></br></div>';
 
 
-var outputDivString = '<div id="tabOutput" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<a href="#" class="text_18_black" dir="rtl">הורדת קובץ רשימת מוזמנים.</a></img></br></br><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ מיפוי שולחנות.</a></span></img></br></br><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ פיתקיות ישיבה.</a></span></img></td></tr></table></br></div>'
+var outputDivString = '<div id="tabOutput" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><p id="sorted"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<a href="#" class="text_18_black" dir="rtl">הורדת קובץ רשימת מוזמנים.</a></img></p></br><p id="map"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ מיפוי שולחנות.</a></span></img></p></br><p id="stickers"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ פיתקיות ישיבה.</a></span></img></p></td></tr></table></br></div>'
 
 var notificationDivString = '<div id="tabNotify"><table border="0" cellspacing="0" cellpadding="0" width="300" height="190" align="center"><tr><td align="right" colspan="3" dir="rtl"><p class="text_14_black" dir="rtl">שליחת&nbsp;&nbsp;&nbsp;&nbsp;<span><select id="sendValue" size="1"><option value="1" SELECTED>אישורי הגעה<option value="2">תודות</select><span></td></tr><td align="center" dir="rtl" colspan="2"><table><td><p class="text_14_black" dir="rtl" id="emailsSelectAll" style="cursor:pointer;">סמן הכל</p></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p class="text_14_black" id="emailsClearAll" style="cursor:pointer;">נקה הכל</p></td></table></td></tr><tr><td align="right" dir="rtl"><ul id="emailNotificationList"></ul></td><td>&nbsp;</td><td align="right" dir="rtl"><textarea name="message" id="notify_message" cols="15" rows="7"></textarea></td></tr><tr height="12"/><tr><td align="left" dir="rtl" colspan="3"><img id="sendNotifyImg" src="/static/page/images/send_btn_nr.png"/></td></tr></table></div>'
 
@@ -115,6 +115,21 @@ $(document).ready(function() {
 		 window.open('/accounts/download');
 		 return false;
 	});
+	$("#stickers").bind('click', function(){
+		$("#OccasionFinishCloseBtn").click();
+		window.open('/accounts/stickers');
+		return false;
+        });
+	$("#map").bind('click', function(){
+		$("#OccasionFinishCloseBtn").click();
+		window.open('/accounts/map');
+		return false;
+        });
+	$("#sorted").bind('click', function(){
+		$("#OccasionFinishCloseBtn").click();
+		window.open('/accounts/sorted');
+		return false;
+        });
 	$("#excelUpImg").bind('mouseout', function(){
 		$(this).attr('src',"/static/canvas/images/features/excelup_n.png");
 	});

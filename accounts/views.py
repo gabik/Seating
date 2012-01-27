@@ -208,16 +208,18 @@ def upload_file(request):
 
 
 				if privName <> "" or lastName <> "" :
-					if check_person(privName, lastName, request,user):
+					if check_person(privName, lastName, request.user):
 						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
 						dup_person.save()
 					else:
 						if quantity > 1:
 							for i in range(1,int(quantity)+1):
-								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+								hash = str(str(request.user) + privName + " " + str(i) + lastName)
+								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 								new_person.save()
 						else:
-							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+							hash = str(str(request.user) + privName + lastName)
+							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
 							new_person.save()
 
 				if groupNme not in group_choices:
@@ -374,15 +376,15 @@ def sorted_excel(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	for g in Guests:
 		row1 = sheet1.row(row_num)
-		row1.write(0,g.guest_last_name, style)
-		row1.write(1,g.guest_first_name, style)
+		row1.write(0,unicode(g.guest_last_name, "UTF-8"), style)
+		row1.write(1,unicode(g.guest_first_name, "UTF-8"), style)
 		cur_caption = "No Table"
 		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=h.caption
 				cur_fix_num=h.fix_num
-		row1.write(2,cur_caption, style)
+		row1.write(2,unicode(cur_caption, "UTF-8"), style)
 		row1.write(3,cur_fix_num, style)
 		row_num+=1
 	sheet1.col(0).width = 6000
@@ -488,7 +490,7 @@ def download_map(request):
 				cur_3_cul-=3
 				row_num+=1
 				row1 = sheet1.row(row_num)
-			row1.write(cur_3_cul,s.guest_first_name + " " + s.guest_last_name, styleIn)
+			row1.write(cur_3_cul,unicode(s.guest_first_name, "UTF-8") + " " + unicode(s.guest_last_name, "UTF-8"), styleIn)
 			cur_3_cul+=1
 		row_num+=1
 		if cur_3_cul <= 4:
@@ -534,7 +536,7 @@ def online_excel(request):
 		gemail=unicode(g.guest_email, "UTF-8")
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		ggroup=unicode(g.group, "UTF-8")
-		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'), g.present_amount])
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
 		row_num+=1
 	f.close()
         c = {}
@@ -575,7 +577,7 @@ def online_save(request):
 					else:
 						celltext=str(cell.text)
 					cur_list.append(celltext)
-				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, fpresent = cur_list
+				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, farive, fpresent = cur_list
 				cells=row.findall('cell')
 				if (ffirst != "" or flast != ""): 
 					if fgroup in group_choice:
@@ -586,15 +588,17 @@ def online_save(request):
 						else:
 							fqty=1
 						if check_person(ffirst, flast, request.user):
-							dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+							dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
 							dup_person.save()
 						else:
 							if int(fqty) > 1:
 								for i in range(1,int(fqty)+1):
-									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+									hash = str(str(request.user) + ffirst + " " + str(i) + flast)
+									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
 									new_person.save()
 							else:
-								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup)
+								hash = str(str(request.user) + ffirst +  flast)
+								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
 								new_person.save()
 
 	duplicate_list = DupGuest.objects.filter(user=request.user)
@@ -618,6 +622,12 @@ def contact_view(request):
 
 def invation(request, guestHash):
 	if request.method == 'POST':
+		guestHashCode = str(guestHash)
+		persons = Guest.objects.filter(guest_hash = guestHashCode)
+		if (len(persons) > 0):
+			persons[0].invation_status=request.POST['personInvationStatus']
+			persons[0].meal=request.POST['personMeal']
+			persons[0].save()
 		return render_to_response('accounts/invation_updated.html')
 	else:
 		guestHashCode = str(guestHash)
@@ -645,10 +655,10 @@ def invation(request, guestHash):
 			persondata['user1_first_name'] = partners.partner1_first_name
 			persondata['user2_first_name'] = partners.partner2_first_name
 			persondata['user_last_name'] = user_last_name
+			persondata.update(csrf(request))
 			return render_to_response('accounts/invation.html', persondata)
 		else:
 			return HttpResponse('Guest not exist')
-
 
 @login_required
 def stickers(request):
@@ -688,6 +698,9 @@ def stickers(request):
 		alignment = xlwt.Alignment()
 		alignment.horz = xlwt.Alignment.HORZ_CENTER
 		alignment.vert = xlwt.Alignment.VERT_CENTER
+		alignment2 = xlwt.Alignment()
+		alignment2.horz = xlwt.Alignment.HORZ_LEFT
+		alignment2.vert = xlwt.Alignment.VERT_TOP
 	        border1 = xlwt.Borders()
 	        border2 = xlwt.Borders()
 	        border3 = xlwt.Borders()
@@ -710,6 +723,12 @@ def stickers(request):
 	        pattern = xlwt.Pattern()
         	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         	pattern.pattern_fore_colour = 1
+		font1 = xlwt.Font()
+		font2 = xlwt.Font()
+		font1.name = 'David'
+		font1.bold = True
+		font1.height = 0x00C8
+		font2.height = 0x00C5
         	style1 = xlwt.XFStyle()
         	style2 = xlwt.XFStyle()
         	style3 = xlwt.XFStyle()
@@ -718,9 +737,11 @@ def stickers(request):
         	style1.protection = protection
         	style1.pattern = pattern
 		style1.alignment = alignment
+		style1.font = font1
         	style2.protection = protection
         	style2.pattern = pattern
-		style2.alignment = alignment
+		style2.alignment = alignment2
+		style2.font = font2
         	style3.protection = protection
         	style3.pattern = pattern
 		style3.alignment = alignment
@@ -729,7 +750,7 @@ def stickers(request):
         	style3.borders = border3
 		
 		row1 = sheet1.row(row_num)
-		row1.write(cur_3_cul,"", style2)
+		row1.write(cur_3_cul,"2seat.co.il", style2)
 		row_num+=1
 		row1 = sheet1.row(row_num)
 		row1.write(cur_3_cul,firstname + " " + lastname, style1)

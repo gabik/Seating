@@ -1,7 +1,10 @@
+ {% load googleanalytics_tags %}
+ {% googleanalytics %}
+
 <script language="JavaScript">
 function move() {
 window.location='/static/excel_output/{{ filename }}';
-setTimeout(continueExecution, 1200);
+setTimeout(continueExecution, 2000);
 }
 function continueExecution() {
 window.close();

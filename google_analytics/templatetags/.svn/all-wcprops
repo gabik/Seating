@@ -1,0 +1,17 @@
+K 25
+svn:wc:ra_dav:version-url
+V 51
+/svn/!svn/ver/7/trunk/google_analytics/templatetags
+END
+__init__.py
+K 25
+svn:wc:ra_dav:version-url
+V 63
+/svn/!svn/ver/4/trunk/google_analytics/templatetags/__init__.py
+END
+googleanalytics_tags.py
+K 25
+svn:wc:ra_dav:version-url
+V 75
+/svn/!svn/ver/7/trunk/google_analytics/templatetags/googleanalytics_tags.py
+END
