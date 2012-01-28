@@ -4,3 +4,4 @@
 static/excel_output
 /apache/django.wsgi
 apache/django.wsgi
+*.wsgi
