@@ -4,6 +4,8 @@
 <meta http-Equiv="Pragma" Content="no-cache">
 <meta http-Equiv="Expires" Content="0">
 
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <link rel="STYLESHEET" type="text/css" href="/static/grid/dhtmlxGrid/codebase/dhtmlxgrid.css">
 <script src="/static/grid/gabi/dhtmlxcommon.js"></script>
 <script src="/static/grid/gabi/dhtmlxgrid.js"></script>
@@ -154,10 +156,33 @@ mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
 //myDataProcessor.init(mygrid);
 setTimeout('lock()',1500);
 setTimeout('lock()',2500);
+//djkp added buttons
+	$(document).ready(function() {
+		$("#AddDivImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/pluse_n.png");
+		});
+		$("#AddDivImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/pluse_r.png");
+		});	
+		
+		$("#DelImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/minus_n.png");
+		});
+		$("#DelImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/minus_r.png");
+		});
+		
+		$("#OnlineSaveImg").mouseout(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
+		});
+		$("#OnlineSaveImg").mouseover(function(){
+			$(this).attr('src',"/static/right_interface/images/save_changes_r.png");
+		});	
+	});
 }
 </script>
-  <button onclick="addRow()">Add Row</button>  
-  <button onclick="removeRow()">Remove Row</button>
-  <button onclick="save()">save</button>
+  <img id="AddDivImg" src="/static/canvas/images/pluse_n.png" alt="הוסף עמודה" onclick="addRow()"/>
+  <img id="DelImg" src="/static/canvas/images/minus_n.png" alt="מחק עמודה" onclick="removeRow()"/>
+  <img id="OnlineSaveImg" src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" onclick="save()"/>
 </body>
 </html>

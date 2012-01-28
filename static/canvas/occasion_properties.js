@@ -76,6 +76,7 @@ $(document).ready(function() {
 						{
 							setSaveStatus("Error");
 						}
+						$("#OcassionPropCloseBtn").click();
 				}, 'json');
 	});
 	$("#sendOPBtn").bind('mouseout', function(){
