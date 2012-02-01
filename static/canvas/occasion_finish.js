@@ -91,6 +91,7 @@ $(document).ready(function() {
 	$("#features").append($(ofTabString));
 	$("#OFtabs").tabs();
 	sendNotifyChange();
+	fillNotificationList();
 	$("#OccasionFinishCloseBtn").bind('click', function() {
 		$("#OccasionFinishRectangle").remove();
 		$("#OFFrame").remove(); 
