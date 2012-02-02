@@ -18,4 +18,5 @@ urlpatterns = patterns('accounts.views',
 	(r'^registered/$', 'registered'),
 	(r'^do_duplicates/$', 'do_duplicates'),
 	(r'^invation/(?P<guestHash>\w+)/$', 'invation'),
+	(r'^sendNotif/$', 'SendNotifications'),
 )

@@ -794,3 +794,32 @@ def stickers(request):
         book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
         return render_to_response('accounts/xls.html', c)
+
+@login_required
+def SendNotifications(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		emails=request.POST.getlist('mailList')
+		message=request.POST['message']
+		partners=get_object_or_404(Partners, userPartner = request.user)
+		if partners.partner1_gender == 'M':
+			last_name = unicode(partners.partner1_last_name, "UTF-8")
+		else:
+			last_name = unicode(partners.partner2_last_name, "UTF-8")
+		names=unicode(partners.partner1_first_name, "UTF-8")
+		if partners.partner2_first_name != "":
+			names=names+unicode(' ו', "UTF-8") + unicode(partners.partner2_first_name, "UTF-8")
+		names=names+' '+last_name
+		subject=unicode('הנכם מוזמנים לחתונתם של ', "UTF-8") + names
+		for cur_mail in emails:
+			guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
+			for cur_guest in guests:
+				hash=cur_guest.guest_hash
+				link='http://2seat.co.il/accounts/invation/'+hash+'/'
+				message+=unicode('   לינק: ', "UTF-8") + link
+				send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+
+	
+
