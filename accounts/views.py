@@ -208,19 +208,29 @@ def upload_file(request):
 
 
 				if privName <> "" or lastName <> "" :
+					addStr=""
 					if check_person(privName, lastName, request.user):
-						dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
-						dup_person.save()
-					else:
-						if quantity > 1:
-							for i in range(1,int(quantity)+1):
-								hash = str(str(request.user) + privName + " " + str(i) + lastName)
-								new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
-								new_person.save()
+						#dup_person = DupGuest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme)
+						#dup_person.save()
+						max_match = Guest.objects.filter(user=request.user,guest_first_name=privName, guest_last_name__gt=lastName)
+						exist_num =  Guest.objects.filter(user=request.user,guest_first_name=privName, guest_last_name=lastName + " " + str(len(max_match) + 1))
+						if (len(exist_num) <= 0):
+							addStr = len(max_match) + 1
 						else:
-							hash = str(str(request.user) + privName + lastName)
-							new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
+							addStr = len(max_match) + 2
+
+
+					#else:
+					lastName=lastName + " " + str(addStr)
+					if quantity > 1:
+						for i in range(1,int(quantity)+1):
+							hash = str(str(request.user) + privName + " " + str(i) + lastName)
+							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							new_person.save()
+					else:
+						hash = str(str(request.user) + privName + lastName)
+						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
+						new_person.save()
 
 				if groupNme not in group_choices:
 					un_group = UnknownGroups(user=request.user, group=groupNme);
@@ -229,12 +239,13 @@ def upload_file(request):
 			cur_user.excel_hash='Locked'
 			cur_user.save()
 
-			duplicate_list = DupGuest.objects.filter(user=request.user)
+			#duplicate_list = DupGuest.objects.filter(user=request.user)
 			un_group_list = UnknownGroups.objects.filter(user=request.user)
-			if duplicate_list or un_group_list:
+			#if duplicate_list or un_group_list:
+			if un_group_list:
 				c= {}
 				c.update(csrf(request))
-				c['duplicate_list']=duplicate_list
+				#c['duplicate_list']=duplicate_list
 				c['un_group_list']=un_group_list
 				c['group_choices']=group_choices
 				return render_to_response('accounts/duplicate.html', c)
@@ -587,28 +598,36 @@ def online_save(request):
 							fqty=re.sub("\D", "", fqty)
 						else:
 							fqty=1
+						addStr=""
 						if check_person(ffirst, flast, request.user):
-							dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
-							dup_person.save()
-						else:
-							if int(fqty) > 1:
-								for i in range(1,int(fqty)+1):
-									hash = str(str(request.user) + ffirst + " " + str(i) + flast)
-									new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-									new_person.save()
+							#dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
+							#dup_person.save()
+							max_match = Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name__gt=flast)
+							exist_num =  Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name=flast + " " + str(len(max_match) + 1))
+							if (len(exist_num) <= 0):
+								addStr = len(max_match) + 1
 							else:
-								hash = str(str(request.user) + ffirst +  flast)
-								new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
+								addStr = len(max_match) + 2
+						#else:
+						flast=flast + " " + str(addStr)
+						if int(fqty) > 1:
+							for i in range(1,int(fqty)+1):
+								hash = str(str(request.user) + ffirst + " " + str(i) + flast)
+								new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
 								new_person.save()
+						else:
+							hash = str(str(request.user) + ffirst +  flast)
+							new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
+							new_person.save()
 
-	duplicate_list = DupGuest.objects.filter(user=request.user)
-	if duplicate_list :
-		c= {}
-		c.update(csrf(request))
-		c['duplicate_list']=duplicate_list
-		return render_to_response('accounts/duplicate.html', c)
- 	else:
-		return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
+	#duplicate_list = DupGuest.objects.filter(user=request.user)
+	#if duplicate_list :
+		#c= {}
+		#c.update(csrf(request))
+		#c['duplicate_list']=duplicate_list
+		#return render_to_response('accounts/duplicate.html', c)
+ 	#else:
+	return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
 
 @csrf_exempt
 def contact_view(request):
