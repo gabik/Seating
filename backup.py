@@ -44,8 +44,8 @@ def tarToS3(directoryName='/Seating', s3Bucket='2seat', s3Key=None, s3AcctId='AK
 	if len(x) > int(rotation):
 		k=bucket.get_key(x[0])
 		k.delete()
-
-
+	os.remove("/backups/dbs/"+curtime+".sqldump")
+	os.remove(backupFile)
 
 if len(sys.argv) == 2:
 	newKey=sys.argv[1]
