@@ -261,6 +261,7 @@ def upload_file(request):
 
 @login_required
 def download_excel(request):
+	partners=get_object_or_404(Partners, userPartner = request.user)
 	Guests = Guest.objects.filter(user=request.user)
 	book = Workbook()
 	sheet1 = book.add_sheet('2Seat.co.il')
@@ -295,13 +296,16 @@ def download_excel(request):
         style.pattern = pattern
         style.borders = borders
 	row_num+=1
+	p1name=partners.partner1_first_name
+	p2name=partners.partner2_first_name.strip()
 	for g in Guests:
 		row1 = sheet1.row(row_num)
 		gfirst=unicode(g.guest_first_name, "UTF-8")
 		row1.write(0,gfirst, style)
 		glast=unicode(g.guest_last_name, "UTF-8")
 		row1.write(1,glast, style)
-		ggender=unicode(g.gender, "UTF-8")
+		gender_trans={'M':'זכר', 'F':'נקבה', 'U':'אחר'}
+		ggender=unicode(gender_trans[g.gender], "UTF-8")
 		row1.write(2,ggender, style)
 		row1.write(3,1, style)
 		row1.set_cell_text(4,g.phone_number, style)
@@ -309,7 +313,19 @@ def download_excel(request):
 		row1.write(5,g.guest_email, style)
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		row1.write(6,gfacebook, style)
-		ggroup=unicode(g.group, "UTF-8")
+		if p2name == "" :
+			p2back=" כללי"
+		else:
+			p2name=" " + p2name
+			p2back=p2name
+		group_trans={'Family '+p1name: "משפחה "+p1name,
+'Friends '+p1name: 'חברים '+p1name,
+'Work '+p1name: 'עבודה '+p1name,
+'Family'+p2name: 'עבודה '+p2back,
+'Friends'+p2name: 'עבודה '+p2back,
+'Work'+p2name: 'עבודה '+p2back,
+'Other': 'אחר'}
+		ggroup=unicode(group_trans[g.group], "UTF-8")
 		row1.write(7,ggroup, style)
 		row1.write(8,g.present_amount, style)
 		row_num+=1
@@ -688,6 +704,7 @@ def invation(request, guestHash):
 def stickers(request):
 	Guests = Guest.objects.filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
+	partners=get_object_or_404(Partners, userPartner = request.user)
         #elements_nums = user_elements.values_list('elem_num', flat=1)
 	#max_rows = math.ceil(len(elements_nums)/3)
 	book = Workbook()
@@ -711,7 +728,21 @@ def stickers(request):
 		else:
 			table_name=unicode("ללא שולחן", "UTF-8")
 			table_num=""
-		group_name=unicode(g.group, "UTF-8")
+		p1name=partners.partner1_first_name
+		p2name=partners.partner2_first_name.strip()
+		if p2name == "" :
+			p2back=" כללי"
+		else:
+			p2name=" " + p2name
+			p2back=p2name
+		group_trans={'Family '+p1name: "משפחה "+p1name,
+'Friends '+p1name: 'חברים '+p1name,
+'Work '+p1name: 'עבודה '+p1name,
+'Family'+p2name: 'עבודה '+p2back,
+'Friends'+p2name: 'עבודה '+p2back,
+'Work'+p2name: 'עבודה '+p2back,
+'Other': 'אחר'}
+		group_name=unicode(group_trans[g.group], "UTF-8")
 		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
 			cur_3_cul=0
 			cur_row+=5
