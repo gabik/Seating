@@ -374,6 +374,7 @@ def sorted_excel(request):
 	row1.write(1, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(2, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(3, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 1 
@@ -389,19 +390,23 @@ def sorted_excel(request):
 		row1 = sheet1.row(row_num)
 		row1.write(0,unicode(g.guest_last_name, "UTF-8"), style)
 		row1.write(1,unicode(g.guest_first_name, "UTF-8"), style)
-		cur_caption = "No Table"
+		cur_caption = unicode("ללא שולחן", "UTF-8")
 		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
-				cur_caption=h.caption
+				cur_caption=unicode(h.caption,"UTF-8")
 				cur_fix_num=h.fix_num
-		row1.write(2,unicode(cur_caption, "UTF-8"), style)
+		row1.write(2,cur_caption, style)
 		row1.write(3,cur_fix_num, style)
+		invation_choices_heb={'A': 'מגיע', 'N': 'לא מגיע', 'T': 'ממתין לאישור'}
+		is_come=invation_choices_heb[g.invation_status]
+		row1.write(4,unicode(is_come, "UTF-8"), style)
 		row_num+=1
 	sheet1.col(0).width = 6000
 	sheet1.col(1).width = 6000
-	sheet1.col(2).width = 8000
-	sheet1.col(3).width = 5000
+	sheet1.col(2).width = 5000
+	sheet1.col(3).width = 4000
+	sheet1.col(4).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
 	c = {}
@@ -448,11 +453,11 @@ def download_map(request):
 	for g in user_elements:
 		#element_name=user_elements[g].caption
 		#element_name=SingleElement.objects.filter(user=request.user,elem_num=g).caption
-		element_name=g.caption
+		element_name=unicode(g.caption, "UTF-8")
 		sitting_on_element=Guest.objects.filter(user=request.user,elem_num=g.elem_num)
 		if len(sitting_on_element) > max_sitting_row:
 			max_sitting_row=len(sitting_on_element)
-		if (cur_3_cul > 0) and (cur_3_cul % 12 == 0):
+		if (cur_3_cul > 0) and (cur_3_cul % 8 == 0):
 			cur_3_cul=1
 			cur_row+=(max_sitting_row / 3)
 			if (max_sitting_row % 3 != 0) or (max_sitting_row == 0):
@@ -704,7 +709,7 @@ def stickers(request):
 			table_name=unicode(table.caption, "UTF-8")
 			table_num=table.fix_num
 		else:
-			table_name="None"
+			table_name=unicode("ללא שולחן", "UTF-8")
 			table_num=""
 		group_name=unicode(g.group, "UTF-8")
 		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
@@ -794,3 +799,38 @@ def stickers(request):
         book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
         return render_to_response('accounts/xls.html', c)
+
+@login_required
+def SendNotifications(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		#emails=request.POST.getlist('mailList')
+		emails=request.POST['mailList'].split('|')[:-1]
+		org_message=request.POST['message']
+		partners=get_object_or_404(Partners, userPartner = request.user)
+		if partners.partner1_gender == 'M':
+			last_name = unicode(partners.partner1_last_name, "UTF-8")
+		else:
+			last_name = unicode(partners.partner2_last_name, "UTF-8")
+		names=unicode(partners.partner1_first_name, "UTF-8")
+		if partners.partner2_first_name != "":
+			names=names+unicode(' ו', "UTF-8") + unicode(partners.partner2_first_name, "UTF-8")
+		names=names+' '+last_name
+		if int(request.POST['sendValue']) == 1:
+			subject=unicode('הנכם מוזמנים לחתונתם של ', "UTF-8") + names
+			for cur_mail in emails:
+				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
+				for cur_guest in guests:
+					hash=cur_guest.guest_hash
+					link='http://2seat.co.il/accounts/invation/'+hash+'/'
+					message=org_message + unicode('   לינק: ', "UTF-8") + link
+					send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+		else:
+			subject=unicode('תודה מ', "UTF-8") + names
+			for cur_mail in emails:
+				send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+
+	
+
