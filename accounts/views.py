@@ -1,6 +1,7 @@
 # Create your views here.
 # -*- coding: utf-8 -*-
 import csv, codecs, cStringIO
+from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 import math, re 
 import random
@@ -837,8 +838,9 @@ def SendNotifications(request):
 	if request.method == 'POST':
 		#emails=request.POST.getlist('mailList')
 		emails=request.POST['mailList'].split('|')[:-1]
-		org_message=request.POST['message']
+		#org_message=request.POST['message']
 		partners=get_object_or_404(Partners, userPartner = request.user)
+		occasion=get_object_or_404(UserProfile, user = request.user)
 		if partners.partner1_gender == 'M':
 			last_name = unicode(partners.partner1_last_name, "UTF-8")
 		else:
@@ -848,18 +850,31 @@ def SendNotifications(request):
 			names=names+unicode(' ו', "UTF-8") + unicode(partners.partner2_first_name, "UTF-8")
 		names=names+' '+last_name
 		if int(request.POST['sendValue']) == 1:
-			subject=unicode('הנכם מוזמנים לחתונתם של ', "UTF-8") + names
+			subject=unicode('הארוע של ', "UTF-8") + names + unicode(' המתקיים בתאריך ', "UTF-8") + str(occasion.occasion_date) + unicode(' ב', "UTF-8") + unicode(occasion.occasion_place, "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
+			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK',  "UTF-8")
 			for cur_mail in emails:
 				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
 				for cur_guest in guests:
 					hash=cur_guest.guest_hash
 					link='http://2seat.co.il/accounts/invation/'+hash+'/'
-					message=org_message + unicode('   לינק: ', "UTF-8") + link
-					send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+					new_html_message=html_message.replace("LINK", link)
+					new_text_message=text_message.replace("LINK", link)
+					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+					msg.attach_alternative(new_html_message,"text/html")
+					msg.send()
 		else:
 			subject=unicode('תודה מ', "UTF-8") + names
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">תודה שהשתתפתם באירוע שלנו,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נתראה בשמחות.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> NAMES </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
+			text_message=unicode('תודה שהגעתם לאירוע שלנו, נתראה בשמחות, NAMES',  "UTF-8")
+			new_html_message=html_message.replace("NAMES", names)
+			new_text_message=text_message.replace("NAMES", names)
 			for cur_mail in emails:
-				send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+				msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+				msg.attach_alternative(new_html_message,"text/html")
+				msg.send()
+				#send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
