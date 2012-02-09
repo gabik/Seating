@@ -24,6 +24,7 @@ from xml.etree.ElementTree import parse
 import sys
 sys.path.append("/Seating/static/locale/he")
 import he
+from he import u
 from hashlib import md5
 
 #@login_required
@@ -188,12 +189,20 @@ def upload_file(request):
 				starting_row = 3
 			sh = book.sheet_by_index(0)
 			sheet = [] 
+			male_valid=[u('ז'), u('זכר'), u('גבר'), 'm', 'M', 'Male', 'male']
+			female_valid=[u('נ'), u('נקבה'), u('אשה'), u('אישה'), 'f', 'F', 'female', 'Female']
 			for r in range(sh.nrows)[int(starting_row):]:
 				privName=sh.cell_value(r,0)
 				lastName=sh.cell_value(r,1)
 				gender=sh.cell_value(r,2)
 				if gender == "":
 					gender="U"
+				if gender in male_valid:
+					gender='M'
+				elif gender in female_valid:
+					gender='F'
+				else: 
+					gender="U"	
 				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
@@ -201,6 +210,8 @@ def upload_file(request):
 				mailAddr=sh.cell_value(r,5)
 				faceAcnt=sh.cell_value(r,6)
 				groupNme=sh.cell_value(r,7)
+				if groupNme == "":
+					groupNme="Other"
 				giftAmnt=sh.cell_value(r,8)
 
 				#privName=he.u(privName)
@@ -229,7 +240,7 @@ def upload_file(request):
 							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							new_person.save()
 					else:
-						hash = str(str(request.user) + privName + lastName)
+						hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
 						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
 						new_person.save()
 
