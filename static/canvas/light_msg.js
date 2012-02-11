@@ -11,7 +11,7 @@ function showLightMsg(title, text, buttons, icon)
 	MsgBoxLastAnswer = "";
 	MsgTitle = title;
 	MsgTextContent = text;
-	$("body").css("overflow", "hidden");
+	//$("body").css("overflow", "hidden");
 	var screenVP = getScreenWidthHeight();
 	var screenWidth = screenVP[0];
 	var screenHeight = screenVP[1];

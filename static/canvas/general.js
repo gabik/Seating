@@ -31,8 +31,16 @@ function getScreenWidthHeight()
 	  
 	 if (typeof window.innerWidth != 'undefined')
 	 {
-		  viewportwidth = window.innerWidth,
-		  viewportheight = window.innerHeight
+		 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	  viewportwidth = document.body.scrollWidth,
+			  viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
+			  viewportwidth = window.innerWidth,
+			  viewportheight = window.innerHeight
+		 }
 	 }
 	  
 	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
@@ -41,16 +49,32 @@ function getScreenWidthHeight()
 		 && typeof document.documentElement.clientWidth !=
 		 'undefined' && document.documentElement.clientWidth != 0)
 	 {
+	 	 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	viewportwidth = document.body.scrollWidth,
+			viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
 		   viewportwidth = document.documentElement.clientWidth,
 		   viewportheight = document.documentElement.clientHeight
+		 }
 	 }
 	  
 	 // older versions of IE
 	  
 	 else
 	 {
+	 	 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	  viewportwidth = document.body.scrollWidth,
+			  viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
 		   viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
 		   viewportheight = document.getElementsByTagName('body')[0].clientHeight
+		 }
 	 }
 	return [viewportwidth,viewportheight];
 }

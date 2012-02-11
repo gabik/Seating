@@ -623,7 +623,7 @@ def get_GuestsEmails(request):
 		for guest in user_GuestsEmails:
 			name = guest.guest_last_name + " " + guest.guest_first_name
 			email = guest.guest_email;
-			result = result + name + "," + email + "|"
+			result = result + name + "," + email + "," + guest.invation_status + "|"
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
