@@ -1,6 +1,7 @@
 # Create your views here.
 # -*- coding: utf-8 -*-
 import csv, codecs, cStringIO
+from django.core.mail import EmailMultiAlternatives
 from django.core.mail import send_mail
 import math, re 
 import random
@@ -23,6 +24,7 @@ from xml.etree.ElementTree import parse
 import sys
 sys.path.append("/Seating/static/locale/he")
 import he
+from he import u
 from hashlib import md5
 
 #@login_required
@@ -187,12 +189,20 @@ def upload_file(request):
 				starting_row = 3
 			sh = book.sheet_by_index(0)
 			sheet = [] 
+			male_valid=[u('ז'), u('זכר'), u('גבר'), 'm', 'M', 'Male', 'male']
+			female_valid=[u('נ'), u('נקבה'), u('אשה'), u('אישה'), 'f', 'F', 'female', 'Female']
 			for r in range(sh.nrows)[int(starting_row):]:
 				privName=sh.cell_value(r,0)
 				lastName=sh.cell_value(r,1)
 				gender=sh.cell_value(r,2)
 				if gender == "":
 					gender="U"
+				if gender in male_valid:
+					gender='M'
+				elif gender in female_valid:
+					gender='F'
+				else: 
+					gender="U"	
 				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
@@ -200,6 +210,8 @@ def upload_file(request):
 				mailAddr=sh.cell_value(r,5)
 				faceAcnt=sh.cell_value(r,6)
 				groupNme=sh.cell_value(r,7)
+				if groupNme == "":
+					groupNme="Other"
 				giftAmnt=sh.cell_value(r,8)
 
 				#privName=he.u(privName)
@@ -228,7 +240,7 @@ def upload_file(request):
 							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							new_person.save()
 					else:
-						hash = str(str(request.user) + privName + lastName)
+						hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
 						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
 						new_person.save()
 
@@ -261,6 +273,7 @@ def upload_file(request):
 
 @login_required
 def download_excel(request):
+	partners=get_object_or_404(Partners, userPartner = request.user)
 	Guests = Guest.objects.filter(user=request.user)
 	book = Workbook()
 	sheet1 = book.add_sheet('2Seat.co.il')
@@ -295,13 +308,16 @@ def download_excel(request):
         style.pattern = pattern
         style.borders = borders
 	row_num+=1
+	p1name=partners.partner1_first_name
+	p2name=partners.partner2_first_name.strip()
 	for g in Guests:
 		row1 = sheet1.row(row_num)
 		gfirst=unicode(g.guest_first_name, "UTF-8")
 		row1.write(0,gfirst, style)
 		glast=unicode(g.guest_last_name, "UTF-8")
 		row1.write(1,glast, style)
-		ggender=unicode(g.gender, "UTF-8")
+		gender_trans={'M':'זכר', 'F':'נקבה', 'U':'אחר'}
+		ggender=unicode(gender_trans[g.gender], "UTF-8")
 		row1.write(2,ggender, style)
 		row1.write(3,1, style)
 		row1.set_cell_text(4,g.phone_number, style)
@@ -309,7 +325,19 @@ def download_excel(request):
 		row1.write(5,g.guest_email, style)
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		row1.write(6,gfacebook, style)
-		ggroup=unicode(g.group, "UTF-8")
+		if p2name == "" :
+			p2back=" כללי"
+		else:
+			p2name=" " + p2name
+			p2back=p2name
+		group_trans={'Family '+p1name: "משפחה "+p1name,
+'Friends '+p1name: 'חברים '+p1name,
+'Work '+p1name: 'עבודה '+p1name,
+'Family'+p2name: 'עבודה '+p2back,
+'Friends'+p2name: 'עבודה '+p2back,
+'Work'+p2name: 'עבודה '+p2back,
+'Other': 'אחר'}
+		ggroup=unicode(group_trans[g.group], "UTF-8")
 		row1.write(7,ggroup, style)
 		row1.write(8,g.present_amount, style)
 		row_num+=1
@@ -688,6 +716,7 @@ def invation(request, guestHash):
 def stickers(request):
 	Guests = Guest.objects.filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
+	partners=get_object_or_404(Partners, userPartner = request.user)
         #elements_nums = user_elements.values_list('elem_num', flat=1)
 	#max_rows = math.ceil(len(elements_nums)/3)
 	book = Workbook()
@@ -711,7 +740,21 @@ def stickers(request):
 		else:
 			table_name=unicode("ללא שולחן", "UTF-8")
 			table_num=""
-		group_name=unicode(g.group, "UTF-8")
+		p1name=partners.partner1_first_name
+		p2name=partners.partner2_first_name.strip()
+		if p2name == "" :
+			p2back=" כללי"
+		else:
+			p2name=" " + p2name
+			p2back=p2name
+		group_trans={'Family '+p1name: "משפחה "+p1name,
+'Friends '+p1name: 'חברים '+p1name,
+'Work '+p1name: 'עבודה '+p1name,
+'Family'+p2name: 'עבודה '+p2back,
+'Friends'+p2name: 'עבודה '+p2back,
+'Work'+p2name: 'עבודה '+p2back,
+'Other': 'אחר'}
+		group_name=unicode(group_trans[g.group], "UTF-8")
 		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
 			cur_3_cul=0
 			cur_row+=5
@@ -806,8 +849,9 @@ def SendNotifications(request):
 	if request.method == 'POST':
 		#emails=request.POST.getlist('mailList')
 		emails=request.POST['mailList'].split('|')[:-1]
-		org_message=request.POST['message']
+		#org_message=request.POST['message']
 		partners=get_object_or_404(Partners, userPartner = request.user)
+		occasion=get_object_or_404(UserProfile, user = request.user)
 		if partners.partner1_gender == 'M':
 			last_name = unicode(partners.partner1_last_name, "UTF-8")
 		else:
@@ -817,18 +861,31 @@ def SendNotifications(request):
 			names=names+unicode(' ו', "UTF-8") + unicode(partners.partner2_first_name, "UTF-8")
 		names=names+' '+last_name
 		if int(request.POST['sendValue']) == 1:
-			subject=unicode('הנכם מוזמנים לחתונתם של ', "UTF-8") + names
+			subject=unicode('הארוע של ', "UTF-8") + names + unicode(' המתקיים בתאריך ', "UTF-8") + str(occasion.occasion_date) + unicode(' ב', "UTF-8") + unicode(occasion.occasion_place, "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
+			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK',  "UTF-8")
 			for cur_mail in emails:
 				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
 				for cur_guest in guests:
 					hash=cur_guest.guest_hash
 					link='http://2seat.co.il/accounts/invation/'+hash+'/'
-					message=org_message + unicode('   לינק: ', "UTF-8") + link
-					send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+					new_html_message=html_message.replace("LINK", link)
+					new_text_message=text_message.replace("LINK", link)
+					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+					msg.attach_alternative(new_html_message,"text/html")
+					msg.send()
 		else:
 			subject=unicode('תודה מ', "UTF-8") + names
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">תודה שהשתתפתם באירוע שלנו,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נתראה בשמחות.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> NAMES </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
+			text_message=unicode('תודה שהגעתם לאירוע שלנו, נתראה בשמחות, NAMES',  "UTF-8")
+			new_html_message=html_message.replace("NAMES", names)
+			new_text_message=text_message.replace("NAMES", names)
 			for cur_mail in emails:
-				send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+				msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+				msg.attach_alternative(new_html_message,"text/html")
+				msg.send()
+				#send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
