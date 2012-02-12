@@ -73,7 +73,7 @@ $(document).ready(function() {
 
  $(".MoneyInfoDiv").click(function()
  {
-	$("body").css("overflow", "hidden");
+	//$("body").css("overflow", "hidden");
 	var screenVP = getScreenWidthHeight();
 	var screenWidth = screenVP[0];
 	var screenHeight = screenVP[1];

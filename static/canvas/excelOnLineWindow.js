@@ -6,7 +6,7 @@ var frameStringEO = '<div id="EOFrame" style="position:absolute; z-index:99999;"
 $(document).ready(function() { 
  $("#excelOnLineBtn").click(function()
  {	
- 	$("body").css("overflow", "hidden");
+ 	//$("body").css("overflow", "hidden");
 	var screenVP = getScreenWidthHeight();
 	var screenWidth = screenVP[0];
 	var screenHeight = screenVP[1];
