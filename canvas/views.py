@@ -619,6 +619,7 @@ def get_GuestsEmails(request):
 	json_dump = json.dumps({'status': "Error"})
 	result = ""
 	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
+	#user_mail =  request.user.email
 	if (len(user_GuestsEmails) > 0):
 		for guest in user_GuestsEmails:
 			name = guest.guest_last_name + " " + guest.guest_first_name

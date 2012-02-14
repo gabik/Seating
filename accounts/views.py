@@ -866,6 +866,16 @@ def SendNotifications(request):
 			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK',  "UTF-8")
 			for cur_mail in emails:
 				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
+				if cur_mail=="TEST":
+					user_mail=request.user.email
+					link='http://2seat.co.il/accounts/invation/TEST/'
+					new_html_message=html_message.replace("LINK", link)
+					new_text_message=text_message.replace("LINK", link)
+					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [user_mail])
+					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+					msg.attach_alternative(new_html_message,"text/html")
+					msg.send()
+
 				for cur_guest in guests:
 					hash=cur_guest.guest_hash
 					link='http://2seat.co.il/accounts/invation/'+hash+'/'
@@ -881,11 +891,16 @@ def SendNotifications(request):
 			text_message=unicode('תודה שהגעתם לאירוע שלנו, נתראה בשמחות, NAMES',  "UTF-8")
 			new_html_message=html_message.replace("NAMES", names)
 			new_text_message=text_message.replace("NAMES", names)
-			for cur_mail in emails:
-				msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+			if emails[0]=="TEST":
+				user_mail=request.user.email
+				msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [user_mail])
 				msg.attach_alternative(new_html_message,"text/html")
 				msg.send()
-				#send_mail(subject, org_message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+			else:
+				for cur_mail in emails:
+					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+					msg.attach_alternative(new_html_message,"text/html")
+					msg.send()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 

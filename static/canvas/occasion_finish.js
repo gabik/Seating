@@ -10,11 +10,7 @@ var excelDivString = '<div id="tabExcel" ><table border="0" cellspacing="0" cell
 
 var outputDivString = '<div id="tabOutput" ><table border="0" cellspacing="0" cellpadding="0" width="300" height="200" align="center"><tr><td align="right" dir="rtl"><p id="sorted"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<a href="#" class="text_18_black" dir="rtl">הורדת קובץ רשימת מוזמנים.</a></img></p></br><p id="map"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ מיפוי שולחנות.</a></span></img></p></br><p id="stickers"><img id="bulletImg" src="/static/site/images/bullet.png">&nbsp;&nbsp;&nbsp;<span><a href="#" class="text_18_black" dir="rtl">הורדת קובץ פיתקיות ישיבה.</a></span></img></p></td></tr></table></br></div>'
 
-<<<<<<< HEAD
-var notificationDivString = '<div id="tabNotify"><form method=POST name="notifications" action="/accounts/sendNotif/">' + token + '<table border="0" cellspacing="0" cellpadding="0" width="300" height="190" align="center"><tr><td align="right" colspan="3" dir="rtl"><p class="text_14_black" dir="rtl">שליחת&nbsp;&nbsp;&nbsp;&nbsp;<span><select name="sendValue" id="sendValue" size="1"><option value="1" SELECTED>אישורי הגעה<option value="2">תודות</select><span></td></tr><td align="center" dir="rtl" colspan="2"><table><td><p class="text_14_black" dir="rtl" id="emailsSelectAll" style="cursor:pointer;">סמן הכל</p></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p class="text_14_black" id="emailsClearAll" style="cursor:pointer;">נקה הכל</p></td></table></td></tr><tr><td align="right" dir="rtl"><ul id="emailNotificationList"></ul></td><td>&nbsp;</td><td align="right" dir="rtl"><textarea name="message" id="notify_message" cols="15" rows="7"></textarea></td></tr><tr height="12"/><tr><td align="left" dir="rtl" colspan="3"><img id="sendNotifyImg" src="/static/page/images/send_btn_nr.png"/></td></tr></table></form></div>'
-=======
-var notificationDivString = '<div id="tabNotify"><table border="0" cellspacing="0" cellpadding="0" width="300" height="190" align="center"><tr><td align="right" colspan="3" dir="rtl"><p class="text_14_black" dir="rtl">שליחת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select id="sendValue" size="1"><option value="1" SELECTED>אישורי הגעה<option value="2">תודות</select><span></td></tr><tr height="12"/><td align="right" dir="rtl" colspan="2"><table><td><p class="text_14_black" dir="rtl" id="emailsSelectAll" style="cursor:pointer;">סמן הכל</p></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p class="text_14_black" id="emailsClearAll" style="cursor:pointer;">נקה הכל</p></td></table></td></tr><tr><td align="right" dir="rtl" colspan="2"><ul id="emailNotificationList"></ul></td><td>&nbsp;</td></tr><tr height="12"/><td align="rigth" dir="rtl" colspan="3"><a class="text_14_black" dir="rtl" id="emailsSendTest" style="cursor:pointer; font-weight:bold;">שלח לעצמך מייל לדוגמא</a></tr><tr height="12"/><tr><td align="left" dir="rtl" colspan="3"><img id="sendNotifyImg" src="/static/page/images/send_btn_nr.png"/></td></tr></table></div>'
->>>>>>> koren-working-dir
+var notificationDivString = '<div id="tabNotify"><form method=POST name="notifications" action="/accounts/sendNotif/">' + token + '<table border="0" cellspacing="0" cellpadding="0" width="300" height="190" align="center"><tr><td align="right" colspan="3" dir="rtl"><p class="text_14_black" dir="rtl">שליחת&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><select name="sendValue" id="sendValue" size="1"><option value="1" SELECTED>אישורי הגעה<option value="2">תודות</select><span></td></tr><tr height="12"/><td align="right" dir="rtl" colspan="2"><table><td><p class="text_14_black" dir="rtl" id="emailsSelectAll" style="cursor:pointer;">סמן הכל</p></td><td>&nbsp;&nbsp;&nbsp;&nbsp;</td><td><p class="text_14_black" id="emailsClearAll" style="cursor:pointer;">נקה הכל</p></td></table></td></tr><tr><td align="right" dir="rtl"  colspan="2"><ul id="emailNotificationList"></ul></td><td>&nbsp;</td></tr><tr height="12"/><td align="right" dir="rtl" colspan="3"><a class="text_14_black" dir="rtl" id="emailsSendTest" style="cursor:pointer; font-weight:bold;">שלח לעצמך מייל לדוגמא</a></tr><tr height="12"/><tr><td align="left" dir="rtl" colspan="3"><img id="sendNotifyImg" src="/static/page/images/send_btn_nr.png"/></td></tr></table></form></div>'
 
 var ofTabString = '<div id="OFtabs"><ul id="OFTabList" style="display:block; font-size:12; overflow: auto; height:30;"><li><a href="#tabOutput">פלט</a></li><li><a href="#tabNotify">שלח לאורח</a></li></ul>' + outputDivString + notificationDivString + '</div>'
 
@@ -28,6 +24,7 @@ function fillNotificationList()
 				if (count > 0 )
 				{
 					emails = emailData.emailList.split("|",count);
+				//	user_mail = emailData.user_mail+"|"
 					for (var i = 0; i < count; i++)
 					{
 						var color ="#E0E0AD";
@@ -58,7 +55,7 @@ function fillNotificationList()
 							inv_status_text ="אין כוונה להגעה";
 						}
 						
-						$("#emailNotificationList").append($('<li style="background:'+ color +';"><input id="email_'+ i +'" type="checkbox" value="False"><span class="text_10_black">'+ email[0] + " " + email[1] +'<span title="'+ inv_status_text +'"><img align="left" width="16" height="16" src="'+ inv_status_img +'"></span></span></input></li>'));
+						$("#emailNotificationList").append($('<li style="background:'+ color +';"><input name="mailList" id="mailList" type="checkbox" value="'+ email[1] +'"><span class="text_10_black">'+ email[0] + " " + email[1] +'<span title="'+ inv_status_text +'"><img align="left" width="16" height="16" src="'+ inv_status_img +'"></span></span></input></li>'));
 					}
 				}
 				else
@@ -188,10 +185,10 @@ $(document).ready(function() {
 		}
 
 		//var mailList = document.getElementsByName('mailList').value;
-		var message = document.getElementById('notify_message').value;
+		//var message = document.getElementById('notify_message').value;
 		var sendValue = document.getElementById('sendValue').value;
 		//console.log(mailList, message, sendValue);
-    $.post('/accounts/sendNotif/', {mailList: mailList, message: message, sendValue: sendValue},
+    $.post('/accounts/sendNotif/', {mailList: mailList, sendValue: sendValue},
         function(data)
     {
       data = $.parseJSON(data);
@@ -216,9 +213,26 @@ $(document).ready(function() {
 			$(this).find('input').first().attr('checked', false);
 		});
 	});
-	$("#sendValue").bind('change', function(){
-		sendNotifyChange();
+	$("#emailsSendTest").bind('click', function(){
+    var sendValue = document.getElementById('sendValue').value;
+    //console.log(mailList, message, sendValue);
+    $.post('/accounts/sendNotif/', {mailList: "TEST|", sendValue: sendValue},
+        function(data)
+    {
+      data = $.parseJSON(data);
+      if (data.status == 'OK')
+      {
+        $("#OccasionFinishCloseBtn").click();
+      }
+      else
+      {
+        $("#OccasionFinishCloseBtn").click();
+      }
+    });
 	});
+	//$("#sendValue").bind('change', function(){
+	//	sendNotifyChange();
+	//});
   });
 });
 
