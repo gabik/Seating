@@ -672,6 +672,22 @@ def contact_view(request):
 		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
 		return HttpResponseRedirect('/site/sent.html')
 
+def invation_test(request):
+	if request.method == 'POST':
+		return render_to_response('accounts/invation_updated.html')
+	else:
+		persondata = {}
+		persondata['first_name'] = "XXXXX"
+		persondata['last_name'] = "XXXXX"
+		persondata['date'] = "XXXXX"
+		persondata['place'] = "XXXXX"
+		persondata['addChar'] = "&"
+		persondata['user1_first_name'] = "XXXXX"
+		persondata['user2_first_name'] = "XXXXX"
+		persondata['user_last_name'] = "XXXXX"
+		persondata.update(csrf(request))
+		return render_to_response('accounts/invation.html', persondata)	
+		
 def invation(request, guestHash):
 	if request.method == 'POST':
 		guestHashCode = str(guestHash)

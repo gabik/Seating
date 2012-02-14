@@ -233,6 +233,14 @@ $(document).ready(function() {
 	//$("#sendValue").bind('change', function(){
 	//	sendNotifyChange();
 	//});
+	
+	$("#emailsSendTest").bind('mouseout', function(){
+		$("#emailsSendTest").css('color',"Black");
+	});
+	$("#emailsSendTest").bind('mouseover', function(){
+		$("#emailsSendTest").css('color',"#5A8EA3");
+	});
+
   });
 });
 
