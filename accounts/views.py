@@ -164,7 +164,8 @@ def handle_uploaded_file(f, request):
 def check_person(first, last, user):
 	list = Guest.objects.filter(user=user)
 	for i in list:
-		if i.guest_first_name == first and i.guest_last_name == last:
+		ifirst,ilast = unicode(i.guest_first_name,"UTF-8"),unicode(i.guest_last_name,"UTF-8")
+		if ifirst == first and ilast == last:
 			return True
 	
 	return False
@@ -234,6 +235,7 @@ def upload_file(request):
 
 					#else:
 					lastName=lastName + " " + str(addStr)
+					lastName=lastName.strip()
 					if quantity > 1:
 						for i in range(1,int(quantity)+1):
 							hash = str(str(request.user) + privName + " " + str(i) + lastName)
@@ -632,7 +634,7 @@ def online_save(request):
 						else:
 							fqty=1
 						addStr=""
-						if check_person(ffirst, flast, request.user):
+						if check_person(unicode(ffirst,"UTF-8"), unicode(flast,"UTF-8"), request.user):
 							#dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
 							#dup_person.save()
 							max_match = Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name__gt=flast)
@@ -643,6 +645,7 @@ def online_save(request):
 								addStr = len(max_match) + 2
 						#else:
 						flast=flast + " " + str(addStr)
+						flast=flast.strip()
 						if int(fqty) > 1:
 							for i in range(1,int(fqty)+1):
 								hash = str(str(request.user) + ffirst + " " + str(i) + flast)
