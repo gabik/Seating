@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from django.db import models
 from django.contrib.auth.models import User
 
@@ -32,8 +33,8 @@ class UserProfile(models.Model):
 class Partners(models.Model):
         userPartner = models.ForeignKey(User, unique=True)
 	gender_choices = (
-		('M', 'Male'),
-		('F', 'Female'),
+		('M', unicode('זכר', "UTF-8")),
+		('F', unicode('נקבה', "UTF-8")),
 	)
 	partner1_first_name = models.CharField(max_length=30)
 	partner1_last_name = models.CharField(max_length=30)
