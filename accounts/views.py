@@ -164,7 +164,8 @@ def handle_uploaded_file(f, request):
 def check_person(first, last, user):
 	list = Guest.objects.filter(user=user)
 	for i in list:
-		if i.guest_first_name == first and i.guest_last_name == last:
+		ifirst,ilast = unicode(i.guest_first_name,"UTF-8"),unicode(i.guest_last_name,"UTF-8")
+		if ifirst == first and ilast == last:
 			return True
 	
 	return False
@@ -234,6 +235,7 @@ def upload_file(request):
 
 					#else:
 					lastName=lastName + " " + str(addStr)
+					lastName=lastName.strip()
 					if quantity > 1:
 						for i in range(1,int(quantity)+1):
 							hash = str(str(request.user) + privName + " " + str(i) + lastName)
@@ -632,7 +634,7 @@ def online_save(request):
 						else:
 							fqty=1
 						addStr=""
-						if check_person(ffirst, flast, request.user):
+						if check_person(unicode(ffirst,"UTF-8"), unicode(flast,"UTF-8"), request.user):
 							#dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
 							#dup_person.save()
 							max_match = Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name__gt=flast)
@@ -643,6 +645,7 @@ def online_save(request):
 								addStr = len(max_match) + 2
 						#else:
 						flast=flast + " " + str(addStr)
+						flast=flast.strip()
 						if int(fqty) > 1:
 							for i in range(1,int(fqty)+1):
 								hash = str(str(request.user) + ffirst + " " + str(i) + flast)
@@ -672,19 +675,27 @@ def contact_view(request):
 		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
 		return HttpResponseRedirect('/site/sent.html')
 
+@login_required
 def invation_test(request):
 	if request.method == 'POST':
 		return render_to_response('accounts/invation_updated.html')
 	else:
+		partners=get_object_or_404(Partners, userPartner = request.user)
+		profile=get_object_or_404(UserProfile, user = request.user)
 		persondata = {}
-		persondata['first_name'] = "XXXXX"
-		persondata['last_name'] = "XXXXX"
-		persondata['date'] = "XXXXX"
-		persondata['place'] = "XXXXX"
+		persondata['first_name'] = unicode(partners.partner1_first_name, "UTF-8")
+		persondata['last_name'] = unicode(partners.partner1_last_name, "UTF-8")
+		date = profile.occasion_date.strftime("%d/%m/%Y")
+		persondata['date'] = date
+		persondata['place'] = profile.occasion_place
 		persondata['addChar'] = "&"
-		persondata['user1_first_name'] = "XXXXX"
-		persondata['user2_first_name'] = "XXXXX"
-		persondata['user_last_name'] = "XXXXX"
+		persondata['user1_first_name'] = unicode(partners.partner1_first_name, "UTF-8")
+		persondata['user2_first_name'] = unicode(partners.partner2_first_name, "UTF-8")
+		if partners.partner1_gender == 'M':
+			last_name = unicode(partners.partner1_last_name, "UTF-8")
+		else:
+			last_name = unicode(partners.partner2_last_name, "UTF-8")
+		persondata['user_last_name'] = last_name
 		persondata.update(csrf(request))
 		return render_to_response('accounts/invation.html', persondata)	
 		
