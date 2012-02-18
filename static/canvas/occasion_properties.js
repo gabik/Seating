@@ -28,7 +28,11 @@ function createWindow()
         $.datepicker.setDefaults($.datepicker.regional['he']);	
 	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">מקום אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_place_op" value="'+ $("#OccasionPlace").text() +'"/></span></p>'));
 	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_phone_op" value=" '+ partnersPhoneNumbers +'"/></span></p>'));
-	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">שליחת עדכונים:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="sendFeedbacksApproval" type="checkbox" value="True" checked="checked"><span class="text_10_black">אפשר שליחת עדכונים לחשבון המייל שלי</span></input></span></p></br></br>'));
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">שליחת עדכונים:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="sendFeedbacksApproval" type="checkbox"><span class="text_10_black">אפשר שליחת עדכונים לחשבון המייל שלי</span></input></span></p></br></br>'));
+	if (partnersSendFeedBackFlag)
+	{
+		$("#sendFeedbacksApproval").checked = true;
+	}
 }
 
 $(document).ready(function() { 
@@ -65,13 +69,19 @@ $(document).ready(function() {
 		$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
 	});
 	$("#sendOPBtn").bind('click', function(){
-		$.post('/canvas/changeUserProfile/', {date: $('#ocassion_date_op').val(),place: $('#ocassion_place_op').val(),phone: $('#ocassion_phone_op').val()},
+		var sendFeedBack = false;
+		if ($("#sendFeedbacksApproval").checked == true)
+		{
+			sendFeedBack = true;
+		}
+		$.post('/canvas/changeUserProfile/', {date: $('#ocassion_date_op').val(),place: $('#ocassion_place_op').val(),phone: $('#ocassion_phone_op').val(),feedback:sendFeedBack ? "true" : "false"},
 				  function(data){
 						if (data.status == "OK")
 						{
 							$("#OccasionDate").text($('#ocassion_date_op').val());
 							$("#OccasionPlace").text($('#ocassion_place_op').val());
 							partnersPhoneNumbers = $('#ocassion_phone_op').val();
+							partnersSendFeedBackFlag = sendFeedBack;
 							setSaveStatus("OK");
 						}
 						else

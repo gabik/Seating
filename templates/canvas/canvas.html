@@ -56,6 +56,7 @@
 
 <script type="text/javascript">
 	 var partnersPhoneNumbers  = "";
+	 var partnersSendFeedBackFlag  = "";
 	 
 	 $(document).before(function()
 	 {
@@ -140,6 +141,7 @@
 	$(document).ready(function() {
 	 
 		partnersPhoneNumbers = "{{ phone_num }}";
+		partnersSendFeedBackFlag = "{{ send_feed }}";
 		
 		$("#occasionDetailsAdvanceR").hide();
 		$(".tableProp").mouseout(function(){

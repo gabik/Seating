@@ -619,12 +619,11 @@ def get_GuestsEmails(request):
 	json_dump = json.dumps({'status': "Error"})
 	result = ""
 	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
-	#user_mail =  request.user.email
 	if (len(user_GuestsEmails) > 0):
 		for guest in user_GuestsEmails:
 			name = guest.guest_last_name + " " + guest.guest_first_name
 			email = guest.guest_email;
-			result = result + name + "," + email + "," + guest.invation_status + "|"
+			result = result + name + "," + email + "|"
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
@@ -674,6 +673,10 @@ def change_user_profile(request):
 			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
 			profile.occasion_place = ugettext(request.POST['place'])
 			profile.phone_number = ugettext(request.POST['phone'])
+			if (request.POST['feedback'] == "true"):
+				profile.send_feedback_flag = 1
+			else:
+				profile.send_feedback_flag = 0
 			profile.save()
 			json_dump = json.dumps({'status': "OK"})				
 	return HttpResponse(json_dump)
