@@ -675,19 +675,27 @@ def contact_view(request):
 		send_mail(request.POST['subject'], request.POST['message'], request.POST['email'], ['contact@2seat.co.il'], fail_silently=False)
 		return HttpResponseRedirect('/site/sent.html')
 
+@login_required
 def invation_test(request):
 	if request.method == 'POST':
 		return render_to_response('accounts/invation_updated.html')
 	else:
+		partners=get_object_or_404(Partners, userPartner = request.user)
+		profile=get_object_or_404(UserProfile, user = request.user)
 		persondata = {}
-		persondata['first_name'] = "XXXXX"
-		persondata['last_name'] = "XXXXX"
-		persondata['date'] = "XXXXX"
-		persondata['place'] = "XXXXX"
+		persondata['first_name'] = unicode(partners.partner1_first_name, "UTF-8")
+		persondata['last_name'] = unicode(partners.partner1_last_name, "UTF-8")
+		date = profile.occasion_date.strftime("%d/%m/%Y")
+		persondata['date'] = date
+		persondata['place'] = profile.occasion_place
 		persondata['addChar'] = "&"
-		persondata['user1_first_name'] = "XXXXX"
-		persondata['user2_first_name'] = "XXXXX"
-		persondata['user_last_name'] = "XXXXX"
+		persondata['user1_first_name'] = unicode(partners.partner1_first_name, "UTF-8")
+		persondata['user2_first_name'] = unicode(partners.partner2_first_name, "UTF-8")
+		if partners.partner1_gender == 'M':
+			last_name = unicode(partners.partner1_last_name, "UTF-8")
+		else:
+			last_name = unicode(partners.partner2_last_name, "UTF-8")
+		persondata['user_last_name'] = last_name
 		persondata.update(csrf(request))
 		return render_to_response('accounts/invation.html', persondata)	
 		
