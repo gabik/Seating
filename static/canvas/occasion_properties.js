@@ -25,8 +25,10 @@ function createWindow()
                 isRTL: true,
                 showMonthAfterYear: false,
                 yearSuffix: ''};
-        $.datepicker.setDefaults($.datepicker.regional['he']);	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">מקום אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_place_op" value="'+ $("#OccasionPlace").text() +'"/></span></p>'));
-	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_phone_op" value=" '+ partnersPhoneNumbers +'"/></span></p></br></br>'));
+        $.datepicker.setDefaults($.datepicker.regional['he']);	
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">מקום אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_place_op" value="'+ $("#OccasionPlace").text() +'"/></span></p>'));
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_phone_op" value=" '+ partnersPhoneNumbers +'"/></span></p>'));
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">שליחת עדכונים:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="sendFeedbacksApproval" type="checkbox" value="True" checked="checked"><span class="text_10_black">אפשר שליחת עדכונים לחשבון המייל שלי</span></input></span></p></br></br>'));
 }
 
 $(document).ready(function() { 
