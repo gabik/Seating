@@ -316,7 +316,7 @@
     			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה למצב עריכה" width={{ div.width }} height{{ div.height }}>
 					<p id="CaptionDragDiv-{{ div.elem_num }}" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.caption}}</p>
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.current_sitting}}/{{div.max_sitting}}</p>
-					<img src="http://cdn4.iconfinder.com/data/icons/sphericalcons/128/waiting.png" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
+					<img src="/static/canvas/images/circleHourGlass.gif" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
 					<img id="elemProp_DragDiv-{{ div.elem_num }}" class="tableProp" src="/static/canvas/images/table_prop_n.png" width="16" height="16" onmousedown="propMenuBtnClick('DragDiv-'+{{ div.elem_num }})"/>
 				</div>
 			{% endfor %}

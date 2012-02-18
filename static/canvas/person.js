@@ -503,7 +503,7 @@ function reLoadDetails(personElement)
 			invation_status_src = "/static/canvas/images/person/noaccept_status_n.png";
 			invation_status_text="אין כוונה להגעה";
 		}
-
+		duplicatePerson = false;
 		$("#detailsLeftSide").append($('<table id="InvationStatusDiv" width="140" border="0" cellspacing="0" cellpadding="0 title="סטטוס הגעה" style="position:absolute;"><tr><td align="right" dir="rtl" ><p id="InvationStatus" class="text_14_black">'+invation_status_text+'</p></td><td valign="top" align="right"><img id="InvationStatusPersonButton" style="background: transparent;" class="InvationStatusBtn" alt='+ personData.invation_status +' src= ' + invation_status_src +'/></tr></table>'));
 		$("#InvationStatusDiv").css("top", 25);
 		$("#InvationStatusDiv").css("left", 0);
@@ -989,7 +989,7 @@ function savePersonChanges(firstName, lastName)
     }
 	else
 	{
-		if (!duplicatePerson && ($("#detailsFirstName" + firstName + '_'+ lastName).val() != firstName.replace(/\ /g,"_") || lastName.replace(/\ /g,"_") != $("#detailsLastName" + firstName + '_'+ lastName).val())
+		if (!duplicatePerson && ($("#detailsFirstName" + firstName + '_'+ lastName).val() != firstName.replace(/\_/g," ") || lastName.replace(/\_/g," ") != $("#detailsLastName" + firstName + '_'+ lastName).val())
 		&& isPersonIsOnList($("#detailsFirstName" + firstName + '_'+ lastName).val(), $("#detailsLastName" + firstName + '_'+ lastName).val()))
 		{
 			$("#detailsFirstName" + firstName + '_'+ lastName).after('<span id="NameValidtion"  style="color:red; margin-top:20px; position:absolute;" class="text_11_black"> שם קיים, לאישור יש לשמור בשנית .</span>');
