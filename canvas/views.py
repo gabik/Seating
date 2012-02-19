@@ -448,7 +448,7 @@ def find_tables_strings(request):
 		single_elements = SingleElement.objects.filter(user=request.user)
 		for element in single_elements:
 			lowname = element.caption.lower()
-			if (lowname.find(name.lower()) >= 0):
+			if (lowname.find(name.lower()) >= 0 and (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge")):
 				matching_tables = matching_tables + "," + element.caption
 				num_of_results = num_of_results + 1;
 		if (num_of_results > 0):
@@ -460,17 +460,17 @@ def find_persons_strings(request):
 	json_dump = json.dumps({'status': "Empty"})
 	if request.method == 'POST':
 		name = request.POST['name']
-		matching_tables = "";
+		matching_persons = "";
 		num_of_results = 0;
 		person_elements = Guest.objects.filter(user=request.user)
 		for element in person_elements:
 			lowfirstname = element.guest_first_name.lower()
 			lowlastname = element.guest_last_name.lower()
 			if ((lowfirstname.find(name.lower()) >= 0) or (lowlastname.find(name.lower()) >= 0)):
-				matching_tables = matching_tables + "," + element.guest_first_name + " " + element.guest_last_name
+				matching_persons = matching_persons + "," + element.guest_first_name + " " + element.guest_last_name
 				num_of_results = num_of_results + 1;
 		if (num_of_results > 0):
-			json_dump = json.dumps({'status': "OK", 'objects':matching_tables, 'numOfResults':num_of_results})
+			json_dump = json.dumps({'status': "OK", 'objects':matching_persons, 'numOfResults':num_of_results})
 	return HttpResponse(json_dump)
 	
 @login_required
