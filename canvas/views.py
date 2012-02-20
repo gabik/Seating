@@ -448,6 +448,7 @@ def find_tables_strings(request):
 		single_elements = SingleElement.objects.filter(user=request.user)
 		for element in single_elements:
 			lowname = element.caption.lower()
+			table_kind = element.kind
 			if (lowname.find(name.lower()) >= 0 and (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge")):
 				matching_tables = matching_tables + "," + element.caption
 				num_of_results = num_of_results + 1;
