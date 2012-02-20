@@ -150,6 +150,13 @@
 		$(".tableProp").mouseover(function(){
 			$(this).attr('src',"/static/canvas/images/table_prop_r.png");
 		});
+		
+		$(".tableBack").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/back_n.png");
+		});
+		$(".tableBack").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/back_r.png");
+		});
 			  
 		$("#ExitImg").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/exit_canvas_n.png");
@@ -319,6 +326,7 @@
 					<p id="CaptionDragDiv-{{ div.elem_num }}" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.caption}}</p>
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.current_sitting}}/{{div.max_sitting}}</p>
 					<img src="/static/canvas/images/circleHourGlass.gif" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
+					<img id="elemBack_DragDiv-{{ div.elem_num }}" class="tableBack" src="/static/canvas/images/back_n.png" width="18" height="18" onmousedown="tableBackBtnClick()"/>
 					<img id="elemProp_DragDiv-{{ div.elem_num }}" class="tableProp" src="/static/canvas/images/table_prop_n.png" width="16" height="16" onmousedown="propMenuBtnClick('DragDiv-'+{{ div.elem_num }})"/>
 				</div>
 			{% endfor %}

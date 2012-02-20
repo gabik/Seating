@@ -17,6 +17,8 @@ function turnToRegularMode(element,event)
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	var i;
 	
+	$("#elemBack_" + originalElement.context.id).fadeTo(400, 0);
+	
 	$(".DragNonDropDiv").each(function(i) {
 		$(this).fadeTo(400, 1, function() {});
 	});
@@ -162,7 +164,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	elementCaption[0].style.fontSize= tableModeFontSize;
 	elementCaption[1].style.fontSize= tableModeFontSize;
 
-	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer"); });
+	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer");	$("#elemBack_" + originalElement.context.id).fadeTo(400, 1);});
 		
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{

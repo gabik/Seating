@@ -124,6 +124,17 @@
 	filter: alpha(opacity = 0);
 }
 
+.tableBack
+{
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:3;
+	margin-left:-8; 
+	filter: alpha(opacity = 0);
+	cursor:pointer;
+}
+
  .borderSelected
  {
   border:2px solid #5A8EA3;
