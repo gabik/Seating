@@ -499,14 +499,16 @@ def bring_person_to_floatlist_from_postion(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		element_persons = Guest.objects.filter(user=request.user, elem_num = int(elem_num)).order_by('position')
-		for i in range(int(newSize), len(element_persons)):
-			single_element.current_sitting = single_element.current_sitting - 1
-			single_element.save()
-			element_persons[i].elem_num = 0
-			element_persons[i].position = 0
-			element_persons[i].save()
-			floating_persons = floating_persons + "," + element_persons[i].guest_first_name + " " +  element_persons[i].guest_last_name
-			numOfFloatingPersons = int(numOfFloatingPersons) + 1
+		for person in element_persons:
+			if (int(newSize) < int(person.position)):
+				single_element.current_sitting = single_element.current_sitting - 1
+				single_element.save()
+				person.elem_num = 0
+				person.position = 0
+				person.save()
+				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
+				numOfFloatingPersons = int(numOfFloatingPersons) + 1
+		print numOfFloatingPersons
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
 	return HttpResponse(json_dump)
