@@ -159,3 +159,14 @@
 	cursor:pointer;
 	float:left; 
  }
+ 
+ .emailGuestStatus
+ {
+	margin-top:2.5;
+ }
+ 
+.advertisingImgCanvas{
+	width: 220px;
+	height: 25px;
+	border:1px solid black;
+}

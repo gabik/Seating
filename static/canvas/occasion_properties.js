@@ -5,7 +5,7 @@ var frameStringOP = '<div id="OPFrame" style="position:absolute; z-index:99999;"
 
 function createWindow()
 {
-	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">תאריך אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_date_op" value="'+ $("#OccasionDate").text() +'"/></span></p>'));
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">תאריך אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_date_op" value="'+ $("#OccasionDate").text() +'"/></span></p>'));
 	$('#ocassion_date_op').datepicker({  minDate: 0, dateFormat: 'dd/mm/yy'});
 	$.datepicker.regional['he'] = {
                 closeText: 'סגור',
@@ -27,7 +27,7 @@ function createWindow()
                 yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['he']);	
 	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">מקום אירוע:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_place_op" value="'+ $("#OccasionPlace").text() +'"/></span></p>'));
-	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_phone_op" value=" '+ partnersPhoneNumbers +'"/></span></p>'));
+	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">טלפון:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="ocassion_phone_op" value=" '+ partnersPhoneNumbers +'"/></span></p>'));
 	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">שליחת עדכונים:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="sendFeedbacksApproval" type="checkbox"><span class="text_10_black">אפשר שליחת עדכונים לחשבון המייל שלי</span></input></span></p></br></br>'));
 	if (partnersSendFeedBackFlag)
 	{
