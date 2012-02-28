@@ -93,3 +93,11 @@
 	font-weight: normal;
 	line-height: 20px;
 }
+
+.advertisingImg{
+	width: 658px;
+	margin-top: 40px;
+	margin-right: auto;
+	margin-left: auto;
+	border:1px solid black;
+}
