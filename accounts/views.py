@@ -707,6 +707,7 @@ def invation(request, guestHash):
 			persons[0].invation_status=request.POST['personInvationStatus']
 			persons[0].meal=request.POST['personMeal']
 			persons[0].save()
+		'''if userprofile.send_feedback_flag = 1 ==> send user feedback mail'''
 		return render_to_response('accounts/invation_updated.html')
 	else:
 		guestHashCode = str(guestHash)

@@ -448,7 +448,8 @@ def find_tables_strings(request):
 		single_elements = SingleElement.objects.filter(user=request.user)
 		for element in single_elements:
 			lowname = element.caption.lower()
-			if (lowname.find(name.lower()) >= 0):
+			table_kind = element.kind
+			if (lowname.find(name.lower()) >= 0 and (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge")):
 				matching_tables = matching_tables + "," + element.caption
 				num_of_results = num_of_results + 1;
 		if (num_of_results > 0):
@@ -460,17 +461,17 @@ def find_persons_strings(request):
 	json_dump = json.dumps({'status': "Empty"})
 	if request.method == 'POST':
 		name = request.POST['name']
-		matching_tables = "";
+		matching_persons = "";
 		num_of_results = 0;
 		person_elements = Guest.objects.filter(user=request.user)
 		for element in person_elements:
 			lowfirstname = element.guest_first_name.lower()
 			lowlastname = element.guest_last_name.lower()
 			if ((lowfirstname.find(name.lower()) >= 0) or (lowlastname.find(name.lower()) >= 0)):
-				matching_tables = matching_tables + "," + element.guest_first_name + " " + element.guest_last_name
+				matching_persons = matching_persons + "," + element.guest_first_name + " " + element.guest_last_name
 				num_of_results = num_of_results + 1;
 		if (num_of_results > 0):
-			json_dump = json.dumps({'status': "OK", 'objects':matching_tables, 'numOfResults':num_of_results})
+			json_dump = json.dumps({'status': "OK", 'objects':matching_persons, 'numOfResults':num_of_results})
 	return HttpResponse(json_dump)
 	
 @login_required
@@ -498,14 +499,16 @@ def bring_person_to_floatlist_from_postion(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		element_persons = Guest.objects.filter(user=request.user, elem_num = int(elem_num)).order_by('position')
-		for i in range(int(newSize), len(element_persons)):
-			single_element.current_sitting = single_element.current_sitting - 1
-			single_element.save()
-			element_persons[i].elem_num = 0
-			element_persons[i].position = 0
-			element_persons[i].save()
-			floating_persons = floating_persons + "," + element_persons[i].guest_first_name + " " +  element_persons[i].guest_last_name
-			numOfFloatingPersons = int(numOfFloatingPersons) + 1
+		for person in element_persons:
+			if (int(newSize) < int(person.position)):
+				single_element.current_sitting = single_element.current_sitting - 1
+				single_element.save()
+				person.elem_num = 0
+				person.position = 0
+				person.save()
+				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
+				numOfFloatingPersons = int(numOfFloatingPersons) + 1
+		print numOfFloatingPersons
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
 	return HttpResponse(json_dump)
@@ -619,12 +622,11 @@ def get_GuestsEmails(request):
 	json_dump = json.dumps({'status': "Error"})
 	result = ""
 	user_GuestsEmails = Guest.objects.filter(user=request.user , guest_email__gt = '').order_by('guest_last_name')
-	#user_mail =  request.user.email
 	if (len(user_GuestsEmails) > 0):
 		for guest in user_GuestsEmails:
 			name = guest.guest_last_name + " " + guest.guest_first_name
 			email = guest.guest_email;
-			result = result + name + "," + email + "," + guest.invation_status + "|"
+			result = result + name + "," + email + "|"
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
@@ -674,6 +676,10 @@ def change_user_profile(request):
 			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
 			profile.occasion_place = ugettext(request.POST['place'])
 			profile.phone_number = ugettext(request.POST['phone'])
+			if (request.POST['feedback'] == "true"):
+				profile.send_feedback_flag = 1
+			else:
+				profile.send_feedback_flag = 0
 			profile.save()
 			json_dump = json.dumps({'status': "OK"})				
 	return HttpResponse(json_dump)

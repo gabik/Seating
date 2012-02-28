@@ -33,7 +33,14 @@ function createInfoFields(sumData)
 		}
 		
 		$("#moneyInfoMainWindow").append($('<p id="totalSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל:  '+ sumData[0] +'</p>'));
-		$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(2) +'</p>'));
+		if (sumData[0] == 0)
+		{
+			$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  0</p>'));
+		}
+		else
+		{
+			$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(2) +'</p>'));
+		}
 		$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  '+ sumData[1] +'</p>'));
 		pieData[0] = ["אחר", sumData[1] * sumData[0] / 100];
 		$("#moneyInfoMainWindow").append($('<p id="totalFirstFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  '+ sumData[2] +'</p>'));
@@ -73,7 +80,7 @@ $(document).ready(function() {
 
  $(".MoneyInfoDiv").click(function()
  {
-	//$("body").css("overflow", "hidden");
+	$("body").css("overflow", "hidden");
 	var screenVP = getScreenWidthHeight();
 	var screenWidth = screenVP[0];
 	var screenHeight = screenVP[1];

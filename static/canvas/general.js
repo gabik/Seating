@@ -1338,6 +1338,11 @@ function propMenuBtnClick(elementID)
 	fromPropMeneBtn = true;
 }
 
+function tableBackBtnClick()
+{
+	undoButtonPress();
+}
+
 function undoButtonPress()
 {
 	for (var index = 0; index < undoElementList.length; index++)

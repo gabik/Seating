@@ -124,6 +124,17 @@
 	filter: alpha(opacity = 0);
 }
 
+.tableBack
+{
+	position:absolute;
+	top:50%;
+	left:50%;
+	margin-top:3;
+	margin-left:-8; 
+	filter: alpha(opacity = 0);
+	cursor:pointer;
+}
+
  .borderSelected
  {
   border:2px solid #5A8EA3;
@@ -141,3 +152,16 @@
 	margin-top:-25;
 	margin-left:-30;
  }
+ 
+ .emailGuestStatus
+ {
+	margin-top:-17.5;
+ }
+ 
+.advertisingImgCanvas{
+	width: 220px;
+	height: 25px;
+	border:1px solid black;
+	margin-top:-22.5;
+	margin-left:-260;
+}
