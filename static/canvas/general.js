@@ -359,7 +359,7 @@ function adjustCaption(element)
 	var text =  $("#" + textID).text();
 	var title = $("#" + textID).attr('title');
 	var realWidth = element.width();
-	if (title.length * 6.2 > element.width() || title.length > 10)
+	if (title.length * 6.2 > element.width() || (!tableMode && title.length > 10))
 	{
 		var newString = "";
 		var stop = false;
@@ -732,31 +732,28 @@ function saveElementWithCaption(element,newCaption, newSize, numOfGuests, fixNum
 		{
 			newCaption  = "ללא שם";
 		}
-	   if (parseInt(elementCaption[1].firstChild.nodeValue.split("/", 1)) > parseInt(newSize))
-	   {
-           $.post('/canvas/personOnHigherPos/', {elem_num: element.context.id, new_size: parseInt(newSize) + 1},
-           function(data){
-           if (data.status == 'True')
-           { 
-				showLightMsg("עדכון נתון גודל אלמנט", "ישנם אנשים במיקום גובה יותר, האם להחזיר אותם לרשימה?", "YESNO", "Question");
-				currentMsgTimer = setTimeout(function(){saveElementWithCaptionoWhenSizeIsLower(element,newCaption,newSize, numOfGuests, fixNumber)},500);
-           }
-           }, 'json');
+        $.post('/canvas/personOnHigherPos/', {elem_num: element.context.id, new_size: parseInt(newSize) + 1},
+	   function(data){
+	   if (data.status == 'True')
+	   { 
+			showLightMsg("עדכון נתון גודל אלמנט", "ישנם אנשים במיקום גובה יותר, האם להחזיר אותם לרשימה?", "YESNO", "Question");
+			currentMsgTimer = setTimeout(function(){saveElementWithCaptionoWhenSizeIsLower(element,newCaption,newSize, numOfGuests, fixNumber)},500);
 	   }
 	   else
-	   {
+	  {
 		  $.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests, fixNumber:fixNumber},
 		  function(dataSave){
-		    if (dataSave.status == 'OK')
-		    {
+			if (dataSave.status == 'OK')
+			{
 				writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				setSaveStatus("OK");
-		    }else{
+			}else{
 				setSaveStatus("Error");
-		    }
+			}
 			}, 'json');
-		}
+	   }
+	   }, 'json');
 }
 
 function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
@@ -1958,8 +1955,8 @@ $(document).ready(function() {
 		var currentSelectedElement = SelectedTable;
 		$(".DragDiv").each(function(i) {
 			var elementCaption = $(this).context.getElementsByTagName("p");
-			
-			if (elementCaption[0].firstChild.nodeValue.trim().toLowerCase() == $("#SearchCaption").val().trim().toLowerCase()) {
+
+			if (elementCaption[0].firstChild.parentNode.title.trim().toLowerCase() == $("#SearchCaption").val().trim().toLowerCase()) {
 				var findElement = $(this);
 				if (detailsMode)
 				{
@@ -2270,4 +2267,5 @@ $(document).ajaxSend(function(event, xhr, settings) {
         xhr.setRequestHeader("X-CSRFToken", getCookie('csrftoken'));
     }
 });
+
 

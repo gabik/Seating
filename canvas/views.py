@@ -62,6 +62,7 @@ def edit_canvas(request):
 	c['partners'] = partners
 	c['last_name'] = last_name
 	c['date'] = date
+	c['send_feed'] = profile.send_feedback_flag
 	c['place'] = place
 	c['phone_num'] = phone
 	if partners.partner2_first_name != "":
@@ -111,7 +112,6 @@ def new_canvas(request):
 				writeOpertationFunc(request,info)
 				
 		json_dump = json.dumps({'status': "OK"})
-		print json_dump
 	return HttpResponse(json_dump)
 
 @login_required
@@ -160,7 +160,6 @@ def fix_number_status(request):
 			SingleElements = SingleElement.objects.filter(user=request.user, fix_num=int(request.POST['fixNumber']))
 			elem_delim = request.POST['elem_num'].index('-')
 			elem_num=request.POST['elem_num'][elem_delim+1:]
-			print str(elem_num)
 			if len(SingleElements) > 0:
 				for singel_element in SingleElements:
 					if int(elem_num) != int(singel_element.elem_num):
@@ -332,7 +331,7 @@ def get_element_item_by_full_name(request):
 	element_persons = Guest.objects.filter(user=request.user)
 	if (len(element_persons) > 0):
 		for person in element_persons:
-			if (person.guest_first_name + " " + person.guest_last_name == request.POST['full_name']):
+			if (unicode(person.guest_first_name, "UTF-8") + " " + unicode(person.guest_last_name, "UTF-8") == request.POST['full_name']):
 				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': person.guest_first_name, 'last_name': person.guest_last_name})
 				break
 	return HttpResponse(json_dump)
@@ -345,8 +344,6 @@ def swap_position(request):
 		elem_num=request.POST['elem_num'][elem_delim+1:]
 		first_person_position = request.POST['first_position']
 		second_person_position = request.POST['second_position']
-		print first_person_position
-		print second_person_position
 		if (int(first_person_position) > 0 and int(second_person_position) > 0):
 			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
 			if (len(element_persons) > 0):
@@ -442,12 +439,12 @@ def bring_person_to_float_list_by_position(request):
 def find_tables_strings(request):
 	json_dump = json.dumps({'status': "Empty"})
 	if request.method == 'POST':
-		name = request.POST['name']
+		name = ugettext(request.POST['name'])
 		matching_tables = "";
 		num_of_results = 0;
 		single_elements = SingleElement.objects.filter(user=request.user)
 		for element in single_elements:
-			lowname = element.caption.lower()
+			lowname = unicode(element.caption.lower(), "UTF-8")
 			table_kind = element.kind
 			if (lowname.find(name.lower()) >= 0 and (table_kind == "Square" or table_kind == "Round" or table_kind == "Rect" or table_kind == "Lozenge")):
 				matching_tables = matching_tables + "," + element.caption
@@ -460,13 +457,15 @@ def find_tables_strings(request):
 def find_persons_strings(request):
 	json_dump = json.dumps({'status': "Empty"})
 	if request.method == 'POST':
-		name = request.POST['name']
+		name = ugettext(request.POST['name'])
 		matching_persons = "";
 		num_of_results = 0;
 		person_elements = Guest.objects.filter(user=request.user)
 		for element in person_elements:
-			lowfirstname = element.guest_first_name.lower()
-			lowlastname = element.guest_last_name.lower()
+			lowfirstname = unicode(element.guest_first_name.lower(), "UTF-8")
+			lowlastname = unicode(element.guest_last_name.lower(), "UTF-8")
+			#lowfirstname = ugettext(element.guest_first_name.lower())
+			#lowlastname = ugettext(element.guest_last_name.lower())
 			if ((lowfirstname.find(name.lower()) >= 0) or (lowlastname.find(name.lower()) >= 0)):
 				matching_persons = matching_persons + "," + element.guest_first_name + " " + element.guest_last_name
 				num_of_results = num_of_results + 1;
@@ -508,7 +507,30 @@ def bring_person_to_floatlist_from_postion(request):
 				person.save()
 				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
 				numOfFloatingPersons = int(numOfFloatingPersons) + 1
-		print numOfFloatingPersons
+		if (numOfFloatingPersons > 0):
+			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
+	return HttpResponse(json_dump)
+
+@login_required
+def bring_person_to_floatlist_from_postion(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		floating_persons = "";
+		numOfFloatingPersons = 0;
+		newSize = request.POST['new_size']
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+		element_persons = Guest.objects.filter(user=request.user, elem_num = int(elem_num)).order_by('position')
+		for person in element_persons:
+			if (int(newSize) < int(person.position)):
+				single_element.current_sitting = single_element.current_sitting - 1
+				single_element.save()
+				person.elem_num = 0
+				person.position = 0
+				person.save()
+				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
+				numOfFloatingPersons = int(numOfFloatingPersons) + 1
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
 	return HttpResponse(json_dump)
@@ -625,8 +647,9 @@ def get_GuestsEmails(request):
 	if (len(user_GuestsEmails) > 0):
 		for guest in user_GuestsEmails:
 			name = guest.guest_last_name + " " + guest.guest_first_name
-			email = guest.guest_email;
-			result = result + name + "," + email + "|"
+			email = guest.guest_email
+			status = guest.invation_status 
+			result = result + name + "," + email + "," + status + "|" 
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count': len(user_GuestsEmails)})
 	else:
 		json_dump = json.dumps({'status': "OK" ,'emailList': result, 'count':"0"})
@@ -672,14 +695,13 @@ def change_user_profile(request):
 	if request.method == 'POST':
 		profile = get_object_or_404(UserProfile, user = request.user)
 		if profile is not None:
-			print profile
 			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
 			profile.occasion_place = ugettext(request.POST['place'])
 			profile.phone_number = ugettext(request.POST['phone'])
 			if (request.POST['feedback'] == "true"):
-				profile.send_feedback_flag = 1
+				profile.send_feedback_flag = True
 			else:
-				profile.send_feedback_flag = 0
+				profile.send_feedback_flag = False
 			profile.save()
 			json_dump = json.dumps({'status': "OK"})				
 	return HttpResponse(json_dump)
@@ -696,3 +718,4 @@ def get_occasion_meal_and_inv_details(request):
 		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
 		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
 	return HttpResponse(json_dump)
+

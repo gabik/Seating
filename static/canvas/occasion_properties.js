@@ -31,7 +31,7 @@ function createWindow()
 	$("#OcassionsPropMainWindow").append($('<p align="right" dir="rtl" class="text_14_black">שליחת עדכונים:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input id="sendFeedbacksApproval" type="checkbox"><span class="text_10_black">אפשר שליחת עדכונים לחשבון המייל שלי</span></input></span></p></br></br>'));
 	if (partnersSendFeedBackFlag)
 	{
-		$("#sendFeedbacksApproval").checked = true;
+		$("#sendFeedbacksApproval").attr('checked', true);
 	}
 }
 
@@ -70,7 +70,7 @@ $(document).ready(function() {
 	});
 	$("#sendOPBtn").bind('click', function(){
 		var sendFeedBack = false;
-		if ($("#sendFeedbacksApproval").checked == true)
+		if ($("#sendFeedbacksApproval").attr("checked"))
 		{
 			sendFeedBack = true;
 		}

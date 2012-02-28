@@ -120,24 +120,26 @@ function LoadPerson(element, i)
 			}
 			else
 			{
-				var title = document.getElementById("tableElementDiv" + data.position).title;
+				if (document.getElementById("tableElementDiv") != null) {
+					var title = document.getElementById("tableElementDiv" + data.position).title;
 				
-				if (title == "personTop" + data.position || title == "personRight"  + data.position)
-				{
-					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
+					if (title == "personTop" + data.position || title == "personRight"  + data.position)
+					{
+						$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
+					}
+					else
+					{
+						$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
+					}
+					document.getElementById("tableElementCaption" + data.position).innerHTML = "מושב " + data.position + "</br>ריק";
+				 	$("#tableElementDiv"+ data.position).droppable({
+								accept: "#people_list li",
+								hoverClass: "dropLayerClass",
+								drop: function(e, ui ) {
+									dropPersonFromChair(ui, data, element);
+								}
+					});
 				}
-				else
-				{
-					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
-				}
-				document.getElementById("tableElementCaption" + data.position).innerHTML = "מושב " + data.position + "</br>ריק";
-				 $("#tableElementDiv"+ data.position).droppable({
-							accept: "#people_list li",
-							hoverClass: "dropLayerClass",
-							drop: function(e, ui ) {
-								dropPersonFromChair(ui, data, element);
-							}
-				});
 			}
 			}, 'json');
 }

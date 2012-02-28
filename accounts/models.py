@@ -26,7 +26,7 @@ class UserProfile(models.Model):
 	occasion_date = models.DateField()
 	num_of_guests = IntegerRangeField(min_value=1, max_value=2000)
 	occasion_place = models.CharField(max_length=30)
-	send_feedback_flag = models.BooleanField(default=1)
+	send_feedback_flag = models.BooleanField(default=True)
         def __unicode__(self):
                 printy = self.user.username 
                 return printy

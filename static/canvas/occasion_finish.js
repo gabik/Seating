@@ -194,12 +194,15 @@ $(document).ready(function() {
       data = $.parseJSON(data);
       if (data.status == 'OK')
       {
-				$("#OccasionFinishCloseBtn").click();
+			$("#OccasionFinishCloseBtn").click();
+			showLightMsg("שליחת מייל","מיילים נשלחו, במידה ולא יגיעו ליעדם יתקבל עדכון בתיבת הדואר האישית.","OK","Notice");
+
       }
-			else
-			{
-				$("#OccasionFinishCloseBtn").click();
-			}
+		else
+		{
+			$("#OccasionFinishCloseBtn").click();
+			showLightMsg("שליחת מייל","שליחה נכשלה.","OK","Notice");
+		}
     });
 		//document.forms["notifications"].submit('json');
 	});
@@ -223,10 +226,12 @@ $(document).ready(function() {
       if (data.status == 'OK')
       {
         $("#OccasionFinishCloseBtn").click();
+				showLightMsg("שליחת מייל דוגמא","מייל לדוגמא נשלח בהצלחה.","OK","Notice");
       }
       else
       {
         $("#OccasionFinishCloseBtn").click();
+				showLightMsg("שליחת מייל דוגמא","שליחת מייל לדוגמא נכשל.","OK","Notice");
       }
     });
 	});
