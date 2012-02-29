@@ -338,13 +338,18 @@
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605" >
 					  <![endif]-->
 					  <!--[if !IE]><!-->
-					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="45" width="605" style="margin-top:-20;">
+					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <!--<![endif]-->
+							<table  height="32" width="960">
+							<td>
+							<a href="/static/site/contact.html"><img class="advertisingImgCanvas" align="left" src="/static/site/images/Advertising.png"/></a></td>
+							<td>
 							<p class="titles_black" dir="rtl"> האירוע של <span id="partnersNames" class="titles_blue" dir="rtl"><span id="firstPartnerName">{{ partners.partner1_first_name }}</span> <span id="addChar">{{addChar}} </span> <span id="secondPartnerName">{{ partners.partner2_first_name }}</span> <span id="partnerLastName">{{ last_name }} </span>
-								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span> ב-</span><span id="OccasionPlace" class="titles_black" dir="rtl"> {{place}}</span><a href="/static/site/contact.html"><img class="advertisingImgCanvas" align="left" src="/static/site/images/Advertising.png"/></a><span title="הגדרות אירוע"><img alt="הגדרות אירוע" id="setting" src="/static/canvas/images/setting_n.png" width="24" height="24" align="top"/></span></p></marquee></span></img>
+								</span><span class="titles_black" dir="rtl">המתקיים בתאריך <span id="OccasionDate">{{date}}</span></span><span> ב-</span><span id="OccasionPlace" class="titles_black" dir="rtl"> {{place}}</span><span title="הגדרות אירוע"><img alt="הגדרות אירוע" id="setting" src="/static/canvas/images/setting_n.png" width="24" height="24" align="top"/></span></p></span></img></td><td>
+								<a href="/static/site/contact.html"><img class="advertisingImgCanvas" align="left" src="/static/site/images/Advertising.png"/></a></td></table></marquee>
 					  </td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/yellow_right_main_panel.png" height="32" /></td>
 					</tr>

@@ -120,8 +120,7 @@ function LoadPerson(element, i)
 			}
 			else
 			{
-				if (document.getElementById("tableElementDiv") != null) {
-					var title = document.getElementById("tableElementDiv" + data.position).title;
+					var title = $("#tableElementDiv"+ data.position).attr("title");
 				
 					if (title == "personTop" + data.position || title == "personRight"  + data.position)
 					{
@@ -139,7 +138,6 @@ function LoadPerson(element, i)
 									dropPersonFromChair(ui, data, element);
 								}
 					});
-				}
 			}
 			}, 'json');
 }
