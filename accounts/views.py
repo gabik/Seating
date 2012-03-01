@@ -63,7 +63,7 @@ def create_user(request):
 		userprofile_form = UserProfileForm(request.POST)
 		user_form = UserForm(request.POST)
 		partners_form = PartnersForm(request.POST)
-		if userprofile_form.is_valid() and user_form.is_valid() and partners_form.is_valid():	
+		if userprofile_form.is_valid() and user_form.is_valid() and partners_form.is_valid() and agree_form.is_valid():	
 			user_clean_data = user_form.cleaned_data
 			created_user = User.objects.create_user(user_clean_data['username'], user_clean_data['email'], user_clean_data['password1'])
 			created_user.save()
