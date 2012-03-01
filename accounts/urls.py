@@ -19,5 +19,6 @@ urlpatterns = patterns('accounts.views',
 	(r'^do_duplicates/$', 'do_duplicates'),
 	(r'^invation/TEST/$', 'invation_test'),
 	(r'^invation/(?P<guestHash>\w+)/$', 'invation'),
+	(r'^unsubscribe/(?P<guestHash>\w+)/$', 'unsubscribe'),
 	(r'^sendNotif/$', 'SendNotifications'),
 )

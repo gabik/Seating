@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>Unsubscribe 2Seat</title>
+
+<link rel="stylesheet" type="text/css" href="http://jquery-ui.googlecode.com/svn/tags/latest/themes/base/jquery-ui.css" media="all" />
+<link rel="stylesheet" type="text/css" href="/static/page/page.css" />
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.4/jquery.min.js"></script>
+<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        $("#OkBtn").bind('mouseout', function(){
+            $(this).attr('src',"/static/canvas/images/okbtn_n.png");
+        });
+        $("#OkBtn").bind('mouseover', function(){
+                $(this).attr('src',"/static/canvas/images/okbtn_r.png");
+        });
+        $("#CancelBtn").bind('mouseout', function(){
+            $(this).attr('src',"/static/canvas/images/xbtn_n.png");
+        });
+        $("#CancelBtn").bind('mouseover', function(){
+                $(this).attr('src',"/static/canvas/images/xbtn_r.png");
+        });
+    });
+    
+</script>
+</head>
+
+<body id="pagebody">
+<div id="content">
+  <table width="658" border="0" cellspacing="0" cellpadding="0">
+    <tr>
+      <td width="12" height="12" valign="top"><img src="/static/page/images/tl.png" width="12" height="20" border="0" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" height="12" valign="top"><img src="/static/page/images/logo_t.png" width="195" height="20" border="0" /></td>
+    </tr>
+    <tr>
+      <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
+      <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF"><p class="titles_black">הסרת קבלת מידע 2Seat<br /><br /><span class="text_14_black">יש לסמן את בחירתך האם להסירך מרשימת תפוצת <br /><span class="text_14_black" dir="rtl"> האירוע של {{user1_first_name}} {{addChar}} {{user2_first_name}} {{user_last_name}} </span> <br /><br />
+        </span><span class="titles_blue">תודה מערכת 2Seat.<br />
+        </span></p><br /><br /><br /><img id="OkBtn" src="/static/canvas/images/okbtn_n.png" style="cursor:pointer;border: 0;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img id="CancelBtn" src="/static/canvas/images/xbtn_n.png
+" style="cursor:pointer;border: 0;"/></td>
+
+
+      <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
+      <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
+    </tr>
+    <tr>
+      <td width="12" valign="top"><img src="/static/page/images/bl.png" width="12" height="20" /></td>
+      <td colspan="2" bgcolor="#FFFFFF">&nbsp;</td>
+      <td width="195" valign="top"><img src="/static/page/images/bt_r.png" width="195" height="20" /></td>
+    </tr>
+  </table>
+  <img src="/static/page/images/shadow.png" width="658" height="26" />
+  </br>
+  </br>
+  </br>
+  </br>
+  <a href="/static/site/contact.html"><img class="advertisingImg" src="/static/site/images/Advertising.png"/></a>
+  </div>
+</body>
+</html>
