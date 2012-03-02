@@ -236,6 +236,44 @@ def drop_person(request):
 			else:
 				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 	return HttpResponse(json_dump)
+	
+@login_required
+def drop_multi_persons(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		free_positions = ""
+		dataString = request.POST['DataString'].split('|')
+		for string in dataString:
+			if (string != ""):
+				dataArray = string.split(',')
+				
+				table_id_data = dataArray[0]
+				person_id_data = dataArray[1]
+		
+				person_id = ugettext(person_id_data)
+				person_delim = person_id.index('_')
+				person_first = person_id[:person_delim]
+				person_last = person_id[person_delim+1:]
+				single_person = Guest.objects.filter(user=request.user, guest_first_name=person_first, guest_last_name=person_last)
+				if (len(single_person) > 0):
+					elem_delim = table_id_data.index('-')
+					elem_num = table_id_data[elem_delim+1:]
+					table_id = table_id_data
+					free_position = 1
+					if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
+						element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
+						for element_person in element_persons:
+							if element_person.position == free_position:
+								free_position = free_position + 1
+							else:
+								break
+								
+						if free_positions == "":		
+							free_positions = free_position	
+						else:
+							free_positions = free_positions + "|" + free_position	
+		json_dump = json.dumps({'status': "OK", 'dataPositions': free_positions})				
+	return HttpResponse(json_dump)						
 
 @login_required
 def add_element(request):
