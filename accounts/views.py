@@ -738,6 +738,44 @@ def invation(request, guestHash):
 			persondata.update(csrf(request))
 			return render_to_response('accounts/invation.html', persondata)
 		else:
+			return HttpResponse('Guest not exist')		
+			
+def unsubscribe(request, guestHash):
+	if request.method == 'POST':
+		guestHashCode = str(guestHash)
+		persons = Guest.objects.filter(guest_hash = guestHashCode)
+		if (len(persons) > 0):
+			'''update mail status flag'''
+		return render_to_response('accounts/unsubscribe_updated.html')
+	else:
+		guestHashCode = str(guestHash)
+		persons = Guest.objects.filter(guest_hash = guestHashCode)
+		if (len(persons) > 0):
+			persondata = {}
+			persondata['first_name'] = persons[0].guest_first_name
+			persondata['last_name'] = persons[0].guest_last_name
+			partners = get_object_or_404(Partners, userPartner = persons[0].user)
+			profile = get_object_or_404(UserProfile, user = persons[0].user)
+			date = profile.occasion_date.strftime("%d/%m/%Y")
+			place = profile.occasion_place
+			persondata['date'] = date
+			persondata['place'] = place
+			user_last_name = ""
+			if partners.partner1_gender == 'M':
+				user_last_name = partners.partner1_last_name
+			else:
+				user_last_name = partners.partner2_last_name
+			if user_last_name == "":
+				user_last_name = partners.partner1_last_name
+			persondata['addChar'] = ""
+			if partners.partner2_first_name != "":
+				persondata['addChar'] = "&"
+			persondata['user1_first_name'] = partners.partner1_first_name
+			persondata['user2_first_name'] = partners.partner2_first_name
+			persondata['user_last_name'] = user_last_name
+			persondata.update(csrf(request))
+			return render_to_response('accounts/unsubscribe.html', persondata)
+		else:
 			return HttpResponse('Guest not exist')
 
 @login_required

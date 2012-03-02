@@ -343,41 +343,35 @@
 					  <!--[if !IE]><!-->
 					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
 					  <!--<![endif]-->
-						<table  border="0" cellspacing="0" cellspacing="2.5">
+						<table border="0" cellspacing="2.5" cellpadding="0">
 							<td valign="top">
 								<a href="/static/site/contact.html"><img class="advertisingImgCanvas" align="left" src="/static/site/images/Advertising.png"/></a></td>
 							<td valign="top">
-								<p id="OccasionPlace" class="titles_black" dir="rtl"> {{place}}</p>
+								<p id="OccasionPlace" class="titles_black" dir="rtl"><NOBR>{{place}} </NOBR></p>
 							</td>
 							<td valign="top">
-								<p class="titles_black" dir="rtl"> ב-</p>
+								<p class="titles_black" dir="rtl"><NOBR>ב- </NOBR></p>
 							</td>							
 							<td valign="top">
-								<p id="OccasionDate" class="titles_black" dir="rtl">{{date}}</p>
+								<p id="OccasionDate" class="titles_black" dir="rtl"><NOBR>{{date}} </NOBR></p>
 							</td>
 							<td valign="top">
-								<p class="titles_black" dir="rtl">בתאריך </p>
+								<p class="titles_black" dir="rtl"><NOBR>המתקיים בתאריך </NOBR></p>
 							</td>
 							<td valign="top">
-								<p class="titles_black" dir="rtl">המתקיים </p>
+								<p id="partnerLastName" class="titles_blue"  dir="rtl"><NOBR>{{ last_name }} </NOBR></p> 
 							</td>
 							<td valign="top">
-								<p id="partnerLastName" class="titles_blue"  dir="rtl">{{ last_name }} </p> 
+								<p id="secondPartnerName" class="titles_blue"  dir="rtl"><NOBR>{{ partners.partner2_first_name }} </NOBR></p> 
 							</td>
 							<td valign="top">
-								<p id="secondPartnerName" class="titles_blue"  dir="rtl">{{ partners.partner2_first_name }}</p> 
+								<p id="addChar"><NOBR>{{addChar}} </NOBR></p> 
 							</td>
 							<td valign="top">
-								<p id="addChar">{{addChar}} </p> 
+								<p id="firstPartnerName" class="titles_blue"  dir="rtl"><NOBR>{{ partners.partner1_first_name }} </NOBR></p> 
 							</td>
 							<td valign="top">
-								<p id="firstPartnerName" class="titles_blue"  dir="rtl">{{ partners.partner1_first_name }}</p> 
-							</td>
-							<td  valign="top">
-								<p class="titles_black" dir="rtl">של </p>
-							</td>
-							<td  valign="top">
-								<p class="titles_black" dir="rtl">האירוע </p>
+								<p class="titles_black" dir="rtl"><NOBR> האירוע של </NOBR></p>
 							</td>
 							<td valign="top">
 							<div title="הגדרות אירוע">
@@ -523,7 +517,7 @@
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">שם פרטי:<br/><span><input id="first_name" maxlength="10" type=text size=15></span></p></td>
+								<p class="text_14_black_bolt">שם פרטי:<br/><span><input id="first_name" maxlength="15" type=text size=15></span></p></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
@@ -531,7 +525,7 @@
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">שם משפחה:</br><span><input id="last_name"  maxlength="10"  type=text size=15></span></p></td>
+								<p class="text_14_black_bolt">שם משפחה:</br><span><input id="last_name"  maxlength="15"  type=text size=15></span></p></td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
