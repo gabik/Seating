@@ -88,6 +88,14 @@ function is_int(value){
   } 
 }
 
+function name_long(value){ 
+  if(value.length <= 16){
+      return true;
+  } else { 
+      return false;
+  } 
+}
+
 function is_mail(value){
   AtPos = value.indexOf("@")
   StopPos = value.lastIndexOf(".")
@@ -141,6 +149,10 @@ mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
      if (stage == 2 && index == 3 && !is_int(new_value)) {
           return false; 
      } else if (stage == 2 && index == 5 && !is_mail(new_value)) {
+	  return false;
+     } else if (stage == 2 && index == 0 && !name_long(new_value)) {
+	  return false;
+     } else if (stage == 2 && index == 1 && !name_long(new_value)) {
 	  return false;
      } else {
           return true;

@@ -75,6 +75,7 @@ class Guest(models.Model):
 		('U', 'Unknon'),
 	)
 	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
+	send_mail_flag = models.BooleanField(default=True)
         def __unicode__(self):
                 printy = unicode(self.user.username, "UTF-8") + "- " + unicode(self.guest_first_name, "UTF-8")+ " " +unicode(self.guest_last_name, "UTF-8")
                 return printy
