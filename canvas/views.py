@@ -62,7 +62,6 @@ def edit_canvas(request):
 	c['partners'] = partners
 	c['last_name'] = last_name
 	c['date'] = date
-	c['send_feed'] = profile.send_feedback_flag
 	c['place'] = place
 	c['phone_num'] = phone
 	if partners.partner2_first_name != "":
@@ -218,8 +217,10 @@ def drop_person(request):
 						else:
 							break
 			else:
-				free_position = place;
+				free_position = place
 			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+			if free_position <= single_element.max_sitting:
+				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 			if single_element.current_sitting < single_element.max_sitting:
 				single_element.current_sitting = single_element.current_sitting + 1
 				single_element.save()
@@ -267,12 +268,18 @@ def drop_multi_persons(request):
 								free_position = free_position + 1
 							else:
 								break
-								
-						if free_positions == "":		
-							free_positions = free_position	
+						if str(free_positions) == "":		
+							free_positions = str(free_position)	
 						else:
-							free_positions = free_positions + "|" + free_position	
-		json_dump = json.dumps({'status': "OK", 'dataPositions': free_positions})				
+							free_positions = str(free_positions) + '|' + str(free_position)	
+					else:
+						free_positions = str(free_position)
+					single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+					if free_position <= single_element.max_sitting:
+						single_person[0].elem_num = elem_num
+						single_person[0].position = free_position
+						single_person[0].save()	
+		json_dump = json.dumps({'status': "OK", 'dataPositions': str(free_positions)})				
 	return HttpResponse(json_dump)						
 
 @login_required

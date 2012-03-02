@@ -1886,7 +1886,7 @@ $(document).ready(function() {
 			{
 				multiPos = true;
 				
-				dataMultiStrings = dataMultiStrings + table.context.id + "," + person_id: draged.context.id + "|";
+				dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
 			}
 		  });
 		  
@@ -1896,7 +1896,7 @@ $(document).ready(function() {
 				function(data){
 				  if (data.status == 'OK')
 				  {
-					  var dataMultiStrings = dataPositions.split("|",ui.helper.size());
+					  var dataMultiStrings = data.dataPositions.split("|",ui.helper.size());
 					  ui.helper.each(function(i){
 					  	 dropPerson($(this), table, dataMultiStrings[i]); 
 					  });
