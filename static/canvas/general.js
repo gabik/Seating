@@ -1152,7 +1152,7 @@ function cleanStringFromUnIDChars(str)
 
 function addPersonToFloatList(first_name,last_name, personGroup)
 {
-	if (first_name.trim() == "" || last_name.trim() == "")
+	if (first_name.trim() == "" && last_name.trim() == "")
 	{
 		showLightMsg("הוספת אורח","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
 	}
