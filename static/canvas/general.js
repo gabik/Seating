@@ -1874,10 +1874,38 @@ $(document).ready(function() {
 		return;
 	  }
 	  var table = $(this);
+	  var multiPos = false; 
+	  var dataMultiStrings = "";
 	
 	  ui.helper.each(function(i){
-			dropPerson($(this), table, "");  
+			if (ui.helper.size() == 1)
+			{
+				dropPerson($(this), table, ""); 
+			}
+			else if (ui.helper.size() > 1)
+			{
+				multiPos = true;
+				
+				dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
+			}
 		  });
+		  
+		  if (multiPos)
+		  {
+			  $.post('/canvas/sitMulti/', {DataString: dataMultiStrings},
+				function(data){
+				  if (data.status == 'OK')
+				  {
+					  var dataMultiStrings = data.dataPositions.split("|",ui.helper.size());
+					  ui.helper.each(function(i){
+					  	 dropPerson($(this), table, dataMultiStrings[i]); 
+					  });
+				  }
+				  else{
+					setSaveStatus("Error");
+				  }
+				}, 'json');
+		  } 
 		}
 	  });
 	
