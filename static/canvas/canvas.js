@@ -1,4 +1,4 @@
-
+//canvas.js
 function menuItemClick(element)
 {
 	$('ul.AddMenu').hide('medium');
