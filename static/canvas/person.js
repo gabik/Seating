@@ -115,8 +115,11 @@ function LoadPerson(element, i)
 					selectPersonElement($("#tableElementDiv"+ data.position));
 					SelectedPerson = $(this);
 				});
-				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
-				$("#tableElementDiv"+ data.position).addClass('Pointer');
+				if (document.getElementById("tableElementCaption" + data.position) != null)
+				{
+					document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
+					$("#tableElementDiv"+ data.position).addClass('Pointer');
+				}
 			}
 			else
 			{
