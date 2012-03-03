@@ -49,6 +49,7 @@ def edit_canvas(request):
 	c['elements_nums'] = elements_nums
 	c['guests'] = Guests
 	c['user_profile'] = userProfile
+	c['send_feed'] = profile.send_feedback_flag
 	c['width'] = cur_width
 	date = profile.occasion_date.strftime("%d/%m/%Y")
 	place = profile.occasion_place
@@ -740,7 +741,8 @@ def change_user_profile(request):
 	if request.method == 'POST':
 		profile = get_object_or_404(UserProfile, user = request.user)
 		if profile is not None:
-			profile.occasion_date = datetime.strptime(request.POST['date'],'%d/%m/%Y')
+			request_post_date=request.POST['date'].strip()
+			profile.occasion_date = datetime.strptime(request_post_date,'%d/%m/%Y')
 			profile.occasion_place = ugettext(request.POST['place'])
 			profile.phone_number = ugettext(request.POST['phone'])
 			if (request.POST['feedback'] == "true"):
