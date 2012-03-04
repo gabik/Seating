@@ -71,6 +71,7 @@ def create_user(request):
 			userprofile.user = created_user
 			userprofile.occasion_date = user_clean_data['occasiondate'];
 			userprofile.excel_hash = 'New'
+			userprofile.send_feedback_flag = True
 			userprofile.save()
 			partners = partners_form.save(commit=False)
 			partners.userPartner = created_user
