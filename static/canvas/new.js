@@ -279,7 +279,7 @@ function createElementByLi(li, type, cordx, cordy)
 	size  = parseInt(tableProperties.last().val()); 
 	amount = parseInt(tableProperties.first().val());
 		 
-	dataString = dataString + kind + ',' + amount + ',' + size + ',' + cordx + ',' + cordy + '|';
+	dataString = dataString + kind + ',' + amount + ',' + size + ',' + cordx + ',' + cordy + ',90' + ',90' + '|';
 }
 
 function postDataString()
@@ -424,6 +424,20 @@ $(document).ready(function(){
 					
 					createElementByLi($(this),type,0,0);
 				});
+				
+				if ($("#barAppoval").attr('checked'))
+				{
+					dataString = dataString + 'bar_stand,1,8,0,0,217,112|';
+				}
+				if ($("#danceStandAppoval").attr('checked'))
+				{
+					dataString = dataString + 'dance_stand,1,8,0,0,272,112|';
+				}
+				if ($("#djStandAppoval").attr('checked'))
+				{
+					dataString = dataString + 'dj_stand,1,8,0,0,87,87|';
+				}
+				
 				postDataString();
 			}
 		}
