@@ -115,8 +115,11 @@ function LoadPerson(element, i)
 					selectPersonElement($("#tableElementDiv"+ data.position));
 					SelectedPerson = $(this);
 				});
-				document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
-				$("#tableElementDiv"+ data.position).addClass('Pointer');
+				if (document.getElementById("tableElementCaption" + data.position) != null)
+				{
+					document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
+					$("#tableElementDiv"+ data.position).addClass('Pointer');
+				}
 			}
 			else
 			{
@@ -135,51 +138,35 @@ function LoadPerson(element, i)
 								accept: "#people_list li",
 								hoverClass: "dropLayerClass",
 								drop: function(e, ui ) {
-									dropPersonFromChair(ui, data, element);
+									var title = $("#tableElementDiv"+ data.position).attr("title");
+									var thisTitleNum = "";
+									
+									for (var c = 0; c < title.length; c++)
+									{
+										if (IsNumeric(title.charAt(c)))
+										{
+											thisTitleNum = thisTitleNum + title.charAt(c);
+										}
+									}
+									
+									if (IsNumeric(thisTitleNum))
+									{
+										data.position = thisTitleNum;
+									}
+									dropPersonFromChairWithPosition(ui, data.position, element);
 								}
 					});
 			}
 			}, 'json');
 }
 
-function dropPersonFromChair(ui, data, element)
+function dropPersonFromChairWithPosition(ui, pos, element)
 {
 	if (ui.helper.size() == 1)
 	{
-		$('.TableElementDiv').each(function(i)
-		{ 
-			var thisTitleNum = "";
-			
-			for (var c = 0; c < $(this).attr('title').length; c++)
-			{
-				if (IsNumeric($(this).attr('title').charAt(c)))
-				{
-					thisTitleNum = thisTitleNum + $(this).attr('title').charAt(c);
-				}
-			}
-			if (thisTitleNum == data.position)
-			{
-				var num = "";
-				
-				for (var c = 0; c < $(this).context.id.length; c++)
-				{
-					if (IsNumeric($(this).context.id.charAt(c)))
-					{
-						num = num + $(this).context.id.charAt(c);
-					}
-				}
-				
-				if (IsNumeric(num))
-				{
-					data.position = num;
-					return false;
-				}
-			}
-		});
 	  ui.helper.each(function(j){
-	  dropPerson($(this), element, data.position); 
-	  $("#tableElementDiv"+ data.position).data('dropEvent', 1);
-	  
+	  dropPerson($(this), element,  pos); 
+	  $("#tableElementDiv"+  pos).data('dropEvent', 1);
 	  });
 	}
 	else
@@ -1193,7 +1180,22 @@ function DeletePerson()
 							accept: "#people_list li",
 							hoverClass: "dropLayerClass",
 							drop: function(e, ui ) {
-								dropPersonFromChair(ui, personData, SelectedTable);
+								var title = $("#tableElementDiv"+ personData.position).attr("title");
+								var thisTitleNum = "";
+								
+								for (var c = 0; c < title.length; c++)
+								{
+									if (IsNumeric(title.charAt(c)))
+									{
+										thisTitleNum = thisTitleNum + title.charAt(c);
+									}
+								}
+								
+								if (IsNumeric(thisTitleNum))
+								{
+									personData.position = thisTitleNum;
+								}
+								dropPersonFromChairWithPosition(ui, personData.position, SelectedTable);
 							}
 				});
 				$("#tableElementDiv"+ personData.position).droppable( 'enable' );

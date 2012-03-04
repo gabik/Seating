@@ -30,9 +30,9 @@
                 showMonthAfterYear: false,
                 yearSuffix: ''};
         $.datepicker.setDefaults($.datepicker.regional['he']);
-		$("#addDetailsList").hide();
+		//$("#addDetailsList").hide();
 		window.scrollBy(0,0);
-		var addDetailsOpen = false;
+		var addDetailsOpen = true;
 		$("#sendBtn").mouseout(function(){
 			$(this).attr('src',"/static/page/images/send_btn_nr.png");
 		});
@@ -111,7 +111,7 @@
 		{% for error in user_form.password2.errors %}
 				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
-		<p class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="emailInput">{{user_form.email}}
+		<p class="text_14_black">מייל:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span id="emailInput">{{user_form.email}}
 		{% for error in user_form.email.errors %}
 				<span class="text_14_red_bold"> שדה זה חיוני,וודא תקינות </span>
 		{% endfor %}</span></p>
@@ -148,9 +148,9 @@
 			{% for error in partners_form.partner1_age.errors %}
 					<span class="text_14_red_bold"> שדה זה חיוני, וודא תקינות 1-120 </span>
 			{% endfor %}</span></p>
-			<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_up_n.png" width="24" height="15"/></span></p>
+			<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_down_n.png" width="24" height="15"/></span></p>
 			<ul id="addDetailsList">
-				<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
+				<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
 				{% for error in userprofile_form.phone_number.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>

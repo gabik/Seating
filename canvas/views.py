@@ -219,23 +219,24 @@ def drop_person(request):
 			else:
 				free_position = place
 			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-			if free_position <= single_element.max_sitting:
+			if int(free_position) > int(single_element.max_sitting):
 				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
-			if single_element.current_sitting < single_element.max_sitting:
-				single_element.current_sitting = single_element.current_sitting + 1
-				single_element.save()
-				single_person[0].elem_num = elem_num
-				single_person[0].position = free_position
-				single_person[0].save()
-				if (single_element.current_sitting >= single_element.max_sitting):
-					json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
-				else:
-					if (single_element.current_sitting == 0):
-						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
-					else:
-						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
 			else:
-				json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
+				if single_element.current_sitting < single_element.max_sitting:
+					single_element.current_sitting = single_element.current_sitting + 1
+					single_element.save()
+					single_person[0].elem_num = elem_num
+					single_person[0].position = free_position
+					single_person[0].save()
+					if (single_element.current_sitting >= single_element.max_sitting):
+						json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Green", 'free_position': single_person[0].position})
+					else:
+						if (single_element.current_sitting == 0):
+							json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Red", 'free_position': single_person[0].position})
+						else:
+							json_dump = json.dumps({'status': "OK", 'table_id': table_id,'table_status':"Yellow", 'free_position': single_person[0].position})
+				else:
+					json_dump = json.dumps({'status': "FULL", 'table_id': table_id})
 	return HttpResponse(json_dump)
 	
 @login_required
