@@ -1777,10 +1777,10 @@ $(document).ready(function() {
 		 }
 	     else if (elementImgs[0].id.split("-", 1) ==  "dj_stand")
 		 {
-			$(this).attr('title',"עמדת די ג'יי");	
+			$(this).attr('title',"עמדת דיי ג'יי");	
 			$(this).find('.tableProp').remove();
 		 }
-		 $(this).addClass('DragNonDropDiv');	 
+		 $(this).addClass('DragNonDropDiv');		 
 	 }
 	reloadElementStatus($(this)); 
   });
@@ -1896,6 +1896,7 @@ $(document).ready(function() {
 				function(data){
 				  if (data.status == 'OK')
 				  {
+					  setSaveStatus("OK");
 					  var dataMultiStrings = data.dataPositions.split("|",ui.helper.size());
 					  ui.helper.each(function(i){
 					  	 dropPerson($(this), table, dataMultiStrings[i]); 
@@ -1908,6 +1909,34 @@ $(document).ready(function() {
 		  } 
 		}
 	  });
+	  
+	$(".DragNonDropDiv").resizable({
+		handles: 'n, e, s, w, ne, se, sw, nw',
+		maxHeight:150,
+		maxWidth:280,
+		minHeight:40,
+		minWidth:40,
+		containment: 'parent',
+		resize: function (e,ui){
+			var imgResize = $(this).find('img').first();
+			imgResize.css('width',$(this).width());
+			imgResize.css('height',$(this).height());
+		},
+		stop: function (e,ui){
+			$.post('/canvas/saveElementWidthHeight/', {elem_num:$(this).context.id , width:$(this).width(), height:$(this).height()},
+           function(data){
+			   if (data.status == 'OK')
+			   {
+					setSaveStatus("OK");
+			   } 
+			   else
+			   {
+					setSaveStatus("Error");
+			   }
+			}
+			, 'json');
+		}
+	});
 	
   $("#people_list > li").dblclick( function(event){
 		personFloatListDBClick(event, $(this));

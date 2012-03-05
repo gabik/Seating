@@ -127,7 +127,18 @@
 		 }
 	 });
 	 
+	 var dragNonDropDivStartX = 500;
+	 var dragNonDropDivStartY = 150;
+	 
 	 $(".DragNonDropDiv").each(function(i){
+		 if (firstInit)
+		 {
+			$(this).css('left',dragNonDropDivStartX);
+			$(this).css('top',dragNonDropDivStartY);
+			dragNonDropDivStartX = dragNonDropDivStartX + $(this).width();
+			dragNonDropDivStartY = dragNonDropDivStartY + $(this).height();
+			saveElement($(this));
+		 }
 		 if ($(".DragNonDropDiv").last().attr('id') == $(this).context.id)
 		 {
 			if (collisionWithOtherElement($(this)))
@@ -414,7 +425,7 @@
  				<li><a href="#"><img id="Lozenge" border=0 src="" class="MenuItem" title="שולחן מעויין"></a></li>
 				<li><a href="#"><img id="dance&stand" border=0 src="/static/canvas/images/misc/dance_small.png" class="MenuItem" title="רחבת ריקודים"></a></li>
 				<li><a href="#"><img id="bar&stand" border=0 src="/static/canvas/images/misc/bar_small.png"  class="MenuItem" title="בר משקאות"></a></li>
-				<li><a href="#"><img id="dj&stand" border=0 src="/static/canvas/images/misc/dj.png"  class="MenuItem" title="עמדת די ג'יי"></a></li>
+				<li><a href="#"><img id="dj&stand" border=0 src="/static/canvas/images/misc/dj.png"  class="MenuItem" title="עמדת דיי ג'יי"></a></li>
  			</ul>
 			<div class="AligmentDiv" title="ישור שולחנות מסומנים"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
 			<div class="DelDiv" title="מחיקת שולחן\אורח בשולחן"><img  id="DelImg"src="/static/canvas/images/minus_n.png"></div>

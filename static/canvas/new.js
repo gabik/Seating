@@ -427,15 +427,15 @@ $(document).ready(function(){
 				
 				if ($("#barAppoval").attr('checked'))
 				{
-					dataString = dataString + 'bar_stand,1,8,0,0,217,112|';
+					dataString = dataString + 'bar_stand,1,8,0,0,207,102|';
 				}
 				if ($("#danceStandAppoval").attr('checked'))
 				{
-					dataString = dataString + 'dance_stand,1,8,0,0,272,112|';
+					dataString = dataString + 'dance_stand,1,8,0,0,262,102|';
 				}
 				if ($("#djStandAppoval").attr('checked'))
 				{
-					dataString = dataString + 'dj_stand,1,8,0,0,87,87|';
+					dataString = dataString + 'dj_stand,1,8,0,0,77,77|';
 				}
 				
 				postDataString();
