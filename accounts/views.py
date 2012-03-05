@@ -746,7 +746,9 @@ def unsubscribe(request, guestHash):
 		guestHashCode = str(guestHash)
 		persons = Guest.objects.filter(guest_hash = guestHashCode)
 		if (len(persons) > 0):
-			'''update mail status flag'''
+			if request.POST['unsubscribe'] == 'V':
+				persons[0].send_mail_flag = 0
+				persons[0].save()
 		return render_to_response('accounts/unsubscribe_updated.html')
 	else:
 		guestHashCode = str(guestHash)
@@ -929,15 +931,18 @@ def SendNotifications(request):
 		names=names+' '+last_name
 		if int(request.POST['sendValue']) == 1:
 			subject=unicode('הארוע של ', "UTF-8") + names + unicode(' המתקיים בתאריך ', "UTF-8") + str(occasion.occasion_date) + unicode(' ב', "UTF-8") + unicode(occasion.occasion_place, "UTF-8")
-			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
-			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK',  "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div> <a href=UNSUBSCRIBE>להסרה מרשימת התפוצה לחץ כאן</a></div>', "UTF-8")
+			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK             להסרה עבור לקישור UNSUBSCRIBE',  "UTF-8")
 			for cur_mail in emails:
 				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
 				if cur_mail=="TEST":
 					user_mail=request.user.email
 					link='http://2seat.co.il/accounts/invation/TEST/'
-					new_html_message=html_message.replace("LINK", link)
-					new_text_message=text_message.replace("LINK", link)
+					unsubs='http://2seat.co.il/accounts/unsubscribe/TEST/'
+					new_html_message1=html_message.replace("LINK", link)
+					new_text_message1=text_message.replace("LINK", link)
+					new_html_message=new_html_message1.replace("UNSUBSCRIBE", unsubs)
+					new_text_message=new_text_message1.replace("UNSUBSCRIBE", unsubs)
 					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [user_mail])
 					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 					msg.attach_alternative(new_html_message,"text/html")
@@ -946,8 +951,11 @@ def SendNotifications(request):
 				for cur_guest in guests:
 					hash=cur_guest.guest_hash
 					link='http://2seat.co.il/accounts/invation/'+hash+'/'
-					new_html_message=html_message.replace("LINK", link)
-					new_text_message=text_message.replace("LINK", link)
+					unsubs='http://2seat.co.il/accounts/unsubscribe/'+hash+'/'
+					new_html_message1=html_message.replace("LINK", link)
+					new_text_message1=text_message.replace("LINK", link)
+					new_html_message=new_html_message1.replace("UNSUBSCRIBE", unsubs)
+					new_text_message=new_text_message1.replace("UNSUBSCRIBE", unsubs)
 					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
 					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 					msg.attach_alternative(new_html_message,"text/html")

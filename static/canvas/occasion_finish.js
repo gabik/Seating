@@ -176,11 +176,16 @@ $(document).ready(function() {
 	});
 	$("#sendNotifyImg").bind('click', function(){
 		var mailList = "";
-		for (var i=0; i < document.notifications.mailList.length; i++)
+		if (document.notifications.mailList.length == undefined) 
 		{
-			if (document.notifications.mailList[i].checked)
+			if (document.notifications.mailList.checked) mailList = document.notifications.mailList.value + "|";
+		} else {
+			for (var i=0; i < document.notifications.mailList.length; i++)
 			{
-				mailList = mailList + document.notifications.mailList[i].value + "|";
+				if (document.notifications.mailList[i].checked)
+				{
+					mailList = mailList + document.notifications.mailList[i].value + "|";
+				}
 			}
 		}
 

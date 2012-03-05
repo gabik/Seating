@@ -28,7 +28,7 @@ class UserProfile(models.Model):
 	occasion_place = models.CharField(max_length=30)
 	send_feedback_flag = models.BooleanField(default=True)
         def __unicode__(self):
-                printy = self.user.username 
+                printy = unicode(self.user.username , "UTF-8")
                 return printy
 	
 class Partners(models.Model):

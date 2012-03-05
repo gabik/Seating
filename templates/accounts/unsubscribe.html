@@ -22,6 +22,12 @@
         $("#CancelBtn").bind('mouseover', function(){
                 $(this).attr('src',"/static/canvas/images/xbtn_r.png");
         });
+         $("#OkBtn").bind('click', function(){
+         	$("#unsubs").submit();
+				});
+				$("#CancelBtn").bind('click', function(){
+					window.location.replace("http://www.2seat.co.il");
+        });
     });
     
 </script>
@@ -39,7 +45,7 @@
       <td width="12" bgcolor="#FFFFFF">&nbsp;</td>
       <td align="right"  dir= "rtl" valign="top" bgcolor="#FFFFFF"><p class="titles_black">הסרת קבלת מידע 2Seat<br /><br /><span class="text_14_black">יש לסמן את בחירתך האם להסירך מרשימת תפוצת <br /><span class="text_14_black" dir="rtl"> האירוע של {{user1_first_name}} {{addChar}} {{user2_first_name}} {{user_last_name}} </span> <br /><br />
         </span><span class="titles_blue">תודה מערכת 2Seat.<br />
-        </span></p><br /><br /><br /><img id="OkBtn" src="/static/canvas/images/okbtn_n.png" style="cursor:pointer;border: 0;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img id="CancelBtn" src="/static/canvas/images/xbtn_n.png
+        </span></p><br /><br /><br /><form name=unsubs id=unsubs method=POST action=#> {% csrf_token %} <input type=hidden name=unsubscribe value=V></form><img id="OkBtn" src="/static/canvas/images/okbtn_n.png" style="cursor:pointer;border: 0;"/>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <img id="CancelBtn" src="/static/canvas/images/xbtn_n.png
 " style="cursor:pointer;border: 0;"/></td>
 
 
