@@ -15,6 +15,8 @@ var fromPropMeneBtn = false;
 var currentMsgTimer = "";
 var floatListOriginalPosition = "";
 var occDetailsOpen = false;
+var resizableLastWidth = 0;
+var resizableLastHeight = 0;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -1917,24 +1919,42 @@ $(document).ready(function() {
 		minHeight:40,
 		minWidth:40,
 		containment: 'parent',
+		start: function (e,ui){
+			resizableLastWidth = $(this).width();
+			resizableLastHeight = $(this).height();
+		},
 		resize: function (e,ui){
 			var imgResize = $(this).find('img').first();
 			imgResize.css('width',$(this).width());
 			imgResize.css('height',$(this).height());
 		},
 		stop: function (e,ui){
-			$.post('/canvas/saveElementWidthHeight/', {elem_num:$(this).context.id , width:$(this).width(), height:$(this).height()},
-           function(data){
-			   if (data.status == 'OK')
-			   {
-					setSaveStatus("OK");
-			   } 
-			   else
-			   {
-					setSaveStatus("Error");
-			   }
+			if (collisionWithOtherElement($(this)))
+			{
+			    $(this).animate({ width: resizableLastWidth , height: resizableLastHeight},300, 'linear', function() {
+					var imgResize = $(this).find('img').first();
+					imgResize.css('width',resizableLastWidth);
+					imgResize.css('height',resizableLastHeight);
+					$(this).css('width',resizableLastWidth);
+					$(this).css('height',resizableLastHeight);
+				});
+				
 			}
-			, 'json');
+			else
+			{
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:$(this).context.id , width:$(this).width(), height:$(this).height()},
+			   function(data){
+				   if (data.status == 'OK')
+				   {
+						setSaveStatus("OK");
+				   } 
+				   else
+				   {
+						setSaveStatus("Error");
+				   }
+				}
+				, 'json');
+			}
 		}
 	});
 	
