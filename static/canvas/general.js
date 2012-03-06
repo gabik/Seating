@@ -1999,6 +1999,7 @@ $(document).ready(function() {
 					imgResize.css('height',resizableLastHeight);
 					$(this).css('width',resizableLastWidth);
 					$(this).css('height',resizableLastHeight);
+					selectElement($(this));
 				});
 				
 			}
