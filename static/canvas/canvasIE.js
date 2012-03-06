@@ -45,18 +45,18 @@ function addMenuItemButtonPress(kind)
 	}
 	else if (kind == "dance_stand")
 	{
-		addWidth = 210;
-		addHeight = 50;
+		addWidth = 200;
+		addHeight = 40;
 	}
 	else if (kind ==  "bar_stand") 
 	{
-		addWidth = 155;
-		addHeight = 50;
+		addWidth = 145;
+		addHeight = 40;
 	}
 	else if (kind ==  "dj_stand") 
 	{
-		addWidth = 25;
-		addHeight = 25;
+		addWidth = 15;
+		addHeight = 15;
 	}
 	
     $.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},

@@ -86,6 +86,8 @@ def new_canvas(request):
 				size = int(dataArray[2])
 				cordx = int(dataArray[3])
 				cordy = int(dataArray[4])
+				elemwidth = float(dataArray[5])
+				elemheight = float(dataArray[6])
 				
 				fixNum = -1;
 				user_elements = SingleElement.objects.filter(user=request.user)
@@ -101,7 +103,7 @@ def new_canvas(request):
 							fixNum = 0
 
 				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i), x_cord=cordx, y_cord=(cordy + i*18), width = 90 , height = 90, user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=size)
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i), x_cord=cordx, y_cord=(cordy + i*18), width = elemwidth , height = elemheight, user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=size)
 					single_element.save()
 
 				add_char =""
