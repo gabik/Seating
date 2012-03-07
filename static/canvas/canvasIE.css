@@ -138,7 +138,6 @@
  .borderSelected
  {
   border:2px solid #5A8EA3;
-  z-index:9999;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;

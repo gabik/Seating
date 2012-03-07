@@ -507,6 +507,48 @@ function collisionWithOtherElement(element)
 	}
 }
 
+//Check if 2 objects intersect and returns collision point
+function returnCollisionWithOtherElementPoint(element)
+{
+	var match = false;
+	var colPoint = "";
+	var pos = getPositions(document.getElementById(element.context.id));
+	$(".DragDiv").each(function(i) {
+		if (element.context.id != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				colPoint = [Math.max(pos[1][0],pos2[1][0]),Math.max(pos[0][0], pos2[0][0])];
+				return false;
+			}
+		}
+	});
+	
+	if (!match)
+	{
+		$(".DragNonDropDiv").each(function(i) {
+			if (element.context.id != $(this).context.id)
+			{
+				var pos2 = getPositions(this);
+				var horizontalMatch = comparePositions(pos[0], pos2[0]);
+				var verticalMatch = comparePositions(pos[1], pos2[1]);
+				match = horizontalMatch && verticalMatch;
+				if (match)
+				{
+					colPoint = [Math.max(pos[1][0],pos2[1][0]),Math.max(pos[0][0], pos2[0][0])];
+					return false;
+				}
+			}
+		});
+	}
+	
+	return colPoint;
+}
+
 function collisionWithOtherElementWithOutNonDragElements(element)
 {
 	var match = false;
@@ -1850,7 +1892,17 @@ $(document).ready(function() {
      start: function (e,ui){
 		startDrag($(this));
      },
+	 drag: function (e,ui){ 
+		var colPoint = returnCollisionWithOtherElementPoint($(this));
+		
+		$("#DragCollisionImg").remove();
+		if (colPoint != "")
+		{
+			$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + colPoint[0] + '; left:' + colPoint[1] + '; position:absolute; z-index:99999;"/>'));
+		}
+	 },
      stop: function (e,ui){
+	 	$("#DragCollisionImg").remove();
 		stopDrag($(this));
        }
   }); 
@@ -1861,7 +1913,17 @@ $(document).ready(function() {
      start: function (e,ui){
 		startDrag($(this));
      },
+	 drag: function (e,ui){ 
+		var colPoint = returnCollisionWithOtherElementPoint($(this));
+		
+		$("#DragCollisionImg").remove();
+		if (colPoint != "")
+		{
+			$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + colPoint[0] + '; left:' + colPoint[1] + '; position:absolute; z-index:99999;"/>'));
+		}
+	 },
      stop: function (e,ui){
+		$("#DragCollisionImg").remove();
 		stopDrag($(this));
        }
   });
@@ -1914,7 +1976,7 @@ $(document).ready(function() {
 	  
 	$(".DragNonDropDiv").resizable({
 		handles: 'n, e, s, w, ne, se, sw, nw',
-		maxHeight:150,
+		maxHeight:280,
 		maxWidth:280,
 		minHeight:40,
 		minWidth:40,
@@ -1937,6 +1999,7 @@ $(document).ready(function() {
 					imgResize.css('height',resizableLastHeight);
 					$(this).css('width',resizableLastWidth);
 					$(this).css('height',resizableLastHeight);
+					selectElement($(this));
 				});
 				
 			}
