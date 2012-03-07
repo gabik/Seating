@@ -17,6 +17,7 @@ var floatListOriginalPosition = "";
 var occDetailsOpen = false;
 var resizableLastWidth = 0;
 var resizableLastHeight = 0;
+var screenResHeightFixNum = 768;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -1753,6 +1754,22 @@ function dropPerson(draged,table, place)
 		  }
 		}, 'json');
 		$("#dropLayer").remove();
+	}
+}
+
+function adjustResolution()
+{
+	if (screenResHeightFixNum < screen.height)
+	{
+		var delta =  screen.height - $("#canvas-div").height() - 25;
+		
+		$("#people-list").css('height', $("#people-list").height() + delta);
+		$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+		$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
+		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
+		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+		$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
 }
 

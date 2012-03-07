@@ -192,9 +192,9 @@ $(document).ready(function() {
    }
    else if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)
    {
-		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 7);
-		$("#occasionDetailsAdvanceR").css('top',$("#occasionDetailsAdvanceR").position().top + 7);
-		$("#search-properties-list").css('top',$("#search-properties-list").position().top + 5);
+		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 9);
+		$("#occasionDetailsAdvanceR").css('top',$("#occasionDetailsAdvanceR").position().top + 9);
+		$("#search-properties-list").css('top',$("#search-properties-list").position().top + 7);
    }
   	
 });
