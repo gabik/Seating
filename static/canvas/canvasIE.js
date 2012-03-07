@@ -34,8 +34,8 @@ function addMenuItemButtonPress(kind)
     $('ul.AddMenu').hide('medium');
 
 	kind = kind.replace(/\&/g,"_");
-	var width = 90 + (8 - maxElementCapacity) * 2;
-	var height = 90 + (8 - maxElementCapacity) * 2;
+	var width = 90 + (8 - maxElementCapacity - 2) * 2;
+	var height = 90 + (8 - maxElementCapacity - 2) * 2;
 	var addWidth = 0;
 	var addHeight = 0;
 			

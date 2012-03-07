@@ -390,7 +390,7 @@ $(document).ready(function(){
 			$("#TableTypeList > li").last().find('img').last().bind('mouseout',function(){ mouseOutRemoveBtn($(this)); });
 			$("#TableTypeList > li").last().find('select').first().bind('change',function(){ tableShapeChange($(this)); updateCounters(); });
 			$("#TableTypeList > li").last().find('input').first().bind('change',function(){  if (!IsNumeric($(this).val())){$(this).val(1)} updateCounters(); });
-			$("#TableTypeList > li").last().find('input').last().bind('change',function(){ if (IsNumeric($(this).val())) {if ($(this).val() > 22){ $(this).val(22) } else if ($(this).val() < 4) { $(this).val(4)}} else { $(this).val(4) } updateCounters(); });
+			$("#TableTypeList > li").last().find('input').last().bind('change',function(){ if (IsNumeric($(this).val())) {if ($(this).val() > 24){ $(this).val(24) } else if ($(this).val() < 4) { $(this).val(4)}} else { $(this).val(4) } updateCounters(); });
 			$("#TableTypeList > li").last().find('input').first().bind('keydown',function(event){ insureNumInput(event); });
 			$("#TableTypeList > li").last().find('input').last().bind('keydown',function(event){  insureNumInput(event); });
 			if ($("#TableTypeAList > li").size() > maxSeated)

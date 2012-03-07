@@ -18,9 +18,9 @@
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <script type="text/javascript">
 $(document).ready(function() {
-	$("#addDetailsList").hide();
+	//$("#addDetailsList").hide();
 	window.scrollBy(0,0);
-	var addDetailsOpen = false;
+	var addDetailsOpen = true;
 
 	$("#addDetails").mouseout(function(){
 		if (addDetailsOpen)
@@ -74,7 +74,7 @@ $(document).ready(function() {
 			<td><input id="djStandAppoval" type="checkbox"><span class="text_11_black">עמדת דיי ג'יי</span></input></span></td>
 		</table>
 		<p class="titles_red" id="errorMsg"/>
-		<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_up_n.png" width="24" height="15"/></span></p>
+		<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_down_n.png" width="24" height="15"/></span></p>
 			<ul id="addDetailsList">
 				<p class="text_14_black">מספר שולחנות כולל:&nbsp;<span class="text_14_black" id="tableCounter">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים כולל:&nbsp;<span class="text_14_black" id="personCounter">0</span></span></p>
 				<p class="text_14_black">מספר שולחנות מרובעים:&nbsp;<span class="text_14_black" id="squareSum">0</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="text_14_black">מספר מושבים מרובעים:&nbsp;<span class="text_14_black" id="squareSeatAmount">0</span></span></p>

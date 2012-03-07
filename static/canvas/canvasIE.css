@@ -5,7 +5,7 @@
   background:white;
   margin-top:20px;
   width:1195px;
-  height:600px;
+  height:630px;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -67,7 +67,7 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:317;
+  top:347;
   left:-2;
  }
   #occasionDetailsR
@@ -75,7 +75,7 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:453;
+  top:483;
   left:-2;
  }
  #occasionDetailsAdvanceR
@@ -83,7 +83,7 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:453;
+  top:483;
   left:-209;
  }
   #AddPersonList
@@ -99,7 +99,7 @@
  #canvasShadow{
 	position:absolute;
 	left:5px;
-	top:632px;
+	top:662px;
 	width:1195px;
 	height:2px;
 	background-image: url("/static/canvas/images/canvasShadow.png");
@@ -108,7 +108,7 @@
  .SaveState
  {
   position:absolute;
-  top:599;
+  top:629;
   left:1080;
   direction:rtl;
   width:120;

@@ -5,7 +5,7 @@
   background:white;
   margin-top:28px;
   width:1195px;
-  height:600px;
+  height:630px;
   -webkit-user-select: none;
   -khtml-user-select: none;
   -moz-user-select: none;
@@ -47,7 +47,7 @@
  {
   position:absolute;
   float:right;
-  width:125px;
+  width:155px;
   margin-top:5px;
  }
  #float-list
@@ -68,7 +68,7 @@
   position:absolute;
   padding: 4px;
   width:120;
-  top:324;
+  top:354;
   left:1201;
  }
   #occasionDetailsR
@@ -76,7 +76,7 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:460;
+  top:490;
   left:1201;
  }
   #occasionDetailsAdvanceR
@@ -84,7 +84,7 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:460;
+  top:490;
   left:995;
  }
  #ElementStatus
@@ -108,7 +108,7 @@
  {
 	position:absolute;
 	left:5px;
-	top:643px;
+	top:673px;
 	width:1195px;
 	height:15px;
 	background-image: url("/static/canvas/images/canvasShadow.png");
@@ -117,7 +117,7 @@
  .SaveState
  {
   position:absolute;
-  top:588;
+  top:618;
   left:1085;
   direction:rtl;
   width:122;
