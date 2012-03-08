@@ -19,6 +19,11 @@ from django.utils.translation import ugettext
 from datetime import datetime
 from django.core.mail import send_mail
 from hashlib import md5
+import sys
+sys.path.append("/Seating/static/locale/he")
+import he
+from he import u
+
 
 def escapeSpecialCharacters ( text ):
     characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
@@ -103,7 +108,7 @@ def new_canvas(request):
 							fixNum = 0
 
 				for i in range(0, amount):
-					single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i), x_cord=cordx, y_cord=(cordy + i*18), width = elemwidth , height = elemheight, user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=size)
+					single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i), x_cord=cordx, y_cord=(cordy + i*18), width = elemwidth , height = elemheight, user=request.user, kind=table_kind, caption=he.he_table+ str(fixNum+i), current_sitting=0, max_sitting=size)
 					single_element.save()
 
 				add_char =""
@@ -307,7 +312,7 @@ def add_element(request):
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption="Element"+ str(fixNum+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption=he.he_table+ str(fixNum+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
 #			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
