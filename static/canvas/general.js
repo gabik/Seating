@@ -5,7 +5,7 @@ var SelectedElem = "" ;
 var SelectedPerson = "" ;
 var startDradPositionList = "";
 var undoElementList = "";
-var maxElementCapacity = 22;
+var maxElementCapacity = 24;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
 var maxGuests = 1056;
@@ -192,7 +192,7 @@ function setWidthAndHeight(element, newScale, lastScale, init)
 	}
 	else
 	{
-		scale =  (newScale - maxElementCapacity) * 2;
+		scale =  (newScale - maxElementCapacity - 2) * 2;
 	}
 
 	for (var i = 0; i < 1 ; i++)
@@ -282,7 +282,7 @@ function ZoomElement(element, newScale, lastScale, firstInit)
 	}
 	else
 	{
-		scale =  (newScale - maxElementCapacity) * 2;
+		scale =  (newScale - maxElementCapacity - 2) * 2;
 	}
 
 	for (var i = 0; i < 1 ; i++)
@@ -1628,7 +1628,7 @@ function delDivPress()
 		{
 			DeletePerson();
 			updateSeatedLabel();
-			writeOccasionInfo("Move Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Table "+SelectedElem.text().split(" ", 2)[1].trim()+" To Float List.");
+			writeOccasionInfo("Move Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Table " + SelectedElem.attr('title') +" To Float List.");
 		}
 		else
 		{
@@ -1641,7 +1641,7 @@ function delDivPress()
 					  //undoElement[0] = SelectedElem;
 					  //undoElement[1] = "add"; 
 					  ShowHourGlassWaitingWindow(true);
-					  writeOccasionInfo("Delete Table "+SelectedElem.text().split(" ", 2)[1].trim()+".");
+					  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
 				  }
 				}, 'json');
 			} else {
@@ -1984,6 +1984,7 @@ $(document).ready(function() {
 		start: function (e,ui){
 			resizableLastWidth = $(this).width();
 			resizableLastHeight = $(this).height();
+			startDradPositionList[0] = $(this).position();
 		},
 		resize: function (e,ui){
 			var imgResize = $(this).find('img').first();
@@ -1993,7 +1994,7 @@ $(document).ready(function() {
 		stop: function (e,ui){
 			if (collisionWithOtherElement($(this)))
 			{
-			    $(this).animate({ width: resizableLastWidth , height: resizableLastHeight},300, 'linear', function() {
+			    $(this).animate({top:startDradPositionList[0].top, left:startDradPositionList[0].left, width: resizableLastWidth , height: resizableLastHeight},300, 'linear', function() {
 					var imgResize = $(this).find('img').first();
 					imgResize.css('width',resizableLastWidth);
 					imgResize.css('height',resizableLastHeight);
