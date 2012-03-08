@@ -430,7 +430,7 @@ def save_person_element(request):
 			person.guest_email = request.POST['person_email']
 			person.present_amount = request.POST['present_amount']
 			person.facebook_account = request.POST['facebook_account']
-			person.group = request.POST['group']
+			person.group = request.POST['group'].strip()
 			person.gender = request.POST['gender']
 			person.meal = request.POST['meal']
 			person.invation_status = request.POST['invation_status']

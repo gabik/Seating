@@ -714,7 +714,7 @@ def invation(request, guestHash):
 		if profile.send_feedback_flag == True:
 			guest_name=unicode(persons[0].guest_first_name + " " + persons[0].guest_last_name, "UTF-8")
 			subject=unicode('שינוי סטטוס הגעה - ', "UTF-8") + guest_name
-			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="5">שינוי סטטוס הגעה:</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">האורח GUEST בחר STATUS</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="5">שינוי סטטוס הגעה:</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">האורח GUEST בחר STATUS<BR>הפרטים עודכנו אוטומטית במערכת</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
 			text_message=unicode('האורח GUEST בחר STATUS', "UTF-8")
 			
 			if  persons[0].invation_status == 'N':
