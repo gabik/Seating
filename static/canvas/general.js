@@ -110,11 +110,12 @@ function setSaveStatus(status)
 	}
 	else if (status == "Waiting")
 	{
-	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/waiting.png")
+	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/waiting.png");
 	}
 	else if (status == "Error")
 	{
-	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/error.png")
+	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/error.png");
+	   showLightMsg("שגיאה","התרחשה שגיאה במערכת, יתכן ולא נשמרו פעולות אחרונות ,יש לבצע פעולה בשנית ולבדוק את חיבור וטיב התקשורת.","OK","Error");
 	}
 }
 
@@ -1476,7 +1477,7 @@ function updateGroups()
 	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
 	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
 	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
-	if ($("#addChar").text() == " " || $("#addChar").text() == '')
+	if ($("#addChar").text() == " " || $("#addChar").text() == '' || $("#firstPartnerName").text() == $("#secondPartnerName").text())
 	{	
 		$("#personGroup").append($('<option value="Family">משפחה כללי</option>'));
 		$("#personGroup").append($('<option value="Work">חברים כללי</option>'));
@@ -1761,7 +1762,7 @@ function adjustResolution()
 {
 	if (screenResHeightFixNum < screen.height)
 	{
-		var delta =  screen.height - $("#canvas-div").height() - 25;
+		var delta =  screen.height - $("#canvas-div").height() - 138;
 		
 		$("#people-list").css('height', $("#people-list").height() + delta);
 		$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
@@ -1771,6 +1772,30 @@ function adjustResolution()
 		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
 		$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
+	
+	$.post('/canvas/getMaxY/', {},
+		function(data){
+		  if (data.status == 'OK')
+		  {
+			if (data.MaxY > $("#canvas-div").height() + 35)
+			{
+				var delta =  data.MaxY  - $("#canvas-div").height() + 150;
+		
+				$("#people-list").css('height', $("#people-list").height() + delta);
+				$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+				$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
+				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
+				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+				$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+				$(".SaveState").css('top', $(".SaveState").position().top + delta);
+			}
+	    	setSaveStatus("OK");
+		  }
+		  else
+		  {
+     		setSaveStatus("Error");
+		  }
+		}, 'json');
 }
 
 $(document).ready(function() {

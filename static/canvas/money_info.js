@@ -42,38 +42,75 @@ function createInfoFields(sumData)
 			$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(2) +'</p>'));
 		}
 		$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  '+ sumData[1] +'</p>'));
-		pieData[0] = ["אחר", sumData[1] * sumData[0] / 100];
+		pieData[0] = ["אחר", sumData[1]];
 		$("#moneyInfoMainWindow").append($('<p id="totalFirstFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  '+ sumData[2] +'</p>'));
-		pieData[1] = [" משפחה" + " " + $("#firstPartnerName").text(), sumData[2] * sumData[0] / 100];
+		pieData[1] = [" משפחה" + " " + $("#firstPartnerName").text(), sumData[2]];
 		$("#moneyInfoMainWindow").append($('<p id="totalFirstFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + $("#firstPartnerName").text() + '":  '+ sumData[3] +'</p>'));
-		pieData[2] = [" חברים" + " " + $("#firstPartnerName").text(), sumData[3] * sumData[0] / 100];
+		pieData[2] = [" חברים" + " " + $("#firstPartnerName").text(), sumData[3]];
 		$("#moneyInfoMainWindow").append($('<p id="totalFirstWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + $("#firstPartnerName").text() + '":  '+ sumData[4] +'</p>'));
-		pieData[3] = [" עבודה"  + " " +  $("#firstPartnerName").text(), sumData[4] * sumData[0] / 100];
+		pieData[3] = [" עבודה"  + " " +  $("#firstPartnerName").text(), sumData[4]];
 		$("#moneyInfoMainWindow").append($('<p id="totalSecondFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + secondGroupFooter +'":  '+ sumData[5] +'</p>'));
-		pieData[4] = [" משפחה"  + " " +  secondGroupFooter, sumData[5] * sumData[0] / 100];
+		pieData[4] = [" משפחה"  + " " +  secondGroupFooter, sumData[5]];
 		$("#moneyInfoMainWindow").append($('<p id="totalSecondFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + secondGroupFooter +'":  '+ sumData[6] +'</p>'));
-		pieData[5] = [" חברים"  + " " +  secondGroupFooter, sumData[6] * sumData[0] / 100];
+		pieData[5] = [" חברים"  + " " +  secondGroupFooter, sumData[6]];
 		$("#moneyInfoMainWindow").append($('<p id="totalSecondWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + secondGroupFooter +'":  '+ sumData[7] +'</p>'));
-		pieData[6] = [" עבודה"  + " " +  secondGroupFooter, sumData[7] * sumData[0] / 100];
-		drawSumsPie(pieData);
+		pieData[6] = [" עבודה"  + " " +  secondGroupFooter, sumData[7]];
+		
+		var newDataArray = new Array();
+		
+		if (pieData[0][1] > 0)
+		{
+			newDataArray.push(pieData[0]);
+		}		
+		if (pieData[1][1] > 0)
+		{
+			newDataArray.push(pieData[1]);
+		}		
+		if (pieData[2][1] > 0)
+		{
+			newDataArray.push(pieData[2]);
+		}		
+		if (pieData[3][1] > 0)
+		{
+			newDataArray.push(pieData[3]);
+		}		
+		if (pieData[4][1] > 0)
+		{
+			newDataArray.push(pieData[4]);
+		}		
+		if (pieData[5][1] > 0)
+		{
+			newDataArray.push(pieData[5]);
+		}		
+		if (pieData[6][1] > 0)
+		{
+			newDataArray.push(pieData[6]);
+		}
+
+		drawSumsPie(newDataArray);
 	}
 }
 
 function drawSumsPie(data)
 {
-  var plot1 = jQuery.jqplot ('groupPie', [data], 
-    { 
-      seriesDefaults: {
-        renderer: jQuery.jqplot.PieRenderer, 
-        rendererOptions: {
-		  trendline:{show:false},
-          showDataLabels: true,
-		  seriesColors:["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF"]
-        }
-      }, 
-      legend: { show:true, location: 'e' }
-    }
-  );
+	var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#511EA3","#411BEF"];
+	var chartColors = new Array();
+	
+	for (var i=0; i < data.length; i++)
+	{
+		chartColors.push(colors[i]);
+	}
+	
+	var myChart = new JSChart('groupPie', 'pie', 'cc0c8f2636d8db5fe5f484e9dd33859d');
+	myChart.setDataArray(data);
+	myChart.colorizePie(chartColors);
+	myChart.setTitle('2seat pie');
+	myChart.setTitleColor('#000000');
+	myChart.setTitleFontSize(14);
+	myChart.setTextPaddingTop(10);
+	myChart.setPieRadius(125);
+	myChart.setPieUnitsColor('#555');
+	myChart.draw();
 }
 
 $(document).ready(function() {
