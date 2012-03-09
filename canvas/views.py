@@ -600,25 +600,25 @@ def get_Money_Info(request):
 	if partners.partner2_first_name != "":
 		for person in persons:
 			totalSum = totalSum + person.present_amount
-			if person.group == 'Other':
+			if person.group.strip() == 'Other':
 				totalOtherSum = totalOtherSum + person.present_amount
 			else:
-				if person.group == 'Family '+ partners.partner2_first_name:
+				if str(person.group).strip() == str('Family'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Family':
 					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
 				else:
-					if person.group == 'Friends '+ partners.partner2_first_name:
+					if str(person.group).strip() == str('Friends'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Friends':
 						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
 					else:
-						if person.group == 'Work '+ partners.partner2_first_name:
+						if str(person.group).strip() == str('Work'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Work':
 							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
 						else:
-							if person.group == 'Family '+ partners.partner1_first_name:
+							if str(person.group).strip() == str('Family'+ partners.partner1_first_name).strip():
 								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
 							else:
-								if person.group == 'Friends '+ partners.partner1_first_name:
+								if str(person.group).strip() == str('Friends'+ partners.partner1_first_name).strip():
 									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
 								else:
-									if person.group == 'Work '+ partners.partner1_first_name:
+									if str(person.group).strip() == str('Work'+ partners.partner1_first_name).strip():
 										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
 		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
 	else:
@@ -768,4 +768,15 @@ def get_occasion_meal_and_inv_details(request):
 		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
 		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
 	return HttpResponse(json_dump)
+	
+@login_required
+def get_max_y(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_elements = SingleElement.objects.filter(user=request.user)
+	max_y = user_elements.all().aggregate(Max('y_cord'))['y_cord__max']
+	json_dump = json.dumps({'status': "OK", 'MaxY': max_y})	
+	return HttpResponse(json_dump)
+	
+
+
 

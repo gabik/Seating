@@ -71,36 +71,36 @@ $(document).ready(function() {
   $(".DelDiv").click( function() {
 	if  (!detailsMode)
 	{
-		if (tableMode)
+		//if (tableMode)
+		//{
+		//	if (SelectedPerson != "")
+		//	{
+		//		showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.find('p').first().html() +" לרשימה הצפה?", "YESNO", "Question");
+		//		currentMsgTimer = setTimeout("delDivPress()",500);
+		//	}
+		//	else
+		//	{
+		//		showLightMsg("החזרת אורח לרשימה הצפה","יש לבחור אורח.","OK","Notice");
+		//	}
+		//}
+		//else
+		//{
+		if (SelectedElem != "")
 		{
-			if (SelectedPerson != "")
+			var name = SelectedElem.find('p').first().attr('title');
+			
+			if (name == undefined)
 			{
-				showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.find('p').first().html() +" לרשימה הצפה?", "YESNO", "Question");
-				currentMsgTimer = setTimeout("delDivPress()",500);
+				name = SelectedElem.attr('title');
 			}
-			else
-			{
-				showLightMsg("החזרת אורח לרשימה הצפה","יש לבחור אורח.","OK","Notice");
-			}
+			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
+			currentMsgTimer = setTimeout("delDivPress()",500);
 		}
 		else
 		{
-			if (SelectedElem != "")
-			{
-				var name = SelectedElem.find('p').first().attr('title');
-				
-				if (name == undefined)
-				{
-					name = SelectedElem.attr('title');
-				}
-				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
-				currentMsgTimer = setTimeout("delDivPress()",500);
-			}
-			else
-			{
-				showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
-			}
+			showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
 		}
+		//}
 	}
   });
   $(".AddDiv").click( function() {
@@ -192,9 +192,9 @@ $(document).ready(function() {
    }
    else if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)
    {
-		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 7);
-		$("#occasionDetailsAdvanceR").css('top',$("#occasionDetailsAdvanceR").position().top + 7);
-		$("#search-properties-list").css('top',$("#search-properties-list").position().top + 5);
+		$("#occasionDetailsR").css('top',$("#occasionDetailsR").position().top + 9);
+		$("#occasionDetailsAdvanceR").css('top',$("#occasionDetailsAdvanceR").position().top + 9);
+		$("#search-properties-list").css('top',$("#search-properties-list").position().top + 7);
    }
   	
 });
