@@ -1626,33 +1626,33 @@ function delDivPress()
 {
 	if (MsgBoxLastAnswer == "OK")
 	{
-		if (tableMode)
-		{
-			DeletePerson();
-			updateSeatedLabel();
-			writeOccasionInfo("Move Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Table " + SelectedElem.attr('title') +" To Float List.");
-		}
-		else
-		{
-			if (SelectedElem != "") {
-			  setSaveStatus("OK");
-			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-					function(data){
-				  if (data.status == 'OK')
-				  { 
-					  //undoElement[0] = SelectedElem;
-					  //undoElement[1] = "add"; 
-					  ShowHourGlassWaitingWindow(true);
-					  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
-				  }
-				}, 'json');
-			} else {
-				if (!tableMode && !detailsMode)
-				{
-					showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
-				}
+		//if (tableMode)
+		//{
+		//	DeletePerson();
+		//	updateSeatedLabel();
+		//	writeOccasionInfo("Move Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Table " + SelectedElem.attr('title') +" To Float List.");
+		//}
+		//else
+		//{
+		if (SelectedElem != "") {
+		  setSaveStatus("OK");
+		  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+				function(data){
+			  if (data.status == 'OK')
+			  { 
+				  //undoElement[0] = SelectedElem;
+				  //undoElement[1] = "add"; 
+				  ShowHourGlassWaitingWindow(true);
+				  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
+			  }
+			}, 'json');
+		} else {
+			if (!tableMode && !detailsMode)
+			{
+				showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
 			}
 		}
+		//}
 		clearTimeout(currentMsgTimer);
 		MsgBoxLastAnswer = "Lock";
 		currentMsgTimer = "";
@@ -1673,20 +1673,22 @@ function delPerson()
 {
 	if (MsgBoxLastAnswer == "OK")
 	{
-		$.post('/canvas/delfp/', {person_id: SelectedPerson.context.id},
+		var person = $('.ui-multisort-click').first();
+		$.post('/canvas/delfp/', {person_id: person.attr('id')},
 	   function(data){
 		 if (data.status == 'OK')
 		 {
-		   SelectedPerson.remove();
+		   person.remove();
 		   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
 		   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
 		   {
 				$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
 				$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
 		   }
-			writeOccasionInfo("Delete Person "+ SelectedPerson.context.id.replace(/\_/g," ") +"From Float List.");
+			writeOccasionInfo("Delete Person "+ person.attr('id').replace(/\_/g," ") +"From Float List.");
 		   setSaveStatus("OK");
 		   updateSeatedLabel();
+		   rePaintPeopleList();
 		 }else{
 		   setSaveStatus("Error");
 		 }
@@ -2069,10 +2071,11 @@ $(document).ready(function() {
    });
    
   $(".DelPersonDiv").click( function() {
-  
-	if ( SelectedPerson != "" )
+	var person = $('.ui-multisort-click').first();
+	
+	if (person.hasClass('ui-multisort-click'))
 	{
-		showLightMsg("מחיקת אורח", "האם לבצע פעולת מחיקה ל"+ SelectedPerson.context.id.replace(/\_/g," ") + "?", "YESNO", "Question");
+		showLightMsg("מחיקת אורח", "האם לבצע פעולת מחיקה ל"+ person.attr('id').replace(/\_/g," ") + "?", "YESNO", "Question");
 		currentMsgTimer = setTimeout("delPerson()",500);
 	}
 	else

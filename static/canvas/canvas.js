@@ -71,36 +71,36 @@ $(document).ready(function() {
   $(".DelDiv").click( function() {
 	if  (!detailsMode)
 	{
-		if (tableMode)
+		//if (tableMode)
+		//{
+		//	if (SelectedPerson != "")
+		//	{
+		//		showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.find('p').first().html() +" לרשימה הצפה?", "YESNO", "Question");
+		//		currentMsgTimer = setTimeout("delDivPress()",500);
+		//	}
+		//	else
+		//	{
+		//		showLightMsg("החזרת אורח לרשימה הצפה","יש לבחור אורח.","OK","Notice");
+		//	}
+		//}
+		//else
+		//{
+		if (SelectedElem != "")
 		{
-			if (SelectedPerson != "")
+			var name = SelectedElem.find('p').first().attr('title');
+			
+			if (name == undefined)
 			{
-				showLightMsg("החזרת אורח לרשימה הצפה", "האם להחזיר את " + SelectedPerson.find('p').first().html() +" לרשימה הצפה?", "YESNO", "Question");
-				currentMsgTimer = setTimeout("delDivPress()",500);
+				name = SelectedElem.attr('title');
 			}
-			else
-			{
-				showLightMsg("החזרת אורח לרשימה הצפה","יש לבחור אורח.","OK","Notice");
-			}
+			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
+			currentMsgTimer = setTimeout("delDivPress()",500);
 		}
 		else
 		{
-			if (SelectedElem != "")
-			{
-				var name = SelectedElem.find('p').first().attr('title');
-				
-				if (name == undefined)
-				{
-					name = SelectedElem.attr('title');
-				}
-				showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
-				currentMsgTimer = setTimeout("delDivPress()",500);
-			}
-			else
-			{
-				showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
-			}
+			showLightMsg("מחיקת אלמנט","יש לבחור אלמנט.","OK","Notice");
 		}
+		//}
 	}
   });
   $(".AddDiv").click( function() {
