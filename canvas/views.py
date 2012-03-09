@@ -602,22 +602,22 @@ def get_Money_Info(request):
 			if person.group.strip() == 'Other':
 				totalOtherSum = totalOtherSum + person.present_amount
 			else:
-				if person.group.strip() == 'Family'+ partners.partner2_first_name.strip() or person.group.strip() == 'Family':
+				if str(person.group).strip() == str('Family'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Family':
 					totalSecondFamilySum = totalSecondFamilySum + person.present_amount
 				else:
-					if person.group.strip() == 'Friends'+ partners.partner2_first_name.strip() or person.group.strip() == 'Friends':
+					if str(person.group).strip() == str('Friends'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Friends':
 						totalSecondFriendsSum = totalSecondFriendsSum + person.present_amount
 					else:
-						if person.group.strip() == 'Work'+ partners.partner2_first_name.strip() or person.group.strip() == 'Work':
+						if str(person.group).strip() == str('Work'+ partners.partner2_first_name).strip() or str(person.group).strip() == 'Work':
 							totalSecondWorkSum = totalSecondWorkSum + person.present_amount
 						else:
-							if person.group.strip() == 'Family'+ partners.partner1_first_name.strip():
+							if str(person.group).strip() == str('Family'+ partners.partner1_first_name).strip():
 								totalFirstFamilySum = totalFirstFamilySum + person.present_amount
 							else:
-								if person.group.strip() == 'Friends'+ partners.partner1_first_name.strip():
+								if str(person.group).strip() == str('Friends'+ partners.partner1_first_name).strip():
 									totalFirstFriendsSum = totalFirstFriendsSum + person.present_amount
 								else:
-									if person.group.strip() == 'Work'+ partners.partner1_first_name.strip():
+									if str(person.group).strip() == str('Work'+ partners.partner1_first_name).strip():
 										totalFirstWorkSum = totalFirstWorkSum + person.present_amount
 		json_dump = json.dumps({'status': "OK", 'totalSum': totalSum, 'totalOtherSum':totalOtherSum, 'totalFirstFamilySum':totalFirstFamilySum, 'totalFirstFriendsSum':totalFirstFriendsSum, 'totalFirstWorkSum':totalFirstWorkSum, 'totalSecondFamilySum':totalSecondFamilySum, 'totalSecondFriendsSum':totalSecondFriendsSum, 'totalSecondWorkSum':totalSecondWorkSum})
 	else:
