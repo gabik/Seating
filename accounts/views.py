@@ -709,6 +709,37 @@ def invation(request, guestHash):
 			persons[0].meal=request.POST['personMeal']
 			persons[0].save()
 		'''if userprofile.send_feedback_flag = 1 ==> send user feedback mail'''
+		profile = UserProfile.objects.get(user=request.user)
+		email_addr = request.user.email
+		if profile.send_feedback_flag == True:
+			guest_name=unicode(persons[0].guest_first_name + " " + persons[0].guest_last_name, "UTF-8")
+			subject=unicode('שינוי סטטוס הגעה - ', "UTF-8") + guest_name
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="5">שינוי סטטוס הגעה:</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">האורח GUEST בחר STATUS<BR>הפרטים עודכנו אוטומטית במערכת</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+			text_message=unicode('האורח GUEST בחר STATUS', "UTF-8")
+			
+			if  persons[0].invation_status == 'N':
+				status_text=unicode('שלא להגיע לארוע.', "UTF-8")
+			elif persons[0].invation_status == 'T':
+				status_text=unicode('כי אינו בטוח עדיין באשר אם מגיע לארוע. ', "UTF-8")
+			else:
+				status_text=unicode('להגיע לארוע. ', "UTF-8")
+
+			if persons[0].invation_status != 'N':
+				if persons[0].meal == 'M':
+					status_text=status_text+unicode('האורח בחר מנה בשרית. ', "UTF-8")
+				elif persons[0].meal == 'V':
+					status_text=status_text+unicode('האורח בחר מנה צמחונית. ', "UTF-8")
+				elif persons[0].meal == 'G':
+					status_text=status_text+unicode('האורח בחר מנת גלאט כשר. ', "UTF-8")
+			new_html_message1=html_message.replace("GUEST", guest_name)
+			new_html_message=new_html_message1.replace("STATUS", status_text)
+			new_text_message1=text_message.replace("GUEST", guest_name)
+			new_text_message=new_text_message1.replace("STATUS", status_text)
+
+			msg = EmailMultiAlternatives(subject, new_text_message, '2Seat <contact@2seat.co.il>', [email_addr])
+			msg.attach_alternative(new_html_message,"text/html")
+			msg.send()
+
 		return render_to_response('accounts/invation_updated.html')
 	else:
 		guestHashCode = str(guestHash)
