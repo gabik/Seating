@@ -1,6 +1,6 @@
 var mainFrameWidthMI = 850;
 var mainFrameHeightMI = 425;
-var frameStringMI = '<div id="MIFrame" width="840" style="position:absolute; z-index:99999;"><table  width="840" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="450" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="390"></br><div id="moneyInfoMainWindow" /></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="840" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
+var frameStringMI = '<div id="MIFrame" width="840" style="position:absolute; z-index:99999;"><table  width="840" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="450" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="390" align="right"></br><div id="moneyInfoMainWindow" /></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="840" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
 	
 //return [total sum,other group total sum,family group total sum,friends group total sum,work group total sum]
 function getFullMoneyInfo()
@@ -44,68 +44,109 @@ function createInfoFields(sumData)
 		
 		if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)
 		{
-			$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" class="text_18_black" style="color:#5A8EA3; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  '+ sumData[1]  + " - " + parseInt(sumData[1] * 100 / sumData[0]) + "%"+ '</p>'));
 			pieData[0] = ["", sumData[1]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstFamilySum" class="text_18_black" style="color:#E0E0AD; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  '+ sumData[2]  + " - " + parseInt(sumData[2] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[1] = ["", sumData[2]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstFriendsSum" class="text_18_black" style="color:#CFC2D3; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + $("#firstPartnerName").text() + sumData[3]  + " - " + parseInt(sumData[3] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[2] = ["", sumData[3]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstWorkSum" class="text_18_black" style="color:#4ABBEF; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + $("#firstPartnerName").text() + '":  '+ sumData[4] + " - " + parseInt(sumData[4] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[3] = ["", sumData[4]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondFamilySum" class="text_18_black" style="color:#8E8E8E; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + secondGroupFooter +'":  '+ sumData[5]  + " - " + parseInt(sumData[5] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[4] = ["", sumData[5]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondFriendsSum" style="color:#511EA3; text-shadow:1px 1px 1px blue;" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + secondGroupFooter +'":  '+ sumData[6] + " - " + parseInt(sumData[6] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[5] = ["" , sumData[6]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondWorkSum" class="text_18_black" style="color:#411BEF; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + secondGroupFooter +'":  '+ sumData[7] + " - " + parseInt(sumData[7] * 100 / sumData[0]) + "%" +'</p>'));
 			pieData[6] = ["" , sumData[7]];
+			var fp = parseInt(sumData[1] * 100 / sumData[0]);
+			var sp = parseInt(sumData[2] * 100 / sumData[0]);
+			var tp = parseInt(sumData[3] * 100 / sumData[0]);
+			var fop = parseInt(sumData[4] * 100 / sumData[0]);
+			var fip = parseInt(sumData[5] * 100 / sumData[0]);
+			var sip = parseInt(sumData[6] * 100 / sumData[0]);
+			var sep = parseInt(sumData[7] * 100 / sumData[0]);
+			
+			if (!(fp > 0))
+			{
+				fp = 0;
+			}	
+			if (!(sp > 0))
+			{
+				sp = 0;
+			}		
+			if (!(tp > 0))
+			{
+				tp = 0;
+			}	
+			if (!(fop > 0))
+			{
+				fop = 0;
+			}		
+			if (!(fip > 0))
+			{
+				fip = 0;
+			}		
+			if (!(sip > 0))
+			{
+				sip = 0;
+			}
+			if (!(sep > 0))
+			{
+				sep = 0;
+			}
+			
+			$("#moneyInfoMainWindow").append($('<table border="0" cellspacing="10" cellpadding="0" id="moneyTable"><tr><td class="text_18_black" dir="rtl" align="right"> -' + fp +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[1] +'</p></td><td dir="rtl" align="right"><p id="totalOtherSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + sp +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[2] +'</p></td><td dir="rtl" align="right"><p id="totalFirstFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + tp +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[3] +'</p></td><td dir="rtl" align="right"><p id="totalFirstFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + $("#firstPartnerName").text() + '":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + fop +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[4] +'</p></td><td dir="rtl" align="right"><p id="totalFirstWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + $("#firstPartnerName").text() + '": </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + fip +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[5] +'</p></td><td dir="rtl" align="right"><p id="totalSecondFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + secondGroupFooter +'":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + sip +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[6] +'</p></td><td dir="rtl" align="right"><p id="totalSecondFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + secondGroupFooter +'": </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> -' + sep +'%</td><td class="text_18_black" dir="rtl" align="right"> '+ sumData[7] +'</p></td><td dir="rtl" align="right"><p id="totalSecondWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + secondGroupFooter +'": </p></td></tr></table>'));
 		}
 		else
 		{
-			$("#moneyInfoMainWindow").append($('<p id="totalOtherSum" class="text_18_black" style="color:#5A8EA3; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  '+ sumData[1] +'</p>'));
 			pieData[0] = ["אחר" + " - " + parseInt(sumData[1] * 100 / sumData[0]) + "%", sumData[1]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstFamilySum" class="text_18_black" style="color:#E0E0AD; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  '+ sumData[2] +'</p>'));
 			pieData[1] = [" משפחה" + " " + $("#firstPartnerName").text() + " - " + parseInt(sumData[2] * 100 / sumData[0]) + "%", sumData[2]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstFriendsSum" class="text_18_black" style="color:#CFC2D3; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + $("#firstPartnerName").text() + '":  '+ sumData[3] +'</p>'));
 			pieData[2] = [" חברים" + " " + $("#firstPartnerName").text() + " - " + parseInt(sumData[3] * 100 / sumData[0]) + "%", sumData[3]];
-			$("#moneyInfoMainWindow").append($('<p id="totalFirstWorkSum" class="text_18_black" style="color:#4ABBEF; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + $("#firstPartnerName").text() + '":  '+ sumData[4] +'</p>'));
 			pieData[3] = [" עבודה"  + " " +  $("#firstPartnerName").text() + " - " + parseInt(sumData[4] * 100 / sumData[0]) + "%", sumData[4]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondFamilySum" class="text_18_black" style="color:#8E8E8E; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + secondGroupFooter +'":  '+ sumData[5] +'</p>'));
 			pieData[4] = [" משפחה"  + " " +  secondGroupFooter + " - " + parseInt(sumData[5] * 100 / sumData[0]) + "%", sumData[5]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondFriendsSum" style="color:#511EA3; text-shadow:1px 1px 1px blue;" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + secondGroupFooter +'":  '+ sumData[6] +'</p>'));
 			pieData[5] = [" חברים"  + " " +  secondGroupFooter + " - " + parseInt(sumData[6] * 100 / sumData[0]) + "%", sumData[6]];
-			$("#moneyInfoMainWindow").append($('<p id="totalSecondWorkSum" class="text_18_black" style="color:#411BEF; text-shadow:1px 1px 1px blue;" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + secondGroupFooter +'":  '+ sumData[7] +'</p>'));
 			pieData[6] = [" עבודה"  + " " +  secondGroupFooter + " - " + parseInt(sumData[7] * 100 / sumData[0]) + "%", sumData[7]];
+			$("#moneyInfoMainWindow").append($('<table border="0" cellspacing="10" cellpadding="0" id="moneyTable"><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[1] +'</p></td><td dir="rtl" align="right"><p id="totalOtherSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "אחר":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[2] +'</p></td><td dir="rtl" align="right"><p id="totalFirstFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + $("#firstPartnerName").text() + '":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[3] +'</p></td><td dir="rtl" align="right"><p id="totalFirstFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + $("#firstPartnerName").text() + '":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[4] +'</p></td><td dir="rtl" align="right"><p id="totalFirstWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + $("#firstPartnerName").text() + '": </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[5] +'</p></td><td dir="rtl" align="right"><p id="totalSecondFamilySum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "משפחה ' + secondGroupFooter +'":  </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[6] +'</p></td><td dir="rtl" align="right"><p id="totalSecondFriendsSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "חברים ' + secondGroupFooter +'": </p></td></tr><tr><td class="text_18_black" dir="rtl" align="right"> '+ sumData[6] +'</p></td><td dir="rtl" align="right"><p id="totalSecondWorkSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;סכום כולל קבוצת "עבודה ' + secondGroupFooter +'": </p></td></tr></table>'));
 		}
 		
 		var newDataArray = new Array();
+		var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#511EA3","#411BEF"];
+		var colorNum = 0;
 		
 		if (pieData[0][1] > 0)
 		{
 			newDataArray.push(pieData[0]);
+			$("#moneyTable tr:eq(" + 0 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[1][1] > 0)
 		{
 			newDataArray.push(pieData[1]);
+			$("#moneyTable tr:eq(" + 1 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[2][1] > 0)
 		{
 			newDataArray.push(pieData[2]);
+			$("#moneyTable tr:eq(" + 2 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[3][1] > 0)
 		{
 			newDataArray.push(pieData[3]);
+			$("#moneyTable tr:eq(" + 3 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[4][1] > 0)
 		{
 			newDataArray.push(pieData[4]);
+			$("#moneyTable tr:eq(" + 4 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[5][1] > 0)
 		{
 			newDataArray.push(pieData[5]);
+			$("#moneyTable tr:eq(" + 5 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}		
 		if (pieData[6][1] > 0)
 		{
 			newDataArray.push(pieData[6]);
+			$("#moneyTable tr:eq(" + 6 + ")").attr('bgcolor',colors[colorNum]);
+			colorNum = colorNum + 1;
 		}
 
 		drawSumsPie(newDataArray);

@@ -1,4 +1,4 @@
-var maleAdd = true;
+ maleAdd = true;
 var lastMaleAdd = true;
 var addPersonDivOpen = false;
 var SelectedElem = "" ;
@@ -1833,7 +1833,6 @@ $(document).ready(function() {
   refactoringListName();
   posPropertyPanel("");
   updateSeatedLabel();
-  $.jqplot.config.enablePlugins = true;
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
   updateGroups();
