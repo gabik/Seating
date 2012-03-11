@@ -1200,7 +1200,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
 {
 	if (first_name.trim() == "" && last_name.trim() == "")
 	{
-		showLightMsg("הוספת אורח","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
+		showLightMsg("הוספת מוזמן","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
 	}
 	else
 	{
@@ -2074,12 +2074,12 @@ $(document).ready(function() {
 	
 	if (person.hasClass('ui-multisort-click'))
 	{
-		showLightMsg("מחיקת אורח", "האם לבצע פעולת מחיקה ל"+ person.attr('id').replace(/\_/g," ") + "?", "YESNO", "Question");
+		showLightMsg("מחיקת מוזמן", "האם לבצע פעולת מחיקה ל"+ person.attr('id').replace(/\_/g," ") + "?", "YESNO", "Question");
 		currentMsgTimer = setTimeout("delPerson()",500);
 	}
 	else
 	{
-		showLightMsg("מחיקת אורח מהרשימה","יש לבחור אורח מהרשימה הצפה.","OK","Notice")
+		showLightMsg("מחיקת מוזמן מהרשימה","יש לבחור מוזמן מהרשימה הצפה.","OK","Notice")
 	}
   });
 
@@ -2299,7 +2299,7 @@ $(document).ready(function() {
 
 			if (elementImgs[0].id.split("-", 1) == "Rect" || elementImgs[0].id.split("-", 1) == "Lozenge" || !(isThisPeopleTable(elementImgs[0].id)))
 			{
-				showLightMsg("סיבוב אלמנט","לא ניתן לסובב אלמנט, יש לרווח את שטח הקרוב לאלמנט.","OK","Notice");
+				showLightMsg("סיבוב אלמנט","לא ניתן לסובב את האובייקט מכיוון שאובייקט אחר נמצא בדרכו, יש לרווח את השטח כדי לבצע סיבוב.","OK","Notice");
 			}
 		}
 	}

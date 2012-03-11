@@ -61,6 +61,7 @@
   z-index:999;
   position:absolute;
   width:120;
+  display:none;
  }
  #search-properties-list
   {

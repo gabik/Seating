@@ -62,6 +62,7 @@
   position:absolute;
   padding: 4px;
   width:120;
+  display:none;
  }
  #search-properties-list
   {
