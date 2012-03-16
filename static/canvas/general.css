@@ -174,10 +174,18 @@
   cursor:pointer;
  }
  
- .ExitCanvasDiv
+  .HelpCanvasDiv
  {
    position:absolute;
    left:528px;
+   top:-2px;	
+   cursor:pointer;
+ }
+ 
+ .ExitCanvasDiv
+ {
+   position:absolute;
+   left:585px;
    top:-2px;	
    cursor:pointer;
  }
