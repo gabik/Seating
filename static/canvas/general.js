@@ -1841,7 +1841,7 @@ function saveTableSitting(table)
 	
 	clearTimeout(currentMsgTimer);
 	currentMsgTimer = "";
-	$.post('/canvas/saveElementCurrentSitting/', {currentSitting: parseInt(elementSize)},
+	$.post('/canvas/saveElementCurrentSitting/', {elem_num:table.context.id, currentSitting: parseInt(elementSize)},
 		function(data){
 		  if (data.status == 'OK')
 		  {
