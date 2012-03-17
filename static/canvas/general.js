@@ -909,13 +909,29 @@ function changeOrientation(element)
 			{
 				var thisImg = $("#" + elementImgs[0].id);
 				var tempSize = thisImg.width();
+				var elementTempSize = element.width();
 				
-				thisImg.css('width', thisImg.height());
-				thisImg.css('height',tempSize);
 				if (isThisPeopleTable(elementImgs[0].id))
 				{
 					adjustCaption(element);
+					var delta = 0;
+
+					thisImg.css('width', thisImg.height());
+					thisImg.css('height',tempSize);
+					
+					element.css('width', thisImg.width());
+					element.css('height',elementTempSize + element.find('img').first().height +  element.find('img').last().height);
+					
 				}
+				else
+				{
+					thisImg.css('width', thisImg.height());
+					thisImg.css('height',tempSize);
+					
+					element.css('width', thisImg.width());
+					element.css('height',thisImg.height());
+				}
+				selectElement(element);
 				if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
 				{
 					$("#borderSelected").css('top',element.position().top - 6);
@@ -1621,6 +1637,25 @@ function exitSys()
 	}
 }
 
+function helpSys()
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		window.open("/site/mainHelp.html", "_blank");
+		clearTimeout(currentMsgTimer);
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout("helpSys()",500);
+	}
+}
 
 function delDivPress()
 {
@@ -1798,6 +1833,29 @@ function adjustResolution()
      		setSaveStatus("Error");
 		  }
 		}, 'json');
+}
+
+function saveTableSitting(table)
+{
+	var elementSize = table.find('p').last().text().split("/", 1);
+	
+	clearTimeout(currentMsgTimer);
+	currentMsgTimer = "";
+	$.post('/canvas/saveElementCurrentSitting/', {currentSitting: parseInt(elementSize)},
+		function(data){
+		  if (data.status == 'OK')
+		  {
+			  setSaveStatus("OK");
+		  }
+		  else{
+			setSaveStatus("Error");
+		  }
+		}, 'json');
+}
+
+function HelpScreen()
+{
+	window.open("/site/mainHelp.html", "_blank");
 }
 
 $(document).ready(function() {
@@ -2008,12 +2066,13 @@ $(document).ready(function() {
 					  ui.helper.each(function(i){
 					  	 dropPerson($(this), table, dataMultiStrings[i]); 
 					  });
+					  currentMsgTimer = setTimeout(function(){saveTableSitting(table)},2000);
 				  }
 				  else{
 					setSaveStatus("Error");
 				  }
 				}, 'json');
-		  } 
+		  }
 		}
 	  });
 	  

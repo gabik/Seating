@@ -87,6 +87,8 @@
 
 	  if (firstInit)
 	  {
+			showLightMsg("מדריך עזרה","להזכירך ישנו מדריך עזרה המסביר ומפרט את מגוון פעולות ויישומי המערכת, בכל עת יש באפשרותך להכנס למדריך על ידי לחיצה על כפתור סימן השאלה בתפריט העליון ,אם ברצונך להכנס כעת למדריך לחץ על אישור להמשך לחץ על ה-X", "YESNO", "Question");
+			currentMsgTimer = setTimeout("helpSys()",500);
 		 	$(".DragDiv").each(function(i){
 			var elementCaption = $(this).context.getElementsByTagName("p");
 			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
@@ -169,6 +171,13 @@
 			$(this).attr('src',"/static/canvas/images/exit_canvas_r.png");
 		});
 			  
+		$("#HelpImg").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/help_n.png");
+		});
+		$("#HelpImg").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/help_r.png");
+		});
+		
 		$("#EUDImg").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/excel_n.png");
 		});
@@ -338,14 +347,14 @@
 				<table border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
-					  <td height="32" width="575" bgcolor="#5A8EA3"></td>
+					  <td height="32" width="632" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
-					  <td height="32" width="605" bgcolor="#E0E0AD" valign="top" align="right">
+					  <td height="32" width="548" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605" >
+							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="548" >
 					  <![endif]-->
 					  <!--[if !IE]><!-->
-					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="605">
+					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="548">
 					  <!--<![endif]-->
 						<table border="0" cellspacing="2.5" cellpadding="0">
 							<!--<td valign="top">
@@ -428,6 +437,7 @@
 			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
 			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
 			<div class="EUDDiv" title="העלאה והורדה קובץ אקסל"><img id="EUDImg" src="/static/canvas/images/excel_n.png"></div>
+			<div class="HelpCanvasDiv" title="מדריך עזרה"><img id="HelpImg" style="border: 0;" src="/static/canvas/images/help_n.png" onclick="HelpScreen()"></img></div>
 			<div class="ExitCanvasDiv" title="יציאה מהמערכת"><img id="ExitImg" style="border: 0;" src="/static/canvas/images/exit_canvas_n.png"></img></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="ישור אופקי לשמאל"><img src="/static/canvas/images/HorizontalLeft.png" style="margin-left:5;" class="Pointer"></div></li>
@@ -458,7 +468,7 @@
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td width="5" bgcolor="#5A8EA3" title="מחק מוזמן/ת" ><img src="/static/right_interface/images/delete_guest.png" id="delperson" class="DelPersonDiv" alt="מחק מוזמן/ת" width="29" height="25" /></td>
 						  <td width="5" bgcolor="#5A8EA3" title="הוסף מוזמן"><img src="/static/right_interface/images/add_ma.png" alt="הוסף מוזמן" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
-						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="הוסף מוזמןת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף מוזמןת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="הוסף מוזמנת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף מוזמנת" width="29" height="25" vspace="10" /></td>
 						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="אקסל און ליין"><img  id="excelOnLineBtn"  src="/static/right_interface/images/excel_online_n.png" alt="אקסל און ליין" width="29" height="25" vspace="10" /></td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						</tr>
@@ -709,7 +719,7 @@
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white"><p class="text_14_black_bolt">מס מוזמןים מרבי:<span>	{% for profile in user_profile %}
+						  <td align="right" valign="top" bgcolor="white"><p class="text_14_black_bolt">מס מוזמנים מרבי:<span>	{% for profile in user_profile %}
 								<input style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
 						  {% endfor %}</span></p>
 						  <td width="5" bgcolor="white">&nbsp;</td>
