@@ -162,6 +162,9 @@ def save_element_width_height(request):
 def save_element_current_sitting(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
+		elem_delim = request.POST['elem_num'].index('-')
+		elem_num=request.POST['elem_num'][elem_delim+1:]
+		single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
 		single_element.current_sitting = int(request.POST['currentSitting']);
 		single_element.save()
 		json_dump = json.dumps({'status': "OK"})
