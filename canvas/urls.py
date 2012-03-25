@@ -35,5 +35,7 @@ urlpatterns = patterns('canvas.views',
 	(r'^getPersonItemByFullName/$', 'get_element_item_by_full_name'),
 	(r'^fixNumberStatus/$', 'fix_number_status'),
 	(r'^getFixNumber/$', 'get_fix_number'),
+	(r'^backToNewCanvas/$', 'back_To_New_Canvas'),
 	(r'^getMaxY/$', 'get_max_y'),
+	(r'^getMaxY/$', 'get_max_x'),
 )

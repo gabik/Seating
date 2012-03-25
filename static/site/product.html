@@ -101,6 +101,69 @@ function swapImgMobile()
 		setTimeout("swapImgMobile()",1500);
 	});
 }
+/*
+var currentProd1MsgTimer = "";
+var prod1ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
+var prod1CurIndex = 0;
+var prod1MaxIndex = 7;
+
+function swapProd1ImgMobile()
+{
+	$("#productItem1frontFrameImg").fadeTo(1500, 0, function() {
+		$("#productItem1frontFrameImg").attr('src',prod1ImgArray[prod1CurIndex]);
+		$("#productItem1frontFrameImg").fadeTo(1500, 1,function(){
+		prod1CurIndex = Math.floor(Math.random()*prod1MaxIndex);
+		$("#productItem1backFrameImg").attr('src',prod1ImgArray[prod1CurIndex]);
+		currentProd1MsgTimer = setTimeout("swapProd1ImgMobile()",1500);});
+	});
+}
+var currentProd2MsgTimer = "";
+var prod2ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
+var prod2CurIndex = 0;
+var prod2MaxIndex = 7;
+
+function swapProd2ImgMobile()
+{
+	$("#productItem2frontFrameImg").fadeTo(1500, 0, function() {
+		$("#productItem2frontFrameImg").attr('src',prod2ImgArray[prod2CurIndex]);
+		$("#productItem2frontFrameImg").fadeTo(1500, 1,function(){
+		prod2CurIndex = Math.floor(Math.random()*prod2MaxIndex);
+		$("#productItem2backFrameImg").attr('src',prod2ImgArray[prod2CurIndex]);
+		currentProd2MsgTimer = setTimeout("swapProd2ImgMobile()",1500);});
+	});
+}
+
+var currentProd3MsgTimer = "";
+var prod3ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
+var prod3CurIndex = 0;
+var prod3MaxIndex = 7;
+
+function swapProd3ImgMobile()
+{
+	$("#productItem3frontFrameImg").fadeTo(1500, 0, function() {
+		$("#productItem3frontFrameImg").attr('src',prod3ImgArray[prod3CurIndex]);
+		$("#productItem3frontFrameImg").fadeTo(1500, 1,function(){
+		prod3CurIndex = Math.floor(Math.random()*prod3MaxIndex);
+		$("#productItem3backFrameImg").attr('src',prod3ImgArray[prod3CurIndex]);
+		currentProd3MsgTimer = setTimeout("swapProd3ImgMobile()",1500);});
+	});
+}
+
+var currentProd4MsgTimer = "";
+var prod4ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
+var prod4CurIndex = 0;
+var prod4MaxIndex = 7;
+
+function swapProd4ImgMobile()
+{
+	$("#productItem4frontFrameImg").fadeTo(1500, 0, function() {
+		$("#productItem4frontFrameImg").attr('src',prod4ImgArray[prod4CurIndex]);
+		$("#productItem4frontFrameImg").fadeTo(1500, 1,function(){
+		prod4CurIndex = Math.floor(Math.random()*prod4MaxIndex);
+		$("#productItem4backFrameImg").attr('src',prod4ImgArray[prod4CurIndex]);
+		currentProd4MsgTimer = setTimeout("swapProd4ImgMobile()",1500);});
+	});
+}*/
 //-->
 
 $(document).ready(function()
@@ -110,6 +173,53 @@ $(document).ready(function()
 		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
 		setTimeout("swapImgMobile()",500);
 	}
+	
+	/*$("#productItem1").hover(function(e)
+					{
+						var tr = $(this);
+						
+						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem1frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem1backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						currentProd1MsgTimer = setTimeout("swapProd1ImgMobile()",500);
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
+						});});});	
+	$("#productItem2").hover(function(e)
+					{
+						var tr = $(this);
+						
+						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem2frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem2backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						currentProd2MsgTimer = setTimeout("swapProd2ImgMobile()",500);
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
+						});});});	
+						
+	$("#productItem3").hover(function(e)
+					{
+						var tr = $(this);
+						
+						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem3frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem3backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						currentProd1MsgTimer = setTimeout("swapProd3ImgMobile()",500);
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
+						});});});	
+						
+	$("#productItem4").hover(function(e)
+					{
+						var tr = $(this);
+						
+						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem4frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem4backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						currentProd4MsgTimer = setTimeout("swapProd4ImgMobile()",500);
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
+						});});});*/
 });
 
 </script>
@@ -143,20 +253,20 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
 <br />
        <br /><br />
 
-       <table width="600" border="0">
-     <tr>
-       <td width="243" valign="top"><div align="right"><img src="images/product_01.jpg" name="bullet" width="233" height="181" id="bullet" /></div></td>
-       <td rowspan="2" valign="top"><div align="right" class="style1"> רשימת המוזמנים </div>         
-         <div align="right">העלאת ויצוא קבצי אקסל בצורה הנוחה ביותר.</div></td>
+       <table width="600" border="0" id="ptable">
+     <tr id="productItem1">
+		   <td width="243" valign="top"><div align="right"><img src="images/product_01.jpg" name="bullet" width="233" height="181" id="bullet" /></div></td>
+		   <td rowspan="2" valign="top"><div align="right" class="style1"> רשימת המוזמנים </div>         
+			 <div align="right">העלאת ויצוא קבצי אקסל בצורה הנוחה ביותר.</div></td>
      </tr>
-     <tr>
+     <tr id="productItem2">
        <td width="243" valign="top"><div align="right"></div></td>
        </tr>
      <tr>
        <td width="243" height="20" valign="top"><div align="right"></div></td>
        <td height="20" valign="top"><div align="right"></div></td>
      </tr>
-     <tr>
+     <tr id="productItem3">
        <td width="243" valign="top"><div align="right"><img src="images/product_02.jpg" name="bullet" width="233" height="181" id="bullet2" /></div></td>
        <td rowspan="2" valign="top"><div align="right"><span class="style1">סידורי שולחנות</span></div>         
          <div align="right">הוספה, מחיקה, גרירה במרחב ועריכת שולחנות ישיבה בצורה האולטימטיבית באולם.</div></td>
@@ -168,7 +278,7 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
        <td width="243" height="20" valign="top"><div align="right"></div></td>
        <td height="20" valign="top"><div align="right"></div></td>
      </tr>
-     <tr>
+     <tr id="productItem3">
        <td width="243" valign="top"><div align="right"><img src="images/product_03.jpg" name="bullet" width="233" height="181" id="bullet3" /></div></td>
        <td rowspan="2" valign="top"><div align="right"><span class="style1">סידורי מוזמנים</span></div>         
          <div align="right">הוספה, מחיקה, התאמת מוזמנים לשולחן ועריכת מוזמנים בצורה פשוטה ונוחה.<br />
@@ -181,7 +291,7 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
        <td valign="top">&nbsp;</td>
        <td valign="top">&nbsp;</td>
      </tr>
-     <tr>
+     <tr id="productItem4">
        <td valign="top"><img src="images/product_04.jpg" name="bullet" width="233" height="181" id="bullet4" /></td>
        <td rowspan="2" valign="top"><div align="right" class="style1">שקט ושלווה</div>
          <div align="right">הדפסת שרטוט שולחנות ופירוט מוזמנים מלא, עריכת פתקי ישיבה, שליחת תודות ,הפקת דוח כספי והכי חשוב לקבל אישורי הגעה למייל האישי.</div></td>

@@ -1,5 +1,7 @@
 var listTableElementString = '<li><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
 
+var listTableDisabledElementString = '<li style="margin-top:5px; margin-left:59px"><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1" disabled="disabled">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4" disabled="disabled">&nbsp;&nbsp;<select class="tableShapeSelect" disabled="disabled"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/></li>';
+
 var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
 var dataString = "";
@@ -288,7 +290,7 @@ function postDataString()
 	function(data){
 		if (data.status == 'OK')
 		{
-			$.post('/canvas/edit/', {});
+			//$.post('/canvas/edit/', {});
 			//ShowHourGlassWaitingWindow(true);
 			location.reload();
 		}
@@ -351,6 +353,68 @@ function insureNumInput(event)
 		if ((event.keyCode < 48 || event.keyCode > 57) && (event.keyCode < 96 || event.keyCode > 105 )) {
 			event.preventDefault(); 
 		}   
+	}
+}
+
+function insertUserElements()
+{
+	if (canvasDataString != "")
+	{
+		var canvasCurrentData = canvasDataString.split("|", numOfRows)
+		
+		for (var i = 0; i < numOfRows; i++)
+		{
+			if (canvasCurrentData[i] != "")
+			{
+				var row = canvasCurrentData[i].split(",", 3);
+					
+				var kindColumn = row[0];
+				var amountColumn = row[1];
+				var sizeColumn = row[2];
+				
+				if (kindColumn != "" && amountColumn != "" && sizeColumn != "")
+				{
+					$("#TableTypeList").append(listTableDisabledElementString);
+					if (kindColumn == "Square")
+					{
+						$("#TableTypeList > li").last().find('select').first().val("A");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");				}
+					else if (kindColumn == "Round")
+					{
+						$("#TableTypeList > li").last().find('select').first().val("B");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");				}
+					else if (kindColumn == "Rect")
+					{					
+						$("#TableTypeList > li").last().find('select').first().val("C");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+					}
+					else if (kindColumn == "Lozenge")
+					{
+						$("#TableTypeList > li").last().find('select').first().val("D");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+					}
+					$("#TableTypeList > li").last().find('input').first().val(sizeColumn);
+					$("#TableTypeList > li").last().find('input').last().val(amountColumn);
+				}
+			}
+		}
+		updateCounters();
+	}
+	
+	if (alreadyHasBar)
+	{
+		$("#barAppoval").attr("checked","checked");
+		$("#barAppoval").attr("disabled","disabled");
+	}
+	if (alreadyHasDance)
+	{
+		$("#danceStandAppoval").attr("checked","checked");
+		$("#danceStandAppoval").attr("disabled","disabled");
+	}
+	if (alreadyHasDj)
+	{
+		$("#djStandAppoval").attr("checked","checked");
+		$("#djStandAppoval").attr("disabled","disabled");
 	}
 }
 
@@ -419,21 +483,21 @@ $(document).ready(function(){
 			   $("#CanvasEditButton").unbind('click');
 			   writeOccasionInfo("Init Canvas");
 			   $("#errorMsg").text("");
-			   $("#TableTypeList > li").each(function(i) {
+			   $("#TableTypeList > li").slice(parseInt(numOfRows)).each(function(i) {
 					var type =  $(this).find('select').first().val();
 					
 					createElementByLi($(this),type,0,0);
 				});
 				
-				if ($("#barAppoval").attr('checked'))
+				if ($("#barAppoval").attr('checked') && !alreadyHasBar)
 				{
 					dataString = dataString + 'bar_stand,1,8,0,0,207,102|';
 				}
-				if ($("#danceStandAppoval").attr('checked'))
+				if ($("#danceStandAppoval").attr('checked') && !alreadyHasDance)
 				{
 					dataString = dataString + 'dance_stand,1,8,0,0,262,102|';
 				}
-				if ($("#djStandAppoval").attr('checked'))
+				if ($("#djStandAppoval").attr('checked') && !alreadyHasDj)
 				{
 					dataString = dataString + 'dj_stand,1,8,0,0,77,77|';
 				}

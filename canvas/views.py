@@ -24,6 +24,8 @@ sys.path.append("/Seating/static/locale/he")
 import he
 from he import u
 
+userNewCanvasRequest = "false"
+userCurrentElementForNewCanvas = {}
 
 def escapeSpecialCharacters ( text ):
     characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
@@ -72,10 +74,12 @@ def edit_canvas(request):
 	c['phone_num'] = phone
 	if partners.partner2_first_name != "":
 	 	c['addChar'] = "&"
-	if (user_elements):
+	global userNewCanvasRequest
+	if (user_elements and userNewCanvasRequest == "false"):
 		return render_to_response('canvas/canvas.html', c)
 	else:
-		return render_to_response('canvas/new.html')
+		global userCurrentElementForNewCanvas
+		return render_to_response('canvas/new.html', userCurrentElementForNewCanvas)
 
 @login_required
 def new_canvas(request):
@@ -119,6 +123,10 @@ def new_canvas(request):
 				writeOpertationFunc(request,info)
 				
 		json_dump = json.dumps({'status': "OK"})
+		global userNewCanvasRequest
+		global userCurrentElementForNewCanvas
+		userNewCanvasRequest = "false"
+		userCurrentElementForNewCanvas = {}
 	return HttpResponse(json_dump)
 
 @login_required
@@ -785,7 +793,49 @@ def get_occasion_meal_and_inv_details(request):
 		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
 		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
 	return HttpResponse(json_dump)
-	
+
+@login_required
+def back_To_New_Canvas(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		global userCurrentElementForNewCanvas
+		global userNewCanvasRequest
+		newCanvasString = ""
+		numOfRows = 0;
+		for i in range(4, 24):
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Square")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Square," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Round")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Round," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Rect")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Rect," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Lozenge")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Lozenge," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+		user_elements = SingleElement.objects.filter(user=request.user, kind="bar_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasBar'] = "true"
+		user_elements = SingleElement.objects.filter(user=request.user, kind="dance_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasDance'] = "true"
+		user_elements = SingleElement.objects.filter(user=request.user, kind="dj_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasDj'] = "true"
+
+		userCurrentElementForNewCanvas.update(csrf(request))
+		userCurrentElementForNewCanvas['canvasDataString'] = newCanvasString
+		userCurrentElementForNewCanvas['numOfRows'] = numOfRows
+		userNewCanvasRequest = "true"
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
+
 @login_required
 def get_max_y(request):
 	json_dump = json.dumps({'status': "Error"})
@@ -794,6 +844,12 @@ def get_max_y(request):
 	json_dump = json.dumps({'status': "OK", 'MaxY': max_y})	
 	return HttpResponse(json_dump)
 	
+@login_required
+def get_max_x(request):
+	json_dump = json.dumps({'status': "Error"})
+	user_elements = SingleElement.objects.filter(user=request.user)
+	max_x = user_elements.all().aggregate(Max('x_cord'))['x_cord__max']
+	json_dump = json.dumps({'status': "OK", 'MaxX': max_x})	
 
 
 

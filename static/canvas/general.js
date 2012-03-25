@@ -8,7 +8,7 @@ var undoElementList = "";
 var maxElementCapacity = 24;
 var multiSelection = false;
 var isMousePressFromCanvas = false;
-var maxGuests = 1056;
+var maxGuests = 2001;
 var addPersonDivOpen = false;
 var propMenuOpen = false;
 var fromPropMeneBtn = false;
@@ -18,6 +18,7 @@ var occDetailsOpen = false;
 var resizableLastWidth = 0;
 var resizableLastHeight = 0;
 var screenResHeightFixNum = 768;
+var screenResWidthFixNum = 1366;
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -1637,6 +1638,32 @@ function exitSys()
 	}
 }
 
+function goBackToNewCanvas()
+{
+	if (MsgBoxLastAnswer == "OK")
+	{
+		$.post('/canvas/backToNewCanvas/', {},
+		function(data){
+				 if (data.status == 'OK')
+				 {
+					ShowHourGlassWaitingWindow(true);
+				 }}, 'json');
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else if (MsgBoxLastAnswer == "Cancel" || MsgBoxLastAnswer == "Abort")
+	{
+		clearTimeout(currentMsgTimer);
+		MsgBoxLastAnswer = "Lock";
+		currentMsgTimer = "";
+	}
+	else
+	{
+		currentMsgTimer = setTimeout("goBackToNewCanvas()",500);
+	}
+}
+
 function helpSys()
 {
 	if (MsgBoxLastAnswer == "OK")
@@ -1717,8 +1744,8 @@ function delPerson()
 		   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
 		   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
 		   {
-				$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-				$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+				//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+				//$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
 		   }
 			writeOccasionInfo("Delete Person "+ person.attr('id').replace(/\_/g," ") +"From Float List.");
 		   setSaveStatus("OK");
@@ -1833,6 +1860,49 @@ function adjustResolution()
      		setSaveStatus("Error");
 		  }
 		}, 'json');
+		
+	if (screenResWidthFixNum < screen.width)
+	{
+		var delta =  screen.width - $("#canvas-div").width() - 170;
+		
+		$("#movingPanel").css('width', $("#movingPanel").width() + delta);
+		$("#movingPanelMarquee").css('width', $("#movingPanelMarquee").width() + delta);
+		$("#people-list").css('left', $("#people-list").position().left + delta);
+		$(".CanvasDiv").css('width', $(".CanvasDiv").width() + delta);
+		$("#float-list").css('left', $("#float-list").position().left + delta);
+		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
+		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
+		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
+		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
+		$(".SaveState").css('left', $(".SaveState").position().left + delta);
+	}
+	
+	$.post('/canvas/getMaxX/', {},
+		function(data){
+		  if (data.status == 'OK')
+		  {
+			if (data.MaxX > $("#canvas-div").width() + 35)
+			{
+				var delta =  data.MaxX  - $("#canvas-div").height() + 172;
+		
+				$("#movingPanel").css('width', $("#movingPanel").width() + delta);
+				$("#movingPanelMarquee").css('width', $("#movingPanelMarquee").width() + delta);
+				$("#people-list").css('left', $("#people-list").position().left + delta);
+				$(".CanvasDiv").css('width', $(".CanvasDiv").width() + delta);
+				$("#float-list").css('left', $("#float-list").position().left + delta);
+				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
+				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
+				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
+				$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
+				$(".SaveState").css('left', $(".SaveState").position().left + delta);
+			}
+	    	setSaveStatus("OK");
+		  }
+		  else
+		  {
+     		setSaveStatus("Error");
+		  }
+	}, 'json');		
 }
 
 function saveTableSitting(table)
@@ -2273,17 +2343,17 @@ $(document).ready(function() {
 			saveNumOfGuests(numOfGuests);
 	}
 	
-	if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
-	{
-		$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
-			$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
-	}
-	else
-	{
-		$(".AddPersonDiv").unbind('click');
-		$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
-		$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
-	}
+	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	//{
+		//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
+			//$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
+	//}
+	//else
+	//{
+		//$(".AddPersonDiv").unbind('click');
+		//$(".AddPersonDiv").attr('title',"You Got Max Guest As Possible");
+		//$("#AddPersonDivImg").attr('src',"/static/canvas/images/addPersonDisable.png");
+	//}
   });
   
   $("#NumOfGuests").after(function(){
