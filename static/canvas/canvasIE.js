@@ -32,43 +32,59 @@ function addTableButtonPress()
 function addMenuItemButtonPress(kind)
 {
     $('ul.AddMenu').hide('medium');
-
-	kind = kind.replace(/\&/g,"_");
-	var width = 90 + (8 - maxElementCapacity - 2) * 2;
-	var height = 90 + (8 - maxElementCapacity - 2) * 2;
-	var addWidth = 0;
-	var addHeight = 0;
-			
-	if (kind.indexOf("Rect") > -1)
-	{
-		addHeight = 16;
-	}
-	else if (kind == "dance_stand")
-	{
-		addWidth = 200;
-		addHeight = 40;
-	}
-	else if (kind ==  "bar_stand") 
-	{
-		addWidth = 145;
-		addHeight = 40;
-	}
-	else if (kind ==  "dj_stand") 
-	{
-		addWidth = 15;
-		addHeight = 15;
-	}
+	var kind = element.context.id;
 	
-    $.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
-      function(data){
-        if (data.status == 'OK')
-        {
-            //undoElement[0] = SelectedElem;
-            //undoElement[1] = "delete"; 
-			writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
-			ShowHourGlassWaitingWindow(true);
-        }
-      }, 'json');
+	if (kind.indexOf("mutilEditing") > -1)
+	{
+		if (findNumOfAllSeaters() > maxGuests)
+		{
+				showLightMsg("כמות שולחנות","ישנם שולחנות רבים, אין צורך בעריכת שולחנות, אם בכל זאת ברצונך לבצע פעולה יש למתן כמות שולחנות.","OK","Notice");
+		}
+		else
+		{
+			showLightMsg("מסך עריכת שולחנות", "לידעתך במידה ויתווספו שולחנות/בר/רחבת ריקודים/רחבת דיי ג'יי במסך העריכה, כל השולחנות יסודרו במעגל, האם ברצונך להמשיך?", "YESNO", "Question");
+			currentMsgTimer = setTimeout("goBackToNewCanvas()",500);
+		}
+	}
+	else
+	{
+		kind = kind.replace(/\&/g,"_");
+		var width = 90 + (8 - maxElementCapacity - 2) * 2;
+		var height = 90 + (8 - maxElementCapacity - 2) * 2;
+		var addWidth = 0;
+		var addHeight = 0;
+				
+		if (kind.indexOf("Rect") > -1)
+		{
+			addHeight = 16;
+		}
+		else if (kind == "dance_stand")
+		{
+			addWidth = 200;
+			addHeight = 40;
+		}
+		else if (kind ==  "bar_stand") 
+		{
+			addWidth = 145;
+			addHeight = 40;
+		}
+		else if (kind ==  "dj_stand") 
+		{
+			addWidth = 15;
+			addHeight = 15;
+		}
+		
+		$.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
+		  function(data){
+			if (data.status == 'OK')
+			{
+				//undoElement[0] = SelectedElem;
+				//undoElement[1] = "delete"; 
+				writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
+				ShowHourGlassWaitingWindow(true);
+			}
+		  }, 'json');
+	}
 }
 
 function addMenuMouseLeave(element)

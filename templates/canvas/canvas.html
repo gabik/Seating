@@ -53,6 +53,8 @@
 	 $(document).before(function()
 	 {
 	  var firstInit = false;
+	  var allElementsNew = true;
+	  
 	  var DivId = [];
 	  var DDiv = [];
 	  {% for elem in elements %}
@@ -79,24 +81,39 @@
 	   {
 		Dragging = true;
 	   } 
-	   if ({{ elem.x_cord }} == 0 && {{ elem.y_cord }} == 0 && ! firstInit)
+	   if ({{ elem.x_cord }} == 0 && {{ elem.y_cord }} == 0)
 	   {
-			firstInit = true;
+	   	   	var curDragDiv = $(".DragDiv").last().data('initWidthHeight', 1);
+			
+			if (!(firstInit))
+			{
+				firstInit = true;
+			}
+	   }
+	   else
+	   {
+			allElementsNew = false;
 	   }
 	  {% endfor %}
 
 	  if (firstInit)
 	  {
-			showLightMsg("מדריך עזרה","להזכירך ישנו מדריך עזרה המסביר ומפרט את מגוון פעולות ויישומי המערכת, בכל עת יש באפשרותך להכנס למדריך על ידי לחיצה על כפתור סימן השאלה בתפריט העליון ,אם ברצונך להכנס כעת למדריך לחץ על אישור להמשך לחץ על ה-X", "YESNO", "Question");
+			if (allElementsNew)
+			{
+				showLightMsg("מדריך עזרה","להזכירך ישנו מדריך עזרה המסביר ומפרט את מגוון פעולות ויישומי המערכת, בכל עת יש באפשרותך להכנס למדריך על ידי לחיצה על כפתור סימן השאלה בתפריט העליון ,אם ברצונך להכנס כעת למדריך לחץ על אישור להמשך לחץ על ה-X", "YESNO", "Question");
+			}
 			currentMsgTimer = setTimeout("helpSys()",500);
 		 	$(".DragDiv").each(function(i){
-			var elementCaption = $(this).context.getElementsByTagName("p");
-			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-			elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
-			setWidthAndHeight($(this),elementMaxSize,0,true);
-			if ($(".DragDiv").last().attr('id') == $(this).context.id) 
+			if ($(this).data('initWidthHeight') || 0 > 0)
 			{
-				zoomingCanvas(true);
+				var elementCaption = $(this).context.getElementsByTagName("p");
+				var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+				elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
+				setWidthAndHeight($(this),elementMaxSize,0,true);
+				if ($(".DragDiv").last().attr('id') == $(this).context.id) 
+				{
+					zoomingCanvas(true);
+				}
 			}
 		});
 	  }
@@ -349,12 +366,12 @@
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
 					  <td height="32" width="632" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
-					  <td height="32" width="548" bgcolor="#E0E0AD" valign="top" align="right">
+					  <td id="movingPanel" height="32" width="548" bgcolor="#E0E0AD" valign="top" align="right">
 					  <!--[if IE]>
-							<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="548" >
+							<marquee id="movingPanelMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="548" >
 					  <![endif]-->
 					  <!--[if !IE]><!-->
-					  		<marquee behavior="scroll" scrollamount="6" direction="right" height="32" width="548">
+					  		<marquee id="movingPanelMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="548">
 					  <!--<![endif]-->
 						<table border="0" cellspacing="2.5" cellpadding="0">
 							<!--<td valign="top">
@@ -403,6 +420,7 @@
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
 				<div onmouseout="addMenuMouseLeave()">
+					<li><a href="#" onclick="addMenuItemButtonPress('mutilEditing')"><img id="mutilEditing"  style="margin-left:5;" border=0 src="/static/canvas/images/tables_small/multiEditing.png" class="MenuItem" title="מסך עריכת שולחנות"></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('Round')"><img id="Round" style="margin-left:5;" border=0 src="" class="MenuItem" title="שולחן עגול"></a></li>
 					<li><a href="#" onclick="addMenuItemButtonPress('Square')"><img id="Square" style="margin-left:5;" border=0 src="" class="MenuItem" title="שולחן מרובע"></a></li>
 					<li style="margin:2px;"><a href="#" onclick="addMenuItemButtonPress('Rect')"><img id="Rect" style="margin-left:5;" border=0 src="" class="RectMenuItem" title="שולחן מלבני"></a></li>	
@@ -420,6 +438,7 @@
 			<!--[if !IE]><!-->
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png"></div>
 				 <ul class="AddMenu">
+				<li><a href="#"><img id="mutilEditing" class="MenuItem" style="margin-left:5;" border=0 src="/static/canvas/images/tables_small/multiEditing.png" class="MenuItem" title="מסך עריכת שולחנות"></a></li>
  				<li><a href="#"><img id="Round" style="margin-left:5;" border=0 src="" class="MenuItem" title="שולחן עגול"></a></li>
  				<li><a href="#"><img id="Square" style="margin-left:5;" border=0 src="" class="MenuItem" title="שולחן מרובע"></a></li>
  				<li style="margin:2px;"><a href="#"><img id="Rect" style="margin-left:5;" border=0 src="" class="RectMenuItem" title="שולחן מלבני"></a></li>
