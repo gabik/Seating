@@ -24,7 +24,7 @@ sys.path.append("/Seating/static/locale/he")
 import he
 from he import u
 
-userCurrentElementForNewCanvas = {}
+#userCurrentElementForNewCanvas = {}
 
 def escapeSpecialCharacters ( text ):
     characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
@@ -77,7 +77,42 @@ def edit_canvas(request):
 	if (user_elements and not userNewCanvasRequest):
 		return render_to_response('canvas/canvas.html', c)
 	else:
-		global userCurrentElementForNewCanvas
+		#global userCurrentElementForNewCanvas
+		userCurrentElementForNewCanvas = {}
+		userNewCanvasRequest=userProfile[0].userNewCanvasRequest
+		newCanvasString = ""
+		numOfRows = 0;
+		for i in range(4, 24):
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Square")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Square," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Round")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Round," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Rect")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Rect," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Lozenge")
+			if (len(user_elements) > 0):
+				newCanvasString = newCanvasString + "Lozenge," + str(i) + "," + str(len(user_elements)) + "|"
+				numOfRows = numOfRows + 1;
+		user_elements = SingleElement.objects.filter(user=request.user, kind="bar_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasBar'] = "true"
+		user_elements = SingleElement.objects.filter(user=request.user, kind="dance_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasDance'] = "true"
+		user_elements = SingleElement.objects.filter(user=request.user, kind="dj_stand")
+		if (len(user_elements) > 0):
+			userCurrentElementForNewCanvas['hasDj'] = "true"
+
+		userCurrentElementForNewCanvas.update(csrf(request))
+		userCurrentElementForNewCanvas['canvasDataString'] = newCanvasString
+		userCurrentElementForNewCanvas['numOfRows'] = numOfRows
+
 		return render_to_response('canvas/new.html', userCurrentElementForNewCanvas)
 
 @login_required
@@ -124,10 +159,10 @@ def new_canvas(request):
 		json_dump = json.dumps({'status': "OK"})
 		userProfile = UserProfile.objects.filter(user=request.user)[0]
 		userNewCanvasRequest=userProfile.userNewCanvasRequest
-		global userCurrentElementForNewCanvas
+		#global userCurrentElementForNewCanvas
 		userProfile.userNewCanvasRequest = False
 		userProfile.save()
-		userCurrentElementForNewCanvas = {}
+		#userCurrentElementForNewCanvas = {}
 	return HttpResponse(json_dump)
 
 @login_required
@@ -799,41 +834,41 @@ def get_occasion_meal_and_inv_details(request):
 def back_To_New_Canvas(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		global userCurrentElementForNewCanvas
+#		global userCurrentElementForNewCanvas
 		userProfile = UserProfile.objects.filter(user=request.user)[0]
 		userNewCanvasRequest=userProfile.userNewCanvasRequest
-		newCanvasString = ""
-		numOfRows = 0;
-		for i in range(4, 24):
-			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Square")
-			if (len(user_elements) > 0):
-				newCanvasString = newCanvasString + "Square," + str(i) + "," + str(len(user_elements)) + "|"
-				numOfRows = numOfRows + 1;
-			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Round")
-			if (len(user_elements) > 0):
-				newCanvasString = newCanvasString + "Round," + str(i) + "," + str(len(user_elements)) + "|"
-				numOfRows = numOfRows + 1;
-			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Rect")
-			if (len(user_elements) > 0):
-				newCanvasString = newCanvasString + "Rect," + str(i) + "," + str(len(user_elements)) + "|"
-				numOfRows = numOfRows + 1;
-			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Lozenge")
-			if (len(user_elements) > 0):
-				newCanvasString = newCanvasString + "Lozenge," + str(i) + "," + str(len(user_elements)) + "|"
-				numOfRows = numOfRows + 1;
-		user_elements = SingleElement.objects.filter(user=request.user, kind="bar_stand")
-		if (len(user_elements) > 0):
-			userCurrentElementForNewCanvas['hasBar'] = "true"
-		user_elements = SingleElement.objects.filter(user=request.user, kind="dance_stand")
-		if (len(user_elements) > 0):
-			userCurrentElementForNewCanvas['hasDance'] = "true"
-		user_elements = SingleElement.objects.filter(user=request.user, kind="dj_stand")
-		if (len(user_elements) > 0):
-			userCurrentElementForNewCanvas['hasDj'] = "true"
-
-		userCurrentElementForNewCanvas.update(csrf(request))
-		userCurrentElementForNewCanvas['canvasDataString'] = newCanvasString
-		userCurrentElementForNewCanvas['numOfRows'] = numOfRows
+#		newCanvasString = ""
+#		numOfRows = 0;
+#		for i in range(4, 24):
+#			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Square")
+#			if (len(user_elements) > 0):
+#				newCanvasString = newCanvasString + "Square," + str(i) + "," + str(len(user_elements)) + "|"
+#				numOfRows = numOfRows + 1;
+#			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Round")
+#			if (len(user_elements) > 0):
+#				newCanvasString = newCanvasString + "Round," + str(i) + "," + str(len(user_elements)) + "|"
+#				numOfRows = numOfRows + 1;
+#			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Rect")
+#			if (len(user_elements) > 0):
+#				newCanvasString = newCanvasString + "Rect," + str(i) + "," + str(len(user_elements)) + "|"
+#				numOfRows = numOfRows + 1;
+#			user_elements = SingleElement.objects.filter(user=request.user, max_sitting=i, kind="Lozenge")
+#			if (len(user_elements) > 0):
+#				newCanvasString = newCanvasString + "Lozenge," + str(i) + "," + str(len(user_elements)) + "|"
+#				numOfRows = numOfRows + 1;
+#		user_elements = SingleElement.objects.filter(user=request.user, kind="bar_stand")
+#		if (len(user_elements) > 0):
+#			userCurrentElementForNewCanvas['hasBar'] = "true"
+#		user_elements = SingleElement.objects.filter(user=request.user, kind="dance_stand")
+#		if (len(user_elements) > 0):
+#			userCurrentElementForNewCanvas['hasDance'] = "true"
+#		user_elements = SingleElement.objects.filter(user=request.user, kind="dj_stand")
+#		if (len(user_elements) > 0):
+#			userCurrentElementForNewCanvas['hasDj'] = "true"
+#
+#		userCurrentElementForNewCanvas.update(csrf(request))
+#		userCurrentElementForNewCanvas['canvasDataString'] = newCanvasString
+#		userCurrentElementForNewCanvas['numOfRows'] = numOfRows
 		userProfile.userNewCanvasRequest = True
 		userProfile.save()
 		json_dump = json.dumps({'status': "OK"})
