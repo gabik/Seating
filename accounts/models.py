@@ -20,13 +20,14 @@ class IntegerRangeField(models.IntegerField):
         return super(IntegerRangeField, self).formfield(**defaults)
 		
 class UserProfile(models.Model):
-        user = models.ForeignKey(User, unique=True)
+	user = models.ForeignKey(User, unique=True)
 	phone_number = models.CharField(max_length=30, blank=True)
 	excel_hash = models.CharField(max_length=100)
 	occasion_date = models.DateField()
 	num_of_guests = IntegerRangeField(min_value=1, max_value=2000)
 	occasion_place = models.CharField(max_length=30)
 	send_feedback_flag = models.BooleanField(default=True)
+	userNewCanvasRequest = models.BooleanField(default=False)
         def __unicode__(self):
                 printy = unicode(self.user.username , "UTF-8")
                 return printy

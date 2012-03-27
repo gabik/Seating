@@ -24,7 +24,6 @@ sys.path.append("/Seating/static/locale/he")
 import he
 from he import u
 
-userNewCanvasRequest = "false"
 userCurrentElementForNewCanvas = {}
 
 def escapeSpecialCharacters ( text ):
@@ -74,8 +73,8 @@ def edit_canvas(request):
 	c['phone_num'] = phone
 	if partners.partner2_first_name != "":
 	 	c['addChar'] = "&"
-	global userNewCanvasRequest
-	if (user_elements and userNewCanvasRequest == "false"):
+	userNewCanvasRequest=userProfile[0].userNewCanvasRequest
+	if (user_elements and not userNewCanvasRequest):
 		return render_to_response('canvas/canvas.html', c)
 	else:
 		global userCurrentElementForNewCanvas
@@ -123,9 +122,11 @@ def new_canvas(request):
 				writeOpertationFunc(request,info)
 				
 		json_dump = json.dumps({'status': "OK"})
-		global userNewCanvasRequest
+		userProfile = UserProfile.objects.filter(user=request.user)[0]
+		userNewCanvasRequest=userProfile.userNewCanvasRequest
 		global userCurrentElementForNewCanvas
-		userNewCanvasRequest = "false"
+		userProfile.userNewCanvasRequest = False
+		userProfile.save()
 		userCurrentElementForNewCanvas = {}
 	return HttpResponse(json_dump)
 
@@ -799,7 +800,8 @@ def back_To_New_Canvas(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
 		global userCurrentElementForNewCanvas
-		global userNewCanvasRequest
+		userProfile = UserProfile.objects.filter(user=request.user)[0]
+		userNewCanvasRequest=userProfile.userNewCanvasRequest
 		newCanvasString = ""
 		numOfRows = 0;
 		for i in range(4, 24):
@@ -832,7 +834,8 @@ def back_To_New_Canvas(request):
 		userCurrentElementForNewCanvas.update(csrf(request))
 		userCurrentElementForNewCanvas['canvasDataString'] = newCanvasString
 		userCurrentElementForNewCanvas['numOfRows'] = numOfRows
-		userNewCanvasRequest = "true"
+		userProfile.userNewCanvasRequest = True
+		userProfile.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
@@ -850,6 +853,7 @@ def get_max_x(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	max_x = user_elements.all().aggregate(Max('x_cord'))['x_cord__max']
 	json_dump = json.dumps({'status': "OK", 'MaxX': max_x})	
+	return HttpResponse(json_dump)
 
 
 
