@@ -27,6 +27,13 @@ import he
 from he import u
 from hashlib import md5
 
+def escapeSpecialCharacters ( text ):
+    characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
+    for character in characters:
+        text = text.replace( character, '' )
+    return text
+
+
 #@login_required
 def is_login(request):
 	if request.user.is_authenticated():
@@ -194,8 +201,8 @@ def upload_file(request):
 			male_valid=[u('ז'), u('זכר'), u('גבר'), 'm', 'M', 'Male', 'male']
 			female_valid=[u('נ'), u('נקבה'), u('אשה'), u('אישה'), 'f', 'F', 'female', 'Female']
 			for r in range(sh.nrows)[int(starting_row):]:
-				privName=sh.cell_value(r,0)
-				lastName=sh.cell_value(r,1)
+				privName=escapeSpecialCharacters(sh.cell_value(r,0))
+				lastName=escapeSpecialCharacters(sh.cell_value(r,1))
 				gender=sh.cell_value(r,2)
 				if gender == "":
 					gender="U"
@@ -208,7 +215,7 @@ def upload_file(request):
 				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
-				phoneNum=sh.cell_value(r,4)
+				phoneNum=escapeSpecialCharacters(sh.cell_value(r,4))
 				mailAddr=sh.cell_value(r,5)
 				faceAcnt=sh.cell_value(r,6)
 				groupNme=sh.cell_value(r,7)
@@ -625,6 +632,9 @@ def online_save(request):
 						celltext=str(cell.text)
 					cur_list.append(celltext)
 				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, farive, fpresent = cur_list
+				ffirst=escapeSpecialCharacters(ffirst)
+				flast=escapeSpecialCharacters(flast)
+				fphone=escapeSpecialCharacters(fphone)
 				cells=row.findall('cell')
 				if (ffirst != "" or flast != ""): 
 					if fgroup in group_choice:
@@ -962,35 +972,42 @@ def SendNotifications(request):
 		names=names+' '+last_name
 		if int(request.POST['sendValue']) == 1:
 			subject=unicode('הארוע של ', "UTF-8") + names + unicode(' המתקיים בתאריך ', "UTF-8") + str(occasion.occasion_date) + unicode(' ב', "UTF-8") + unicode(occasion.occasion_place, "UTF-8")
-			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div> <a href=UNSUBSCRIBE>להסרה מרשימת התפוצה לחץ כאן</a></div>', "UTF-8")
-			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK             להסרה עבור לקישור UNSUBSCRIBE',  "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">אנו מתכבדים להזמינך לארוע שלנו</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נשמח לראותך,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a href=LINK >לאישור/ביטול הגעה ושינוי פרטים נוספים לחץ כאן! </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div> <div style=direction:rtl> OR_PHONE </div> <a href=UNSUBSCRIBE>להסרה מרשימת התפוצה לחץ כאן</a></div>', "UTF-8")
+			text_message=unicode('אנו מתכבדים להזמינך לארוע שלנו, נשמח לראותך, לאישור הגעה נא לחץ על הקישור הנ"ל LINK OR_PHONE            להסרה עבור לקישור UNSUBSCRIBE',  "UTF-8")
+			OR_PHONE=""
+			if occasion.phone_number.strip() <> "":
+				OR_PHONE=unicode(" או בטלפון " + occasion.phone_number, "UTF-8")
 			for cur_mail in emails:
 				guests=Guest.objects.filter(user=request.user, guest_email=cur_mail)
 				if cur_mail=="TEST":
 					user_mail=request.user.email
 					link='http://2seat.co.il/accounts/invation/TEST/'
 					unsubs='http://2seat.co.il/accounts/unsubscribe/TEST/'
-					new_html_message1=html_message.replace("LINK", link)
-					new_text_message1=text_message.replace("LINK", link)
+					new_html_message2=html_message.replace("LINK", link)
+					new_text_message2=text_message.replace("LINK", link)
+					new_html_message1=new_html_message2.replace("OR_PHONE", OR_PHONE)
+					new_text_message1=new_text_message2.replace("OR_PHONE", OR_PHONE)
 					new_html_message=new_html_message1.replace("UNSUBSCRIBE", unsubs)
 					new_text_message=new_text_message1.replace("UNSUBSCRIBE", unsubs)
 					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [user_mail])
 					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 					msg.attach_alternative(new_html_message,"text/html")
 					msg.send()
-
-				for cur_guest in guests:
-					hash=cur_guest.guest_hash
-					link='http://2seat.co.il/accounts/invation/'+hash+'/'
-					unsubs='http://2seat.co.il/accounts/unsubscribe/'+hash+'/'
-					new_html_message1=html_message.replace("LINK", link)
-					new_text_message1=text_message.replace("LINK", link)
-					new_html_message=new_html_message1.replace("UNSUBSCRIBE", unsubs)
-					new_text_message=new_text_message1.replace("UNSUBSCRIBE", unsubs)
-					msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
-					#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
-					msg.attach_alternative(new_html_message,"text/html")
-					msg.send()
+				else:
+					for cur_guest in guests:
+						hash=cur_guest.guest_hash
+						link='http://2seat.co.il/accounts/invation/'+hash+'/'
+						unsubs='http://2seat.co.il/accounts/unsubscribe/'+hash+'/'
+						new_html_message2=html_message.replace("LINK", link)
+						new_text_message2=text_message.replace("LINK", link)
+						new_html_message1=new_html_message2.replace("OR_PHONE", OR_PHONE)
+						new_text_message1=new_text_message2.replace("OR_PHONE", OR_PHONE)
+						new_html_message=new_html_message1.replace("UNSUBSCRIBE", unsubs)
+						new_text_message=new_text_message1.replace("UNSUBSCRIBE", unsubs)
+						msg = EmailMultiAlternatives(subject, new_text_message, names+'<contact@2seat.co.il>', [cur_mail])
+						#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+						msg.attach_alternative(new_html_message,"text/html")
+						msg.send()
 		else:
 			subject=unicode('תודה מ', "UTF-8") + names
 			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">תודה שהשתתפתם באירוע שלנו,</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">נתראה בשמחות.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"> NAMES </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div></div>', "UTF-8")
