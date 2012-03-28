@@ -87,6 +87,15 @@ def create_user(request):
 			readCSV(r"/tmp/list.csv", created_user)'''
 			new_user = authenticate(username=request.POST['username'], password=request.POST['password1'])
 			login(request, new_user)
+
+			subject=unicode('תודה על הצטרפותך לאתר 2Seat', "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">חברת 2seat מברכת אותך על הצטרפותך. </font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">אנו בחברה מאמינים בקבלת משובים מלקוחותינו השונים על מנת שנוכל ללמוד ולהשתפר.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך.<BR>תודה ונתראה בשמחות </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+			text_message=unicode('חברת 2seat מברכת אותך על הצטרפותך. אנו בחברה מאמינים בקבלת משובים מלקוחותינו השונים על מנת שנוכל ללמוד ולהשתפר. הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך. תודה ונתראה בשמחות',  "UTF-8")
+			user_mail=created_user.email
+			msg = EmailMultiAlternatives(subject, text_message, 'אתר 2Seat<contact@2seat.co.il>', [user_mail])
+			msg.attach_alternative(html_message,"text/html")
+			msg.send()
+
 			return HttpResponseRedirect('/accounts/registered')
 	else:
 		userprofile_form = UserProfileForm()
@@ -299,15 +308,15 @@ def download_excel(request):
 	borders.bottom_colour = 0x40
 	row_num = 0
 	row1 = sheet1.row(row_num)
-	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, he.gender, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(5, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(6, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(7, he.group, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(8, he.present, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(0, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(1, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(2, he.gender, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(3, he.quantity, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(4, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(5, he.email, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(6, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(7, he.group, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
+	row1.write(8, he.present, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 22 
