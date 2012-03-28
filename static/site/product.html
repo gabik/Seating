@@ -29,6 +29,7 @@ body {
 -->
 </style>
 <link href="style.css" rel="stylesheet" type="text/css" />
+<!--<link href="Scripts/galleria.classic.css" rel="stylesheet" type="text/css" />-->
 <style type="text/css">
 <!--
 .style1 {
@@ -58,8 +59,10 @@ a:active {
 <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
+<!--<script src="Scripts/galleria-1.2.6.min.js"></script>-->
 <script type="text/javascript">
 <!--
+
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
@@ -101,69 +104,7 @@ function swapImgMobile()
 		setTimeout("swapImgMobile()",1500);
 	});
 }
-/*
-var currentProd1MsgTimer = "";
-var prod1ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
-var prod1CurIndex = 0;
-var prod1MaxIndex = 7;
 
-function swapProd1ImgMobile()
-{
-	$("#productItem1frontFrameImg").fadeTo(1500, 0, function() {
-		$("#productItem1frontFrameImg").attr('src',prod1ImgArray[prod1CurIndex]);
-		$("#productItem1frontFrameImg").fadeTo(1500, 1,function(){
-		prod1CurIndex = Math.floor(Math.random()*prod1MaxIndex);
-		$("#productItem1backFrameImg").attr('src',prod1ImgArray[prod1CurIndex]);
-		currentProd1MsgTimer = setTimeout("swapProd1ImgMobile()",1500);});
-	});
-}
-var currentProd2MsgTimer = "";
-var prod2ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
-var prod2CurIndex = 0;
-var prod2MaxIndex = 7;
-
-function swapProd2ImgMobile()
-{
-	$("#productItem2frontFrameImg").fadeTo(1500, 0, function() {
-		$("#productItem2frontFrameImg").attr('src',prod2ImgArray[prod2CurIndex]);
-		$("#productItem2frontFrameImg").fadeTo(1500, 1,function(){
-		prod2CurIndex = Math.floor(Math.random()*prod2MaxIndex);
-		$("#productItem2backFrameImg").attr('src',prod2ImgArray[prod2CurIndex]);
-		currentProd2MsgTimer = setTimeout("swapProd2ImgMobile()",1500);});
-	});
-}
-
-var currentProd3MsgTimer = "";
-var prod3ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
-var prod3CurIndex = 0;
-var prod3MaxIndex = 7;
-
-function swapProd3ImgMobile()
-{
-	$("#productItem3frontFrameImg").fadeTo(1500, 0, function() {
-		$("#productItem3frontFrameImg").attr('src',prod3ImgArray[prod3CurIndex]);
-		$("#productItem3frontFrameImg").fadeTo(1500, 1,function(){
-		prod3CurIndex = Math.floor(Math.random()*prod3MaxIndex);
-		$("#productItem3backFrameImg").attr('src',prod3ImgArray[prod3CurIndex]);
-		currentProd3MsgTimer = setTimeout("swapProd3ImgMobile()",1500);});
-	});
-}
-
-var currentProd4MsgTimer = "";
-var prod4ImgArray = ["home/produc1_01.jpg","home/produc1_02.jpg","home/produc1_03.jpg","home/produc1_04.jpg","home/produc1_05.jpg","home/produc1_06.jpg","home/produc1_07.jpg"];
-var prod4CurIndex = 0;
-var prod4MaxIndex = 7;
-
-function swapProd4ImgMobile()
-{
-	$("#productItem4frontFrameImg").fadeTo(1500, 0, function() {
-		$("#productItem4frontFrameImg").attr('src',prod4ImgArray[prod4CurIndex]);
-		$("#productItem4frontFrameImg").fadeTo(1500, 1,function(){
-		prod4CurIndex = Math.floor(Math.random()*prod4MaxIndex);
-		$("#productItem4backFrameImg").attr('src',prod4ImgArray[prod4CurIndex]);
-		currentProd4MsgTimer = setTimeout("swapProd4ImgMobile()",1500);});
-	});
-}*/
 //-->
 
 $(document).ready(function()
@@ -174,52 +115,33 @@ $(document).ready(function()
 		setTimeout("swapImgMobile()",500);
 	}
 	
-	/*$("#productItem1").hover(function(e)
+	/*Galleria.loadTheme('Scripts/galleria.classic.min.js');
+
+	$("body").append($('<div id="tooltip1" style="width:677; height:390; position:absolute; z-index:555; display:none;"><img src="home/produc1_01.jpg" /><img src="home/produc1_02.jpg" /><img src="home/produc1_03.jpg" /><img src="home/produc1_04.jpg" /><img src="home/produc1_05.jpg" /><img src="home/produc1_06.jpg" /><img src="home/produc1_07.jpg" /></div>'));
+	$("#tooltip1").galleria({
+		autoplay: 3000,
+		overlayBackground:"#5A8EA3",
+		overlayOpacity:0.7,
+		width: 700,
+		height: 410
+	});
+	$("#productItem1").hover(function(e)
 					{
 						var tr = $(this);
-						
-						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem1frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem1backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
-						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
-						currentProd1MsgTimer = setTimeout("swapProd1ImgMobile()",500);
-						$("#tooltip").bind('mouseout',function(e)
+						;
+						$("#tooltip1").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						$("#tooltip1").bind('mouseout',function(e)
 						{
-							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
-						});});});	
-	$("#productItem2").hover(function(e)
-					{
-						var tr = $(this);
-						
-						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem2frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem2backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
-						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
-						currentProd2MsgTimer = setTimeout("swapProd2ImgMobile()",500);
-						$("#tooltip").bind('mouseout',function(e)
-						{
-							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
-						});});});	
-						
-	$("#productItem3").hover(function(e)
-					{
-						var tr = $(this);
-						
-						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem3frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem3backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
-						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
-						currentProd1MsgTimer = setTimeout("swapProd3ImgMobile()",500);
-						$("#tooltip").bind('mouseout',function(e)
-						{
-							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
-						});});});	
-						
-	$("#productItem4").hover(function(e)
-					{
-						var tr = $(this);
-						
-						$("body").append($('<table width="980" height="425" border="0" cellspacing="0" cellpadding="0" id="tooltip" style="position:absolute; z-index:555; display:none;"><tr><td valign="bottom" width="10"><img src="images/left_upper_frame_tt.png"/></td><td colspan="2" valign="top" width="970" height="2.5"><img src="images/upper_frame_tt.png" bgcolor="#5A8EA3" /></td><td valign="bottom"><img src="images/right_upper_frame_tt.png"/></td></tr><tr><td valign="top" bgcolor="#5A8EA3" width="10"/><td valign="top"><img id="productItem4frontFrameImg" src="home/produc1_01.jpg" style="position:absolute;"/><img id="productItem4backFrameImg" src="home/produc1_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo_clean.png"/></a></td><td valign="top" bgcolor="#5A8EA3" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame_tt.png"/></td><td colspan="2" valign="top" width="972.5" height="2.5"><img src="images/lower_frame_tt.png"/></td><td valign="top"><img src="images/right_lower_frame_tt.png"/></td></tr></table>'));
-						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
-						currentProd4MsgTimer = setTimeout("swapProd4ImgMobile()",500);
-						$("#tooltip").bind('mouseout',function(e)
-						{
-							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){$("#tooltip").remove(); clearTimeout(currentProd1MsgTimer);});
-						});});});*/
+							if (e.pageY > $("#tooltip1").position().top && e.pageY < $("#tooltip1").height() + $("#tooltip1").position().top && e.pageX > $("#tooltip1").position().left && e.pageX < $("#tooltip1").width() + $("#tooltip1").position().left)
+							{
+
+							}
+							else
+							{
+								$("#tooltip1").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+							}
+						});});});	*/
+	
 });
 
 </script>
