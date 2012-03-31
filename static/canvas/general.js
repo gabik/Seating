@@ -1873,7 +1873,7 @@ function adjustResolution()
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
 		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
-		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
+		$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
 	}
 	
@@ -1893,7 +1893,7 @@ function adjustResolution()
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
 				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
-				$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
+				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta);
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
 			}
 	    	setSaveStatus("OK");
@@ -2203,7 +2203,7 @@ $(document).ready(function() {
 	
 	if (person.hasClass('ui-multisort-click'))
 	{
-		showLightMsg("מחיקת מוזמן", "האם לבצע פעולת מחיקה ל"+ person.attr('id').replace(/\_/g," ") + "?", "YESNO", "Question");
+		showLightMsg("מחיקת מוזמן", "האם ברצונך למחוק את מוזמן "+ person.attr('id').replace(/\_/g," ") + "?", "YESNO", "Question");
 		currentMsgTimer = setTimeout("delPerson()",500);
 	}
 	else

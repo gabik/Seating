@@ -29,7 +29,7 @@ body {
 -->
 </style>
 <link href="style.css" rel="stylesheet" type="text/css" />
-<!--<link href="Scripts/galleria.classic.css" rel="stylesheet" type="text/css" />-->
+<link href="Scripts/galleria.classic.css" rel="stylesheet" type="text/css" />
 <style type="text/css">
 <!--
 .style1 {
@@ -59,7 +59,7 @@ a:active {
 <script src="Scripts/AC_RunActiveContent.js" type="text/javascript"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<!--<script src="Scripts/galleria-1.2.6.min.js"></script>-->
+<script src="Scripts/galleria-1.2.6.min.js"></script>
 <script type="text/javascript">
 <!--
 
@@ -105,7 +105,119 @@ function swapImgMobile()
 	});
 }
 
+var data1 = [
+    {
+        image: 'home/produc1_01.jpg'
+    },
+    {
+        image: 'home/produc1_02.jpg'
+    },
+    {
+        image: 'home/produc1_03.jpg'
+    },
+    {
+        image: 'home/produc1_04.jpg'
+    },
+    {
+        image: 'home/produc1_05.jpg'
+    },
+    {
+        image: 'home/produc1_06.jpg'
+    },
+    {
+        image: 'home/produc1_07.jpg'
+    },
+    {
+        image: 'home/produc1_08.jpg'
+    }
+];
+
+var data2 = [
+    {
+        image: 'home/produc2_01.jpg'
+    },
+    {
+        image: 'home/produc2_02.jpg'
+    },
+    {
+        image: 'home/produc2_03.jpg'
+    },
+    {
+        image: 'home/produc2_04.jpg'
+    },
+    {
+        image: 'home/produc2_05.jpg'
+    },
+    {
+        image: 'home/produc2_06.jpg'
+    },
+    {
+        image: 'home/produc2_07.jpg'
+    },
+    {
+        image: 'home/produc2_08.jpg'
+    }
+];
+
+var data3 = [
+    {
+        image: 'home/produc3_01.jpg'
+    },
+    {
+        image: 'home/produc3_02.jpg'
+    },
+    {
+        image: 'home/produc3_03.jpg'
+    },
+    {
+        image: 'home/produc3_04.jpg'
+    },
+    {
+        image: 'home/produc3_05.jpg'
+    },
+    {
+        image: 'home/produc3_06.jpg'
+    },
+    {
+        image: 'home/produc3_07.jpg'
+    },
+    {
+        image: 'home/produc3_08.jpg'
+    }
+];
+
+var data4 = [
+    {
+        image: 'home/produc4_01.jpg'
+    },
+    {
+        image: 'home/produc4_02.jpg'
+    },
+    {
+        image: 'home/produc4_03.jpg'
+    },
+    {
+        image: 'home/produc4_04.jpg'
+    },
+    {
+        image: 'home/produc4_05.jpg'
+    },
+    {
+        image: 'home/produc4_06.jpg'
+    },
+    {
+        image: 'home/produc4_07.jpg'
+    },
+    {
+        image: 'home/produc4_08.jpg'
+    }
+];
 //-->
+
+$(document).before(function()
+{
+	$("body").append($('<div id="tooltip" style="width:677; height:390; position:absolute; z-index:555; display:none;"/>'));
+});
 
 $(document).ready(function()
 {
@@ -115,32 +227,107 @@ $(document).ready(function()
 		setTimeout("swapImgMobile()",500);
 	}
 	
-	/*Galleria.loadTheme('Scripts/galleria.classic.min.js');
+	Galleria.loadTheme('Scripts/galleria.classic.min.js');
 
-	$("body").append($('<div id="tooltip1" style="width:677; height:390; position:absolute; z-index:555; display:none;"><img src="home/produc1_01.jpg" /><img src="home/produc1_02.jpg" /><img src="home/produc1_03.jpg" /><img src="home/produc1_04.jpg" /><img src="home/produc1_05.jpg" /><img src="home/produc1_06.jpg" /><img src="home/produc1_07.jpg" /></div>'));
-	$("#tooltip1").galleria({
-		autoplay: 3000,
-		overlayBackground:"#5A8EA3",
-		overlayOpacity:0.7,
-		width: 700,
-		height: 410
-	});
 	$("#productItem1").hover(function(e)
 					{
+						$("#tooltip").galleria({
+							autoplay: 3000,
+							preload:'all',
+							data_source:data1,
+							keepSource: true,
+							width: 700,
+							height: 410
+						});
 						var tr = $(this);
-						;
-						$("#tooltip1").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
-						$("#tooltip1").bind('mouseout',function(e)
+						
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"fast",function(){
+						$("#tooltip").bind('mouseout',function(e)
 						{
-							if (e.pageY > $("#tooltip1").position().top && e.pageY < $("#tooltip1").height() + $("#tooltip1").position().top && e.pageX > $("#tooltip1").position().left && e.pageX < $("#tooltip1").width() + $("#tooltip1").position().left)
+							if (e.pageY > $("#tooltip").position().top && e.pageY < $("#tooltip").height() + $("#tooltip").position().top && e.pageX > $("#tooltip").position().left && e.pageX < $("#tooltip").width() + $("#tooltip").position().left)
 							{
 
 							}
 							else
 							{
-								$("#tooltip1").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
 							}
-						});});});	*/
+						});});});	
+						
+	$("#productItem2").hover(function(e)
+					{
+						$("#tooltip").galleria({
+							autoplay: 3000,
+							preload:'all',
+							data_source:data2,
+							keepSource: true,
+							width: 700,
+							height: 410
+						});
+						var tr = $(this);
+						
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"fast",function(){
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							if (e.pageY > $("#tooltip").position().top && e.pageY < $("#tooltip").height() + $("#tooltip").position().top && e.pageX > $("#tooltip").position().left && e.pageX < $("#tooltip").width() + $("#tooltip").position().left)
+							{
+
+							}
+							else
+							{
+							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+							}
+						});});});	
+						
+	$("#productItem3").hover(function(e)
+					{
+						$("#tooltip").galleria({
+							autoplay: 3000,
+							preload:'all',
+							data_source:data3,
+							keepSource: true,
+							width: 700,
+							height: 410
+						});
+						var tr = $(this);
+						
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							if (e.pageY > $("#tooltip").position().top && e.pageY < $("#tooltip").height() + $("#tooltip").position().top && e.pageX > $("#tooltip").position().left && e.pageX < $("#tooltip").width() + $("#tooltip").position().left)
+							{
+
+							}
+							else
+							{
+								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+							}
+						});});});
+						
+	$("#productItem4").hover(function(e)
+					{
+						$("#tooltip").galleria({
+							autoplay: 3000,
+							preload:'all',
+							data_source:data4,
+							keepSource: true,
+							width: 700,
+							height: 410
+						});
+						var tr = $(this);
+						
+						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
+						$("#tooltip").bind('mouseout',function(e)
+						{
+							if (e.pageY > $("#tooltip").position().top && e.pageY < $("#tooltip").height() + $("#tooltip").position().top && e.pageX > $("#tooltip").position().left && e.pageX < $("#tooltip").width() + $("#tooltip").position().left)
+							{
+
+							}
+							else
+							{
+								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+							}
+						});});});	
 	
 });
 
@@ -181,14 +368,14 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
 		   <td rowspan="2" valign="top"><div align="right" class="style1"> רשימת המוזמנים </div>         
 			 <div align="right">העלאת ויצוא קבצי אקסל בצורה הנוחה ביותר.</div></td>
      </tr>
-     <tr id="productItem2">
+     <tr>
        <td width="243" valign="top"><div align="right"></div></td>
        </tr>
      <tr>
        <td width="243" height="20" valign="top"><div align="right"></div></td>
        <td height="20" valign="top"><div align="right"></div></td>
      </tr>
-     <tr id="productItem3">
+     <tr id="productItem2">
        <td width="243" valign="top"><div align="right"><img src="images/product_02.jpg" name="bullet" width="233" height="181" id="bullet2" /></div></td>
        <td rowspan="2" valign="top"><div align="right"><span class="style1">סידורי שולחנות</span></div>         
          <div align="right">הוספה, מחיקה, גרירה במרחב ועריכת שולחנות ישיבה בצורה האולטימטיבית באולם.</div></td>

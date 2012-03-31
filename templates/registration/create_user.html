@@ -150,19 +150,19 @@
 			{% endfor %}</span></p>
 			<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_down_n.png" width="24" height="15"/></span></p>
 			<ul id="addDetailsList">
-				<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
+				<p class="text_14_black">מספר טלפון:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{userprofile_form.phone_number}}
 				{% for error in userprofile_form.phone_number.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>
-				<p class="text_14_black">שם פרטי נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
+				<p class="text_14_black">שם פרטי בן/בת זוג:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;<span>{{partners_form.partner2_first_name}}
 				{% for error in partners_form.partner2_first_name.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>
-				<p class="text_14_black">שם מש"פ נוסף:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
+				<p class="text_14_black">שם מש"פ בן/בת זוג:<span class="text_14_blue_bold">*</span>&nbsp;<span>{{partners_form.partner2_last_name}}
 				{% for error in partners_form.partner2_last_name.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>
-				<p class="text_14_black">מין נוסף:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
+				<p class="text_14_black">מין בן/בת זוג:<span class="text_14_blue_bold">*</span>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span>{{partners_form.partner2_gender}}
 				{% for error in partners_form.partner2_gender.errors %}
 						<span class="text_14_red_bold"> שדה שגוי, וודא תקינות </span>
 				{% endfor %}</span></p>
