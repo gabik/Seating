@@ -15,7 +15,7 @@
 
 </script>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<title>2Seat - אתר סידורי הישיבה של ישראל</title>
+<title>2seat</title>
 <style type="text/css">
 <!--
 body {
@@ -59,8 +59,7 @@ a:active {
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.5/jquery.min.js"></script>
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
-<!-- 
-
+<!--
 function MM_preloadImages() { //v3.0
   var d=document; if(d.images){ if(!d.MM_p) d.MM_p=new Array();
     var i,j=d.MM_p.length,a=MM_preloadImages.arguments; for(i=0; i<a.length; i++)
@@ -83,9 +82,8 @@ function MM_swapImage() { //v3.0
   var i,j=0,x,a=MM_swapImage.arguments; document.MM_sr=new Array; for(i=0;i<(a.length-2);i+=3)
    if ((x=MM_findObj(a[i]))!=null){document.MM_sr[j++]=x; if(!x.oSrc) x.oSrc=x.src; x.src=a[i+2];}
 }
-
+//-->
 var imgArray = ["home/img_01.jpg","home/img_02.jpg","home/img_03.jpg","home/img_04.jpg","home/img_05.jpg","home/img_06.jpg","home/img_07.jpg","home/img_08.jpg"];
-var giveAHandArray = ["images/give_a_hand_ov.png","images/give_a_hand_ov1.png","images/give_a_hand_ov2.png","images/give_a_hand_ov1.png"];
 var curIndex = 0;
 var maxIndex = 8;
 
@@ -103,25 +101,6 @@ function swapImgMobile()
 		setTimeout("swapImgMobile()",1500);
 	});
 }
-
-var doSwapGiveAHand = true;
-var curGiveAHandIndex = 0;
-var maxGiveAHandIndex = 4;
-
-function swapGiveAHandImg()
-{
-	if (doSwapGiveAHand)
-	{
-		curGiveAHandIndex = curGiveAHandIndex + 1;
-		$("#giveAHand").attr('src',giveAHandArray[curGiveAHandIndex]);
-		if (curGiveAHandIndex > maxGiveAHandIndex - 1)
-		{
-			curGiveAHandIndex =  - 1;
-		}
-		setTimeout("swapGiveAHandImg()",250);
-	}
-}
-
 //-->
 
 $(document).ready(function()
@@ -131,28 +110,26 @@ $(document).ready(function()
 		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
 		setTimeout("swapImgMobile()",500);
 	}
-	setTimeout("swapGiveAHandImg()",250);
-	
 });
 </script>
 </head>
 
-<body onload="MM_preloadImages('images/demo_button_ov.png','images/contact_ovpng.png','images/about_ov.png','images/demo_ov.png','images/product_ov.png','images/entrance_ov.png')">
+<body onload="MM_preloadImages('images/demo_button_ov.png','images/contact_ovpng.png','images/demo_ov.png','images/product_ov.png','images/home_ov.png','images/entrance_ov.png')">
 <div id="container">
   <div id="top_interafce">
     <div class="buttons_left"><a href="contact.html"><img src="images/contact_nr.png" alt="צור קשר" name="contact" width="116" height="37" border="0" id="contact" onmouseover="MM_swapImage('contact','','images/contact_ovpng.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
     <div class="buttons"><a href="about_us.html"><img src="images/about_nr.png" alt="אודותנו" name="about_us" width="116" height="37" border="0" id="about_us" onmouseover="MM_swapImage('about_us','','images/about_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
     <div class="buttons"><a href="product.html"><img src="images/product_nr.png" alt="המוצר שלנו" name="product" width="116" height="37" border="0" id="product" onmouseover="MM_swapImage('product','','images/product_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
-	<div class="buttons"><a href="giveAHand.html"><img src="images/give_a_hand_ov.png" alt="תנו לי יד" name="giveAHand" width="116" height="37" border="0" id="giveAHand" /></a></div>
-    <div class="buttons"><a href="index.html"><img src="images/home_ov.png" alt="עמוד הבית" name="home" width="116" height="37" border="0" id="home" /></a></div>
+    <div class="buttons"><a href="giveAHand.html"><img src="images/give_a_hand_ov.png" alt="תנו לי יד" name="giveAHand" width="116" height="37" border="0" id="giveAHand" /></a></div>
+    <div class="buttons"><a href="index.html"><img src="images/home_nr.png" alt="עמוד הבית" name="home" width="116" height="37" border="0" id="home" onmouseover="MM_swapImage('home','','images/home_ov.png',1)" onmouseout="MM_swapImgRestore()" /></a></div>
 	<div class="buttons_right">
-	<iframe align="right" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2seat-%25D7%2590%25D7%25AA%25D7%25A8-%25D7%25A1%25D7%2599%25D7%2593%25D7%2595%25D7%25A8%25D7%2599-%25D7%2594%25D7%2599%25D7%25A9%25D7%2599%25D7%2591%25D7%2594-%25D7%25A9%25D7%259C-%25D7%2599%25D7%25A9%25D7%25A8%25D7%2590%25D7%259C%2F266220463433352&amp;send=false&amp;layout=standard&amp;width=100&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:140px; height:35px; margin-top:6.5px;" allowTransparency="true"></iframe></div>
+	<iframe align="right" src="//www.facebook.com/plugins/like.php?href=http%3A%2F%2Fwww.facebook.com%2Fpages%2F2seat-%25D7%2590%25D7%25AA%25D7%25A8-%25D7%25A1%25D7%2599%25D7%2593%25D7%2595%25D7%25A8%25D7%2599-%25D7%2594%25D7%2599%25D7%25A9%25D7%2599%25D7%2591%25D7%2594-%25D7%25A9%25D7%259C-%25D7%2599%25D7%25A9%25D7%25A8%25D7%2590%25D7%259C%2F266220463433352&amp;send=false&amp;layout=standard&amp;width=50&amp;show_faces=false&amp;action=like&amp;colorscheme=light&amp;font&amp;height=35" scrolling="no" frameborder="0" style="border:none; overflow:hidden; width:70px; height:35px; margin-top:6.5px;" allowTransparency="true"></iframe></div>
   </div>
   
    <div id="flash">
      <script type="text/javascript">
 AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0','name','flash gallery','width','980','height','430','id','flash gallery','title','flash images','src','flash_banner','quality','high','pluginspage','http://www.adobe.com/shockwave/download/download.cgi?P1_Prod_Version=ShockwaveFlash','wmode','transparent','menu','false','movie','flash_banner' ); //end AC code
-</script><noscript><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" name="flash gallery" width="980" height="430" id="flash gallery" >
+</script><noscript><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=9,0,28,0" name="flash gallery" width="980" height="430" id="flash gallery" title="flash images">
        <param name="movie" value="flash_banner.swf" />
        <param name="quality" value="high" />
        <param name="wmode" value="transparent" />
@@ -163,63 +140,36 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
     
    <div id="main">
    <div id="content">
-     ברוכים הבאים לאתר 2seat אתר סידורי הישיבה המציע מגוון פתרונות יעילים ויצירתיים לתכנון סידורי הישיבה באירוע שלכם. מסידור שולחנות ומוזמנים, העלאה מהירה ופשוטה מרשימת אקסל ועד לשליחת תודות והפקת מדבקות.<br />
-       <br />
-       <table width="600" border="0">
-     <tr>
-       <td width="30" valign="top"><div align="right"><img src="images/bullet.png" name="bullet" width="20" height="20" id="bullet" /></div></td>
-       <td valign="top"><div align="right" class="style1"> הידעת?</div></td>
-     </tr>
-     <tr>
-       <td width="30" valign="top"><div align="right"></div></td>
-       <td valign="top"><div align="right">החלק המתיש והארוך ביותר בתכנון האירוע שלכם הינו החלטה על סידורי ישיבה.</div></td>
-     </tr>
-     <tr>
-       <td width="30" height="20" valign="top"><div align="right"></div></td>
-       <td height="20" valign="top"><div align="right"></div></td>
-     </tr>
-     <tr>
-       <td width="30" valign="top"><div align="right"><img src="images/bullet.png" name="bullet" width="20" height="20" id="bullet2" /></div></td>
-       <td valign="top"><div align="right"><span class="style1">מדוע?</span></div></td>
-     </tr>
-     <tr>
-       <td width="30" valign="top"><div align="right"></div></td>
-       <td valign="top"><div align="right">נסו אתם להושיב פלוני ליד אלמוני בתוך ריבוע דמיוני.</div></td>
-     </tr>
-     <tr>
-       <td width="30" height="20" valign="top"><div align="right"></div></td>
-       <td height="20" valign="top"><div align="right"></div></td>
-     </tr>
-     <tr>
-       <td width="30" valign="top"><div align="right"><img src="images/bullet.png" name="bullet" width="20" height="20" id="bullet3" /></div></td>
-       <td valign="top"><div align="right"><span class="style1">נשמע לא פשוט?</span></div></td>
-     </tr>
-     <tr>
-       <td width="30" valign="top"><div align="right"></div></td>
-       <td valign="top"><div align="right">נעזור לכם לפשט זאת באמצעות מערכת 2SEAT<br />
-       </div></td>
-     </tr>
-     <tr>
-       <td width="30" height="20" valign="top"><div align="right"></div></td>
-       <td height="20" valign="top"><div align="right"></div></td>
-     </tr>
-   </table>
-       <span class="style2">אנו נפרוש לפניכם את מגוון הכלים החדשניים והיעילים שלנו, על מנת שהארוע שלכם<br />
-יהיה מושלם. 
-כנסו ותנסו.            </span>
-       <br />
-       <br />
-  
+      אנחנו ב-2seat יודעים שלפעמים אין זמן לדברים החשובים באמת.<br />
+     לכן אנחנו שמחים להציע לכם תהליך שיכול לחסוך לכם המון זמן,<br />
+	 </br>
+      לאחר תהליך ההרשמות יש ברשותכם את האפשרות לשלוח לנו את הפרטים הבאים:<br />
+      
+	  <h5><img src="images/bullet.png" name="bullet" width="20" height="20" align="middle"/>  שם משתמש וסיסמא.<h5/>
+	  <h5><img src="images/bullet.png" name="bullet" width="20" height="20" align="middle"/>  מספר שולחנות בגדלים ובצורתהם השונות אפילו שרטוט של האולם.<h5/>
+	  <h5><img src="images/bullet.png" name="bullet" width="20" height="20" align="middle"/>  רשימת המוזמנים עם כמה שיותר פרטים בכל פורמט שתרצו.<h5/>
+	  
+	  <h4>ואנחנו נעלה מראש את כל הנתונים לאתר!!!<h4/>
+
+	  <h5>לכם ישאר רק לגרור את האורחים מהרשימה לשולחנות<br/>
+	  המיועדים ולהנות מהתכנים והנתונים שהמערכת תייצר בשבילכם.<h5/>
+<br />
+	
+	  <h3>את כל הפרטים יש לשלוח לכתובת מייל
+	  contact@2seat.co.il
+	  </h3>
+	  
+	  <h2>תודה והמון מזל טוב, נתראה בשמחות :) </h2>
    </div>
    <div id="divider"></div>
-   <div id="right_int"><img src="images/home_title.png" alt="עמוד הבית" width="272" height="377" /></div>
+   <div id="right_int"><img src="images/give_a_hand_title.png" alt="אודותנו" width="272" height="377" /></div>
   </div>
   
      <div id="footer_container">
        <div id="footer">
          <div id="footer_logo"></div>
          
-         <div id="footer_info"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a>  |   <a href="/static/crx/2seat.crx">Chrome</a><br />
+        <div id="footer_info"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a><br />
          2seat כל הזכויות שמורות &copy;2010<br />
          </div>
 

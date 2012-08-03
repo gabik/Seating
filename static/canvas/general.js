@@ -1,4 +1,4 @@
- maleAdd = true;
+var maleAdd = true;
 var lastMaleAdd = true;
 var addPersonDivOpen = false;
 var SelectedElem = "" ;
@@ -1213,7 +1213,7 @@ function cleanStringFromUnIDChars(str)
   return str;
 }
 
-function addPersonToFloatList(first_name,last_name, personGroup)
+function addPersonToFloatList(first_name,last_name, personGroup, amount)
 {
 	if (first_name.trim() == "" && last_name.trim() == "")
 	{
@@ -1226,7 +1226,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
 		{
 			gender = 'M';
 		}
-		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
+		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender, amount:amount},
 		  function(data){
 			if (data.status == 'OK')
 			{
@@ -1961,6 +1961,8 @@ $(document).ready(function() {
   refactoringListName();
   posPropertyPanel("");
   updateSeatedLabel();
+  $("#personAmountSingle").val("1");
+  sortListByName("people_list",sortFloatListByNameAscending);
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
   updateGroups();
@@ -2046,7 +2048,9 @@ $(document).ready(function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
 	var group = document.getElementById("personGroup").value;
-	addPersonToFloatList(first_name,last_name, group);
+	var amount = document.getElementById("personAmountSingle").value;
+	
+	addPersonToFloatList(first_name,last_name, group, amount);
   });
   
   $(".DragDiv").click( function() {
