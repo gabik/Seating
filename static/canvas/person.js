@@ -393,7 +393,7 @@ function selectTab(ui)
 		hash_name = hash_name.replace("#tab","");
 		full_name = hash_name.split("__", 2);
 
-		$.post('/canvas/getItem/', {position: "", firstName: full_name[0].replace("_"," "), lastName: full_name[1].replace("_"," ")},
+		$.post('/canvas/getItem/', {position: "", firstName: full_name[0].replace(/\_/g," "), lastName: full_name[1].replace(/\_/g," ")},
 		function(data)
 		{
 			data = $.parseJSON(data);
@@ -464,7 +464,7 @@ function reLoadDetails(personElement)
 	{
 		personData.first_name = personData.first_name.replace(/\ /g,"_");
 		personData.last_name = personData.last_name.replace(/\ /g,"_");
-		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto; height:30;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace("_"," ") + ' '+ personData.last_name.replace("_"," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
+		$("#details").append($('<div id="tabs"><ul id="tabList" style="display:block; font-size:12; overflow: auto; height:30;"><li><a href="#tab' + personData.first_name + '__'+ personData.last_name +'">'+ personData.first_name.replace(/\_/g," ") + ' '+ personData.last_name.replace(/\_/g," ") +'</a></li></ul><div id="tab' +personData.first_name + '__'+ personData.last_name+'"></div></div>'));
 		SelectedTabIndex = 0;
 		$("#tabs").tabs();
 		$("#tabs").bind('tabsselect', function(event, ui) {
@@ -564,8 +564,8 @@ function createTab()
 		});
 	}
 
-	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace("_"," ") +'"/></span></p>'));
-	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace("_"," ") +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם פרטי:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsFirstName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.first_name.replace(/\_/g," ") +'"/></span></p>'));
+	tab.append($('<p align="right" dir="rtl" class="text_14_black">שם משפחה:&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span><input MAXLENGTH=30 type="text" id="detailsLastName' + personData.first_name + '_'+ personData.last_name+'" value="'+ personData.last_name.replace(/\_/g," ") +'"/></span></p>'));
 	$("#detailsFirstName" + personData.first_name + '_'+ personData.last_name).bind('keydown', function() {
 		$("#NameValidtion").remove();
 		duplicatePerson = false;
@@ -986,7 +986,7 @@ function savePersonChanges(firstName, lastName)
 		{
 			if (!duplicatePerson)
 			{
-				$.post('/canvas/savePerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
+				$.post('/canvas/savePerson/', {old_first_name: firstName.replace(/\_/g," "), old_last_name: lastName.replace(/\_/g," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
 				  function(data){
 					savePersonOperation(data, firstName, lastName)
 					duplicatePerson = false;
@@ -995,7 +995,7 @@ function savePersonChanges(firstName, lastName)
 			}
 			else
 			{
-				$.post('/canvas/saveDupPerson/', {old_first_name: firstName.replace("_"," "), old_last_name: lastName.replace("_"," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
+				$.post('/canvas/saveDupPerson/', {old_first_name: firstName.replace(/\_/g," "), old_last_name: lastName.replace(/\_/g," "), first_name: $("#detailsFirstName" + firstName + '_'+ lastName).val() , last_name:$("#detailsLastName" + firstName + '_'+ lastName).val() ,phone_num: $("#detailsPhoneNum" + firstName + '_'+ lastName).val() ,person_email: $("#detailsE-mail" + firstName + '_'+ lastName).val(),present_amount: $("#detailsPresentAmount" + firstName + '_'+ lastName).val(),facebook_account: $("#detailsFacebookAccount" + firstName + '_'+ lastName).val(), group:$("#detailsGroup" + firstName + '_'+ lastName).val(), gender:$("#detailsGender" + firstName + '_'+ lastName).val(),invation_status: $("#InvationStatusPersonButton").attr('alt'), meal: $("#detailsMeal" + firstName + '_'+ lastName).val()},
 				  function(data){
 					savePersonOperation(data, firstName, lastName)
 					duplicatePerson = false;
@@ -1035,13 +1035,13 @@ function savePersonOperation(data, firstName, lastName)
 	  }
 	  else
 	  {
-		document.getElementById(firstName.replace("_"," ") + '_' + lastName.replace("_"," ")).innerHTML = personData.first_name + " " + personData.last_name;
+		document.getElementById(firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," ")).innerHTML = personData.first_name + " " + personData.last_name;
 		
-		var floatPerson = $("#" + firstName.replace("_"," ") + '_' + lastName.replace("_"," "));
+		var floatPerson = $("#" + firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," "));
 		
 		if (floatPerson.index() < 0)
 		{
-			$("#people_list > li").each(function(j) { if ($(this).context.id == firstName.replace("_"," ") + '_' + lastName.replace("_"," ")){ floatPerson = $(this);}});
+			$("#people_list > li").each(function(j) { if ($(this).context.id == firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," ")){ floatPerson = $(this);}});
 		}
 		floatPerson.css("text",personData.first_name + " " + personData.last_name);
 		floatPerson.attr("id", personData.first_name + "_" + personData.last_name);

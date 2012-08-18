@@ -89,7 +89,9 @@ def create_user(request):
 			login(request, new_user)
 
 			subject=unicode('תודה על הצטרפותך לאתר 2Seat', "UTF-8")
-			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">חברת 2seat מברכת אותך על הצטרפותך. </font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">אנו בחברה מאמינים בקבלת משובים מלקוחותינו השונים על מנת שנוכל ללמוד ולהשתפר.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך.<BR>תודה ונתראה בשמחות </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+			#html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">חברת 2seat מברכת אותך על הצטרפותך. </font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">אנו בחברה מאמינים בקבלת משובים מלקוחותינו השונים על מנת שנוכל ללמוד ולהשתפר.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך.<BR>תודה ונתראה בשמחות </a></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+		#	html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">ראשית, תודה רבה על התענינותכם באתר 2Seat.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">השרות שלנו הינו שירות חינם לחלוטין, וכולל אפשרויות רבות כגון: יצירת רשימת מוזמנים אוןליין או מקובץ אקסל, גרירת מוזמנים נוחה וידידותית לשולחנות, אישורי הגעה אוטומטיים, פתקיות הושבה וכדומה.<BR><br>את כל המידע תוכלו לקבל במדריך העזרה באתר, <a href=http://2seat.co.il/site/mainHelp.html> למעבר לחץ כאן </a> <br></font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך.<BR><br>כמו כן, אנו ממליצים לכם להצטרף אלינו לדף הפייסבוק וכך לקבל מידע ועדכונים לגבי אפשרויות חדשות באתר<a href=http://www.facebook.com/pages/2seat-%D7%90%D7%AA%D7%A8-%D7%A1%D7%99%D7%93%D7%95%D7%A8%D7%99-%D7%94%D7%99%D7%A9%D7%99%D7%91%D7%94-%D7%A9%D7%9C-%D7%99%D7%A9%D7%A8%D7%90%D7%9C/266220463433352>לינק לעמוד שלנו בפייסבוק</a><br><br>הינכם מוזמנים ליצור עימנו קשר בכל בעיה או שאלה<br><br>תודה ונתראה בשמחות </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+			html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">ראשית, תודה רבה על התענינותכם באתר 2Seat.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">השרות שלנו הינו שירות חינם לחלוטין, וכולל אפשרויות רבות כגון: יצירת רשימת מוזמנים אוןליין או מקובץ אקסל, גרירת מוזמנים נוחה וידידותית לשולחנות, אישורי הגעה אוטומטיים, פתקיות הושבה וכדומה.<BR><br>את כל המידע תוכלו לקבל במדריך העזרה באתר, <a href=http://2seat.co.il/site/mainHelp.html> למעבר לחץ כאן </a> <br></font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">כמו כן, אנו ממליצים לכם להצטרף אלינו לדף הפייסבוק וכך לקבל מידע ועדכונים לגבי אפשרויות חדשות באתר<a href=http://www.facebook.com/pages/2seat-%D7%90%D7%AA%D7%A8-%D7%A1%D7%99%D7%93%D7%95%D7%A8%D7%99-%D7%94%D7%99%D7%A9%D7%99%D7%91%D7%94-%D7%A9%D7%9C-%D7%99%D7%A9%D7%A8%D7%90%D7%9C/266220463433352> לינק לעמוד שלנו בפייסבוק</a><br><br>אנו משיקים שירות חדש בשם <a href=http://2seat.co.il/site/giveAHand.html> תן לי יד </a> מתוך מטרה לעזור ולייעל את סידור הישיבה באירוע. <br> כל מה שעליכם לעשות הוא לשלוח לנו את רשימת המוזמנים יחד עם שם המשתמש והסיסמא שלכם וכן את סוג השולחנות וכמה מקומות ישיבה. <br>אנו נעלה את כל הנתונים לאתר ולכם יישאר רק לגרור את המוזמנים בקלות ובמהירות.<br>השירות חינמי לחלוטין<br> <br>הינכם מוזמנים ליצור עימנו קשר בכל בעיה או שאלה<br><br>תודה ונתראה בשמחות </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
 			text_message=unicode('חברת 2seat מברכת אותך על הצטרפותך. אנו בחברה מאמינים בקבלת משובים מלקוחותינו השונים על מנת שנוכל ללמוד ולהשתפר. הצטרף אלינו לדף בפייסבוק ורשום חוות דעתך. תודה ונתראה בשמחות',  "UTF-8")
 			user_mail=created_user.email
 			msg = EmailMultiAlternatives(subject, text_message, 'אתר 2Seat<contact@2seat.co.il>', [user_mail])
@@ -255,7 +257,7 @@ def upload_file(request):
 					lastName=lastName.strip()
 					if quantity > 1:
 						for i in range(1,int(quantity)+1):
-							hash = str(str(request.user) + privName + " " + str(i) + lastName)
+							hash = str(str(request.user) + privName.encode('utf-8') + " " + str(i) + lastName.encode('utf-8'))
 							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							new_person.save()
 					else:
@@ -955,7 +957,7 @@ def stickers(request):
 		sheet1.row(i).height=450
 		sheet1.row(i).height_mismatch = True
 	sheet1.protect = True
-	sheet1.password = "DubaGdola"
+	sheet1.password = "242424"
         c = {}
         c['filename'] = str(request.user.id) + 'stickers.xls'
         book.save('/Seating/static/excel_output/' + c['filename'])
@@ -1037,4 +1039,42 @@ def SendNotifications(request):
 	return HttpResponse(json_dump)
 
 	
+def list_dates(request):
+	users=User.objects.all()
+	profile_users=UserProfile.objects.all()
+ 	list=[]
+ 	for user in users:
+		userexist=0
+		for curprof in profile_users:
+			if curprof.user == user:
+				userexist=1
+		if userexist == 1:
+			curprofile=UserProfile.objects.get(user=user)
+			curpartners=Partners.objects.get(userPartner=user)
+			curname=curpartners.partner1_first_name + " " + curpartners.partner2_first_name
+			curuser={'id': user.id, 'name': curname, 'email': user.email, 'date': curprofile.occasion_date, 'join': user.date_joined, 'login': user.last_login}
+			list.append(curuser)
+	c={}
+	c.update(csrf(request))
+	c['list'] = list
+	return render_to_response('accounts/list_dates.html', c)
 
+
+def SendWelcome(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		email=request.POST['mail']
+		partners=request.POST['partners']
+		#html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="rtl" style="text-align:right"><u><b><font size="4">XXX שלום,</font></b></u><br><br>ראשית, תודה רבה על התענינותכם באתר 2Seat.<br><br>השרות שלנו הינו שירות חינם לחלוטין, וכולל אפשרויות רבות כגון: יצירת רשימת מוזמנים אוןליין או מקובץ אקסל, גרירת מוזמנים נוחה וידידותית לשולחנות, אישורי הגעה אוטומטיים, פתקיות הושבה וכדומה..<br><br>את כל המידע תוכלו לקבל במדריך העזרה באתר, כתובתו <a href="http://2seat.co.il/site/mainHelp.html" target="_blank">http://2seat.co.il/site/<wbr>mainHelp.html</a><br><br>כמו כן, אנו ממליצים לכם להצטרף אלינו לדף הפייסבוק וכך לקבל מידע ועדכונים לגבי אפשרויות חדשות באתר. <a href="http://www.facebook.com/pages/2seat-%D7%90%D7%AA%D7%A8-%D7%A1%D7%99%D7%93%D7%95%D7%A8%D7%99-%D7%94%D7%99%D7%A9%D7%99%D7%91%D7%94-%D7%A9%D7%9C-%D7%99%D7%A9%D7%A8%D7%90%D7%9C/266220463433352" target="_blank">לינק לעמוד שלנו בפייסבוק</a>.<br><br>הינכם מוזמנים ליצור עימנו קשר בכל בעיה או שאלה.<br><br>תודה והרבה מזל טוב,<br><font size="4">צוות 2Seat.</font><br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+		html_message=unicode('<meta http-equiv="Content-Type" content="text/html; charset=utf-8"><div dir="ltr"><div style="direction:rtl"><font color="#598DA2" size="6">ראשית, תודה רבה על התענינותכם באתר 2Seat.</font></div><div style="direction:rtl"> <br></div><div style="direction:rtl"><font color="#000000" size="4" style="">השרות שלנו הינו שירות חינם לחלוטין, וכולל אפשרויות רבות כגון: יצירת רשימת מוזמנים אוןליין או מקובץ אקסל, גרירת מוזמנים נוחה וידידותית לשולחנות, אישורי הגעה אוטומטיים, פתקיות הושבה וכדומה.<BR><br>את כל המידע תוכלו לקבל במדריך העזרה באתר, <a href=http://2seat.co.il/site/mainHelp.html> למעבר לחץ כאן </a> <br></font></div><div style="direction:rtl"> <br></div><div style="direction:rtl">כמו כן, אנו ממליצים לכם להצטרף אלינו לדף הפייסבוק וכך לקבל מידע ועדכונים לגבי אפשרויות חדשות באתר<a href=http://www.facebook.com/pages/2seat-%D7%90%D7%AA%D7%A8-%D7%A1%D7%99%D7%93%D7%95%D7%A8%D7%99-%D7%94%D7%99%D7%A9%D7%99%D7%91%D7%94-%D7%A9%D7%9C-%D7%99%D7%A9%D7%A8%D7%90%D7%9C/266220463433352>לינק לעמוד שלנו בפייסבוק</a><br>אנו משיקים שירות חדש בשם<a href=http://2seat.co.il/site/giveAHand.html>תן לי יד</a> מתוך מטרה לעזור ולייעל את סידור הישיבה באירוע. <br> כל מה שעליכם לעשות הוא לשלוח לנו את רשימת המוזמנים יחד עם שם המשתמש והסיסמא שלכם וכן את סוג השולחנות וכמה מקומות ישיבה. <br>אנו נעלה את כל הנתונים לאתר ולכם יישאר רק לגרור את המוזמנים בקלות ובמהירות.<br>השירות חינמי לחלוטין<br> <br>הינכם מוזמנים ליצור עימנו קשר בכל בעיה או שאלה<br><br>תודה ונתראה בשמחות </div><div style="direction:rtl"> <br></div><div style="direction:rtl"><a border=0 href="http://2seat.co.il"><img src="http://2seat.co.il/site/images/email.jpg"></a></div>', "UTF-8")
+
+		subject=unicode('פנייה מאתר 2Seat', "UTF-8")
+		text_message=unicode('',  "UTF-8")
+		new_html_message=html_message.replace("XXX", partners)
+		new_text_message=text_message.replace("XXX", partners)
+		msg = EmailMultiAlternatives(subject, new_text_message, '2Seat<contact@2seat.co.il>', [email])
+		#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
+		msg.attach_alternative(new_html_message,"text/html")
+		msg.send()
+		json_dump = json.dumps({'status': "OK"})
+	return HttpResponse(json_dump)
