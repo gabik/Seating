@@ -1,4 +1,4 @@
- maleAdd = true;
+var maleAdd = true;
 var lastMaleAdd = true;
 var addPersonDivOpen = false;
 var SelectedElem = "" ;
@@ -183,6 +183,9 @@ function setWidthAndHeight(element, newScale, lastScale, init)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
+	var zoomWidth = 0;
+	var zoomHeight = 0;
+	var scale = 0;
 	
 	if (newScale == 0)
 	{
@@ -192,12 +195,24 @@ function setWidthAndHeight(element, newScale, lastScale, init)
 	if (lastScale > 0)
 	{
 		scale =  (newScale - lastScale)  * 2;
+		
+		if ($(".DragDiv").size() > 45 && !init)
+		{
+			var zoomSize = $(".DragDiv").size() / 30;
+			zoomSize = zoomSize + 30;
+			
+			var zoomScale = (22 - zoomSize) * 2;
+			var def = (newScale - maxElementCapacity - 2) * 2;
+			
+			zoomWidth = 90 + def + zoomScale;
+			zoomHeight = zoomWidth;
+		}
 	}
 	else
 	{
 		scale =  (newScale - maxElementCapacity - 2) * 2;
 	}
-
+	
 	for (var i = 0; i < 1 ; i++)
 	{
 		var addHeight = 0;
@@ -211,22 +226,39 @@ function setWidthAndHeight(element, newScale, lastScale, init)
 		else if (elementImgs[i].id.split("-", 1) == "dance_stand")
 		{
 			addWidth = 150;
-	    }
+		}
 		else if (elementImgs[i].id.split("-", 1) ==  "bar_stand") 
 		{
 			addWidth = 65;
 		}
-		
+
 		if (i > 0)
 		{
 			img.animate({ width:img.width() + scale / 3, height: img.height() + scale / 3},300, 'linear');
 		}
 		else
 		{
-			img.animate({ width:img.width() + scale + addWidth, height: img.height() + scale + addHeight},300, 'linear');
+			if ($(".DragDiv").size() > 45 && !init)
+			{
+				img.animate({ width:zoomWidth, height: zoomHeight + addHeight},300, 'linear');
+			}
+			else
+			{
+				img.animate({ width:img.width() + scale + addWidth, height: img.height() + scale + addHeight},300, 'linear');
+			}
 		}
 	}
-	element.animate({ width:element.width() + scale, height: element.height() + scale + addHeight},300, 'linear', function()
+	
+	var finalWidth = element.width() + scale;
+	var finalHeight = element.height() + scale + addHeight;
+	
+	if ($(".DragDiv").size() > 45 && !init)
+	{
+		finalWidth = zoomWidth;
+		finalHeight = elementCaption[0].clientHeight + elementCaption[1].clientHeight + zoomHeight + addHeight;
+	}
+	
+	element.animate({ width:finalWidth, height: finalHeight},300, 'linear', function()
 	{
 		if (lastScale > 0 && isThisPeopleTable(elementImgs[0].id))
 		{
@@ -248,21 +280,39 @@ function setWidthAndHeight(element, newScale, lastScale, init)
 		}
 		else
 		{
-		   $.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:elementImgs[0].width, height:elementImgs[0].height},
-           function(data){
-           if (data.status == 'OK')
-           {}}, 'json');
 			adjustCaption($(this));
 			if ($(".DragDiv").last().attr('id') == $(this).context.id && init) 
 			{
 				zoomingCanvas(true);
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:elementImgs[0].width, height:elementImgs[0].height},
+			   function(data){
+			   if (data.status == 'OK')
+			   {}}, 'json');
 			}
 			else if ($(".DragDiv").size() > 45 && !init)
 			{
-				var zoomSize = $(".DragDiv").size() / 30;
-				zoomSize = zoomSize + 30;
-				ZoomElement($(this),22, zoomSize, false);
+				var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+				
+				var realScale =  (parseInt(elementMaxSize) - maxElementCapacity - 2) * 2;
+				var addHeight = 0;
+				
+				if (elementImgs[0].id.indexOf("Rect") > -1)
+				{
+					addHeight = 16;
+				}
+							
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:90 + realScale, height:90 + realScale + addHeight},
+			   function(data){
+			   if (data.status == 'OK')
+			   {}}, 'json');
 			}
+			else
+			{
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:elementImgs[0].width, height:elementImgs[0].height},
+			   function(data){
+			   if (data.status == 'OK')
+			   {}}, 'json');
+		   }
 		}
 	});
 }
@@ -271,7 +321,7 @@ function ZoomElement(element, newScale, lastScale, firstInit)
  {
 	var elementImgs = element.context.getElementsByTagName("img");
 	var elementCaption = element.context.getElementsByTagName("p");
-	
+	var scale = 0;
 	var realWidth = 0;
 	
 	if (newScale == 0)
@@ -1213,7 +1263,7 @@ function cleanStringFromUnIDChars(str)
   return str;
 }
 
-function addPersonToFloatList(first_name,last_name, personGroup)
+function addPersonToFloatList(first_name,last_name, personGroup, amount)
 {
 	if (first_name.trim() == "" && last_name.trim() == "")
 	{
@@ -1226,7 +1276,7 @@ function addPersonToFloatList(first_name,last_name, personGroup)
 		{
 			gender = 'M';
 		}
-		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender},
+		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender, amount:amount},
 		  function(data){
 			if (data.status == 'OK')
 			{
@@ -1961,6 +2011,8 @@ $(document).ready(function() {
   refactoringListName();
   posPropertyPanel("");
   updateSeatedLabel();
+  $("#personAmountSingle").val("1");
+  sortListByName("people_list",sortFloatListByNameAscending);
   $("#people-list").removeClass('class_overflow_hidden');
   $("#people-list").addClass('class_overflow_auto');
   updateGroups();
@@ -2046,7 +2098,9 @@ $(document).ready(function() {
     var first_name = document.getElementById("first_name").value;
     var last_name = document.getElementById("last_name").value;
 	var group = document.getElementById("personGroup").value;
-	addPersonToFloatList(first_name,last_name, group);
+	var amount = document.getElementById("personAmountSingle").value;
+	
+	addPersonToFloatList(first_name,last_name, group, amount);
   });
   
   $(".DragDiv").click( function() {
