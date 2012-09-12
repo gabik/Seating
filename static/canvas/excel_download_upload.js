@@ -6,74 +6,87 @@ var frameStringEUD = '<div id="EUDFrame" style="position:absolute; z-index:99999
 $(document).ready(function() { 
  $(".EUDDiv").click(function()
  {
- 	//$("body").css("overflow", "hidden");
-	var screenVP = getScreenWidthHeight();
-	var screenWidth = screenVP[0];
-	var screenHeight = screenVP[1];
+	 var numOfGuests = $("#NumOfGuests").val();
 	
-	//creating window
-	$("#canvas-div").append($('<div id="EUDRectangle" class="BlackOverlayRectangle"/>'));
-	$("#EUDRectangle").css('top',0);
-	$("#EUDRectangle").css('left',0);
-	$("#EUDRectangle").css('width',screenWidth);
-	$("#EUDRectangle").css('height',screenHeight);
-	$("#EUDRectangle").draggable( 'disable' );
-	$("#canvas-div").append($(frameStringEUD));
-	$("#EUDFrame").css('top',screenHeight / 2 - mainFrameHeightEUD / 2);
-	$("#EUDFrame").css('left',screenWidth / 2 - mainFrameWidthEUD / 2);
-	$("#EUDFrame").css('width',mainFrameWidthEUD);
-	$("#EUDFrame").css('height',mainFrameHeightEUD);
-	$("#EUDFrame").draggable( 'disable' );
-	$("#excelUDArea").append($(excelDivString));
-	$("#OFtabs").tabs();
-	$("#EUDCloseBtn").bind('click', function() {
-		$("#EUDRectangle").remove();
-		$("#EUDFrame").remove(); 
-		$("body").css("overflow", "auto");
-	}); 
+	if (numOfGuests > maxGuests)
+	{
+		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
+	}
+	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	{
+		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
+	}
+	else
+	{
+		//$("body").css("overflow", "hidden");
+		var screenVP = getScreenWidthHeight();
+		var screenWidth = screenVP[0];
+		var screenHeight = screenVP[1];
+		
+		//creating window
+		$("#canvas-div").append($('<div id="EUDRectangle" class="BlackOverlayRectangle"/>'));
+		$("#EUDRectangle").css('top',0);
+		$("#EUDRectangle").css('left',0);
+		$("#EUDRectangle").css('width',screenWidth);
+		$("#EUDRectangle").css('height',screenHeight);
+		$("#EUDRectangle").draggable( 'disable' );
+		$("#canvas-div").append($(frameStringEUD));
+		$("#EUDFrame").css('top',screenHeight / 2 - mainFrameHeightEUD / 2);
+		$("#EUDFrame").css('left',screenWidth / 2 - mainFrameWidthEUD / 2);
+		$("#EUDFrame").css('width',mainFrameWidthEUD);
+		$("#EUDFrame").css('height',mainFrameHeightEUD);
+		$("#EUDFrame").draggable( 'disable' );
+		$("#excelUDArea").append($(excelDivString));
+		$("#OFtabs").tabs();
+		$("#EUDCloseBtn").bind('click', function() {
+			$("#EUDRectangle").remove();
+			$("#EUDFrame").remove(); 
+			$("body").css("overflow", "auto");
+		}); 
 
-	$("#EUDCloseBtn").bind('mouseout', function(){
-		$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
-	});
-	$("#EUDCloseBtn").bind('mouseover', function(){
-		$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
-	});
-	$("#excelDownImg").bind('mouseout', function(){
-		$(this).attr('src',"/static/canvas/images/features/exceldown_n.png");
-	});
-	$("#excelDownImg").bind('mouseover', function(){
-		$(this).attr('src',"/static/canvas/images/features/exceldown_r.png");
-	});
-	$("#excelDownImg").bind('click', function(){
-		 //window.location='/accounts/download';  
-		 $("#EUDCloseBtn").click();
-		 window.open('/accounts/download');
-		 return false;
-	});
-	$("#excelUpImg").bind('mouseout', function(){
-		$(this).attr('src',"/static/canvas/images/features/excelup_n.png");
-	});
-	$("#excelUpImg").bind('mouseover', function(){
-		$(this).attr('src',"/static/canvas/images/features/excelup_r.png");
-	});
-	
-	$("#id_file").bind('mouseout', function(){
-		$("#browseImg").attr('src',"/static/canvas/images/browse_n.png");
-	});
-	$("#id_file").bind('mouseover', function(){
-		$("#browseImg").attr('src',"/static/canvas/images/browse_o.png");
-	});
-	$("#id_file").bind('change', function(){
-		$("#fileText").val($(this).val());
-		if (/[^.]+$/.exec($(this).val()) == "xls")
-		{
-			$("#excelUpImg").css('visibility',"visible");
-		}
-		else
-		{
-			$("#excelUpImg").css('visibility',"hidden");
-		}
-	});
+		$("#EUDCloseBtn").bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
+		});
+		$("#EUDCloseBtn").bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
+		});
+		$("#excelDownImg").bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/features/exceldown_n.png");
+		});
+		$("#excelDownImg").bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/features/exceldown_r.png");
+		});
+		$("#excelDownImg").bind('click', function(){
+			 //window.location='/accounts/download';  
+			 $("#EUDCloseBtn").click();
+			 window.open('/accounts/download');
+			 return false;
+		});
+		$("#excelUpImg").bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/features/excelup_n.png");
+		});
+		$("#excelUpImg").bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/features/excelup_r.png");
+		});
+		
+		$("#id_file").bind('mouseout', function(){
+			$("#browseImg").attr('src',"/static/canvas/images/browse_n.png");
+		});
+		$("#id_file").bind('mouseover', function(){
+			$("#browseImg").attr('src',"/static/canvas/images/browse_o.png");
+		});
+		$("#id_file").bind('change', function(){
+			$("#fileText").val($(this).val());
+			if (/[^.]+$/.exec($(this).val()) == "xls")
+			{
+				$("#excelUpImg").css('visibility',"visible");
+			}
+			else
+			{
+				$("#excelUpImg").css('visibility',"hidden");
+			}
+		});
+	}
   });
 });
 

@@ -26,36 +26,49 @@ function closeEOWindow()
 $(document).ready(function() { 
  $("#excelOnLineBtn").click(function()
  {	
- 	//$("body").css("overflow", "hidden");
-	var screenVP = getScreenWidthHeight();
-	var screenWidth = screenVP[0];
-	var screenHeight = screenVP[1];
+ 	var numOfGuests = $("#NumOfGuests").val();
 	
-	//creating window
-	$("#canvas-div").append($('<div id="ExcelOnlineRectangle" class="BlackOverlayRectangle"/>'));
-	$("#ExcelOnlineRectangle").css('top',0);
-	$("#ExcelOnlineRectangle").css('left',0);
-	$("#ExcelOnlineRectangle").css('width',screenWidth);
-	$("#ExcelOnlineRectangle").css('height',screenHeight);
-	$("#ExcelOnlineRectangle").draggable( 'disable' );
-	$("#canvas-div").append($(frameStringEO));
-	//$("#EOFrame").css('top',screenHeight / 2 - mainFrameHeightEO / 2);
-	$("#EOFrame").css('top',10);
-	$("#EOFrame").css('left',screenWidth / 2 - mainFrameWidthEO / 2);
-//	$("#EOFrame").css('left',10);
-	$("#EOFrame").css('width',mainFrameWidthEO);
-	$("#EOFrame").css('height',mainFrameHeightEO);
-	$("#EOFrame").draggable( 'disable' );
-	$("#ExcelOnLineCloseBtn").bind('click', function() {
-		showLightMsg("שמירת נתונים", "סגירת החלון תגרום לאובדן כל השינויים, האם לבצע סגירה ?", "YESNO", "Question");
-		currentMsgTimer = setTimeout("closeEOWindow()",500);
+	if (numOfGuests > maxGuests)
+	{
+		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
+	}
+	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	{
+		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
+	}
+	else
+	{
+		//$("body").css("overflow", "hidden");
+		var screenVP = getScreenWidthHeight();
+		var screenWidth = screenVP[0];
+		var screenHeight = screenVP[1];
+		
+		//creating window
+		$("#canvas-div").append($('<div id="ExcelOnlineRectangle" class="BlackOverlayRectangle"/>'));
+		$("#ExcelOnlineRectangle").css('top',0);
+		$("#ExcelOnlineRectangle").css('left',0);
+		$("#ExcelOnlineRectangle").css('width',screenWidth);
+		$("#ExcelOnlineRectangle").css('height',screenHeight);
+		$("#ExcelOnlineRectangle").draggable( 'disable' );
+		$("#canvas-div").append($(frameStringEO));
+		//$("#EOFrame").css('top',screenHeight / 2 - mainFrameHeightEO / 2);
+		$("#EOFrame").css('top',10);
+		$("#EOFrame").css('left',screenWidth / 2 - mainFrameWidthEO / 2);
+	//	$("#EOFrame").css('left',10);
+		$("#EOFrame").css('width',mainFrameWidthEO);
+		$("#EOFrame").css('height',mainFrameHeightEO);
+		$("#EOFrame").draggable( 'disable' );
+		$("#ExcelOnLineCloseBtn").bind('click', function() {
+			showLightMsg("שמירת נתונים", "סגירת החלון תגרום לאובדן כל השינויים, האם לבצע סגירה ?", "YESNO", "Question");
+			currentMsgTimer = setTimeout("closeEOWindow()",500);
+			});
+		$("#ExcelOnLineCloseBtn").bind('mouseout', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
 		});
-	$("#ExcelOnLineCloseBtn").bind('mouseout', function(){
-		$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
-	});
-	$("#ExcelOnLineCloseBtn").bind('mouseover', function(){
-		$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
-	});
+		$("#ExcelOnLineCloseBtn").bind('mouseover', function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
+		});
+	}
 	}); 
   });
 

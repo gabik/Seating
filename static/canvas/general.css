@@ -267,6 +267,7 @@
   list-style-image:url("/static/canvas/icons/Woman_16X16.png");
   list-style-position:inside;
   z-index:15;
+  text-align:right;
  }
  .maleli
  {
@@ -275,6 +276,7 @@
   list-style-image:url("/static/canvas/icons/Man_16X16.png");
   list-style-position:inside;
   z-index:15;
+  text-align:right;
  }
  #SeatedLabel
  {

@@ -451,7 +451,7 @@
 			<div class="PlaceMentShapesDiv" title="סידור שולחנות אוטומטי"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
 			 <div class="SpinDiv"  title="סיבוב אופקי אנכי"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
-			<div class="MoneyInfoDiv" title="סיכום כספי אירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
+			<div class="MoneyInfoDiv" title="התפלגות סכומי מתנות לאירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
 			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
 			<div class="EUDDiv" title="העלאה והורדה קובץ אקסל"><img id="EUDImg" src="/static/canvas/images/excel_n.png"></div>
 			<div class="HelpCanvasDiv" title="מדריך עזרה"><img id="HelpImg" style="border: 0;" src="/static/canvas/images/help_n.png" onclick="HelpScreen()"></img></div>
@@ -463,11 +463,24 @@
 				<li><div id="VerticalAligmentDivBottom"  title="ישור אנכי למטה"><img src="/static/canvas/images/VerticalBottom.png" style="margin-left:5;" class="Pointer"></div></li>
  			</ul>
 			<ul class="ShapePlacementMenu">
- 				<li><p Id="SeqPlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור רציף">סידור רציף</p></li>
-				<li><p Id="HSquarePlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור ח">סידור ח</p></li>
- 				<li><p Id="SquarePlaceMentShapes" class="Pointer" style="text-align:center;" title="סידור מעגלי">סידור מעגלי</p></li>
+ 				<li><p Id="SeqPlaceMentShapes" class="Pointer" style="text-align:center;  font-weight:bold;" title="סידור רציף">סידור רציף</p></li>
+				<li><p Id="HSquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold;" title="סידור ח">סידור ח</p></li>
+ 				<li><p Id="SquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold;" title="סידור מעגלי">סידור מעגלי</p></li>
  			</ul>
-			<div class="SaveState"><p>סטטוס שמירה:<span><img id="SaveStateImg" src=""></p></span></div>
+			<div class="SaveState" title="סטטוס שמירה">
+				<table width="100" border="0" cellspacing="0" cellpadding="0">
+					<tr>
+						<td>
+							<p class="text_14_black_bolt">סטטוס שמירה:</p>
+						</td>
+					</tr>
+					<tr>
+						<td>
+							<img id="SaveStateImg" src=""></img>
+						</td>
+					</tr>						
+				</table>
+			</div>
 
 		</div>
 		<div id="right-bar">
@@ -727,13 +740,18 @@
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
 						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="occassionDetailsAdvance" title="פרטים נוספים"><img id="occassionDetailsAdvanceBtn" src="/static/page/images/expander_left_n.png" width="16" height="16" align="left" alt="פרטים נוספים" style="cursor:pointer;"
 						  /></div></td>
-						  <td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+						  <!--[if IE]>
+								<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+						  <![endif]-->
+						  <!--[if !IE]><!-->
+								<td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+						  <!--<![endif]-->
 						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
 						</tr>
 						<tr height="5" bgcolor="#5A8EA3">
 							<td colspan="5" bgcolor="#5A8EA3"></td>
 						</tr>
-						<tr>
+						<tr height="25">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <!--[if IE]>
 							<td width="105" align="right" valign="top" bgcolor="white">
@@ -754,13 +772,12 @@
 						</tr>
 						<tr>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white"><p class="text_14_black_bolt">מס מוזמנים מרבי:<span>	{% for profile in user_profile %}
-								<input style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4"/>
-						  {% endfor %}</span></p>
-						  <td width="5" bgcolor="white">&nbsp;</td>
+						  <td align="center" valign="top" bgcolor="white" colspan="3" style="padding-bottom:10px">
+								<p class="text_14_black_bolt">&nbsp;מס מוזמנים מרבי:<span>	{% for profile in user_profile %}
+								&nbsp;<input align="center" style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4" />
+						  {% endfor %}</span></p></td>
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						</tr>													
+						</tr>							
 						<tr>
 						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="53" /></td>
 						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינוי"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>

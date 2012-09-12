@@ -98,3 +98,12 @@
 	margin-top: 15px;
 	font-weight: bold;
 }
+
+  .BlackOverlayRectangle
+  {
+  background:#5A8EA3;
+  opacity:0.75;
+  border:2px groove;
+  position:absolute;
+  z-index:99999;
+  }

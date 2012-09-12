@@ -1,6 +1,5 @@
    .CanvasDiv
  {
-  float:left;
   border:4px solid #5A8EA3;
   background:white;
   margin-top:20px;
@@ -14,6 +13,7 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
+  float:left;
  }
   .SelectionRectangle
   {
@@ -109,7 +109,7 @@
  .SaveState
  {
   position:absolute;
-  top:629;
+  top:36;
   left:1080;
   direction:rtl;
   width:120;

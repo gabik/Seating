@@ -1,4 +1,4 @@
-var lastRectanglePoint = new Array(2);//[top,left]
+﻿var lastRectanglePoint = new Array(2);//[top,left]
 var lastRectPosition = "";
 var selectionElementsList = "";
 	
@@ -281,12 +281,14 @@ $(document).ready(function() {
 				},	
 			stop:function (e,ui){
 				undoElementList = new Array(selectionElementsList.length);
+				var colMade = false;
 				for (var i = 0; i < selectionElementsList.length; i++)
 				{
 					$("#"+selectionElementsList[i]).css("background-color", "white");
 					if (collisionWithOtherElementById(selectionElementsList[i]))
 					{
-						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},300, 'linear');    
+						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},300, 'linear');   
+						colMade = true;						
 					}
 					else
 					{
@@ -304,6 +306,11 @@ $(document).ready(function() {
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";
 					undoElementList[i] = undoElement;
+				}
+				
+				if (colMade)
+				{
+					showLightMsg("הזזת אלמנטים","לא ניתן להציב אלמנטים על אלמנטים אחרים, יש להציב בשטח ריק, האלמנטים שאינם בשטח ריק יחזרו למקומם הקודם.","OK","Notice");   
 				}
 				setSaveStatus("OK");
 				SelectedElem ="";
