@@ -6,6 +6,67 @@ var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
 var dataString = "";
 var canPost = true;
+var noneString = "none";
+var sketchMode = false;
+var maxElementCapacity = 24;
+
+
+function getScreenWidthHeight()
+{
+	 var viewportwidth;
+	 var viewportheight;
+	  
+	 // the more standards compliant browsers (mozilla/netscape/opera/IE7) use window.innerWidth and window.innerHeight
+	  
+	 if (typeof window.innerWidth != 'undefined')
+	 {
+		 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	  viewportwidth = document.body.scrollWidth,
+			  viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
+			  viewportwidth = window.innerWidth,
+			  viewportheight = window.innerHeight
+		 }
+	 }
+	  
+	// IE6 in standards compliant mode (i.e. with a valid doctype as the first line in the document)
+	 
+	 else if (typeof document.documentElement != 'undefined'
+		 && typeof document.documentElement.clientWidth !=
+		 'undefined' && document.documentElement.clientWidth != 0)
+	 {
+	 	 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	viewportwidth = document.body.scrollWidth,
+			viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
+		   viewportwidth = document.documentElement.clientWidth,
+		   viewportheight = document.documentElement.clientHeight
+		 }
+	 }
+	  
+	 // older versions of IE
+	  
+	 else
+	 {
+	 	 if (document.body.scrollWidth > 0 && document.body.scrollHeight > 0)
+		 {
+		 	  viewportwidth = document.body.scrollWidth,
+			  viewportheight = document.body.scrollHeight
+		 }
+		 else
+		 {
+		   viewportwidth = document.getElementsByTagName('body')[0].clientWidth,
+		   viewportheight = document.getElementsByTagName('body')[0].clientHeight
+		 }
+	 }
+	return [viewportwidth,viewportheight];
+}
 
 function IsNumeric(sText)
 {
@@ -64,7 +125,12 @@ function DelayReload(time_wait)
 function getTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
 			
 		var tableProperties = $(this).find('input');
 		var amount;
@@ -78,7 +144,12 @@ function getTotalAmount()
 function getTotalSeat()
 {
 	var totalSize = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
 			
 		var tableProperties = $(this).find('input');
 		var size;
@@ -92,8 +163,13 @@ function getTotalSeat()
 function getTotalSquareSeat()
 {
 	var totalSize = 0;
-	
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "A")
@@ -112,7 +188,13 @@ function getTotalSquareSeat()
 function getSquareTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "A")
@@ -132,7 +214,13 @@ function getTotalRoundSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "B")
@@ -151,7 +239,13 @@ function getTotalRoundSeat()
 function getRoundTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 	
 		var type =  $(this).find('select').first();
 		
@@ -172,7 +266,13 @@ function getTotalRectSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "C")
@@ -191,7 +291,13 @@ function getTotalRectSeat()
 function getRectTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "C")
@@ -211,7 +317,13 @@ function getTotalLozengeSeat()
 {
 	var totalSize = 0;
 	
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		var type =  $(this).find('select').first();
 		
 		if (type.val() == "D")
@@ -230,7 +342,13 @@ function getTotalLozengeSeat()
 function getLozengeTotalAmount()
 {
 	var totalAmount = 0;
-	$("#TableTypeList > li").each(function(i) {
+	var list = "TableTypeList > li";
+	if (sketchMode)
+	{
+		list = "AutoTableTypeList > li";
+	}
+	$("#" + list).each(function(i) {
+		
 		
 		var type =  $(this).find('select').first();
 		
@@ -398,6 +516,7 @@ function insertUserElements()
 				}
 			}
 		}
+		$("#automaticAddDiv").css("display","none");
 		updateCounters();
 	}
 	
@@ -418,7 +537,154 @@ function insertUserElements()
 	}
 }
 
+function loadFileToElement(filename)
+{
+    var xmlHTTP = new XMLHttpRequest();
+    try
+    {
+    xmlHTTP.open("GET", filename, false);
+    xmlHTTP.send(null);
+    }
+    catch (e) {
+		showLightMsg("בעיה בשימוש סקיצה","בעיה בטעינת הסקיצה יש ליצור קשר לפתרון הבעיה.","OK","Notice");
+        return;
+    }
+
+    return xmlHTTP.responseText;
+}
+
 $(document).ready(function(){
+
+  $("#Sketches").change(function(){
+	 if ($("#Sketches").val() != noneString)
+	 {
+		 var xmlText = loadFileToElement("/static/canvas/Sketches/" + $("#Sketches").val() + ".xml");
+		 
+		 if (xmlText != "" && xmlText != null)
+		 {
+		 	dataString = "";
+			$("#AutoTableTypeList").empty();
+			$("#automaticList").css("display","block");
+			$("#barAppovalAuto").attr("checked","");
+			$("#danceStandAppovalAuto").attr("checked","");
+			$("#djStandAppovalAuto").attr("checked","");
+		 	$("#manualAddDiv").css("display","none");
+			var numOfTables = parseInt($(xmlText).find('Total').text());
+			var dataOfTables = parseInt($(xmlText).find('DataNum').text());
+			
+			if (numOfTables > 0 && dataOfTables > 0)
+			{
+				dataString = "";
+				for (var i = 1; i < numOfTables + 1; i++) {
+				
+					var type,amount,size,kind,cordx,cordy;
+					
+					cordx = $(xmlText).find('X' + i).text(); 
+					cordy = $(xmlText).find('Y' + i).text(); 
+					type = $(xmlText).find('Kind' + i).text();
+					
+					if (type == "A")
+					{
+						kind = "Square";
+					}
+					else if (type == "B")
+					{
+						kind = "Round";
+					}
+					else if (type == "C")
+					{
+						kind = "Rect";
+					}
+					else if (type == "D")
+					{
+						kind = "Lozenge";
+					}
+					else
+					{
+						kind = type;
+					}
+					
+					var width = 90 + (8 - maxElementCapacity) * 2;
+					var height = 90 + (8 - maxElementCapacity) * 2;
+							
+					if (kind.indexOf("Rect") > -1)
+					{
+						height = height + 16;
+					}
+					else if (kind == "dance_stand")
+					{
+						width = width + 200;
+						height = height + 40;
+						$("#djStandAppovalAuto").attr("checked","checked");
+					}
+					else if (kind ==  "bar_stand") 
+					{
+						width = width + 145;
+						height = height + 40;
+						$("#barAppovalAuto").attr("checked","checked");
+					}
+					else if (kind ==  "dj_stand") 
+					{
+						width = width + 15;
+						height = height + 15;
+						$("#danceStandAppovalAuto").attr("checked","checked");
+					}
+					
+					size  = $(xmlText).find('Size' + i).text(); 
+					amount = 1;
+					dataString = dataString + kind + ',' + amount + ',' + size + ',' + cordx + ',' + cordy + ',' + width + ',' + height + '|';
+				}
+				
+				for (var i = 1; i < dataOfTables + 1; i++)
+				{
+					var rowData = $(xmlText).find('Row' + i).text(); 
+					
+					var rowArray = rowData.split(",", 3);
+
+					$("#AutoTableTypeList").append(listTableDisabledElementString);
+					$("#AutoTableTypeList > li").last().find('select').first().val(rowArray[2]);
+					$("#AutoTableTypeList > li").last().find('input').first().val(rowArray[0]);
+					$("#AutoTableTypeList > li").last().find('input').last().val(rowArray[1]);
+					if (rowArray[2] == "A")
+					{
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");
+					}
+					else if (rowArray[2] == "B")
+					{
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");
+					}
+					else if (rowArray[2] == "C")
+					{
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+					}
+					else if (rowArray[2] == "D")
+					{
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+					}
+				}
+				sketchMode = true;
+				updateCounters();
+			}					
+			else
+			{
+				showLightMsg("בעיה בשימוש סקיצה","בעיה בטעינת הסקיצה יש ליצור קשר לפתרון הבעיה.","OK","Notice");
+			}
+		 }
+		 else
+		 {
+			showLightMsg("בעיה בשימוש סקיצה","בעיה בטעינת הסקיצה יש ליצור קשר לפתרון הבעיה.","OK","Notice");
+		 }
+	}
+	else
+	{
+		sketchMode = false;
+		dataString = "";
+		$("#AutoTableTypeList").empty();
+		$("#automaticList").css("display","none");
+		$("#manualAddDiv").css("display","block");
+		updateCounters();
+	}
+  });
 
   $(".AddBtn").mouseover(function(){
 	$(this).attr('src',"/static/canvas/images/pluse_r.png");
@@ -443,6 +709,12 @@ $(document).ready(function(){
   
   $(document).after(function(){
 	$.post('/canvas/edit/', {});
+	$("#Sketches").val(noneString);
+	if ($("#TableTypeList > li").size() > 0 || getTotalAmount() > 0 || getTotalSeat() > 0)
+	{
+		$("#automaticAddDiv").css("display","none");
+	}
+	otherScreen = "newbody";
   });
   
   $("#AddLi").click(function() {
@@ -475,49 +747,67 @@ $(document).ready(function(){
   $("#CanvasEditButton").click(function() {  
 	   var noZeroDataFlag = noZeroData();
 	   
-	   if ($("#TableTypeList > li").size() > 0 && getTotalAmount() > 0 && getTotalSeat() < maxSeated  && getTotalSeat() > 0 && noZeroDataFlag)
+	   if (sketchMode)
 	   {
-		   if (canPost)
+			if ($("#AutoTableTypeList > li").size()  > 0)
+			{
+			   if (canPost)
+			   {
+			   		canPost = false;
+					postDataString();
+			   }
+			}
+			else
+			{
+			   	$("#errorMsg").text("ישנה בעיה בטעינת הסקיצה יש לצור עימנו קשר או להמשיך ללא סקיצה בעזרת הוספה ידינת.");
+			}
+	   }
+	   else
+	   {
+		   if ($("#TableTypeList > li").size() > 0 && getTotalAmount() > 0 && getTotalSeat() < maxSeated  && getTotalSeat() > 0 && noZeroDataFlag)
 		   {
-			   canPost = false;
-			   $("#CanvasEditButton").unbind('click');
-			   writeOccasionInfo("Init Canvas");
-			   $("#errorMsg").text("");
-			   $("#TableTypeList > li").slice(parseInt(numOfRows)).each(function(i) {
-					var type =  $(this).find('select').first().val();
+			   if (canPost)
+			   {
+				   canPost = false;
+				   $("#CanvasEditButton").unbind('click');
+				   writeOccasionInfo("Init Canvas");
+				   $("#errorMsg").text("");
+				   $("#TableTypeList > li").slice(parseInt(numOfRows)).each(function(i) {
+						var type =  $(this).find('select').first().val();
+						
+						createElementByLi($(this),type,0,0);
+					});
 					
-					createElementByLi($(this),type,0,0);
-				});
-				
-				if ($("#barAppoval").attr('checked') && !alreadyHasBar)
-				{
-					dataString = dataString + 'bar_stand,1,8,0,0,207,102|';
+					if ($("#barAppoval").attr('checked') && !alreadyHasBar)
+					{
+						dataString = dataString + 'bar_stand,1,8,0,0,207,102|';
+					}
+					if ($("#danceStandAppoval").attr('checked') && !alreadyHasDance)
+					{
+						dataString = dataString + 'dance_stand,1,8,0,0,262,102|';
+					}
+					if ($("#djStandAppoval").attr('checked') && !alreadyHasDj)
+					{
+						dataString = dataString + 'dj_stand,1,8,0,0,77,77|';
+					}
+					
+					postDataString();
 				}
-				if ($("#danceStandAppoval").attr('checked') && !alreadyHasDance)
+			}
+			else
+			{
+				if (getTotalAmount() <= 0 && getTotalSeat() <= 0)
 				{
-					dataString = dataString + 'dance_stand,1,8,0,0,262,102|';
+					$("#errorMsg").text("יש להוסיף שולחנות לפני המשך לעריכת האירוע");
 				}
-				if ($("#djStandAppoval").attr('checked') && !alreadyHasDj)
+				else if (getTotalSeat() > maxSeated - 1)
 				{
-					dataString = dataString + 'dj_stand,1,8,0,0,77,77|';
+					$("#errorMsg").text("יש למתן את כמות השולחנות או המוזמנים.");
 				}
-				
-				postDataString();
-			}
-		}
-		else
-		{
-			if (getTotalAmount() <= 0 && getTotalSeat() <= 0)
-			{
-				$("#errorMsg").text("יש להוסיף שולחנות לפני המשך לעריכת האירוע");
-			}
-			else if (getTotalSeat() > maxSeated - 1)
-			{
-				$("#errorMsg").text("יש למתן את כמות השולחנות או המוזמנים.");
-			}
-			else if (noZeroDataFlag)
-			{
-				$("#errorMsg").text("אחד מהנתונים הינו מאופס.");
+				else if (noZeroDataFlag)
+				{
+					$("#errorMsg").text("אחד מהנתונים הינו מאופס.");
+				}
 			}
 		}
     });

@@ -158,19 +158,23 @@ def create_user(request):
 def add_person(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		addStr = ""
-		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
-		if (len(persons) > 0):
-			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
-			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
-			if (len(exist_num) <= 0):
-				addStr = len(max_match) + 1
-			else:
-				addStr = len(max_match) + 2
-		last_name = request.POST['last'] + str(addStr)
-		hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
-		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()))
-		new_person.save()
+		amount = request.POST['amount']
+		if ((amount is None) or (amount == "") or (int(amount) < 1)):
+			amount = 1
+		for i in range(1,int(amount)+1):
+			addStr = ""
+			persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
+			if (len(persons) > 0):
+				max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+				exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
+				if (len(exist_num) <= 0):
+					addStr = len(max_match) + 1
+				else:
+					addStr = len(max_match) + 2
+			last_name = request.POST['last'] + str(addStr)
+			hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
+			new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()))
+			new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
@@ -1076,5 +1080,12 @@ def SendWelcome(request):
 		#send_mail(subject, message, names+'<contact@2seat.co.il>', [cur_mail], fail_silently=False)
 		msg.attach_alternative(new_html_message,"text/html")
 		msg.send()
+
+def forgot_mail(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		'''get the user by request.POST['mail']'''
+		'''after send mail goto registration/repreduce_password.html'''
+		'''!!!!!!!after update password goto  registration/repreduce_password_update.html'''
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)

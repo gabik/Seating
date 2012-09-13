@@ -19,6 +19,7 @@ var resizableLastWidth = 0;
 var resizableLastHeight = 0;
 var screenResHeightFixNum = 768;
 var screenResWidthFixNum = 1366;
+var XColPoint = "";
 
 if(typeof String.prototype.trim !== 'function') {
   String.prototype.trim = function() {
@@ -945,6 +946,10 @@ function canFlip(element)
 			result = true;
 		}
 	}
+	else
+	{
+		showLightMsg("סיבוב אלמנט","לא ניתן לסובב אלמנט מסוג זה מכיוון שהצורה הינה סימטרית.","OK","Notice");
+	}
 	
 	return result;
 }
@@ -1265,25 +1270,38 @@ function cleanStringFromUnIDChars(str)
 
 function addPersonToFloatList(first_name,last_name, personGroup, amount)
 {
-	if (first_name.trim() == "" && last_name.trim() == "")
+	var numOfGuests = $("#NumOfGuests").val();
+	
+	if (numOfGuests > maxGuests)
 	{
-		showLightMsg("הוספת מוזמן","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
+		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
+	}
+	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	{
+		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
 	}
 	else
 	{
-		var gender = 'F';
-		if (maleAdd)
+		if (first_name.trim() == "" && last_name.trim() == "")
 		{
-			gender = 'M';
+			showLightMsg("הוספת מוזמן","אין להשאיר שדה ריק, יש לוודא תקינות.","OK","Notice");
 		}
-		$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup, gender:gender, amount:amount},
-		  function(data){
-			if (data.status == 'OK')
+		else
+		{
+			var gender = 'F';
+			if (maleAdd)
 			{
-				  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-				  ShowHourGlassWaitingWindow(true);
+				gender = 'M';
 			}
-		  }, 'json');
+			$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup.trim(), gender:gender, amount:amount},
+			  function(data){
+				if (data.status == 'OK')
+				{
+					  writeOccasionInfo("Added Person " +first_name+" "+last_name);
+					  ShowHourGlassWaitingWindow(true);
+				}
+			  }, 'json');
+		}
 	}
 }
 
@@ -1541,9 +1559,9 @@ function insureNumInput(event)
 
 function updateGroups()
 {
-	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
-	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
-	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Family ' + $("#firstPartnerName").text().trim()+'">משפחה '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Friends ' + $("#firstPartnerName").text().trim()+'">חברים '+ $("#firstPartnerName").text() + '</option>'));
+	$("#personGroup").append($('<option value="Work ' + $("#firstPartnerName").text().trim()+'">עבודה '+ $("#firstPartnerName").text() + '</option>'));
 	if ($("#addChar").text() == " " || $("#addChar").text() == '' || $("#firstPartnerName").text() == $("#secondPartnerName").text())
 	{	
 		$("#personGroup").append($('<option value="Family">משפחה כללי</option>'));
@@ -1552,9 +1570,9 @@ function updateGroups()
 	}
 	else
 	{
-		$("#personGroup").append($('<option value="Family ' + $("#secondPartnerName").text()+'">משפחה '+ $("#secondPartnerName").text() + '</option>'));
-		$("#personGroup").append($('<option value="Work ' + $("#secondPartnerName").text()+'">חברים '+ $("#secondPartnerName").text() + '</option>'));
-		$("#personGroup").append($('<option value="Friends ' + $("#secondPartnerName").text()+'">עבודה '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Family ' + $("#secondPartnerName").text().trim()+'">משפחה '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Work ' + $("#secondPartnerName").text().trim()+'">חברים '+ $("#secondPartnerName").text() + '</option>'));
+		$("#personGroup").append($('<option value="Friends ' + $("#secondPartnerName").text().trim()+'">עבודה '+ $("#secondPartnerName").text() + '</option>'));
 	}
 	$("#personGroup").append($('<option value="Other" selected>אחר</option>'));
 }
@@ -2118,16 +2136,33 @@ $(document).ready(function() {
 		startDrag($(this));
      },
 	 drag: function (e,ui){ 
-		var colPoint = returnCollisionWithOtherElementPoint($(this));
-		
-		$("#DragCollisionImg").remove();
-		if (colPoint != "")
+
+		XColPoint = returnCollisionWithOtherElementPoint($(this));
+
+		if (XColPoint != "")
 		{
-			$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + colPoint[0] + '; left:' + colPoint[1] + '; position:absolute; z-index:99999;"/>'));
+			if (parseInt($("#DragCollisionImg").css('top')) > 0 && parseInt($("#DragCollisionImg").css('left')) > 0)
+			{
+				$("#DragCollisionImg").css('top', XColPoint[0]);
+				$("#DragCollisionImg").css('left',XColPoint[1]);
+			}
+			else
+			{
+				$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + XColPoint[0] + '; left:' + XColPoint[1] + '; position:absolute; z-index:99999;"/>'));
+			}
+		}
+		else
+		{
+			$("#DragCollisionImg").remove();
 		}
 	 },
      stop: function (e,ui){
 	 	$("#DragCollisionImg").remove();
+		if (XColPoint != "")
+		{
+			showLightMsg("הזזת שולחנות","לא ניתן להציב אלמנט על אלמנט אחר, יש להציב בשטח ריק, האלמנט יחזור למקומו הקודם.","OK","Notice");  
+		}
+		XColPoint = "";
 		stopDrag($(this));
        }
   }); 
@@ -2139,16 +2174,33 @@ $(document).ready(function() {
 		startDrag($(this));
      },
 	 drag: function (e,ui){ 
-		var colPoint = returnCollisionWithOtherElementPoint($(this));
+	 
+		XColPoint = returnCollisionWithOtherElementPoint($(this));
 		
-		$("#DragCollisionImg").remove();
-		if (colPoint != "")
+		if (XColPoint != "")
 		{
-			$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + colPoint[0] + '; left:' + colPoint[1] + '; position:absolute; z-index:99999;"/>'));
+			if (parseInt($("#DragCollisionImg").css('top')) > 0 && parseInt($("#DragCollisionImg").css('left')) > 0)
+			{
+				$("#DragCollisionImg").css('top', XColPoint[0]);
+				$("#DragCollisionImg").css('left',XColPoint[1]);
+			}
+			else
+			{
+				$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + XColPoint[0] + '; left:' + XColPoint[1] + '; position:absolute; z-index:99999;"/>'));
+			}
+		}
+		else
+		{
+			$("#DragCollisionImg").remove();
 		}
 	 },
      stop: function (e,ui){
 		$("#DragCollisionImg").remove();
+		if (XColPoint != "")
+		{
+			showLightMsg("הזזת שולחנות","לא ניתן להציב אלמנט על אלמנט אחר, יש להציב בשטח ריק, האלמנט יחזור למקומו הקודם.","OK","Notice");
+		}
+		XColPoint = "";
 		stopDrag($(this));
        }
   });
@@ -2391,11 +2443,9 @@ $(document).ready(function() {
 	}
 	});
   $("#MaxGuestSaveButton").click( function() { 
-  var numOfGuests;
-  if (SelectedElem != "" ) {
-			numOfGuests = updateNumOfGuest();
-			saveNumOfGuests(numOfGuests);
-	}
+		var numOfGuests;
+		numOfGuests = updateNumOfGuest();
+		saveNumOfGuests(numOfGuests);
 	
 	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
 	//{

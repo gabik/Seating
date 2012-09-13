@@ -32,7 +32,6 @@ function addTableButtonPress()
 function addMenuItemButtonPress(kind)
 {
     $('ul.AddMenu').hide('medium');
-	var kind = element.context.id;
 	
 	if (kind.indexOf("mutilEditing") > -1)
 	{

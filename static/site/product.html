@@ -43,10 +43,10 @@ body {
 	text-align: right;
 }
 a:link {
-	color: #D7D7A6;
+	color: #FFE368;
 }
 a:visited {
-	color: #FFFFFF;
+	color: #FFAE00;
 }
 a:hover {
 	color: #FFFFFF;
@@ -221,6 +221,11 @@ $(document).before(function()
 
 $(document).ready(function()
 {
+	var showedpi1 = false;
+	var showedpi2 = false;
+	var showedpi3 = false;
+	var showedpi4 = false;
+	
 	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0 || navigator.userAgent.toLowerCase().indexOf('mobile') > 0)
 	{
 		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
@@ -231,6 +236,8 @@ $(document).ready(function()
 
 	$("#productItem1").hover(function(e)
 					{
+						if (!showedpi1)
+						{
 						$("#tooltip").galleria({
 							autoplay: 3000,
 							preload:'all',
@@ -240,7 +247,7 @@ $(document).ready(function()
 							height: 410
 						});
 						var tr = $(this);
-						
+						showedpi1 = true;
 						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"fast",function(){
 						$("#tooltip").bind('mouseout',function(e)
 						{
@@ -251,11 +258,15 @@ $(document).ready(function()
 							else
 							{
 								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+								showedpi1 = false;
 							}
-						});});});	
+						});});}});	
+						
 						
 	$("#productItem2").hover(function(e)
 					{
+						if (!showedpi2)
+						{
 						$("#tooltip").galleria({
 							autoplay: 3000,
 							preload:'all',
@@ -265,7 +276,7 @@ $(document).ready(function()
 							height: 410
 						});
 						var tr = $(this);
-						
+						showedpi2 = true;
 						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"fast",function(){
 						$("#tooltip").bind('mouseout',function(e)
 						{
@@ -276,11 +287,14 @@ $(document).ready(function()
 							else
 							{
 							$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+							showedpi2 = false;
 							}
-						});});});	
+						});});}});	
 						
 	$("#productItem3").hover(function(e)
 					{
+						if (!showedpi3)
+						{
 						$("#tooltip").galleria({
 							autoplay: 3000,
 							preload:'all',
@@ -290,7 +304,7 @@ $(document).ready(function()
 							height: 410
 						});
 						var tr = $(this);
-						
+						showedpi3 = true;
 						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
 						$("#tooltip").bind('mouseout',function(e)
 						{
@@ -301,11 +315,14 @@ $(document).ready(function()
 							else
 							{
 								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+								showedpi3 = false;
 							}
-						});});});
+						});});}});
 						
 	$("#productItem4").hover(function(e)
 					{
+						if (!showedpi4)
+						{
 						$("#tooltip").galleria({
 							autoplay: 3000,
 							preload:'all',
@@ -315,7 +332,7 @@ $(document).ready(function()
 							height: 410
 						});
 						var tr = $(this);
-						
+						showedpi4 = true;
 						$("#tooltip").animate({opacity:"show", top:tr.position().top - 85, left:tr.position().left - 50},"slow",function(){
 						$("#tooltip").bind('mouseout',function(e)
 						{
@@ -326,8 +343,9 @@ $(document).ready(function()
 							else
 							{
 								$("#tooltip").animate({opacity:"hide", top:e.pageY - 85},"fast",function(){});
+								showedpi4 = false;
 							}
-						});});});	
+						});});}});	
 	
 });
 

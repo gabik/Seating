@@ -9,7 +9,12 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
 <script type="text/javascript">
 	
+	var forgotMailSend = false;
+	
 	$(document).ready(function() {
+	
+		$("#forget_password_email").val("");
+		
 		$("#enterBtn").mouseover(function(){
 			$(this).attr('src',"/static/page/images/connect_r.png");
 		});
@@ -21,6 +26,59 @@
 		});
 		$("#createBtn").mouseout(function(){
 			$(this).attr('src',"/static/page/images/create_account_n.png");
+		});
+		
+		$("#forgPassBtn").click(function(){
+			$("#forget_password_div").css("display", "block");
+		});
+		
+		$("#sendBtn").mouseout(function(){
+			$(this).attr('src',"/static/page/images/send_btn_nr.png");
+		});
+		$("#sendBtn").mouseover(function(){
+			$(this).attr('src',"/static/page/images/send_btn.png");
+		});
+		
+		$("#forget_password_email").change(function(){
+			if (forgotMailSend)
+			{
+				$("#errorMail").css("display", "none");
+				$("#succMail").css("display", "none");
+				forgotMailSend = false;
+			}
+		});
+		
+		$("#sendBtn").click(function(){
+			
+			if (!forgotMailSend)
+			{
+				var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+		
+				$("#errorMail").css('display',"none");
+				if (!emailReg.test($("#forget_password_email").val()) || $("#forget_password_email").val() == "")
+				{
+					$("#errorMail").css("display", "block");
+				}
+				else
+				{
+					$.post('/accounts/forgotMail/', {mail: $("#forget_password_email").val()},
+					function(data){
+				   if (data.status == 'OK')
+				    {
+						$("#succMail").css("display", "block");
+						forgotMailSend = true;
+					}
+					else
+					{
+						$("#errorMail").css("display", "block");
+					}
+					}, 'json');
+				}
+			}
+			else
+			{
+			
+			}
 		});
 	});
 	
@@ -49,7 +107,11 @@
 		{% if form.errors %} 
 		 <p class="titles_red">מצטערים, הנתונים שהזנת אינם תקינים,</br><span class="titles_red">יש לבצע הזנה חוזרת.</span></p>
 	    {% endif %}
-		{% endblock %}</td>
+		<!--<a id="forgPassBtn" href="#"><p align="left" style="font-family: Arial, Helvetica, sans-serif; font-size: 14px;">שכחתי סיסמא</p></a>
+		<div id="forget_password_div" style="display:none;">
+		<label for="emaillbl" class="titles_black">אי מייל:&nbsp;&nbsp;<span><input type="text" name="forgetpasswordemail" value="" id="forget_password_email"><span>&nbsp;&nbsp;<img id="sendBtn" align="middle" src="/static/page/images/send_btn_nr.png"/></span></input></span><label><p class="titles_red" id="errorMail" style="display:none">מצטערים, הנתונים שהזנת אינם תקינים ,</br> יש לוודא תקינות כתובת המייל.</p><p class="titles_blue" id="succMail" style="display:none">מייל נשלח בהצלחה.</p></div>-->
+		{% endblock %}
+		</td>
       <td width="30" align="right" valign="top" bgcolor="#FFFFFF"  dir= "rtl">&nbsp;</td>
       <td width="195" valign="top" bgcolor="#5A8EA3"><img src="/static/page/images/logo.png" width="195" height="259" /></td>
     </tr>

@@ -3,7 +3,6 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.4.4/jquery.min.js"></script>
 <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8/jquery-ui.min.js"></script>
-<script type="text/javascript" src="http://www.labs.skengdon.com/border/js/border.min.js"></script>
 
 <title>New Canvas</title>
  {% load googleanalytics_tags %}
@@ -16,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/static/canvas/general.css" />
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
+<script type="text/javascript" src="/static/canvas/light_msg.js"></script>
 <script type="text/javascript">
 var canvasDataString = "";
 var numOfRows = "";
@@ -81,17 +81,40 @@ $(document).ready(function() {
 	  <td width="30" align="left" valign="bottom" bgcolor="#FFFFFF"><img id="CanvasEditButton" src="/static/canvas/images/continue_n.png" /></td>
       <td align="right" dir= "rtl" valign="top" bgcolor="#FFFFFF">
 	    <p class="titles_blue_no_shadow">מסך הוספת שולחנות ראשוני</p>
-		<div id="TableTypeListDiv" style="float:right; align:right;">
-			<ul id="TableTypeList"></ul>
+		<!--<div id="automaticAddDiv">
+			<h5>סקיצת אולם לעריכה : <span>
+			<select id="Sketches">
+				<option value="none" SELECTED>ללא סקיצה</option>
+				<option value="Gan Ha Veradim">גן הורדים</option>
+			</select></span></h5>
+			<div id="automaticList" style="display:none;">
+				<div id="AutoTableTypeListDiv" style="float:right; align:right;">
+					<ul id="AutoTableTypeList"></ul>
+				</div>
+				</br>
+				<table border="0" cellspacing="15" cellpadding="0">
+					<td><input id="barAppovalAuto" type="checkbox"><span class="text_11_black">בר משקאות</span></input></span></td>
+					<td><input id="danceStandAppovalAuto" type="checkbox"><span class="text_11_black">רחבת ריקודים</span></input></span></td>
+					<td><input id="djStandAppovalAuto" type="checkbox"><span class="text_11_black">עמדת דיי ג'יי</span></input></span></td>
+				</table>
+			</div>
+			<hr width="100%" size="1" align="center">
+		</div>-->
+		<div id="manualAddDiv">
+			<!--<h5>הוספה ידנית :  <h5>-->
+			<div id="TableTypeListDiv" style="float:right; align:right;">
+				<ul id="TableTypeList"></ul>
+			</div>
+			</br>
+			<img id="AddLi" class="AddBtn" src="/static/canvas/images/pluse_n.png" />
+			</br>
+			<table border="0" cellspacing="15" cellpadding="0">
+				<td><input id="barAppoval" type="checkbox"><span class="text_11_black">בר משקאות</span></input></span></td>
+				<td><input id="danceStandAppoval" type="checkbox"><span class="text_11_black">רחבת ריקודים</span></input></span></td>
+				<td><input id="djStandAppoval" type="checkbox"><span class="text_11_black">עמדת דיי ג'יי</span></input></span></td>
+			</table>
+			<hr width="100%" size="1" align="center">
 		</div>
-		</br>
-		<img id="AddLi" class="AddBtn" src="/static/canvas/images/pluse_n.png" />
-		</br>
-		<table border="0" cellspacing="15" cellpadding="0">
-			<td><input id="barAppoval" type="checkbox"><span class="text_11_black">בר משקאות</span></input></span></td>
-			<td><input id="danceStandAppoval" type="checkbox"><span class="text_11_black">רחבת ריקודים</span></input></span></td>
-			<td><input id="djStandAppoval" type="checkbox"><span class="text_11_black">עמדת דיי ג'יי</span></input></span></td>
-		</table>
 		<p class="titles_red" id="errorMsg"/>
 		<p class="additional_black">פרטים נוספים&nbsp;&nbsp;<span><img id="addDetails" style="cursor:pointer;" src="/static/page/images/expander_down_n.png" width="24" height="15"/></span></p>
 			<ul id="addDetailsList">
