@@ -135,6 +135,23 @@
 	font-size: 14px;
 	line-height: 1.5em;
 }
+
+#footer_infoIE9 {
+	clear: right;
+	float: left;
+	height: 80px;
+	width: 714px;
+	text-align: center;
+	padding-top: 35px;
+	padding-left: 105px;
+	color: #FFFFFF;
+	font-family: Arial, Helvetica, sans-serif;
+	letter-spacing: 0.1em;
+	direction: rtl;
+	font-size: 14px;
+	line-height: 1.5em;
+}
+
 #shaw {
 	clear: both;
 	font-family: Arial, Helvetica, sans-serif;
@@ -144,6 +161,20 @@
 	color: #FFFFFF;
 	direction: rtl;
 	padding-top: 5px;
+	width: 300px;
+	margin-right: auto;
+	margin-left: auto;
+}
+
+#shawIE9 {
+	clear: both;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	text-align: center;
+	margin-top: 1px;
+	color: #FFFFFF;
+	direction: rtl;
+	padding-top: 12px;
 	width: 300px;
 	margin-right: auto;
 	margin-left: auto;

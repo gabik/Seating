@@ -42,10 +42,10 @@ body {
 	text-align: right;
 }
 a:link {
-	color: #FFE368;
+	color: #D7D7A6;
 }
 a:visited {
-	color: #FFAE00;
+	color: #FFFFFF;
 }
 a:hover {
 	color: #FFFFFF;
@@ -215,19 +215,50 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
    <div id="right_int"><img src="images/home_title.png" alt="עמוד הבית" width="272" height="377" /></div>
   </div>
   
-     <div id="footer_container">
-       <div id="footer">
-         <div id="footer_logo"></div>
-         
-         <div id="footer_info"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a>  |   <a href="/static/crx/2seat.crx">Chrome</a><br />
-         2seat כל הזכויות שמורות &copy;2010<br />
-         </div>
+	<!--[if gt IE 8]>
+		<div id="footer_container">
+		   <div id="footer">
+			 <div id="footer_logo">
+			 
+			<div id="footer_infoIE9"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a><br />
+			 2seat כל הזכויות שמורות &copy;2010<br />
+			</div>
+		</div>
+	<![endif]-->
+	<!--[if lt IE 9]>
+		 <div id="footer_container">
+		   <div id="footer">
+			 <div id="footer_logo"></div>
+			 
+			<div id="footer_info"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a><br />
+			 2seat כל הזכויות שמורות &copy;2010<br />
+			 </div>
+	<![endif]-->
+	<!--[if !IE]><!-->
+		<div id="footer_container">
+		   <div id="footer">
+			 <div id="footer_logo"></div>
+			 
+			<div id="footer_info"><a href="index.html">עמוד הבית</a>   |  <a href="product.html">המוצר שלנו</a>   |  <a href="giveAHand.html">תנו לי יד</a>   |   <a href="about_us.html">אודותנו</a>   |  <a href="contact.html">צור קשר</a>   |   <a href="/canvas/edit">כניסה</a>  |   <a href="/site/mainHelp.html" target=_blank>מדריך עזרה</a>  |   <a href="/site/agreement.html" target=_blank>תקנון</a><br />
+			 2seat כל הזכויות שמורות &copy;2010<br />
+			 </div>
+	<!--<![endif]-->
 
-
-
-         <div id="shaw">
-הפקת אתר - <a href="http://shaw-interactive.com" target="_blank">shaw-interactive.com</a></div>
+	<!--[if gt IE 8]>
+         <div id="shawIE9">
+			הפקת אתר - <a href="http://shaw-interactive.com" target="_blank">shaw-interactive.com</a></div>
        </div>
+	<![endif]-->
+	<!--[if lt IE 9]>
+         <div id="shaw">
+				הפקת אתר - <a href="http://shaw-interactive.com" target="_blank">shaw-interactive.com</a></div>
+       </div>
+	<![endif]-->
+	<!--[if !IE]><!-->
+         <div id="shaw">
+			הפקת אתר - <a href="http://shaw-interactive.com" target="_blank">shaw-interactive.com</a></div>
+       </div>
+	<!--<![endif]-->
      </div>
      
 </div>
