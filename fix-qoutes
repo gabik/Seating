@@ -1,0 +1,3 @@
+mysql --default-character-set=utf8
+
+update accounts_guest set guest_first_name = replace (guest_first_name, "'", "") ;
