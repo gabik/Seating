@@ -124,27 +124,6 @@
   width:122;
  }
  
-.tableProp
-{
-	position:absolute;
-	top:50%;
-	left:50%;
-	margin-top:6;
-	margin-left:-9; 
-	opacity:0;
-}
-
-.tableBack
-{
-	position:absolute;
-	top:50%;
-	left:50%;
-	margin-top:6;
-	margin-left:-9; 
-	opacity:0;
-	cursor:pointer;
-}
-
  .borderSelected
  {
   border:2px solid #5A8EA3;
@@ -152,8 +131,13 @@
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
-  padding:3px;
  }
+ 
+.tableBack
+{
+	visibility:collapse;
+	cursor:pointer;
+}
  
  #setting
  {

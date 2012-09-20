@@ -1,9 +1,9 @@
 var tableModeWidth = 0;
 var tableModeHeight = 0;
 var tableElementSize = 64;
-var tableFontCaption = 16;
+var tableFontCaption = 0;
 var originalPropertiesArray = new Array(4) //[top,left,width,height]
-var originalFontSize = 11.5;
+var originalFontSize = 11;
 var tableModeFontSize = 14;
 var tableMode = false;
 var disableDBClick = false;
@@ -12,12 +12,10 @@ function turnToRegularMode(element,event)
 {
 	disableDBClick = true;
 	var originalElement = element;
-	var elementImgs = element.context.getElementsByTagName("img");
+	var elementTable = element.context.getElementsByTagName("table");
 	var elementCaption = element.context.getElementsByTagName("p");
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	var i;
-	
-	$("#elemBack_" + originalElement.context.id).fadeTo(400, 0);
 	
 	$(".DragNonDropDiv").each(function(i) {
 		$(this).fadeTo(400, 1, function() {});
@@ -61,6 +59,8 @@ function turnToRegularMode(element,event)
 			event = undefined;
 		}
 	}
+	element.find('p').first().css('width', originalPropertiesArray[2]);
+
 	disableDBClick = false;
 	tableMode = false;
 	selectElement(element);
@@ -69,12 +69,39 @@ function turnToRegularMode(element,event)
 	
 	elementCaption[0].style.fontSize= originalFontSize;
 	elementCaption[1].style.fontSize= originalFontSize;
+	$("#" + elementTable[0].id).css("margin-top","16.5%");
 	
-	$("#" + elementImgs[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3] - 2.5 * originalFontSize},300, 'linear',function(){adjustCaption(element);});
+	$(".tableProp").each(function(i) {
+		if (originalElement.context.id != $(this).context.id)
+		{
+			//$(this).border('0px white 0');
+			$(this).fadeTo(400, 1, function() {
+				// Animation complete.
+				$(this).parent().css('display','block');
+				$(this).show();
+			});
+		}
+	});
+	
+	var tableBackElem = element.find('.tableBack').first();
+	
+    if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+    {
+    		tableBackElem.css("display", "none");
+    }
+    else
+    {
+	 	tableBackElem.css("visibility", "collapse");
+    }
+
+	//$("#" + elementTable[0].id).animate({width: originalPropertiesArray[2], height: originalPropertiesArray[3]},300, 'linear',function(){adjustCaption(element);});
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
 		//$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
-		$("#tableElementDiv"+ parseInt(i + 1)).remove();
+		$("#tableParentElementDiv" + parseInt(i + 1)).fadeTo(200,0,function()
+		{
+			$(this).remove();
+		});
 	}
 	element.draggable( 'enable' );
 	SelectedPerson = "";
@@ -86,7 +113,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 {
 	disableDBClick = true;
 	var originalElement = element;
-	var elementImgs = element.context.getElementsByTagName("img");
+	var elementTable = element.context.getElementsByTagName("table");
 	var elementCaption = element.context.getElementsByTagName("p");
 	var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
@@ -136,12 +163,25 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			//$(this).border('0px white 0');
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
+		    	$(this).parent().css('display','none');
 				$(this).hide();
 			});
 		}
 	});
 	
-	if (Math.round((elementMaxSize / 2)) % 2 != 0)
+   var tableBackElem = element.find('.tableBack').first();
+	
+    if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+    {
+    		tableBackElem.css("display", "block");
+    }
+    else
+    {
+	 	tableBackElem.css("visibility", "visible");
+    }
+	tableBackElem.css("cursor", "pointer");
+	
+	if (Math.round((elementMaxSize / 2)) % 2 != 0 && !(elementTable[0].id.indexOf("Round") > -1))
 	{
 		tableModeWidth = tableElementSize / 2 * (Math.round(elementMaxSize / 2) + 1);
 		tableModeHeight = tableElementSize / 2 * (Math.round(elementMaxSize / 2) - 1);
@@ -157,75 +197,127 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		tableModeHeight = tableModeHeight + (Math.round(elementMaxSize / 4));
 	}
 	
+	element.find('p').first().css('width', tableModeWidth);
+	
 	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() {
-	selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	adjustCaption(element); $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear');
+	selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	/*adjustCaption(element); */ $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear'); $("#elemBack_" + originalElement.context.id).fadeTo(400, 1);
 	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;
 	elementCaption[1].style.fontSize= tableModeFontSize;
 
-	$("#" + elementImgs[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer");	$("#elemBack_" + originalElement.context.id).fadeTo(400, 1);});
-		
-	for (i=0; i < parseInt(elementMaxSize); i++)
+	if (elementMaxSize > 6)
 	{
-		if ((tableWidth + tableElementSize <=  tableModeWidth) || (tableHeight + tableElementSize <=  tableModeHeight))
+		$("#" + elementTable[0].id).css("margin-top","30%");
+	}
+	else
+	{
+		$("#" + elementTable[0].id).css("margin-top","2.5%");
+	}
+	
+	//$("#" + elementTable[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer");	$("#elemBack_" + originalElement.context.id).fadeTo(400, 1);});
+		
+	if (elementTable[0].id.indexOf("Round") > -1)
+	{
+		var increase = Math.PI * 2 / elementMaxSize;
+		var angle = (increase * elementMaxSize) / 2;
+		var roundTop = (($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2) + 10;
+		var roundLeft =  (($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2) - 32.5;
+		var center = [roundLeft + (tableModeWidth / 2), roundTop + (tableModeHeight / 2)];
+		var delta = 3;
+
+		if (elementMaxSize > 17)
 		{
-			if (tableWidth + tableElementSize <=  tableModeWidth)
-			{
-				if (heightOffset > 0)
-				{
-					createTableElement(i,element,"bottom");
-					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personBottom"+ parseInt(i + 1));
-				}
-				else
-				{
-					createTableElement(i,element,"top");
-					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personTop"+ parseInt(i + 1));
-				}
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 - $("#tableElementDiv"+ parseInt(i + 1)).height() + heightOffset - 2.5);
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *($("#tableElementDiv"+ parseInt(i + 1)).width() + 2.5));
-				tableWidth += $("#tableElementDiv"+ parseInt(i + 1)).width();
-				currentHorizontalPosition++;
-				$("#tableElementDiv"+ parseInt(i + 1)).css("top", $("#tableElementDiv"+ parseInt(i + 1)).position().top - $("#tableElementCaption"+ parseInt(i + 1)).height());
-				if (heightOffset > 0)
-				{
-					$("#tableElementDiv"+ parseInt(i + 1)).css("top",$("#tableElementDiv"+ parseInt(i + 1)).position().top + tableElementSize - 6);
-				}
-			}
-			else if (tableHeight + tableElementSize <= tableModeHeight)
-			{
-				if (widthOffset < 0)
-				{
-					createTableElement(i,element,"left");
-					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personLeft"+ parseInt(i + 1));
-				}
-				else
-				{
-					createTableElement(i,element,"right");
-					$("#tableElementDiv"+ parseInt(i + 1)).attr("title" ,"personRight"+ parseInt(i + 1));
-				}
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableElement"+ parseInt(i + 1)).height() + 2.5));
-
-				$("#tableElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset + 2.5);
-				tableHeight += tableElementSize;
-				currentVerticalPosition++;
-
-				if (widthOffset < 0)
-				{
-					$("#tableElementDiv"+ parseInt(i + 1)).css("left", $("#tableElementDiv"+ parseInt(i + 1)).position().left - tableElementSize);
-				}
-				$("#tableElementCaption"+ parseInt(i + 1)).addClass('TableElemText');
-			}
+			delta = 6;
 		}
-		else
+		else if (elementMaxSize > 8)
 		{
-			tableWidth =0;
-			tableHeight =0;
-			currentHorizontalPosition = 0;
-			currentVerticalPosition = 0;
-			widthOffset = - (tableModeWidth + tableElementSize);
-			heightOffset = tableModeHeight + tableElementSize;
-			i--;
+			delta = 5;
+		}
+		
+		for (i=0; i < parseInt(elementMaxSize); i++)
+		{
+			if (i >  parseInt(elementMaxSize) / 2)
+			{
+				createTableElement(i,element,true);
+			}
+			else
+			{
+				createTableElement(i,element,false);
+			}
+			$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top", center[1] +  ((tableElementSize * elementMaxSize / delta) * Math.cos(angle)));
+			$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left", center[0] + ((tableElementSize * elementMaxSize / delta) * Math.sin(angle)));
+			angle -= increase;
+		}
+	}
+	else
+	{
+		for (i=0; i < parseInt(elementMaxSize); i++)
+		{
+			if ((tableWidth + tableElementSize <=  tableModeWidth) || (tableHeight + tableElementSize <=  tableModeHeight))
+			{
+				if (tableWidth + tableElementSize <=  tableModeWidth)
+				{
+					var delta = 0;
+					if (!(navigator.userAgent.toLowerCase().indexOf('ie') > 0))
+					{
+						if (heightOffset > 0)
+						{
+							delta = 20;
+						}
+					}
+					else
+					{
+						if (heightOffset == 0)
+						{
+							delta = -20;
+						}
+					}
+					
+					createTableElement(i,element, false);
+					
+					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 7) / 2 - $("#tableParentElementDiv"+ parseInt(i + 1)).height() + heightOffset - 2.5);
+					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *($("#tableParentElementDiv"+ parseInt(i + 1)).width() + 2.5));
+					tableWidth += $("#tableParentElementDiv"+ parseInt(i + 1)).width();
+					currentHorizontalPosition++;
+					$("#tableParentElementDiv"+ parseInt(i + 1)).css("top", $("#tableParentElementDiv"+ parseInt(i + 1)).position().top - $("#tableElementCaption"+ parseInt(i + 1)).height() + delta);
+				}
+				else if (tableHeight + tableElementSize <= tableModeHeight)
+				{
+					
+					if (widthOffset > 0)
+					{
+						createTableElement(i,element, true);
+					}
+					else
+					{
+						createTableElement(i,element, false);
+					}
+					
+					var delta = 0;
+					
+					if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					{
+						delta = 32;
+					}
+					
+					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableParentElementDiv"+ parseInt(i + 1)).height() - 20 + delta));
+
+					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset);
+					tableHeight += tableElementSize;
+					currentVerticalPosition++;
+				}
+			}
+			else
+			{
+				tableWidth =0;
+				tableHeight =0;
+				currentHorizontalPosition = 0;
+				currentVerticalPosition = 0;
+				widthOffset = - (tableModeWidth + tableElementSize);
+				heightOffset = tableModeHeight + tableElementSize;
+				i--;
+			}
 		}
 	}
 	element.draggable( 'disable' );
@@ -270,8 +362,8 @@ function proccedSearchOnRegluarMode(data)
 $(document).ready(function() {
   $(".DragDiv").dblclick( function(event) {
 		posPropertyPanel("");
-		 var elementImgs = $(this).context.getElementsByTagName("img");
-		 if (isThisPeopleTable(elementImgs[0].id))
+		 var elementTable = $(this).context.getElementsByTagName("table");
+		 if (isThisPeopleTable(elementTable[0].id))
 		 {
 			if (tableMode && !disableDBClick)
 			{

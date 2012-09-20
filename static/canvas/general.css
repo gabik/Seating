@@ -16,20 +16,85 @@
  {
   display:block;
   cursor:pointer;
-  background-color:white;
   position:absolute;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
  }
+ 
   .DragNonDropDiv
  {
-  cursor:pointer;
-  background-color:white;
   position:absolute;
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
  }
+ 
+ .DragTable
+ {
+   margin-top:16.5%;
+   width:95%;
+   position:relative;
+   z-index:9999;
+   overflow: hidden;
+   text-overflow: ellipsis;
+   -o-text-overflow: ellipsis;
+   white-space: nowrap;
+ }
+ 
+ .TableParentElementDiv
+ {
+ }
+ 
   .TableElementDiv
  {
-  display:block;
-  position:absolute;
+  overflow:auto;
+  background-image: url("/static/canvas/images/Chair.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
+  width:64px;
+  height:64px;
  }
+ 
+   .TableOccElementDiv
+ {
+  overflow:auto;
+  background-image: url("/static/canvas/images/ChairOcc.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
+  width:64px;
+  height:64px;
+ }
+ 
+ .TableEmptyDetails
+ {
+	overflow:auto;
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 14px;
+	color: #000000;	
+	font-weight: bold;
+    margin-top:35%;
+    text-align:center;
+ }
+ 
+ .WaitingPersonChair
+ {
+  background-image: url("/static/canvas/images/circleHourGlass.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/circleHourGlass.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/circleHourGlass.png',sizingMethod='scale');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
+  width:64px;
+  height:64px;
+ }
+ 
  .Pointer
  {
    cursor:pointer;
@@ -225,11 +290,7 @@
   width:64px;
   height:64px;
  }
-  .TableElemText
- {
-  position:relative;
-  font-size:11.5;
- }
+
  .floatRight
  {
    float:right;
@@ -250,16 +311,28 @@
  }
  .Property
  {
-	cursor:pointer;
+  cursor:pointer;
  }
+ 
+ .tableProp
+{
+  cursor:pointer;
+}
+
+ .tableDelProp
+{
+}
+
  #people-list
  {
 	height:200;
  }
+ 
   #people-list li
  {
 	cursor:pointer;
  }
+ 
  .femaleli
  {
   padding: 4px;
@@ -268,6 +341,7 @@
   list-style-position:inside;
   z-index:15;
   text-align:right;
+  overflow:auto;
  }
  .maleli
  {
@@ -277,6 +351,7 @@
   list-style-position:inside;
   z-index:15;
   text-align:right;
+  overflow:auto;
  }
  #SeatedLabel
  {
@@ -340,6 +415,14 @@
 	font-style: italic;
 	text-shadow:1px 1px blue;
 }
+.text_11_blue {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: blue;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+}
 .text_11_black {
 	font-family: Arial, Helvetica, sans-serif;
 	font-size: 11px;
@@ -347,6 +430,15 @@
 	margin-right: 0px;
 	font-weight: normal;
 	line-height: 20px;
+}
+.text_11_black_bold {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 11px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+	font-weight: bold;
 }
 .text_14_black {
 	font-family: Arial, Helvetica, sans-serif;
@@ -427,6 +519,9 @@
  {
 	background-image: url("/static/canvas/images/background.png");
 	z-index:9999;
+	-moz-border-radius: 55px;
+	-webkit-border-radius: 55px;
+	border-radius: 55px;
  }
 .ui-autocomplete {
 	max-height: 100px;

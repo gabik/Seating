@@ -77,7 +77,7 @@ $(document).ready(function() {
 		});
 		$("#id_file").bind('change', function(){
 			$("#fileText").val($(this).val());
-			if (/[^.]+$/.exec($(this).val()) == "xls")
+			if (/[^.]+$/.exec($(this).val()) == "xls"|| /[^.]+$/.exec($(this).val()) == "xlsx")
 			{
 				$("#excelUpImg").css('visibility',"visible");
 			}

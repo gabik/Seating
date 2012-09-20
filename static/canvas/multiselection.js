@@ -56,14 +56,7 @@ function aligmentHorizontal(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-			{
-				$("#borderSelected").removeClass('borderSelected');
-			 }
-			 else
-			 {
-				$("#"+selectionElementsList[i]).removeClass('borderSelected');
-			 }
+			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -119,14 +112,8 @@ function aligmentVertical(side)
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
-			 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-			 {
-				$("#borderSelected").removeClass('borderSelected');
-			 }
-			 else
-			 {
-				$("#"+selectionElementsList[i]).removeClass('borderSelected');
-			 }
+			$("#"+selectionElementsList[i]).removeClass('borderSelected');
+
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -162,14 +149,7 @@ $(document).ready(function() {
 		if ($(e.target).hasClass('CanvasDiv') && !(tableMode) && !(detailsMode)) {
 			if (SelectedElem != "")
 			{
-			   if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				 {
-					$("#borderSelected").removeClass('borderSelected');
-				 }
-				 else
-				 {
-					SelectedElem.removeClass('borderSelected');
-				 }
+				SelectedElem.removeClass('borderSelected');
 				posPropertyPanel("");
 			}
 			SelectedElem ="";
@@ -294,14 +274,7 @@ $(document).ready(function() {
 					{
 					   saveElementByID(selectionElementsList[i]);
 					}
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					 {
-						$("#borderSelected").removeClass('borderSelected');
-					 }
-					 else
-					 {
-						$("#"+selectionElementsList[i]).removeClass('borderSelected');
-					 }
+					$("#"+selectionElementsList[i]).removeClass('borderSelected');
 					var undoElement = new Array(2);
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";

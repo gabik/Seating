@@ -13,7 +13,7 @@ jQuery(function() {
 
 function selectPersonElement(element)
 {
-	$(".TableElementDiv").each(function(i) {
+	$(".TableParentElementDiv").each(function(i) {
 		$(this).removeClass('borderPersonSelected');
 	});
 	element.addClass('borderPersonSelected');
@@ -38,57 +38,17 @@ function disableDetailsMode()
 
 function LoadPerson(element, i)
 {
+		if ($("#tableParentElementDiv"+ parseInt(i + 1)).html())
+		{
+			$("#tableParentElementDiv" + parseInt(i + 1)).fadeTo(500,1);
+		}
 		$.post('/canvas/getItem/', {elem_num: element.context.id, position: parseInt(i + 1)},
         function(data){
 			if (data.status == 'OK')
 			{
-				var title = $("#tableElementDiv" + data.position).attr('title');
-				var originalPosNum = data.position;
-
-				$('.TableElementDiv').each(function(i)
-				{ 
-					var thisTitleNum = "";
-					
-					for (var c = 0; c < $(this).attr('title').length; c++)
-					{
-						if (IsNumeric($(this).attr('title').charAt(c)))
-						{
-							thisTitleNum = thisTitleNum + $(this).attr('title').charAt(c);
-						}
-					}
-					if (thisTitleNum == data.position)
-					{
-						var num = "";
-						
-						for (var c = 0; c < $(this).context.id.length; c++)
-						{
-							if (IsNumeric($(this).context.id.charAt(c)))
-							{
-								num = num + $(this).context.id.charAt(c);
-							}
-						}
-						
-						if (IsNumeric(num))
-						{
-							data.position = num;
-							title = $("#tableElementDiv" + data.position).attr('title');
-							$("#tableElementDiv" + data.position).fadeTo(0, 1);
-							return false;
-						}
-					}
-				});
-				
-				if (title == "personTop" + originalPosNum || title == "personRight"  + originalPosNum)
-				{
-					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right_occupied.png");
-				}
-				else
-				{
-					$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left_occupied.png");
-				}
 				$("#tableElementDiv"+ data.position).droppable( 'disable' );
 				$("#tableElementDiv"+ data.position).draggable( 'enable' );
-				$("#tableElementDiv"+ data.position).draggable({
+				$("#tableParentElementDiv"+ data.position).draggable({
 					containment: 'parent',
 					cursor: "move",
 					start:function (e,ui){
@@ -112,50 +72,38 @@ function LoadPerson(element, i)
 				$("#tableElementDiv"+ data.position).bind('click',function() {
 					personData = data;
 					SelectedTable = element;
-					selectPersonElement($("#tableElementDiv"+ data.position));
-					SelectedPerson = $(this);
+					selectPersonElement($("#tableParentElementDiv"+ data.position));
+					SelectedPerson = $("#tableParentElementDiv"+ data.position);
 				});
-				if (document.getElementById("tableElementCaption" + data.position) != null)
-				{
-					document.getElementById("tableElementCaption" + data.position).innerHTML = data.first_name + "</br>" + data.last_name;
-					$("#tableElementDiv"+ data.position).addClass('Pointer');
-				}
+				$("#tableParentElementDiv"+ data.position).find('tr').last().css('display', 'block');
+				$("#tableParentElementDiv"+ data.position).find('p').first().css('display', 'none');
+				$("#tableParentElementDiv"+ data.position).find('p').last().text(data.first_name + " " + data.last_name);
+				$("#tableParentElementDiv"+ data.position).attr('title', data.first_name + " " + data.last_name + " לחיצה כפולה לעריכה");
+				$("#tableElementDiv"+ data.position).addClass('Pointer');
+				$("#tableElementDiv"+ data.position).removeClass('WaitingPersonChair');
+				$("#tableElementDiv"+ data.position).addClass('TableOccElementDiv');
+				$("#tableElementDiv"+ data.position).css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');");
+				$("#tableElementDiv"+ data.position).css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale')';");
 			}
 			else
 			{
-					var title = $("#tableElementDiv"+ data.position).attr("title");
-				
-					if (title == "personTop" + data.position || title == "personRight"  + data.position)
+					if ($("#tableElementDiv"+ data.position).html())
 					{
-						$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
-					}
-					else
-					{
-						$("#tableElement"+ data.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
-					}
-					document.getElementById("tableElementCaption" + data.position).innerHTML = "מושב " + data.position + "</br>ריק";
-				 	$("#tableElementDiv"+ data.position).droppable({
-								accept: "#people_list li",
-								hoverClass: "dropLayerClass",
-								drop: function(e, ui ) {
-									var title = $("#tableElementDiv"+ data.position).attr("title");
-									var thisTitleNum = "";
-									
-									for (var c = 0; c < title.length; c++)
-									{
-										if (IsNumeric(title.charAt(c)))
-										{
-											thisTitleNum = thisTitleNum + title.charAt(c);
-										}
+						$("#tableElementDiv"+ data.position).droppable({
+									accept: "#people_list li",
+									hoverClass: "dropLayerClass",
+									drop: function(e, ui ) {
+										dropPersonFromChairWithPosition(ui, $("#tableElementDiv"+ data.position).data('pos'), element);
 									}
-									
-									if (IsNumeric(thisTitleNum))
-									{
-										data.position = thisTitleNum;
-									}
-									dropPersonFromChairWithPosition(ui, data.position, element);
-								}
-					});
+						});
+						$("#tableParentElementDiv"+ data.position).find('p').first().css('display', 'block');
+						$("#tableElementDiv"+ data.position).removeClass('WaitingPersonChair');
+						$("#tableElementDiv"+ data.position).addClass('TableElementDiv');
+						$("#tableElementDiv"+ data.position).css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');");
+					    $("#tableElementDiv"+ data.position).css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale')';");
+						$("#tableParentElementDiv"+ data.position).fadeTo(500,1);
+						$("#tableElementDiv"+ data.position).fadeTo(500,1);
+					}
 			}
 			}, 'json');
 }
@@ -349,7 +297,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 				$("#PDFrame").remove();
 				SelectedTable.fadeTo(400, 1,function(){
 					$("#floatListGate").fadeTo(400, 1);
-					$(".TableElementDiv").each(function(i) {
+					$(".TableParentElementDiv").each(function(i) {
 						$(this).fadeTo(400, 1,function(){
 							if ($(".DragDiv").length - 1 == i)
 								{	
@@ -724,35 +672,7 @@ function DragPerson(personElement,tableElement)
 	var pos2 = getPositions(document.getElementById(personElement.context.id));
 	var horizontalMatch = comparePositions(pos[0], pos2[0]);
 	var verticalMatch = comparePositions(pos[1], pos2[1]);
-	var backToFloatListMatch = horizontalMatch && verticalMatch;
-	
-	var lastPositionNum;
-	
-	if (IsNumeric(personElement.context.id.substring(personElement.context.id.length - 2, personElement.context.id.length)))
-	{
-		lastPositionNum =  personElement.context.id.substring(personElement.context.id.length - 2, personElement.context.id.length);
-	}
-	else
-	{
-		lastPositionNum =  personElement.context.id.substring(personElement.context.id.length - 1, personElement.context.id.length);
-	}
-
-	if (personElement.position().left > tableElement.position().left + tableElement.width())
-	{
-		fixPlaceFloat("personRight" , lastPositionNum);
-	}
-	else if (personElement.position().left + personElement.width() < tableElement.position().left)
-	{
-		fixPlaceFloat("personLeft" , lastPositionNum);
-	}
-	else if (personElement.position().top > tableElement.position().top + tableElement.height())
-	{
-		fixPlaceFloat("personBottom" , lastPositionNum);
-	}
-	else if (personElement.position().top + personElement.height() < tableElement.position().top)
-	{
-		fixPlaceFloat("personTop" , lastPositionNum);
-	}
+	var backToFloatListMatch = horizontalMatch && verticalMatch;	
 	
 	if (backToFloatListMatch)
 	{
@@ -771,6 +691,9 @@ function DragPerson(personElement,tableElement)
 			
 			$("#canvas-div").append($('<div Id="dropLayer" style="position:absolute;"/>'));
 			$("#dropLayer").css("background-color", "purple");
+			$("#dropLayer").css("border-radius", "55");
+			$("#dropLayer").css("-moz-border-radius", "55");
+			$("#dropLayer").css("-webkit-border-radius", "55");
 			$("#dropLayer").css('zIndex', 9999);
 			$("#dropLayer").css("top", collisionPerson.position().top);
 			$("#dropLayer").css("left", collisionPerson.position().left);
@@ -783,22 +706,12 @@ function DragPerson(personElement,tableElement)
 
 function StartDragPerson(element)
 {
-	var positionNum;
-	
 	selectPersonElement(element);
-	if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
-	{
-		positionNum =  element.context.id.substring(element.context.id.length - 2, element.context.id.length);
-	}
-	else
-	{
-		positionNum =  element.context.id.substring(element.context.id.length - 1, element.context.id.length);
-	}
 
 	setSaveStatus("Waiting");
 		
-	PersonLastPosition[0] = $("#tableElementDiv"+ positionNum).position().top;
-	PersonLastPosition[1] = $("#tableElementDiv"+ positionNum).position().left;
+	PersonLastPosition[0] = element.position().top;
+	PersonLastPosition[1] = element.position().left;
 }
 
 function StopDragPerson(element,tableElement)
@@ -815,56 +728,15 @@ function StopDragPerson(element,tableElement)
 		$("#floatListGate").find('img').first().attr('src',"/static/canvas/images/arrow_to_float_n.png");
 		DeletePerson();
 		element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]});
-		
-		var cleanTitleCollision;
-				
-		if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.title.length)))
-		{
-			cleanTitleCollision = element.context.title.substring(0, element.context.title.length - 2);
-		}
-		else
-		{
-			cleanTitleCollision = element.context.title.substring(0, element.context.title.length - 1);
-		}
-		
-		var newPositionNum;
-		
-		if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
-		{
-			newPositionNum = element.context.id.substring(element.context.id.length - 2, element.context.id.length);	
-		}
-		else
-		{
-			newPositionNum = element.context.id.substring(element.context.id.length - 1, element.context.id.length);	
-		}
-		fixPlaceFloat(cleanTitleCollision, newPositionNum);
 	}
 	else
 	{
 		var collision = collisionWithOtherPersonElement(element);
-		var lastPositionNum;
-		
-		if (IsNumeric(element.context.id.substring(element.context.id.length - 2, element.context.id.length)))
-		{
-			lastPositionNum = element.context.id.substring(element.context.id.length - 2, element.context.id.length);
-		}
-		else
-		{
-			lastPositionNum = element.context.id.substring(element.context.id.length - 1, element.context.id.length);
-		}
 
-		var cleanTitleThis;	
-		
-		if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.id.length)))
-		{
-			cleanTitleThis = element.context.title.substring(0, element.context.title.length - 2);
-		}
-		else
-		{
-			cleanTitleThis= element.context.title.substring(0, element.context.title.length - 1);
-		}
 		var realOldPosition;
 		var realNewPosition;
+		var lastZIndex = element.css('z-index');
+		var lastID = element.attr('id');
 		
 		$("#dropLayer").remove();
 		if (collision[0])
@@ -874,84 +746,40 @@ function StopDragPerson(element,tableElement)
 			var newLeft = collision[1].position().left;
 								
 			collision[1].animate({top: PersonLastPosition[0],left: PersonLastPosition[1]});
-			if (IsNumeric(element.context.title.substring(element.context.title.length - 2, element.context.title.length)))
-			{
-				realOldPosition = element.context.title.substring(element.context.title.length - 2, element.context.title.length);	
-			}
-			else
-			{
-				realOldPosition = element.context.title.substring(element.context.title.length - 1, element.context.title.length);	
-			}
-			if (IsNumeric(collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length)))
-			{
-				realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length);
-			}
-			else
-			{
-				realNewPosition = collision[1].context.title.substring(collision[1].context.title.length - 1, collision[1].context.title.length);
-			}
-			element.animate({top: newTop,left: newLeft},function() {
-					
-				var newPositionNum;
-				
-				if (IsNumeric(collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length)))
-				{
-					newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 2, collision[1].context.id.length);	
-				}
-				else
-				{
-					newPositionNum = collision[1].context.id.substring(collision[1].context.id.length - 1, collision[1].context.id.length);	
-				}
-				
-				var cleanTitleCollision;
-				
-				if (IsNumeric(collision[1].context.title.substring(collision[1].context.title.length - 2, collision[1].context.title.length)))
-				{
-					cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 2);
-				}
-				else
-				{
-					cleanTitleCollision = collision[1].context.title.substring(0, collision[1].context.title.length - 1);
-				}
+			realOldPosition = element.find('div').first().data('pos');	
+			realNewPosition = collision[1].find('div').first().data('pos');
+			PersonLastPosition[0] = newTop;
+	        PersonLastPosition[1] = newLeft;
+			element.find('div').first().data('pos', realNewPosition);
+			element.css('z-index', collision[1].css('z-index'));
+			collision[1].css('z-index', lastZIndex);
+			element.css('id', collision[1].attr('id'));
+			collision[1].css('id', lastID);
+			collision[1].find('div').first().data('pos', realOldPosition);
+			collision[1].find('p').first().text(realOldPosition);
+			selectPersonElement(element);
+			SelectedPerson = element;	
+			element.animate({top: newTop,left: newLeft},function() {	
+			});
 
-				if (cleanTitleThis != cleanTitleCollision)
-				{
-					fixPlaceFloat(cleanTitleThis , newPositionNum);
-					fixPlaceFloat(cleanTitleCollision , lastPositionNum);
-				}
-																
-				var tempTitle = element.context.title;
-									
-				element.attr("title" ,collision[1].context.title);
-				collision[1].attr("title" ,tempTitle);
-
-				if ($("#tableElementDiv"+ newPositionNum).text().indexOf("ריק") >= 0)
-				{
-					document.getElementById("tableElementCaption" +newPositionNum).innerHTML = "מושב " + realOldPosition + "</br>ריק";
-				}
-					selectPersonElement($("#tableElementDiv"+ lastPositionNum));
-					SelectedPerson = element;			
-				});
-
-				$.post('/canvas/swapPos/', {elem_num: tableElement.context.id, first_position: realOldPosition, second_position: realNewPosition},
-				function(data){
-			   if (data.status == 'OK')
-			   {
-					setSaveStatus("OK");
-				}
-				else
-				{
-					setSaveStatus("Error");
-				}
-				}, 'json');
-
-			}
-			else
-			{
-				fixPlaceFloat(cleanTitleThis , lastPositionNum);
+			$.post('/canvas/swapPos/', {elem_num: tableElement.context.id, first_position: realOldPosition, second_position: realNewPosition},
+			function(data){
+		   if (data.status == 'OK')
+		   {
 				setSaveStatus("OK");
-				element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableElementDiv"+lastPositionNum)); SelectedPerson = element;});
 			}
+			else
+			{
+				setSaveStatus("Error");
+			}
+			}, 'json');
+
+		}
+		else
+		{
+			setSaveStatus("OK");
+			element.animate({top: PersonLastPosition[0],left: PersonLastPosition[1]},function() {selectPersonElement($("#tableParentElementDiv"+realOldPosition)); SelectedPerson = element;});
+		}
 	}
 }
 
@@ -974,7 +802,7 @@ function hideAllDragDiv()
 
 function hideTableElementDiv()
 {
-	$(".TableElementDiv").each(function(i) {
+	$(".TableParentElementDiv").each(function(i) {
 		$(this).fadeTo(400, 0, function() {
 		$(this).hide();
 			});
@@ -998,7 +826,7 @@ function collisionWithOtherPersonElement(element)
 	var pos = getPositions(document.getElementById(element.context.id));
 	
 	returnArray[1] = "";
-	$(".TableElementDiv").each(function(i) {
+	$(".TableParentElementDiv").each(function(i) {
 		if (element.context.id != $(this).context.id)
 		{
 			var pos2 = getPositions(this);
@@ -1095,11 +923,12 @@ function savePersonOperation(data, firstName, lastName)
 	  personData.invation_status =  $("#InvationStatusPersonButton").attr('alt');
 	  if (personData.position > 0)
 	  {
-		document.getElementById("tableElementCaption" + personData.position).innerHTML = personData.first_name + "</br>" + personData.last_name;
+		$("#tableParentElementDiv" + personData.position).find('p').last().text(personData.first_name + " " + personData.last_name);
 	  }
 	  else
 	  {
 		document.getElementById(firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," ")).innerHTML = personData.first_name + " " + personData.last_name;
+		document.getElementById(firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," ")).title = personData.first_name + " " + personData.last_name + " " + "לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.";
 		
 		var floatPerson = $("#" + firstName.replace(/\_/g," ") + '_' + lastName.replace(/\_/g," "));
 		
@@ -1111,7 +940,10 @@ function savePersonOperation(data, firstName, lastName)
 		floatPerson.attr("id", personData.first_name + "_" + personData.last_name);
 		floatPerson.removeClass('femaleli');
 		floatPerson.removeClass('maleli');
-		refactorElementPerson(floatPerson);
+		if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+		{
+			refactorElementPerson(floatPerson);
+		}
 		if ($("#detailsGender"+ firstName + '_'+ lastName).val() == "F")
 	   {
 			floatPerson.addClass('femaleli');
@@ -1192,17 +1024,7 @@ function DeletePerson()
 	if (SelectedPerson != "" && personData != "" && SelectedTable!= "")
 	{
 	
-		var newPositionNum = 0;
-		var personTitle = SelectedPerson.context.title;
-		
-		if (IsNumeric(personTitle.substring(personTitle.length - 2, personTitle.length)))
-		{
-			newPositionNum =  personTitle.substring(personTitle.length - 2, personTitle.length);
-		}
-		else
-		{
-			newPositionNum =  personTitle.substring(personTitle.length - 1, personTitle.length);
-		}
+		var newPositionNum = SelectedPerson.find('div').first().data('pos');
 
 	  $.post('/canvas/bringToFloatList/', {elem_num: SelectedTable.context.id, position: parseInt(newPositionNum)},
       function(data){
@@ -1215,25 +1037,22 @@ function DeletePerson()
 		  var sizeStr = newSize + "/" + elementMaxSize;
 		  elementCaption[1].innerHTML = sizeStr;
 		  reloadElementStatus(SelectedTable);
-		  document.getElementById("tableElementCaption" + personData.position).innerHTML = "מושב " + newPositionNum + "</br>ריק";
 		  SelectedPerson.removeClass('borderPersonSelected');
-		  selectPersonElement($("#tableElementDiv" + personData.position));
+		  SelectedPerson.attr('title', "");
+		  SelectedPerson.find('div').first().removeClass('TableOccElementDiv');
+		  SelectedPerson.find('div').first().addClass('TableElementDiv');
+		  SelectedPerson.find('p').first().css('display','block');
+		  SelectedPerson.find('p').first().text(newPositionNum);
+		  SelectedPerson.find('p').last().css('display','none');
+		  //selectPersonElement($("#tableParentElementDiv" + personData.position));
 		  SelectedPerson = "";
           setSaveStatus("OK");
-		  
-		  if (personTitle == "personTop" + newPositionNum || personTitle == "personRight"  + newPositionNum)
-		 {
-			$("#tableElement"+ personData.position).attr("src", "/static/canvas/images/chair_empty_top_right.png");
-		 }
-		 else
-		 {
-			$("#tableElement"+ personData.position).attr("src", "/static/canvas/images/chair_empty_bottom_left.png");
-		 }
-		
-		  $("#tableElementDiv"+ personData.position).removeClass('borderPersonSelected');
+		  	
+		  $("#tableParentElementDiv"+ personData.position).removeClass('borderPersonSelected');
+		  $("#tableElementDiv"+ personData.position).removeClass('Pointer');
 		  $("#tableElementDiv"+ personData.position).unbind('click');
 		  $("#tableElementDiv"+ personData.position).unbind('dblclick');
-		  $("#tableElementDiv"+ personData.position).draggable( 'disable' );
+		  $("#tableParentElementDiv"+ personData.position).draggable( 'disable' );
 		  if (($("#tableElementDiv"+ personData.position).data('dropEvent') || 0) > 0)
 		  {
 				$("#tableElementDiv"+ personData.position).droppable( 'enable' );
@@ -1244,28 +1063,12 @@ function DeletePerson()
 							accept: "#people_list li",
 							hoverClass: "dropLayerClass",
 							drop: function(e, ui ) {
-								var title = $("#tableElementDiv"+ personData.position).attr("title");
-								var thisTitleNum = "";
-								
-								for (var c = 0; c < title.length; c++)
-								{
-									if (IsNumeric(title.charAt(c)))
-									{
-										thisTitleNum = thisTitleNum + title.charAt(c);
-									}
-								}
-								
-								if (IsNumeric(thisTitleNum))
-								{
-									personData.position = thisTitleNum;
-								}
-								dropPersonFromChairWithPosition(ui, personData.position, SelectedTable);
+								dropPersonFromChairWithPosition(ui, $("#tableElementDiv"+ personData.position).data('pos'), SelectedTable);
 							}
 				});
 				$("#tableElementDiv"+ personData.position).droppable( 'enable' );
 		  }
-		  $("#tableElementDiv"+ personData.position).fadeTo(100, 1);
-		  
+		  $("#tableParentElementDiv"+ personData.position).fadeTo(100, 1);
 		  var classGender = "maleli";
 		  //ShowHourGlassWaitingWindow(true);
 		  if (data.gender == "F")
@@ -1284,7 +1087,10 @@ function DeletePerson()
 						personFloatListDBClick(e,$(this));
 					});
 				$("#people-list").scrollTop(parseInt($(this).index()) * 20);
-				refactorElementPerson($(this));
+				if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				{
+					refactorElementPerson($(this));
+				}
 			}
 		  });
         }else{
@@ -1327,8 +1133,8 @@ function proccedSearchOnTableMode(data)
 		}
 		else
 		{
-			pointPersonAfterSearch($("#tableElementDiv"+ data[1]),$("#tableElement"+ data[1]));
-			$("#tableElementDiv"+ data[1]).click();
+			pointPersonAfterSearch($("#tableParentElementDiv"+ data[1]),$("#tableParentElementDiv"+ data[1]));
+			$("#tableParentElementDiv"+ data[1]).click();
 		}
 	}
 }

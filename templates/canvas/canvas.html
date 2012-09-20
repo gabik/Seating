@@ -20,7 +20,7 @@
 <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.8.13/i18n/jquery-ui-i18n.min.js" type="text/javascript"></script>
 <link rel="stylesheet" type="text/css" href="/static/right_interface/right_interface.css" />
 <link rel="stylesheet" type="text/css" href="/static/canvas/general.css" />
-<script type="text/javascript" src="/static/canvas/multiselection.js"></script>
+<script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/table.js"></script>
 <script type="text/javascript" src="/static/canvas/shaped_placement.js"></script>
 <script type="text/javascript" src="/static/canvas/money_info.js"></script>
@@ -28,12 +28,12 @@
 <script type="text/javascript" src="/static/canvas/hour_glass.js"></script>
 <script type="text/javascript" src="/static/canvas/operationManager.js"></script>
 <script type="text/javascript" src="/static/canvas/occasion_properties.js"></script>
-<script type="text/javascript" src="/static/canvas/general.js"></script>
 <script type="text/javascript" src="/static/canvas/person.js"></script>
 <script type="text/javascript" src="/static/canvas/light_msg.js"></script>
 <script type="text/javascript" src="/static/canvas/excelOnLineWindow.js"></script>
 <script type="text/javascript" src="/static/canvas/excel_download_upload.js"></script>
 <script type="text/javascript" src="http://www.jscharts.com/script/jscharts.js"></script>
+<script type="text/javascript" src="/static/canvas/multiselection.js"></script>
 <!--[if IE]>
 	<link rel="stylesheet" type="text/css" href="/static/canvas/canvasIE.css" />
 	<script type="text/javascript" src="/static/canvas/canvasIE.js"></script>
@@ -65,17 +65,32 @@
 	   
 	   var div = $("#" + DivId[{{ elem.elem_num }}]);
 	   var divId = "DragDiv-{{ elem.elem_num }}";
-	   var divimg = $("#" + DivId[{{ elem.elem_num }}]).find('img').first();
+	   var divimg = $("#" + DivId[{{ elem.elem_num }}]).find('table').first();
 	   var divp = $("#" + DivId[{{ elem.elem_num }}]).find('p').first();
 	   
-	   divimg.css('width',{{ elem.width }});
-	   divimg.css('height',{{ elem.height }});
+	   if (isThisPeopleTable("{{elem.kind}}"))
+       {
+		   div.css('width','82.5');
+		   if ("{{elem.kind}}" == "Rect") {
+				div.css('height','95');
+		   }
+		   else if ("{{elem.kind}}" == "Lozenge")
+		   {
+				div.css('height','90');
+		   }
+		   else
+		   {
+				div.css('height','82.5');
+		   }
+	   }
+	   else
+	   {
+	   		div.css('width',{{elem.width}});
+			div.css('height',{{elem.height}});
+	   }
+	   
 	   divp.attr('title',"{{ elem.caption }}");
 	   divp.text("{{ elem.caption }}");
-	   if (isThisPeopleTable("{{ elem.kind }}"))
-		{
-			adjustCaptionInit(div,divId, divp.text(), divp.text(), divimg.css('width'));
-		}
 	   
 	   DDiv[{{ elem.elem_num }}].onmousedown = function()
 	   {
@@ -107,7 +122,7 @@
 				var elementCaption = $(this).context.getElementsByTagName("p");
 				var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 				elementCaption[0].title = elementCaption[0].firstChild.nodeValue;
-				setWidthAndHeight($(this),elementMaxSize,0,true);
+				//setWidthAndHeight($(this),elementMaxSize,0,true);
 				if ($(".DragDiv").last().attr('id') == $(this).context.id) 
 				{
 					zoomingCanvas(true);
@@ -165,12 +180,6 @@
 		partnersSendFeedBackFlag = "{{ send_feed }}";
 		
 		$("#occasionDetailsAdvanceR").hide();
-		$(".tableProp").mouseout(function(){
-			$(this).attr('src',"/static/canvas/images/table_prop_n.png");
-		});
-		$(".tableProp").mouseover(function(){
-			$(this).attr('src',"/static/canvas/images/table_prop_r.png");
-		});
 		
 		$(".tableBack").mouseout(function(){
 			$(this).attr('src',"/static/canvas/images/back_n.png");
@@ -350,12 +359,32 @@
 	<DIV id="main">
 		<div id="canvas-div" class="CanvasDiv">
 			{% for div in elements %}
-    			<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה למצב עריכה" width={{ div.width }} height{{ div.height }}>
+    			<!--<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה למצב עריכה" width={{ div.width }} height{{ div.height }}>
 					<p id="CaptionDragDiv-{{ div.elem_num }}" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.caption}}</p>
 					<p id="tblSize" style="text-shadow:2px 2px 8px blue; margin:0; font-size:11.5; text-align:center;" dir="rtl">{{div.current_sitting}}/{{div.max_sitting}}</p>
 					<img src="/static/canvas/images/circleHourGlass.gif" class="ElemImg" id="{{ div.kind }}-{{ div.elem_num }}"/>
 					<img id="elemBack_DragDiv-{{ div.elem_num }}" class="tableBack" src="/static/canvas/images/back_n.png" width="18" height="18" onmousedown="tableBackBtnClick()"/>
 					<img id="elemProp_DragDiv-{{ div.elem_num }}" class="tableProp" src="/static/canvas/images/table_prop_n.png" width="16" height="16" onmousedown="propMenuBtnClick('DragDiv-'+{{ div.elem_num }})"/>
+				</div>-->
+				<div class="DragDiv" id="DragDiv-{{ div.elem_num }}" title="לחיצה כפולה לכניסה לשולחן" style=" background-image:url('/static/canvas/images/circleHourGlass.gif');">
+					<table class="DragTable" border="0" cellspacing="0" cellpadding="0" id="{{ div.kind }}-{{ div.elem_num }}">
+						<tr>
+							<td colspan="5" style="text-align:center;"><p id="CaptionDragDiv-{{ div.elem_num }}" class="text_11_black_bold" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:82.5;" dir="rtl">{{div.caption}}</p></td>
+						</tr>
+						<tr>
+							<td>&nbsp;</td>
+							<td class="tableProp" style="text-align:center;" onmouseup="propMenuBtnClick('DragDiv-'+{{ div.elem_num }})"><span id="elemProp_DragDiv-{{ div.elem_num }}" class="text_11_blue" dir="rtl" style="z-index:9999;">[עריכה]</span></td>
+							<td style="text-align:center;">&nbsp;</td>
+							<td class="tableProp tableDelProp" style="text-align:center;" onmouseup='delFromTable("DragDiv-{{ div.elem_num }}")'><span id="delProp_DragDiv-{{ div.elem_num }}" class="text_11_blue" dir="rtl" style="z-index:9999;">[מחיקה]</span></td>
+							<td>&nbsp;</td>
+						</tr>
+						<tr>
+							<td colspan="5" style="text-align:center;"><p id="tblSize" class="text_11_black_bold" dir="rtl">{{div.current_sitting}}/{{div.max_sitting}}</p></td>
+						</tr>
+						<tr class="tableBack" align="center">
+							<td colspan="5" style="text-align:center;" onmouseup="tableBackBtnClick()" align="center"><p id="elemBack_DragDiv-{{ div.elem_num }}" class="text_11_blue" dir="rtl" style="z-index:9999;">[חזור]</p></td>
+						</tr>
+					</table>
 				</div>
 			{% endfor %}
 			<div id="mainPanelPattren">
@@ -484,9 +513,9 @@
 
 		</div>
 		<div id="right-bar">
-			<div id="float-list">			
+			<div id="float-list" style="max-width:115;">			
 				<div id="windowRI">
-					  <table width="115" border="0" cellspacing="0" cellpadding="0">
+					  <table width="115" border="0" cellspacing="0" cellpadding="0" style="max-width:115;">
 						<tr>
 						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
 						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
@@ -510,9 +539,14 @@
 									{% for guest in guests %}
 										{% if guest.elem_num == 0 %}
 											{% if guest.gender == 'F' %}
-												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												<!--[if IE]>
+												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
+												<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:117.5;"><!--<![endif]-->
+												{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												
 											{% else %}
-												<li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> {{ guest.guest_first_name }} {{ guest.guest_last_name}}</li>
+												<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
+												<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:117.5;"><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% endif %}
 										{% endif %}
 									{% endfor %}

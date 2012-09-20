@@ -114,27 +114,6 @@
   direction:rtl;
   width:120;
  }
- 
-.tableProp
-{
-	position:absolute;
-	top:50%;
-	left:50%;
-	margin-top:3;
-	margin-left:-8; 
-	filter: alpha(opacity = 0);
-}
-
-.tableBack
-{
-	position:absolute;
-	top:50%;
-	left:50%;
-	margin-top:3;
-	margin-left:-8; 
-	filter: alpha(opacity = 0);
-	cursor:pointer;
-}
 
  .borderSelected
  {
@@ -143,13 +122,19 @@
   -webkit-border-radius: 5px;
   border-radius: 5px;
  }
+ 
+.tableBack
+{
+	display: none;
+	cursor:pointer;
+}
   
  #setting
  {
 	cursor:pointer;
 	float:left; 
 	position:relative;
-	margin-left:-10;
+	margin-left:-5;
  }
  
  .emailGuestStatus

@@ -132,7 +132,7 @@ function delTableButtonPress()
 			{
 				name = SelectedElem.attr('title');
 			}
-			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? ", "YESNO", "Question");
+			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? </br>במידה ויש מוזמנים הם יחזרו לרשימה הצפה.", "YESNO", "Question");
 			currentMsgTimer = setTimeout("delDivPress()",500);
 		}
 		else
