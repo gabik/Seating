@@ -1330,6 +1330,16 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 	}
 }
 
+function closeAddInterface()
+{
+	if (addPersonDivOpen)
+	{
+		addPersonDivOpen=false;
+	    lastMaleAdd = maleAdd;
+		$('#AddPersonList').hide("slide", { direction: "right" }, 150);
+	}
+}
+
 function openAddInterface()
 {
     //$('ul.AddPerson').slideToggle('medium');

@@ -276,6 +276,12 @@
 		$("#AddPersonButton").mouseover(function(){
 			$(this).attr('src',"/static/right_interface/images/add_r.png");
 		});	
+		$("#closeAddPer").mouseout(function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_n.png");
+		});
+		$("#closeAddPer").mouseover(function(){
+			$(this).attr('src',"/static/canvas/images/close_window_btn_r.png");
+		});		
 		$("#ElementPropertiesSaveButton").mouseout(function(){
 			$(this).attr('src',"/static/right_interface/images/save_changes_n.png");
 		});
@@ -393,7 +399,7 @@
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
 					  <td height="32" width="632" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
-					  <td id="movingPanel" height="32" width="548" bgcolor="#E0E0AD" valign="top" align="right">
+					  <td id="movingPanel" height="32" width="558" class="MainPanelYellow" valign="top" align="right">
 					  <!--[if IE]>
 							<marquee id="movingPanelMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="548" >
 					  <![endif]-->
@@ -513,25 +519,25 @@
 
 		</div>
 		<div id="right-bar">
-			<div id="float-list" style="max-width:115;">			
+			<div id="float-list">			
 				<div id="windowRI">
-					  <table width="115" border="0" cellspacing="0" cellpadding="0" style="max-width:115;">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
+					  <table width="115" border="0" cellspacing="0" cellpadding="0" style="display:block;">
+						<tr class="MenuHeader">
+						  <td width="5" height="25"></td>
+						  <td width="5" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
 						  /></div></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">רשימה צפה</span></td>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						  <td height="25" width="105" colspan="3" dir="rtl" align="right"><span class="window_titleRI" style="text-align:right;">רשימה צפה</span></td>
+						  <td width="5" height="25"></td>
 						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3" title="מחק מוזמן/ת" ><img src="/static/right_interface/images/delete_guest.png" id="delperson" class="DelPersonDiv" alt="מחק מוזמן/ת" width="29" height="25" /></td>
-						  <td width="5" bgcolor="#5A8EA3" title="הוסף מוזמן"><img src="/static/right_interface/images/add_ma.png" alt="הוסף מוזמן" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
-						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="הוסף מוזמנת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף מוזמנת" width="29" height="25" vspace="10" /></td>
-						  <td width="5" bgcolor="#5A8EA3" class="pointer" title="אקסל און ליין"><img  id="excelOnLineBtn"  src="/static/right_interface/images/excel_online_n.png" alt="אקסל און ליין" width="29" height="25" vspace="10" /></td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr class="MenuHeaderConnector">
+						  <td width="5">&nbsp;</td>
+						  <td width="5" title="מחק מוזמן/ת" ><img src="/static/right_interface/images/delete_guest.png" id="delperson" class="DelPersonDiv" alt="מחק מוזמן/ת" width="29" height="25" /></td>
+						  <td width="5" title="הוסף מוזמן"><img src="/static/right_interface/images/add_ma.png" alt="הוסף מוזמן" width="29" height="25" id="AddMaleGuestDivID" class="pointer"/></td>
+						  <td width="5" class="pointer" title="הוסף מוזמנת"><img id="AddFemaleGuestDivID"  src="/static/right_interface/images/add_fe.png" alt="הוסף מוזמנת" width="29" height="25" vspace="10" /></td>
+						  <td width="5" class="pointer" title="אקסל און ליין"><img  id="excelOnLineBtn"  src="/static/right_interface/images/excel_online_n.png" alt="אקסל און ליין" width="29" height="25" vspace="10" /></td>
+						  <td width="5">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <td colspan="4" valign="top">
 							<div id="people-list">
@@ -553,73 +559,67 @@
 								</ul>
 							</div>
 							</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td height="30" colspan="4" align="center" valign="bottom" bgcolor="#5A8EA3"><label>
+						<tr class="MenuFooterConnector">
+						  <td width="5">&nbsp;</td>
+						  <td height="30" width="105" colspan="4" align="center" valign="bottom"><label>
 							<select name="filterList" id="filterListRI" dir="rtl">
 							  <option value="Name">שם מלא</option>
 							  <option value="Group">קבוצה</option>
 							</select>
 						  </label></td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5">&nbsp;</td>
 						</tr>
-						<tr>
-						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td colspan="4" bgcolor="#5A8EA3" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
-						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
+						<tr class="MenuFooter">
+						  <td width="5" height="58" valign="bottom"></td>
+						  <td colspan="4" title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="125" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
+						  <td width="5" height="58" valign="bottom"></td>
 						</tr>
 					  </table>
 					</div>
 			</div>
 			<div id="AddPersonList" class="AddPerson">
-					  <table width="115" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">הוספת מוזמן/ת</span></td>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+					  <table width="130" border="0" cellspacing="0" cellpadding="0">
+						<tr class="MenuHeader">
+						  <td width="5" height="25"></td>
+						  <td width="5" height="25"><img id="closeAddPer" src="/static/canvas/images/close_window_btn_n.png" onmouseup="closeAddInterface()"></td>
+						  <td height="25" colspan="2" dir="rtl" width="120" ><span class="window_titleRI">הוספת מוזמן/ת</span></td>
+						  <td width="5" height="25"></td>
 						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td height="45" colspan="3" bgcolor="#5A8EA3"><img height="45" width="45" id="addGenderImg"/></td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr class="MenuHeaderConnector">
+						  <td width="5">&nbsp;</td>
+						  <td height="45" colspan="3"><img height="45" width="45" id="addGenderImg"/></td>
+						  <td width="5">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td height="10" bgcolor="white" colspan="3"></td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td height="10" width="130" bgcolor="white" colspan="3"></td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">שם פרטי:<br/><span><input id="first_name" maxlength="15" type=text size=15></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td valign="top" bgcolor="white" width="120" colspan="3" style="padding:1;">
+								<p class="text_14_black_bolt">שם פרטי:<br/><span><input id="first_name" maxlength="15" type=text size=13></span></p></td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
-								<p class="text_14_black_bolt">שם משפחה:</br><span><input id="last_name"  maxlength="15"  type=text size=15></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td valign="top" bgcolor="white" width="120" colspan="3" style="padding:1;">
+								<p class="text_14_black_bolt">שם משפחה:</br><span><input id="last_name"  maxlength="15"  type=text size=13></span></p></td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
+						  <td align="right" valign="top" bgcolor="white" width="120" colspan="3" style="padding:1;">
 								<p class="text_14_black_bolt">קבוצה:</br><span>
 								<select id="personGroup" size="1" dir="rtl">
 								</select></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>	
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
+						  <td align="right" valign="top" bgcolor="white" width="130" colspan="3" style="padding:1;">
 								<p class="text_14_black_bolt">כמות מוזמנים:</br><span>
 								<select size="1" id="personAmountSingle" dir="rtl">
 									<option class="Property" value="1" selected="selected">1
@@ -632,57 +632,53 @@
 									<option class="Property" value="8">8
 									<option class="Property" value="9">9
 								</select></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>	
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
 						  <!--[if IE]>
 						  <td height="33" bgcolor="white" colspan="3"></td>
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-						  <td height="25" bgcolor="white" colspan="3"></td>
+						  <td height="25" bgcolor="white" colspan="3" width="130"></td>
 						  <!--<![endif]-->
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>						
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr class="MenuFooterConnector">
+						  <td width="5">&nbsp;</td>
 						  <!--[if IE]>
 						  <td height="30" bgcolor="#5A8EA3" colspan="3"></td>
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-						  <td height="31" bgcolor="#5A8EA3" colspan="3"></td>
+						  <td height="31" colspan="3"></td>
 						  <!--<![endif]-->
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5">&nbsp;</td>
 						</tr>
-						<tr>
-						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="58" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="הוסף מוזמן/ת"><img src="/static/right_interface/images/add.png" alt="הוסף מוזמן/ת" width="125" height="38" vspace="10" id="AddPersonButton" class="pointer" /></td>
-						  <td width="5" height="58" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="58" /></td>
+						<tr class="MenuFooter">
+						  <td width="5" height="58" valign="bottom"></td>
+						  <td height="25" colspan="3" title="הוסף מוזמן/ת"><img src="/static/right_interface/images/add.png" alt="הוסף מוזמן/ת" width="125" height="38" vspace="10" id="AddPersonButton" class="pointer" /></td>
+						  <td width="5" height="58" valign="bottom"></td>
 						</tr>
 					  </table>
 					</div>
 			</div>	
 			<div id="right-middel-bar" class="Properties-bar">
 				<div id="element-properties-list">
-					<table width="100" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="5" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי שולחן</span></td>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+					<table width="120" border="0" cellspacing="0" cellpadding="0">
+						<tr class="MenuHeader">
+						  <td width="5" height="25"></td>
+						  <td height="25" colspan="5"dir="rtl" width="120"><span class="window_titleRI">פרטי שולחן</span></td>
+						  <td width="5" height="25"></td>
 						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white" colspan="3">
+						<tr class="MenuHeaderConnector">
+						  <td width="5">&nbsp;</td>
+						  <td align="center" valign="top" bgcolor="white" width="135" colspan="5">
 								<p class="text_14_black_bolt">תווית:<br/><span><input style="text-align:right; width:100px;" type="text" id="ElementCaption" class="Property" maxlength="50"/></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5">&nbsp;</td>
 						</tr>
-						<tr>
+						<tr class="MenuFooterConnector" width="135">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
+						  <td width="45" align="center" valign="top" bgcolor="white">
 							<p class="text_14_black_bolt">גודל:</br><span>
 								<select size="1" id="ElementSize" class="Property">
 									<option class="Property" value="4">4
@@ -707,14 +703,13 @@
 									<option class="Property" value="23">23
 									<option class="Property" value="24">24
 								</select></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
-						  <td width="35" bgcolor="white" align="right"><p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:35px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5" bgcolor="white" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						  <td width="45" align="center" bgcolor="white" align="right"><p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:35px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
+						  <td width="5">&nbsp;</td>
 						</tr>						
-						<tr>
-						  <td width="2.5" height="63" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="63" /></td>
-						  <td height="25" colspan="5" bgcolor="#5A8EA3" title="שמור שינויים">
+						<tr class="MenuFooter">
+						  <td width="2.5" height="63" valign="bottom"></td>
+						  <td height="25" width="120" colspan="5" title="שמור שינויים" align="center">
 						  <!--[if IE]>
 						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="110" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" onclick="elementPropertiesSaveButtonClick()"/>
 						  <![endif]-->
@@ -722,100 +717,93 @@
 						  <img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינויים" width="110" height="38" vspace="2" id="ElementPropertiesSaveButton" class="Property" />
 						  <!--<![endif]-->
 						  </td>
-						  <td width="2.5" height="63" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="63" /></td>
+						  <td width="2.5" height="63" valign="bottom"></td>
 						</tr>
 				</table>
 			</div>
 		</div>
 		<div id="right-middel-bar" class="Properties-bar">
 			<div id="search-properties-list">
-					  <table width="115" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">חיפוש שולחן/מוזמן</span></td>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+					  <table width="135" border="0" cellspacing="0" cellpadding="0">
+						<tr class="MenuHeader">
+						  <td height="25" colspan="5" dir="rtl" width="130"><span class="window_titleRI">חיפוש שולחן/מוזמן</span></td>
 						</tr>
-						<tr height="5" bgcolor="#5A8EA3">
-							<td colspan="5" bgcolor="#5A8EA3"></td>
+						<tr height="5" class="MenuHeaderConnector">
+							<td colspan="5"></td>
 						</tr>
-						<tr>
+						<tr class="DisBlock">
 						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="right" valign="top" bgcolor="white">
+						  <td align="center" colspan="3" valign="top" bgcolor="white" width="130">
 							<div style="padding:2px">
-								<input type=text style="text-align:right; width:115px;" size=15 id="SearchCaption" class="Property" maxlength="30"></div></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td align="center" valign="top" bgcolor="white">
+								<input type=text style="text-align:right; width:115px;" size=17 id="SearchCaption" class="Property" maxlength="30"></div></td>
+						  <td width="5" bgcolor="#4F7886">&nbsp;</td>
+						</tr >
+						<tr class="MenuFooterConnector">
+						  <td width="5">&nbsp;</td>
+						  <td align="center" colspan="3" valign="top" bgcolor="white" width="130">
 						  	<div style="padding:2px">
 								<select size="1" id="SearchBy" class="Property">
 								<option class="Property" value="Table">שולחן
 								<option class="Property" value="Guest">מוזמן/ת
 								</select></div></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5">&nbsp;</td>
 						</tr>	
-						<tr>
-						  <td width="5" height="50" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="50" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="חיפוש שולחן/מוזמן" ><img src="/static/right_interface/images/search.png" alt="חיפוש שולחן/מוזמן" width="125" height="38" id="SearchButton" class="Property" /></td>
-						  <td width="5" height="50" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="50" /></td>
+						<tr class="MenuFooter">
+						  <td width="5" height="50" valign="bottom"></td>
+						  <td height="25" colspan="3" title="חיפוש שולחן/מוזמן" ><img src="/static/right_interface/images/search.png" alt="חיפוש שולחן/מוזמן" width="125" height="38" id="SearchButton" class="Property" /></td>
+						  <td width="5" height="50" valign="bottom"></td>
 						</tr>
 					  </table>
 					</div>
 			</div>
 		<div id="right-middel-bar"> 
 			<div id="occasionDetailsR" class="Properties-bar">
-				 <table width="115" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td width="5" bgcolor="#E0E0AD" height="25" align="left"><div id="occassionDetailsAdvance" title="פרטים נוספים"><img id="occassionDetailsAdvanceBtn" src="/static/page/images/expander_left_n.png" width="16" height="16" align="left" alt="פרטים נוספים" style="cursor:pointer;"
+				 <table width="135" border="0" cellspacing="0" cellpadding="0">
+						<tr class="MenuHeader">
+						  <td width="5" height="25"></td>
+						  <td width="5" height="25" align="left"><div id="occassionDetailsAdvance" title="פרטים נוספים"><img id="occassionDetailsAdvanceBtn" src="/static/page/images/expander_left_n.png" width="16" height="16" align="left" alt="פרטים נוספים" style="cursor:pointer;"
 						  /></div></td>
 						  <!--[if IE]>
 								<td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-								<td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטי אירוע</span></td>
+								<td height="25" colspan="2" dir="rtl" width="130"><span class="window_titleRI">פרטי אירוע</span></td>
 						  <!--<![endif]-->
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						  <td width="5" height="25"></td>
 						</tr>
-						<tr height="5" bgcolor="#5A8EA3">
-							<td colspan="5" bgcolor="#5A8EA3"></td>
+						<tr height="5" class="MenuHeaderConnector">
+							<td colspan="5"></td>
 						</tr>
-						<tr height="25">
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr height="25" class="DisBlock">
+						  <td width="2.5" height="25" bgcolor="#5A8EA3">&nbsp;</td>
 						  <!--[if IE]>
 							<td width="105" align="right" valign="top" bgcolor="white">
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-						  	<td align="right" valign="top" bgcolor="white">
+						  	<td align="right" valign="top" bgcolor="white" width="130" colspan="2">
 						  <!--<![endif]-->
 						  <p class="text_14_black_bolt" id="TotalGuestsLabel" bgcolor="white">מתוך:<span id="TotalGuestsLabelValue"/></p></td>
 						  <!--[if IE]>
 							<td width="105" align="right" valign="top" bgcolor="white">
 						  <![endif]-->
 						  <!--[if !IE]><!-->
-						  	<td align="right" valign="top" bgcolor="white">
+						  	<td align="right" valign="top" bgcolor="white" width="130">
 						  <!--<![endif]-->
 						  <p class="text_14_black_bolt" id="SeatedLabel" bgcolor="white">הושבו:<span id="SeatedLabelValue"/></p></td>
-						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="2.5" height="25" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr class="MenuFooterConnector" valign="top">
+						  <td width="2.5">&nbsp;</td>
 						  <td align="center" valign="top" bgcolor="white" colspan="3" style="padding-bottom:10px">
 								<p class="text_14_black_bolt">&nbsp;מס מוזמנים מרבי:<span>	{% for profile in user_profile %}
 								&nbsp;<input align="center" style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4" />
 						  {% endfor %}</span></p></td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="2.5">&nbsp;</td>
 						</tr>							
-						<tr>
-						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="53" /></td>
-						  <td height="25" colspan="3" bgcolor="#5A8EA3" title="שמור שינוי"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
-						  <td width="5" height="53" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="53" /></td>
+						<tr class="MenuFooter">
+						  <td width="5" height="53" valign="bottom"></td>
+						  <td height="25" colspan="3" title="שמור שינוי"><img src="/static/right_interface/images/save_changes_n.png" alt="שמור שינוי" width="125" height="38" vspace="5" id="MaxGuestSaveButton" class="pointer" /></td>
+						  <td width="5" height="53" valign="bottom"></td>
 						</tr>
 						<tr>
 							<td height="22" width="125" colspan="5"><img src="/static/right_interface/images/small_shadow.png" width="125" height="22" /></td>
@@ -824,16 +812,16 @@
 				</div>
 				<div id="occasionDetailsAdvanceR" class="Properties-bar">
 				 <table width="95" border="0" cellspacing="0" cellpadding="0">
-						<tr>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td>
-						  <td height="25" colspan="3" bgcolor="#E0E0AD" dir="rtl"><span class="window_titleRI">פרטים נוספים</span></td>
-						  <td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td>
+						<tr class="MenuHeader">
+						  <td width="5" height="25"></td>
+						  <td height="25" colspan="3" dir="rtl"><span class="window_titleRI">פרטים נוספים</span></td>
+						  <td width="5" height="25"></td>
 						</tr>
-						<tr height="5" bgcolor="#5A8EA3">
-							<td colspan="5" bgcolor="#5A8EA3"></td>
+						<tr height="5" class="MenuHeaderConnector">
+							<td colspan="5"></td>
 						</tr>
-						<tr bgcolor="white">
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						<tr class="MenuFooterConnector">
+						  <td width="5">&nbsp;</td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
 						  <td bgcolor="white" align="right" valign="top">
 							<table id="inv_meal_status_list" width="95" border="0" cellspacing="0" cellpadding="0">
@@ -850,7 +838,7 @@
 									</span></img></td><td width="5" bgcolor="white" >&nbsp;</td></tr>
 								</table>
 								</td>
-								<td width="5" bgcolor="#5A8EA3">&nbsp;</td>	
+								<td width="5">&nbsp;</td>	
 								<td>
 								<table width="95" border="0" cellspacing="0" cellpadding="0">
 									<tr><td align="right" colspan="2" bgcolor="white"><p class="text_14_black_bolt" style="text-align:right;" dir="rtl">סטטוס מנות:</p></td></tr>
@@ -868,12 +856,12 @@
 							</table>
 						  </td>
 						  <td width="5" bgcolor="white">&nbsp;</td>
-						  <td width="5" bgcolor="#5A8EA3">&nbsp;</td>
+						  <td width="5">&nbsp;</td>
 						</tr>													
-						<tr>
-						  <td width="5" height="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td>
-						  <td bgcolor="#5A8EA3" valign="bottom" colspan="3"></td>
-						  <td width="5" height="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td>
+						<tr class="MenuFooter">
+						  <td width="5" height="5" valign="bottom"></td>
+						  <td valign="bottom" colspan="3"></td>
+						  <td width="5" height="5" valign="bottom"></td>
 						</tr>
 					</table>
 				</div>

@@ -2,7 +2,12 @@
  {
   float:left;
   border:4px solid #5A8EA3;
-  background:white;
+  background-image: url("/static/canvas/images/GrayOverlay.png");
+  background-repeat: none;
+  background-position: center;
+  background-size: 100% 100%;
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/GrayOverlay.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/GrayOverlay.png',sizingMethod='scale');
   margin-top:28px;
   width:1195px;
   height:630px;
