@@ -399,7 +399,7 @@
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
 					  <td height="32" width="632" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
-					  <td id="movingPanel" height="32" width="558" class="MainPanelYellow" valign="top" align="right">
+					  <td id="movingPanel" height="32" width="548" class="MainPanelYellow" valign="top" align="right">
 					  <!--[if IE]>
 							<marquee id="movingPanelMarquee" behavior="scroll" scrollamount="6" direction="right" height="32" width="548" >
 					  <![endif]-->
@@ -703,7 +703,7 @@
 									<option class="Property" value="23">23
 									<option class="Property" value="24">24
 								</select></span></p></td>
-						  <td width="5" bgcolor="white" colspan="2">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
+						  <td width="5" bgcolor="white" colspan="3">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</td>
 						  <td width="45" align="center" bgcolor="white" align="right"><p class="text_14_black_bolt">מספר:<br/><span><input style="text-align:right; width:35px;" type="text" id="ElementNumber" class="Property" maxlength="4"/></span></p></td>
 						  <td width="5">&nbsp;</td>
 						</tr>						
@@ -726,7 +726,14 @@
 			<div id="search-properties-list">
 					  <table width="135" border="0" cellspacing="0" cellpadding="0">
 						<tr class="MenuHeader">
-						  <td height="25" colspan="5" dir="rtl" width="130"><span class="window_titleRI">חיפוש שולחן/מוזמן</span></td>
+							<!--[if IE]>
+							    <td width="5" >&nbsp;</td>
+								<td height="25" colspan="3" dir="rtl" width="130"><span class="window_titleRI">חיפוש שולחן/מוזמן</span></td>
+								<td width="5" >&nbsp;</td>
+						   <![endif]-->
+						   <!--[if !IE]><!-->
+							<td height="25" colspan="5" dir="rtl" width="130"><span class="window_titleRI">חיפוש שולחן/מוזמן</span></td>
+							<!--<![endif]-->
 						</tr>
 						<tr height="5" class="MenuHeaderConnector">
 							<td colspan="5"></td>
@@ -790,15 +797,18 @@
 						  	<td align="right" valign="top" bgcolor="white" width="130">
 						  <!--<![endif]-->
 						  <p class="text_14_black_bolt" id="SeatedLabel" bgcolor="white">הושבו:<span id="SeatedLabelValue"/></p></td>
+						  <!--[if IE]>
+							<td width="5" align="right" valign="top" bgcolor="white"/>
+						  <![endif]-->
 						  <td width="2.5" height="25" bgcolor="#4F7886">&nbsp;</td>
 						</tr>
-						<tr class="MenuFooterConnector" valign="top">
-						  <td width="2.5">&nbsp;</td>
+						<tr valign="top" style="display:block;">
+						  <td width="2.5" bgcolor="#5A8EA3" >&nbsp;</td>
 						  <td align="center" valign="top" bgcolor="white" colspan="3" style="padding-bottom:10px">
 								<p class="text_14_black_bolt">&nbsp;מס מוזמנים מרבי:<span>	{% for profile in user_profile %}
 								&nbsp;<input align="center" style="text-align:left; width:50px;" type="text" id="NumOfGuests" value=" {{profile.num_of_guests}}" class="Property" maxlength="4" />
 						  {% endfor %}</span></p></td>
-						  <td width="2.5">&nbsp;</td>
+						  <td width="2.5" bgcolor="#4F7886">&nbsp;</td>
 						</tr>							
 						<tr class="MenuFooter">
 						  <td width="5" height="53" valign="bottom"></td>
@@ -811,7 +821,7 @@
 					</table>
 				</div>
 				<div id="occasionDetailsAdvanceR" class="Properties-bar">
-				 <table width="95" border="0" cellspacing="0" cellpadding="0">
+				 <table border="0" cellspacing="0" cellpadding="0">
 						<tr class="MenuHeader">
 						  <td width="5" height="25"></td>
 						  <td height="25" colspan="3" dir="rtl"><span class="window_titleRI">פרטים נוספים</span></td>
@@ -827,7 +837,7 @@
 							<table id="inv_meal_status_list" width="95" border="0" cellspacing="0" cellpadding="0">
 								<tr>
 								<td>
-								<table width="95" border="0" cellspacing="0" cellpadding="0">
+								<table width="110" border="0" cellspacing="0" cellpadding="0">
 									<tr><td align="right" colspan="2" bgcolor="white"><p class="text_14_black_bolt" bgcolor="white" style="text-align:right;"dir="rtl">סטטוס הגעה:</td></tr>
 									<tr><td align="right" bgcolor="white"><p class="text_11_black" id="inv_accept_amount"/></td><td align="center" bgcolor="white"><img src="/static/canvas/images/person/accept_status_n.png" width="16" height="16" align="right">&nbsp;&nbsp;&nbsp;<span class="text_11_black" dir="rtl" style="text-align:right;">מגיעים
 									</span></img></td></tr>
@@ -838,9 +848,9 @@
 									</span></img></td><td width="5" bgcolor="white" >&nbsp;</td></tr>
 								</table>
 								</td>
-								<td width="5">&nbsp;</td>	
+								<td width="5" bgcolor="white">&nbsp;</td>	
 								<td>
-								<table width="95" border="0" cellspacing="0" cellpadding="0">
+								<table width="110" border="0" cellspacing="0" cellpadding="0">
 									<tr><td align="right" colspan="2" bgcolor="white"><p class="text_14_black_bolt" style="text-align:right;" dir="rtl">סטטוס מנות:</p></td></tr>
 									<tr><td align="right" valign="top" bgcolor="white"><span id ="meat_amount" class="text_11_black"/></td>
 									<td align="right" valign="top" bgcolor="white"><p class="text_11_black" dir="rtl" style="text-align:right;">&nbsp;&nbsp;בשריות:&nbsp;&nbsp;</p></td></tr>
