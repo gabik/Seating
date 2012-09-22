@@ -174,6 +174,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 			$.ui.ddmanager.prepareOffsets(this, event);
 
 		this.dragging = true;
+		drag = true;
 
 		this.helper.addClass("ui-sortable-helper");
 		this._mouseDrag(event); //Execute the drag once - this causes the helper not to be visible before getting its correct position
@@ -426,6 +427,8 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 		if(this._storedZIndex) this.helper.css("zIndex", this._storedZIndex == 'auto' ? '' : this._storedZIndex); //Reset z-index
 
 		this.dragging = false;
+		drag = false;
+		
 		if(this.cancelHelperRemoval) {
 			if(!noPropagation) {
 				this._trigger("beforeStop", event, this._uiHash());
