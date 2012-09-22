@@ -6,6 +6,7 @@
   background-repeat: none;
   background-position: center;
   background-size: 100% 100%;
+  -moz-background-size: 100%;
   filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/GrayOverlay.png',sizingMethod='scale');
   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/GrayOverlay.png',sizingMethod='scale');
   margin-top:28px;
@@ -90,8 +91,8 @@
   position:absolute;
   padding: 4px;
   width:135;
-  top:490;
-  left:995;
+  top:470;
+  left:965;
  }
  #ElementStatus
  {
@@ -159,4 +160,56 @@
 	width: 220px;
 	height: 25px;
 	border:1px solid black;
+}
+
+.MenuHeader
+{
+	display:block;
+	overflow:auto;
+	background-image: url("/static/canvas/images/MenuHeader.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHader.png',sizingMethod='scale');
+   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHader.png',sizingMethod='scale');
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+	-moz-background-size: 100%;
+}
+
+.MenuHeaderConnector
+{
+	display:block;
+    overflow:auto;
+	background-image: url("/static/canvas/images/MenuHeaderConnector.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHeaderConnector.png',sizingMethod='scale');
+   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHeaderConnector.png',sizingMethod='scale');
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+	-moz-background-size: 100%;
+}
+
+.MenuFooterConnector
+{
+	display:block;
+	overflow:auto;
+	background-image: url("/static/canvas/images/MenuFooterConnector.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooterConnector.png',sizingMethod='scale');
+   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooterConnector.png',sizingMethod='scale');
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+	-moz-background-size: 100%;
+}
+
+.MenuFooter
+{
+	display:block;
+	overflow:auto;
+	background-image: url("/static/canvas/images/MenuFooter.png");
+    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooter.png',sizingMethod='scale');
+   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooter.png',sizingMethod='scale');
+    background-position:center center;
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+	-moz-background-size: 100%;
 }

@@ -547,54 +547,6 @@
 	overflow-x: hidden;
 }
 
-.MenuHeader
-{
-	display:block;
-	overflow:auto;
-	background-image: url("/static/canvas/images/MenuHeader.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHader.png',sizingMethod='scale');
-   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHader.png',sizingMethod='scale');
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
-.MenuHeaderConnector
-{
-	display:block;
-    overflow:auto;
-	background-image: url("/static/canvas/images/MenuHeaderConnector.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHeaderConnector.png',sizingMethod='scale');
-   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuHeaderConnector.png',sizingMethod='scale');
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
-.MenuFooterConnector
-{
-	display:block;
-	overflow:auto;
-	background-image: url("/static/canvas/images/MenuFooterConnector.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooterConnector.png',sizingMethod='scale');
-   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooterConnector.png',sizingMethod='scale');
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
-.MenuFooter
-{
-	display:block;
-	overflow:auto;
-	background-image: url("/static/canvas/images/MenuFooter.png");
-    filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooter.png',sizingMethod='scale');
-   -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MenuFooter.png',sizingMethod='scale');
-    background-position:center;
-    background-repeat:no-repeat;
-    background-size: 100% 100%;
-}
-
 .MainPanelYellow
 {
 	display:block;
@@ -602,13 +554,19 @@
 	background-image: url("/static/canvas/images/MainPanelYellow.png");
     filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MainPanelYellow.png',sizingMethod='scale');
    -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/MainPanelYellow.png',sizingMethod='scale');
-    background-position:center;
+    background-position:center center;
     background-repeat:no-repeat;
-    background-size: 100% 100%;
+    background-size: 110% 100%;
+	-moz-background-size: 100%;
 }
 
 .DisBlock
 {
 	display:block;
+}
+
+.peopleListExpander
+{
+ 	cursor:pointer;
 }
 
