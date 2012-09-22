@@ -565,3 +565,8 @@
 	display:block;
 }
 
+.peopleListExpander
+{
+ 	cursor:pointer;
+}
+
