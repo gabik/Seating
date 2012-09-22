@@ -28,7 +28,7 @@ class UserProfile(models.Model):
 	occasion_place = models.CharField(max_length=30)
 	send_feedback_flag = models.BooleanField(default=True)
 	userNewCanvasRequest = models.BooleanField(default=False)
-  helpScreen = models.BooleanField(default=1)
+	helpScreen = models.BooleanField(default=1)
         def __unicode__(self):
                 printy = unicode(self.user.username , "UTF-8")
                 return printy
