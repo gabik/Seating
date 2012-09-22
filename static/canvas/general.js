@@ -1474,25 +1474,28 @@ function stopDrag(element)
 
 function propMenuBtnClick(elementID)
 {
-	if (propMenuOpen)
+	if (!drag)
 	{
-		posPropertyPanel("");
-		if (SelectedElem.context.id == elementID)
+		if (propMenuOpen)
 		{
-			propMenuOpen = false;
+			posPropertyPanel("");
+			if (SelectedElem.context.id == elementID)
+			{
+				propMenuOpen = false;
+			}
+			else
+			{
+				posPropertyPanel($("#" + elementID));
+				propMenuOpen = true;
+			}
 		}
 		else
 		{
 			posPropertyPanel($("#" + elementID));
 			propMenuOpen = true;
 		}
+		fromPropMeneBtn = true;
 	}
-	else
-	{
-		posPropertyPanel($("#" + elementID));
-		propMenuOpen = true;
-	}
-	fromPropMeneBtn = true;
 }
 
 function tableBackBtnClick()
