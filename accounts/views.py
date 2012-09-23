@@ -161,20 +161,20 @@ def add_person(request):
 		amount = request.POST['amount']
 		if ((amount is None) or (amount == "") or (int(amount) < 1)):
 			amount = 1
-		for i in range(1,int(amount)+1):
-			addStr = ""
-			persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
-			if (len(persons) > 0):
-				max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
-				exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
-				if (len(exist_num) <= 0):
-					addStr = len(max_match) + 1
-				else:
-					addStr = len(max_match) + 2
-			last_name = request.POST['last'] + str(addStr)
-			hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
-			new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()))
-			new_person.save()
+		#for i in range(1,int(amount)+1):
+		addStr = ""
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
+		if (len(persons) > 0):
+			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
+			if (len(exist_num) <= 0):
+				addStr = len(max_match) + 1
+			else:
+				addStr = len(max_match) + 2
+		last_name = request.POST['last'] + str(addStr)
+		hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()), qty=amount)
+		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
@@ -611,7 +611,11 @@ def online_excel(request):
 		gemail=unicode(g.guest_email, "UTF-8")
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		ggroup=unicode(g.group, "UTF-8")
-		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
+		if g.qty < 1:
+			gqty=1
+		else:
+			gqty=g.qty
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), gqty, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
 		row_num+=1
 	f.close()
         c = {}
@@ -678,15 +682,15 @@ def online_save(request):
 						#else:
 						flast=flast + " " + str(addStr)
 						flast=flast.strip()
-						if int(fqty) > 1:
-							for i in range(1,int(fqty)+1):
-								hash = str(str(request.user) + ffirst + " " + str(i) + flast)
-								new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-								new_person.save()
-						else:
-							hash = str(str(request.user) + ffirst +  flast)
-							new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-							new_person.save()
+		#				if int(fqty) > 1:
+		#					for i in range(1,int(fqty)+1):
+		#						hash = str(str(request.user) + ffirst + " " + str(i) + flast)
+		#						new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
+		#						new_person.save()
+		#				else:
+						hash = str(str(request.user) + ffirst +  flast)
+						new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()),qty=fqty)
+						new_person.save()
 
 	#duplicate_list = DupGuest.objects.filter(user=request.user)
 	#if duplicate_list :
