@@ -425,9 +425,11 @@ def sorted_excel(request):
 	row1 = sheet1.row(row_num)
 	row1.write(0, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(1, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 1 
@@ -443,23 +445,27 @@ def sorted_excel(request):
 		row1 = sheet1.row(row_num)
 		row1.write(0,unicode(g.guest_last_name, "UTF-8"), style)
 		row1.write(1,unicode(g.guest_first_name, "UTF-8"), style)
+		row1.write(2,unicode(g.phone_number, "UTF-8"), style)
+		row1.write(3,unicode(g.guest_email, "UTF-8"), style)
 		cur_caption = unicode("ללא שולחן", "UTF-8")
 		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=unicode(h.caption,"UTF-8")
 				cur_fix_num=h.fix_num
-		row1.write(2,cur_caption, style)
-		row1.write(3,cur_fix_num, style)
+		row1.write(4,cur_caption, style)
+		row1.write(5,cur_fix_num, style)
 		invation_choices_heb={'A': 'מגיע', 'N': 'לא מגיע', 'T': 'ממתין לאישור'}
 		is_come=invation_choices_heb[g.invation_status]
-		row1.write(4,unicode(is_come, "UTF-8"), style)
+		row1.write(6,unicode(is_come, "UTF-8"), style)
 		row_num+=1
 	sheet1.col(0).width = 6000
 	sheet1.col(1).width = 6000
-	sheet1.col(2).width = 5000
-	sheet1.col(3).width = 4000
+	sheet1.col(2).width = 6000
+	sheet1.col(3).width = 6000
 	sheet1.col(4).width = 5000
+	sheet1.col(5).width = 4000
+	sheet1.col(6).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
 	c = {}
@@ -839,7 +845,7 @@ def unsubscribe(request, guestHash):
 
 @login_required
 def stickers(request):
-	Guests = Guest.objects.filter(user=request.user)
+	Guests = Guest.objects.order_by('elem_num').filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
 	partners=get_object_or_404(Partners, userPartner = request.user)
         #elements_nums = user_elements.values_list('elem_num', flat=1)
