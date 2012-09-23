@@ -230,6 +230,7 @@ def upload_file(request):
 				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
+				gqty=quantity
 				phoneNum=escapeSpecialCharacters(sh.cell_value(r,4))
 				mailAddr=sh.cell_value(r,5)
 				faceAcnt=sh.cell_value(r,6)
@@ -259,15 +260,15 @@ def upload_file(request):
 					#else:
 					lastName=lastName + " " + str(addStr)
 					lastName=lastName.strip()
-					if quantity > 1:
-						for i in range(1,int(quantity)+1):
-							hash = str(str(request.user) + privName.encode('utf-8') + " " + str(i) + lastName.encode('utf-8'))
-							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
-							new_person.save()
-					else:
-						hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
-						new_person.save()
+					#if quantity > 1:
+						#for i in range(1,int(quantity)+1):
+							#hash = str(str(request.user) + privName.encode('utf-8') + " " + str(i) + lastName.encode('utf-8'))
+							#new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
+							#new_person.save()
+					#else:
+					hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
+					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()),qty=gqty)
+					new_person.save()
 
 				if groupNme not in group_choices:
 					un_group = UnknownGroups(user=request.user, group=groupNme);
@@ -344,7 +345,11 @@ def download_excel(request):
 		gender_trans={'M':'זכר', 'F':'נקבה', 'U':'אחר'}
 		ggender=unicode(gender_trans[g.gender], "UTF-8")
 		row1.write(2,ggender, style)
-		row1.write(3,1, style)
+		if g.qty < 1:
+			gqty=1
+		else:
+			gqty=g.qty
+		row1.write(3,gqty, style)
 		row1.set_cell_text(4,g.phone_number, style)
 		gemail=unicode(g.guest_email, "UTF-8")
 		row1.write(5,g.guest_email, style)
