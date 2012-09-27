@@ -367,7 +367,7 @@ def download_excel(request):
 'Friends'+p2name: 'עבודה '+p2back,
 'Work'+p2name: 'עבודה '+p2back,
 'Other': 'אחר'}
-		ggroup=unicode(group_trans[g.group], "UTF-8")
+		ggroup=unicode(g.group, "UTF-8")
 		row1.write(7,ggroup, style)
 		row1.write(8,g.present_amount, style)
 		row_num+=1
