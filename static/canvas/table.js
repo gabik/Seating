@@ -65,6 +65,7 @@ function turnToRegularMode(element,event)
 	tableMode = false;
 	selectElement(element);
 	$("#floatListGate").animate({height:0},300, 'linear',function(){	$("#floatListGate").remove();});
+	posTableChairs(element, elementMaxSize);
 	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;
@@ -83,6 +84,17 @@ function turnToRegularMode(element,event)
 		}
 	});
 	
+	if (!detailsMode)
+	{
+		$(".TableParentElementDivOutside").each(function(i) {
+			$(this).fadeTo(400, 1, function() {
+				// Animation complete.
+				$(this).show();
+			});
+		});
+	}
+	
+	
 	var tableBackElem = element.find('.tableBack').first();
 	
     if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
@@ -98,7 +110,7 @@ function turnToRegularMode(element,event)
 	for (i=0; i < parseInt(elementMaxSize); i++)
 	{
 		//$("#tableElement"+ parseInt(i + 1)).border('0px white 0');
-		$("#tableParentElementDiv" + parseInt(i + 1)).fadeTo(200,0,function()
+		$("#tableParentElementDiv" + parseInt(i + 1) + element.context.id + "T").fadeTo(200,0,function()
 		{
 			$(this).remove();
 		});
@@ -169,6 +181,21 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		}
 	});
 	
+	$(".TableParentElementDivOutside").each(function(i) {
+		$(this).fadeTo(400, 0, function() {
+			// Animation complete.
+			
+			if ($(this).data('elem') == element.attr('id'))
+			{
+				$(this).remove();
+			}
+			else
+			{
+				$(this).hide();
+			}
+		});
+	});
+	
    var tableBackElem = element.find('.tableBack').first();
 	
     if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
@@ -217,6 +244,8 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	
 	//$("#" + elementTable[0].id).animate({width: tableModeWidth, height: tableModeHeight - 3 * tableModeFontSize},300, 'linear', function() { $(this).css('cursor',"pointer");	$("#elemBack_" + originalElement.context.id).fadeTo(400, 1);});
 		
+	var mode = "T";	
+		
 	if (elementTable[0].id.indexOf("Round") > -1)
 	{
 		var increase = Math.PI * 2 / elementMaxSize;
@@ -239,14 +268,14 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		{
 			if (i >  parseInt(elementMaxSize) / 2)
 			{
-				createTableElement(i,element,true);
+				createTableElement(i,element,true, true);
 			}
 			else
 			{
-				createTableElement(i,element,false);
+				createTableElement(i,element,false, true);
 			}
-			$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top", center[1] +  ((tableElementSize * elementMaxSize / delta) * Math.cos(angle)));
-			$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left", center[0] + ((tableElementSize * elementMaxSize / delta) * Math.sin(angle)));
+			$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css( "top", center[1] +  ((tableElementSize * elementMaxSize / delta) * Math.cos(angle)));
+			$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css( "left", center[0] + ((tableElementSize * elementMaxSize / delta) * Math.sin(angle)));
 			angle -= increase;
 		}
 	}
@@ -263,47 +292,47 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 					{
 						if (heightOffset > 0)
 						{
-							delta = 20;
+							delta = 5;
 						}
 					}
 					else
 					{
 						if (heightOffset == 0)
 						{
-							delta = -20;
+							delta = -5;
 						}
 					}
 					
-					createTableElement(i,element, false);
+					createTableElement(i,element, false, true);
 					
-					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 7) / 2 - $("#tableParentElementDiv"+ parseInt(i + 1)).height() + heightOffset - 2.5);
-					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *($("#tableParentElementDiv"+ parseInt(i + 1)).width() + 2.5));
-					tableWidth += $("#tableParentElementDiv"+ parseInt(i + 1)).width();
+					$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2  - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 7) / 2 - $("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).height() + heightOffset - 2.5);
+					$("#tableParentElementDiv"+ parseInt(i + 1)+ element.context.id + mode).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2 + currentHorizontalPosition *($("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).width() + 2.5));
+					tableWidth += $("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).width();
 					currentHorizontalPosition++;
-					$("#tableParentElementDiv"+ parseInt(i + 1)).css("top", $("#tableParentElementDiv"+ parseInt(i + 1)).position().top - $("#tableElementCaption"+ parseInt(i + 1)).height() + delta);
+					$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css("top", $("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).position().top - $("#tableElementCaption"+ parseInt(i + 1)).height() + delta);
 				}
 				else if (tableHeight + tableElementSize <= tableModeHeight)
 				{
 					
 					if (widthOffset > 0)
 					{
-						createTableElement(i,element, true);
+						createTableElement(i,element, true, true);
 					}
 					else
 					{
-						createTableElement(i,element, false);
+						createTableElement(i,element, false, true);
 					}
 					
 					var delta = 0;
 					
 					if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
 					{
-						delta = 32;
+						delta = 5;
 					}
 					
-					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableParentElementDiv"+ parseInt(i + 1)).height() - 20 + delta));
+					$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css( "top",($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2 + currentVerticalPosition *($("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).height() + delta));
 
-					$("#tableParentElementDiv"+ parseInt(i + 1)).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset);
+					$("#tableParentElementDiv"+ parseInt(i + 1) + element.context.id + mode).css( "left",($("#canvas-div").position().left + $("#canvas-div").width()) / 2  + tableModeWidth / 2 + widthOffset);
 					tableHeight += tableElementSize;
 					currentVerticalPosition++;
 				}
@@ -338,11 +367,11 @@ function proccedSearchOnRegluarMode(data)
 {
 	var currentSelectedTable = SelectedTable;
 	
-	if (currentSelectedTable == "")
+	if (currentSelectedTable == "" || !currentSelectedTable.html())
 	{
 		currentSelectedTable = SelectedElem;
 	}
-	if (currentSelectedTable != "")
+	if (currentSelectedTable != "" || currentSelectedTable.html())
 	{
 		if (currentSelectedTable.context.id.trim().toLowerCase() != data.trim().toLowerCase())
 		{

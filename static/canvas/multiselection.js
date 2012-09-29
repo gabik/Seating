@@ -57,6 +57,7 @@ function aligmentHorizontal(side)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
+			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
 			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -79,6 +80,9 @@ function aligmentHorizontal(side)
 					}
 				}
 			});	
+			$(".chairs" + selectionElementsList[i]).each(function(j) {
+				$(this).animate({left: $(this).position().left +  (newLeftValueAvrage - startDradPositionList[i].left)},300, 'linear');
+			});			
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
@@ -113,7 +117,7 @@ function aligmentVertical(side)
 		{
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
-
+			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -136,6 +140,10 @@ function aligmentVertical(side)
 					}
 				}
 			});	
+			
+			$(".chairs" + selectionElementsList[i]).each(function(j) {
+				$(this).animate({top: $(this).position().top +  (newTopValueAvrage - startDradPositionList[i].top)},300, 'linear');
+			});	
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
@@ -150,6 +158,7 @@ $(document).ready(function() {
 			if (SelectedElem != "")
 			{
 				SelectedElem.removeClass('borderSelected');
+				SelectedElem.removeClass('broderNonDragSelected');
 				posPropertyPanel("");
 			}
 			SelectedElem ="";
@@ -239,6 +248,7 @@ $(document).ready(function() {
 			cursor: "move",
 			start:function (e,ui){
 				$Draged = "";
+				drag = true;
 				lastRectanglePoint[0] = $("#multiSelectionRectangle").position().top;
 				lastRectanglePoint[1] = $("#multiSelectionRectangle").position().left;
 				var selectionResult = getFullySelectionRectangleElementList();
@@ -247,6 +257,12 @@ $(document).ready(function() {
 				for (var i = 0; i < selectionElementsList.length; i++)
 				{
 					startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
+					 $(".chairs" + selectionElementsList[i]).each(function(j) {
+							$(this).fadeTo(100, 0, function() {
+								// Animation complete.
+									$(this).hide();
+							});
+						});	
 				}
 				setSaveStatus("Waiting");
 			},
@@ -267,14 +283,33 @@ $(document).ready(function() {
 					$("#"+selectionElementsList[i]).css("background-color", "white");
 					if (collisionWithOtherElementById(selectionElementsList[i]))
 					{
-						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},300, 'linear');   
+						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},300, 'linear');
+						$(".chairs" + selectionElementsList[i]).each(function(j) {
+							$(this).fadeTo(100, 1, function() {
+								// Animation complete.
+									$(this).show();
+							});
+						});	
 						colMade = true;						
 					}
 					else
 					{
 					   saveElementByID(selectionElementsList[i]);
+					   $(".chairs" + selectionElementsList[i]).each(function(j) {
+							var top = $("#"+selectionElementsList[i]).position().top;
+							var left = $("#"+selectionElementsList[i]).position().left;
+							var lastpos = startDradPositionList[i];
+							
+							$(this).fadeTo(100, 1, function() {
+								// Animation complete.
+									$(this).show();
+									$(this).css('top', $(this).position().top +  (top - lastpos.top));
+									$(this).css('left',$(this).position().left +  (left - lastpos.left));
+							});
+						});	
 					}
 					$("#"+selectionElementsList[i]).removeClass('borderSelected');
+					$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
 					var undoElement = new Array(2);
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";
@@ -288,6 +323,7 @@ $(document).ready(function() {
 				setSaveStatus("OK");
 				SelectedElem ="";
 				selectionElementsList = "";
+				drag = false;
 				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
 		}				
 		});

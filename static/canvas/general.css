@@ -44,43 +44,66 @@
  
  .TableParentElementDiv
  {
+     position:absolute;
+	-webkit-user-select: none;
+    -khtml-user-select: none;
+	-moz-user-select: none;
+	-o-user-select: none;
+    user-select: none;
  }
  
-  .TableElementDiv
+ .TableParentElementDivOutside
  {
-  overflow:auto;
-  background-image: url("/static/canvas/images/Chair.png");
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');
-  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');
+   position:absolute;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -o-user-select: none;
+   user-select: none;
+ }
+ 
+  .TableElementDiv64
+ {
+  background-image: url("/static/canvas/images/Chair64.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair64.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair64.png',sizingMethod='scale');
   background-position:center;
   background-repeat:no-repeat;
   background-size: 98% 98%;
-  width:64px;
-  height:64px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
  }
  
-   .TableOccElementDiv
+   .TableOccElementDiv64
  {
   overflow:auto;
-  background-image: url("/static/canvas/images/ChairOcc.png");
-  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');
-  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');
+  background-image: url("/static/canvas/images/ChairOcc64.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc64.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc64.png',sizingMethod='scale');
   background-position:center;
   background-repeat:no-repeat;
   background-size: 98% 98%;
-  width:64px;
-  height:64px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
  }
  
  .TableEmptyDetails
  {
-	overflow:auto;
+	font-weight:bold;
 	font-family: Arial, Helvetica, sans-serif;
-	font-size: 14px;
 	color: #000000;	
-	font-weight: bold;
-    margin-top:35%;
     text-align:center;
+   -webkit-user-select: none;
+   -khtml-user-select: none;
+   -moz-user-select: none;
+   -o-user-select: none;
+   user-select: none;
  }
  
  .WaitingPersonChair
@@ -91,8 +114,11 @@
   background-position:center;
   background-repeat:no-repeat;
   background-size: 98% 98%;
-  width:64px;
-  height:64px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
  }
  
  .Pointer
@@ -477,6 +503,15 @@
 	font-weight: normal;
 	line-height: 20px;
 }
+.text_9_black_bold {
+	font-family: Arial, Helvetica, sans-serif;
+	font-size: 9px;
+	color: #000000;
+	margin-right: 0px;
+	font-weight: normal;
+	line-height: 20px;
+	font-weight: bold;
+}
 
 .CloseBtn
 {
@@ -530,11 +565,11 @@
  }
  .dropLayerClass
  {
-	background-image: url("/static/canvas/images/background.png");
+	background-color:#7E2007;
 	z-index:9999;
-	-moz-border-radius: 55px;
-	-webkit-border-radius: 55px;
-	border-radius: 55px;
+	-moz-border-radius: 33px;
+	-webkit-border-radius: 33px;
+	border-radius: 33px;
  }
 .ui-autocomplete {
 	max-height: 100px;
@@ -568,5 +603,9 @@
 .peopleListExpander
 {
  	cursor:pointer;
+}
+
+.actionBtn
+{
 }
 

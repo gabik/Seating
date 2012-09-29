@@ -135,7 +135,7 @@
 		zoomingCanvas(false);
 	  }
 	
-	if ((!($(".DragDiv").size() > 45)) && firstInit)
+	if ((!($(".DragDiv").size() > 50)) && firstInit)
 	{
 		$("#SquarePlaceMentShapes").click();
 		$(".ShapePlacementMenu").hide();
@@ -148,6 +148,12 @@
 			{
 				reposElementAtAFreeSpaceNonDrag($(this), 0);
 			}
+		 }
+		 var elementCaption = $(this).context.getElementsByTagName("p");
+		 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+		 var elementTable = $(this).context.getElementsByTagName("table");
+		 if (elementTable[0].id.split("-", 1)  != "Rect") {
+			posTableChairs($(this), elementMaxSize);
 		 }
 	 });
 	 
@@ -525,7 +531,7 @@
 					</tr>
 				</table>				
 			</div>
-			<div class="AddDiv" title="הוסף שולחן">
+			<div class="AddDiv actionBtn" title="הוסף שולחן">
 			<!--[if IE]>
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png" onclick="addTableButtonPress()"></div>
 				<ul class="AddMenu">
@@ -540,10 +546,10 @@
 					<li><a href="#" onclick="addMenuItemButtonPress('dj&stand')"><img id="djstand" style="margin-left:5;" border=0 src="/static/canvas/images/misc/dj.png" class="MenuItem" title="עמדת די ג'יי"></a></li>
 				</div>
  			</ul>
-			<div class="AligmentDiv" title="ישור שולחנות מסומנים" onclick="addAligmentDivButtonPress()"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
-			<div class="DelDiv" title="מחיקת שולחן"><img id="DelImg" src="/static/canvas/images/minus_n.png"  onclick="delTableButtonPress()"></div>
-			<div class="UndoDiv" title="חזור למצב קודם" onClick="undoButtonPress()"><img id="UndoImg" src="/static/canvas/images/back_n.png" onclick="undoButtonPress"></div>
-			<div class="PlaceMentShapesDiv" title="סידור שולחנות אוטומטי"><img id="PSImg" src="/static/canvas/images/grid_n.png" onclick="shapePlacementDivButtonPress()"></div>
+			<div class="AligmentDiv actionBtn" title="ישור שולחנות מסומנים" onclick="addAligmentDivButtonPress()"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv actionBtn" title="מחיקת שולחן"><img id="DelImg" src="/static/canvas/images/minus_n.png"  onclick="delTableButtonPress()"></div>
+			<div class="UndoDiv actionBtn" title="חזור למצב קודם" onClick="undoButtonPress()"><img id="UndoImg" src="/static/canvas/images/back_n.png" onclick="undoButtonPress"></div>
+			<div class="PlaceMentShapesDiv actionBtn" title="סידור שולחנות אוטומטי"><img id="PSImg" src="/static/canvas/images/grid_n.png" onclick="shapePlacementDivButtonPress()"></div>
 			<![endif]-->
 			<!--[if !IE]><!-->
 				<img id="AddDivImg" src="/static/canvas/images/pluse_n.png"></div>
@@ -557,17 +563,17 @@
 				<li><a href="#"><img id="bar&stand" style="margin-left:5;" border=0 src="/static/canvas/images/misc/bar_small.png"  class="MenuItem" title="בר משקאות"></a></li>
 				<li><a href="#"><img id="dj&stand" style="margin-left:5;" border=0 src="/static/canvas/images/misc/dj.png"  class="MenuItem" title="עמדת דיי ג'יי"></a></li>
  			</ul>
-			<div class="AligmentDiv" title="ישור שולחנות מסומנים"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
-			<div class="DelDiv" title="מחיקת שולחן"><img  id="DelImg"src="/static/canvas/images/minus_n.png"></div>
-			<div class="UndoDiv" title="חזור למצב קודם"><img id="UndoImg" src="/static/canvas/images/back_n.png"></div>
-			<div class="PlaceMentShapesDiv" title="סידור שולחנות אוטומטי"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
+			<div class="AligmentDiv actionBtn" title="ישור שולחנות מסומנים"><img id="AlignImg" src="/static/canvas/images/align_n.png"></div>
+			<div class="DelDiv actionBtn" title="מחיקת שולחן"><img  id="DelImg"src="/static/canvas/images/minus_n.png"></div>
+			<div class="UndoDiv actionBtn" title="חזור למצב קודם"><img id="UndoImg" src="/static/canvas/images/back_n.png"></div>
+			<div class="PlaceMentShapesDiv actionBtn" title="סידור שולחנות אוטומטי"><img id="PSImg" src="/static/canvas/images/grid_n.png"></div>
 			 <!--<![endif]-->
-			 <div class="SpinDiv"  title="סיבוב אופקי אנכי"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
-			<div class="MoneyInfoDiv" title="התפלגות סכומי מתנות לאירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
-			<div class="OccasionFinishDiv"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
-			<div class="EUDDiv" title="העלאה והורדה קובץ אקסל"><img id="EUDImg" src="/static/canvas/images/excel_n.png"></div>
-			<div class="HelpCanvasDiv" title="מדריך עזרה"><img id="HelpImg" style="border: 0;" src="/static/canvas/images/help_n.png" onclick="HelpScreen()"></img></div>
-			<div class="ExitCanvasDiv" title="יציאה מהמערכת"><img id="ExitImg" style="border: 0;" src="/static/canvas/images/exit_canvas_n.png"></img></div>
+			 <div class="SpinDiv actionBtn"  title="סיבוב אופקי אנכי"><img id="SpinImg" src="/static/canvas/images/spin_n.png"></div>
+			<div class="MoneyInfoDiv actionBtn" title="התפלגות סכומי מתנות לאירוע"><img id="MoneyImg" src="/static/canvas/images/money_n.png"></div>
+			<div class="OccasionFinishDiv actionBtn"  title="ישומי אירוע"><img id="OFImg" src="/static/canvas/images/end_n.png"></div>
+			<div class="EUDDiv actionBtn" title="העלאה והורדה קובץ אקסל"><img id="EUDImg" src="/static/canvas/images/excel_n.png"></div>
+			<div class="HelpCanvasDiv actionBtn" title="מדריך עזרה"><img id="HelpImg" style="border: 0;" src="/static/canvas/images/help_n.png" onclick="HelpScreen()"></img></div>
+			<div class="ExitCanvasDiv actionBtn" title="יציאה מהמערכת"><img id="ExitImg" style="border: 0;" src="/static/canvas/images/exit_canvas_n.png"></img></div>
 			<ul class="AligmentMenu">
  				<li><div id="HorizontalAligmentDivLeft" title="ישור אופקי לשמאל"><img src="/static/canvas/images/HorizontalLeft.png" style="margin-left:5;" class="Pointer"></div></li>
 				<li><div id="HorizontalAligmentDivRight" title="ישור אופקי לימין"><img src="/static/canvas/images/HorizontalRight.png" style="margin-left:5;" class="Pointer"></div></li>
@@ -601,8 +607,7 @@
 					  <table width="115" border="0" cellspacing="0" cellpadding="0" style="display:block;">
 						<tr class="MenuHeader">
 						  <td width="5" height="25"></td>
-						  <td width="5" height="25" align="left"><div id="float-list-head"><img id="floatListPin" src="/static/canvas/icons/pin_on_n.png" width="16" height="16" align="left" alt="P" style="cursor:pointer;"
-						  /></div></td>
+						  <td width="5" height="25" align="left"><div id="float-list-head"><span id="floatListPin" class="text_11_blue" dir="rtl" align="left" alt="P" style="cursor:pointer; z-index:9999;">[שיחרור]</span></div></td>
 						  <td height="25" width="105" colspan="3" dir="rtl" align="right"><span class="window_titleRI" style="text-align:right;">רשימה צפה</span></td>
 						  <td width="5" height="25"></td>
 						</tr>
@@ -653,9 +658,9 @@
 						  <td width="120" height="25" colspan="4" >
 							  <table border="0" cellspacing="0" cellpadding="0" style="display:block;">
 								  <tr>
-									  <td height="58" valign="center" title="הרחבת רשימה"><img class="peopleListExpander" src="/static/page/images/expander_down_n.png" width="16" height="16"></img></td>
+									  <td height="58" valign="center"><img class="peopleListExpander" src="/static/page/images/expander_down_n.png" width="16" height="16" title="הרחבת רשימה"></img></td>
 									  <td title="מיין לפי"><img src="/static/right_interface/images/filter_list.png" alt="מיין לפי" width="95" height="38" vspace="10" id="SortFloatList" class="pointer" /></td>
-									  <td height="58" valign="center" title="הרחבת רשימה"><img class="peopleListExpander" src="/static/page/images/expander_down_n.png" width="16" height="16"></img></td>
+									  <td height="58" valign="center"><img class="peopleListExpander" src="/static/page/images/expander_down_n.png" width="16" height="16" title="הרחבת רשימה"></img></td>
 								  </tr>
 							  </table>
 						  </td>

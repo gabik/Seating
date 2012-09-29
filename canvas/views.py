@@ -452,23 +452,40 @@ def swap_position(request):
 	if request.method == 'POST':
 		elem_delim = request.POST['elem_num'].index('-')
 		elem_num=request.POST['elem_num'][elem_delim+1:]
+		elem_delim2 = request.POST['elem_num2'].index('-')
+		elem_num2=request.POST['elem_num2'][elem_delim2+1:]
 		first_person_position = request.POST['first_position']
 		second_person_position = request.POST['second_position']
 		if (int(first_person_position) > 0 and int(second_person_position) > 0):
 			element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(first_person_position))
 			if (len(element_persons) > 0):
 				element_persons[0].position = int(second_person_position)
-				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
+				element_persons[0].elem_num = int(elem_num2)
+				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num2), position=int(second_person_position))
 				if (len(second_element_persons) > 0):
 					second_element_persons[0].position = int(first_person_position)
+					second_element_persons[0].elem_num = int(elem_num)
 					second_element_persons[0].save()
-				element_persons[0].save()
+					single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
+					single_element2.current_sitting = single_element2.current_sitting - 1
+					single_element2.save()
+					single_element1 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+					single_element1.current_sitting = single_element1.current_sitting + 1
+					single_element1.save()
+					element_persons[0].save()
 				json_dump = json.dumps({'status': "OK"})
 			else:
-				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num), position=int(second_person_position))
+				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num2), position=int(second_person_position))
 				if (len(second_element_persons) > 0):
 					second_element_persons[0].position = int(first_person_position)
+					second_element_persons[0].elem_num = int(elem_num)
 					second_element_persons[0].save()
+					single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
+					single_element2.current_sitting = single_element2.current_sitting + 1
+					single_element2.save()
+					single_element1 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+					single_element1.current_sitting = single_element1.current_sitting - 1
+					single_element1.save()
 					json_dump = json.dumps({'status': "OK"})	
 	return HttpResponse(json_dump)
 
@@ -889,6 +906,4 @@ def get_max_x(request):
 	max_x = user_elements.all().aggregate(Max('x_cord'))['x_cord__max']
 	json_dump = json.dumps({'status': "OK", 'MaxX': max_x})	
 	return HttpResponse(json_dump)
-
-
 

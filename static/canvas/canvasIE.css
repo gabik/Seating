@@ -39,7 +39,10 @@
    {
 	background-color:#5A8EA3;
 	z-index:99999;
-	filter: alpha(opacity = 10);
+	filter: alpha(opacity = 70);
+	-moz-border-radius: 5px;
+	-webkit-border-radius: 5px;
+	 border-radius: 5px;
   }
  #right-bar
  {
@@ -122,7 +125,17 @@
 
  .borderSelected
  {
-  border:2px solid #5A8EA3;
+   border:2px solid #5A8EA3;
+  z-index:999;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+ }
+ 
+  .broderNonDragSelected
+ {
+   border:2px solid #5A8EA3;
+  z-index:999;
   -moz-border-radius: 5px;
   -webkit-border-radius: 5px;
   border-radius: 5px;
@@ -201,3 +214,34 @@
     background-size: 100% 100%;
 	-moz-background-size: 100%;
 }
+
+  .TableElementDiv
+ {
+  background-image: url("/static/canvas/images/Chair16.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair16.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair16.png',sizingMethod='scale');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+ }
+ 
+   .TableOccElementDiv
+ {
+  overflow:auto;
+  background-image: url("/static/canvas/images/ChairOcc16.png");
+  filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc16.png',sizingMethod='scale');
+  -ms-filter: progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc16.png',sizingMethod='scale');
+  background-position:center;
+  background-repeat:no-repeat;
+  background-size: 98% 98%;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+ }

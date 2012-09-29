@@ -1,4 +1,4 @@
-var placementMargin = 10;
+var placementMargin = 48;
 var maxWidth = 0;
 var maxHeight = 0;
 var maxTablesInCanvas = 48;
@@ -99,19 +99,20 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				 {
-					$("#borderSelected").removeClass('borderSelected');
-				 }
-				 else
-				 {
 					$(this).removeClass('borderSelected');
-				 }
+					$(this).removeClass('broderNonDragSelected');
 				SelectedElem = "";
+				var curTable = $(this);
 				
 				startDradPositionList[i] = $(this).position();
+
+				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	
+
+				});
 				
-				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	});
+				$(".chairs" + curTable.attr('id')).each(function(j) {
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+				});
 				
 				if (middleCircle)
 				{
@@ -236,19 +237,18 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				 {
-					$("#borderSelected").removeClass('borderSelected');
-				 }
-				 else
-				 {
 					$(this).removeClass('borderSelected');
-				 }
+					$(this).removeClass('broderNonDragSelected');
 				SelectedElem = "";
+				var curTable = $(this);
 			
 				startDradPositionList[i] = $(this).position();
 				
 				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	});
+				
+				$(".chairs" + curTable.attr('id')).each(function(j) {
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+				});
 				
 				if (middleCircle)
 				{
@@ -358,14 +358,8 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				 {
-					$("#borderSelected").removeClass('borderSelected');
-				 }
-				 else
-				 {
 					$(this).removeClass('borderSelected');
-				 }
+					$(this).removeClass('broderNonDragSelected');
 				SelectedElem = "";
 				startDradPositionList[i] = $(this).position();
 				if (newTop + $(this).height() > maxHeight)
@@ -389,7 +383,12 @@ $(document).ready(function() {
 				}
 				
 				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	});
+				var curTable = $(this);
 
+				$(".chairs" + curTable.attr('id')).each(function(j) {
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+				});
+				
 				newTop = newTop + $(this).height() + placementMargin;
 				if (maxWidthPerCol < $(this).width())
 				{

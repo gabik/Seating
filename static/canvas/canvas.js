@@ -30,18 +30,18 @@ function menuItemClick(element)
 		}
 		else if (kind == "dance_stand")
 		{
-			addWidth = 200;
-			addHeight = 40;
+			width = 64;
+			height = 64;
 		}
 		else if (kind ==  "bar_stand") 
 		{
-			addWidth = 145;
-			addHeight = 40;
+			width = 64;
+			height = 64;
 		}
 		else if (kind ==  "dj_stand") 
 		{
-			addWidth = 15;
-			addHeight = 15;
+			width = 64;
+			height = 64;
 		}
 		
 		$.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
