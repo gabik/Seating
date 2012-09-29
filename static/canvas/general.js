@@ -229,11 +229,11 @@ function posTableChairs(element, elementMaxSize)
 		if (maxElementCapacity - 6 < parseInt(elementMaxSize))
 		{
 			def = 1.61;
-			if (!navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-			{
-				center[1] = center[1] - Math.max((6.2 - (maxElementCapacity - elementMaxSize)), 2.2);
-				center[0] = center[0] - Math.max((6.2 - (maxElementCapacity - elementMaxSize)), 2.2);
-			}
+			//if (!navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			//{
+				center[1] = center[1] - Math.max((4.2 - (maxElementCapacity - elementMaxSize)), 2.2);
+				center[0] = center[0] - Math.max((4.2 - (maxElementCapacity - elementMaxSize)), 2.2);
+			//}
 		}
 		else if (maxElementCapacity / 2 < parseInt(elementMaxSize))
 		{
