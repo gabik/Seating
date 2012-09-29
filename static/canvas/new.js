@@ -1,6 +1,6 @@
-var listTableElementString = '<li><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
+var listTableElementString = '<li><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
 
-var listTableDisabledElementString = '<li style="margin-top:5px; margin-left:59px"><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1" disabled="disabled">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4" disabled="disabled">&nbsp;&nbsp;<select class="tableShapeSelect" disabled="disabled"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareG.png" width="32" height="32"/></li>';
+var listTableDisabledElementString = '<li style="margin-top:5px; margin-left:59px"><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1" disabled="disabled">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4" disabled="disabled">&nbsp;&nbsp;<select class="tableShapeSelect" disabled="disabled"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/></li>';
 
 var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
@@ -444,19 +444,19 @@ function tableShapeChange(element)
 {
 	if (element.val() == "A")
 	{
-		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareR.png");
 	}
 	else if (element.val() == "B")
 	{
-		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundR.png");
 	}
 	else if (element.val() == "C")
 	{
-		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/RectR.png");
 	}
 	else if (element.val() == "D")
 	{
-		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+		element.parent().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeR.png");
 	}
  }
  
@@ -496,20 +496,20 @@ function insertUserElements()
 					if (kindColumn == "Square")
 					{
 						$("#TableTypeList > li").last().find('select').first().val("A");
-						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");				}
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareR.png");				}
 					else if (kindColumn == "Round")
 					{
 						$("#TableTypeList > li").last().find('select').first().val("B");
-						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");				}
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundR.png");				}
 					else if (kindColumn == "Rect")
 					{					
 						$("#TableTypeList > li").last().find('select').first().val("C");
-						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectR.png");
 					}
 					else if (kindColumn == "Lozenge")
 					{
 						$("#TableTypeList > li").last().find('select').first().val("D");
-						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+						$("#TableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeR.png");
 					}
 					$("#TableTypeList > li").last().find('input').first().val(sizeColumn);
 					$("#TableTypeList > li").last().find('input').last().val(amountColumn);
@@ -613,20 +613,20 @@ $(document).ready(function(){
 					}
 					else if (kind == "dance_stand")
 					{
-						width = width + 200;
-						height = height + 40;
+						width = 64;
+						height = 64;
 						$("#djStandAppovalAuto").attr("checked","checked");
 					}
 					else if (kind ==  "bar_stand") 
 					{
-						width = width + 145;
-						height = height + 40;
+						width = 64;
+						height = 64;
 						$("#barAppovalAuto").attr("checked","checked");
 					}
 					else if (kind ==  "dj_stand") 
 					{
-						width = width + 15;
-						height = height + 15;
+						width = 64;
+						height = 64;
 						$("#danceStandAppovalAuto").attr("checked","checked");
 					}
 					
@@ -647,19 +647,19 @@ $(document).ready(function(){
 					$("#AutoTableTypeList > li").last().find('input').last().val(rowArray[1]);
 					if (rowArray[2] == "A")
 					{
-						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareG.png");
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/SquareR.png");
 					}
 					else if (rowArray[2] == "B")
 					{
-						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundG.png");
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RoundR.png");
 					}
 					else if (rowArray[2] == "C")
 					{
-						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectG.png");
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/RectR.png");
 					}
 					else if (rowArray[2] == "D")
 					{
-						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeG.png");
+						$("#AutoTableTypeList > li").last().find('img').first().attr('src',"/static/canvas/images/tables_small/LozengeR.png");
 					}
 				}
 				sketchMode = true;
@@ -780,15 +780,15 @@ $(document).ready(function(){
 					
 					if ($("#barAppoval").attr('checked') && !alreadyHasBar)
 					{
-						dataString = dataString + 'bar_stand,1,8,0,0,207,102|';
+						dataString = dataString + 'bar_stand,1,8,0,0,64,64|';
 					}
 					if ($("#danceStandAppoval").attr('checked') && !alreadyHasDance)
 					{
-						dataString = dataString + 'dance_stand,1,8,0,0,262,102|';
+						dataString = dataString + 'dance_stand,1,8,0,0,64,64|';
 					}
 					if ($("#djStandAppoval").attr('checked') && !alreadyHasDj)
 					{
-						dataString = dataString + 'dj_stand,1,8,0,0,77,77|';
+						dataString = dataString + 'dj_stand,1,8,0,0,64,64|';
 					}
 					
 					postDataString();
