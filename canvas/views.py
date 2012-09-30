@@ -466,13 +466,16 @@ def swap_position(request):
 					second_element_persons[0].position = int(first_person_position)
 					second_element_persons[0].elem_num = int(elem_num)
 					second_element_persons[0].save()
-					single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
-					single_element2.current_sitting = single_element2.current_sitting - 1
-					single_element2.save()
+				else:
+					if (int(elem_num) != int(elem_num2)):
+						single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
+						single_element2.current_sitting = single_element2.current_sitting + 1
+						single_element2.save()
+				if (int(elem_num) != int(elem_num2) and len(second_element_persons) == 0):
 					single_element1 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-					single_element1.current_sitting = single_element1.current_sitting + 1
+					single_element1.current_sitting = single_element1.current_sitting - 1
 					single_element1.save()
-					element_persons[0].save()
+				element_persons[0].save()
 				json_dump = json.dumps({'status': "OK"})
 			else:
 				second_element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num2), position=int(second_person_position))
@@ -480,12 +483,13 @@ def swap_position(request):
 					second_element_persons[0].position = int(first_person_position)
 					second_element_persons[0].elem_num = int(elem_num)
 					second_element_persons[0].save()
-					single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
-					single_element2.current_sitting = single_element2.current_sitting + 1
-					single_element2.save()
-					single_element1 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
-					single_element1.current_sitting = single_element1.current_sitting - 1
-					single_element1.save()
+					if (int(elem_num) != int(elem_num2)):
+						single_element2 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num2))
+						single_element2.current_sitting = single_element2.current_sitting - 1
+						single_element1 = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+						single_element1.current_sitting = single_element1.current_sitting + 1
+						single_element2.save()
+						single_element1.save()
 					json_dump = json.dumps({'status': "OK"})	
 	return HttpResponse(json_dump)
 

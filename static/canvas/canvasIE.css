@@ -89,11 +89,14 @@
  }
  #occasionDetailsAdvanceR
    {
+   display:none;
   position:absolute;
   padding: 4px;
   width:155;
   top:483;
   left:-239;
+  z-index:99999;
+
  }
   #AddPersonList
  {
@@ -125,11 +128,7 @@
 
  .borderSelected
  {
-   border:2px solid #5A8EA3;
   z-index:999;
-  -moz-border-radius: 5px;
-  -webkit-border-radius: 5px;
-  border-radius: 5px;
  }
  
   .broderNonDragSelected
@@ -245,3 +244,24 @@
   -o-user-select: none;
   user-select: none;
  }
+ 
+  .ChargeDiv
+ {
+  position:absolute;
+  background-color:#5A8EA3; 
+  z-index:99999;
+  margin-top:20px;
+  width:1195px;
+  height:630px;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -o-user-select: none;
+  user-select: none;
+  -moz-border-radius: 5px;
+  -webkit-border-radius: 5px;
+  border-radius: 5px;
+  border:4px solid #5A8EA3;
+  left:10;
+ }
+

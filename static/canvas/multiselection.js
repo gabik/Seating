@@ -58,6 +58,8 @@ function aligmentHorizontal(side)
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
+			unMarkTable($("#"+selectionElementsList[i]));
+			SelectedElem = "";
 			$("#"+selectionElementsList[i]).animate({left: newLeftValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -118,6 +120,8 @@ function aligmentVertical(side)
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
+			unMarkTable($("#"+selectionElementsList[i]));
+			SelectedElem = "";
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
 			{ 
 				for (var j = 0; j < selectionElementsList.length; j++)
@@ -159,6 +163,8 @@ $(document).ready(function() {
 			{
 				SelectedElem.removeClass('borderSelected');
 				SelectedElem.removeClass('broderNonDragSelected');
+				unMarkTable(SelectedElem);
+				SelectedElem = "";
 				posPropertyPanel("");
 			}
 			SelectedElem ="";
@@ -310,6 +316,8 @@ $(document).ready(function() {
 					}
 					$("#"+selectionElementsList[i]).removeClass('borderSelected');
 					$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
+					unMarkTable($("#"+selectionElementsList[i]));
+					SelectedElem = "";
 					var undoElement = new Array(2);
 					undoElement[0] = $("#"+selectionElementsList[i]);
 					undoElement[1] = "move";

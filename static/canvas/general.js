@@ -840,7 +840,7 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 	elementCaption[0].innerHTML = newCaption;
 	elementCaption[0].title = newCaption;
 	elementCaption[1].innerHTML = sizeStr;
-	reloadElementStatus(element, false);
+	reloadElementStatus(element, false, -1);
 	reArrangeChairs(element,newSize);
 }
 
@@ -850,70 +850,16 @@ function selectElement(element)
     if (SelectedElem != "") {
 		SelectedElem.removeClass('borderSelected');
 		SelectedElem.removeClass('broderNonDragSelected');
-		/*var elementTable = SelectedElem.context.getElementsByTagName("table");
-
-		if (isThisPeopleTable(elementTable[0].id))
-			{
-					SelectedElem.find('p').each(function(){
-					$(this).css('color','black');
-				});
-				SelectedElem.find('span').each(function(){
-					$(this).css('color','blue');
-				});
-				if (elementTable[0].id.split("-", 1) == "Square") {
-					  SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/SquareR.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Round") {
-					 SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RoundR.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-					 SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/LozengeR.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Rect") {
-					if (SelectedElem.data('orient') == 'v')
-					{
-						SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RectR.png')");
-						 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-						  {
-							  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale');");
-							  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale')';");
-						  }
-					}
-					else if (SelectedElem.data('orient') == 'h')
-					{
-						SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RectR_H.png')");
-						 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-						  {
-							  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale');");
-							  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale')';");
-						  }
-					}
-				}
-			}*/
+		unMarkTable(SelectedElem);
     }
-	var elementTable = element.context.getElementsByTagName("table");
     element.removeClass('borderSelected');
 	element.removeClass('broderNonDragSelected');
-
+	unMarkTable(element);
 	if (!tableMode)
 	{	  
-	  if (!(element.hasClass('borderSelected')))
+	  if (!(element.hasClass('borderSelected')) && !(element.hasClass('broderNonDragSelected')))
 	  {
+	  	markTable(element);
 		element.addClass('borderSelected');
 	  }
 	}
@@ -923,68 +869,6 @@ function selectElement(element)
 	}
 	multiSelection = false;
     SelectedElem = element;
-	/*if (SelectedElem.html() && !tableMode && !(element.hasClass('borderSelected')))
-	{
-
-		if (isThisPeopleTable(elementTable[0].id))
-		{
-		
-			element.find('p').each(function(){
-				$(this).css('color','#E0E0AD');
-			});
-			element.find('span').each(function(){
-				$(this).css('color','white');
-			});
-			if (elementTable[0].id.split("-", 1) == "Square") {
-				  element.css("background-image", "url('/static/canvas/images/tables_small/SquareS.png')");
-				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				  {
-					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareS.png',sizingMethod='scale');");
-					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareS.png',sizingMethod='scale')';");
-				  }
-			}
-			else if (elementTable[0].id.split("-", 1) == "Round") {
-				 element.css("background-image", "url('/static/canvas/images/tables_small/RoundS.png')");
-				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				  {
-					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundS.png',sizingMethod='scale');");
-					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundS.png',sizingMethod='scale')';");
-				  }
-			}
-			else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-				 element.css("background-image", "url('/static/canvas/images/tables_small/LozengeS.png')");
-				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				  {
-					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeS.png',sizingMethod='scale');");
-					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeS.png',sizingMethod='scale')';");
-				  }
-			}
-			else if (elementTable[0].id.split("-", 1) == "Rect") {
-				if (element.data('orient') == 'v')
-				{
-					element.css("background-image", "url('/static/canvas/images/tables_small/RectS.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (element.data('orient') == 'h')
-				{
-					element.css("background-image", "url('/static/canvas/images/tables_small/RectS_H.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS_H.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS_H.png',sizingMethod='scale')';");
-					  }
-				}
-			}
-		}
-		else
-		{
-			element.addClass('broderNonDragSelected');
-		}
-	}*/	
 	updateElementScreenProperties(element);
 	fromPropMeneBtn = false;
 }
@@ -1078,8 +962,14 @@ function changeOrientation(element, select)
 	  }, 'json');
 }
 
-function reloadElementStatus(element, init)
+function reloadElementStatus(element, init, index)
 {
+
+	if (init && (element.hasClass('borderSelected') || element.hasClass('broderNonDragSelected')))
+	{
+		return;
+	}
+	
 	 var elementTable = element.context.getElementsByTagName("table");
 		
 	if (!init && (elementTable[0].id.split("-", 1) == "Square" || elementTable[0].id.split("-", 1) == "Round"|| elementTable[0].id.split("-", 1) == "Lozenge"))
@@ -1353,6 +1243,29 @@ function reloadElementStatus(element, init)
 				}
 			 }
 		}
+		
+		if (init)
+		{
+			if (index > -1)
+			{
+				var pre = Math.min((($(".DragDiv").size()) * index / 100) * 100 , 100);
+				$("#chargeScr").find('img').last().css('width', pre + '%'); 
+				$("#chargeScr").find('p').last().text(pre + '%'); 
+				
+				if (pre == 100)
+				{
+					$("#chargeScr").fadeTo(1500, 0,function(){
+					$("#chargeScr").remove();});
+				}
+			}
+			else
+			{
+					$("#chargeScr").fadeTo(1500, 0,function(){
+					$("#chargeScr").remove();});
+			}
+		}
+		
+		
 		setSaveStatus("OK");
 	   }
 	   else
@@ -1864,7 +1777,7 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 		if (!collisionWithOtherElementWithOutNonDragElements(element))
 		{
 			saveElement(element);
-			selectElement(element);
+			//selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1881,7 +1794,7 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 	{
 		element.css('top', startposY);
 		element.css('left',startposX);
-		saveElement(element);
+		//saveElement(element);
 		selectElement(element);
 	}
 }
@@ -2111,7 +2024,7 @@ function dropPerson(draged,table, place)
 			draged.hide();
 			draged.remove();
 			setSaveStatus("OK");
-			reloadElementStatus(table, false);
+			reloadElementStatus(table, false, -1);
 			  var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
 			  var newSize = parseInt(table.find('p:eq(1)').text().split("/", 1)) + 1;
 			  var sizeStr = newSize + "/" + elementMaxSize;
@@ -2263,7 +2176,7 @@ $(document).ready(function() {
   $("#float-list").after(function() {
 	floatListOriginalPosition = $("#float-list").position();
   });
-  $(".DragDiv").after(function() {
+  $(".DragDiv").after(function(index) {
 	 var elementCaption = $(this).context.getElementsByTagName("p");
 	 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 	 var elementTable = $(this).context.getElementsByTagName("table");
@@ -2293,7 +2206,7 @@ $(document).ready(function() {
 		 }
 		 $(this).addClass('DragNonDropDiv');		 
 	 }
-	 reloadElementStatus($(this), true); 
+	 reloadElementStatus($(this), true, index); 
   });
 
   $("#people_list").multisortable();
@@ -2767,7 +2680,7 @@ $(document).ready(function() {
 				   if (data.status == 'OK')
 				   {
 						setSaveStatus("OK");
-						reloadElementStatus(SelectedElem, false);
+						reloadElementStatus(SelectedElem, false, -1);
 						changeOrientation(SelectedElem, true);
 				   }
 				   else
@@ -2801,61 +2714,7 @@ $(document).ready(function() {
 	  if (SelectedElem != "" && !tableMode && !detailsMode) {
 			SelectedElem.removeClass('borderSelected');
 			SelectedElem.removeClass('broderNonDragSelected');
-			/*var elementTable = SelectedElem.context.getElementsByTagName("table");
-		
-			if (isThisPeopleTable(elementTable[0].id))
-			{
-					SelectedElem.find('p').each(function(){
-					$(this).css('color','black');
-				});
-				SelectedElem.find('span').each(function(){
-					$(this).css('color','blue');
-				});
-				if (elementTable[0].id.split("-", 1) == "Square") {
-					  SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/SquareR.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Round") {
-					 SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RoundR.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-					 SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/LozengeR.png')");
-					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale');");
-						  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (elementTable[0].id.split("-", 1) == "Rect") {
-					if (SelectedElem.data('orient') == 'v')
-					{
-						SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RectR.png')");
-						 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-						  {
-							  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale');");
-							  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale')';");
-						  }
-					}
-					else if (SelectedElem.data('orient') == 'h')
-					{
-						SelectedElem.css("background-image", "url('/static/canvas/images/tables_small/RectR_H.png')");
-						 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-						  {
-							  SelectedElem.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale');");
-							  SelectedElem.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale')';");
-						  }
-					}
-				}
-			}*/
+			unMarkTable(SelectedElem);
 			SelectedElem = "";
 		}
 		
@@ -2952,6 +2811,14 @@ $(document).ready(function() {
 				   }
 				   }, 'json');
 			$(this).attr('src',"/static/page/images/expander_right_r.png");
+			  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			 {
+			 	$("#occasionDetailsAdvanceR").css('top',483);
+			 }
+			 else
+			 {
+			  	$("#occasionDetailsAdvanceR").css('top',490);
+			 }
 			$("#occasionDetailsAdvanceR").show("slide", { direction: "right" }, 150);
 		}
 	});

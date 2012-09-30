@@ -25,6 +25,7 @@
   .DragNonDropDiv
  {
   position:absolute;
+  cursor:pointer;
   background-position:center;
   background-repeat:no-repeat;
   background-size: 98% 98%;

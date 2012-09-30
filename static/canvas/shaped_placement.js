@@ -99,8 +99,9 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-					$(this).removeClass('borderSelected');
-					$(this).removeClass('broderNonDragSelected');
+				$(this).removeClass('borderSelected');
+				$(this).removeClass('broderNonDragSelected');
+				unMarkTable($(this));
 				SelectedElem = "";
 				var curTable = $(this);
 				
@@ -237,8 +238,9 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-					$(this).removeClass('borderSelected');
-					$(this).removeClass('broderNonDragSelected');
+				$(this).removeClass('borderSelected');
+				$(this).removeClass('broderNonDragSelected');
+				unMarkTable($(this));
 				SelectedElem = "";
 				var curTable = $(this);
 			
@@ -358,8 +360,9 @@ $(document).ready(function() {
 			$('ul.ShapePlacementMenu').slideToggle('medium');
 			
 			$(".DragDiv").each(function(i) {
-					$(this).removeClass('borderSelected');
-					$(this).removeClass('broderNonDragSelected');
+				$(this).removeClass('borderSelected');
+				$(this).removeClass('broderNonDragSelected');
+				unMarkTable($(this));
 				SelectedElem = "";
 				startDradPositionList[i] = $(this).position();
 				if (newTop + $(this).height() > maxHeight)

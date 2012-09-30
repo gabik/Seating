@@ -141,7 +141,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	
 	$("#float-list").animate({ top: floatListOriginalPosition.top, left: floatListOriginalPosition.left},300, 'linear');
 	element.removeClass('borderSelected');
-	$("#borderSelected").removeClass('borderSelected');
+	unMarkTable(element);
 	
 	$(".DragDiv").each(function(i) {
 		if (originalElement.context.id != $(this).context.id)
@@ -150,7 +150,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
-				$("#borderSelected").removeClass('borderSelected');
+				unMarkTable($(this));
 				$(this).hide();
 			});
 		}
@@ -163,7 +163,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 			$(this).fadeTo(400, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
-				$("#borderSelected").removeClass('borderSelected');
+				unMarkTable($(this));
 				$(this).hide();
 			});
 		}
@@ -227,7 +227,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	element.find('p').first().css('width', tableModeWidth);
 	
 	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() {
-	selectElement(element); $(this).removeClass('borderSelected'); 	$("#borderSelected").removeClass('borderSelected'); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	/*adjustCaption(element); */ $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear'); $("#elemBack_" + originalElement.context.id).fadeTo(400, 1);
+	selectElement(element); $(this).removeClass('borderSelected'); 	unMarkTable($(this)); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	/*adjustCaption(element); */ $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear'); $("#elemBack_" + originalElement.context.id).fadeTo(400, 1);
 	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;
@@ -384,6 +384,135 @@ function proccedSearchOnRegluarMode(data)
 		else
 		{
 			pointTableAfterSearch($("#" + data));
+		}
+	}
+}
+
+function markTable(element)
+{
+	if (element.html() && !tableMode && (!(element.hasClass('borderSelected')) && !(element.hasClass('broderNonDragSelected'))))
+	{
+		var elementId = element.find("table").first().attr('id');
+
+		if (isThisPeopleTable(elementId))
+		{
+		
+			element.find('p').each(function(){
+				$(this).css('color','#E0E0AD');
+			});
+			element.find('span').each(function(){
+				$(this).css('color','white');
+			});
+			if (elementId.split("-", 1) == "Square") {
+				  element.css("background-image", "url('/static/canvas/images/tables_small/SquareS.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareS.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareS.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Round") {
+				 element.css("background-image", "url('/static/canvas/images/tables_small/RoundS.png')");
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundS.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundS.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Lozenge") {
+				 element.css("background-image", "url('/static/canvas/images/tables_small/LozengeS.png')");
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeS.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeS.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Rect") {
+				if (element.data('orient') == 'v')
+				{
+					element.css("background-image", "url('/static/canvas/images/tables_small/RectS.png')");
+					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					  {
+						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS.png',sizingMethod='scale');");
+						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS.png',sizingMethod='scale')';");
+					  }
+				}
+				else if (element.data('orient') == 'h')
+				{
+					element.css("background-image", "url('/static/canvas/images/tables_small/RectS_H.png')");
+					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					  {
+						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS_H.png',sizingMethod='scale');");
+						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectS_H.png',sizingMethod='scale')';");
+					  }
+				}
+			}
+		}
+		else
+		{
+			element.addClass('broderNonDragSelected');
+		}
+	}
+}
+
+function unMarkTable(element)
+{
+	if (element.html())
+	{
+		var elementId = element.find("table").first().attr('id');
+
+		if (isThisPeopleTable(elementId))
+		{
+				element.find('p').each(function(){
+				$(this).css('color','black');
+			});
+			element.find('span').each(function(){
+				$(this).css('color','blue');
+			});
+			if (elementId.split("-", 1) == "Square") {
+				  element.css("background-image", "url('/static/canvas/images/tables_small/SquareR.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Round") {
+				 element.css("background-image", "url('/static/canvas/images/tables_small/RoundR.png')");
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Lozenge") {
+				 element.css("background-image", "url('/static/canvas/images/tables_small/LozengeR.png')");
+				 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (elementId.split("-", 1) == "Rect") {
+				if (element.data('orient') == 'v')
+				{
+					element.css("background-image", "url('/static/canvas/images/tables_small/RectR.png')");
+					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					  {
+						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale');");
+						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR.png',sizingMethod='scale')';");
+					  }
+				}
+				else if (element.data('orient') == 'h')
+				{
+					element.css("background-image", "url('/static/canvas/images/tables_small/RectR_H.png')");
+					 if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+					  {
+						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale');");
+						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RectR_H.png',sizingMethod='scale')';");
+					  }
+				}
+			}
 		}
 	}
 }
