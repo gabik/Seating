@@ -28,6 +28,7 @@ class UserProfile(models.Model):
 	occasion_place = models.CharField(max_length=30)
 	send_feedback_flag = models.BooleanField(default=True)
 	userNewCanvasRequest = models.BooleanField(default=False)
+	helpScreen = models.BooleanField(default=1)
         def __unicode__(self):
                 printy = unicode(self.user.username , "UTF-8")
                 return printy
@@ -77,6 +78,7 @@ class Guest(models.Model):
 	)
 	gender = models.CharField(max_length=6, choices=gender_choices, default='U')
 	send_mail_flag = models.BooleanField(default=1)
+	qty = IntegerRangeField(min_value=1, max_value=20)
         def __unicode__(self):
                 printy = unicode(self.user.username, "UTF-8") + "- " + unicode(self.guest_first_name, "UTF-8")+ " " +unicode(self.guest_last_name, "UTF-8")
                 return printy

@@ -161,20 +161,20 @@ def add_person(request):
 		amount = request.POST['amount']
 		if ((amount is None) or (amount == "") or (int(amount) < 1)):
 			amount = 1
-		for i in range(1,int(amount)+1):
-			addStr = ""
-			persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
-			if (len(persons) > 0):
-				max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
-				exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
-				if (len(exist_num) <= 0):
-					addStr = len(max_match) + 1
-				else:
-					addStr = len(max_match) + 2
-			last_name = request.POST['last'] + str(addStr)
-			hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
-			new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()))
-			new_person.save()
+		#for i in range(1,int(amount)+1):
+		addStr = ""
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
+		if (len(persons) > 0):
+			max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+			exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
+			if (len(exist_num) <= 0):
+				addStr = len(max_match) + 1
+			else:
+				addStr = len(max_match) + 2
+		last_name = request.POST['last'] + str(addStr)
+		hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
+		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()), qty=amount)
+		new_person.save()
 		json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 
@@ -230,6 +230,7 @@ def upload_file(request):
 				quantity=sh.cell_value(r,3)
 				if quantity == "":
 					quantity=1
+				gqty=quantity
 				phoneNum=escapeSpecialCharacters(sh.cell_value(r,4))
 				mailAddr=sh.cell_value(r,5)
 				faceAcnt=sh.cell_value(r,6)
@@ -259,15 +260,15 @@ def upload_file(request):
 					#else:
 					lastName=lastName + " " + str(addStr)
 					lastName=lastName.strip()
-					if quantity > 1:
-						for i in range(1,int(quantity)+1):
-							hash = str(str(request.user) + privName.encode('utf-8') + " " + str(i) + lastName.encode('utf-8'))
-							new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
-							new_person.save()
-					else:
-						hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
-						new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()))
-						new_person.save()
+					#if quantity > 1:
+						#for i in range(1,int(quantity)+1):
+							#hash = str(str(request.user) + privName.encode('utf-8') + " " + str(i) + lastName.encode('utf-8'))
+							#new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
+							#new_person.save()
+					#else:
+					hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
+					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()),qty=gqty)
+					new_person.save()
 
 				if groupNme not in group_choices:
 					un_group = UnknownGroups(user=request.user, group=groupNme);
@@ -344,7 +345,11 @@ def download_excel(request):
 		gender_trans={'M':'זכר', 'F':'נקבה', 'U':'אחר'}
 		ggender=unicode(gender_trans[g.gender], "UTF-8")
 		row1.write(2,ggender, style)
-		row1.write(3,1, style)
+		if g.qty < 1:
+			gqty=1
+		else:
+			gqty=g.qty
+		row1.write(3,gqty, style)
 		row1.set_cell_text(4,g.phone_number, style)
 		gemail=unicode(g.guest_email, "UTF-8")
 		row1.write(5,g.guest_email, style)
@@ -362,7 +367,7 @@ def download_excel(request):
 'Friends'+p2name: 'עבודה '+p2back,
 'Work'+p2name: 'עבודה '+p2back,
 'Other': 'אחר'}
-		ggroup=unicode(group_trans[g.group], "UTF-8")
+		ggroup=unicode(g.group, "UTF-8")
 		row1.write(7,ggroup, style)
 		row1.write(8,g.present_amount, style)
 		row_num+=1
@@ -425,9 +430,11 @@ def sorted_excel(request):
 	row1 = sheet1.row(row_num)
 	row1.write(0, he.last_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(1, he.first_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(2, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(3, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-	row1.write(4, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(2, he.phone_number, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(3, he.email, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(4, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(5, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
+	row1.write(6, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
         pattern = xlwt.Pattern()
         pattern.pattern = xlwt.Pattern.SOLID_PATTERN
         pattern.pattern_fore_colour = 1 
@@ -443,23 +450,27 @@ def sorted_excel(request):
 		row1 = sheet1.row(row_num)
 		row1.write(0,unicode(g.guest_last_name, "UTF-8"), style)
 		row1.write(1,unicode(g.guest_first_name, "UTF-8"), style)
+		row1.write(2,unicode(g.phone_number, "UTF-8"), style)
+		row1.write(3,unicode(g.guest_email, "UTF-8"), style)
 		cur_caption = unicode("ללא שולחן", "UTF-8")
 		cur_fix_num = 0
 		for h in user_elements:
 			if h.elem_num == g.elem_num:
 				cur_caption=unicode(h.caption,"UTF-8")
 				cur_fix_num=h.fix_num
-		row1.write(2,cur_caption, style)
-		row1.write(3,cur_fix_num, style)
+		row1.write(4,cur_caption, style)
+		row1.write(5,cur_fix_num, style)
 		invation_choices_heb={'A': 'מגיע', 'N': 'לא מגיע', 'T': 'ממתין לאישור'}
 		is_come=invation_choices_heb[g.invation_status]
-		row1.write(4,unicode(is_come, "UTF-8"), style)
+		row1.write(6,unicode(is_come, "UTF-8"), style)
 		row_num+=1
 	sheet1.col(0).width = 6000
 	sheet1.col(1).width = 6000
-	sheet1.col(2).width = 5000
-	sheet1.col(3).width = 4000
+	sheet1.col(2).width = 6000
+	sheet1.col(3).width = 6000
 	sheet1.col(4).width = 5000
+	sheet1.col(5).width = 4000
+	sheet1.col(6).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
 	c = {}
@@ -605,7 +616,11 @@ def online_excel(request):
 		gemail=unicode(g.guest_email, "UTF-8")
 		gfacebook=unicode(g.facebook_account, "UTF-8")
 		ggroup=unicode(g.group, "UTF-8")
-		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), 1, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
+		if g.qty < 1:
+			gqty=1
+		else:
+			gqty=g.qty
+		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), gqty, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
 		row_num+=1
 	f.close()
         c = {}
@@ -672,15 +687,15 @@ def online_save(request):
 						#else:
 						flast=flast + " " + str(addStr)
 						flast=flast.strip()
-						if int(fqty) > 1:
-							for i in range(1,int(fqty)+1):
-								hash = str(str(request.user) + ffirst + " " + str(i) + flast)
-								new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-								new_person.save()
-						else:
-							hash = str(str(request.user) + ffirst +  flast)
-							new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-							new_person.save()
+		#				if int(fqty) > 1:
+		#					for i in range(1,int(fqty)+1):
+		#						hash = str(str(request.user) + ffirst + " " + str(i) + flast)
+		#						new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
+		#						new_person.save()
+		#				else:
+						hash = str(str(request.user) + ffirst +  flast)
+						new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()),qty=fqty)
+						new_person.save()
 
 	#duplicate_list = DupGuest.objects.filter(user=request.user)
 	#if duplicate_list :
@@ -839,7 +854,7 @@ def unsubscribe(request, guestHash):
 
 @login_required
 def stickers(request):
-	Guests = Guest.objects.filter(user=request.user)
+	Guests = Guest.objects.order_by('elem_num').filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
 	partners=get_object_or_404(Partners, userPartner = request.user)
         #elements_nums = user_elements.values_list('elem_num', flat=1)
