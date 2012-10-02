@@ -1568,9 +1568,9 @@ function stopDrag(element)
 		$(".chairs" + element.attr('id')).each(function(i) {
 				$(this).fadeTo(100, 1, function() {
 					// Animation complete.
-						$(this).show();
 						$(this).css('top', $(this).position().top +  (element.position().top - startDradPositionList[0].top))
 						$(this).css('left', $(this).position().left + (element.position().left - startDradPositionList[0].left))
+						$(this).show();
 				});
 		});
        saveElement(element);
