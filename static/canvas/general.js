@@ -2061,7 +2061,7 @@ function adjustResolution()
 		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
-		$(".SaveState").css('top', $(".SaveState").position().top + delta);
+		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
 	
 	$.post('/canvas/getMaxY/', {},
@@ -2078,7 +2078,7 @@ function adjustResolution()
 				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 				$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
-				$(".SaveState").css('top', $(".SaveState").position().top + delta);
+				//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 			}
 	    	setSaveStatus("OK");
 		  }
