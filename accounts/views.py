@@ -30,7 +30,7 @@ from hashlib import md5
 def escapeSpecialCharacters ( text ):
     characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
     for character in characters:
-        text = text.replace( character, '' )
+        text = str(text).replace( character, '' )
     return text
 
 
@@ -216,8 +216,8 @@ def upload_file(request):
 			male_valid=[u('ז'), u('זכר'), u('גבר'), 'm', 'M', 'Male', 'male']
 			female_valid=[u('נ'), u('נקבה'), u('אשה'), u('אישה'), 'f', 'F', 'female', 'Female']
 			for r in range(sh.nrows)[int(starting_row):]:
-				privName=escapeSpecialCharacters(sh.cell_value(r,0))
-				lastName=escapeSpecialCharacters(sh.cell_value(r,1))
+				privName=escapeSpecialCharacters(sh.cell_value(r,0).encode('utf-8'))
+				lastName=escapeSpecialCharacters(sh.cell_value(r,1).encode('utf-8'))
 				gender=sh.cell_value(r,2)
 				if gender == "":
 					gender="U"
@@ -255,8 +255,6 @@ def upload_file(request):
 							addStr = len(max_match) + 1
 						else:
 							addStr = len(max_match) + 2
-
-
 					#else:
 					lastName=lastName + " " + str(addStr)
 					lastName=lastName.strip()
@@ -266,36 +264,33 @@ def upload_file(request):
 							#new_person = Guest(user=request.user, guest_first_name=privName+" "+str(i), guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash = str(md5(hash).hexdigest()))
 							#new_person.save()
 					#else:
-					hash = str(str(request.user) + privName.encode('utf-8') + lastName.encode('utf-8'))
-					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash).hexdigest()),qty=gqty)
+					hash = unicode(str(request.user),'utf-8') + unicode(privName,'utf-8') + unicode(lastName,'utf-8')
+					new_person = Guest(user=request.user, guest_first_name=privName, guest_last_name=lastName, gender=gender, phone_number=phoneNum, guest_email=mailAddr, group=groupNme, guest_hash=str(md5(hash.encode('utf-8')).hexdigest()),qty=gqty)
 					new_person.save()
-
-				if groupNme not in group_choices:
-					un_group = UnknownGroups(user=request.user, group=groupNme);
-					un_group.save()
-				
+			#	if groupNme not in group_choices:
+			#		un_group = UnknownGroups(user=request.user, group=groupNme);
+			#		un_group.save()
 			cur_user.excel_hash='Locked'
 			cur_user.save()
-
 			#duplicate_list = DupGuest.objects.filter(user=request.user)
-			un_group_list = UnknownGroups.objects.filter(user=request.user)
+			#un_group_list = UnknownGroups.objects.filter(user=request.user)
 			#if duplicate_list or un_group_list:
-			if un_group_list:
-				c= {}
-				c.update(csrf(request))
-				#c['duplicate_list']=duplicate_list
-				c['un_group_list']=un_group_list
-				c['group_choices']=group_choices
-				return render_to_response('accounts/duplicate.html', c)
-			else:
-				return HttpResponseRedirect('/canvas/edit')
+			#if un_group_list:
+			#	c= {}
+			#	c.update(csrf(request))
+			#	#c['duplicate_list']=duplicate_list
+			#	c['un_group_list']=un_group_list
+			#	c['group_choices']=group_choices
+			#	return render_to_response('accounts/duplicate.html', c)
+			#else:
+			#	return HttpResponseRedirect('/canvas/edit')
 				#return render_to_response('accounts/uploaded.html', {'sheet': sheet})
 	else:
 		form = UploadFileForm()
 	c= {}
 	c.update(csrf(request))
 	c['form'] = form
-	return render_to_response('accounts/upload.html', c)
+	return HttpResponseRedirect('/canvas/edit') #render_to_response('accounts/upload.html', c)
 
 @login_required
 def download_excel(request):
