@@ -57,7 +57,6 @@ function LoadPerson(element, i, fromTableMode)
 
 		$.post('/canvas/getItem/', {elem_num: elemID, position: parseInt(i + 1)},
         function(data){
-
 			if (data.status == 'OK')
 			{
 				$("#tableParentElementDiv"+ data.position + elemID + mode).data('status','nemp');

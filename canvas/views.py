@@ -436,6 +436,25 @@ def get_element_item(request):
 	return HttpResponse(json_dump)
 
 @login_required
+def get_all_elements_canvas(request, elem_id):
+	all_persons=""
+	data = [ {'status': "OK"}]
+	element_persons = Guest.objects.filter(user=request.user, elem_num=elem_id)
+	single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_id))
+	for i in range(single_element.max_sitting):
+		cur_person = {'status': "EMPTY", 'position': i+1}
+		for person in element_persons:
+			if person.position == i+1:
+				safe_first = escapeSpecialCharacters(person.guest_first_name)
+				safe_last  = person.guest_last_name
+				cur_person = {'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal}
+		person_num="person"+str(i+1)
+		cur_node=cur_person
+		data.append(cur_node)
+	json_dump = json.dumps(data)
+	return HttpResponse(json_dump)
+
+@login_required
 def get_element_item_by_full_name(request):
 	json_dump = json.dumps({'status': "EMPTY"})
 	element_persons = Guest.objects.filter(user=request.user)
