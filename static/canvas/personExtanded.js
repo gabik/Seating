@@ -36,7 +36,14 @@ function createTableElement(i,element, zIndUp, fromTableMode)
 		{
 			var elementMaxSize = parseInt(element.find('p:eq(1)').text().substr(element.find('p:eq(1)').text().indexOf("/")+1));
 			
-			size = Math.max((40 - elementMaxSize), 24);
+			if (elementMaxSize < 7)
+			{
+				size = 33;
+			}
+			else
+			{
+				size = Math.max((40 - elementMaxSize), 24);
+			}
 		}
 		fontSize = 9;
 		tableClass = "TableParentElementDivOutside chairs" + elemID;
