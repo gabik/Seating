@@ -3,6 +3,22 @@ var maxWidth = 0;
 var maxHeight = 0;
 var maxTablesInCanvas = 48;
 	
+function expandYForPlacment()
+{
+	if ($(".DragDiv").size() > 36)
+	{
+		var delta = $(".DragDiv").size() + 64;
+
+		$("#people-list").css('height', $("#people-list").height() + delta);
+		$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+		$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
+		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
+		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
+	}
+}	
+	
 function calculateChildrenWidthAndHeightForSquarePlacment()
 {
 	var width = 0;
@@ -78,6 +94,7 @@ $(document).ready(function() {
 	 $("#SquarePlaceMentShapes").click(function(){
 		 if (!tableMode && !detailsMode)
 		{
+			expandYForPlacment();
 			posPropertyPanel("");
 			calculateChildrenWidthAndHeightForSquarePlacment();
 			var middleCircle = false;
@@ -87,13 +104,13 @@ $(document).ready(function() {
 			var middleCircleHalfIndex = 0;
 			var maxMiddleCircleHeigth = 0;
 			var firstRowMaxTop = 0;
-			var currentHeigthMargin = 4;
+			var currentHeigthMargin = 40;
 			var currnetMaxWidth =  maxWidth;
 			var currnetMaxHeight = maxHeight;
-			var newTop = $("#canvas-div").offset().top + 5;
-			var newLeft = $("#canvas-div").offset().left + 5;
-			var startTop = $("#canvas-div").offset().top + 5;
-			var startLeft = $("#canvas-div").offset().left + 5;
+			var newTop = $("#canvas-div").offset().top + 28;
+			var newLeft = $("#canvas-div").offset().left + 28;
+			var startTop = $("#canvas-div").offset().top + 28;
+			var startLeft = $("#canvas-div").offset().left + 28;
 			undoElementList = new Array($(".DragDiv").size());
 			startDradPositionList = new Array($(".DragDiv").size());
 			$('ul.ShapePlacementMenu').slideToggle('medium');
@@ -124,8 +141,8 @@ $(document).ready(function() {
 					newLeft = newLeft + $(this).width() + placementMargin;
 					if (middleCircleHalfIndex == i)
 					{
-						middleCircleHalfIndex = i + 15;
-						newTop = newTop + maxMiddleCircleHeigth;
+						middleCircleHalfIndex = i + 5;
+						newTop = newTop + maxMiddleCircleHeigth + 42;
 						newLeft = startLeft;
 					}
 				}
@@ -139,7 +156,7 @@ $(document).ready(function() {
 						}
 						if (startTop + $(this).height() > firstRowMaxTop)
 						{
-							firstRowMaxTop = startTop + $(this).height();
+							firstRowMaxTop = startTop + $(this).height() + 50;
 						}
 						if (newLeft + $(this).width() <= currnetMaxWidth && newTop == startTop)
 						{
@@ -185,24 +202,24 @@ $(document).ready(function() {
 								middleCircle = true;
 								if ($(".DragDiv").size() > 50)
 								{
-									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 4);
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 6);
 								}
 								else
 								{
-									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 2);
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 4);
 								}
-								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 2.5 * tableElementSize);
+								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 4.5 * tableElementSize);
 								if (newLeft < 50)
 								{
 									newLeft = 80;
 								}
 								startLeft = newLeft;
-								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 14) * currentHeigthMargin);
+								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 50) * currentHeigthMargin);
 							}
 						}
 					}
 				}
-				
+							
 				var undoElement = new Array(2);
 				undoElement[0] = $(this);
 				undoElement[1] = "move";
@@ -214,7 +231,8 @@ $(document).ready(function() {
 	 
 	 $("#HSquarePlaceMentShapes").click(function(){
 		if (!tableMode && !detailsMode)
-		{
+		{	
+			expandYForPlacment();
 			posPropertyPanel("");
 			calculateChildrenWidthAndHeightForHalfSquarePlacment();
 			var middleCircle = false;
@@ -225,14 +243,14 @@ $(document).ready(function() {
 			var middleCircleHalfIndex = 0;
 			var maxMiddleCircleHeigth = 0;
 			var firstRowMaxTop = 0;
-			var currentHeigthMargin = 4;
+			var currentHeigthMargin = 42;
 			var currnetMaxWidth =  maxWidth;
 			var currnetMaxHeight = maxHeight;
 			var middleNumOfHorizontalElements = 0;
-			var newTop = $("#canvas-div").offset().top + 5;
-			var newLeft = $("#canvas-div").offset().left + 5;
-			var startTop = $("#canvas-div").offset().top + 5;
-			var startLeft = $("#canvas-div").offset().left + 5;
+			var newTop = $("#canvas-div").offset().top + 28;
+			var newLeft = $("#canvas-div").offset().left + 28;
+			var startTop = $("#canvas-div").offset().top + 28;
+			var startLeft = $("#canvas-div").offset().left + 28;
 			undoElementList = new Array($(".DragDiv").size());
 			startDradPositionList = new Array($(".DragDiv").size());
 			$('ul.ShapePlacementMenu').slideToggle('medium');
@@ -276,11 +294,11 @@ $(document).ready(function() {
 						}
 						if (startLeft + $(this).width() > firstRowMaxLeft)
 						{
-							firstRowMaxLeft = startLeft + $(this).width();
+							firstRowMaxLeft = startLeft + $(this).width() + 40;
 						}
 						if (startTop + $(this).height() > firstRowMaxTop)
 						{
-							firstRowMaxTop = startTop + $(this).height();
+							firstRowMaxTop = startTop + $(this).height() + 50;
 						}
 						if (newLeft + $(this).width() <= currnetMaxWidth && newTop == startTop)
 						{
@@ -347,18 +365,19 @@ $(document).ready(function() {
 	 $("#SeqPlaceMentShapes").click(function(){
 		if (!tableMode && !detailsMode)
 		{
+			expandYForPlacment();
 			posPropertyPanel("");
 			maxWidth = $("#canvas-div").width();
 			maxHeight = $("#canvas-div").height();
-			var newTop = $("#canvas-div").offset().top + 5;
-			var newLeft = $("#canvas-div").offset().left + 5;
-			var startTop = $("#canvas-div").offset().top + 5;
-			var startLeft = $("#canvas-div").offset().left + 5;
+			var newTop = $("#canvas-div").offset().top + 28;
+			var newLeft = $("#canvas-div").offset().left + 28;
+			var startTop = $("#canvas-div").offset().top + 28;
+			var startLeft = $("#canvas-div").offset().left + 28;
 			var maxWidthPerCol = 0;
 			undoElementList = new Array($(".DragDiv").size());
 			startDradPositionList = new Array($(".DragDiv").size());
 			$('ul.ShapePlacementMenu').slideToggle('medium');
-			
+						
 			$(".DragDiv").each(function(i) {
 				$(this).removeClass('borderSelected');
 				$(this).removeClass('broderNonDragSelected');
@@ -392,7 +411,7 @@ $(document).ready(function() {
 					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
 				});
 				
-				newTop = newTop + $(this).height() + placementMargin;
+				newTop = newTop + $(this).height() + placementMargin - 4;
 				if (maxWidthPerCol < $(this).width())
 				{
 					maxWidthPerCol = $(this).width();

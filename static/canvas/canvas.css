@@ -36,15 +36,34 @@
   position:absolute;
   z-index:99999;
   }
-  .personOverTableDropLayer
+  
+  .RectShapeDropLayer
    {
-	background-color:#5A8EA3;
+	background-color:rgba(127, 32, 7, 0.65);
+	background-size: 0% 0%;
+	-moz-background-size: 0%;
 	z-index:9999;
-	opacity : 0.7;
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	 border-radius: 5px;
   }
+  
+  .RoundShapeDropLayer
+   {
+	background-color:rgba(127, 32, 7, 0.65);
+	background-size: 0% 0%;
+	-moz-background-size: 0%;
+	z-index:9999;
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	 border-radius: 50px;
+  }
+  
+   .LozShapeDropLayer
+   {
+	background-color:rgba(127, 32, 7, 0.65);
+	background-size: 0% 0%;
+	-moz-background-size: 0%;
+	z-index:9999;
+  }
+  
  #right-bar
  {
   position:absolute;

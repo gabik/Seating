@@ -131,7 +131,7 @@ function setSaveStatus(status)
 	else if (status == "Error")
 	{
 	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/error.png");
-	   showLightMsg("שגיאה","התרחשה שגיאה במערכת, יתכן ולא נשמרו פעולות אחרונות ,יש לבצע פעולה בשנית ולבדוק את חיבור וטיב התקשורת.","OK","Error");
+	   showLightMsg("שגיאה","התרחשה שגיאה במערכת, יתכן ולא נשמרו פעולות אחרונות ,יש לבצע פעולה בשנית ולבדוק את חיבור וטיב התקשורת. במידה והבעיה נמשכת יש לפנות לתמיכה.","OK","Error");
 	}
 }
 
@@ -276,9 +276,20 @@ function posTableChairs(element, elementMaxSize)
 	{
 		var maxElementAngle = elementMaxSize;
 
-		if (maxElementAngle < 8 )
+		
+		if (maxElementAngle < 7)
 		{
 			maxElementAngle = 8;
+			
+			if (!zoomingMode)
+			{
+				tableElementSize = 33;
+			}
+		}
+		if (maxElementAngle < 8)
+		{
+			maxElementAngle = 8;
+			
 			if (!zoomingMode)
 			{
 				tableElementSize = Math.max((40 - maxElementAngle), 24);
@@ -303,9 +314,22 @@ function posTableChairs(element, elementMaxSize)
 			slice = maxElementAngle / 2;
 			rectSpecialMargin = tableElementSize / 3;
 		}
-
-		var startTop = element.position().top +  element.height() - (tableElementSize * Math.round(maxElementAngle / 4)) - tableElementSize / slice;
-		var startLeft = element.position().left +  element.width() - (tableElementSize * Math.round(maxElementAngle / 4)) - tableElementSize / slice;
+		
+		var divider = maxElementAngle;
+		var positioner = Math.round(maxElementAngle / 4);
+			
+		if (elementMaxSize < 7)
+		{
+			divider = 4;
+			positioner = 1.4;
+			if (elementTable[0].id.split("-", 1) == "Rect")
+			{
+				positioner = 1.5;
+			}
+		}
+			
+		var startTop = element.position().top +  element.height() - (tableElementSize * positioner) - tableElementSize / slice;
+		var startLeft = element.position().left +  element.width() - (tableElementSize * positioner) - tableElementSize / slice;
 		
 		if (maxElementAngle < 9 && elementTable[0].id.split("-", 1) == "Rect")
 		{
@@ -369,8 +393,8 @@ function posTableChairs(element, elementMaxSize)
 				$("#tableParentElementDiv"+ parseInt(i + 1)+ elemID + mode).css( "left", element.position().left - tableElementSize + 4);
 			}
 			countToChangeSide = countToChangeSide + 1;
-
-			if (countToChangeSide == Math.round(maxElementAngle / 4) && side < 3)
+			
+			if (countToChangeSide == Math.round(divider / 4) && side < 3)
 			{
 				side = side + 1;
 				if ((side == 1 && startTop < element.position().top) || (side == 3 && parseInt(elementMaxSize) > 8 && ((parseInt(elementMaxSize) - (i + 2)) + 1) <= Math.round(maxElementAngle / 4)) || (side == 3  && parseInt(elementMaxSize) > 8 && ((parseInt(elementMaxSize) - (i + 2)) + 1) < 4) || (elementTable[0].id.split("-", 1) == "Rect" && parseInt(elementMaxSize) > maxElementCapacity / 2 ))
@@ -379,16 +403,31 @@ function posTableChairs(element, elementMaxSize)
 				}
 				else
 				{
-					if (side > 2 && parseInt(elementMaxSize) > maxElementCapacity / 2)
+					if (side > 2 && (parseInt(elementMaxSize) > maxElementCapacity / 2  || (side == 3 && parseInt(elementMaxSize) == 5)))
 					{
 						startTop = tempTop - (tableElementSize / 2.5);
+					}
+					else if ((side == 1 || side == 3) && parseInt(elementMaxSize) == 6)
+					{
+						startTop = tempTop - (tableElementSize / 1.7);
 					}
 					else
 					{
 						startTop = tempTop;
 					}
 				}
-
+				
+				if (parseInt(elementMaxSize) < 7)
+				{
+					if ((side == 1 || side == 3) && parseInt(elementMaxSize) == 6)
+					{
+						divider = 8;
+					}
+					else
+					{
+						divider = 4;
+					}
+				}
 				countToChangeSide = 0;
 			}
 			
@@ -840,7 +879,7 @@ function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
 	elementCaption[0].innerHTML = newCaption;
 	elementCaption[0].title = newCaption;
 	elementCaption[1].innerHTML = sizeStr;
-	reloadElementStatus(element, false, -1);
+	//reloadElementStatus(element, false, -1);
 	reArrangeChairs(element,newSize);
 }
 
@@ -923,7 +962,7 @@ function canFlip(element)
 
 function changeOrientation(element, select)
 {
-	$.post('/canvas/getElementOrientation/', {elem_num:element.context.id},
+	$.post('/canvas/getElementOrientation/', {elem_num:element.attr('id')},
 	  function(data){
 	  if (data.status == 'OK')
 	   {
@@ -945,17 +984,21 @@ function changeOrientation(element, select)
 				{
 					selectElement(element);
 				}
-				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.context.id , width:element.width(), height:element.height()},
+				$.post('/canvas/saveElementWidthHeight/', {elem_num:element.attr('id') , width:element.width(), height:element.height()},
 			   function(data){
 			   if (data.status == 'OK')
 			   {
-			   	var elementCaption = element.context.getElementsByTagName("p");
-				var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-			
-				$(".chairs" + element.attr('id')).each(function(i) {
-					$(this).remove();
-				});
-				posTableChairs(element, elementMaxSize);
+			   
+				if (elementTable[0].id.split("-", 1) == "Rect")
+				{
+					var elementCaption = element.context.getElementsByTagName("p");
+					var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+				
+					$(".chairs" + element.attr('id')).each(function(i) {
+						$(this).remove();
+					});
+					posTableChairs(element, elementMaxSize);
+				}
 				setSaveStatus("OK"); }}, 'json');
 			}
 	   }
@@ -981,291 +1024,7 @@ function reloadElementStatus(element, init, index)
 	  function(data){
 	  if (data.status == 'OK')
 	   {
-
-		if (isThisPeopleTable(elementTable[0].id))
-		{
-			var elementCaption = element.context.getElementsByTagName("p");
-			var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-			var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
-			
-			//used for table status
-			//if (elementSize == 0)
-			//{
-				if (elementTable[0].id.split("-", 1) == "Square") {
-				  element.css("background-image", "url('/static/canvas/images/tables_small/SquareR.png')");
-				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-				  {
-					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale');");
-					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale')';");
-				  }
-				} else if (elementTable[0].id.split("-", 1) == "Round") {
-					  element.css("background-image", "url('/static/canvas/images/tables_small/RoundR.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale')';");
-					  }
-				}else if (elementTable[0].id.split("-", 1) == "Rect") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-					  element.data('orient', 'h');
-					  if (init)
-					  {
-					  	changeOrientation(element, false);
-					  }
-					  
-					  var picText = "RectR_H";
-					  
-					  //if (element.hasClass('borderSelected'))
-					  //{
-						//picText = "RectS_H";
-					  //}
-					  element.css("background-image", "url('/static/canvas/images/tables_small/" + picText +".png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale')';");
-					  }
-					}
-					else
-					{
-					   var picText = "RectR";
-					  
-					  //if (element.hasClass('borderSelected'))
-					  //{
-					//	picText = "RectS";
-					  //}
-					  
-					  element.data('orient', 'v');
-					  element.css("background-image", "url('/static/canvas/images/tables_small/" + picText +".png')");
-					  if (init)
-					  {
-						posTableChairs(element, elementMaxSize);
-					  }
-					  
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale')';");
-					  }
-					}
-				}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-					  element.css("background-image", "url('/static/canvas/images/tables_small/LozengeR_H.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR_H.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR_H.png',sizingMethod='scale')';");
-					  }
-					}
-					else
-					{
-					  element.css("background-image", "url('/static/canvas/images/tables_small/LozengeR.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale')';");
-					  }
-					}
-				}
-			//}
-			/*else if (elementSize == elementMaxSize)
-			{
-				if (elementTable[0].id.split("-", 1) == "Square") {
-				  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
-				} else if (elementTable[0].id.split("-", 1) == "Round") {
-					  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
-				}else if (elementTable[0].id.split("-", 1) == "Rect") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectG_H.png";
-					}
-					else
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectG.png";
-					}
-				}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeG_H.png";
-					}
-					else
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
-					}
-				}
-			}
-			else
-			{
-				if (elementTable[0].id.split("-", 1) == "Square") {
-				  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
-				} else if (elementTable[0].id.split("-", 1) == "Round") {
-					  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
-				}else if (elementTable[0].id.split("-", 1) == "Rect") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectY_H.png";
-					}
-					else
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectY.png";
-					}
-				}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
-					if (data.orientation == 'H' || data.orientation == 'FH')
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeY_H.png";
-					}
-					else
-					{
-						document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
-					}
-				}
-			}*/
-		}
-		else
-		{
-			if (elementTable[0].id.split("-", 1) == "dance_stand")
-			 {
-				if (data.orientation == 'V')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dance.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'H')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dance_H.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_H.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_H.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'FV')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dance_FV.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FV.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FV.png',sizingMethod='scale')';");
-					  }
-				}
-				else
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dance_FH.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FH.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FH.png',sizingMethod='scale')';");
-					  }
-				}
-			 }
-			 else if (elementTable[0].id.split("-", 1) ==  "bar_stand") 
-			 {
-				if (data.orientation == 'V')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/bar.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'H')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/bar_h.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_h.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_h.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'FV')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/bar_fV.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fV.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fV.png',sizingMethod='scale')';");
-					  }
-				}
-				else
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/bar_fH.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fH.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fH.png',sizingMethod='scale')';");
-					  }
-				}
-			 }
-			 else if (elementTable[0].id.split("-", 1) ==  "dj_stand")
-			 {
-				if (data.orientation == 'V')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dj.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'H')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dj_H.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_H.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_H.png',sizingMethod='scale')';");
-					  }
-				}
-				else if (data.orientation == 'FV')
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dj_FV.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FV.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FV.png',sizingMethod='scale')';");
-					  }
-				}
-				else
-				{
-					  element.css("background-image", "url('/static/canvas/images/misc/dj_FH.png')");
-					  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-					  {
-						  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FH.png',sizingMethod='scale');");
-						  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FH.png',sizingMethod='scale')';");
-					  }
-				}
-			 }
-		}
-		
-		if (init)
-		{
-			if (index > -1)
-			{
-				var pre = Math.min((($(".DragDiv").size()) * index / 100) * 100 , 100);
-				$("#chargeScr").find('img').last().css('width', pre + '%'); 
-				$("#chargeScr").find('p').last().text(pre + '%'); 
-				
-				if (pre == 100)
-				{
-					$("#chargeScr").fadeTo(1500, 0,function(){
-					$("#chargeScr").remove();});
-				}
-			}
-			else
-			{
-					$("#chargeScr").fadeTo(1500, 0,function(){
-					$("#chargeScr").remove();});
-			}
-		}
-		
-		
+		makeOrientation(elementTable, element, data.orientation, init)
 		setSaveStatus("OK");
 	   }
 	   else
@@ -1273,6 +1032,263 @@ function reloadElementStatus(element, init, index)
 			setSaveStatus("Error");
 	   }
 	   }, 'json');
+}
+
+function makeOrientation(elementTable, element, orientation, init)
+{
+	if (isThisPeopleTable(elementTable[0].id))
+	{
+		var elementCaption = element.context.getElementsByTagName("p");
+		var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+		var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+		
+		//used for table status
+		//if (elementSize == 0)
+		//{
+			if (elementTable[0].id.split("-", 1) == "Square") {
+			  element.css("background-image", "url('/static/canvas/images/tables_small/SquareR.png')");
+			  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			  {
+				  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale');");
+				  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/SquareR.png',sizingMethod='scale')';");
+			  }
+			} else if (elementTable[0].id.split("-", 1) == "Round") {
+				  element.css("background-image", "url('/static/canvas/images/tables_small/RoundR.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/RoundR.png',sizingMethod='scale')';");
+				  }
+			}else if (elementTable[0].id.split("-", 1) == "Rect") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+				  element.data('orient', 'h');
+			  
+				  var picText = "RectR_H";
+				  
+				  //if (element.hasClass('borderSelected'))
+				  //{
+					//picText = "RectS_H";
+				  //}
+				  element.css("background-image", "url('/static/canvas/images/tables_small/" + picText +".png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale')';");
+				  }
+				}
+				else
+				{
+				   var picText = "RectR";
+				  
+				  //if (element.hasClass('borderSelected'))
+				  //{
+				//	picText = "RectS";
+				  //}
+				  
+				  element.data('orient', 'v');
+				  element.css("background-image", "url('/static/canvas/images/tables_small/" + picText +".png')");
+				  
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/" + picText +".png',sizingMethod='scale')';");
+				  }
+				}
+			}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+				  element.css("background-image", "url('/static/canvas/images/tables_small/LozengeR_H.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR_H.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR_H.png',sizingMethod='scale')';");
+				  }
+				}
+				else
+				{
+				  element.css("background-image", "url('/static/canvas/images/tables_small/LozengeR.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/tables_small/LozengeR.png',sizingMethod='scale')';");
+				  }
+				}
+			}
+		//}
+		/*else if (elementSize == elementMaxSize)
+		{
+			if (elementTable[0].id.split("-", 1) == "Square") {
+			  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/SquareG.png";
+			} else if (elementTable[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RoundG.png";
+			}else if (elementTable[0].id.split("-", 1) == "Rect") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectG_H.png";
+				}
+				else
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectG.png";
+				}
+			}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeG_H.png";
+				}
+				else
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeG.png";
+				}
+			}
+		}
+		else
+		{
+			if (elementTable[0].id.split("-", 1) == "Square") {
+			  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/SquareY.png";
+			} else if (elementTable[0].id.split("-", 1) == "Round") {
+				  document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RoundY.png";
+			}else if (elementTable[0].id.split("-", 1) == "Rect") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectY_H.png";
+				}
+				else
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/RectY.png";
+				}
+			}else if (elementTable[0].id.split("-", 1) == "Lozenge") {
+				if (orientation == 'H' || orientation == 'FH')
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeY_H.png";
+				}
+				else
+				{
+					document.getElementById(elementTable[0].id).src = "/static/canvas/images/tables_small/LozengeY.png";
+				}
+			}
+		}*/
+	}
+	else
+	{
+		if (elementTable[0].id.split("-", 1) == "dance_stand")
+		 {
+			if (orientation == 'V')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dance.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'H')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dance_H.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_H.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_H.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'FV')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dance_FV.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FV.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FV.png',sizingMethod='scale')';");
+				  }
+			}
+			else
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dance_FH.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FH.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dance_FH.png',sizingMethod='scale')';");
+				  }
+			}
+		 }
+		 else if (elementTable[0].id.split("-", 1) ==  "bar_stand") 
+		 {
+			if (orientation == 'V')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/bar.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'H')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/bar_h.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_h.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_h.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'FV')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/bar_fV.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fV.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fV.png',sizingMethod='scale')';");
+				  }
+			}
+			else
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/bar_fH.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fH.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/bar_fH.png',sizingMethod='scale')';");
+				  }
+			}
+		 }
+		 else if (elementTable[0].id.split("-", 1) ==  "dj_stand")
+		 {
+			if (orientation == 'V')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dj.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'H')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dj_H.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_H.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_H.png',sizingMethod='scale')';");
+				  }
+			}
+			else if (orientation == 'FV')
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dj_FV.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FV.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FV.png',sizingMethod='scale')';");
+				  }
+			}
+			else
+			{
+				  element.css("background-image", "url('/static/canvas/images/misc/dj_FH.png')");
+				  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+				  {
+					  element.css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FH.png',sizingMethod='scale');");
+					  element.css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/misc/dj_FH.png',sizingMethod='scale')';");
+				  }
+			}
+		 }
+	}
 }
 
 function pointTableAfterSearch(element)
@@ -1528,7 +1544,7 @@ function startDrag(element)
 	posPropertyPanel("");
 	
 	$(".chairs" + element.attr('id')).each(function(i) {
-			$(this).fadeTo(200, 0, function() {
+			$(this).fadeTo(0, 0, function() {
 				// Animation complete.
 					$(this).hide();
 			});
@@ -1555,7 +1571,7 @@ function stopDrag(element)
          var newLeft = startDradPositionList[0].left;
          element.animate({ top: newTop , left: newLeft},300, 'linear', function() { saveElement($(this)); selectElement($(this));
 			$(".chairs" + element.attr('id')).each(function(i) {
-					$(this).fadeTo(200, 1, function() {
+					$(this).fadeTo(0, 1, function() {
 						// Animation complete.
 							$(this).show();
 					});
@@ -1565,12 +1581,39 @@ function stopDrag(element)
      }
     else
     {
+		var chairWidth = $(".chairs" + element.attr('id')).first().width();
+		var chairHeight = $(".chairs" + element.attr('id')).first().height();
+		
+		if (element.offset().top - chairHeight < $("#canvas-div").offset().top)
+		{
+		    var topAdjust = element.offset().top + ($("#canvas-div").offset().top - (element.offset().top - chairHeight));
+		    element.css('top',topAdjust);
+		}
+		
+		if (element.offset().top + element.height() + chairHeight > $("#canvas-div").offset().top + $("#canvas-div").height())
+		{
+		    var topAdjust = element.offset().top + ($("#canvas-div").offset().top + $("#canvas-div").height() - (element.offset().top + element.height() + chairHeight));
+		    element.css('top',topAdjust + 10);
+		}
+		
+		if (element.offset().left - chairWidth < $("#canvas-div").offset().left)
+		{
+		    var leftAdjust = element.offset().left + ($("#canvas-div").offset().left - (element.offset().left - chairWidth));
+		    element.css('left',leftAdjust);
+		}
+		
+		if (element.offset().left + element.width() + chairWidth > $("#canvas-div").offset().left + $("#canvas-div").width())
+		{
+		    var leftAdjust = element.offset().left + ($("#canvas-div").offset().left + $("#canvas-div").width() - (element.offset().left + element.width() + chairWidth));
+		    element.css('left',leftAdjust + 10);
+		}
+		
 		$(".chairs" + element.attr('id')).each(function(i) {
-				$(this).fadeTo(100, 1, function() {
+				$(this).fadeTo(0, 1, function() {
 					// Animation complete.
-						$(this).show();
 						$(this).css('top', $(this).position().top +  (element.position().top - startDradPositionList[0].top))
 						$(this).css('left', $(this).position().left + (element.position().left - startDradPositionList[0].left))
+						$(this).show();
 				});
 		});
        saveElement(element);
@@ -2061,7 +2104,7 @@ function adjustResolution()
 		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
-		$(".SaveState").css('top', $(".SaveState").position().top + delta);
+		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
 	
 	$.post('/canvas/getMaxY/', {},
@@ -2070,7 +2113,7 @@ function adjustResolution()
 		  {
 			if (data.MaxY > $("#canvas-div").height() + 35)
 			{
-				var delta =  data.MaxY  - $("#canvas-div").height() + 150;
+				var delta =  data.MaxY  - $("#canvas-div").height() + 70;
 		
 				$("#people-list").css('height', $("#people-list").height() + delta);
 				$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
@@ -2078,7 +2121,7 @@ function adjustResolution()
 				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 				$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
-				$(".SaveState").css('top', $(".SaveState").position().top + delta);
+				//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 			}
 	    	setSaveStatus("OK");
 		  }
@@ -2100,7 +2143,7 @@ function adjustResolution()
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
 		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
-		$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta);
+		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
 	}
 	
@@ -2110,8 +2153,10 @@ function adjustResolution()
 		  {
 			if (data.MaxX > $("#canvas-div").width() + 35)
 			{
-				var delta =  data.MaxX  - $("#canvas-div").height() + 172;
+				var delta =  data.MaxX  - $("#canvas-div").width() + 110;
 		
+				$("#tableMovingPanel").css('width', $("#tableMovingPanel").width() + delta);
+				$("#movingPanelLeft").css('width', $("#movingPanelLeft").width() + delta);
 				$("#movingPanel").css('width', $("#movingPanel").width() + delta);
 				$("#movingPanelMarquee").css('width', $("#movingPanelMarquee").width() + delta);
 				$("#people-list").css('left', $("#people-list").position().left + delta);
@@ -2120,7 +2165,7 @@ function adjustResolution()
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
 				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
-				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta);
+				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
 			}
 	    	setSaveStatus("OK");
@@ -2153,6 +2198,50 @@ function saveTableSitting(table)
 function HelpScreen()
 {
 	window.open("/site/mainHelp.html", "_blank");
+}
+
+function droppableTable(ui ,tableOrig)
+{
+	  var elementTable = tableOrig.context.getElementsByTagName("table");
+	  if (!isThisPeopleTable(elementTable[0].id))
+	  {
+		return;
+	  }
+	  var table = tableOrig;
+	  var multiPos = false; 
+	  var dataMultiStrings = "";
+	
+	  ui.helper.each(function(i){
+			if (ui.helper.size() == 1)
+			{
+				dropPerson($(this), table, ""); 
+			}
+			else if (ui.helper.size() > 1)
+			{
+				multiPos = true;
+				
+				dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
+			}
+		  });
+		  
+		  if (multiPos)
+		  {
+			  $.post('/canvas/sitMulti/', {DataString: dataMultiStrings},
+				function(data){
+				  if (data.status == 'OK')
+				  {
+					  setSaveStatus("OK");
+					  var dataMultiStrings = data.dataPositions.split("|",ui.helper.size());
+					  ui.helper.each(function(i){
+					  	 dropPerson($(this), table, dataMultiStrings[i]); 
+					  });
+					  currentMsgTimer = setTimeout(function(){saveTableSitting(table)},2000);
+				  }
+				  else{
+					setSaveStatus("Error");
+				  }
+				}, 'json');
+		  }
 }
 
 $(document).ready(function() {
@@ -2206,7 +2295,58 @@ $(document).ready(function() {
 		 }
 		 $(this).addClass('DragNonDropDiv');		 
 	 }
-	 reloadElementStatus($(this), true, index); 
+	 else
+	 {
+		if (elementTable[0].id.split("-", 1) ==  "Rect" || elementTable[0].id.split("-", 1) ==  "Square")
+		{
+	 		$(this).droppable({
+					accept: "#people_list li",
+					hoverClass: "RectShapeDropLayer",
+					drop: function(e, ui ) {
+							droppableTable(ui ,$(this));
+						}
+			  });
+		}
+		else if (elementTable[0].id.split("-", 1) ==  "Round")
+		{
+	 		$(this).droppable({
+					accept: "#people_list li",
+					hoverClass: "RoundShapeDropLayer",
+					drop: function(e, ui ) {
+							droppableTable(ui ,$(this));
+						}
+			  });
+		}
+		else
+		{
+			$(this).droppable({
+					accept: "#people_list li",
+					hoverClass: "LozShapeDropLayer",
+					drop: function(e, ui ) {
+							droppableTable(ui ,$(this));
+						}
+			  });
+		}
+	 }
+	 
+	if (index > -1)
+	{
+		var pre = Math.min((($(".DragDiv").size()) * index / 100) * 100 , 100);
+		$("#chargeScr").find('img').last().css('width', pre + '%'); 
+		$("#chargeScr").find('p').last().text(pre + '%'); 
+		
+		if (pre == 100)
+		{
+			$("#chargeScr").fadeTo(1500, 0,function(){
+			$("#chargeScr").remove();});
+		}
+	}
+	else
+	{
+		$("#chargeScr").fadeTo(1500, 0,function(){
+		$("#chargeScr").remove();});
+	}
+	//reloadElementStatus($(this), true, index); 
   });
 
   $("#people_list").multisortable();
@@ -2366,50 +2506,27 @@ $(document).ready(function() {
        }
   });
   
-  $(".DragDiv").droppable({
+  $(".LozShape").droppable({
   	accept: "#people_list li",
 	hoverClass: "personOverTableDropLayer",
     drop: function(e, ui ) {
-	  var elementTable = $(this).context.getElementsByTagName("table");
-	  if (!isThisPeopleTable(elementTable[0].id))
-	  {
-		return;
-	  }
-	  var table = $(this);
-	  var multiPos = false; 
-	  var dataMultiStrings = "";
-	
-	  ui.helper.each(function(i){
-			if (ui.helper.size() == 1)
-			{
-				dropPerson($(this), table, ""); 
-			}
-			else if (ui.helper.size() > 1)
-			{
-				multiPos = true;
-				
-				dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
-			}
-		  });
-		  
-		  if (multiPos)
-		  {
-			  $.post('/canvas/sitMulti/', {DataString: dataMultiStrings},
-				function(data){
-				  if (data.status == 'OK')
-				  {
-					  setSaveStatus("OK");
-					  var dataMultiStrings = data.dataPositions.split("|",ui.helper.size());
-					  ui.helper.each(function(i){
-					  	 dropPerson($(this), table, dataMultiStrings[i]); 
-					  });
-					  currentMsgTimer = setTimeout(function(){saveTableSitting(table)},2000);
-				  }
-				  else{
-					setSaveStatus("Error");
-				  }
-				}, 'json');
-		  }
+			droppableTable(ui ,$(this));
+		}
+	  });
+  
+  $(".RoundShape").droppable({
+  	accept: "#people_list li",
+	hoverClass: "personOverTableDropLayer",
+    drop: function(e, ui ) {
+			droppableTable(ui ,$(this));
+		}
+	  });
+  
+  $(".SQShape").droppable({
+  	accept: "#people_list li",
+	hoverClass: "personOverTableDropLayer",
+    drop: function(e, ui ) {
+			droppableTable(ui ,$(this));
 		}
 	  });
 	  

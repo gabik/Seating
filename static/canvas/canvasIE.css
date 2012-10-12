@@ -35,15 +35,31 @@
   position:absolute;
   z-index:99999;
   }
-  .personOverTableDropLayer
+  
+  .RectShapeDropLayer
    {
-	background-color:#5A8EA3;
+	background-color:#7F2007;
 	z-index:99999;
-	filter: alpha(opacity = 70);
-	-moz-border-radius: 5px;
-	-webkit-border-radius: 5px;
-	 border-radius: 5px;
+	filter: alpha(opacity = 10);
   }
+  
+  .RoundShapeDropLayer
+   {
+	background-color:#7F2007;
+	z-index:99999;
+	filter: alpha(opacity = 10);
+	-moz-border-radius: 50px;
+	-webkit-border-radius: 50px;
+	 border-radius: 50px;
+  }
+  
+   .LozShapeDropLayer
+   {
+	background-color:#7F2007;
+	z-index:99999;
+	filter: alpha(opacity = 10);
+  }
+  
  #right-bar
  {
   position:absolute;

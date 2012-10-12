@@ -56,6 +56,8 @@
 	  var firstInit = false;
 	  var allElementsNew = true;
 	  
+	  adjustResolution();
+	  
 	  var DivId = [];
 	  var DDiv = [];
 	  {% for elem in elements %}
@@ -73,15 +75,32 @@
        {
 		   div.css('width','82.5');
 		   if ("{{elem.kind}}" == "Rect") {
-				div.css('height','95');
+				if ("{{ elem.orientation }}" == 'H' || "{{ elem.orientation }}" == 'FH')
+				{
+					div.css('width','95');
+				    div.css('height','82.5');
+				}
+				else
+				{
+					div.css('height','95');
+				}
 		   }
 		   else if ("{{elem.kind}}" == "Lozenge")
 		   {
 				div.css('height','90');
+				div.addClass('LozShape');
 		   }
 		   else
 		   {
 				div.css('height','82.5');
+				if ("{{elem.kind}}" == "Round")
+				{
+					div.addClass('RoundShape');
+				}
+				else
+				{
+					div.addClass('SQShape');
+				}
 		   }
 	   }
 	   else
@@ -89,7 +108,7 @@
 	   		div.css('width',{{elem.width}});
 			div.css('height',{{elem.height}});
 	   }
-	   
+	    
 	   divp.attr('title',"{{ elem.caption }}");
 	   divp.text("{{ elem.caption }}");
 	   
@@ -108,6 +127,9 @@
 	   {
 			allElementsNew = false;
 	   }
+	   
+	   makeOrientation(divimg, div ,"{{ elem.orientation }}", true)
+	   
 	  {% endfor %}
 
 	  if (firstInit)
@@ -153,9 +175,7 @@
 		 var elementCaption = $(this).context.getElementsByTagName("p");
 		 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 		 var elementTable = $(this).context.getElementsByTagName("table");
-		 if (elementTable[0].id.split("-", 1)  != "Rect") {
-			posTableChairs($(this), elementMaxSize);
-		 }
+		 posTableChairs($(this), elementMaxSize);
 	 });
 	 
 	 var dragNonDropDivStartX = 500;
@@ -178,7 +198,7 @@
 			}
 		 }
 	 });
-	 adjustResolution();
+
 	});
 	
 	$(document).ready(function() {
@@ -393,7 +413,9 @@
 					$(this).attr('title', "הקטנת רשימה");
 				});
 
-				$("#people-list").animate({height: $(this).height() + 487},120, 'linear');
+				lastHeight = $("#people-list").height();
+				
+				$("#people-list").animate({height: $("#canvas-div").height() - 125},120, 'linear');
 				$(".Properties-bar").each(function(){
 					if ($(this).context.id != "occasionDetailsAdvanceR")
 					{
@@ -503,10 +525,10 @@
 				</div>
 			{% endfor %}
 			<div id="mainPanelPattren">
-				<table border="0" cellspacing="0" cellpadding="0">
+				<table id="tableMovingPanel" border="0" cellspacing="0" cellpadding="0">
 					<tr>
 					  <td  width="5" height="32" valign="top"><img src="/static/canvas/images/blue_left_main_panel.png" height="32" /></td>
-					  <td height="32" width="632" bgcolor="#5A8EA3"></td>
+					  <td id="movingPanelLeft" height="32" width="632" bgcolor="#5A8EA3"></td>
 					  <td width="5" height="32" valign="top"><img src="/static/canvas/images/midmainbar.png" width="5" height="32" /></td>
 					  <td id="movingPanel" height="32" width="548" class="MainPanelYellow" valign="top" align="right">
 					  <!--[if IE]>
@@ -607,9 +629,9 @@
 				<li><div id="VerticalAligmentDivBottom"  title="ישור אנכי למטה"><img src="/static/canvas/images/VerticalBottom.png" style="margin-left:5;" class="Pointer"></div></li>
  			</ul>
 			<ul class="ShapePlacementMenu">
- 				<li><p Id="SeqPlaceMentShapes" class="Pointer" style="text-align:center;  font-weight:bold;" title="סידור רציף">סידור רציף</p></li>
-				<li><p Id="HSquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold;" title="סידור ח">סידור ח</p></li>
- 				<li><p Id="SquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold;" title="סידור מעגלי">סידור מעגלי</p></li>
+ 				<li><p Id="SeqPlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold; text-shadow:1px 1px white;" title="סידור רציף">סידור רציף</p></li>
+				<li><p Id="HSquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold; text-shadow:1px 1px white;" title="סידור ח">סידור ח</p></li>
+ 				<li><p Id="SquarePlaceMentShapes" class="Pointer" style="text-align:center; font-weight:bold; text-shadow:1px 1px white;" title="סידור מעגלי">סידור מעגלי</p></li>
  			</ul>
 			<div class="SaveState" title="סטטוס שמירה">
 				<table width="100" border="0" cellspacing="0" cellpadding="0">
