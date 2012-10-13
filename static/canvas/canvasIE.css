@@ -79,6 +79,7 @@
   position:absolute;
   top:-18px;
   left:10;
+  z-index:9999999999;
  }
  #element-properties-list
  {
@@ -111,7 +112,7 @@
   width:155;
   top:483;
   left:-239;
-  z-index:99999;
+  z-index:9999999999;
 
  }
   #AddPersonList
@@ -122,7 +123,7 @@
   top:-22px;
   left:-127;
   height:175px;
-  z-index:9999;
+  z-index:9999999999;
  }
  #canvasShadow{
 	position:absolute;

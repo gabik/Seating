@@ -21,6 +21,7 @@ var screenResHeightFixNum = 768;
 var screenResWidthFixNum = 1366;
 var XColPoint = "";
 var drag = false;
+var dropAllow = true;
 var zoomingMode = false;
 
 if(typeof String.prototype.trim !== 'function') {
@@ -2070,6 +2071,7 @@ function dropPerson(draged,table, place)
 {
 	if (draged  != "")
 	{
+		dropAllow = false;
 		var elementCaption = table.context.getElementsByTagName("p");
 		var elementTable = table.context.getElementsByTagName("table");
 		table.fadeTo(300, 0,function(){
@@ -2109,6 +2111,7 @@ function dropPerson(draged,table, place)
 			draged.fadeTo(200, 1.0);
 			setSaveStatus("Error");
 		  }
+		  dropAllow = true;
 		}, 'json');
 		$("#dropLayer").remove();
 	}
@@ -2122,9 +2125,9 @@ function adjustResolution()
 		
 		$("#people-list").css('height', $("#people-list").height() + delta);
 		$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+		$("#chargeScr").css('height', $("#chargeScr").height() + delta);
 		$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
 		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
-		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
 		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
@@ -2142,8 +2145,8 @@ function adjustResolution()
 				$("#chargeScr").css('height', $("#chargeScr").height() + delta);
 				$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
 				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
-				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
 				$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+				floatListOriginalPosition = $("#float-list").position();
 				//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 			}
 	    	setSaveStatus("OK");
@@ -2162,10 +2165,12 @@ function adjustResolution()
 		$("#movingPanelMarquee").css('width', $("#movingPanelMarquee").width() + delta);
 		$("#people-list").css('left', $("#people-list").position().left + delta);
 		$(".CanvasDiv").css('width', $(".CanvasDiv").width() + delta);
+		$("#chargeScr").css('width', $("#chargeScr").width() + delta);
 		$("#float-list").css('left', $("#float-list").position().left + delta);
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
+		$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+		$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
 	}
@@ -2188,9 +2193,11 @@ function adjustResolution()
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsAdvanceR").position().left + delta);
+				$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
 				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
+				$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
+				floatListOriginalPosition = $("#float-list").position();
 			}
 	    	setSaveStatus("OK");
 		  }
@@ -2198,7 +2205,9 @@ function adjustResolution()
 		  {
      		setSaveStatus("Error");
 		  }
-	}, 'json');		
+	}, 'json');	
+	floatListOriginalPosition = $("#float-list").position();
+	$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsR").position().top);
 }
 
 function saveTableSitting(table)
@@ -2238,7 +2247,10 @@ function droppableTable(ui ,tableOrig)
 	  ui.helper.each(function(i){
 			if (ui.helper.size() == 1)
 			{
-				dropPerson($(this), table, ""); 
+				if (dropAllow)
+				{
+					dropPerson($(this), table, ""); 
+				}
 			}
 			else if (ui.helper.size() > 1)
 			{

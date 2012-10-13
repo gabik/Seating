@@ -49,6 +49,7 @@
 <script type="text/javascript">
 	 var partnersPhoneNumbers  = "";
 	 var partnersSendFeedBackFlag  = "";
+	 var readyToLoad = false;
 	 
 	 function closeChargeScr()
 	 {
@@ -188,26 +189,28 @@
 			 function(data){
 			   if (data[0] != "" && data[0] != 'undefined' && data[0].status == 'OK')
 			   {
-					setSaveStatus("OK");
-					posTableChairsWithData(data, elem, elementMaxSize);
-					
-					if (i > -1)
-					{
-						var pre = Math.min((($(".DragDiv").size()) * i / 100) * 100 , 100);
-						$("#chargeScr").find('img').last().css('width', pre + '%'); 
-						$("#chargeScr").find('p').last().text(pre + '%'); 
-						
-						if (pre == 100)
+						setSaveStatus("OK");
+						posTableChairsWithData(data, elem, elementMaxSize);
+						if (!readyToLoad)
 						{
-							setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
+							if (i > -1)
+							{
+								var pre = parseInt(Math.min((($(".DragDiv").size()) * i / 100) * 100 , 100));
+								$("#chargeScr").find('img').last().css('width', pre + '%'); 
+								$("#chargeScr").find('p').last().text(pre + '%'); 
+								
+								if (pre == 100 || i >= ($(".DragDiv").size() - 1))
+								{
+									readyToLoad = true;
+									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
+								}
+							}
+							else
+							{
+								$("#chargeScr").fadeTo(1500, 0,function(){
+								$("#chargeScr").remove();});
+							}
 						}
-					}
-					else
-					{
-						$("#chargeScr").fadeTo(1500, 0,function(){
-						$("#chargeScr").remove();});
-					}
-					
 			   }else{
 					setSaveStatus("Error");
 			   }
