@@ -65,7 +65,18 @@ function turnToRegularMode(element,event)
 	tableMode = false;
 	selectElement(element);
 	$("#floatListGate").animate({height:0},300, 'linear',function(){	$("#floatListGate").remove();});
-	posTableChairs(element, elementMaxSize);
+	
+	$.post('/canvas/getAllItems/'+ element.attr('id').split("-",2)[1] +'/', {},
+	 function(data){
+	   if (data[0] != "" && data[0] != 'undefined' && data[0].status == 'OK')
+	   {
+			setSaveStatus("OK");
+			posTableChairsWithData(data, element, elementMaxSize);
+			
+	   }else{
+			setSaveStatus("Error");
+	   }
+	 }, 'json');
 	});
 	
 	elementCaption[0].style.fontSize= originalFontSize;

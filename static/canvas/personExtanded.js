@@ -63,3 +63,64 @@ function createTableElement(i,element, zIndUp, fromTableMode)
 	$("#tableParentElementDiv" + parseInt(i + 1) + elemID + mode).data('elem', elemID);
 	LoadPerson(element, i, fromTableMode);
 }
+
+function createTableElementWithData(data, i, element, zIndUp, fromTableMode)
+{
+	var zIndex = 0;
+	
+	if (zIndUp)
+	{
+		zIndex = parseInt(999 + i);
+	}
+	else
+	{
+		zIndex = parseInt(999 - i);
+	}
+	
+	var size = 64;
+	var fontSize = 14;
+	var tableClass = "TableParentElementDiv";
+	var elemID = element.attr('id');
+	var mode = "T";
+	var textPersonClass = "text_11_black_bold";
+	var borderThickness = 3;
+	var maxWidth = 48;
+	var paddingTextPerson = 1.5;
+	var textHeight = 20;
+	var lineHeight = 2;
+	var textMargin = -30;
+	
+	if (!fromTableMode)
+	{
+		size = 24;
+		if (!zoomingMode)
+		{
+			var elementMaxSize = parseInt(element.find('p:eq(1)').text().substr(element.find('p:eq(1)').text().indexOf("/")+1));
+			
+			if (elementMaxSize < 7)
+			{
+				size = 33;
+			}
+			else
+			{
+				size = Math.max((40 - elementMaxSize), 24);
+			}
+		}
+		fontSize = 9;
+		tableClass = "TableParentElementDivOutside chairs" + elemID;
+		mode = "NT";
+		textPersonClass = "text_9_black_bold";
+		borderThickness = 1;
+		maxWidth = 24;
+		paddingTextPerson = 1;
+		textHeight = 10;
+		lineHeight = 1;
+		textMargin = -15;
+	}
+	
+	$("#canvas-div").append($('<table class="'+ tableClass +'" border="0" cellspacing="0" cellpadding="0" Id="tableParentElementDiv'+ parseInt(i + 1) + elemID + mode +'" style="position:absolute; width:'+ size +'; height:'+ size +'; z-index:' + zIndex + ';"><tr valign="middle"><td class="actionBtn" valign="middle"><div class="WaitingPersonChair" style="width:'+ size +'; height:'+ size +';" Id="tableElementDiv'+ parseInt(i + 1) + elemID + mode +'"><table border="0" cellspacing="0" cellpadding="0" height="'+ size +'"><tr><td class="actionBtn" width="'+ size +'"><p class="TableEmptyDetails" style="	font-size:' + fontSize + ';" dir="rtl">'+ (i + 1) +'</p></tr></td></table></div></td></tr><tr valign="top" align="center" style="display:none; margin:' + textMargin + '"><td class="actionBtn"><p dir="rtl" class="'+ textPersonClass +'" style="background:white; height:' + textHeight + '; line-height:'+ lineHeight +'; border:'+ borderThickness +'px solid black; padding:'+paddingTextPerson + '; text-overflow: ellipsis; overflow:hidden; white-space:nowrap; max-width:'+ maxWidth +';"/></td></tr></table>'));
+	$("#tableElementDiv" + parseInt(i + 1) + elemID + mode).data('pos', i + 1);
+	$("#tableElementDiv" + parseInt(i + 1) + elemID + mode).data('elem', elemID);
+	$("#tableParentElementDiv" + parseInt(i + 1) + elemID + mode).data('elem', elemID);
+	LoadPersonWithData(data, element, i, fromTableMode);
+}

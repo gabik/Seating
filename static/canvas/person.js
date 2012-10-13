@@ -222,6 +222,180 @@ function LoadPerson(element, i, fromTableMode)
 			}, 'json');
 }
 
+function LoadPersonWithData(data, element, i, fromTableMode)
+{	
+		var elemID = element.attr('id');
+		var mode = "T";
+			
+		if (!fromTableMode)
+		{
+			mode = "NT";
+		}
+
+		if (data.status == 'OK')
+		{
+			$("#tableParentElementDiv"+ data.position + elemID + mode).data('status','nemp');
+			//data.position = $("#tableElementDiv"+ data.position + elemID + mode).data('pos');
+			//elemID = $("#tableElementDiv"+ data.position + elemID + mode).data('elem');
+			
+		
+			$("#tableElementDiv"+ data.position + elemID + mode).droppable( 'disable' );
+			$("#tableElementDiv"+ data.position + elemID + mode).draggable( 'enable' );
+			
+			if (drag)
+			{
+				if (SelectedElem != "" && SelectedElem.attr('id') == elemID)
+				{
+					$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+				}
+				
+				if (selectionElementsList != "")
+				{
+					for (var y = 0; y < selectionElementsList.length; y++)
+					{
+						if (selectionElementsList[y] == elemID)
+						{
+							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+						}
+					}
+				}
+			}
+			else
+			{
+				if ((!fromTableMode && tableMode) || detailsMode)
+				{
+					$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+				}
+				else
+				{
+					if ($("#tableParentElementDiv"+ data.position + elemID + mode).html())
+					{
+						$("#tableParentElementDiv" + data.position + elemID + mode).fadeTo(500,1);
+					}
+				}
+			}
+			
+			$("#tableParentElementDiv"+ data.position + elemID + mode).find('tr').last().css('display', 'block');
+			$("#tableParentElementDiv"+ data.position + elemID + mode).find('p').first().css('display', 'none');
+			$("#tableParentElementDiv"+ data.position + elemID + mode).find('p').last().css('display','block');
+			if (fromTableMode)
+			{
+				$("#tableParentElementDiv"+ data.position + elemID + mode).find('p').last().text(data.first_name + " " + data.last_name);
+			}
+			else
+			{
+				$("#tableParentElementDiv"+ data.position + elemID + mode).find('p').last().text(data.first_name);
+			}
+			$("#tableParentElementDiv"+ data.position + elemID + mode).attr('title', data.first_name + " " + data.last_name + " לחיצה כפולה לעריכה");
+			$("#tableElementDiv"+ data.position + elemID + mode).addClass('Pointer');
+			$("#tableElementDiv"+ data.position + elemID + mode).removeClass('WaitingPersonChair');
+			$("#tableElementDiv"+ data.position + elemID + mode).removeClass('TableElementDiv');
+			$("#tableElementDiv"+ data.position + elemID + mode).removeClass('TableElementDiv64');
+			
+			if (!fromTableMode)
+			{
+				$("#tableElementDiv"+ data.position + elemID + mode).addClass('TableOccElementDiv');
+			}
+			else
+			{
+				$("#tableElementDiv"+ data.position + elemID + mode).addClass('TableOccElementDiv64');
+			}
+			$("#tableElementDiv"+ data.position + elemID + mode).css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale');");
+			$("#tableElementDiv"+ data.position + elemID + mode).css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/ChairOcc.png',sizingMethod='scale')';");
+			
+			$("#tableParentElementDiv"+ data.position + elemID + mode).draggable({
+				containment: 'parent',
+				cursor: "move",
+				start:function (e,ui){
+					SelectedPerson = $("#tableParentElementDiv"+ data.position + elemID + mode);
+					StartDragPerson($(this));
+				},
+				drag:function (e,ui){
+					DragPerson($(this),element);
+				},
+				stop:function (e,ui){
+					personData = data;
+					SelectedTable = element;
+					StopDragPerson($(this),element);
+					
+				}
+			});
+			$("#tableElementDiv"+ data.position + elemID + mode).bind('dblclick',function() {
+				$("#tableElementDiv"+ data.position + elemID + mode).removeClass('borderPersonSelected');
+				personData = data;
+				FocusDetails($("#tableElementDiv"+ data.position + elemID + mode),element, !fromTableMode);
+			});
+			$("#tableElementDiv"+ data.position + elemID + mode).bind('click',function() {
+				personData = data;
+				SelectedTable = element;
+				if (bringPersonToFL)
+				{
+					selectPersonElement($("#tableParentElementDiv"+ data.position + elemID + mode));
+				}
+				SelectedPerson = $("#tableParentElementDiv"+ data.position + elemID + mode);
+			});
+		}
+		else
+		{
+				$("#tableElementDiv"+ data.position + elemID + mode).droppable( 'enable' );
+				if ($("#tableElementDiv"+ data.position + elemID + mode).html())
+				{
+					$("#tableParentElementDiv"+ data.position + elemID + mode).data('status', 'emp');
+					$("#tableElementDiv"+ data.position + elemID + mode).droppable({
+								accept: "#people_list li",
+								hoverClass: "dropLayerClass",
+								drop: function(e, ui ) {
+									$("#tableParentElementDiv"+ data.position + elemID + mode).data('status', 'nemp');
+									dropPersonFromChairWithPosition(ui, $("#tableElementDiv"+ data.position + elemID + mode).data('pos'), element, fromTableMode);
+								}
+					});
+					$("#tableParentElementDiv"+ data.position + elemID + mode).find('p').first().css('display', 'block');
+					$("#tableElementDiv"+ data.position + elemID + mode).removeClass('WaitingPersonChair');
+					if (!fromTableMode)
+					{
+						$("#tableElementDiv"+ data.position + elemID + mode).addClass('TableElementDiv');
+					}
+					else
+					{
+						$("#tableElementDiv"+ data.position + elemID + mode).addClass('TableElementDiv64');
+					}
+					$("#tableElementDiv"+ data.position + elemID + mode).css("filter"," progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale');");
+					$("#tableElementDiv"+ data.position + elemID + mode).css("-ms-filter", "'progid:DXImageTransform.Microsoft.AlphaImageLoader(src='/static/canvas/images/Chair.png',sizingMethod='scale')';");
+					
+					if (drag)
+					{
+						if (SelectedElem != "" && SelectedElem.attr('id') == elemID)
+						{
+							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+						}
+						
+						if (selectionElementsList != "")
+						{
+							for (var y = 0; y < selectionElementsList.length; y++)
+							{
+								if (selectionElementsList[y] == elemID)
+								{
+									$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+								}
+							}
+						}
+					}
+					else
+					{
+						if ((!fromTableMode && tableMode) || detailsMode)
+						{
+							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(100,0);
+						}
+						else
+						{
+							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
+							$("#tableElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
+						}
+					}
+				}
+		}
+}
+
 function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 {
 	var elemID = element.context.id;

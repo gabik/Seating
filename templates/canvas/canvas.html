@@ -50,6 +50,12 @@
 	 var partnersPhoneNumbers  = "";
 	 var partnersSendFeedBackFlag  = "";
 	 
+	 function closeChargeScr()
+	 {
+	 	$("#chargeScr").fadeTo(1500, 0,function(){
+		$("#chargeScr").remove();});
+	 }
+
 	 $(document).before(function()
 	 {
 	 
@@ -163,7 +169,7 @@
 		$("#SquarePlaceMentShapes").click();
 		$(".ShapePlacementMenu").hide();
 	}
-	 
+
 	 $(".DragDiv").each(function(i){
 		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
 		 {
@@ -175,7 +181,38 @@
 		 var elementCaption = $(this).context.getElementsByTagName("p");
 		 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 		 var elementTable = $(this).context.getElementsByTagName("table");
-		 posTableChairs($(this), elementMaxSize);
+		 var elem = $(this);
+		 
+		 	   	
+		$.post('/canvas/getAllItems/'+ $(this).attr('id').split("-",2)[1] +'/', {},
+			 function(data){
+			   if (data[0] != "" && data[0] != 'undefined' && data[0].status == 'OK')
+			   {
+					setSaveStatus("OK");
+					posTableChairsWithData(data, elem, elementMaxSize);
+					
+					if (i > -1)
+					{
+						var pre = Math.min((($(".DragDiv").size()) * i / 100) * 100 , 100);
+						$("#chargeScr").find('img').last().css('width', pre + '%'); 
+						$("#chargeScr").find('p').last().text(pre + '%'); 
+						
+						if (pre == 100)
+						{
+							setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
+						}
+					}
+					else
+					{
+						$("#chargeScr").fadeTo(1500, 0,function(){
+						$("#chargeScr").remove();});
+					}
+					
+			   }else{
+					setSaveStatus("Error");
+			   }
+			 }, 'json');
+	 
 	 });
 	 
 	 var dragNonDropDivStartX = 500;

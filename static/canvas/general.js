@@ -196,8 +196,8 @@ function refactorElementPerson(element)
 		element.text(newString);
 	}
 }
-
-function posTableChairs(element, elementMaxSize)
+	
+function posTableChairsWithData(data, element, elementMaxSize)
 {
 	var tableElementSize = 16;
 	var elementTable = element.context.getElementsByTagName("table");
@@ -252,11 +252,11 @@ function posTableChairs(element, elementMaxSize)
 		{
 			if (i >  parseInt(elementMaxSize) / 2)
 			{
-				createTableElement(i,element,true, false);
+				createTableElementWithData(data[i + 1], i,element,true, false);
 			}
 			else
 			{
-				createTableElement(i,element,false, false);
+				createTableElementWithData(data[i + 1], i,element,false, false);
 			}
 			$("#tableParentElementDiv"+ parseInt(i + 1) + elemID + mode).css( "top", center[1] +  (element.width() / def) * Math.cos(angle));
 			$("#tableParentElementDiv"+ parseInt(i + 1)+ elemID + mode).css( "left", center[0] + (element.height() / def) * Math.sin(angle));
@@ -360,11 +360,11 @@ function posTableChairs(element, elementMaxSize)
 		{
 			if (i >  parseInt(elementMaxSize) / 2)
 			{
-				createTableElement(i,element, side == 0, false);
+				createTableElementWithData(data[i + 1], i,element, side == 0, false);
 			}
 			else
 			{
-				createTableElement(i,element,side >= 3, false);
+				createTableElementWithData(data[i + 1], i,element,side >= 3, false);
 			}
 			
 			if (maxElementCapacity / 2 <  parseInt(elementMaxSize))
@@ -869,7 +869,18 @@ function reArrangeChairs(element,newSize)
 	$(".chairs" + element.attr('id')).each(function(i) {
 		$(this).remove();
 	});
-	posTableChairs(element, newSize);
+	
+	$.post('/canvas/getAllItems/'+ element.attr('id').split("-",2)[1] +'/', {},
+	 function(data){
+	   if (data[0] != "" && data[0] != 'undefined' && data[0].status == 'OK')
+	   {
+			setSaveStatus("OK");
+			posTableChairsWithData(data, element, newSize);
+			
+	   }else{
+			setSaveStatus("Error");
+	   }
+	 }, 'json');
 }
 
 function reloadElementAfterSave(element,newCaption,newSize,sizeStr)
@@ -997,7 +1008,18 @@ function changeOrientation(element, select)
 					$(".chairs" + element.attr('id')).each(function(i) {
 						$(this).remove();
 					});
-					posTableChairs(element, elementMaxSize);
+
+					 $.post('/canvas/getAllItems/'+ element.attr('id').split("-",2)[1] +'/', {},
+					 function(data){
+					   if (data[0] != "" && data[0] != 'undefined' && data[0].status == 'OK')
+					   {
+							setSaveStatus("OK");
+							posTableChairsWithData(data, element, elementMaxSize);
+							
+					   }else{
+							setSaveStatus("Error");
+					   }
+					 }, 'json');
 				}
 				setSaveStatus("OK"); }}, 'json');
 			}
@@ -1781,7 +1803,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		if (!collisionWithOtherElement(element))
 		{
 			saveElement(element);
-			selectElement(element);
+			//selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1799,7 +1821,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		element.css('top', startposY);
 		element.css('left',startposX);
 		saveElement(element);
-		selectElement(element);
+		//selectElement(element);
 	}
 }
 
@@ -2117,6 +2139,7 @@ function adjustResolution()
 		
 				$("#people-list").css('height', $("#people-list").height() + delta);
 				$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+				$("#chargeScr").css('height', $("#chargeScr").height() + delta);
 				$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
 				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
@@ -2161,6 +2184,7 @@ function adjustResolution()
 				$("#movingPanelMarquee").css('width', $("#movingPanelMarquee").width() + delta);
 				$("#people-list").css('left', $("#people-list").position().left + delta);
 				$(".CanvasDiv").css('width', $(".CanvasDiv").width() + delta);
+				$("#chargeScr").css('width', $("#chargeScr").width() + delta);
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
@@ -2328,24 +2352,7 @@ $(document).ready(function() {
 			  });
 		}
 	 }
-	 
-	if (index > -1)
-	{
-		var pre = Math.min((($(".DragDiv").size()) * index / 100) * 100 , 100);
-		$("#chargeScr").find('img').last().css('width', pre + '%'); 
-		$("#chargeScr").find('p').last().text(pre + '%'); 
-		
-		if (pre == 100)
-		{
-			$("#chargeScr").fadeTo(1500, 0,function(){
-			$("#chargeScr").remove();});
-		}
-	}
-	else
-	{
-		$("#chargeScr").fadeTo(1500, 0,function(){
-		$("#chargeScr").remove();});
-	}
+	
 	//reloadElementStatus($(this), true, index); 
   });
 
