@@ -28,10 +28,10 @@ from he import u
 from hashlib import md5
 
 def escapeSpecialCharacters ( text ):
-    characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
-    for character in characters:
-        text = str(text).replace( character, '' )
-    return text
+	characters='"&\',?><.:;}{[]+=)(*^%$#@!~`|/'
+	for character in characters:
+		text = str(text).replace( character, '' )
+	return text
 
 
 #@login_required
@@ -319,15 +319,15 @@ def download_excel(request):
 	row1.write(6, he.facebook, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
 	row1.write(7, he.group, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
 	row1.write(8, he.present, Style.easyxf('pattern: pattern solid, fore_colour aqua;'))
-        pattern = xlwt.Pattern()
-        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
-        pattern.pattern_fore_colour = 22 
-        style = xlwt.XFStyle()
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = 22 
+	style = xlwt.XFStyle()
 	protection = xlwt.Protection()
 	protection.cell_locked = 1
 	style.protection = protection
-        style.pattern = pattern
-        style.borders = borders
+	style.pattern = pattern
+	style.borders = borders
 	row_num+=1
 	p1name=partners.partner1_first_name
 	p2name=partners.partner2_first_name.strip()
@@ -369,10 +369,10 @@ def download_excel(request):
 	pattern = xlwt.Pattern()
 	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
 	pattern.pattern_fore_colour = 1
-        protection = xlwt.Protection()
-        protection.cell_locked = False
+	protection = xlwt.Protection()
+	protection.cell_locked = False
 	style = xlwt.XFStyle()
-        style.protection = protection
+	style.protection = protection
 	style.pattern = pattern
 	style.borders = borders
 	for k in range(row_num,1000):
@@ -397,9 +397,9 @@ def download_excel(request):
 	sheet2.protect = True
 	sheet1.password = "DubaGdola"
 	sheet2.password = "DubaGdola"
-        c = {}
-        c['filename'] = str(request.user.id) + 'guests.xls'
-        book.save('/Seating/static/excel_output/' + c['filename'])
+	c = {}
+	c['filename'] = str(request.user.id) + 'guests.xls'
+	book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
 	cur_user = UserProfile.objects.get(user=request.user)
 	cur_user.excel_hash=str(hash)
@@ -430,15 +430,15 @@ def sorted_excel(request):
 	row1.write(4, he.table_name, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(5, he.table_num, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
 	row1.write(6, he.is_come, Style.easyxf('pattern: pattern solid, fore_colour pink;'))
-        pattern = xlwt.Pattern()
-        pattern.pattern = xlwt.Pattern.SOLID_PATTERN
-        pattern.pattern_fore_colour = 1 
-        style = xlwt.XFStyle()
+	pattern = xlwt.Pattern()
+	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+	pattern.pattern_fore_colour = 1 
+	style = xlwt.XFStyle()
 	protection = xlwt.Protection()
 	protection.cell_locked = 1
 	style.protection = protection
-        style.pattern = pattern
-        style.borders = borders
+	style.pattern = pattern
+	style.borders = borders
 	row_num+=1
 	user_elements = SingleElement.objects.filter(user=request.user)
 	for g in Guests:
@@ -498,7 +498,7 @@ def do_duplicates(request):
 def download_map(request):
 	#Guests = Guest.objects.filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
-        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#elements_nums = user_elements.values_list('elem_num', flat=1)
 	#max_rows = math.ceil(len(elements_nums)/3)
 	book = Workbook()
 	sheet1 = book.add_sheet('2Seat.co.il')
@@ -526,25 +526,25 @@ def download_map(request):
 		else:
 			cur_3_cul+=1
 		row_num=cur_row
-		
-	        borders = xlwt.Borders()
-        	borders.left = xlwt.Borders.THIN
-        	borders.right = xlwt.Borders.THIN
-        	borders.top = xlwt.Borders.THIN
-        	borders.bottom = xlwt.Borders.THIN
-        	borders.left_colour = 0x40
-        	borders.right_colour = 0x40
-        	borders.top_colour = 0x40
-        	borders.bottom_colour = 0x40
-	        pattern = xlwt.Pattern()
-        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
-        	pattern.pattern_fore_colour = 49
-        	style = xlwt.XFStyle()
-        	protection = xlwt.Protection()
-        	protection.cell_locked = 1
-        	style.protection = protection
-        	style.pattern = pattern
-        	style.borders = borders
+	
+		borders = xlwt.Borders()
+		borders.left = xlwt.Borders.THIN
+		borders.right = xlwt.Borders.THIN
+		borders.top = xlwt.Borders.THIN
+		borders.bottom = xlwt.Borders.THIN
+		borders.left_colour = 0x40
+		borders.right_colour = 0x40
+		borders.top_colour = 0x40
+		borders.bottom_colour = 0x40
+		pattern = xlwt.Pattern()
+		pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+		pattern.pattern_fore_colour = 49
+		style = xlwt.XFStyle()
+		protection = xlwt.Protection()
+		protection.cell_locked = 1
+		style.protection = protection
+		style.pattern = pattern
+		style.borders = borders
 
 		row1 = sheet1.row(row_num)
 		row1.write(cur_3_cul+1,element_name, style)
@@ -586,11 +586,11 @@ def download_map(request):
 		sheet1.col(i).width = 5000
 	sheet1.protect = True
 	sheet1.password = "DubaGdola"
-        c = {}
-        c['filename'] = str(request.user.id) + 'map.xls'
-        book.save('/Seating/static/excel_output/' + c['filename'])
+	c = {}
+	c['filename'] = str(request.user.id) + 'map.xls'
+	book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
-        return render_to_response('accounts/xls.html', c)
+	return render_to_response('accounts/xls.html', c)
 
 @login_required
 def online_excel(request):
@@ -618,13 +618,13 @@ def online_excel(request):
 		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), gqty, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
 		row_num+=1
 	f.close()
-        c = {}
+	c = {}
 	c.update(csrf(request))
 	c['rows']=row_num
 	c['partner1']=names[0]
 	c['partner2']=names[1]
 	c['filename']='/static/excel_output/' + str(request.user.id) + 'guests.csv'
-        return render_to_response('accounts/online_xls.html', c)
+	return render_to_response('accounts/online_xls.html', c)
 
 @login_required
 def online_save(request):
@@ -633,7 +633,7 @@ def online_save(request):
 		tmpXmlFile.write(request.POST['xml'].encode('utf-8'))
 		tmpXmlFile.close()
 		tmpXmlFile=open('/tmp/'+str(request.user.id)+'xmlsave.xml', 'r')
-                userXml = parse(tmpXmlFile).getroot()
+		userXml = parse(tmpXmlFile).getroot()
 		tmpXmlFile.close()
 		starting_row=request.POST['start_row']
 		gender_choice=["U","M","F"]
@@ -698,7 +698,7 @@ def online_save(request):
 		#c.update(csrf(request))
 		#c['duplicate_list']=duplicate_list
 		#return render_to_response('accounts/duplicate.html', c)
- 	#else:
+	#else:
 	return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
 
 @csrf_exempt
@@ -852,7 +852,7 @@ def stickers(request):
 	Guests = Guest.objects.order_by('elem_num').filter(user=request.user)
 	user_elements = SingleElement.objects.filter(user=request.user)
 	partners=get_object_or_404(Partners, userPartner = request.user)
-        #elements_nums = user_elements.values_list('elem_num', flat=1)
+	#elements_nums = user_elements.values_list('elem_num', flat=1)
 	#max_rows = math.ceil(len(elements_nums)/3)
 	book = Workbook()
 	sheet1 = book.add_sheet('2Seat.co.il')
@@ -903,53 +903,53 @@ def stickers(request):
 		alignment2 = xlwt.Alignment()
 		alignment2.horz = xlwt.Alignment.HORZ_LEFT
 		alignment2.vert = xlwt.Alignment.VERT_TOP
-	        border1 = xlwt.Borders()
-	        border2 = xlwt.Borders()
-	        border3 = xlwt.Borders()
-        	border1.left = xlwt.Borders.DOUBLE
-        	border1.right = xlwt.Borders.DOUBLE
-        	border2.left = xlwt.Borders.DOUBLE
-        	border2.right = xlwt.Borders.DOUBLE
-        	border3.left = xlwt.Borders.DOUBLE
-        	border3.right = xlwt.Borders.DOUBLE
-        	border2.top = xlwt.Borders.DOUBLE
-        	border3.bottom = xlwt.Borders.DOUBLE
-        	border1.left_colour = 0x40
-        	border1.right_colour = 0x40
-        	border2.left_colour = 0x40
-        	border2.right_colour = 0x40
-        	border3.left_colour = 0x40
-        	border3.right_colour = 0x40
-        	border2.top_colour = 0x40
-        	border3.bottom_colour = 0x40
-	        pattern = xlwt.Pattern()
-        	pattern.pattern = xlwt.Pattern.SOLID_PATTERN
-        	pattern.pattern_fore_colour = 1
+		border1 = xlwt.Borders()
+		border2 = xlwt.Borders()
+		border3 = xlwt.Borders()
+		border1.left = xlwt.Borders.DOUBLE
+		border1.right = xlwt.Borders.DOUBLE
+		border2.left = xlwt.Borders.DOUBLE
+		border2.right = xlwt.Borders.DOUBLE
+		border3.left = xlwt.Borders.DOUBLE
+		border3.right = xlwt.Borders.DOUBLE
+		border2.top = xlwt.Borders.DOUBLE
+		border3.bottom = xlwt.Borders.DOUBLE
+		border1.left_colour = 0x40
+		border1.right_colour = 0x40
+		border2.left_colour = 0x40
+		border2.right_colour = 0x40
+		border3.left_colour = 0x40
+		border3.right_colour = 0x40
+		border2.top_colour = 0x40
+		border3.bottom_colour = 0x40
+		pattern = xlwt.Pattern()
+		pattern.pattern = xlwt.Pattern.SOLID_PATTERN
+		pattern.pattern_fore_colour = 1
 		font1 = xlwt.Font()
 		font2 = xlwt.Font()
 		font1.name = 'David'
 		font1.bold = True
 		font1.height = 0x00C8
 		font2.height = 0x00C5
-        	style1 = xlwt.XFStyle()
-        	style2 = xlwt.XFStyle()
-        	style3 = xlwt.XFStyle()
-        	protection = xlwt.Protection()
-        	protection.cell_locked = 1
-        	style1.protection = protection
-        	style1.pattern = pattern
+		style1 = xlwt.XFStyle()
+		style2 = xlwt.XFStyle()
+		style3 = xlwt.XFStyle()
+		protection = xlwt.Protection()
+		protection.cell_locked = 1
+		style1.protection = protection
+		style1.pattern = pattern
 		style1.alignment = alignment
 		style1.font = font1
-        	style2.protection = protection
-        	style2.pattern = pattern
+		style2.protection = protection
+		style2.pattern = pattern
 		style2.alignment = alignment2
 		style2.font = font2
-        	style3.protection = protection
-        	style3.pattern = pattern
+		style3.protection = protection
+		style3.pattern = pattern
 		style3.alignment = alignment
-        	style1.borders = border1
-        	style2.borders = border2
-        	style3.borders = border3
+		style1.borders = border1
+		style2.borders = border2
+		style3.borders = border3
 		
 		row1 = sheet1.row(row_num)
 		row1.write(cur_3_cul,"2seat.co.il", style2)
@@ -972,11 +972,11 @@ def stickers(request):
 		sheet1.row(i).height_mismatch = True
 	sheet1.protect = True
 	sheet1.password = "242424"
-        c = {}
-        c['filename'] = str(request.user.id) + 'stickers.xls'
-        book.save('/Seating/static/excel_output/' + c['filename'])
+	c = {}
+	c['filename'] = str(request.user.id) + 'stickers.xls'
+	book.save('/Seating/static/excel_output/' + c['filename'])
 	book.save(TemporaryFile())
-        return render_to_response('accounts/xls.html', c)
+	return render_to_response('accounts/xls.html', c)
 
 @login_required
 def SendNotifications(request):
@@ -1056,8 +1056,8 @@ def SendNotifications(request):
 def list_dates(request):
 	users=User.objects.all()
 	profile_users=UserProfile.objects.all()
- 	list=[]
- 	for user in users:
+	list=[]
+	for user in users:
 		userexist=0
 		for curprof in profile_users:
 			if curprof.user == user:
