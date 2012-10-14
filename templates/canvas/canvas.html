@@ -202,6 +202,13 @@
 								if (pre == 100 || i >= ($(".DragDiv").size() - 1))
 								{
 									readyToLoad = true;
+									if (pre < 100)
+									{
+										pre = 100;
+										$("#chargeScr").find('img').last().css('width', pre + '%'); 
+										$("#chargeScr").find('p').last().text(pre + '%'); 
+									}
+								
 									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
 								}
 							}

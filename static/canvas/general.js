@@ -14,6 +14,7 @@ var propMenuOpen = false;
 var fromPropMeneBtn = false;
 var currentMsgTimer = "";
 var floatListOriginalPosition = "";
+var advancepropTopPosition = "";
 var occDetailsOpen = false;
 var resizableLastWidth = 0;
 var resizableLastHeight = 0;
@@ -2119,6 +2120,15 @@ function dropPerson(draged,table, place)
 
 function adjustResolution()
 {
+
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		advancepropTopPosition = 483;
+	}
+	else
+	{
+		advancepropTopPosition = 490;
+	}
 	if (screenResHeightFixNum < screen.height)
 	{
 		var delta =  screen.height - $("#canvas-div").height() - 138;
@@ -2129,6 +2139,8 @@ function adjustResolution()
 		$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
 		$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 		$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+		$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+		advancepropTopPosition = advancepropTopPosition + delta;
 		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
 	
@@ -2147,6 +2159,8 @@ function adjustResolution()
 				$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
 				$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
 				floatListOriginalPosition = $("#float-list").position();
+				$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+				advancepropTopPosition = advancepropTopPosition + delta;
 				//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 			}
 	    	setSaveStatus("OK");
@@ -2207,7 +2221,6 @@ function adjustResolution()
 		  }
 	}, 'json');	
 	floatListOriginalPosition = $("#float-list").position();
-	$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsR").position().top);
 }
 
 function saveTableSitting(table)
@@ -2947,14 +2960,7 @@ $(document).ready(function() {
 				   }
 				   }, 'json');
 			$(this).attr('src',"/static/page/images/expander_right_r.png");
-			  if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
-			 {
-			 	$("#occasionDetailsAdvanceR").css('top',483);
-			 }
-			 else
-			 {
-			  	$("#occasionDetailsAdvanceR").css('top',490);
-			 }
+			$("#occasionDetailsAdvanceR").css('top',advancepropTopPosition);
 			$("#occasionDetailsAdvanceR").show("slide", { direction: "right" }, 150);
 		}
 	});
