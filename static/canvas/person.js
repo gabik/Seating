@@ -150,7 +150,7 @@ function LoadPerson(element, i, fromTableMode)
 					personData = data;
 					FocusDetails($("#tableElementDiv"+ data.position + elemID + mode),element, !fromTableMode);
 				});
-				$("#tableElementDiv"+ data.position + elemID + mode).bind('click',function() {
+				$("#tableElementDiv"+ data.position + elemID + mode).bind('mousedown',function() {
 					personData = data;
 					SelectedTable = element;
 					if (bringPersonToFL)
@@ -409,7 +409,10 @@ function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 	if (ui.helper.size() == 1)
 	{
 	  ui.helper.each(function(j){
-	  dropPerson($(this), element,  pos); 
+	  if (dropAllow)
+	  {
+		dropPerson($(this), element,  pos); 
+	  }
 	  elemID = $("#tableElementDiv"+ pos + elemID + mode).data('elem');
 	  $("#tableElementDiv"+  pos + elemID + mode).data('dropEvent', 1);
 	  });
@@ -1053,7 +1056,7 @@ function StartDragPerson(element)
 
 	drag = true;
 		
-	if (canDragPersonAgain)
+	if (canDragPersonAgain && !droppingPerson)
 	{
 		canDragPersonAgain = false;
 		
@@ -1142,11 +1145,11 @@ function StopDragPerson(element,tableElement)
 				
 				$("#" + lastID).css('top',PersonLastPosition[0]);
 				$("#" + lastID).css('left',PersonLastPosition[1]);
-				$("#" + lastID).css('z-index',curZIndex);
+				$("#" + lastID).css('z-index',lastZIndex);
 				
 				$("#" + curID).css('top',newTop);
 				$("#" + curID).css('left',newLeft);
-				$("#" + curID).css('z-index',lastZIndex);
+				$("#" + curID).css('z-index',curZIndex);
 				
 				if (action == 1)
 				{
@@ -1277,7 +1280,7 @@ function collisionWithOtherPersonElement(element)
 	if (tableMode)
 	{
 		$(".TableParentElementDiv").each(function(i) {
-			if (element.context.id != $(this).context.id)
+			if (element.context.id != $(this).context.id && !match)
 			{
 				var pos2 = getPositions(this);
 				var horizontalMatch = comparePositions(pos[0], pos2[0]);
@@ -1299,7 +1302,7 @@ function collisionWithOtherPersonElement(element)
 		for (var i = 0; i < tableArray.length; i++)
 		{
 			$(".chairs" + tableArray[i]).each(function(i) {
-				if (element.context.id != $(this).context.id)
+				if (element.context.id != $(this).context.id && !match)
 				{
 					var pos2 = getPositions(this);
 					var horizontalMatch = comparePositions(pos[0], pos2[0]);
@@ -1555,7 +1558,7 @@ function DeletePerson()
 		  $("#" + lastID).css('z-index',curZIndex);
 		  var classGender = "maleli";
 		  //ShowHourGlassWaitingWindow(true);
-		  if (data.gender == "F")
+		  if (personData.gender == "F")
 		  {
 			classGender = "femaleli";
 		  }

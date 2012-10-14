@@ -83,6 +83,7 @@
   position:absolute;
   top:-17px;
   left:17;
+  z-index:9999999999;
  }
  #element-properties-list
  {
@@ -116,7 +117,7 @@
   width:135;
   top:490;
   left:965;
-  z-index:99999;
+  z-index:9999999999;
  }
  #ElementStatus
  {
@@ -133,7 +134,7 @@
   top:-21px;
   left:-124;
   height:175px;
-  z-index:9999;
+  z-index:9999999999;
  }
  #canvasShadow
  {
