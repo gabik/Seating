@@ -2248,6 +2248,13 @@ function HelpScreen()
 
 function droppableTable(ui ,tableOrig)
 {
+	if (dropMoreThenOnChair)
+	{
+		showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור ליותר ממקום אחד, יש לוודא כי רק כיסא או שולחן אחד מסומן. </br> לחיצה כפולה על השולחן תאפשר להתמקד בו.","OK","Notice");
+		sameMsg = true;
+	}
+	else
+	{
 	  var elementTable = tableOrig.context.getElementsByTagName("table");
 	  if (!isThisPeopleTable(elementTable[0].id))
 	  {
@@ -2291,6 +2298,7 @@ function droppableTable(ui ,tableOrig)
 				  }
 				}, 'json');
 		  }
+	}
 }
 
 $(document).ready(function() {
@@ -2537,31 +2545,7 @@ $(document).ready(function() {
 		stopDrag($(this));
        }
   });
-  
-  $(".LozShape").droppable({
-  	accept: "#people_list li",
-	hoverClass: "personOverTableDropLayer",
-    drop: function(e, ui ) {
-			droppableTable(ui ,$(this));
-		}
-	  });
-  
-  $(".RoundShape").droppable({
-  	accept: "#people_list li",
-	hoverClass: "personOverTableDropLayer",
-    drop: function(e, ui ) {
-			droppableTable(ui ,$(this));
-		}
-	  });
-  
-  $(".SQShape").droppable({
-  	accept: "#people_list li",
-	hoverClass: "personOverTableDropLayer",
-    drop: function(e, ui ) {
-			droppableTable(ui ,$(this));
-		}
-	  });
-	  
+
 	$(".DragNonDropDiv").resizable({
 		handles: 'n, e, s, w, ne, se, sw, nw',
 		maxHeight:150,
