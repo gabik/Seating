@@ -2507,7 +2507,7 @@ $(document).ready(function() {
 		startDrag($(this));
      },
 	 drag: function (e,ui){ 
-	 		
+	 	
 		XColPoint = returnCollisionWithOtherElementPoint($(this));
 		
 		if (XColPoint != "")

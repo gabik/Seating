@@ -10,6 +10,7 @@ var canDragPersonAgain = true;
 var droppingPerson = false;
 var bringPersonToFL = true;
 var lastMode = "";
+var dropMoreThenOnChair = false;
 
 jQuery(function() {
         jQuery("#tabs").tabs();
@@ -398,28 +399,36 @@ function LoadPersonWithData(data, element, i, fromTableMode)
 
 function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 {
-	var elemID = element.context.id;
-	var mode = "T";
-	
-	if (!tmode)
+	if (dropMoreThenOnChair)
 	{
-		mode = "NT";
-	}
-	
-	if (ui.helper.size() == 1)
-	{
-	  ui.helper.each(function(j){
-	  if (dropAllow)
-	  {
-		dropPerson($(this), element,  pos); 
-	  }
-	  elemID = $("#tableElementDiv"+ pos + elemID + mode).data('elem');
-	  $("#tableElementDiv"+  pos + elemID + mode).data('dropEvent', 1);
-	  });
+		showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור ליותר ממקום אחד, יש לוודא כי רק כיסא או שולחן אחד מסומן. </br> לחיצה כפולה על השולחן תאפשר להתמקד בו.","OK","Notice");
+		sameMsg = true;
 	}
 	else
 	{
-		showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד.","OK","Notice");
+		var elemID = element.context.id;
+		var mode = "T";
+		
+		if (!tmode)
+		{
+			mode = "NT";
+		}
+		
+		if (ui.helper.size() == 1)
+		{
+		  ui.helper.each(function(j){
+		  if (dropAllow)
+		  {
+			dropPerson($(this), element,  pos); 
+		  }
+		  elemID = $("#tableElementDiv"+ pos + elemID + mode).data('elem');
+		  $("#tableElementDiv"+  pos + elemID + mode).data('dropEvent', 1);
+		  });
+		}
+		else
+		{
+			showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד.","OK","Notice");
+		}
 	}
 }
 
@@ -1023,7 +1032,7 @@ function DragPerson(personElement,tableElement)
 	
 	if (backToFloatListMatch)
 	{
-		$("#floatListGate").css("background-color", "rgba(90, 142, 163, 0.3)");
+		$("#floatListGate").css("background-color", "rgba(90, 142, 163, 0.8)");
 		$("#floatListGate").find('img').first().attr('src',"/static/canvas/images/arrow_to_float_r.png");
 	}
 	else

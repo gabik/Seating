@@ -214,7 +214,7 @@ $(document).ready(function() {
 									newLeft = 80;
 								}
 								startLeft = newLeft;
-								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 50) * currentHeigthMargin);
+								newTop = firstRowMaxTop + (Math.ceil($(".DragDiv").size() / 50) * currentHeigthMargin / 20);
 							}
 						}
 					}
@@ -294,7 +294,7 @@ $(document).ready(function() {
 						}
 						if (startLeft + $(this).width() > firstRowMaxLeft)
 						{
-							firstRowMaxLeft = startLeft + $(this).width() + 40;
+							firstRowMaxLeft = startLeft + $(this).width() + 70;
 						}
 						if (startTop + $(this).height() > firstRowMaxTop)
 						{
