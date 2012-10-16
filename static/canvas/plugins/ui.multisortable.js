@@ -63,6 +63,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 
 	_mouseStart: function(event, overrideHandle, noActivation) {
 
+		dropMoreThenOnChair = false;
 		setSaveStatus("Waiting");
 		var o = this.options, self = this;
 		this.currentContainer = this;
@@ -184,6 +185,15 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 
 	_mouseDrag: function(event) {
 	
+		if (($(".dropLayerClass").size() >= 2) || ($(".dropLayerClass").size() >= 1 && $(".RectShapeDropLayer").size() >= 1) || ($(".dropLayerClass").size() >= 1 && $(".RoundShapeDropLayer").size() >= 1) || ($(".dropLayerClass").size() >= 1 && $(".LozShapeDropLayer").size() >= 1) || ($(".RectShapeDropLayer").size() > 1) || ($(".RoundShapeDropLayer").size() > 1)  || ($(".LozShapeDropLayer").size() > 1))
+		{
+			dropMoreThenOnChair = true;
+		}
+		else
+		{
+			dropMoreThenOnChair = false;
+		}
+			
 		var scrollAllow = true;
 		
 		if (event.clientX > $("#canvas-div").offset().left && event.clientX < $("#canvas-div").offset().left + $("#canvas-div").width() && event.clientY > $("#canvas-div").offset().top && event.clientY  < $("#canvas-div").offset().top + $("#canvas-div").height())

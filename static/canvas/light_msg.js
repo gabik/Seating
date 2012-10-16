@@ -5,9 +5,14 @@ var MsgTextContent ="";
 var MsgBoxLastAnswer = "";
 var numOfMsg = 0;
 var otherScreen = "";
+var sameMsg = false;
 
 function showLightMsg(title, text, buttons, icon)
 {
+	if (sameMsg)
+	{
+		return;
+	}
 	numOfMsg++;
 	MsgBoxLastAnswer = "";
 	MsgTitle = title;
@@ -74,6 +79,7 @@ function showLightMsg(title, text, buttons, icon)
 			$("#LMFrame"+idSuffix).remove();
 			MsgBoxLastAnswer="OK";
 			$("body").css("overflow", "auto");
+			sameMsg = false;
 		});
 		$("#OKMsgBtn"+idSuffix).bind('mouseout', function(){
 			$(this).attr('src',"/static/canvas/images/okbtn_n.png");
@@ -90,12 +96,14 @@ function showLightMsg(title, text, buttons, icon)
 			$("#LMFrame"+idSuffix).remove();
 			MsgBoxLastAnswer="OK";
 			$("body").css("overflow", "auto");
+			sameMsg = false;
 		});
 		$("#CANCELMsgBtn"+idSuffix).bind('click', function() {
 			$("#lightMsgRectangle"+idSuffix).remove();
 			$("#LMFrame"+idSuffix).remove();
 			MsgBoxLastAnswer="Cancel";
 			$("body").css("overflow", "auto");
+			sameMsg = false;
 		});
 		$("#OKMsgBtn"+idSuffix).bind('mouseout', function(){
 			$(this).attr('src',"/static/canvas/images/okbtn_n.png");
