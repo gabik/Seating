@@ -2178,7 +2178,7 @@ function delDivPress()
 					    
 					  if (orginalTable.hasClass('DragDiv'))
 					  {
-						  for (int e=1; e <= elementMaxSize; e++)
+						  for (var e=1; e <= elementMaxSize; e++)
 						  {
 							 if (dataTable[e].status == "OK")
 							 {
