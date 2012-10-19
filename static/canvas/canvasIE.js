@@ -169,8 +169,8 @@ function addMenuItemButtonPress(kind)
 					var divTable = $("#DragDiv-"+ data.max_num).find('table').first();
 					
 					
-					divTable.css('width', div.width());
-					divTable.css('height',  div.height());
+					//divTable.css('width', div.width());
+					//divTable.css('height',  div.height());
 					
 					makeOrientation(divTable, div, 'V', true);
 					

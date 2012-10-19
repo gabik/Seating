@@ -202,7 +202,7 @@ function refactorElementPerson(element)
 function posTableChairsWithData(data, element, elementMaxSize)
 {
 	var tableElementSize = 16;
-	var elementTable = element.context.getElementsByTagName("table");
+	var elementTable = element.find("table").first();
 	var elemID = element.context.id;
 	var mode = "T";
 	var posString = "";
