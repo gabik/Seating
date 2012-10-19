@@ -256,6 +256,39 @@ function addMenuItemButtonPress(kind)
 									}
 								}
 						  });	
+						  
+						  div.mouseup( function(e) {
+						  if (navigator.userAgent.toLowerCase().indexOf('ie 8') > 0 || navigator.userAgent.toLowerCase().indexOf('ie 7') > 0)
+							   {
+									var element = $("#delProp_" + $(this).context.id);
+									
+									if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+									element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+									{
+										delFromTable($(this).context.id);
+									}
+									else 
+									{
+										element = $("#elemProp_" + $(this).context.id);
+										
+										if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+										element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+										{
+											propMenuBtnClick($(this).context.id);
+										}
+										else 
+										{
+											element = $("#elemBack_" + $(this).context.id);
+											
+											if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+											element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+											{
+												tableBackBtnClick();
+											}
+										}
+									}
+							   }
+						   }); 
 
 						if (collisionWithOtherElementById(div.attr('id')))
 						{

@@ -2178,7 +2178,7 @@ function delDivPress()
 					    
 					  if (orginalTable.hasClass('DragDiv'))
 					  {
-						  for (e=1; e <= elementMaxSize; e++)
+						  for (int e=1; e <= elementMaxSize; e++)
 						  {
 							 if (dataTable[e].status == "OK")
 							 {
@@ -2385,7 +2385,7 @@ function adjustResolution()
 		$("#float-list").css('left', $("#float-list").position().left + delta);
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-		$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
 		$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2409,7 +2409,7 @@ function adjustResolution()
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-				$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
 				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
 				$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
