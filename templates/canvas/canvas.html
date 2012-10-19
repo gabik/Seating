@@ -56,18 +56,6 @@
 	 	$("#chargeScr").fadeTo(1500, 0,function(){
 		$("#chargeScr").remove();});
 	 }
-	 
-	 function closeChargeScrForce()
-	 {
-		if ($("#chargeScr").find('p').last().text() == "0%")
-		{
-			$("#chargeScr").find('img').last().css('width', 100 + '%'); 
-			$("#chargeScr").find('p').last().text("100%"); 
-			$("#chargeScr").fadeTo(1500, 0,function(){
-			$("#chargeScr").remove();});
-		}
-	 }
-	 
 
 	 $(document).before(function()
 	 {
@@ -183,7 +171,6 @@
 		$(".ShapePlacementMenu").hide();
 	}
 
-	setTimeout("closeChargeScrForce()", ($(".DragDiv").size() + 20) * 110);
 	 $(".DragDiv").each(function(i){
 		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
 		 {

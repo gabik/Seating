@@ -1445,12 +1445,82 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 			  function(data){
 				if (data.status == 'OK')
 				{
-					  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-					  ShowHourGlassWaitingWindow(true);
+					setSaveStatus("OK");
+					addPersonManualy(first_name, data.last_name, amount, gender);
+				}
+				else
+				{
+					setSaveStatus("Error");
 				}
 			  }, 'json');
 		}
 	}
+}
+
+function addPersonManualy(first_name, last_name, amount, gender)
+{
+  var liToAppend = "";
+
+  writeOccasionInfo("Added Person " +first_name+" "+last_name);
+  //ShowHourGlassWaitingWindow(true);
+  
+  if (amount > 1)
+  {
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה.">';
+	}
+	else
+	{
+		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+	}
+	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
+  }
+  else
+  {
+	var genClass = 'maleli';
+	
+	if (gender == "F")
+	{
+	   genClass = 'femaleli';
+	}
+	
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">';
+	}
+	else
+	{
+		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+	}
+	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
+  }
+  
+  if (liToAppend != "")
+  {
+	  $("#people_list").append($(liToAppend));
+	  $("#" + first_name +'_' + last_name).data('qty', amount);
+	  closeAddInterface();
+	  rePaintPeopleList(); 
+	  $("#people_list > li").each(function(i) {
+		$(this).removeClass('ui-multisort-click');
+		$(this).removeClass('ui-multisort-grouped');
+		if ($(this).context.id == first_name +"_"+ last_name )
+		{
+			$(this).addClass('ui-multisort-click');
+			$(this).bind('dblclick',function(e){
+					personFloatListDBClick(e,$(this));
+				});
+			$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+			if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			{
+				refactorElementPerson($(this));
+			}
+		}
+	});
+   }
+   
+   updateSeatedLabel();
 }
 
 function closeAddInterface()
@@ -1977,16 +2047,40 @@ function delDivPress()
 		//else
 		//{
 		if (SelectedElem != "") {
-		  setSaveStatus("OK");
-		  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-				function(data){
-			  if (data.status == 'OK')
-			  { 
-				  //undoElement[0] = SelectedElem;
-				  //undoElement[1] = "add"; 
-				  ShowHourGlassWaitingWindow(true);
-				  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
-			  }
+		 $.post('/canvas/getAllItems/'+ SelectedElem.context.id.split("-",2)[1] +'/', {},
+		 function(dataTable){
+		   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
+		   {
+			  setSaveStatus("OK");		  
+			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+					function(data){
+				  if (data.status == 'OK')
+				  { 
+					  //undoElement[0] = SelectedElem;
+					  //undoElement[1] = "add"; 
+					  //ShowHourGlassWaitingWindow(true);
+					  
+					  var elementMaxSize = parseInt(SelectedElem.find('p:eq(1)').text().substr(SelectedElem.find('p:eq(1)').text().indexOf("/")+1));
+					  
+					   $(".chairs" + SelectedElem.context.id).each(function(i) {
+							$(this).remove();
+					  });
+					  
+					  $("#" + SelectedElem.context.id).remove();
+					  
+					  for (e=1; e <= elementMaxSize; e++)
+					  {
+						 if (dataTable[e].status == "OK")
+						 {
+							addPersonManualy(dataTable[e].first_name, dataTable[e].last_name, 1, dataTable[e].gender);
+						}
+					  }
+					  
+					  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
+
+				  }
+				}, 'json');
+			}
 			}, 'json');
 		} else {
 			if (!tableMode && !detailsMode)
@@ -2100,9 +2194,9 @@ function dropPerson(draged,table, place)
 			
 			elementCaption[1].innerHTML = sizeStr;
 			LoadPerson(table, data.free_position - 1, tableMode);
-			updateSeatedLabel();
 			writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
 			rePaintPeopleList();
+			updateSeatedLabel();
 		  }else if (data.status == 'FULL')
 		  {
 			draged.fadeTo(200, 1.0);
@@ -2302,7 +2396,9 @@ function droppableTable(ui ,tableOrig)
 											var newSize = parseInt(curSize) + parseInt(ui.draggable.data('qty'));
 										    var sizeStr = newSize + "/" + elementMaxSize;
 										    table.find('p:eq(1)').text(sizeStr);
-											
+											ui.draggable.remove();
+											rePaintPeopleList(); 
+											updateSeatedLabel();	
 									   }else{
 											setSaveStatus("Error");
 									   }

@@ -1652,7 +1652,7 @@ function DeletePerson()
 		  }
 		  else
 		  {
-				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:117.5;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
+				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
 		  }
 		  $("#" + personData.first_name +'_'+ personData.last_name).data('qty',1);
 		  rePaintPeopleList(); 
@@ -1672,7 +1672,7 @@ function DeletePerson()
 				}
 			}
 		  });
-		  
+		  updateSeatedLabel();
         }else{
           setSaveStatus("Error");
         }

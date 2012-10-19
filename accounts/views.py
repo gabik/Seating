@@ -175,7 +175,7 @@ def add_person(request):
 		hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
 		new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=request.POST['group'],gender=request.POST['gender'],invation_status = "T", guest_hash = str(md5(hash).hexdigest()), qty=amount)
 		new_person.save()
-		json_dump = json.dumps({'status': "OK"})
+		json_dump = json.dumps({'status': "OK", 'last_name':last_name})
 	return HttpResponse(json_dump)
 
 def handle_uploaded_file(f, request):
