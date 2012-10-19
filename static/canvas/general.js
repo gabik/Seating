@@ -207,6 +207,10 @@ function posTableChairsWithData(data, element, elementMaxSize)
 	var mode = "T";
 	var posString = "";
 		
+	if (elemID == "" || elemID == 'undefined' || elemID == undefined)
+	{
+		elemID = element.attr('id');
+	}
 	
 	if (!zoomingMode)
 	{
@@ -734,6 +738,34 @@ function collisionWithOtherElementById(elementId)
 	}
 }
 
+function collisionWithOtherElementWithOutNonDragElementsById(elementId)
+{
+	var match = false;
+	var pos = getPositions(document.getElementById(elementId));
+	$(".DragDiv").each(function(i) {
+		if (elementId != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function saveElement(element)
 {
 		var elementId = element.context.id;
@@ -928,15 +960,14 @@ function selectElement(element)
 function updateElementScreenProperties(element)
 {
 	if (element.hasClass('DragDiv'))
-	{
-		var elementCaption = element.context.getElementsByTagName("p");
-		$("#ElementCaption").attr("value",elementCaption[0].title);
+	{;
+		$("#ElementCaption").attr("value",element.find("p").first().text());
 		var elementId = element.context.id;
 		if (elementId == undefined)
 		{
 			elementId = element.attr('id');
 		}
-		$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(		elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+		$("#ElementSize").attr("value",element.find('p:eq(1)').text().substr(element.find('p:eq(1)').text().indexOf("/")+1));
 		$.post('/canvas/getFixNumber/', {elem_num: elementId},
 		  function(data){
 		  if (data.status == 'OK')
@@ -1721,7 +1752,7 @@ function propMenuBtnClick(elementID)
 		if (propMenuOpen)
 		{
 			posPropertyPanel("");
-			if (SelectedElem.context.id == elementID)
+			if ($(SelectedElem.attr('id')) == elementID)
 			{
 				propMenuOpen = false;
 			}
@@ -1875,7 +1906,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		if (!collisionWithOtherElement(element))
 		{
 			saveElement(element);
-			//selectElement(element);
+			selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1893,12 +1924,11 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		element.css('top', startposY);
 		element.css('left',startposX);
 		saveElement(element);
-		//selectElement(element);
+		selectElement(element);
 	}
 }
 
-
-function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
+function reposElementAtAFreeSpaceByID(element, offsetWidth)
 {
 	var startposX = 20;
 	var startposY = 45;
@@ -1911,10 +1941,10 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 		element.css('top',curtop);
 		element.css('left',curleft);
 		
-		if (!collisionWithOtherElementWithOutNonDragElements(element))
+		if (!collisionWithOtherElementById(element.attr('id')))
 		{
 			saveElement(element);
-			//selectElement(element);
+			selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1931,7 +1961,83 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 	{
 		element.css('top', startposY);
 		element.css('left',startposX);
-		//saveElement(element);
+		saveElement(element);
+		selectElement(element);
+	}
+}
+
+function reposElementAtAFreeSpaceNonDragByID(element, offsetWidth)
+{
+	var startposX = 80;
+	var startposY = 80;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop + element.height() < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElementsById(element.attr('id')))
+		{
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+			break;
+		}
+		
+		curleft = curleft + 45;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 45;
+			curleft = startposX;
+		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
+		selectElement(element);
+	}
+}
+
+function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
+{
+	var startposX = 80;
+	var startposY = 80;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop + element.height() < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElements(element))
+		{
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+			break;
+		}
+		
+		curleft = curleft + 45;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 45;
+			curleft = startposX;
+		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
 		selectElement(element);
 	}
 }
@@ -2047,12 +2153,13 @@ function delDivPress()
 		//else
 		//{
 		if (SelectedElem != "") {
-		 $.post('/canvas/getAllItems/'+ SelectedElem.context.id.split("-",2)[1] +'/', {},
+		 var orginalTable = SelectedElem;
+		 $.post('/canvas/getAllItems/'+ orginalTable.context.id.split("-",2)[1] +'/', {},
 		 function(dataTable){
 		   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
 		   {
 			  setSaveStatus("OK");		  
-			  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
+			  $.post('/canvas/delete/', {elem_num: orginalTable.context.id},
 					function(data){
 				  if (data.status == 'OK')
 				  { 
@@ -2060,24 +2167,25 @@ function delDivPress()
 					  //undoElement[1] = "add"; 
 					  //ShowHourGlassWaitingWindow(true);
 					  
-					  var elementMaxSize = parseInt(SelectedElem.find('p:eq(1)').text().substr(SelectedElem.find('p:eq(1)').text().indexOf("/")+1));
+					  var elementMaxSize = parseInt(orginalTable.find('p:eq(1)').text().substr(orginalTable.find('p:eq(1)').text().indexOf("/")+1));
 					  
-					   $(".chairs" + SelectedElem.context.id).each(function(i) {
+					   $(".chairs" + orginalTable.context.id).each(function(i) {
 							$(this).remove();
 					  });
 					  
-					  $("#" + SelectedElem.context.id).remove();
-					  
-					  for (e=1; e <= elementMaxSize; e++)
+					  writeOccasionInfo("Delete Table "+ orginalTable.attr('title') +".");
+					  $("#" + orginalTable.context.id).remove();
+					    
+					  if (orginalTable.hasClass('DragDiv'))
 					  {
-						 if (dataTable[e].status == "OK")
-						 {
-							addPersonManualy(dataTable[e].first_name, dataTable[e].last_name, 1, dataTable[e].gender);
-						}
+						  for (e=1; e <= elementMaxSize; e++)
+						  {
+							 if (dataTable[e].status == "OK")
+							 {
+								addPersonManualy(dataTable[e].first_name, dataTable[e].last_name, 1, dataTable[e].gender);
+							}
+						  }
 					  }
-					  
-					  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
-
 				  }
 				}, 'json');
 			}
@@ -2101,7 +2209,7 @@ function delDivPress()
 	}
 	else
 	{
-		currentMsgTimer = setTimeout("delDivPress()",500);
+		currentMsgTimer = setTimeout("delDivPress()",100);
 	}
 }
 
@@ -2689,8 +2797,8 @@ $(document).ready(function() {
 
 	$(".DragNonDropDiv").resizable({
 		handles: 'n, e, s, w, ne, se, sw, nw',
-		maxHeight:150,
-		maxWidth:150,
+		maxHeight:225,
+		maxWidth:225,
 		minHeight:40,
 		minWidth:40,
 		containment: 'parent',
@@ -2985,14 +3093,14 @@ $(document).ready(function() {
 	
   $("#canvas-div").mouseup(function(e) {
 	if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&& !($(e.target).hasClass('Property')) && !($(e.target).parent().hasClass('actionBtn')) && !($(e.target).hasClass('actionBtn'))){
-	  if (SelectedElem != "" && !tableMode && !detailsMode) {
+	  if (SelectedElem != "" && !tableMode && !detailsMode && numOfMsg == 0) {
 			SelectedElem.removeClass('borderSelected');
 			SelectedElem.removeClass('broderNonDragSelected');
 			unMarkTable(SelectedElem);
 			SelectedElem = "";
 		}
 		
-		if (SelectedPerson != "") {
+		if (SelectedPerson != "" && numOfMsg == 0) {
 			SelectedPerson.removeClass('borderPersonSelected');
 			SelectedPerson = "";
 		}

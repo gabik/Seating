@@ -95,19 +95,10 @@
 		   else if ("{{elem.kind}}" == "Lozenge")
 		   {
 				div.css('height','90');
-				div.addClass('LozShape');
 		   }
 		   else
 		   {
 				div.css('height','82.5');
-				if ("{{elem.kind}}" == "Round")
-				{
-					div.addClass('RoundShape');
-				}
-				else
-				{
-					div.addClass('SQShape');
-				}
 		   }
 	   }
 	   else
@@ -172,13 +163,7 @@
 	}
 
 	 $(".DragDiv").each(function(i){
-		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
-		 {
-			if (collisionWithOtherElement($(this)))
-			{
-				reposElementAtAFreeSpaceNonDrag($(this), 0);
-			}
-		 }
+
 		 var elementCaption = $(this).context.getElementsByTagName("p");
 		 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 		 var elementTable = $(this).context.getElementsByTagName("table");
@@ -240,13 +225,6 @@
 			dragNonDropDivStartX = dragNonDropDivStartX + $(this).width();
 			dragNonDropDivStartY = dragNonDropDivStartY + $(this).height();
 			saveElement($(this));
-		 }
-		 if ($(".DragNonDropDiv").last().attr('id') == $(this).context.id)
-		 {
-			if (collisionWithOtherElement($(this)))
-			{
-				reposElementAtAFreeSpace($(this), 200);
-			}
 		 }
 	 });
 
