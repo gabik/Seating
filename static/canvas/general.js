@@ -806,13 +806,20 @@ function saveElementWithCaptionoWhenSizeIsLower(element,newCaption, newSize, num
 	   function(dataPersons){
 	   if (dataPersons.status == 'OK')
 	   { 
-			var floating_persons = dataPersons.floating_persons.split(",",parseInt(dataPersons.numOfFloatingPersons) + 1);
+			var floating_persons = dataPersons.floating_persons.split("|",parseInt(dataPersons.numOfFloatingPersons) + 1);
 			//for (var i=1; i < parseInt(dataPersons.numOfFloatingPersons) + 1; i++)
 			//{
 			//	var full_name = floating_persons[i].split(" ",2);
 
 			//	addPersonToFloatList(full_name[0],full_name[1]);
 			//}
+			for (var p = 0 ; p < dataPersons.numOfFloatingPersons; p++)
+			{
+				var personToFloat = floating_persons[p].split(",", 3);
+				
+				addPersonManualy(personToFloat[0],  personToFloat[1], 1,  personToFloat[2]);
+			}
+			
 			sizeStr = dataPersons.currentSitting + "/" + newSize;
 			$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests, fixNumber:fixNumber},
 			function(dataSave){
@@ -821,7 +828,7 @@ function saveElementWithCaptionoWhenSizeIsLower(element,newCaption, newSize, num
 				writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				setSaveStatus("OK");
-				ShowHourGlassWaitingWindow(true);
+				//ShowHourGlassWaitingWindow(true);
 			   }else{
 				setSaveStatus("Error");
 			   }

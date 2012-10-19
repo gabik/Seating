@@ -655,7 +655,7 @@ def bring_person_to_floatlist_from_postion(request):
 				person.elem_num = 0
 				person.position = 0
 				person.save()
-				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
+				floating_persons = floating_persons + person.guest_first_name + "," +  person.guest_last_name + "," + person.gender + "|"
 				numOfFloatingPersons = int(numOfFloatingPersons) + 1
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})
@@ -679,7 +679,7 @@ def bring_person_to_floatlist_from_postion(request):
 				person.elem_num = 0
 				person.position = 0
 				person.save()
-				floating_persons = floating_persons + "," + person.guest_first_name + " " +  person.guest_last_name
+				floating_persons = floating_persons + person.guest_first_name + "," +  person.guest_last_name + "," + person.gender + "|"
 				numOfFloatingPersons = int(numOfFloatingPersons) + 1
 		if (numOfFloatingPersons > 0):
 			json_dump = json.dumps({'status': "OK", 'floating_persons': floating_persons, 'numOfFloatingPersons':numOfFloatingPersons, 'currentSitting':single_element.current_sitting})

@@ -105,6 +105,18 @@ function swapImgMobile()
 
 $(document).ready(function()
 {
+	$("#id_file").bind('mouseout', function(){
+		$("#browseImg").attr('src',"/static/canvas/images/browse_n.png");
+	});
+	
+	$("#id_file").bind('mouseover', function(){
+		$("#browseImg").attr('src',"/static/canvas/images/browse_o.png");
+	});
+	
+	$("#id_file").bind('change', function(){
+		$("#fileText").val($(this).val());
+	});
+	
 	if (navigator.platform.toLowerCase().indexOf("android") > -1 || navigator.userAgent.toLowerCase().indexOf('iphone') > 0  || navigator.userAgent.toLowerCase().indexOf('ipad') > 0 || navigator.userAgent.toLowerCase().indexOf('mobile') > 0)
 	{
 		$("#flash").replaceWith('<div id="flash" style="margin-right: auto; margin-left: auto;"><table width="980" height="430" border="0" cellspacing="0" cellpadding="0"><tr><td valign="top" width="10"><img src="images/left_upper_frame.png"/></td><td colspan="2" valign="top" width="970" height="5" bgcolor="white"/><td valign="top"><img src="images/right_upper_frame.png"/></td></tr><tr><td valign="top" bgcolor="white" width="10"/><td valign="top"><img id="frontFrameImg" src="home/img_01.jpg" style="position:absolute;"/><img id="backFrameImg" src="home/img_02.jpg" /></td><td valign="top"><a href="/canvas/edit"><img src="images/frame_logo.png"/></a></td><td valign="top" bgcolor="white" width="5"/></tr><tr><td valign="top" width="10"><img src="images/left_lower_frame.png"/></td><td colspan="2" valign="bottom" bgcolor="white" width="970" height="5"><img src="images/lower_frame.png"/></td><td valign="top"><img src="images/right_lower_frame.png"/></td></tr></table><div>');
@@ -153,12 +165,24 @@ AC_FL_RunContent( 'codebase','http://download.macromedia.com/pub/shockwave/cabs/
 
 	  <!--[if gt IE 8]><h5><![endif]--><!--[if !IE]><!--><h5><!--<![endif]-->לכם ישאר רק לגרור את האורחים מהרשימה לשולחנות</br>
 	  המיועדים ולהנות מהתכנים והנתונים שהמערכת תייצר בשבילכם.<!--[if gt IE 8]></h5><![endif]--><!--[if !IE]><!--></h5><!--<![endif]-->
-		</br>
-	
-	  <!--[if gt IE 8]><h3><![endif]--><!--[if !IE]><!--><h3><!--<![endif]-->את כל הפרטים יש לשלוח לכתובת מייל
-	  contact@2seat.co.il
+
 	  <!--[if gt IE 8]></h3><![endif]--><!--[if !IE]><!--></h3><!--<![endif]--><!--[if lt IE 9]></br></br><![endif]-->
 	  
+	  <!--[if gt IE 8]><h3><![endif]--><!--[if !IE]><!--><h3><!--<![endif]-->נא להזין פרטים רצויים ולבצע שליחה:
+	  
+	  <!--[if gt IE 8]></h3><![endif]--><!--[if !IE]><!--></h3><!--<![endif]--><!--[if lt IE 9]></br></br><![endif]-->
+	  
+	  </br>
+	  
+	  <input id="fileText" style="margin-left:10; margin-top:15; heigth:20px;" size="28" align="middle"><span><input type="file" name="file" id="id_file" style="position: absolute; float:right; width: 116px; text-align:right; z-index: 2; -moz-opacity:0 ; filter:alpha(opacity: 0); opacity: 0; cursor:pointer; margin-top:5px;" size="1"/><img id="browseImg" style="cursor:pointer; z-index:1;" src="/static/canvas/images/browse_n.png" align="top"/></span></input>
+	
+	  </br>
+	  <!--[if gt IE 8]><h5><![endif]--><!--[if !IE]><!--><h5><!--<![endif]-->טקסט חופשי:
+	  
+	  <!--[if gt IE 8]></h5><![endif]--><!--[if !IE]><!--></h5><!--<![endif]--><!--[if lt IE 9]></br></br><![endif]-->
+	  <textarea name="message" id="message" cols="40" rows="7"></textarea>
+	  </br>
+	  <input id="sendData" type="image" src="images/send_btn_ov.png" value="Submit" alt="שלח" width="86" height="38" hspace="0" vspace="0" />
 	  <!--[if gt IE 8]><h2><![endif]--><!--[if !IE]><!--><h2><!--<![endif]-->תודה והמון מזל טוב, נתראה בשמחות :) <!--[if gt IE 8]></h2><![endif]--><!--[if !IE]><!--></h2><!--<![endif]-->
    </div>
    <div id="divider"></div>
