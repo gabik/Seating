@@ -47,6 +47,10 @@ function addMenuItemButtonPress(kind)
 	}
 	else
 	{
+		var draggable = true;
+		var dragClass = "DragDiv";
+		var appos = "'";
+		
 		kind = kind.replace(/\&/g,"_");
 		var width = 90 + (8 - maxElementCapacity - 2) * 2;
 		var height = 90 + (8 - maxElementCapacity - 2) * 2;
@@ -61,16 +65,19 @@ function addMenuItemButtonPress(kind)
 		{
 			width = 64;
 			height = 64;
+			draggable = false;
 		}
 		else if (kind ==  "bar_stand") 
 		{
 			width = 64;
 			height = 64;
+			draggable = false;
 		}
 		else if (kind ==  "dj_stand") 
 		{
 			width = 64;
 			height = 64;
+			draggable = false;
 		}
 		
 		$.post('/canvas/add/', {kind: kind ,amount: 1, width:width + addWidth, height:height + addHeight},
@@ -80,7 +87,331 @@ function addMenuItemButtonPress(kind)
 				//undoElement[0] = SelectedElem;
 				//undoElement[1] = "delete"; 
 				writeOccasionInfo(getHebTableName(kind) +" הוספת אלמנט מסוג");
-				ShowHourGlassWaitingWindow(true);
+				//ShowHourGlassWaitingWindow(true);
+					var tableNewText = "";
+				
+				if (draggable)
+				{
+					tableNewText = '<div class='+dragClass+' id="DragDiv-'+ data.max_num +'" title="לחיצה כפולה לכניסה לשולחן"><table class="DragTable" border="0" cellspacing="0" cellpadding="0" id="'+ data.kind +'-'+ data.max_num +'"><tr><td style="text-align:center;" colspan="5"><p id="CaptionDragDiv-'+ data.max_num +'" class="text_11_black_bold" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:82.5;" dir="rtl">שולחן '+ data.fix_num +'</p></td></tr><tr><td>&nbsp;</td><td class="tableProp" style="text-align:center;" onmouseup="propMenuBtnClick('+ appos +'DragDiv-'+ data.max_num + appos +')"><span id="elemProp_DragDiv-'+ data.max_num +'" class="text_11_blue" dir="rtl" style="z-index:9999;">[עריכה]</span></td><td style="text-align:center;">&nbsp;</td><td class="tableProp tableDelProp" style="text-align:center;" onmouseup="delFromTable('+ appos +'DragDiv-'+ data.max_num + appos +')"><span id="delProp_DragDiv-'+ data.max_num +'" class="text_11_blue" dir="rtl" style="z-index:9999;">[מחיקה]</span></td><td>&nbsp;</td></tr><tr><td colspan="5" style="text-align:center;"><p id="tblSize" class="text_11_black_bold" dir="rtl">0/8</p></td></tr><tr class="tableBack" align="center"><td colspan="5" style="text-align:center;" onmouseup="tableBackBtnClick()" align="center"><p id="elemBack_DragDiv-'+ data.max_num +'" class="text_11_blue" dir="rtl" style="z-index:9999;">[חזור]</p></td></tr></table></div>'
+				}
+				else
+				{
+					tableNewText = '<div class='+dragClass+' id="DragDiv-'+ data.max_num +'" title=""><table class="DragTable" border="0" cellspacing="0" cellpadding="0" id="'+ data.kind +'-'+ data.max_num +'"><tr><td style="text-align:center;" colspan="5"></td></tr><tr><td>&nbsp;</td><td class="tableProp" style="text-align:center;"></td><td style="text-align:center;">&nbsp;</td><td class="tableProp tableDelProp" style="text-align:center;"></td><td>&nbsp;</td></tr><tr><td colspan="5" style="text-align:center;"></td></tr><tr class="tableBack" align="center"><td colspan="5" style="text-align:center;" onmouseup="tableBackBtnClick()" align="center"></td></tr></table></div>'
+				}
+				
+				if (tableNewText != "")
+				{
+					$("#canvas-div").append($(tableNewText));
+					
+					var div = $("#DragDiv-"+ data.max_num);
+									
+					if (draggable)
+					{		
+					   div.css('width','82.5');
+					   if (kind == "Rect") {
+						   div.css('height','95');
+					   }
+					   else if (kind == "Lozenge")
+					   {
+							div.css('height','90');
+							div.droppable({
+									accept: "#people_list li",
+									hoverClass: "LozShapeDropLayer",
+									drop: function(e, ui ) {
+											droppableTable(ui ,$(this));
+										}
+							  });
+					   }
+					   else
+					   {
+					   		div.css('height','82.5');
+					   		if (kind == "Round")
+							{
+								 div.droppable({
+										accept: "#people_list li",
+										hoverClass: "RoundShapeDropLayer",
+										drop: function(e, ui ) {
+												droppableTable(ui ,$(this));
+											}
+								  });
+							}
+							else
+							{
+								div.droppable({
+										accept: "#people_list li",
+										hoverClass: "RectShapeDropLayer",
+										drop: function(e, ui ) {
+												droppableTable(ui ,$(this));
+											}
+								  });
+							}
+					   }
+					}
+					else					
+					{
+						div.css('width', width + addWidth);
+						div.css('height', height + addHeight);
+						
+						if (kind == "dance_stand")
+						{
+							div.attr('title',"רחבת ריקודים");
+						}
+						else if (kind ==  "bar_stand") 
+						{
+							div.attr('title',"בר משקאות");	
+						}
+						else if (kind ==  "dj_stand") 
+						{
+							div.attr('title',"עמדת דיי ג'יי");	
+						}
+					}
+					
+					var divTable = $("#DragDiv-"+ data.max_num).find('table').first();
+					
+					
+					//divTable.css('width', div.width());
+					//divTable.css('height',  div.height());
+					
+					makeOrientation(divTable, div, 'V', true);
+					
+					div.css('top', 80);
+					div.css('left', 80);
+					
+					if (draggable)
+					{
+						div.draggable({
+							 containment: 'parent',
+							 cursor: "move",
+							 start: function (e,ui){
+								startDrag($(this));
+							 },
+							 drag: function (e,ui){ 
+								
+								XColPoint = returnCollisionWithOtherElementPoint($(this));
+								
+								if (XColPoint != "")
+								{
+									if (parseInt($("#DragCollisionImg").css('top')) > 0 && parseInt($("#DragCollisionImg").css('left')) > 0)
+									{
+										$("#DragCollisionImg").css('top', XColPoint[0]);
+										$("#DragCollisionImg").css('left',XColPoint[1]);
+									}
+									else
+									{
+										$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + XColPoint[0] + '; left:' + XColPoint[1] + '; position:absolute; z-index:99999;"/>'));
+									}
+								}
+								else
+								{
+									$("#DragCollisionImg").remove();
+								}
+							 },
+							 stop: function (e,ui){
+								$("#DragCollisionImg").remove();
+								if (XColPoint != "")
+								{
+									showLightMsg("הזזת שולחנות","לא ניתן להציב אלמנט על אלמנט אחר, יש להציב בשטח ריק, האלמנט יחזור למקומו הקודם.","OK","Notice");
+								}
+								XColPoint = "";
+								stopDrag($(this));
+							   }
+						  });	 
+						  
+						div.dblclick( function(event) {
+								posPropertyPanel("");
+								 var elementTable = $(this).context.getElementsByTagName("table");
+								 if (isThisPeopleTable(elementTable[0].id))
+								 {
+									if (tableMode && !disableDBClick)
+									{
+										$(this).attr("title", "לחיצה כפולה למצב עריכה");
+										turnToRegularMode($(this),event);
+										undoElementList = new Array(1);
+										var undoElement = new Array(2);
+										undoElement[0] = $(this);
+										undoElement[1] = "closetbl";
+										undoElementList[0] = undoElement;
+									}
+									else if (!disableDBClick)
+									{
+										$(this).attr("title", "לחיצה כפולה חזרה לאולם");
+										turnToTableMode($(this),true,event);
+										undoElementList = new Array(1);
+										var undoElement = new Array(2);
+										undoElement[0] = $(this);
+										undoElement[1] = "opentbl";
+										undoElementList[0] = undoElement;
+									}
+								}
+								else
+								{
+									if (event != undefined)
+									{
+										if (event.user == "SearchTable")
+										{
+											var data = event.pass;
+											pointTableAfterSearch($("#" + data));
+											
+										}
+									}
+								}
+						  });	
+						  
+						  div.mouseup( function(e) {
+						  if (navigator.userAgent.toLowerCase().indexOf('ie 8') > 0 || navigator.userAgent.toLowerCase().indexOf('ie 7') > 0)
+							   {
+									var element = $("#delProp_" + $(this).context.id);
+									
+									if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+									element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+									{
+										delFromTable($(this).context.id);
+									}
+									else 
+									{
+										element = $("#elemProp_" + $(this).context.id);
+										
+										if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+										element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+										{
+											propMenuBtnClick($(this).context.id);
+										}
+										else 
+										{
+											element = $("#elemBack_" + $(this).context.id);
+											
+											if (element.offset().top <= e.pageY && element.offset().top + element.height() >= e.pageY &&
+											element.offset().left <= e.pageX && element.offset().left + element.width() >= e.pageX)
+											{
+												tableBackBtnClick();
+											}
+										}
+									}
+							   }
+						   }); 
+
+						if (collisionWithOtherElementById(div.attr('id')))
+						{
+							reposElementAtAFreeSpaceNonDragByID(div, 0);
+						}						  
+						else
+						{
+							selectElement(div);
+						}
+									
+						$.post('/canvas/getAllItems/'+ div.attr('id').split("-",2)[1] +'/', {},
+						 function(dataTable){
+						   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
+						   {
+								setSaveStatus("OK");
+								
+								posTableChairsWithData(dataTable, div, 8);
+							}
+						}, 'json');
+					}
+					else
+					{
+						div.draggable({
+							 containment: 'parent',
+							 cursor: "move",
+							 start: function (e,ui){
+								startDrag($(this));
+							 },
+							 drag: function (e,ui){ 
+							 
+								XColPoint = returnCollisionWithOtherElementPoint($(this));
+
+								if (XColPoint != "")
+								{
+									if (parseInt($("#DragCollisionImg").css('top')) > 0 && parseInt($("#DragCollisionImg").css('left')) > 0)
+									{
+										$("#DragCollisionImg").css('top', XColPoint[0]);
+										$("#DragCollisionImg").css('left',XColPoint[1]);
+									}
+									else
+									{
+										$("#canvas-div").append($('<img id="DragCollisionImg" src="/static/canvas/images/X.png" style="top:' + XColPoint[0] + '; left:' + XColPoint[1] + '; position:absolute; z-index:99999;"/>'));
+									}
+								}
+								else
+								{
+									$("#DragCollisionImg").remove();
+								}
+							 },
+							 stop: function (e,ui){
+								$("#DragCollisionImg").remove();
+								if (XColPoint != "")
+								{
+									showLightMsg("הזזת שולחנות","לא ניתן להציב אלמנט על אלמנט אחר, יש להציב בשטח ריק, האלמנט יחזור למקומו הקודם.","OK","Notice");  
+								}
+								XColPoint = "";
+								stopDrag($(this));
+							   }
+						  }); 
+						  
+						  div.resizable({
+								handles: 'n, e, s, w, ne, se, sw, nw',
+								maxHeight:225,
+								maxWidth:225,
+								minHeight:40,
+								minWidth:40,
+								containment: 'parent',
+								start: function (e,ui){
+									resizableLastWidth = $(this).width();
+									resizableLastHeight = $(this).height();
+									startDradPositionList[0] = $(this).position();
+								},
+								resize: function (e,ui){
+									var imgResize = $(this).find('img').first();
+									imgResize.css('width',$(this).width());
+									imgResize.css('height',$(this).height());
+								},
+								stop: function (e,ui){
+									if (collisionWithOtherElement($(this)))
+									{
+										if (startDradPositionList[0] != 'undefined' && startDradPositionList[1] != 'undefined')
+										{
+											$(this).animate({top:startDradPositionList[0].top, left:startDradPositionList[0].left, width: resizableLastWidth , height: resizableLastHeight},300, 'linear', function() {
+												var imgResize = $(this).find('img').first();
+												imgResize.css('width',resizableLastWidth);
+												imgResize.css('height',resizableLastHeight);
+												$(this).css('width',resizableLastWidth);
+												$(this).css('height',resizableLastHeight);
+												selectElement($(this));
+											});
+										}
+									}
+									else
+									{
+										$.post('/canvas/saveElementWidthHeight/', {elem_num:$(this).context.id , width:$(this).width(), height:$(this).height()},
+									   function(data){
+										   if (data.status == 'OK')
+										   {
+												setSaveStatus("OK");
+										   } 
+										   else
+										   {
+												setSaveStatus("Error");
+										   }
+										}
+										, 'json');
+									}
+								}
+							});
+							
+							if (collisionWithOtherElementById(div.attr('id')))
+							{
+								reposElementAtAFreeSpaceByID(div, 200);
+							}
+							else
+							{
+								selectElement(div);
+							}
+					}
+					div.click( function() {
+							 selectElement($(this));
+					});  
+				}
 			}
 		  }, 'json');
 	}
@@ -126,13 +457,19 @@ function delTableButtonPress()
 		//{
 		if (SelectedElem != "")
 		{
+			var addText = "";
 			var name = SelectedElem.find('p').first().attr('title');
+			
+			if (SelectedElem.hasClass('DragDiv'))
+			{
+				addText = "במידה ויש מוזמנים הם יחזרו לרשימה הצפה.";
+			}
 			
 			if (name == undefined)
 			{
 				name = SelectedElem.attr('title');
 			}
-			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? </br>במידה ויש מוזמנים הם יחזרו לרשימה הצפה.", "YESNO", "Question");
+			showLightMsg("מחיקת אלמנט", " האם לבצע מחיקה לאלמנט "+ name	+ " ? </br>" + addText, "YESNO", "Question");
 			currentMsgTimer = setTimeout("delDivPress()",500);
 		}
 		else

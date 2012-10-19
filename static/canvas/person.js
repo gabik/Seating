@@ -15,7 +15,61 @@ var dropMoreThenOnChair = false;
 jQuery(function() {
         jQuery("#tabs").tabs();
     });
+	
+function findAllGuestFromFloatList()
+{
+	var amount = 0;
+	
+	$("#people_list > li").each( function(i){
+		amount = amount + parseInt($(this).data('qty'));
+	});
+	
+	return amount;
+}
 
+$("#people_list").after( function(e){
+	$("#people_list > li").each( function(i){
+		if ($(this).hasClass('perli2'))
+		{
+			$(this).data('qty', 2);	
+		}
+		else if ($(this).hasClass('perli3'))
+		{
+			$(this).data('qty', 3);	
+		}
+		else if ($(this).hasClass('perli4'))
+		{
+			$(this).data('qty', 4);	
+		}
+		else if ($(this).hasClass('perli5'))
+		{
+			$(this).data('qty', 5);	
+		}
+		else if ($(this).hasClass('perli6'))
+		{
+			$(this).data('qty', 6);	
+		}
+		else if ($(this).hasClass('perli7'))
+		{
+			$(this).data('qty', 7);	
+		}
+		else if ($(this).hasClass('perli8'))
+		{
+			$(this).data('qty', 8);	
+		}
+		else if ($(this).hasClass('perli9'))
+		{
+			$(this).data('qty', 9);	
+		}
+		else
+		{
+			$(this).data('qty', 1);	
+		}
+	});
+	
+	updateSeatedLabel();
+});
+	
 function selectPersonElement(element)
 {
 	$(".TableParentElementDiv").each(function(i) {
@@ -96,7 +150,7 @@ function LoadPerson(element, i, fromTableMode)
 					{
 						if ($("#tableParentElementDiv"+ data.position + elemID + mode).html())
 						{
-							$("#tableParentElementDiv" + data.position + elemID + mode).fadeTo(500,1);
+							$("#tableParentElementDiv" + data.position + elemID + mode).fadeTo(250,1);
 						}
 					}
 				}
@@ -214,8 +268,8 @@ function LoadPerson(element, i, fromTableMode)
 							}
 							else
 							{
-								$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
-								$("#tableElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
+								$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(250,1);
+								$("#tableElementDiv"+ data.position + elemID + mode).fadeTo(250,1);
 							}
 						}
 					}
@@ -271,7 +325,7 @@ function LoadPersonWithData(data, element, i, fromTableMode)
 				{
 					if ($("#tableParentElementDiv"+ data.position + elemID + mode).html())
 					{
-						$("#tableParentElementDiv" + data.position + elemID + mode).fadeTo(500,1);
+						$("#tableParentElementDiv" + data.position + elemID + mode).fadeTo(250,1);
 					}
 				}
 			}
@@ -389,8 +443,8 @@ function LoadPersonWithData(data, element, i, fromTableMode)
 						}
 						else
 						{
-							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
-							$("#tableElementDiv"+ data.position + elemID + mode).fadeTo(500,1);
+							$("#tableParentElementDiv"+ data.position + elemID + mode).fadeTo(250,1);
+							$("#tableElementDiv"+ data.position + elemID + mode).fadeTo(250,1);
 						}
 					}
 				}
@@ -414,7 +468,7 @@ function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 			mode = "NT";
 		}
 		
-		if (ui.helper.size() == 1)
+		if (ui.helper.size() == 1 && ui.draggable.data('qty') == 1)
 		{
 		  ui.helper.each(function(j){
 		  if (dropAllow)
@@ -427,7 +481,7 @@ function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 		}
 		else
 		{
-			showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד.","OK","Notice");
+			showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד </br> יש לבצע גרירה מרובע לשולחן.","OK","Notice");
 		}
 	}
 }
@@ -516,7 +570,7 @@ function CloseFocusDetailsFromFloatList(event)
 			$("#PDFrame").remove();
 			FocusFromFloatList = false;
 			$(".DragDiv").each(function(i) {
-				$(this).fadeTo(400, 1,function(){
+				$(this).fadeTo(200, 1,function(){
 					if ($(".DragDiv").length - 1 == i)
 					{	
 						if (event != undefined)
@@ -540,12 +594,12 @@ function CloseFocusDetailsFromFloatList(event)
 				});
 			});
 			$(".DragNonDropDiv").each(function(i) {
-				$(this).fadeTo(400, 1, function() {
+				$(this).fadeTo(200, 1, function() {
 					// Animation complete.
 				});
 				
 			$(".TableParentElementDivOutside").each(function(i) {
-				$(this).fadeTo(400, 1)});
+				$(this).fadeTo(200, 1)});
 			});
 			PersonLastPosition[0] = "";
 			PersonLastPosition[1] = "";
@@ -604,7 +658,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 			tableMode = false;
 		}
 		enableDetailsMode();
-		$("#floatListGate").fadeTo(400, 0);
+		$("#floatListGate").fadeTo(200, 0);
 	}
 	else
 	{
@@ -616,10 +670,10 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 					$("#PDFrame").remove();
 					if (lastMode)
 					{
-						SelectedTable.fadeTo(400, 1,function(){
-						$("#floatListGate").fadeTo(400, 1);
+						SelectedTable.fadeTo(200, 1,function(){
+						$("#floatListGate").fadeTo(200, 1);
 						$(".TableParentElementDiv").each(function(i) {
-							$(this).fadeTo(400, 1,function(){
+							$(this).fadeTo(200, 1,function(){
 								if ($(".DragDiv").length - 1 == i)
 									{	
 										if (SelectedTable != "")
@@ -650,7 +704,7 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 					else
 					{		
 						$(".TableParentElementDivOutside").each(function(i) {
-							$(this).fadeTo(400, 1,function(){
+							$(this).fadeTo(200, 1,function(){
 								if ($(".DragDiv").length - 1 == i)
 									{	
 										if (SelectedTable != "")
@@ -675,9 +729,9 @@ function FocusDetails(personElement,tableElement,hideAll,newEvent)
 							});
 						});
 						$(".DragDiv").each(function(i) {
-							$(this).fadeTo(400, 1,function(){ $(this).show();})});
+							$(this).fadeTo(200, 1,function(){ $(this).show();})});
 						$(".DragNonDropDiv").each(function(i) {
-							$(this).fadeTo(400, 1,function(){ $(this).show();})});
+							$(this).fadeTo(200, 1,function(){ $(this).show();})});
 					}
 
 				PersonLastPosition[0] = "";
@@ -729,6 +783,13 @@ function selectTab(ui)
 
 				}
 				//SelectedTabIndex = ui.index;
+								
+				if (!IsNumeric(personData.qty.toString()))
+				{
+					personData.qty = "1";
+				}
+		
+				$("#QTY").text("כמות : " + personData.qty.toString());
 				SelectedTabIndex = $('#tabs').tabs("option", "selected");
 				$("#NameValidtion").remove();
 				duplicatePerson = false;
@@ -843,6 +904,20 @@ function reLoadDetails(personElement)
 				document.getElementById("InvationStatus").innerHTML ="ממתין לאישור";
 			}
 		});
+		
+		if (!IsNumeric(personData.qty.toString()))
+		{
+			personData.qty = "1";
+		}
+		
+		$("#detailsLeftSide").append($('<p id="QTY" align="center" dir="rtl" title="כמות" style="position:absolute; width:85; z-index:555;" class="text_14_black">כמות : ' + personData.qty.toString() +'</p>'));
+		$("#QTY").css("top", 295);
+		$("#QTY").css("left", 35);
+		
+		if (!(navigator.userAgent.toLowerCase().indexOf('ie') > 0))
+		{
+			$("#QTY").css("line-height", 0);
+		}
 	}
 	});
 }
@@ -901,7 +976,7 @@ function createTab()
 	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).bind('click', function() {
 			savePersonChanges(personData.first_name,  personData.last_name);
 	});
-	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).fadeTo(2000, 1);
+	$("#SavePersonDetailsButton_"+personData.first_name + '_'+ personData.last_name).fadeTo(1500, 1);
 	tab.append($('<img id="ClosePersonDetailsButton_'+personData.first_name + '_'+ personData.last_name +'" style="position:absolute; background: transparent;" class="CloseBtn" alt="סגור חלון" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"/>'));
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("top", 35);
 	$("#ClosePersonDetailsButton_"+ personData.first_name + '_'+ personData.last_name).css("left", 15);
@@ -1222,13 +1297,13 @@ function hideAllDragDiv()
 {
 	$(".DragDiv").each(function(i) {
 		$(this).removeClass('borderPersonSelected');
-		$(this).fadeTo(400, 0, function() {
+		$(this).fadeTo(200, 0, function() {
 			// Animation complete.
 			$(this).hide();
 		});
 	});
 	$(".DragNonDropDiv").each(function(i) {
-		$(this).fadeTo(400, 0, function() {
+		$(this).fadeTo(200, 0, function() {
 			// Animation complete.
 			$(this).hide();
 		});
@@ -1238,12 +1313,12 @@ function hideAllDragDiv()
 function hideTableElementDiv()
 {
 	$(".TableParentElementDiv").each(function(i) {
-		$(this).fadeTo(400, 0, function() {
+		$(this).fadeTo(200, 0, function() {
 		$(this).hide();
 			});
 	});
 	$(".TableParentElementDivOutside").each(function(i) {
-		$(this).fadeTo(400, 0, function() {
+		$(this).fadeTo(200, 0, function() {
 		$(this).hide();
 			});
 	});
@@ -1252,7 +1327,7 @@ function hideTableElementDiv()
 function hideElement(element)
 {
 	element.removeClass('borderPersonSelected');
-	element.fadeTo(400, 0, function() {
+	element.fadeTo(200, 0, function() {
 		// Animation complete.
 		$(this).hide();
 	});
@@ -1368,7 +1443,7 @@ function savePersonChanges(firstName, lastName)
 				  function(data){
 					savePersonOperation(data, firstName, lastName)
 					duplicatePerson = false;
-					$("#SaveStatImg").fadeTo(400, 1);
+					$("#SaveStatImg").fadeTo(200, 1);
 				}, 'json');
 			}
 			else
@@ -1377,7 +1452,7 @@ function savePersonChanges(firstName, lastName)
 				  function(data){
 					savePersonOperation(data, firstName, lastName)
 					duplicatePerson = false;
-					$("#SaveStatImg").fadeTo(400, 1);
+					$("#SaveStatImg").fadeTo(200, 1);
 				}, 'json');
 			}
 		}
@@ -1577,9 +1652,9 @@ function DeletePerson()
 		  }
 		  else
 		  {
-				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:117.5;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
+				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
 		  }
-
+		  $("#" + personData.first_name +'_'+ personData.last_name).data('qty',1);
 		  rePaintPeopleList(); 
 		  $("#people_list > li").each(function(i) {
 			$(this).removeClass('ui-multisort-click');
@@ -1597,7 +1672,7 @@ function DeletePerson()
 				}
 			}
 		  });
-		  
+		  updateSeatedLabel();
         }else{
           setSaveStatus("Error");
         }

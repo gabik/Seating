@@ -368,12 +368,12 @@ def add_element(request):
 		amount = int(request.POST['amount'])
 		for i in range(0, amount):
 			if max_num+i < 500:
-				single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i),x_cord=(50+i*10), y_cord=(50+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption=he.he_table+ str(fixNum+i), current_sitting=0, max_sitting=8)
+				single_element = SingleElement(elem_num=(max_num+i), fix_num=(fixNum+i),x_cord=(80+i*10), y_cord=(80+i*10), width = float(request.POST['width']), height = float(request.POST['height']), user=request.user, kind=table_kind, caption=he.he_table+ str(fixNum+i), current_sitting=0, max_sitting=8)
 				single_element.save()
 		if max_num+amount < 500:
 #			single_element = SingleElement(elem_num=(max_num+i), x_cord=(50+i*10), y_cord=(50+i*10), user=request.user, kind=table_kind, caption="Element"+ str(max_num+i), current_sitting=0, max_sitting=8)
 #			single_element.save()
-			json_dump = json.dumps({'status': "OK", 'kind': table_kind})
+			json_dump = json.dumps({'status': "OK", 'kind': table_kind, 'max_num':max_num, 'fix_num':fixNum})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -423,7 +423,7 @@ def get_element_item(request):
 					if (int(person.position) == int(person_position)):
 						safe_first = escapeSpecialCharacters(person.guest_first_name) 
 						safe_last  = escapeSpecialCharacters(person.guest_last_name)
-						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
+						json_dump = json.dumps({'status': "OK", 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal, 'qty':person.qty})
 						break
 		else:
 			first_name = request.POST['firstName']
@@ -432,7 +432,7 @@ def get_element_item(request):
 			if person is not None:
 				safe_first = escapeSpecialCharacters(person.guest_first_name)
 				safe_last  = person.guest_last_name
-				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal})
+				json_dump = json.dumps({'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal, 'qty':person.qty})
 	return HttpResponse(json_dump)
 
 @login_required
@@ -447,7 +447,7 @@ def get_all_elements_canvas(request, elem_id):
 			if person.position == i+1:
 				safe_first = escapeSpecialCharacters(person.guest_first_name)
 				safe_last  = person.guest_last_name
-				cur_person = {'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal}
+				cur_person = {'status': "OK", 'elem_num': person.elem_num, 'position': person.position, 'first_name': safe_first, 'last_name': safe_last, 'phone_num': person.phone_number, 'person_email': person.guest_email, 'present_amount' : person.present_amount, 'facebook_account': person.facebook_account, 'group': person.group, 'gender':person.gender,'invation_status':person.invation_status,'meal':person.meal, 'qty':person.qty}
 		person_num="person"+str(i+1)
 		cur_node=cur_person
 		data.append(cur_node)
@@ -928,5 +928,69 @@ def get_max_x(request):
 	user_elements = SingleElement.objects.filter(user=request.user)
 	max_x = user_elements.all().aggregate(Max('x_cord'))['x_cord__max']
 	json_dump = json.dumps({'status': "OK", 'MaxX': max_x})	
+	return HttpResponse(json_dump)
+	
+@login_required
+def genGroup(request):
+	json_dump = json.dumps({'status': "Error"})
+	if request.method == 'POST':
+		amount = int(request.POST['amount'])
+		free_positions = ""
+		if ((amount is None) or (amount == "") or (int(amount) < 1)):
+			amount = 1
+		namesString = "";	
+		#for i in range(1,int(amount)+1):
+		persons = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'])
+		if (len(persons) > 0):
+			persons[0].qty = 1
+			elemID = request.POST['elemID']
+			elem_delim = elemID.index('-')
+			elem_num = elemID[elem_delim+1:]
+			free_position = 1
+			if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
+				element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
+				for element_person in element_persons:
+					if element_person.position == free_position:
+						free_position = free_position + 1
+					else:
+						break
+			single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+			if free_position <= single_element.max_sitting:
+				persons[0].elem_num = elem_num
+				persons[0].position = free_position
+				persons[0].save()	
+				single_element.current_sitting = single_element.current_sitting + 1
+				single_element.save()
+				
+			for i in range(0, amount):
+				addStr = ""
+				max_match = Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name__gt=request.POST['last'])
+				exist_num =  Guest.objects.filter(user=request.user,guest_first_name=request.POST['first'], guest_last_name=request.POST['last'] + str(len(max_match) + 1))
+				if (len(exist_num) <= 0):
+					addStr = len(max_match) + 1
+				else:
+					addStr = len(max_match) + 2
+				last_name = request.POST['last'] + str(addStr)
+				hash = str(str(request.user) + request.POST['first'].encode('utf-8') + last_name.encode('utf-8'))
+				new_person = Guest(user=request.user, guest_first_name=request.POST['first'], guest_last_name=last_name, group=persons[0].group,gender=persons[0].gender,invation_status = "T", guest_hash = str(md5(hash).hexdigest()), qty=1)
+				elemID = request.POST['elemID']
+				elem_delim = elemID.index('-')
+				elem_num = elemID[elem_delim+1:]
+				free_position = 1
+				if (len(Guest.objects.filter(user=request.user, elem_num=int(elem_num))) > 0):
+					element_persons = Guest.objects.filter(user=request.user, elem_num=int(elem_num)).order_by('position')
+					for element_person in element_persons:
+						if element_person.position == free_position:
+							free_position = free_position + 1
+						else:
+							break
+				single_element = get_object_or_404(SingleElement, user=request.user, elem_num=int(elem_num))
+				if free_position <= single_element.max_sitting:
+					new_person.elem_num = elem_num
+					new_person.position = free_position
+					new_person.save()	
+					single_element.current_sitting = single_element.current_sitting + 1
+					single_element.save()	
+			json_dump = json.dumps({'status': "OK"})
 	return HttpResponse(json_dump)
 

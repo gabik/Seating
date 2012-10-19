@@ -202,11 +202,15 @@ function refactorElementPerson(element)
 function posTableChairsWithData(data, element, elementMaxSize)
 {
 	var tableElementSize = 16;
-	var elementTable = element.context.getElementsByTagName("table");
+	var elementTable = element.find("table").first();
 	var elemID = element.context.id;
 	var mode = "T";
 	var posString = "";
 		
+	if (elemID == "" || elemID == 'undefined' || elemID == undefined)
+	{
+		elemID = element.attr('id');
+	}
 	
 	if (!zoomingMode)
 	{
@@ -244,7 +248,7 @@ function posTableChairsWithData(data, element, elementMaxSize)
 		
 		if (elementTable[0].id.split("-", 1) == "Lozenge")
 		{
-			def += 0.3;
+			def += 0.15;
 		}
 		
 		var angle = (increase * elementMaxSize) / 2;
@@ -734,6 +738,34 @@ function collisionWithOtherElementById(elementId)
 	}
 }
 
+function collisionWithOtherElementWithOutNonDragElementsById(elementId)
+{
+	var match = false;
+	var pos = getPositions(document.getElementById(elementId));
+	$(".DragDiv").each(function(i) {
+		if (elementId != $(this).context.id)
+		{
+			var pos2 = getPositions(this);
+			var horizontalMatch = comparePositions(pos[0], pos2[0]);
+			var verticalMatch = comparePositions(pos[1], pos2[1]);
+			match = horizontalMatch && verticalMatch;
+			if (match)
+			{
+				return false;
+			}
+		}
+	});
+	
+	if (match)
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
+}
+
 function saveElement(element)
 {
 		var elementId = element.context.id;
@@ -928,15 +960,14 @@ function selectElement(element)
 function updateElementScreenProperties(element)
 {
 	if (element.hasClass('DragDiv'))
-	{
-		var elementCaption = element.context.getElementsByTagName("p");
-		$("#ElementCaption").attr("value",elementCaption[0].title);
+	{;
+		$("#ElementCaption").attr("value",element.find("p").first().text());
 		var elementId = element.context.id;
 		if (elementId == undefined)
 		{
 			elementId = element.attr('id');
 		}
-		$("#ElementSize").attr("value",elementCaption[1].firstChild.nodeValue.substr(		elementCaption[1].firstChild.nodeValue.indexOf("/")+1));
+		$("#ElementSize").attr("value",element.find('p:eq(1)').text().substr(element.find('p:eq(1)').text().indexOf("/")+1));
 		$.post('/canvas/getFixNumber/', {elem_num: elementId},
 		  function(data){
 		  if (data.status == 'OK')
@@ -950,7 +981,7 @@ function updateElementScreenProperties(element)
 function updateSeatedLabel()
 {
 	document.getElementById("SeatedLabelValue").innerHTML = findNumOfAllSeaters();
-	document.getElementById("TotalGuestsLabelValue").innerHTML = $("#people_list > li").size() + findNumOfAllSeaters()
+	document.getElementById("TotalGuestsLabelValue").innerHTML = findAllGuestFromFloatList() + findNumOfAllSeaters();
 }
 
 function canFlip(element)
@@ -1351,9 +1382,9 @@ function saveNumOfGuests(numGuests)
 function updateNumOfGuest()
 {
 	var numOfGuests = $("#NumOfGuests").val();
-	if (numOfGuests < $("#people_list > li").size() + findNumOfAllSeaters())
+	if (numOfGuests < findAllGuestFromFloatList() + findNumOfAllSeaters())
 	{
-		numOfGuests = $("#people_list > li").size() + findNumOfAllSeaters();
+		numOfGuests = findAllGuestFromFloatList() + findNumOfAllSeaters();
 	}
 	else if (numOfGuests > maxGuests)
 	{
@@ -1424,7 +1455,7 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 	{
 		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
 	}
-	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	else if (numOfGuests <= findAllGuestFromFloatList() + findNumOfAllSeaters())
 	{
 		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
 	}
@@ -1445,12 +1476,82 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 			  function(data){
 				if (data.status == 'OK')
 				{
-					  writeOccasionInfo("Added Person " +first_name+" "+last_name);
-					  ShowHourGlassWaitingWindow(true);
+					setSaveStatus("OK");
+					addPersonManualy(first_name, data.last_name, amount, gender);
+				}
+				else
+				{
+					setSaveStatus("Error");
 				}
 			  }, 'json');
 		}
 	}
+}
+
+function addPersonManualy(first_name, last_name, amount, gender)
+{
+  var liToAppend = "";
+
+  writeOccasionInfo("Added Person " +first_name+" "+last_name);
+  //ShowHourGlassWaitingWindow(true);
+  
+  if (amount > 1)
+  {
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה.">';
+	}
+	else
+	{
+		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+	}
+	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
+  }
+  else
+  {
+	var genClass = 'maleli';
+	
+	if (gender == "F")
+	{
+	   genClass = 'femaleli';
+	}
+	
+	if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+	{
+		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">';
+	}
+	else
+	{
+		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+	}
+	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
+  }
+  
+  if (liToAppend != "")
+  {
+	  $("#people_list").append($(liToAppend));
+	  $("#" + first_name +'_' + last_name).data('qty', amount);
+	  closeAddInterface();
+	  rePaintPeopleList(); 
+	  $("#people_list > li").each(function(i) {
+		$(this).removeClass('ui-multisort-click');
+		$(this).removeClass('ui-multisort-grouped');
+		if ($(this).context.id == first_name +"_"+ last_name )
+		{
+			$(this).addClass('ui-multisort-click');
+			$(this).bind('dblclick',function(e){
+					personFloatListDBClick(e,$(this));
+				});
+			$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+			if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
+			{
+				refactorElementPerson($(this));
+			}
+		}
+	});
+   }
+   
+   updateSeatedLabel();
 }
 
 function closeAddInterface()
@@ -1651,7 +1752,7 @@ function propMenuBtnClick(elementID)
 		if (propMenuOpen)
 		{
 			posPropertyPanel("");
-			if (SelectedElem.context.id == elementID)
+			if ($(SelectedElem.attr('id')) == elementID)
 			{
 				propMenuOpen = false;
 			}
@@ -1805,7 +1906,7 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		if (!collisionWithOtherElement(element))
 		{
 			saveElement(element);
-			//selectElement(element);
+			selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1823,12 +1924,11 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 		element.css('top', startposY);
 		element.css('left',startposX);
 		saveElement(element);
-		//selectElement(element);
+		selectElement(element);
 	}
 }
 
-
-function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
+function reposElementAtAFreeSpaceByID(element, offsetWidth)
 {
 	var startposX = 20;
 	var startposY = 45;
@@ -1841,10 +1941,10 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 		element.css('top',curtop);
 		element.css('left',curleft);
 		
-		if (!collisionWithOtherElementWithOutNonDragElements(element))
+		if (!collisionWithOtherElementById(element.attr('id')))
 		{
 			saveElement(element);
-			//selectElement(element);
+			selectElement(element);
 			placed = true;
 			break;
 		}
@@ -1861,7 +1961,83 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 	{
 		element.css('top', startposY);
 		element.css('left',startposX);
-		//saveElement(element);
+		saveElement(element);
+		selectElement(element);
+	}
+}
+
+function reposElementAtAFreeSpaceNonDragByID(element, offsetWidth)
+{
+	var startposX = 80;
+	var startposY = 80;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop + element.height() < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElementsById(element.attr('id')))
+		{
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+			break;
+		}
+		
+		curleft = curleft + 45;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 45;
+			curleft = startposX;
+		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
+		selectElement(element);
+	}
+}
+
+function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
+{
+	var startposX = 80;
+	var startposY = 80;
+	var curtop = startposY;
+	var curleft = startposX;
+	var placed = false;
+	
+	while (curtop + element.height() < $("#canvas-div").height())
+	{
+		element.css('top',curtop);
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElements(element))
+		{
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+			break;
+		}
+		
+		curleft = curleft + 45;
+		if (curleft + element.width() >= $("#canvas-div").width() - offsetWidth)
+		{
+			curtop = curtop + 45;
+			curleft = startposX;
+		}
+	}
+	
+	if (!placed)
+	{
+		element.css('top', startposY);
+		element.css('left',startposX);
+		saveElement(element);
 		selectElement(element);
 	}
 }
@@ -1977,16 +2153,42 @@ function delDivPress()
 		//else
 		//{
 		if (SelectedElem != "") {
-		  setSaveStatus("OK");
-		  $.post('/canvas/delete/', {elem_num: SelectedElem.context.id},
-				function(data){
-			  if (data.status == 'OK')
-			  { 
-				  //undoElement[0] = SelectedElem;
-				  //undoElement[1] = "add"; 
-				  ShowHourGlassWaitingWindow(true);
-				  writeOccasionInfo("Delete Table "+ SelectedElem.attr('title') +".");
-			  }
+		 var orginalTable = SelectedElem;
+		 $.post('/canvas/getAllItems/'+ orginalTable.context.id.split("-",2)[1] +'/', {},
+		 function(dataTable){
+		   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
+		   {
+			  setSaveStatus("OK");		  
+			  $.post('/canvas/delete/', {elem_num: orginalTable.context.id},
+					function(data){
+				  if (data.status == 'OK')
+				  { 
+					  //undoElement[0] = SelectedElem;
+					  //undoElement[1] = "add"; 
+					  //ShowHourGlassWaitingWindow(true);
+					  
+					  var elementMaxSize = parseInt(orginalTable.find('p:eq(1)').text().substr(orginalTable.find('p:eq(1)').text().indexOf("/")+1));
+					  
+					   $(".chairs" + orginalTable.context.id).each(function(i) {
+							$(this).remove();
+					  });
+					  
+					  writeOccasionInfo("Delete Table "+ orginalTable.attr('title') +".");
+					  $("#" + orginalTable.context.id).remove();
+					    
+					  if (orginalTable.hasClass('DragDiv'))
+					  {
+						  for (int e=1; e <= elementMaxSize; e++)
+						  {
+							 if (dataTable[e].status == "OK")
+							 {
+								addPersonManualy(dataTable[e].first_name, dataTable[e].last_name, 1, dataTable[e].gender);
+							}
+						  }
+					  }
+				  }
+				}, 'json');
+			}
 			}, 'json');
 		} else {
 			if (!tableMode && !detailsMode)
@@ -2007,7 +2209,7 @@ function delDivPress()
 	}
 	else
 	{
-		currentMsgTimer = setTimeout("delDivPress()",500);
+		currentMsgTimer = setTimeout("delDivPress()",100);
 	}
 }
 
@@ -2037,7 +2239,7 @@ function delPerson()
 		 if (data.status == 'OK')
 		 {
 		   person.remove();
-		   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+		   var personsSum = findAllGuestFromFloatList() + findNumOfAllSeaters();
 		   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
 		   {
 				//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
@@ -2100,9 +2302,9 @@ function dropPerson(draged,table, place)
 			
 			elementCaption[1].innerHTML = sizeStr;
 			LoadPerson(table, data.free_position - 1, tableMode);
-			updateSeatedLabel();
 			writeOccasionInfo("Drop Person " + draged.text() + "To Table " +  elementCaption[0].innerHTML);
 			rePaintPeopleList();
+			updateSeatedLabel();
 		  }else if (data.status == 'FULL')
 		  {
 			draged.fadeTo(200, 1.0);
@@ -2183,7 +2385,7 @@ function adjustResolution()
 		$("#float-list").css('left', $("#float-list").position().left + delta);
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-		$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
 		$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2207,7 +2409,7 @@ function adjustResolution()
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-				$("#occasionDetailsAdvanceR").css('left', ("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
 				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
 				$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2269,7 +2471,54 @@ function droppableTable(ui ,tableOrig)
 			{
 				if (dropAllow)
 				{
-					dropPerson($(this), table, ""); 
+					if (ui.draggable.data('qty') == 1)
+					{
+						dropPerson($(this), table, ""); 
+					}
+					else
+					{
+						 var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
+						var curSize = parseInt(table.find('p:eq(1)').text().split("/", 1))
+						 
+						 if (elementMaxSize < ui.draggable.data('qty') || (elementMaxSize - curSize) < ui.draggable.data('qty'))
+						 {
+							showLightMsg("גרירת קבוצה לאלמנט","אין מספיק מקום בשולחן לקבוצה.","OK","Notice");
+						 }
+						 else
+						 {
+							 var fullName = ui.draggable.attr('id').split("_",2);
+							 
+							 $.post('/canvas/genGroupToCanvas/', {elemID : table.attr('id'),first: cleanStringFromUnIDChars(fullName[0]), last: cleanStringFromUnIDChars(fullName[1]), amount: parseInt(parseInt(ui.draggable.data('qty') - 1))},
+								function(data){
+									if (data.status == 'OK')
+									{
+									 $.post('/canvas/getAllItems/'+ table.attr('id').split("-",2)[1] +'/', {},
+									 function(dataTable){
+									   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
+									   {
+											setSaveStatus("OK");
+											$(".chairs" + table.attr('id')).each(function(i) {
+												$(this).remove();
+											});
+											posTableChairsWithData(dataTable, table, elementMaxSize);
+											var newSize = parseInt(curSize) + parseInt(ui.draggable.data('qty'));
+										    var sizeStr = newSize + "/" + elementMaxSize;
+										    table.find('p:eq(1)').text(sizeStr);
+											ui.draggable.remove();
+											rePaintPeopleList(); 
+											updateSeatedLabel();	
+									   }else{
+											setSaveStatus("Error");
+									   }
+									 }, 'json');
+									  setSaveStatus("OK");
+								  }
+								  else{
+									setSaveStatus("Error");
+								  }
+								}, 'json');
+						}
+					}
 				}
 			}
 			else if (ui.helper.size() > 1)
@@ -2312,7 +2561,7 @@ $(document).ready(function() {
   $("#ElementSize").removeAttr('disabled');
   refactoringListName();
   posPropertyPanel("");
-  updateSeatedLabel();
+
   $("#personAmountSingle").val("1");
   sortListByName("people_list",sortFloatListByNameAscending);
   $("#people-list").removeClass('class_overflow_hidden');
@@ -2548,8 +2797,8 @@ $(document).ready(function() {
 
 	$(".DragNonDropDiv").resizable({
 		handles: 'n, e, s, w, ne, se, sw, nw',
-		maxHeight:150,
-		maxWidth:150,
+		maxHeight:225,
+		maxWidth:225,
 		minHeight:40,
 		minWidth:40,
 		containment: 'parent',
@@ -2743,7 +2992,7 @@ $(document).ready(function() {
 		numOfGuests = updateNumOfGuest();
 		saveNumOfGuests(numOfGuests);
 	
-	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	//if (findAllGuestFromFloatList() + findNumOfAllSeaters() < numOfGuests)
 	//{
 		//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
 			//$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
@@ -2785,7 +3034,7 @@ $(document).ready(function() {
   });
 
   $(".AddPersonDiv").after(function(){  
-    var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+    var personsSum = findAllGuestFromFloatList() + findNumOfAllSeaters();
 	if (personsSum >= $("#NumOfGuests").val() || personsSum >= maxGuests)
 	{
 		$(".AddPersonDiv").unbind('click');
@@ -2844,14 +3093,14 @@ $(document).ready(function() {
 	
   $("#canvas-div").mouseup(function(e) {
 	if (!($(e.target).hasClass('DragDiv')) && !($(e.target).hasClass('DragNonDropDiv'))&& !($(e.target).hasClass('Property')) && !($(e.target).parent().hasClass('actionBtn')) && !($(e.target).hasClass('actionBtn'))){
-	  if (SelectedElem != "" && !tableMode && !detailsMode) {
+	  if (SelectedElem != "" && !tableMode && !detailsMode && numOfMsg == 0) {
 			SelectedElem.removeClass('borderSelected');
 			SelectedElem.removeClass('broderNonDragSelected');
 			unMarkTable(SelectedElem);
 			SelectedElem = "";
 		}
 		
-		if (SelectedPerson != "") {
+		if (SelectedPerson != "" && numOfMsg == 0) {
 			SelectedPerson.removeClass('borderPersonSelected');
 			SelectedPerson = "";
 		}

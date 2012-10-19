@@ -42,7 +42,7 @@ $.widget("ui.multisortable", $.extend({}, $.ui.sortable.prototype, {
 			if(!validHandle) return false;
 		}
 		
-		if (event.ctrlKey) {
+		if (event.ctrlKey && parseInt($(currentItem).data('qty')) == 1) {
 			// Class for marking a multidraggable as being part of the group
 			$(currentItem).toggleClass('ui-multisort-grouped');
 		}

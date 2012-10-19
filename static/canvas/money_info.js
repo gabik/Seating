@@ -39,7 +39,7 @@ function createInfoFields(sumData)
 		}
 		else
 		{
-			$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / parseInt($("#people_list > li").size()) + findNumOfAllSeaters()).toFixed(2) +'</p>'));
+			$("#moneyInfoMainWindow").append($('<p id="avrageSum" class="text_18_black" dir="rtl">&nbsp;&nbsp;ממוצע לאורח:  '+ (sumData[0] / (parseInt(findAllGuestFromFloatList()) + findNumOfAllSeaters())).toFixed(2) +'</p>'));
 		}
 		
 		if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)

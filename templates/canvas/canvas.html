@@ -95,19 +95,10 @@
 		   else if ("{{elem.kind}}" == "Lozenge")
 		   {
 				div.css('height','90');
-				div.addClass('LozShape');
 		   }
 		   else
 		   {
 				div.css('height','82.5');
-				if ("{{elem.kind}}" == "Round")
-				{
-					div.addClass('RoundShape');
-				}
-				else
-				{
-					div.addClass('SQShape');
-				}
 		   }
 	   }
 	   else
@@ -165,20 +156,14 @@
 		zoomingCanvas(false);
 	  }
 	
-	if ((!($(".DragDiv").size() > 50)) && firstInit)
+	if (firstInit)
 	{
 		$("#SquarePlaceMentShapes").click();
 		$(".ShapePlacementMenu").hide();
 	}
 
 	 $(".DragDiv").each(function(i){
-		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
-		 {
-			if (collisionWithOtherElement($(this)))
-			{
-				reposElementAtAFreeSpaceNonDrag($(this), 0);
-			}
-		 }
+
 		 var elementCaption = $(this).context.getElementsByTagName("p");
 		 var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 		 var elementTable = $(this).context.getElementsByTagName("table");
@@ -196,8 +181,12 @@
 							if (i > -1)
 							{
 								var pre = parseInt(Math.min((($(".DragDiv").size()) * i / 100) * 100 , 100));
-								$("#chargeScr").find('img').last().css('width', pre + '%'); 
-								$("#chargeScr").find('p').last().text(pre + '%'); 
+								
+								if (i > 0)
+								{
+									$("#chargeScr").find('img').last().css('width', pre + '%'); 
+									$("#chargeScr").find('p').last().text(pre + '%'); 
+								}
 								
 								if (pre == 100 || i >= ($(".DragDiv").size() - 1))
 								{
@@ -209,7 +198,7 @@
 										$("#chargeScr").find('p').last().text(pre + '%'); 
 									}
 								
-									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
+									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 90);
 								}
 							}
 							else
@@ -236,13 +225,6 @@
 			dragNonDropDivStartX = dragNonDropDivStartX + $(this).width();
 			dragNonDropDivStartY = dragNonDropDivStartY + $(this).height();
 			saveElement($(this));
-		 }
-		 if ($(".DragNonDropDiv").last().attr('id') == $(this).context.id)
-		 {
-			if (collisionWithOtherElement($(this)))
-			{
-				reposElementAtAFreeSpace($(this), 200);
-			}
 		 }
 	 });
 
@@ -721,15 +703,22 @@
 								<ul id="people_list">
 									{% for guest in guests %}
 										{% if guest.elem_num == 0 %}
-											{% if guest.gender == 'F' %}
-												<!--[if IE]>
-												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
-												<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:117.5;"><!--<![endif]-->
-												{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
-												
+											{% if guest.qty > 1 %}
+													<!--[if IE]>
+													<li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
+													<!--[if !IE]><!--><li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
-												<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
-												<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:117.5;"><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% if guest.gender == 'F' %}
+													<!--[if IE]>
+													<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
+													<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% else %}
+													<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
+													<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:105;"
+													><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% endif %}
 											{% endif %}
 										{% endif %}
 									{% endfor %}
