@@ -744,8 +744,9 @@ def invation(request, guestHash):
 			persons[0].meal=request.POST['personMeal']
 			persons[0].save()
 		'''if userprofile.send_feedback_flag = 1 ==> send user feedback mail'''
-		profile = UserProfile.objects.get(user=request.user)
-		email_addr = request.user.email
+		#profile = UserProfile.objects.get(user=request.user)
+		profile = get_object_or_404(UserProfile, user = persons[0].user)
+		email_addr = persons[0].user.email
 		if profile.send_feedback_flag == True:
 			guest_name=unicode(persons[0].guest_first_name + " " + persons[0].guest_last_name, "UTF-8")
 			subject=unicode('שינוי סטטוס הגעה - ', "UTF-8") + guest_name
