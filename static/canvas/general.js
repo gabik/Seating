@@ -244,7 +244,7 @@ function posTableChairsWithData(data, element, elementMaxSize)
 		
 		if (elementTable[0].id.split("-", 1) == "Lozenge")
 		{
-			def += 0.3;
+			def += 0.15;
 		}
 		
 		var angle = (increase * elementMaxSize) / 2;
@@ -950,7 +950,7 @@ function updateElementScreenProperties(element)
 function updateSeatedLabel()
 {
 	document.getElementById("SeatedLabelValue").innerHTML = findNumOfAllSeaters();
-	document.getElementById("TotalGuestsLabelValue").innerHTML = $("#people_list > li").size() + findNumOfAllSeaters()
+	document.getElementById("TotalGuestsLabelValue").innerHTML = findAllGuestFromFloatList() + findNumOfAllSeaters();
 }
 
 function canFlip(element)
@@ -1351,9 +1351,9 @@ function saveNumOfGuests(numGuests)
 function updateNumOfGuest()
 {
 	var numOfGuests = $("#NumOfGuests").val();
-	if (numOfGuests < $("#people_list > li").size() + findNumOfAllSeaters())
+	if (numOfGuests < findAllGuestFromFloatList() + findNumOfAllSeaters())
 	{
-		numOfGuests = $("#people_list > li").size() + findNumOfAllSeaters();
+		numOfGuests = findAllGuestFromFloatList() + findNumOfAllSeaters();
 	}
 	else if (numOfGuests > maxGuests)
 	{
@@ -1424,7 +1424,7 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 	{
 		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
 	}
-	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	else if (numOfGuests <= findAllGuestFromFloatList() + findNumOfAllSeaters())
 	{
 		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
 	}
@@ -2037,7 +2037,7 @@ function delPerson()
 		 if (data.status == 'OK')
 		 {
 		   person.remove();
-		   var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+		   var personsSum = findAllGuestFromFloatList() + findNumOfAllSeaters();
 		   if (personsSum < $("#NumOfGuests").val() && personsSum < maxGuests)
 		   {
 				//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
@@ -2269,7 +2269,52 @@ function droppableTable(ui ,tableOrig)
 			{
 				if (dropAllow)
 				{
-					dropPerson($(this), table, ""); 
+					if (ui.draggable.data('qty') == 1)
+					{
+						dropPerson($(this), table, ""); 
+					}
+					else
+					{
+						 var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
+						var curSize = parseInt(table.find('p:eq(1)').text().split("/", 1))
+						 
+						 if (elementMaxSize < ui.draggable.data('qty') || (elementMaxSize - curSize) < ui.draggable.data('qty'))
+						 {
+							showLightMsg("גרירת קבוצה לאלמנט","אין מספיק מקום בשולחן לקבוצה.","OK","Notice");
+						 }
+						 else
+						 {
+							 var fullName = ui.draggable.attr('id').split("_",2);
+							 
+							 $.post('/canvas/genGroupToCanvas/', {elemID : table.attr('id'),first: cleanStringFromUnIDChars(fullName[0]), last: cleanStringFromUnIDChars(fullName[1]), amount: parseInt(parseInt(ui.draggable.data('qty') - 1))},
+								function(data){
+									if (data.status == 'OK')
+									{
+									 $.post('/canvas/getAllItems/'+ table.attr('id').split("-",2)[1] +'/', {},
+									 function(dataTable){
+									   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
+									   {
+											setSaveStatus("OK");
+											$(".chairs" + table.attr('id')).each(function(i) {
+												$(this).remove();
+											});
+											posTableChairsWithData(dataTable, table, elementMaxSize);
+											var newSize = parseInt(curSize) + parseInt(ui.draggable.data('qty'));
+										    var sizeStr = newSize + "/" + elementMaxSize;
+										    table.find('p:eq(1)').text(sizeStr);
+											
+									   }else{
+											setSaveStatus("Error");
+									   }
+									 }, 'json');
+									  setSaveStatus("OK");
+								  }
+								  else{
+									setSaveStatus("Error");
+								  }
+								}, 'json');
+						}
+					}
 				}
 			}
 			else if (ui.helper.size() > 1)
@@ -2312,7 +2357,7 @@ $(document).ready(function() {
   $("#ElementSize").removeAttr('disabled');
   refactoringListName();
   posPropertyPanel("");
-  updateSeatedLabel();
+
   $("#personAmountSingle").val("1");
   sortListByName("people_list",sortFloatListByNameAscending);
   $("#people-list").removeClass('class_overflow_hidden');
@@ -2743,7 +2788,7 @@ $(document).ready(function() {
 		numOfGuests = updateNumOfGuest();
 		saveNumOfGuests(numOfGuests);
 	
-	//if ($("#people_list > li").size() + findNumOfAllSeaters() < numOfGuests)
+	//if (findAllGuestFromFloatList() + findNumOfAllSeaters() < numOfGuests)
 	//{
 		//$("#AddPersonDivID").replaceWith('<div class="AddPersonDiv"  id="AddPersonDivID" title="Add Person To Float List" ><img id="AddPersonDivImg" width=30 height=30 src="http://www.getempower.com/apps/50/icons/icon_50x50.png"></div>');
 			//$("#AddPersonDivID").bind('click',function(){$('ul.AddPerson').slideToggle('medium');});
@@ -2785,7 +2830,7 @@ $(document).ready(function() {
   });
 
   $(".AddPersonDiv").after(function(){  
-    var personsSum = $("#people_list > li").size() + findNumOfAllSeaters();
+    var personsSum = findAllGuestFromFloatList() + findNumOfAllSeaters();
 	if (personsSum >= $("#NumOfGuests").val() || personsSum >= maxGuests)
 	{
 		$(".AddPersonDiv").unbind('click');

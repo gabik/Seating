@@ -117,7 +117,7 @@
   width:135;
   top:490;
   left:965;
-  z-index:9999999999;
+  z-index:99988;
  }
  #ElementStatus
  {
@@ -134,7 +134,7 @@
   top:-21px;
   left:-124;
   height:175px;
-  z-index:9999999999;
+  z-index:99988;
  }
  #canvasShadow
  {

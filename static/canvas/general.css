@@ -364,9 +364,97 @@
 	cursor:pointer;
  }
  
+ .perli2
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group2_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ }
+ 
+ .perli3
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group3_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ }
+ 
+ .perli4
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group4_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ }
+ 
+ .perli5
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group5_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ }
+ 
+ .perli6
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group6_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ } 
+ 
+ .perli7
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group7_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ } 
+ 
+ .perli8
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group8_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ } 
+ 
+ .perli9
+ {
+  padding: 2px;
+  direction: rtl;
+  list-style-image:url("/static/canvas/icons/Group9_16X16.png");
+  list-style-position:inside;
+  z-index:15;
+  text-align:right;
+  overflow:auto;
+ }
+ 
  .femaleli
  {
-  padding: 4px;
+  padding: 2px;
   direction: rtl;
   list-style-image:url("/static/canvas/icons/Woman_16X16.png");
   list-style-position:inside;
@@ -374,9 +462,10 @@
   text-align:right;
   overflow:auto;
  }
+ 
  .maleli
  {
-  padding: 4px;
+  padding: 2px;
   direction: rtl;
   list-style-image:url("/static/canvas/icons/Man_16X16.png");
   list-style-position:inside;

@@ -56,6 +56,18 @@
 	 	$("#chargeScr").fadeTo(1500, 0,function(){
 		$("#chargeScr").remove();});
 	 }
+	 
+	 function closeChargeScrForce()
+	 {
+		if ($("#chargeScr").find('p').last().text() == "0%")
+		{
+			$("#chargeScr").find('img').last().css('width', 100 + '%'); 
+			$("#chargeScr").find('p').last().text("100%"); 
+			$("#chargeScr").fadeTo(1500, 0,function(){
+			$("#chargeScr").remove();});
+		}
+	 }
+	 
 
 	 $(document).before(function()
 	 {
@@ -165,12 +177,13 @@
 		zoomingCanvas(false);
 	  }
 	
-	if ((!($(".DragDiv").size() > 50)) && firstInit)
+	if (firstInit)
 	{
 		$("#SquarePlaceMentShapes").click();
 		$(".ShapePlacementMenu").hide();
 	}
 
+	setTimeout("closeChargeScrForce()", ($(".DragDiv").size() + 20) * 110);
 	 $(".DragDiv").each(function(i){
 		 if ($(".DragDiv").last().attr('id') == $(this).context.id)
 		 {
@@ -196,8 +209,12 @@
 							if (i > -1)
 							{
 								var pre = parseInt(Math.min((($(".DragDiv").size()) * i / 100) * 100 , 100));
-								$("#chargeScr").find('img').last().css('width', pre + '%'); 
-								$("#chargeScr").find('p').last().text(pre + '%'); 
+								
+								if (i > 0)
+								{
+									$("#chargeScr").find('img').last().css('width', pre + '%'); 
+									$("#chargeScr").find('p').last().text(pre + '%'); 
+								}
 								
 								if (pre == 100 || i >= ($(".DragDiv").size() - 1))
 								{
@@ -209,7 +226,7 @@
 										$("#chargeScr").find('p').last().text(pre + '%'); 
 									}
 								
-									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 100);
+									setTimeout("closeChargeScr()", ($(".DragDiv").size() + 20) * 90);
 								}
 							}
 							else
@@ -721,15 +738,22 @@
 								<ul id="people_list">
 									{% for guest in guests %}
 										{% if guest.elem_num == 0 %}
-											{% if guest.gender == 'F' %}
-												<!--[if IE]>
-												<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
-												<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:117.5;"><!--<![endif]-->
-												{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
-												
+											{% if guest.qty > 1 %}
+													<!--[if IE]>
+													<li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
+													<!--[if !IE]><!--><li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
-												<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
-												<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:117.5;"><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% if guest.gender == 'F' %}
+													<!--[if IE]>
+													<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
+													<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% else %}
+													<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
+													<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:105;"
+													><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
+												{% endif %}
 											{% endif %}
 										{% endif %}
 									{% endfor %}

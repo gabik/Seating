@@ -32,7 +32,7 @@ $(document).ready(function() {
 	{
 		showLightMsg("הוספת מוזמן","לא ניתן להזין עוד מוזמנים מפני שעברת את הכמות המותרת במערכת.","OK","Notice");
 	}
-	else if (numOfGuests <= $("#people_list > li").size() + findNumOfAllSeaters())
+	else if (numOfGuests <= findAllGuestFromFloatList() + findNumOfAllSeaters())
 	{
 		showLightMsg("הוספת מוזמן","עברת את כמות המוזמנים המקסימלית, יש לעדכן מספר מוזמנים מרבי לאירוע ולאחר מכן להוסיף.","OK","Notice");
 	}

@@ -39,4 +39,5 @@ urlpatterns = patterns('canvas.views',
 	(r'^backToNewCanvas/$', 'back_To_New_Canvas'),
 	(r'^getMaxY/$', 'get_max_y'),
 	(r'^getMaxX/$', 'get_max_x'),
+	(r'^genGroupToCanvas/$', 'genGroup'),
 )

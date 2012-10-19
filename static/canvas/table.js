@@ -18,7 +18,7 @@ function turnToRegularMode(element,event)
 	var i;
 	
 	$(".DragNonDropDiv").each(function(i) {
-		$(this).fadeTo(400, 1, function() {});
+		$(this).fadeTo(200, 1, function() {});
 	});
 	
 	//originalElement.border('0px white 0');
@@ -26,7 +26,7 @@ function turnToRegularMode(element,event)
 		if (originalElement.context.id != $(this).context.id)
 		{
 			//$(this).border('0px white 0');
-			$(this).fadeTo(400, 1, function() {
+			$(this).fadeTo(200, 1, function() {
 				// Animation complete.
 				if ($(".DragDiv").length - 2 <= i)
 				{	
@@ -87,7 +87,7 @@ function turnToRegularMode(element,event)
 		if (originalElement.context.id != $(this).context.id)
 		{
 			//$(this).border('0px white 0');
-			$(this).fadeTo(400, 1, function() {
+			$(this).fadeTo(200, 1, function() {
 				// Animation complete.
 				$(this).parent().css('display','block');
 				$(this).show();
@@ -98,7 +98,7 @@ function turnToRegularMode(element,event)
 	if (!detailsMode)
 	{
 		$(".TableParentElementDivOutside").each(function(i) {
-			$(this).fadeTo(400, 1, function() {
+			$(this).fadeTo(200, 1, function() {
 				// Animation complete.
 				$(this).show();
 			});
@@ -158,7 +158,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		if (originalElement.context.id != $(this).context.id)
 		{
 			//$(this).border('0px white 0');
-			$(this).fadeTo(400, 0, function() {
+			$(this).fadeTo(200, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
 				unMarkTable($(this));
@@ -171,7 +171,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		if (originalElement.context.id != $(this).context.id)
 		{
 			//$(this).border('0px white 0');
-			$(this).fadeTo(400, 0, function() {
+			$(this).fadeTo(200, 0, function() {
 				// Animation complete.
 				$(this).removeClass('borderSelected');
 				unMarkTable($(this));
@@ -184,7 +184,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 		if (originalElement.context.id != $(this).context.id)
 		{
 			//$(this).border('0px white 0');
-			$(this).fadeTo(400, 0, function() {
+			$(this).fadeTo(200, 0, function() {
 				// Animation complete.
 		    	$(this).parent().css('display','none');
 				$(this).hide();
@@ -193,7 +193,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	});
 	
 	$(".TableParentElementDivOutside").each(function(i) {
-		$(this).fadeTo(400, 0, function() {
+		$(this).fadeTo(200, 0, function() {
 			// Animation complete.
 			
 			if ($(this).data('elem') == element.attr('id'))
@@ -238,7 +238,7 @@ function turnToTableMode(element,saveTablePositionProperties,event)
 	element.find('p').first().css('width', tableModeWidth);
 	
 	element.animate({ top: ($("#canvas-div").position().top + $("#canvas-div").height()) / 2 - tableModeHeight / 2 + (tableFontCaption + tableElementSize + 5) / 2, left: ($("#canvas-div").position().left + $("#canvas-div").width()) / 2 - tableModeWidth / 2, width: tableModeWidth, height: tableModeHeight},300, 'linear', function() {
-	selectElement(element); $(this).removeClass('borderSelected'); 	unMarkTable($(this)); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	/*adjustCaption(element); */ $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear'); $("#elemBack_" + originalElement.context.id).fadeTo(400, 1);
+	selectElement(element); $(this).removeClass('borderSelected'); 	unMarkTable($(this)); $(this).css('opacity',1); 	tableMode = true; disableDBClick = false; 	/*adjustCaption(element); */ $("#canvas-div").append($('<div id="floatListGate" class="FloatListGate"></br></br><img align="middle" src="/static/canvas/images/arrow_to_float_n.png"/></div>')); $("#floatListGate").css('top',$("#canvas-div").offset().top + 45); $("#floatListGate").css('left',$("#canvas-div").position().left + $("#canvas-div").width() - $("#floatListGate").width() + 7.5); $("#floatListGate").animate({height:150},300, 'linear'); $("#elemBack_" + originalElement.context.id).fadeTo(200, 1);
 	});
 		
 	elementCaption[0].style.fontSize= tableModeFontSize;

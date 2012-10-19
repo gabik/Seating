@@ -112,7 +112,7 @@
   width:155;
   top:483;
   left:-239;
-  z-index:9999999999;
+  z-index:99988;
 
  }
   #AddPersonList
@@ -123,7 +123,7 @@
   top:-22px;
   left:-127;
   height:175px;
-  z-index:9999999999;
+  z-index:99988;
  }
  #canvasShadow{
 	position:absolute;

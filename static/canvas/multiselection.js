@@ -53,8 +53,11 @@ function aligmentHorizontal(side)
 	if (newLeftValueAvrage > 0)
 	{
 		undoElementList = new Array(selectionElementsList.length);
+			
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
+			var movechairs = false;
+				
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
@@ -72,6 +75,7 @@ function aligmentHorizontal(side)
 						}
 						else
 						{
+							movechairs = true;
 							saveElementByID(selectionElementsList[j]);
 						}
 						var undoElement = new Array(2);
@@ -82,9 +86,13 @@ function aligmentHorizontal(side)
 					}
 				}
 			});	
-			$(".chairs" + selectionElementsList[i]).each(function(j) {
-				$(this).animate({left: $(this).position().left +  (newLeftValueAvrage - startDradPositionList[i].left)},300, 'linear');
-			});			
+			
+			if (movechairs)
+			{
+				$(".chairs" + selectionElementsList[i]).each(function(j) {
+					$(this).animate({left: $(this).position().left +  (newLeftValueAvrage - startDradPositionList[i].left)},100, 'linear');
+				});			
+			}
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
@@ -117,6 +125,8 @@ function aligmentVertical(side)
 		undoElementList = new Array(selectionElementsList.length);
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
+			var movechairs = false;
+					
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
@@ -134,6 +144,7 @@ function aligmentVertical(side)
 						}
 						else
 						{
+							movechairs = true;
 							saveElementByID(selectionElementsList[j]);
 						}
 						var undoElement = new Array(2);
@@ -145,9 +156,12 @@ function aligmentVertical(side)
 				}
 			});	
 			
-			$(".chairs" + selectionElementsList[i]).each(function(j) {
-				$(this).animate({top: $(this).position().top +  (newTopValueAvrage - startDradPositionList[i].top)},300, 'linear');
-			});	
+			if (movechairs)
+			{
+				$(".chairs" + selectionElementsList[i]).each(function(j) {
+					$(this).animate({top: $(this).position().top +  (newTopValueAvrage - startDradPositionList[i].top)},100, 'linear');
+				});	
+			}
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
@@ -289,7 +303,7 @@ $(document).ready(function() {
 					$("#"+selectionElementsList[i]).css("background-color", "white");
 					if (collisionWithOtherElementById(selectionElementsList[i]))
 					{
-						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},300, 'linear');
+						$("#"+selectionElementsList[i]).animate({top: $("#"+selectionElementsList[i]).position().top + lastRectanglePoint[0] - $("#multiSelectionRectangle").position().top, left:$("#"+selectionElementsList[i]).position().left + lastRectanglePoint[1] - $("#multiSelectionRectangle").position().left},100, 'linear');
 						$(".chairs" + selectionElementsList[i]).each(function(j) {
 							$(this).fadeTo(100, 1, function() {
 								// Animation complete.
@@ -332,7 +346,7 @@ $(document).ready(function() {
 				SelectedElem ="";
 				selectionElementsList = "";
 				drag = false;
-				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
+				$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},100, 'linear',function(){$("#multiSelectionRectangle").hide();});
 		}				
 		});
 		

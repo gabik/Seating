@@ -124,12 +124,12 @@ $(document).ready(function() {
 				
 				startDradPositionList[i] = $(this).position();
 
-				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	
+				$(this).animate({ top: newTop , left: newLeft},100, 'linear', function() {saveElement($(this));	
 
 				});
 				
 				$(".chairs" + curTable.attr('id')).each(function(j) {
-					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},100, 'linear');
 				});
 				
 				if (middleCircle)
@@ -264,10 +264,10 @@ $(document).ready(function() {
 			
 				startDradPositionList[i] = $(this).position();
 				
-				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	});
+				$(this).animate({ top: newTop , left: newLeft},100, 'linear', function() {saveElement($(this));	});
 				
 				$(".chairs" + curTable.attr('id')).each(function(j) {
-					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},100, 'linear');
 				});
 				
 				if (middleCircle)
@@ -404,11 +404,11 @@ $(document).ready(function() {
 					startLeft = $("#canvas-div").offset().left + 5;				
 				}
 				
-				$(this).animate({ top: newTop , left: newLeft},300, 'linear', function() {saveElement($(this));	});
+				$(this).animate({ top: newTop , left: newLeft},100, 'linear', function() {saveElement($(this));	});
 				var curTable = $(this);
 
 				$(".chairs" + curTable.attr('id')).each(function(j) {
-					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},300, 'linear');
+					$(this).animate({ top: $(this).position().top +  (newTop - startDradPositionList[i].top) , left: $(this).position().left +  (newLeft - startDradPositionList[i].left)},100, 'linear');
 				});
 				
 				newTop = newTop + $(this).height() + placementMargin - 4;
