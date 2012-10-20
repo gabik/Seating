@@ -481,7 +481,7 @@ function dropPersonFromChairWithPosition(ui, pos, element, tmode)
 		}
 		else
 		{
-			showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר מאורח אחד </br> יש לבצע גרירה מרובע לשולחן.","OK","Notice");
+			showLightMsg("גרירת אורח לאמנט","לא ניתן לגרור לכיסא יותר ממוזמן אחד, </br> יש לגרור לשולחן עצמו.","OK","Notice");
 		}
 	}
 }

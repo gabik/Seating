@@ -55,9 +55,7 @@ function aligmentHorizontal(side)
 		undoElementList = new Array(selectionElementsList.length);
 			
 		for (var i = 0; i < selectionElementsList.length; i++)
-		{
-			var movechairs = false;
-				
+		{				
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
 			$("#"+selectionElementsList[i]).removeClass('broderNonDragSelected');
@@ -75,8 +73,10 @@ function aligmentHorizontal(side)
 						}
 						else
 						{
-							movechairs = true;
 							saveElementByID(selectionElementsList[j]);
+							$(".chairs" + selectionElementsList[j]).each(function() {
+								$(this).animate({left: $(this).position().left +  (newLeftValueAvrage - startDradPositionList[j].left)},100, 'linear');
+							});
 						}
 						var undoElement = new Array(2);
 						undoElement[0] = $("#"+selectionElementsList[j]);
@@ -84,15 +84,8 @@ function aligmentHorizontal(side)
 						undoElementList[j] = undoElement;
 						}
 					}
-				}
+				}			
 			});	
-			
-			if (movechairs)
-			{
-				$(".chairs" + selectionElementsList[i]).each(function(j) {
-					$(this).animate({left: $(this).position().left +  (newLeftValueAvrage - startDradPositionList[i].left)},100, 'linear');
-				});			
-			}
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});
@@ -125,7 +118,7 @@ function aligmentVertical(side)
 		undoElementList = new Array(selectionElementsList.length);
 		for (var i = 0; i < selectionElementsList.length; i++)
 		{
-			var movechairs = false;
+			
 					
 			startDradPositionList[i] = $("#"+selectionElementsList[i]).position();
 			$("#"+selectionElementsList[i]).removeClass('borderSelected');
@@ -133,7 +126,7 @@ function aligmentVertical(side)
 			unMarkTable($("#"+selectionElementsList[i]));
 			SelectedElem = "";
 			$("#"+selectionElementsList[i]).animate({top: newTopValueAvrage},function(){
-			{ 
+			{
 				for (var j = 0; j < selectionElementsList.length; j++)
 				{
 					if (selectionElementsList[j] == $(this).context.id)
@@ -144,8 +137,10 @@ function aligmentVertical(side)
 						}
 						else
 						{
-							movechairs = true;
 							saveElementByID(selectionElementsList[j]);
+							$(".chairs" + selectionElementsList[j]).each(function() {
+								$(this).animate({top: $(this).position().top +  (newTopValueAvrage - startDradPositionList[j].top)},100, 'linear');
+							});	
 						}
 						var undoElement = new Array(2);
 						undoElement[0] = $("#"+selectionElementsList[j]);
@@ -155,13 +150,6 @@ function aligmentVertical(side)
 					}
 				}
 			});	
-			
-			if (movechairs)
-			{
-				$(".chairs" + selectionElementsList[i]).each(function(j) {
-					$(this).animate({top: $(this).position().top +  (newTopValueAvrage - startDradPositionList[i].top)},100, 'linear');
-				});	
-			}
 		}	
 		SelectedElem ="";
 		$("#multiSelectionRectangle").animate({top: $("#multiSelectionRectangle").position().top + $("#multiSelectionRectangle").height()/2, left:$("#multiSelectionRectangle").position().left + $("#multiSelectionRectangle").width()/2 ,height:0,width:0},300, 'linear',function(){$("#multiSelectionRectangle").hide();});

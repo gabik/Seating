@@ -2452,7 +2452,7 @@ function adjustResolution()
 		$("#float-list").css('left', $("#float-list").position().left + delta);
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() - 15);
 		$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2476,7 +2476,7 @@ function adjustResolution()
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width());
+				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() - 15);
 				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
 				$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2544,12 +2544,14 @@ function droppableTable(ui ,tableOrig)
 					}
 					else
 					{
-						 var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
+						dropAllow = false;
+						var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
 						var curSize = parseInt(table.find('p:eq(1)').text().split("/", 1))
 						 
 						 if (elementMaxSize < ui.draggable.data('qty') || (elementMaxSize - curSize) < ui.draggable.data('qty'))
 						 {
 							showLightMsg("גרירת קבוצה לאלמנט","אין מספיק מקום בשולחן לקבוצה.","OK","Notice");
+						    dropAllow = true;
 						 }
 						 else
 						 {
@@ -2564,6 +2566,7 @@ function droppableTable(ui ,tableOrig)
 									   if (dataTable[0] != "" && dataTable[0] != 'undefined' && dataTable[0].status == 'OK')
 									   {
 											setSaveStatus("OK");
+											ui.draggable.remove();
 											$(".chairs" + table.attr('id')).each(function(i) {
 												$(this).remove();
 											});
@@ -2571,17 +2574,20 @@ function droppableTable(ui ,tableOrig)
 											var newSize = parseInt(curSize) + parseInt(ui.draggable.data('qty'));
 										    var sizeStr = newSize + "/" + elementMaxSize;
 										    table.find('p:eq(1)').text(sizeStr);
-											ui.draggable.remove();
 											rePaintPeopleList(); 
 											updateSeatedLabel();	
+										    dropAllow = true;
 									   }else{
 											setSaveStatus("Error");
+											dropAllow = true;
 									   }
 									 }, 'json');
 									  setSaveStatus("OK");
+									  dropAllow = true;
 								  }
 								  else{
 									setSaveStatus("Error");
+									dropAllow = true;
 								  }
 								}, 'json');
 						}
@@ -2590,14 +2596,17 @@ function droppableTable(ui ,tableOrig)
 			}
 			else if (ui.helper.size() > 1)
 			{
-				multiPos = true;
-				
-				dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
+				if (dropAllow)
+				{
+					multiPos = true;
+					dataMultiStrings = dataMultiStrings + table.context.id + "," + $(this).context.id + "|";
+				}
 			}
 		  });
 		  
 		  if (multiPos)
 		  {
+			  dropAllow = false;
 			  $.post('/canvas/sitMulti/', {DataString: dataMultiStrings},
 				function(data){
 				  if (data.status == 'OK')
@@ -2608,8 +2617,10 @@ function droppableTable(ui ,tableOrig)
 					  	 dropPerson($(this), table, dataMultiStrings[i]); 
 					  });
 					  currentMsgTimer = setTimeout(function(){saveTableSitting(table)},2000);
+					  dropAllow = true;
 				  }
 				  else{
+				  	dropAllow = true;
 					setSaveStatus("Error");
 				  }
 				}, 'json');
