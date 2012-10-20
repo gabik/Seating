@@ -1928,10 +1928,25 @@ function reposElementAtAFreeSpace(element, offsetWidth)
 	
 	if (!placed)
 	{
-		element.css('top', startposY);
-		element.css('left',startposX);
-		saveElement(element);
-		selectElement(element);
+		expandYForPlacmentForce();
+		
+		element.css('top',curtop + element.height());
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElement(element))
+		{
+			$("body").scrollTop(curtop);
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+		}
+		else
+		{
+			element.css('top', startposY);
+			element.css('left',startposX);
+			saveElement(element);
+			selectElement(element);
+		}
 	}
 }
 
@@ -1966,10 +1981,25 @@ function reposElementAtAFreeSpaceByID(element, offsetWidth)
 	
 	if (!placed)
 	{
-		element.css('top', startposY);
-		element.css('left',startposX);
-		saveElement(element);
-		selectElement(element);
+		expandYForPlacmentForce();
+		
+		element.css('top',curtop + element.height());
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementById(element.attr('id')))
+		{
+			$("body").scrollTop(curtop);
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+		}
+		else
+		{
+			element.css('top', startposY);
+			element.css('left',startposX);
+			saveElement(element);
+			selectElement(element);
+		}
 	}
 }
 
@@ -2004,10 +2034,25 @@ function reposElementAtAFreeSpaceNonDragByID(element, offsetWidth)
 	
 	if (!placed)
 	{
-		element.css('top', startposY);
-		element.css('left',startposX);
-		saveElement(element);
-		selectElement(element);
+		expandYForPlacmentForce();
+		
+		element.css('top',curtop + element.height());
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElementsById(element.attr('id')))
+		{
+			$("body").scrollTop(curtop);
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+		}
+		else
+		{
+			element.css('top', startposY);
+			element.css('left',startposX);
+			saveElement(element);
+			selectElement(element);
+		}
 	}
 }
 
@@ -2021,7 +2066,7 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 	
 	while (curtop + element.height() < $("#canvas-div").height())
 	{
-		element.css('top',curtop);
+		element.css('top',curtop + element.height());
 		element.css('left',curleft);
 		
 		if (!collisionWithOtherElementWithOutNonDragElements(element))
@@ -2042,10 +2087,25 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 	
 	if (!placed)
 	{
-		element.css('top', startposY);
-		element.css('left',startposX);
-		saveElement(element);
-		selectElement(element);
+		expandYForPlacmentForce();
+		
+		element.css('top',curtop + element.height());
+		element.css('left',curleft);
+		
+		if (!collisionWithOtherElementWithOutNonDragElements(element))
+		{
+			$("body").scrollTop(curtop);
+			saveElement(element);
+			selectElement(element);
+			placed = true;
+		}
+		else
+		{
+			element.css('top', startposY);
+			element.css('left',startposX);
+			saveElement(element);
+			selectElement(element);
+		}
 	}
 }
 

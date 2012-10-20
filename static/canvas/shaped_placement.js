@@ -18,6 +18,19 @@ function expandYForPlacment()
 		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
 	}
 }	
+
+function expandYForPlacmentForce()
+{
+	var delta = 120;
+
+	$("#people-list").css('height', $("#people-list").height() + delta);
+	$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
+	$("#search-properties-list").css('top', $("#search-properties-list").position().top + delta);
+	$("#occasionDetailsR").css('top', $("#occasionDetailsR").position().top + delta);
+	$("#occasionDetailsAdvanceR").css('top', $("#occasionDetailsAdvanceR").position().top + delta);
+	$("#canvasShadow").css('top', $("#canvasShadow").position().top + delta);
+		//$(".SaveState").css('top', $(".SaveState").position().top + delta);
+}	
 	
 function calculateChildrenWidthAndHeightForSquarePlacment()
 {
