@@ -1652,7 +1652,7 @@ function DeletePerson()
 		  }
 		  else
 		  {
-				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
+				$("#people_list").append($('<li class="'+ classGender +'" style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:auto;" id="'+ personData.first_name +'_'+ personData.last_name +'" title="'+ personData.first_name +' '+ personData.last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."> '+ personData.first_name +' '+ personData.last_name +' </li>'));	
 		  }
 		  $("#" + personData.first_name +'_'+ personData.last_name).data('qty',1);
 		  rePaintPeopleList(); 
@@ -1665,7 +1665,7 @@ function DeletePerson()
 				$(this).bind('dblclick',function(e){
 						personFloatListDBClick(e,$(this));
 					});
-				$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+				$("#people-list").scrollTop(parseInt($(this).index()) * 50);
 				if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
 				{
 					refactorElementPerson($(this));

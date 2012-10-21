@@ -706,17 +706,17 @@
 											{% if guest.qty > 1 %}
 													<!--[if IE]>
 													<li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
-													<!--[if !IE]><!--><li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													<!--[if !IE]><!--><li class="perli{{guest.qty}}" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:auto;"><!--<![endif]-->
 													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 											{% else %}
 												{% if guest.gender == 'F' %}
 													<!--[if IE]>
 													<li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה.">	<![endif]-->
-													<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;"><!--<![endif]-->
+													<!--[if !IE]><!--><li class="femaleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:auto;"><!--<![endif]-->
 													{{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 												{% else %}
 													<!--[if IE]><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."><![endif]-->
-													<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:105;"
+													<!--[if !IE]><!--><li class="maleli" id="{{ guest.guest_first_name }}_{{ guest.guest_last_name }}" title="{{ guest.guest_first_name }} {{ guest.guest_last_name }} לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה."style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap; width:auto;"
 													><!--<![endif]--> {{ guest.guest_first_name }} {{ guest.guest_last_name}} </li>
 												{% endif %}
 											{% endif %}

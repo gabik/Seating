@@ -1510,7 +1510,7 @@ function addPersonManualy(first_name, last_name, amount, gender)
 	}
 	else
 	{
-		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+		liToAppend = '<li class="perli' + amount +'" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, ניתן לגרור לשולחן כקבוצה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:auto;">'
 	}
 	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
   }
@@ -1529,7 +1529,7 @@ function addPersonManualy(first_name, last_name, amount, gender)
 	}
 	else
 	{
-		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:105;">'
+		liToAppend = '<li class=" ' + genClass + '" id="' + first_name +'_' + last_name +'" title="'+ first_name + ' ' + last_name +' לחיצה כפולה לעריכה, יש להחזיק CNTL לבחירה מרובה." style="text-overflow: ellipsis; overflow:hidden; white-space:nowrap;  width:auto;">'
 	}
 	liToAppend = liToAppend + first_name + ' ' + last_name +' </li>';
   }
@@ -3056,7 +3056,7 @@ $(document).ready(function() {
 						if ($(this).context.id == data.first_name +"_"+ data.last_name )
 						{
 							$(this).addClass('ui-multisort-click');
-							$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+							$("#people-list").scrollTop(parseInt($(this).index()) * 50);
 						}
 					});
 				}
