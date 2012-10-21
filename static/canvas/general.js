@@ -1549,7 +1549,7 @@ function addPersonManualy(first_name, last_name, amount, gender)
 			$(this).bind('dblclick',function(e){
 					personFloatListDBClick(e,$(this));
 				});
-			$("#people-list").scrollTop(parseInt($(this).index()) * 20);
+			$("#people-list").scrollTop(parseInt($(this).index()) * 50);
 			if (navigator.userAgent.toLowerCase().indexOf('ie') > 0)
 			{
 				refactorElementPerson($(this));
