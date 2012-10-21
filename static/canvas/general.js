@@ -2452,7 +2452,7 @@ function adjustResolution()
 		$("#float-list").css('left', $("#float-list").position().left + delta);
 		$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 		$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() - 15);
+		$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() * 1.8);
 		$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 		$("#canvasShadow").css('width', $("#canvasShadow").width() + delta);
 		$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2476,7 +2476,7 @@ function adjustResolution()
 				$("#float-list").css('left', $("#float-list").position().left + delta);
 				$("#search-properties-list").css('left', $("#search-properties-list").position().left + delta);
 				$("#occasionDetailsR").css('left', $("#occasionDetailsR").position().left + delta);
-				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() - 15);
+				$("#occasionDetailsAdvanceR").css('left', $("#occasionDetailsR").position().left - $("#occasionDetailsAdvanceR").width() * 1.8);
 				$("#canvasShadow").css('left', $("#canvasShadow").position().left + delta / 2);
 				$("#AddPersonList").css('left', $("#float-list").position().left - $("#AddPersonList").width());
 				$(".SaveState").css('left', $(".SaveState").position().left + delta);
@@ -2546,7 +2546,7 @@ function droppableTable(ui ,tableOrig)
 					{
 						dropAllow = false;
 						var elementMaxSize = parseInt(table.find('p:eq(1)').text().substr(table.find('p:eq(1)').text().indexOf("/")+1));
-						var curSize = parseInt(table.find('p:eq(1)').text().split("/", 1))
+						var curSize = parseInt(numOfSeatInTable(table.attr('id')));
 						 
 						 if (elementMaxSize < ui.draggable.data('qty') || (elementMaxSize - curSize) < ui.draggable.data('qty'))
 						 {
@@ -2571,8 +2571,7 @@ function droppableTable(ui ,tableOrig)
 												$(this).remove();
 											});
 											posTableChairsWithData(dataTable, table, elementMaxSize);
-											var newSize = parseInt(curSize) + parseInt(ui.draggable.data('qty'));
-										    var sizeStr = newSize + "/" + elementMaxSize;
+										    var sizeStr =  parseInt(numOfSeatInTable(table.attr('id'))) + "/" + elementMaxSize;
 										    table.find('p:eq(1)').text(sizeStr);
 											rePaintPeopleList(); 
 											updateSeatedLabel();	
@@ -2893,7 +2892,7 @@ $(document).ready(function() {
 		stop: function (e,ui){
 			if (collisionWithOtherElement($(this)))
 			{
-				if (startDradPositionList[0] != 'undefined' && startDradPositionList[1] != 'undefined')
+				if (startDradPositionList[0] != undefined && startDradPositionList[1] != undefined && startDradPositionList[0] != 'undefined' && startDradPositionList[1] != 'undefined')
 				{
 					$(this).animate({top:startDradPositionList[0].top, left:startDradPositionList[0].left, width: resizableLastWidth , height: resizableLastHeight},300, 'linear', function() {
 						var imgResize = $(this).find('img').first();

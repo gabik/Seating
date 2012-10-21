@@ -1,6 +1,6 @@
-var listTableElementString = '<li><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
+var listTableElementString = '<li><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1">&nbsp;&nbsp;<label class="text_14_black">כיסאות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4">&nbsp;&nbsp;<select class="tableShapeSelect"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/>&nbsp;&nbsp;<img align="middle" class="RemoveBtn" src="/static/canvas/images/minus_n.png"/></li>';
 
-var listTableDisabledElementString = '<li style="margin-top:5px; margin-left:59px"><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1" disabled="disabled">&nbsp;&nbsp;<label class="text_14_black">גודל: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4" disabled="disabled">&nbsp;&nbsp;<select class="tableShapeSelect" disabled="disabled"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/></li>';
+var listTableDisabledElementString = '<li style="margin-top:5px; margin-left:59px"><label class="text_14_black">כמות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10 id="ElementSize" class="SizeSelect" maxlength="3" value="1" disabled="disabled">&nbsp;&nbsp;<label class="text_14_black">כיסאות: </label>&nbsp;&nbsp;<input type=text style="text-align:right; width:75px;" size=10  id="ElementAmount" class="AmountSelect" maxlength="2" value="4" disabled="disabled">&nbsp;&nbsp;<select class="tableShapeSelect" disabled="disabled"><option value="A" SELECTED>ריבוע<option value="B">עגול<option value="C">מלבן<option value="D">מעויין</select>&nbsp;&nbsp;<img align="middle" class="TableImg" src="/static/canvas/images/tables_small/SquareR.png" width="32" height="32"/></li>';
 
 var maxSeated = 2001;
 var canvasWidth = 1100;//1195;
@@ -613,7 +613,7 @@ $(document).ready(function(){
 					}
 					else if (kind == "dance_stand")
 					{
-						width = 64;
+						width = 128;
 						height = 64;
 						$("#djStandAppovalAuto").attr("checked","checked");
 					}
@@ -784,7 +784,7 @@ $(document).ready(function(){
 					}
 					if ($("#danceStandAppoval").attr('checked') && !alreadyHasDance)
 					{
-						dataString = dataString + 'dance_stand,1,8,0,0,64,64|';
+						dataString = dataString + 'dance_stand,1,8,0,0,128,64|';
 					}
 					if ($("#djStandAppoval").attr('checked') && !alreadyHasDj)
 					{

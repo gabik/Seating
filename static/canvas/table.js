@@ -8,6 +8,20 @@ var tableModeFontSize = 14;
 var tableMode = false;
 var disableDBClick = false;
 
+function numOfSeatInTable(tableID)
+{
+	var amount = 0;
+	
+	$(".chairs" + tableID).each(function(i) {
+		if ($(this).data("status") == "nemp")
+		{
+			amount = amount + 1;
+		}
+	});
+	
+	return amount;
+}
+
 function turnToRegularMode(element,event)
 {
 	disableDBClick = true;

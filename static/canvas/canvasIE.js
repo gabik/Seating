@@ -63,7 +63,7 @@ function addMenuItemButtonPress(kind)
 		}
 		else if (kind == "dance_stand")
 		{
-			width = 64;
+			width = 128;
 			height = 64;
 			draggable = false;
 		}
@@ -110,6 +110,13 @@ function addMenuItemButtonPress(kind)
 					   div.css('width','82.5');
 					   if (kind == "Rect") {
 						   div.css('height','95');
+						   div.droppable({
+								accept: "#people_list li",
+								hoverClass: "RectShapeDropLayer",
+								drop: function(e, ui ) {
+										droppableTable(ui ,$(this));
+									}
+						  });
 					   }
 					   else if (kind == "Lozenge")
 					   {
