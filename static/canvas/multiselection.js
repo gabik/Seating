@@ -303,6 +303,34 @@ $(document).ready(function() {
 					else
 					{
 					   saveElementByID(selectionElementsList[i]);
+					   	var chairWidth = $(".chairs" + selectionElementsList[i]).first().width();
+						var chairHeight = $(".chairs" + selectionElementsList[i]).first().height();
+						var table = $("#" + selectionElementsList[i]);
+						
+						if (table.offset().top - chairHeight < $("#canvas-div").offset().top)
+						{
+							var topAdjust = table.offset().top + ($("#canvas-div").offset().top - (+ table.offset().top - chairHeight));
+							+ table.css('top',topAdjust);
+						}
+						
+						if (table.offset().top + table.height() + chairHeight > $("#canvas-div").offset().top + $("#canvas-div").height())
+						{
+							var topAdjust = table.offset().top + ($("#canvas-div").offset().top + $("#canvas-div").height() - (+ table.offset().top + table.height() + chairHeight));
+							+ table.css('top',topAdjust + 10);
+						}
+						
+						if (table.offset().left - chairWidth < $("#canvas-div").offset().left)
+						{
+							var leftAdjust = + table.offset().left + ($("#canvas-div").offset().left - (table.offset().left - chairWidth));
+							+ table.css('left',leftAdjust);
+						}
+						
+						if (table.offset().left + + table.width() + chairWidth > $("#canvas-div").offset().left + $("#canvas-div").width())
+						{
+							var leftAdjust = table.offset().left + ($("#canvas-div").offset().left + $("#canvas-div").width() - (table.offset().left + + table.width() + chairWidth));
+							+ table.css('left',leftAdjust + 10);
+						}
+						
 					   $(".chairs" + selectionElementsList[i]).each(function(j) {
 							var top = $("#"+selectionElementsList[i]).position().top;
 							var left = $("#"+selectionElementsList[i]).position().left;
