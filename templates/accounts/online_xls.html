@@ -42,11 +42,11 @@ function lock(){
         	mygrid.setRowColor(cur_row,"#E5E5E5");
 	}
 }
-function doOnRowSelected(rowID,celInd){
-	lock()
+//function doOnRowSelected(rowID,celInd){
+	//lock()
 	//mygrid.setRowTextBold(rowID);
 	//alert(rowID);
-}
+//}
 function save() {
 	//mygrid.csv.cell="||";
 	//var csvNew = mygrid.serializeToCSV();
@@ -110,13 +110,13 @@ function doInitGrid(){
 mygrid = new dhtmlXGridObject('mygrid_container');
 mygrid.setImagePath("/static/grid/dhtmlxGrid/codebase/imgs/");
 //mygrid.setHeader('first, last, gender, qty, phone, email, facebook, group, present');
-mygrid.setHeader('שם פרטי,שם משפחה,מין,כמות,טלפון,E-mail,Facebook,קבוצה,סטטוס הגעה,סכום מתנה');
-mygrid.setInitWidths("100,100,100,100,100,100,100,100,100,100");
-mygrid.setColAlign("right,right,right,right,right,right,right,right,right");
+mygrid.setHeader('שם פרטי,שם משפחה,מין,כמות,טלפון,E-mail,Facebook,קבוצה,סטטוס הגעה,סכום מתנה,.');
+mygrid.setInitWidths("100,100,100,100,100,100,100,100,100,100,0");
+mygrid.setColAlign("right,right,right,right,right,right,right,right,right,right");
 mygrid.setSkin("light");
 mygrid.init();
 mygrid.load("{{ filename }}","csv");
-mygrid.setColTypes("ed,ed,coro,ed,ed,ed,ed,coro,coro,ed");
+mygrid.setColTypes("ed,ed,coro,ed,ed,ed,ed,co,coro,ed,ro");
 var p1name= " {{ partner1 }}";
 var p2name= " {{ partner2 }}";
 var p2back= " {{ partner2 }}";
@@ -144,7 +144,7 @@ invation_combo.put("A","מגיע");
 invation_combo.put("N","לא מגיע");
 invation_combo.put("T","ממתין לאישור");
 invation_combo.save();
-mygrid.attachEvent("onRowSelect",doOnRowSelected);
+//mygrid.attachEvent("onRowSelect",doOnRowSelected);
 mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
      if (stage == 2 && index == 3 && !is_int(new_value)) {
           return false; 
@@ -166,8 +166,8 @@ mygrid.attachEvent("onEditCell",function(stage,id,index,new_value,old_value){
 //myDataProcessor.setTransactionMode("POST", true);
 //myDataProcessor.setUpdateMode("off");
 //myDataProcessor.init(mygrid);
-setTimeout('lock()',1500);
-setTimeout('lock()',2500);
+//setTimeout('lock()',1500);
+//setTimeout('lock()',2500);
 //djkp added buttons
 	$(document).ready(function() {
 		$("#AddDivImg").mouseout(function(){

@@ -605,6 +605,7 @@ def online_excel(request):
 
 	#writer.writerow(['0', 'first', 'last', 'gender', 'qty', 'phone', 'email', 'facebook', 'group', 'present'])
 	for g in Guests:
+		ghash=g.guest_hash
 		gfirst=unicode(g.guest_first_name, "UTF-8")
 		glast=unicode(g.guest_last_name, "UTF-8")
 		ggender=unicode(g.gender, "UTF-8")
@@ -615,7 +616,7 @@ def online_excel(request):
 			gqty=1
 		else:
 			gqty=g.qty
-		writer.writerow([row_num, gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), gqty, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount])
+		writer.writerow([row_num,gfirst.encode('utf-8'), glast.encode('utf-8'), ggender.encode('utf-8'), gqty, g.phone_number.encode('utf-8'), gemail.encode('utf-8'), gfacebook.encode('utf-8'), ggroup.encode('utf-8'),g.invation_status ,g.present_amount,ghash])
 		row_num+=1
 	f.close()
 	c = {}
@@ -645,7 +646,6 @@ def online_save(request):
 		#xxml=""
 		DupGuest.objects.filter(user=request.user).delete()
 		for row in userXml.findall('row'):
-			if int(row.get('id')) >= int(starting_row):
 				cur_col=0
 				cur_list=[]
 				for cell in row.findall('cell'):
@@ -656,49 +656,48 @@ def online_save(request):
 					else:
 						celltext=str(cell.text)
 					cur_list.append(celltext)
-				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, farive, fpresent = cur_list
+				ffirst, flast, fgender, fqty, fphone, femail, ffacebook, fgroup, farive, fpresent, fhash = cur_list
 				ffirst=escapeSpecialCharacters(ffirst)
 				flast=escapeSpecialCharacters(flast)
 				fphone=escapeSpecialCharacters(fphone)
 				cells=row.findall('cell')
 				if (ffirst != "" or flast != ""): 
-					if fgroup in group_choice:
-						if fgender not in gender_choice :
-							fgender="U"
-						if fqty <> "":
-							fqty=re.sub("\D", "", fqty)
-						else:
-							fqty=1
-						addStr=""
+				#	if fgroup not in group_choice:
+					if fgender not in gender_choice :
+						fgender="U"
+					if fqty <> "":
+						fqty=re.sub("\D", "", fqty)
+					else:
+						fqty=1
+					addStr=""
+					if int(row.get('id')) >= int(starting_row):
 						if check_person(unicode(ffirst,"UTF-8"), unicode(flast,"UTF-8"), request.user):
-							#dup_person=DupGuest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive)
-							#dup_person.save()
 							max_match = Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name__gt=flast)
 							exist_num =  Guest.objects.filter(user=request.user,guest_first_name=ffirst, guest_last_name=flast + " " + str(len(max_match) + 1))
 							if (len(exist_num) <= 0):
 								addStr = len(max_match) + 1
 							else:
 								addStr = len(max_match) + 2
-						#else:
-						flast=flast + " " + str(addStr)
-						flast=flast.strip()
-		#				if int(fqty) > 1:
-		#					for i in range(1,int(fqty)+1):
-		#						hash = str(str(request.user) + ffirst + " " + str(i) + flast)
-		#						new_person = Guest(user=request.user, guest_first_name=ffirst+" "+str(i), guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()))
-		#						new_person.save()
-		#				else:
-						hash = str(str(request.user) + ffirst +  flast)
-						new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()),qty=fqty)
-						new_person.save()
+					flast=flast + " " + str(addStr)
+					flast=flast.strip()
+					hash = str(str(request.user) + ffirst +  flast)
+				if int(row.get('id')) >= int(starting_row):
+					new_person = Guest(user=request.user, guest_first_name=ffirst, guest_last_name=flast, gender=fgender, phone_number=fphone, guest_email=femail, group=fgroup, present_amount=fpresent, invation_status=farive, guest_hash = str(md5(hash).hexdigest()),qty=fqty)
+					new_person.save()
+				else:
+					cur_guest = get_object_or_404(Guest, guest_hash = fhash)
+					cur_guest.guest_first_name=ffirst
+					cur_guest.guest_last_name=flast
+					cur_guest.gender=fgender
+					cur_guest.phone_number=fphone
+					cur_guest.guest_email=femail
+					cur_guest.group=fgroup
+					cur_guest.present_amount=fpresent
+					cur_guest.invation_status=farive
+					cur_guest.guest_hash=str(md5(hash).hexdigest())
+					cur_guest.qty=fqty
+					cur_guest.save()
 
-	#duplicate_list = DupGuest.objects.filter(user=request.user)
-	#if duplicate_list :
-		#c= {}
-		#c.update(csrf(request))
-		#c['duplicate_list']=duplicate_list
-		#return render_to_response('accounts/duplicate.html', c)
-	#else:
 	return HttpResponse('<HTML><script> parent.location.reload();  </script></HTML> ')
 
 @csrf_exempt
@@ -890,7 +889,10 @@ def stickers(request):
 'Friends'+p2name: 'עבודה '+p2back,
 'Work'+p2name: 'עבודה '+p2back,
 'Other': 'אחר'}
-		group_name=unicode(group_trans[g.group], "UTF-8")
+		if g.group in group_trans:
+			group_name=unicode(group_trans[g.group], "UTF-8")
+		else:
+			group_name=unicode(g.group, "UTF-8")
 		if (cur_3_cul > 0) and (cur_3_cul % 2 == 0):
 			cur_3_cul=0
 			cur_row+=5
