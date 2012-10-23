@@ -173,10 +173,10 @@ $(document).ready(function() {
 			undoElementList ="";
 			startDradPositionList ="";
 			multiSelection = true;
-			$("#multiSelectionRectangle").css("top", e.clientY);
-			$("#multiSelectionRectangle").css("left", e.clientX);
-			lastRectanglePoint[0] =  e.clientY;
-			lastRectanglePoint[1] =  e.clientX;
+			$("#multiSelectionRectangle").css("top", e.pageY);
+			$("#multiSelectionRectangle").css("left", e.pageX);
+			lastRectanglePoint[0] =  e.pageY;
+			lastRectanglePoint[1] =  e.pageX;
 			$("#multiSelectionRectangle").css("z-index",99998);
 		}
 		else
@@ -200,43 +200,43 @@ $(document).ready(function() {
 		if (isMousePressFromCanvas && multiSelection)
 		{
 			$("#multiSelectionRectangle").show();
-			if (e.clientY > $("#canvas-div").offset().top && e.clientY < $("#canvas-div").offset().top +  $("#canvas-div").height())
+			if (e.pageY > $("#canvas-div").offset().top && e.pageY < $("#canvas-div").offset().top +  $("#canvas-div").height())
 			{
-				if (e.clientY < lastRectanglePoint[0])
+				if (e.pageY < lastRectanglePoint[0])
 				{
-					$("#multiSelectionRectangle").css("top", e.clientY);
+					$("#multiSelectionRectangle").css("top", e.pageY);
 				}
-				$("#multiSelectionRectangle").css("height",Math.abs(e.clientY - lastRectanglePoint[0]));
+				$("#multiSelectionRectangle").css("height",Math.abs(e.pageY - lastRectanglePoint[0]));
 			}
 			else
 			{
-				if (e.clientY <= $("#canvas-div").offset().top)
+				if (e.pageY <= $("#canvas-div").offset().top)
 				{
 					$("#multiSelectionRectangle").css("height", $("#multiSelectionRectangle").height() + $("#multiSelectionRectangle").offset().top - $("#canvas-div").offset().top);
 					$("#multiSelectionRectangle").css("top",$("#canvas-div").offset().top);
 				}
-				else if (e.clientY > $("#canvas-div").offset().top +  $("#canvas-div").height())
+				else if (e.pageY > $("#canvas-div").offset().top +  $("#canvas-div").height())
 				{
 					$("#multiSelectionRectangle").css("height",Math.abs($("#canvas-div").offset().top + $("#canvas-div").height() - $("#multiSelectionRectangle").offset().top))
 				}
 			}
 			
-			if (e.clientX > $("#canvas-div").offset().left && e.clientX < $("#canvas-div").offset().left +  $("#canvas-div").width())
+			if (e.pageX > $("#canvas-div").offset().left && e.pageX < $("#canvas-div").offset().left +  $("#canvas-div").width())
 			{
-				if (e.clientX < lastRectanglePoint[1])
+				if (e.pageX < lastRectanglePoint[1])
 				{
-					$("#multiSelectionRectangle").css("left", e.clientX);
+					$("#multiSelectionRectangle").css("left", e.pageX);
 				}
-				$("#multiSelectionRectangle").css("width", Math.abs(e.clientX - lastRectanglePoint[1]));
+				$("#multiSelectionRectangle").css("width", Math.abs(e.pageX - lastRectanglePoint[1]));
 			}
 			else
 			{
-				if (e.clientX <= $("#canvas-div").offset().left)
+				if (e.pageX <= $("#canvas-div").offset().left)
 				{
 					$("#multiSelectionRectangle").css("width",$("#multiSelectionRectangle").width() + $("#multiSelectionRectangle").offset().left - $("#canvas-div").offset().left);
 					$("#multiSelectionRectangle").css("left",$("#canvas-div").offset().left)
 				}
-				else if (e.clientX > $("#canvas-div").offset().left +  $("#canvas-div").width())
+				else if (e.pageX > $("#canvas-div").offset().left +  $("#canvas-div").width())
 				{
 					$("#multiSelectionRectangle").css("width",Math.abs($("#canvas-div").offset().left + $("#canvas-div").width() - $("#multiSelectionRectangle").offset().left))
 				}
@@ -302,7 +302,6 @@ $(document).ready(function() {
 					}
 					else
 					{
-					   saveElementByID(selectionElementsList[i]);
 					   	var chairWidth = $(".chairs" + selectionElementsList[i]).first().width();
 						var chairHeight = $(".chairs" + selectionElementsList[i]).first().height();
 						var table = $("#" + selectionElementsList[i]);
@@ -330,6 +329,8 @@ $(document).ready(function() {
 							var leftAdjust = table.offset().left + ($("#canvas-div").offset().left + $("#canvas-div").width() - (table.offset().left + + table.width() + chairWidth));
 							+ table.css('left',leftAdjust + 10);
 						}
+						
+					    saveElementByID(selectionElementsList[i]);
 						
 					   $(".chairs" + selectionElementsList[i]).each(function(j) {
 							var top = $("#"+selectionElementsList[i]).position().top;
