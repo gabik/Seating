@@ -1485,6 +1485,10 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 				{
 					setSaveStatus("OK");
 					addPersonManualy(first_name, data.last_name, amount, gender);
+					$("#first_name").val("");
+					$("#last_name").val("");
+					$("#personAmountSingle").val("1");
+					$("#personGroup").val("Other");
 				}
 				else
 				{
@@ -2111,7 +2115,7 @@ function reposElementAtAFreeSpaceNonDrag(element, offsetWidth)
 
 function personFloatListDBClick(event, floatElement)
 {
-	if (!event.ctrlKey)
+	if (!event.ctrlKey && !($("#chargeScr").html()))
 	{
 		var current_person = floatElement;
 		if (tableMode)

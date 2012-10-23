@@ -924,6 +924,7 @@ function reLoadDetails(personElement)
 
 function createTab()
 {
+    closeAddInterface();
 	personData.first_name = personData.first_name.replace(/\ /g,"_");
 	personData.last_name = personData.last_name.replace(/\ /g,"_");
 	
@@ -1482,18 +1483,12 @@ function savePersonOperation(data, firstName, lastName)
 	  personData.gender = $("#detailsGender" + firstName + '_'+ lastName).val();
 	  personData.meal = $("#detailsMeal" + firstName + '_'+ lastName).val();
 	  personData.invation_status =  $("#InvationStatusPersonButton").attr('alt');
-	  
-	  var elemID = SelectedTable.attr('id');
-	  var mode = "T";
-
-	  if (!tableMode)
-	  {
-			mode = "NT";
-	  }
-			
+	  	
 	  if (personData.position > 0)
 	  {
-		$("#tableParentElementDiv" + personData.position + elemID + mode).find('p').last().text(personData.first_name + " " + personData.last_name);
+	  	var elemID = SelectedTable.attr('id');
+		
+		$("#tableParentElementDiv" + personData.position + elemID + "T").find('p').last().text(personData.first_name + " " + personData.last_name);
 	  }
 	  else
 	  {
