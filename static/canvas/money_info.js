@@ -1,6 +1,6 @@
 var mainFrameWidthMI = 850;
 var mainFrameHeightMI = 425;
-var frameStringMI = '<div id="MIFrame" width="840" style="position:absolute; z-index:99999;"><table  width="840" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="450" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="390" align="right"></br><div id="moneyInfoMainWindow" /></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="840" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
+var frameStringMI = '<div id="MIFrame" width="840" style="position:absolute; z-index:99999;"><table  width="840" border="0" cellspacing="0" cellpadding="0"><tr><td width="5" height="25"><img src="/static/right_interface/images/tl.png" width="5" height="25" /></td><td height="25" bgcolor="#E0E0AD"><img id="moneyInfoCloseBtn" style="cursor:pointer;" src="/static/canvas/images/close_window_btn_n.png" width="16" height="16"></img></td><td height="25" colspan="2" bgcolor="#E0E0AD" dir="rtl"><span class="text_black">סטטוס כספי</span></td><td width="5" height="25"><img src="/static/right_interface/images/tr.png" width="5" height="25" /></td></tr><tr><td width="5" valign="bottom" bgcolor="#5A8EA3"></td><td bgcolor="white" align="center" valign="center" width="450" colspan="2"><div id="groupPie" style="margin-top:15;"></div></td><td bgcolor="white" width="430" align="right"></br><div id="moneyInfoMainWindow" /></br></td><td width="5" valign="bottom" bgcolor="#5A8EA3"></td></tr><tr><td width="5" valign="bottom"><img src="/static/right_interface/images/bl.png" width="5" height="5" /></td><td colspan="3" bgcolor="#5A8EA"></td><td width="5" valign="bottom"><img src="/static/right_interface/images/br.png" width="5" height="5" /></td></tr><tr><td width="5" valign="bottom"></td><td colspan="3" valign="top"><img src="/static/page/images/shadow.png" width="840" height="15" /></td><td width="5" valign="bottom"></td></tr></table></div>';
 	
 //return [total sum,other group total sum,family group total sum,friends group total sum,work group total sum]
 function getFullMoneyInfo()
@@ -51,13 +51,13 @@ function createInfoFields(sumData)
 			pieData[4] = ["", sumData[5]];
 			pieData[5] = ["" , sumData[6]];
 			pieData[6] = ["" , sumData[7]];
-			var fp = parseInt(sumData[1] * 100 / sumData[0]);
-			var sp = parseInt(sumData[2] * 100 / sumData[0]);
-			var tp = parseInt(sumData[3] * 100 / sumData[0]);
-			var fop = parseInt(sumData[4] * 100 / sumData[0]);
-			var fip = parseInt(sumData[5] * 100 / sumData[0]);
-			var sip = parseInt(sumData[6] * 100 / sumData[0]);
-			var sep = parseInt(sumData[7] * 100 / sumData[0]);
+			var fp = (sumData[1] * 100 / sumData[0]).toFixed(2);
+			var sp = (sumData[2] * 100 / sumData[0]).toFixed(2);
+			var tp = (sumData[3] * 100 / sumData[0]).toFixed(2);
+			var fop = (sumData[4] * 100 / sumData[0]).toFixed(2);
+			var fip = (sumData[5] * 100 / sumData[0]).toFixed(2);
+			var sip = (sumData[6] * 100 / sumData[0]).toFixed(2);
+			var sep = (sumData[7] * 100 / sumData[0]).toFixed(2);
 			
 			if (!(fp > 0))
 			{
@@ -103,7 +103,7 @@ function createInfoFields(sumData)
 		}
 		
 		var newDataArray = new Array();
-		var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#511EA3","#411BEF"];
+		var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#881EA3","#881BEF"];
 		var colorNum = 0;
 		
 		if (pieData[0][1] > 0)
@@ -155,7 +155,7 @@ function createInfoFields(sumData)
 
 function drawSumsPie(data)
 {
-	var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#511EA3","#411BEF"];
+	var colors = ["#5A8EA3","#E0E0AD","#CFC2D3","#4ABBEF","#8E8E8E","#881EA3","#881BEF"];
 	var chartColors = new Array();
 	
 	for (var i=0; i < data.length; i++)

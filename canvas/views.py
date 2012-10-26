@@ -6,6 +6,7 @@ from Seating.accounts.models import Guest
 from Seating.accounts.models import UserProfile, Partners
 from Seating.accounts.models import OccasionOperationItem
 from django.db.models import Max
+from django.db.models import Sum
 from django.utils import simplejson as json
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponseRedirect, HttpResponse, Http404
@@ -861,13 +862,13 @@ def change_user_profile(request):
 def get_occasion_meal_and_inv_details(request):
 	json_dump = json.dumps({'status': "Error"})
 	if request.method == 'POST':
-		GuestsInvAccept = Guest.objects.filter(user=request.user , invation_status = 'A')
-		GuestsNotInvAccept = Guest.objects.filter(user=request.user , invation_status = 'N')
-		GuestsTentativeInv = Guest.objects.filter(user=request.user , invation_status = 'T')
-		GuestsMeatMeal = Guest.objects.filter(user=request.user , meal = 'M')
-		GuestsVegMeal = Guest.objects.filter(user=request.user , meal= 'V')
-		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G')
-		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(len(GuestsInvAccept)),	'GuestsInvNotAccept' : str(len(GuestsNotInvAccept)),	'GuestsTentativeInv' : str(len(GuestsTentativeInv)),	'GuestsMeatMeal' : str(len(GuestsMeatMeal)),	'GuestsVegMeal' : str(len(GuestsVegMeal)),	'GuestsGlatMeal' : str(len(GuestsGlatMeal))})
+		GuestsInvAccept = Guest.objects.filter(user=request.user , invation_status = 'A').aggregate(Sum('qty'))['qty__sum']
+		GuestsNotInvAccept = Guest.objects.filter(user=request.user , invation_status = 'N').aggregate(Sum('qty'))['qty__sum']
+		GuestsTentativeInv = Guest.objects.filter(user=request.user , invation_status = 'T').aggregate(Sum('qty'))['qty__sum']
+		GuestsMeatMeal = Guest.objects.filter(user=request.user , meal = 'M').aggregate(Sum('qty'))['qty__sum']
+		GuestsVegMeal = Guest.objects.filter(user=request.user , meal= 'V').aggregate(Sum('qty'))['qty__sum']
+		GuestsGlatMeal = Guest.objects.filter(user=request.user , meal = 'G').aggregate(Sum('qty'))['qty__sum']
+		json_dump = json.dumps({'status': "OK",	'GuestsInvAccept' : str(GuestsInvAccept),	'GuestsInvNotAccept' : str(GuestsNotInvAccept),	'GuestsTentativeInv' : str(GuestsTentativeInv),	'GuestsMeatMeal' : str(GuestsMeatMeal),	'GuestsVegMeal' : str(GuestsVegMeal),	'GuestsGlatMeal' : str(GuestsGlatMeal)})
 	return HttpResponse(json_dump)
 
 @login_required

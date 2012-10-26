@@ -3261,12 +3261,12 @@ $(document).ready(function() {
 				   if (data.status == 'OK')
 				   {
 						setSaveStatus("OK");
-						$("#inv_accept_amount").text(data.GuestsInvAccept);
-						$("#inv_tentative_amount").text(data.GuestsTentativeInv);
-						$("#inv_noaccept_amount").text(data.GuestsInvNotAccept);
-						$("#meat_amount").text(data.GuestsMeatMeal);
-						$("#veg_amount").text(data.GuestsVegMeal);
-						$("#glat_amount").text(data.GuestsGlatMeal);
+						$("#inv_accept_amount").text(IsNumeric(data.GuestsInvAccept) ? data.GuestsInvAccept : "0");
+						$("#inv_tentative_amount").text(IsNumeric(data.GuestsTentativeInv) ? data.GuestsTentativeInv : "0");
+						$("#inv_noaccept_amount").text(IsNumeric(data.GuestsInvNotAccept) ? data.GuestsInvNotAccept : "0");
+						$("#meat_amount").text(IsNumeric(data.GuestsMeatMeal) ? data.GuestsMeatMeal : "0");
+						$("#veg_amount").text(IsNumeric(data.GuestsVegMeal) ? data.GuestsVegMeal : "0");
+						$("#glat_amount").text(IsNumeric(data.GuestsGlatMeal) ? data.GuestsGlatMeal : "0");
 					}
 				   else
 				   {
