@@ -2444,6 +2444,14 @@ function adjustResolution()
 		  }
 		}, 'json');
 		
+	if (navigator.userAgent.toLowerCase().indexOf('firefox') > 0)
+	{
+		$("#tableMovingPanel").css('width', 1200);
+		$("#movingPanelLeft").css('width', 645);
+		$("#movingPanel").css('width', 555);
+		$("#movingPanelMarquee").css('width', 555);
+	}	
+		
 	if (screenResWidthFixNum < screen.width)
 	{
 		var delta =  screen.width - $("#canvas-div").width() - 170;
