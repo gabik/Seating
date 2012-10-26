@@ -919,6 +919,7 @@ def get_max_y(request):
 	json_dump = json.dumps({'status': "Error"})
 	user_elements = SingleElement.objects.filter(user=request.user)
 	max_y = user_elements.all().aggregate(Max('y_cord'))['y_cord__max']
+	max_y = max_y + 100;
 	json_dump = json.dumps({'status': "OK", 'MaxY': max_y})	
 	return HttpResponse(json_dump)
 	
@@ -927,6 +928,7 @@ def get_max_x(request):
 	json_dump = json.dumps({'status': "Error"})
 	user_elements = SingleElement.objects.filter(user=request.user)
 	max_x = user_elements.all().aggregate(Max('x_cord'))['x_cord__max']
+	max_x = max_x + 100;
 	json_dump = json.dumps({'status': "OK", 'MaxX': max_x})	
 	return HttpResponse(json_dump)
 	

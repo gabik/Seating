@@ -5,7 +5,7 @@ var maxTablesInCanvas = 48;
 	
 function expandYForPlacment()
 {
-	if ($(".DragDiv").size() > 36)
+	if (($(".DragDiv").size() > 33 && parseInt($(".CanvasDiv").css('height')) <= 630) || ($(".DragDiv").size() > 38 && parseInt($(".CanvasDiv").css('height')) <= 700))
 	{
 		var delta = $(".DragDiv").size() + 64;
 
@@ -117,7 +117,7 @@ $(document).ready(function() {
 			var middleCircleHalfIndex = 0;
 			var maxMiddleCircleHeigth = 0;
 			var firstRowMaxTop = 0;
-			var currentHeigthMargin = 40;
+			var currentHeigthMargin = 60;
 			var currnetMaxWidth =  maxWidth;
 			var currnetMaxHeight = maxHeight;
 			var newTop = $("#canvas-div").offset().top + 28;
@@ -215,13 +215,13 @@ $(document).ready(function() {
 								middleCircle = true;
 								if ($(".DragDiv").size() > 50)
 								{
-									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 6);
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 4);
 								}
 								else
 								{
-									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 4);
+									middleCircleHalfIndex = i + parseInt(($(".DragDiv").size() - i) / 2);
 								}
-								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 4.5 * tableElementSize);
+								newLeft = currnetMaxWidth / 2 - (($(".DragDiv").size() - i) / 3 * tableElementSize);
 								if (newLeft < 50)
 								{
 									newLeft = 80;

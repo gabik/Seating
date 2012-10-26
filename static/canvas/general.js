@@ -2423,7 +2423,7 @@ function adjustResolution()
 		  {
 			if (data.MaxY > $("#canvas-div").height() + 35)
 			{
-				var delta =  data.MaxY  - $("#canvas-div").height() + 70;
+				var delta =  data.MaxY  - $("#canvas-div").height();
 		
 				$("#people-list").css('height', $("#people-list").height() + delta);
 				$(".CanvasDiv").css('height', $(".CanvasDiv").height() + delta);
@@ -2468,7 +2468,7 @@ function adjustResolution()
 		  {
 			if (data.MaxX > $("#canvas-div").width() + 35)
 			{
-				var delta =  data.MaxX  - $("#canvas-div").width() + 110;
+				var delta =  data.MaxX  - $("#canvas-div").width();
 		
 				$("#tableMovingPanel").css('width', $("#tableMovingPanel").width() + delta);
 				$("#movingPanelLeft").css('width', $("#movingPanelLeft").width() + delta);
