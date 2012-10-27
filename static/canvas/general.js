@@ -1101,8 +1101,8 @@ function makeOrientation(elementTable, element, orientation, init)
 	if (isThisPeopleTable(elementTable[0].id))
 	{
 		var elementCaption = element.context.getElementsByTagName("p");
-		var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
-		var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
+		//var elementSize = elementCaption[1].firstChild.nodeValue.split("/", 1);
+		//var elementMaxSize = elementCaption[1].firstChild.nodeValue.substr(elementCaption[1].firstChild.nodeValue.indexOf("/")+1);
 		
 		//used for table status
 		//if (elementSize == 0)

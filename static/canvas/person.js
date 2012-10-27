@@ -21,54 +21,55 @@ function findAllGuestFromFloatList()
 	var amount = 0;
 	
 	$("#people_list > li").each( function(i){
+		if (!(IsNumeric($(this).data('qty'))))
+		{
+			updatePerQTY($(this));
+		}
 		amount = amount + parseInt($(this).data('qty'));
 	});
 	
 	return amount;
 }
 
-$("#people_list").after( function(e){
-	$("#people_list > li").each( function(i){
-		if ($(this).hasClass('perli2'))
-		{
-			$(this).data('qty', 2);	
-		}
-		else if ($(this).hasClass('perli3'))
-		{
-			$(this).data('qty', 3);	
-		}
-		else if ($(this).hasClass('perli4'))
-		{
-			$(this).data('qty', 4);	
-		}
-		else if ($(this).hasClass('perli5'))
-		{
-			$(this).data('qty', 5);	
-		}
-		else if ($(this).hasClass('perli6'))
-		{
-			$(this).data('qty', 6);	
-		}
-		else if ($(this).hasClass('perli7'))
-		{
-			$(this).data('qty', 7);	
-		}
-		else if ($(this).hasClass('perli8'))
-		{
-			$(this).data('qty', 8);	
-		}
-		else if ($(this).hasClass('perli9'))
-		{
-			$(this).data('qty', 9);	
-		}
-		else
-		{
-			$(this).data('qty', 1);	
-		}
-	});
-	
-	updateSeatedLabel();
-});
+function updatePerQTY(person)
+{
+	if (person.hasClass('perli2'))
+	{
+		person.data('qty', 2);	
+	}
+	else if (person.hasClass('perli3'))
+	{
+		person.data('qty', 3);	
+	}
+	else if (person.hasClass('perli4'))
+	{
+		person.data('qty', 4);	
+	}
+	else if (person.hasClass('perli5'))
+	{
+		person.data('qty', 5);	
+	}
+	else if (person.hasClass('perli6'))
+	{
+		person.data('qty', 6);	
+	}
+	else if (person.hasClass('perli7'))
+	{
+		person.data('qty', 7);	
+	}
+	else if (person.hasClass('perli8'))
+	{
+		person.data('qty', 8);	
+	}
+	else if (person.hasClass('perli9'))
+	{
+		person.data('qty', 9);	
+	}
+	else
+	{
+		person.data('qty', 1);	
+	}
+}
 	
 function selectPersonElement(element)
 {
@@ -1737,5 +1738,13 @@ $(document).ready(function() {
 	{
 		DetailsHeight = DetailsHeight + 22;
 	}
+	
+	$("#people_list").after( function(e){
+		$("#people_list > li").each( function(i){
+			updatePerQTY($(this));
+		});
+		
+		updateSeatedLabel();
+	});
 });
  
