@@ -21,7 +21,7 @@ function findAllGuestFromFloatList()
 	var amount = 0;
 	
 	$("#people_list > li").each( function(i){
-		if (!(IsNumeric($(this).data('qty'))))
+		if ($(this).data('qty') == undefined || !(IsNumeric($(this).data('qty').toString())))
 		{
 			updatePerQTY($(this));
 		}
