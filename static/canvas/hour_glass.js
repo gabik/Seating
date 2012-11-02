@@ -28,6 +28,7 @@ function HideHourGlassWaitingWindow()
 {
 	$("#HourGlassRectangle").remove();
 	$("#HGFrame").remove();
+	$("body").css("overflow", "auto");
 }
 
 $(document).ready(function() {

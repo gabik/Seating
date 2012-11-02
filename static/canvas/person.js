@@ -1594,6 +1594,7 @@ function DeletePerson()
 		var elemID = SelectedTable.attr('id');
 
 		var newPositionNum = SelectedPerson.find('div').first().data('pos');
+		ShowHourGlassWaitingWindow(false);
 
 	  $.post('/canvas/bringToFloatList/', {elem_num: elemID, position: parseInt(newPositionNum)},
       function(data){
@@ -1674,6 +1675,7 @@ function DeletePerson()
         }
 	    bringPersonToFL = true;
 		$("#SaveStatImg").fadeTo(400, 1);
+		HideHourGlassWaitingWindow();
     }, 'json');
 
 	}

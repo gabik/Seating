@@ -132,6 +132,7 @@ function setSaveStatus(status)
 	}
 	else if (status == "Error")
 	{
+	   HideHourGlassWaitingWindow();
 	   $("#SaveStateImg").attr("src", "/static/canvas/images/save_status/error.png");
 	   showLightMsg("שגיאה","התרחשה שגיאה במערכת, יתכן ולא נשמרו פעולות אחרונות ,יש לבצע פעולה בשנית ולבדוק את חיבור וטיב התקשורת. במידה והבעיה נמשכת יש לפנות לתמיכה.","OK","Error");
 	}
@@ -804,6 +805,7 @@ function saveElementWithCaptionoWhenSizeIsLower(element,newCaption, newSize, num
 	{
 		$.post('/canvas/floatPersonsFromPos/', {elem_num: element.context.id, new_size: parseInt(newSize)},
 	   function(dataPersons){
+	   ShowHourGlassWaitingWindow(false);
 	   if (dataPersons.status == 'OK')
 	   { 
 			var floating_persons = dataPersons.floating_persons.split("|",parseInt(dataPersons.numOfFloatingPersons) + 1);
@@ -823,12 +825,13 @@ function saveElementWithCaptionoWhenSizeIsLower(element,newCaption, newSize, num
 			sizeStr = dataPersons.currentSitting + "/" + newSize;
 			$.post('/canvas/save/', {elem_num: element.context.id, X: element.position().left , Y: element.position().top ,caption: newCaption, size: newSize, sumGuests: numOfGuests, fixNumber:fixNumber},
 			function(dataSave){
+			HideHourGlassWaitingWindow();
 			if (dataSave.status == 'OK')
 			{
 				writeOccasionInfo("Update "+ element.text().split(" ", 2)[0] +" Caption To " +newCaption + " And Size To " +newSize+".");
 				reloadElementAfterSave(element,newCaption,newSize,sizeStr);
 				setSaveStatus("OK");
-				//ShowHourGlassWaitingWindow(true);
+
 			   }else{
 				setSaveStatus("Error");
 			   }
@@ -1479,8 +1482,10 @@ function addPersonToFloatList(first_name,last_name, personGroup, amount)
 			{
 				gender = 'M';
 			}
+
 			$.post('/accounts/add_person/', {first: cleanStringFromUnIDChars(first_name), last: cleanStringFromUnIDChars(last_name), group: personGroup.trim(), gender:gender, amount:amount},
 			  function(data){
+
 				if (data.status == 'OK')
 				{
 					setSaveStatus("OK");
@@ -1795,7 +1800,7 @@ function undoButtonPress()
 	for (var index = 0; index < undoElementList.length; index++)
 	{
 		var undoElement = undoElementList[index];
-		if (undoElement[0] != "" && undoElement[1] != "" )
+		if (undoElement[0] != "" && undoElement[1] != "" && $("#" + undoElement[0].attr('id')).html())
 		{
 		   if (!tableMode && !detailsMode)
 		   {
@@ -2224,6 +2229,7 @@ function delDivPress()
 		//else
 		//{
 		if (SelectedElem != "") {
+		 ShowHourGlassWaitingWindow(false);
 		 var orginalTable = SelectedElem;
 		 $.post('/canvas/getAllItems/'+ orginalTable.context.id.split("-",2)[1] +'/', {},
 		 function(dataTable){
@@ -2258,7 +2264,12 @@ function delDivPress()
 						  }
 					  }
 				  }
+				  HideHourGlassWaitingWindow();
 				}, 'json');
+			}
+			else
+			{
+				setSaveStatus("Error");	
 			}
 			}, 'json');
 		} else {
@@ -2305,6 +2316,7 @@ function delPerson()
 	if (MsgBoxLastAnswer == "OK")
 	{
 		var person = $('.ui-multisort-click').first();
+
 		$.post('/canvas/delfp/', {person_id: person.attr('id')},
 	   function(data){
 		 if (data.status == 'OK')

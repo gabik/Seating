@@ -47,6 +47,8 @@ function addMenuItemButtonPress(kind)
 	}
 	else
 	{
+		ShowHourGlassWaitingWindow(false);
+
 		var draggable = true;
 		var dragClass = "DragDiv";
 		var appos = "'";
@@ -420,6 +422,7 @@ function addMenuItemButtonPress(kind)
 					});  
 				}
 			}
+			HideHourGlassWaitingWindow();
 		  }, 'json');
 	}
 }
