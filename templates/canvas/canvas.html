@@ -155,6 +155,11 @@
 	  {
 		zoomingCanvas(false);
 	  }
+	  
+	  if (navigator.userAgent.toLowerCase().indexOf('ie 8') > 0 || navigator.userAgent.toLowerCase().indexOf('ie 7') > 0)
+	  {
+	  	showLightMsg("תקינות גרסאת דפדפן","לידעתך גרסאת הדפדפן בא אתה משתמש הינה ישנה, </br> מומלץ להשתמש בגרסא מתקדמת יותר על מנת להנות מחווית משתמש טובה יותר.","OK","Notice");  
+	  }
 	
 	if (firstInit)
 	{

@@ -236,11 +236,11 @@ function posTableChairsWithData(data, element, elementMaxSize)
 		if (parseInt(maxElementCapacity) - 6 < parseInt(elementMaxSize))
 		{
 			def = 1.61;
-			if (!(navigator.userAgent.toLowerCase().indexOf('ie') > 0))
-			{
+			//if (!(navigator.userAgent.toLowerCase().indexOf('ie') > 0))
+			//{
 				center[1] = center[1] - Math.max((4.2 - (maxElementCapacity - elementMaxSize)), 2.2);
 				center[0] = center[0] - Math.max((4.2 - (maxElementCapacity - elementMaxSize)), 2.2);
-			}
+			//}
 		}
 		else if (parseInt(maxElementCapacity) / 2 < parseInt(elementMaxSize))
 		{
