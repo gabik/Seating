@@ -6,7 +6,7 @@ import os
 import time
 import tarfile
 
-def tarToS3(directoryName='/Seating', s3Bucket='2seat', s3Key=None, s3AcctId='AKIAIFUNDQAYFXW6RURA', s3SecretAccess='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' , rotation=100):
+def tarToS3(directoryName='/Seating', s3Bucket='2seat', s3Key=None, s3AcctId='AKIAIFUNDQAYFXW6RURA-', s3SecretAccess='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-' , rotation=100):
         contents = os.listdir(directoryName)
 	curtime=str(time.strftime('%y%m%d%H%M%S'))
 	isdb=0
